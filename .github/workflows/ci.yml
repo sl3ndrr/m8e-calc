@@ -23,7 +23,8 @@ jobs:
       - run: npm run test:e2e
       - name: Bootstrap local verification bundle
         if: always()
-        run: tar -czf /tmp/foundation-bootstrap.tar.gz --exclude=.git .
+        run: |
+          tar -czf /tmp/foundation-bootstrap.tar.gz --exclude=.git .
           mv /tmp/foundation-bootstrap.tar.gz .
       - uses: actions/upload-artifact@v4
         if: always()
