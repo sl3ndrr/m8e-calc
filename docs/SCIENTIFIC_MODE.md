@@ -23,7 +23,7 @@ Engine und AST-Vertrag bleiben unverändert.
   und formatiertes Ergebnis mit MathML. Komplexe Zahlen können aktiviert werden.
 - Ab 1920 px erscheinen Editor/Ergebnis, Tastenfeld und Referenzspalte gemeinsam;
   die Shell dockt den Verlauf rechts. Darunter wechseln Tabs die Bedienfelder.
-  Das Informatik-Panel enthält ausschließlich den AP9-Platzhalter.
+  Das Informatik-Panel wird von AP9 geliefert (siehe unten).
 - 2nd wechselt Funktionspaare. Funktionstasten umschließen die Auswahl; bei leerer
   Auswahl steht der Cursor im Argument. Analysis-Vorlagen enthalten Binder und
   Grenzen. Konstanten fügen ASCII-Ausdrucknamen ein (z. B. `qe`, da `e` Euler ist).
@@ -47,7 +47,7 @@ Verlauf, Selektionen, Completion, lokale Fonts und Zwischenablage.
 
 ## Offen / Folge-Issues
 
-- AP9: Programmierer-Panel im vorbereiteten Informatik-Platz.
+- AP9: BigInt-Panel und Inspektoren sind unten dokumentiert.
 - AP12/AP13: Graph-Anbindung der vorhandenen Engine-Definitionen.
 - AP14/AP15: Komfort/Import-Export der Definitionen und zusätzliches Hardening.
 

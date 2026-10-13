@@ -345,7 +345,14 @@ function IEEEView({
           setWidth(w);
           const next = floatToBits(parts.value, w);
           setBits(next);
-          setHex(next.toString(16));
+          setHex(
+            next
+              .toString(16)
+              .toUpperCase()
+              .padStart(w / 4, '0'),
+          );
+          setNumeric(String(floatFromBits(next, w).value));
+          setError(false);
         }}
         items={[32, 64].map((v) => ({
           id: String(v),

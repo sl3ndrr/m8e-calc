@@ -363,7 +363,6 @@ export const de = {
     'Bitte einen gültigen, nicht reservierten Variablennamen eingeben.',
   'scientific.tools': 'Bedienfelder',
   'scientific.computerScience': 'Informatik',
-  'scientific.ap9': 'Das Programmierer-Panel folgt in AP9.',
   'scientific.emptyResult': 'Dein nächster Gedanke beginnt hier.',
   'scientific.noConstants': 'Keine passenden Konstanten.',
   'scientific.error.E_SYNTAX': 'Bitte einen Ausdruck eingeben.',

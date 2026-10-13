@@ -357,7 +357,6 @@ export const en: Dictionary = {
   'scientific.storeInvalid': 'Enter a valid, non-reserved variable name.',
   'scientific.tools': 'Tools',
   'scientific.computerScience': 'Computer science',
-  'scientific.ap9': 'The programmer panel is coming in AP9.',
   'scientific.emptyResult': 'Your next idea starts here.',
   'scientific.noConstants': 'No matching constants.',
   'scientific.error.E_SYNTAX': 'Enter an expression.',

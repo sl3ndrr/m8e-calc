@@ -65,3 +65,26 @@ it('64-bit IEEE grid and exact value', () => {
   expect(screen.getByText('IEEE 754')).toBeInTheDocument();
   expect(screen.getAllByRole('switch')).toHaveLength(40);
 });
+it('keeps IEEE fields synchronized across format changes', () => {
+  const { container } = render(
+    <ProgrammerPanel
+      value={0n}
+      options={options}
+      locale="de"
+      onRun={vi.fn()}
+      onConfigure={vi.fn()}
+      copy={vi.fn()}
+    />,
+  );
+  const input = screen.getByRole('textbox', { name: 'Gleitkommawert' });
+  fireEvent.change(input, { target: { value: '0.1' } });
+  fireEvent.keyDown(input, { key: 'Enter' });
+  expect(container.querySelector('.programmer-exact')).toHaveTextContent(
+    '0.100000001490116119384765625',
+  );
+  fireEvent.click(screen.getByRole('radio', { name: 'float64' }));
+  expect(input).toHaveValue('0.10000000149011612');
+  expect(
+    container.querySelectorAll('.programmer-ieee [role="switch"]'),
+  ).toHaveLength(64);
+});

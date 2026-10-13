@@ -115,7 +115,7 @@ test('formats, copies LaTeX, switches complex mode and stores/recalls variables'
   await editor.press('Enter');
   await expect(page.locator('.scientific-result-text')).toContainText('1i');
 });
-test('compact layout exposes tool tabs and the AP9 placeholder', async ({
+test('compact layout exposes tool tabs and the programmer panel', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -132,7 +132,9 @@ test('compact layout exposes tool tabs and the AP9 placeholder', async ({
   });
   await computerTab.focus();
   await computerTab.press('Space');
-  await expect(page.getByText(t('scientific.ap9'))).toBeVisible();
+  await expect(
+    page.getByRole('textbox', { name: t('programmer.hex') }),
+  ).toBeVisible();
 });
 for (const [width, height] of [
   [2560, 1440],

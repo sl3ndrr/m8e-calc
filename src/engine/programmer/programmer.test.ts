@@ -21,6 +21,41 @@ import {
   toLatex,
 } from '../index.ts';
 const widths = [8, 16, 32, 64] as const;
+function seededRandom() {
+  let seed = 0x12345678n;
+  return () => {
+    seed =
+      (seed * 6364136223846793005n + 1442695040888963407n) & ((1n << 64n) - 1n);
+    return seed;
+  };
+}
+it('4000 deterministic word samples preserve rotation, XOR, bytes and all bases', () => {
+  const random = seededRandom();
+  for (const width of widths)
+    for (const signed of [false, true]) {
+      const o: WordOptions = { width, signed, overflow: 'wrap' };
+      for (let i = 0; i < 500; i++) {
+        const x = fromBits(random(), o),
+          y = fromBits(random(), o),
+          n = random() % 200n;
+        expect(operate('ror', operate('rol', x, n, o), n, o)).toBe(x);
+        expect(operate('xor', operate('xor', x, y, o), y, o)).toBe(x);
+        expect(operate('bswap', operate('bswap', x, 0n, o), 0n, o)).toBe(x);
+        for (const base of [2, 3, 8, 10, 16, 36])
+          expect(parseBase(formatBase(x, base, o, 'byte'), base, o)).toBe(x);
+      }
+    }
+});
+it('2000 deterministic IEEE samples retain fields and finite numeric roundtrips', () => {
+  const random = seededRandom();
+  for (const width of [32, 64] as const)
+    for (let i = 0; i < 1000; i++) {
+      const b = random() & ((1n << BigInt(width)) - 1n),
+        f = floatFromBits(b, width);
+      expect(composeFloat(f.sign, f.exponent, f.mantissa, width)).toBe(b);
+      if (f.kind !== 'nan') expect(floatToBits(f.value, width)).toBe(b);
+    }
+});
 describe('fixed words, independent boundary vectors', () => {
   for (const width of widths)
     for (const signed of [false, true]) {

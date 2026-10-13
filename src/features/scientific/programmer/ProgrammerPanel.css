@@ -159,3 +159,10 @@
     font-size: 1.25rem;
   }
 }
+
+@media (max-width: 1919px) {
+  .scientific-workspace:has(.scientific-tools[data-tab='computerScience'])
+    .scientific-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
