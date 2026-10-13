@@ -127,8 +127,7 @@ class Parser {
   }
 
   parse(): Ast {
-    if (this.at('eof'))
-      throw new ParseFault('E_SYNTAX', this.current.range);
+    if (this.at('eof')) throw new ParseFault('E_SYNTAX', this.current.range);
     const ast = this.sum();
     if (!this.at('eof'))
       throw new ParseFault(

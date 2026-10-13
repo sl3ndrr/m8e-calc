@@ -101,7 +101,7 @@ Präzedenz: **`1/2x = (1/2)*x`**, `2π`, `2(3+4)`, `(1+2)(3+4)` und
 `angleMode: 'rad' | 'deg' | 'grad'`, Standard `rad`. Direkte Funktionen nehmen
 Winkel in diesem Modus an; inverse Funktionen und `atan2` liefern ihn darin.
 Die Reduktion und trigonometrischen Zwischenwerte verwenden eine separate
-80-Stellen-Kopie und eine fest eingecheckte π-Konstante mit 110 Stellen.
+80-Stellen-Kopie und eine fest eingecheckte π-Konstante mit 110 Nachkommastellen.
 Der finale Wert wird auf 50 Stellen gerundet.
 
 Reduktion zunächst in der Eingabeeinheit auf eine Periode (`360`, `400`, `2π`),

@@ -40,7 +40,7 @@ export function sineCosine(
   const distance = reduced.sub(nearest.mul(step)).abs();
   const tolerance = original.abs().mul('1e-48');
   if (distance.lte(tolerance)) {
-    // Conversion to a native integer is safe: the reduced table index is 0…24.
+    // Conversion to a native integer is safe: the reduced table index is -24…24.
     const index = nearest.toNumber();
     return [specialSine(index), specialSine(index + 6)];
   }
