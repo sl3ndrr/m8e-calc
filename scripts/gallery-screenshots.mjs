@@ -10,6 +10,7 @@ const browser = await chromium.launch();
 try {
   for (const theme of ['light', 'dark']) {
     const page = await browser.newPage({
+      locale: 'de-DE',
       viewport: { width: 1600, height: 1100 },
       colorScheme: theme,
       reducedMotion: 'reduce',

@@ -217,6 +217,9 @@ test('design lab stays usable at desktop and narrow widths, fonts are local vari
   page,
 }) => {
   await page.goto('/m8e-calc/#/design');
+  await expect(
+    page.getByRole('heading', { name: 'Raum für deinen Stil.' }),
+  ).toBeVisible();
   await page.evaluate(() => document.fonts.ready);
   expect(
     await page.evaluate(

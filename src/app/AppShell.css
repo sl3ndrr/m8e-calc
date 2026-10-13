@@ -164,12 +164,7 @@
   place-items: center;
   padding: 3rem;
 }
-.mode-outgoing {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-}
+
 .mode-placeholder {
   width: 100%;
   max-width: 54rem;
@@ -444,5 +439,16 @@
   font-size: 3rem;
 }
 .shell-personalization .ui-segment {
+  min-height: max(48px, 3rem);
+}
+
+.app-shell .history-empty > .ui-icon {
+  font-size: 3rem;
+}
+.app-shell .ui-text-input,
+.settings-dialog .ui-text-input {
+  min-height: max(56px, 3.5rem);
+}
+.settings-dialog .ui-button {
   min-height: max(48px, 3rem);
 }

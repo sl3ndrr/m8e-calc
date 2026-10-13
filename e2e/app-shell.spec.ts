@@ -208,3 +208,37 @@ test('shell and open settings pass axe in light and dark', async ({ page }) => {
     .click();
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
 });
+
+test('reduced motion uses opacity only and remains usable through rapid mode changes', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.setViewportSize({ width: 1920, height: 1080 });
+  await page.goto('/m8e-calc/');
+  await page
+    .getByRole('link', { name: 'Wissenschaftlich', exact: true })
+    .click();
+  const translations = await page.evaluate(async () => {
+    const values: number[] = [];
+    for (let i = 0; i < 20; i++) {
+      await new Promise<void>((resolve) =>
+        requestAnimationFrame(() => resolve()),
+      );
+      document
+        .querySelectorAll('.mode-stage')
+        .forEach((element) =>
+          values.push(
+            new DOMMatrixReadOnly(getComputedStyle(element).transform).m41,
+          ),
+        );
+    }
+    return values;
+  });
+  expect(translations.every((value) => value === 0)).toBe(true);
+  await page.getByRole('link', { name: 'Graphen', exact: true }).click();
+  await page.getByRole('link', { name: 'Einfach', exact: true }).click();
+  await expect(page.locator('.mode-stage:not([aria-hidden])')).toHaveAttribute(
+    'data-mode',
+    'simple',
+  );
+});
