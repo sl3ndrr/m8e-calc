@@ -150,7 +150,7 @@ export default function ConvertMode() {
   const preferences = useConvertStore();
   const root = useRef<HTMLElement>(null);
   const categoryGrid = useRef<HTMLDivElement>(null);
-  const quick = useRef<HTMLDivElement>(null);
+  const quick = useRef<HTMLFormElement>(null);
   const fromField = useRef<HTMLDivElement>(null);
   const sent = useRef('');
   const category = categoryFor(state.categoryId);
@@ -347,17 +347,11 @@ export default function ConvertMode() {
         </div>
         <p>{t('convert.subtitle', locale)}</p>
       </header>
-      <div
+      <form
         ref={quick}
-        role="group"
         aria-label={t('convert.quick', locale)}
         className="convert-quick"
-        onKeyDown={(event) => {
-          if (event.key === 'Enter') {
-            event.preventDefault();
-            applyQuery();
-          }
-        }}
+        onSubmit={(event) => { event.preventDefault(); applyQuery(); }}
       >
         <TextField
           label={t('convert.quick', locale)}
@@ -372,8 +366,8 @@ export default function ConvertMode() {
             queryError ? t(`convert.error.${queryError}`, locale) : undefined
           }
         />
-        <Button onPress={applyQuery}>{t('convert.apply', locale)}</Button>
-      </div>
+        <Button type="submit">{t('convert.apply', locale)}</Button>
+      </form>
       <div className="convert-layout">
         <aside
           className="convert-categories"
@@ -388,7 +382,7 @@ export default function ConvertMode() {
           <div
             ref={categoryGrid}
             className="convert-category-grid"
-            role="group"
+            role="toolbar"
             aria-label={t('convert.categories', locale)}
             onKeyDown={(event) => {
               if (

@@ -3,7 +3,7 @@ on:
   push:
     branches: [feat/convert-mode]
 permissions:
-  contents: write
+  contents: read
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -14,16 +14,11 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - name: Format converter changes
+      - name: Format converter changes for validation
         run: |
           npx prettier --write src/features/convert src/ui/Select.tsx src/ui/Select.css src/shared/historyStore.ts src/shared/i18n/de.ts src/shared/i18n/en.ts e2e/convert.spec.ts docs/CONVERT_MODE.md docs/COMPONENTS.md docs/ROADMAP.md AGENTS.md .github/workflows/convert-validation.yml
-          if ! git diff --quiet; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add src/features/convert src/ui/Select.tsx src/ui/Select.css src/shared/historyStore.ts src/shared/i18n/de.ts src/shared/i18n/en.ts e2e/convert.spec.ts docs/CONVERT_MODE.md docs/COMPONENTS.md docs/ROADMAP.md AGENTS.md .github/workflows/convert-validation.yml
-            git commit -m 'style: format converter implementation'
-            git push
-          fi
+          mkdir -p validation
+          git diff > validation/format.patch
       - run: npm run check
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
@@ -31,5 +26,7 @@ jobs:
         if: always()
         with:
           name: convert-validation-results
-          path: test-results/
+          path: |
+            validation/format.patch
+            test-results/
           retention-days: 7
