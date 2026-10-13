@@ -88,7 +88,7 @@ export function BitGrid({
         const index = Number(target.dataset.bit);
         gesture.current = {
           pointer: event.pointerId,
-          enabled: !Boolean((bits >> BigInt(index)) & 1n),
+          enabled: ((bits >> BigInt(index)) & 1n) === 0n,
           bits,
         };
         grid.current?.setPointerCapture(event.pointerId);

@@ -136,7 +136,7 @@ export default function ScientificMode() {
   const options = { angleMode, complex, bitwise, programmer };
   const format = {
     notation,
-    digits,
+    digits: bitwise ? 50 : digits,
     locale: resultLocale(locale, separator),
     grouping,
     angleMode,

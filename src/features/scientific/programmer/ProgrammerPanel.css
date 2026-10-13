@@ -112,6 +112,15 @@
   padding: 0.35rem 0.5rem;
   border-radius: var(--md-sys-shape-small);
 }
+.programmer-bit[data-field='sign'] {
+  border-color: var(--md-sys-color-tertiary);
+}
+.programmer-bit[data-field='exponent'] {
+  border-color: var(--md-sys-color-secondary);
+}
+.programmer-bit[data-field='mantissa'] {
+  border-color: var(--md-sys-color-primary);
+}
 .programmer-bit[data-field='sign'],
 .programmer-float-fields [data-field='sign'] {
   background: var(--md-sys-color-tertiary-container);
