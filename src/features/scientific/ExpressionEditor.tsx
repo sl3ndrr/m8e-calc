@@ -64,7 +64,7 @@ const language = StreamLanguage.define({
         ? 'variableName.function'
         : Object.hasOwn(constantRegistry, id) ||
             ['π', 'φ', 'τ', 'i', 'j'].includes(id)
-          ? 'constant'
+          ? 'variableName.constant'
           : 'variableName';
     }
     if (stream.match(/^[+\-*/^!=%°×÷−]/)) return 'operator';

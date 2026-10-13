@@ -15,6 +15,8 @@ import {
   Switch,
   TextField,
   snackbarQueue,
+  useMediaQuery,
+  VisuallyHidden,
 } from '../../ui';
 import {
   type AngleMode,
@@ -48,6 +50,7 @@ import './ScientificMode.css';
 const ExpressionEditor = lazy(() => import('./ExpressionEditor'));
 const MathDisplay = lazy(() => import('./MathDisplay'));
 export default function ScientificMode() {
+  const wide = useMediaQuery('(min-width: 1920px)');
   const locale = useAppStore((s) => s.locale);
   const separator = useSettingsStore((s) => s.decimalSeparator),
     grouping = useSettingsStore((s) => s.grouping);
@@ -215,6 +218,17 @@ export default function ScientificMode() {
           <p>{t('scientific.subtitle', locale)}</p>
           <h1>{t('scientific.title', locale)}</h1>
         </div>
+        {wide && (
+          <Button
+            variant="text"
+            isSelected={tab === 'computerScience'}
+            onPress={() =>
+              setTab(tab === 'computerScience' ? 'keypad' : 'computerScience')
+            }
+          >
+            {t('scientific.computerScience', locale)}
+          </Button>
+        )}
         <span className="scientific-badge">
           {t('scientific.math', locale)} · {t('scientific.physics', locale)}
         </span>
@@ -224,34 +238,41 @@ export default function ScientificMode() {
           <Card className="scientific-expression-card">
             <h2>{t('scientific.expression', locale)}</h2>
             <div className="scientific-mode-controls">
-              <SegmentedControl
-                aria-label={t('scientific.angle', locale)}
-                value={angleMode}
-                onChange={(v) => {
-                  setAngleMode(v as AngleMode);
-                  setError(null);
-                }}
-                items={(['deg', 'rad', 'grad'] as const).map((id) => ({
-                  id,
-                  label: t(`scientific.${id}`, locale),
-                }))}
-              />
-              <SegmentedControl
-                aria-label={t('scientific.complex', locale)}
-                value={complex}
-                onChange={(v) => {
-                  setComplex(v as ComplexMode);
-                  setError(null);
-                }}
-                items={(['off', 'on'] as const).map((id) => ({
-                  id,
-                  label: t(`scientific.${id}`, locale),
-                }))}
-              />
+              <div>
+                <p className="scientific-control-label">
+                  {t('scientific.angle', locale)}
+                </p>
+                <SegmentedControl
+                  aria-label={t('scientific.angle', locale)}
+                  value={angleMode}
+                  onChange={(v) => {
+                    setAngleMode(v as AngleMode);
+                    setError(null);
+                  }}
+                  items={(['deg', 'rad', 'grad'] as const).map((id) => ({
+                    id,
+                    label: t(`scientific.${id}`, locale),
+                  }))}
+                />
+              </div>
+              <div>
+                <p className="scientific-control-label">
+                  {t('scientific.complex', locale)}
+                </p>
+                <SegmentedControl
+                  aria-label={t('scientific.complex', locale)}
+                  value={complex}
+                  onChange={(v) => {
+                    setComplex(v as ComplexMode);
+                    setError(null);
+                  }}
+                  items={(['off', 'on'] as const).map((id) => ({
+                    id,
+                    label: t(`scientific.${id}`, locale),
+                  }))}
+                />
+              </div>
             </div>
-            <p className="scientific-control-label">
-              {t('scientific.complex', locale)}
-            </p>
             <Suspense fallback={<p>{t('ui.loading', locale)}</p>}>
               <ExpressionEditor
                 ref={editor}
@@ -315,12 +336,14 @@ export default function ScientificMode() {
                 )}
                 {displayed ? (
                   <>
-                    <output
-                      className="scientific-result-text"
-                      aria-live="polite"
-                    >
-                      {displayed.text}
-                    </output>
+                    <VisuallyHidden>
+                      <output
+                        className="scientific-result-text"
+                        aria-live="polite"
+                      >
+                        {displayed.text}
+                      </output>
+                    </VisuallyHidden>
                     {math(displayed.latex, t('scientific.result', locale))}
                   </>
                 ) : (
@@ -385,14 +408,21 @@ export default function ScientificMode() {
         </div>
         <div className="scientific-tools" data-tab={tab}>
           <div className="scientific-tabs">
-            <SegmentedControl
-              aria-label={t('scientific.tools', locale)}
-              value={tab}
-              onChange={setTab}
-              items={(
-                ['keypad', 'constants', 'variables', 'computerScience'] as const
-              ).map((id) => ({ id, label: t(`scientific.${id}`, locale) }))}
-            />
+            {!wide && (
+              <SegmentedControl
+                aria-label={t('scientific.tools', locale)}
+                value={tab}
+                onChange={setTab}
+                items={(
+                  [
+                    'keypad',
+                    'constants',
+                    'variables',
+                    'computerScience',
+                  ] as const
+                ).map((id) => ({ id, label: t(`scientific.${id}`, locale) }))}
+              />
+            )}
           </div>
           <div className="scientific-keypad-wrap">
             <ScientificKeypad
@@ -413,7 +443,6 @@ export default function ScientificMode() {
                 setStoreName(v);
                 setStoreError('');
               }}
-              description={t('scientific.storeHint', locale)}
               isInvalid={!!storeError}
               errorMessage={storeError}
               validationBehavior="aria"

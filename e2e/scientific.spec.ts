@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 import { t } from '../src/shared/i18n';
 const route = '/m8e-calc/#/scientific';
 test.beforeEach(async ({ page }) => {
@@ -73,6 +74,8 @@ test('insertion wraps a selection, 2nd flips functions, completion and single-li
   await expect(page.locator('.cm-tooltip-autocomplete')).toContainText(
     'integral(expr, x, a, b)',
   );
+  await editor.press('Tab');
+  await expect(editor).toHaveText('integral(');
   await editor.press('Escape');
   await editor.fill('1\n+2');
   await expect(editor).toHaveText('1 +2');
@@ -89,7 +92,9 @@ test('formats, copies LaTeX, switches complex mode and stores/recalls variables'
   });
   await editor.fill('1/2');
   await editor.press('Enter');
-  await page.getByRole('switch', { name: t('scientific.fraction') }).click();
+  const fraction = page.getByRole('switch', { name: t('scientific.fraction') });
+  await fraction.focus();
+  await fraction.press('Space');
   await expect(page.locator('.scientific-result-text')).toHaveText('1/2');
   await page.getByRole('button', { name: t('scientific.copyLatex') }).click();
   expect(await page.evaluate(() => navigator.clipboard.readText())).toContain(
@@ -100,9 +105,12 @@ test('formats, copies LaTeX, switches complex mode and stores/recalls variables'
     .fill('b');
   await page.getByRole('button', { name: t('scientific.store') }).click();
   await expect(page.locator('.scientific-variables')).toContainText('b = 0.5');
-  await page
-    .getByRole('radio', { name: t('scientific.on'), exact: true })
-    .click();
+  const complexOn = page.getByRole('radio', {
+    name: t('scientific.on'),
+    exact: true,
+  });
+  await complexOn.focus();
+  await complexOn.press('Space');
   await editor.fill('sqrt(-1)');
   await editor.press('Enter');
   await expect(page.locator('.scientific-result-text')).toContainText('1i');
@@ -111,14 +119,19 @@ test('compact layout exposes tool tabs and the AP9 placeholder', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  await page
-    .getByRole('radio', { name: t('scientific.constants'), exact: true })
-    .click();
+  const constantsTab = page.getByRole('radio', {
+    name: t('scientific.constants'),
+    exact: true,
+  });
+  await constantsTab.focus();
+  await constantsTab.press('Space');
   await expect(page.locator('.scientific-constants')).toBeVisible();
   await expect(page.locator('.scientific-keypad-wrap')).toBeHidden();
-  await page
-    .getByRole('radio', { name: t('scientific.computerScience') })
-    .click();
+  const computerTab = page.getByRole('radio', {
+    name: t('scientific.computerScience'),
+  });
+  await computerTab.focus();
+  await computerTab.press('Space');
   await expect(page.getByText(t('scientific.ap9'))).toBeVisible();
 });
 for (const [width, height] of [
@@ -187,6 +200,12 @@ for (const [width, height] of [
           () => document.documentElement.scrollWidth <= innerWidth,
         ),
       ).toBe(true);
+      if (width === 2560 && theme === 'light') {
+        const accessibility = await new AxeBuilder({ page })
+          .include('.scientific-workspace')
+          .analyze();
+        expect(accessibility.violations).toEqual([]);
+      }
       await page.screenshot({
         path: `test-results/scientific-${theme}-${width}.png`,
         fullPage: true,
