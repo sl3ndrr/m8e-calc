@@ -1,0 +1,21 @@
+name: Prepare theming dependencies
+on:
+  push:
+    branches: [feat/theming]
+permissions:
+  contents: read
+jobs:
+  dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - run: npm install
+      - run: tar -czf theming-dependencies.tgz node_modules package-lock.json
+      - uses: actions/upload-artifact@v7
+        with:
+          name: theming-dependencies
+          path: theming-dependencies.tgz
+          retention-days: 1
