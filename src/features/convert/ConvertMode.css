@@ -1,10 +1,17 @@
 .convert-mode {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
   width: 100%;
   max-width: 120rem;
   align-self: start;
   min-width: 0;
 }
 .mode-stage:has(.convert-mode) {
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
   padding: 2rem;
   place-items: start stretch;
 }
@@ -27,6 +34,7 @@
   font-size: 0.9rem;
 }
 .convert-quick {
+  flex-shrink: 0;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: start;
@@ -37,6 +45,9 @@
   margin-top: 1.75rem;
 }
 .convert-layout {
+  flex: 1;
+  min-height: 0;
+  grid-template-rows: minmax(0, 1fr);
   display: grid;
   grid-template-columns: minmax(13rem, 0.65fr) minmax(28rem, 1.5fr) minmax(
       21rem,
@@ -46,10 +57,16 @@
   align-items: start;
 }
 .convert-categories {
+  min-height: 0;
+  grid-template-rows: auto minmax(0, 1fr);
   display: grid;
   gap: 1rem;
 }
 .convert-category-grid {
+  min-height: 0;
+  overflow: auto;
+  align-content: start;
+  scrollbar-gutter: stable;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.5rem;
@@ -86,6 +103,11 @@
   color: inherit;
 }
 .convert-main {
+  min-height: 0;
+  overflow: auto;
+  align-content: start;
+  padding: 0.25rem;
+  scrollbar-gutter: stable;
   min-width: 0;
   display: grid;
   gap: 1.25rem;
@@ -184,6 +206,8 @@
   font-size: 0.75rem;
 }
 .convert-all {
+  min-height: 0;
+  grid-template-rows: auto minmax(0, 1fr);
   min-width: 0;
   display: grid;
   gap: 1rem;
@@ -197,6 +221,10 @@
   font-size: 0.8rem;
 }
 .convert-unit-grid {
+  min-height: 0;
+  overflow: auto;
+  align-content: start;
+  scrollbar-gutter: stable;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
   gap: 0.75rem;
@@ -256,6 +284,7 @@
 }
 @container (max-width: 85rem) {
   .convert-layout {
+    grid-template-rows: minmax(0, 1fr) minmax(0, 0.7fr);
     grid-template-columns: minmax(13rem, 0.55fr) minmax(0, 1.5fr);
   }
   .convert-all {
@@ -275,10 +304,20 @@
 }
 @container (max-width: 48rem) {
   .mode-stage:has(.convert-mode) {
+    height: auto;
+    overflow: visible;
     padding: 1rem;
   }
+  .convert-mode {
+    height: auto;
+  }
   .convert-layout {
+    grid-template-rows: auto;
     grid-template-columns: minmax(0, 1fr);
+  }
+  .convert-main,
+  .convert-unit-grid {
+    overflow: visible;
   }
   .convert-categories {
     grid-row: auto;

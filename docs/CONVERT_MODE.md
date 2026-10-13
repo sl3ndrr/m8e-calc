@@ -8,7 +8,7 @@ Rendering, Tastatur, Zwischenablage und den abbrechbaren 1500-ms-Timer.
 Die Kategorieauswahl ist ein durchsuchbares Kartenraster mit Pfeil-, Home- und
 End-Navigation. Die Hauptfläche wechselt mit einer Shared-Axis-Animation.
 Container Queries verteilen Kategorien, zwei Zahlenfelder und alle Einheiten
-auf drei Spalten; mit geöffnetem Verlauf oder weniger Platz stehen die
+auf drei Spalten mit eigenen Scrollflächen; mit geöffnetem Verlauf oder weniger Platz stehen die
 Ergebniskarten unter der Mitte. Die vorhandene Shell skaliert rem auf Full HD
 und 4K; schmale Ansichten stapeln Felder. Zahlenübergänge verwenden den
 AP2-Effects-Spring; Swap rotiert und verändert beim Drücken seine Form.

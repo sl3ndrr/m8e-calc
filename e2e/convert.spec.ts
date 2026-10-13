@@ -54,7 +54,10 @@ test('quick entry, searchable grouped units, compound output and special cases',
   ).toHaveValue('22,222222');
   await quick.fill('40 in -> ft');
   await quick.press('Enter');
-  await page.getByRole('checkbox', { name: t('convert.compound') }).check();
+  await page.getByText(t('convert.compound'), { exact: true }).click();
+  await expect(
+    page.getByRole('checkbox', { name: t('convert.compound') }),
+  ).toBeChecked();
   await expect(page.locator('.convert-compound')).toHaveText('3 ft 4 in');
   await page.getByRole('button', { name: t('convert.favorite') }).click();
   const picker = page.getByRole('combobox', { name: t('convert.fromUnit') });
