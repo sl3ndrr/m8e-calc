@@ -6,7 +6,7 @@ import {
   NumericFault,
   requireDomain,
 } from './numeric.ts';
-import { checkedComplex, components } from './values.ts';
+import { checkedComplex, components, normalizeValue } from './values.ts';
 import { fromRadians, sineCosine } from './trigonometry.ts';
 
 /** undefined delegates to the existing AP5 real implementation. */
@@ -29,7 +29,9 @@ export function complexFunction(
     return undefined;
   try {
     requireDomain(v.kind !== 'complex' || ctx.complex === 'on', 'E_DOMAIN');
-    const [a, b] = components(v),
+    const normalized = normalizeValue(v, ctx.range, ctx.complex ?? 'off');
+    if (!normalized.ok) return normalized;
+    const [a, b] = components(normalized.value),
       range = ctx.range;
     if (name === 're') return checkedNumber(a, range);
     if (name === 'im') return checkedNumber(b, range);

@@ -30,8 +30,8 @@ const definitions: readonly FunctionDefinition[] = [
   unary(
     'sqrt',
     'algebra',
-    'Quadratwurzel (x ≥ 0).',
-    'Square root (x ≥ 0).',
+    'Quadratwurzel; komplexer Hauptzweig bei complex:on.',
+    'Square root; complex principal branch with complex:on.',
     (x) => {
       requireDomain(x.gte(0));
       return x.sqrt();
@@ -62,8 +62,8 @@ const definitions: readonly FunctionDefinition[] = [
   unary(
     'ln',
     'exponential',
-    'Natürlicher Logarithmus (x > 0).',
-    'Natural logarithm (x > 0).',
+    'Natürlicher Logarithmus; komplexer Hauptzweig bei complex:on.',
+    'Natural logarithm; complex principal branch with complex:on.',
     (x) => {
       requireDomain(x.gt(0));
       return x.ln();
@@ -228,7 +228,10 @@ export const functionRegistry: FunctionRegistry = Object.freeze(
   Object.fromEntries(
     [...definitions, ...scientificDefinitions].map((definition) => [
       definition.name,
-      definition,
+      Object.freeze({
+        ...definition,
+        doc: Object.freeze({ ...definition.doc }),
+      }),
     ]),
   ),
 );

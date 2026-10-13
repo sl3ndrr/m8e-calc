@@ -28,6 +28,9 @@ export function isReserved(name: string, ctx: EvaluationContext = {}): boolean {
     /^ans[1-9][0-9]*$/.test(name)
   );
 }
+function isRecord(input: unknown): boolean {
+  return input !== null && typeof input === 'object' && !Array.isArray(input);
+}
 function validName(name: string): boolean {
   return /^[A-Za-z_][A-Za-z_0-9]*$/.test(name);
 }
@@ -52,25 +55,38 @@ export function deserializeValue(
   input: SerializedValue,
   range: SourceRange,
   depth = 0,
+  budget = { remaining: MAX_NODES },
 ): Result<Value, EvalError> {
-  if (depth > MAX_DEPTH || !input || typeof input !== 'object')
+  if (
+    --budget.remaining < 0 ||
+    depth > MAX_DEPTH ||
+    !isRecord(input) ||
+    !Object.hasOwn(input, 'kind')
+  )
     return failure('E_ENVIRONMENT', range);
-  if (input.kind === 'number' && typeof input.value === 'string')
+  if (
+    input.kind === 'number' &&
+    Object.hasOwn(input, 'value') &&
+    typeof input.value === 'string'
+  )
     return checkedNumber(input.value, range);
   if (
     input.kind === 'complex' &&
+    Object.hasOwn(input, 're') &&
+    Object.hasOwn(input, 'im') &&
     typeof input.re === 'string' &&
     typeof input.im === 'string'
   )
     return checkedComplex(input.re, input.im, range);
   if (
     input.kind === 'list' &&
+    Object.hasOwn(input, 'values') &&
     Array.isArray(input.values) &&
     input.values.length <= MAX_NODES
   ) {
     const values: Value[] = [];
     for (const v of input.values) {
-      const r = deserializeValue(v, range, depth + 1);
+      const r = deserializeValue(v, range, depth + 1, budget);
       if (!r.ok) return r;
       values.push(r.value);
     }
@@ -202,10 +218,13 @@ export function validateEnvironment(
 ): Result<Environment, EvalError> {
   try {
     if (
-      !env ||
+      !isRecord(env) ||
+      !['version', 'variables', 'functions', 'history'].every((key) =>
+        Object.hasOwn(env, key),
+      ) ||
       env.version !== 1 ||
-      !env.variables ||
-      !env.functions ||
+      !isRecord(env.variables) ||
+      !isRecord(env.functions) ||
       !Array.isArray(env.history) ||
       env.history.length > 100 ||
       Object.keys(env.variables).length + Object.keys(env.functions).length >

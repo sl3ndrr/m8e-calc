@@ -25,7 +25,8 @@ export function gamma(x: Decimal): Decimal {
   if (x.isInteger() && x.gt(0)) return factorial(x.sub(1));
   if (x.lt('0.5')) {
     // Reduce before multiplying by pi to retain the phase next to negative poles.
-    const reduced = new Guard(x).mod(2);
+    const magnitude = new Guard(x).abs().mod(2);
+    const reduced = x.isNegative() ? magnitude.neg() : magnitude;
     const sin = PI.mul(reduced).sin();
     return PI.div(sin.mul(positiveGamma(new Guard(1).sub(x))));
   }

@@ -41,8 +41,10 @@ export function normalizeValue(
   range: SourceRange,
   mode: ComplexMode = 'off',
   depth = 0,
+  budget = { remaining: 2048 },
 ): Result<Value, EvalError> {
-  if (depth > 128) return failure('E_RESOURCE_LIMIT', range);
+  if (--budget.remaining < 0 || depth > 128)
+    return failure('E_RESOURCE_LIMIT', range);
   if (value.kind === 'number') return checkedNumber(value.value, range);
   if (value.kind === 'complex')
     return mode === 'on'
@@ -52,7 +54,7 @@ export function normalizeValue(
     if (value.values.length > 2048) return failure('E_RESOURCE_LIMIT', range);
     const values: Value[] = [];
     for (const item of value.values) {
-      const r = normalizeValue(item, range, mode, depth + 1);
+      const r = normalizeValue(item, range, mode, depth + 1, budget);
       if (!r.ok) return r;
       values.push(r.value);
     }
@@ -106,6 +108,7 @@ export function binaryValue(
         range,
       );
     }
+    requireDomain(left.kind !== 'list' && right.kind !== 'list', 'E_TYPE');
     requireDomain(mode === 'on', 'E_DOMAIN');
     const [a, b] = components(left),
       [c, d] = components(right);
@@ -129,6 +132,7 @@ export function binaryValue(
     const zero = a.isZero() && b.isZero();
     requireDomain(!(zero && c.isZero() && d.isZero()));
     if (zero) {
+      requireDomain(!d.isZero() || !c.isNegative(), 'E_DIVISION_BY_ZERO');
       requireDomain(d.isZero() && c.gt(0), 'E_DOMAIN');
       return checkedComplex(0, 0, range);
     }

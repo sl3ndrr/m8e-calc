@@ -182,6 +182,12 @@ export function evaluate(
           activeFunctions.add(node.name);
           try {
             return visit(user.expression, depth + 1, bindings);
+          } catch (e) {
+            if (e instanceof EvaluationFault)
+              throw new EvaluationFault({ ...e.error, range: node.range });
+            if (e instanceof NumericFault)
+              return take(failure(e.code, node.range));
+            throw e;
           } finally {
             activeFunctions.delete(node.name);
           }

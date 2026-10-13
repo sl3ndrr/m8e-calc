@@ -243,7 +243,11 @@ export function differentiate(
     let best = new D(0),
       bestError = new D(Infinity);
     let evaluations = 1;
-    for (let level = 0; level < 12; level++) {
+    for (
+      let level = 0;
+      level < 12 && evaluations + 2 <= limits.maxEvaluations;
+      level++
+    ) {
       const plus = sample(f, x.add(h)),
         minus = sample(f, x.sub(h));
       evaluations += 2;

@@ -3,11 +3,17 @@
 export const codata2022 = [
   { id: 'c', value: '299792458', exact: true },
   { id: 'h', value: '6.62607015e-34', exact: true },
-  { id: 'hbar', value: '1.054571817', exact: true, prefix: true },
+  {
+    id: 'hbar',
+    value: '1.054571817',
+    exact: true,
+    prefix: true,
+    exponent: -34,
+  },
   { id: 'qe', value: '1.602176634e-19', exact: true },
   { id: 'kB', value: '1.380649e-23', exact: true },
   { id: 'NA', value: '6.02214076e23', exact: true },
-  { id: 'R', value: '8.314462618', exact: true, prefix: true },
+  { id: 'R', value: '8.314462618', exact: true, prefix: true, exponent: 0 },
   { id: 'G', value: '6.67430e-11', exact: false, uncertainty: '0.00015e-11' },
   { id: 'gn', value: '9.80665', exact: true },
   {
@@ -52,7 +58,13 @@ export const codata2022 = [
     exact: false,
     uncertainty: '0.0000000011e-3',
   },
-  { id: 'sigma', value: '5.670374419', exact: true, prefix: true },
+  {
+    id: 'sigma',
+    value: '5.670374419',
+    exact: true,
+    prefix: true,
+    exponent: -8,
+  },
   {
     id: 'Rinf',
     value: '10973731.568157',

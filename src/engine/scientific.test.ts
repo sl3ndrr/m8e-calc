@@ -35,7 +35,7 @@ function near(actual: Decimal, expected: string, tolerance: string): void {
     new Ref(actual)
       .sub(target)
       .abs()
-      .lte(Ref.max(target.abs(), 1).mul(tolerance)),
+      .lte((target.isZero() ? new Ref(1) : target.abs()).mul(tolerance)),
     `${actual} ≈ ${target}`,
   ).toBe(true);
 }
@@ -119,6 +119,8 @@ describe('registry, domains and constants', () => {
         true,
       );
     else expect(new Ref(c?.value ?? 0).eq(row.value)).toBe(true);
+    if ('exponent' in row) expect(new Ref(c?.value ?? 0).e).toBe(row.exponent);
+    if ('uncertainty' in row) expect(c?.uncertainty).toBe(row.uncertainty);
     expect(c?.name.de).toBeTruthy();
     expect(c?.name.en).toBeTruthy();
     expect(c?.source).toContain('nist.gov');
@@ -129,6 +131,7 @@ describe('registry, domains and constants', () => {
     expect(real('m_e-me+k_B-kB+N_A-NA+g_n-gn').isZero()).toBe(true);
   });
   it.each([
+    ['factor(2)+1', 'E_TYPE'],
     ['sqrt(-1)', 'E_DOMAIN'],
     ['ln(-1)', 'E_DOMAIN'],
     ['i', 'E_DOMAIN'],
@@ -396,4 +399,83 @@ describe('output and scientific properties', () => {
       ),
       { seed: 889, numRuns: 100 },
     ));
+});
+
+describe('precision and isolation boundaries', () => {
+  it('retains tiny negative Gamma phases and relative accuracy', () => {
+    near(real('gamma(-1e-1000)*(-1e-1000)'), '1', '5e-16');
+    near(real('gamma(1e-1000)*1e-1000'), '1', '5e-16');
+    // Reflection for negative arguments at the declared lower boundary.
+    near(
+      real('gamma(-998.5)*gamma(999.5)'),
+      '-3.1415926535897932384626433832795028841971693993751',
+      '5e-16',
+    );
+  });
+  it('applies the declared Gamma input boundary', () => {
+    expect(evaluateString('gamma(1000.5)')).toMatchObject({
+      ok: false,
+      error: { code: 'E_RESOURCE_LIMIT' },
+    });
+    expect(real('gamma(-999.5)').isPositive()).toBe(true);
+  });
+  it('keeps registries immutable at runtime', () => {
+    expect(Object.isFrozen(functionRegistry.factor)).toBe(true);
+    expect(Object.isFrozen(functionRegistry.factor?.doc)).toBe(true);
+  });
+  it('rejects complex context values when the mode is off', () => {
+    const z = take('i', { complex: 'on' });
+    expect(evaluateString('z', { variables: { z } })).toMatchObject({
+      ok: false,
+      error: { code: 'E_DOMAIN' },
+    });
+    expect(evaluateString('(0i)^(-1)', { complex: 'on' })).toMatchObject({
+      ok: false,
+      error: { code: 'E_DIVISION_BY_ZERO' },
+    });
+  });
+});
+
+describe('imported environment limits and source ranges', () => {
+  it('maps stored function body errors to the active call', () => {
+    const env = step('f(x)=sqrt(x)+missingVariable', createEnvironment());
+    expect(evaluateString('f(-1)', { environment: env })).toEqual({
+      ok: false,
+      error: { code: 'E_DOMAIN', range: { start: 0, end: 5 } },
+    });
+    expect(evaluateString('f(1)', { environment: env })).toEqual({
+      ok: false,
+      error: { code: 'E_UNKNOWN_VARIABLE', range: { start: 0, end: 4 } },
+    });
+  });
+  it('rejects malformed record fields and inherited version tags', () => {
+    for (const raw of [
+      { version: 1, variables: [], functions: {}, history: [] },
+      { version: 1, variables: 1, functions: {}, history: [] },
+      Object.assign(Object.create({ version: 1 }), {
+        variables: {},
+        functions: {},
+        history: [],
+      }),
+    ])
+      expect(
+        evaluateString('1', { environment: raw as unknown as Environment }),
+      ).toMatchObject({ ok: false, error: { code: 'E_ENVIRONMENT' } });
+  });
+  it('bounds work for shared list graphs', () => {
+    let value: Value = { kind: 'number', value: new Ref(1) };
+    for (let n = 0; n < 12; n++)
+      value = { kind: 'list', values: [value, value] };
+    expect(evaluateString('v', { variables: { v: value } })).toMatchObject({
+      ok: false,
+      error: { code: 'E_RESOURCE_LIMIT' },
+    });
+  });
+  it('preserves a JSON-roundtripped factor list', () => {
+    const env = step('factors=factor(360)', createEnvironment());
+    const restored = JSON.parse(JSON.stringify(env)) as Environment;
+    expect(formatValue(take('factors', { environment: restored }))).toBe(
+      '[2, 2, 2, 3, 3, 5]',
+    );
+  });
 });

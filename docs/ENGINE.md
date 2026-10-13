@@ -16,8 +16,8 @@ und Ergebnisse mit mehr als 50 Stellen sind entsprechend gerundete Näherungen.
 Die globale Konfiguration von `decimal.js` wird nicht verändert.
 
 `NumberValue = { readonly kind: 'number'; readonly value: Decimal }`.
-`Value` ist die diskriminierte Union der Einträge von `ValueKinds`; spätere Pakete
-ergänzen diese Schnittstelle um `complex` und `list` (AP7, siehe unten). Operatoren prüfen
+`Value` ist die diskriminierte Union der Einträge von `ValueKinds`; AP7
+ergänzt `complex` und `list` (siehe unten). Operatoren prüfen
 den Werttyp; unbekannte Typen ergeben `E_TYPE`. `ans` und Variablen kommen
 ausschließlich aus dem Kontext, ohne versteckten Zustand oder Mutation.
 
@@ -98,7 +98,7 @@ Präzedenz: **`1/2x = (1/2)*x`**, `2π`, `2(3+4)`, `(1+2)(3+4)` und
 
 ## Winkel und Präzision
 
-`angleMode: 'rad' | 'deg' | 'grad'`, Standard `rad`. Direkte Funktionen nehmen
+`angleMode: 'rad' | 'deg' | 'grad'`, Standard `rad`. Direkte trigonometrische Funktionen nehmen
 Winkel in diesem Modus an; inverse Funktionen und `atan2` liefern ihn darin.
 Die Reduktion und trigonometrischen Zwischenwerte verwenden eine separate
 80-Stellen-Kopie und eine fest eingecheckte π-Konstante mit 110 Nachkommastellen.
@@ -145,9 +145,9 @@ AST-Knoten sind readonly diskriminierte Objekte mit `kind` und `range`:
 | ------------ | -------------------------------------------------------- |
 | `number`     | `literal: string` (Quellschreibweise, ohne Vorzeichen)   |
 | `identifier` | `name: string`                                           |
-| `unary`      | `operator: '+'                                           | '-'`, `operand`, `operatorRange` |
+| `unary`      | `operator: '+' oder '-'`, `operand`, `operatorRange`     |
 | `binary`     | `operator`, `left`, `right`, `implicit`, `operatorRange` |
-| `postfix`    | `operator: '!'                                           | '%'`, `operand`, `operatorRange` |
+| `postfix`    | `operator: '!' oder '%'`, `operand`, `operatorRange`     |
 | `group`      | `expression`                                             |
 | `call`       | `name`, `args: readonly Ast[]`, `nameRange`              |
 
@@ -255,9 +255,9 @@ Hardware und Messwerte werden im PR angegeben. Unit-Tests verwenden für den
 Kern eine Node-Umgebung ohne den UI-Testsetup. `npm run check` und Chromium-CI
 bleiben verbindlich.
 
-Offen in Folgepaketen: Modus-UI/Fehlerübersetzungen (AP6/AP8), komplexe Zahlen,
-Listen und numerische Analysis (AP7), Graph-Kompilierer (AP12), LaTeX-Export und
-eigene Funktionsdefinitionen in der UI (AP14).
+Offen in Folgepaketen: wissenschaftliche Modus-UI/Fehlerübersetzungen (AP8),
+Graph-Kompilierer (AP12) und Bedienoberflächen für eigene Funktionen (AP14).
+AP7 ergänzt die nachfolgend spezifizierten Kernfunktionen.
 
 Referenz: [decimal.js API](https://mikemcl.github.io/decimal.js/) (private
 Konfiguration, Rundung und transzendente Funktionen).
@@ -321,8 +321,8 @@ bei `on` liefern sie `i` bzw. `i*pi`. Gemischte Zahlen werden zu komplexen
 Werten promoviert. Unterstützt: `+ - * / ^ sqrt exp ln sin cos abs` und die
 oben genannten komplexen Funktionen. Andere reelle Funktionen geben E_TYPE
 für komplexe Argumente. Potenz, Wurzel und Logarithmus verwenden den Hauptzweig;
-`0^0` bleibt E_DOMAIN. Komplexe ganzzahlige Potenzen werden durch wiederholtes
-Quadrieren gebildet. `sin`/`cos` skalieren beide Komponenten gemäß Winkelmodus;
+`0^0` bleibt E_DOMAIN. Komplexe ganzzahlige Potenzen (Exponentbetrag ≤ 100000) werden durch wiederholtes
+Quadrieren gebildet; darüber E_RESOURCE_LIMIT. `sin`/`cos` skalieren beide Komponenten gemäß Winkelmodus;
 `exp`/`ln` arbeiten unabhängig davon. Nullkomponenten werden nicht pauschal
 abgeschnitten. `formatValue` bietet kartesisch `a+bi` und polar `r∠θ`; θ folgt
 `angleMode` (Standard rad). Für Null ist der polare Anzeigewinkel 0.
@@ -375,11 +375,15 @@ Vorrang; `ctx.ans` überschreibt `ans`. `ans` und `ans1` sind das letzte Ergebni
 
 Variablenzuweisung ist sofortige Wertbindung (`a=a+1` liest den bisherigen Wert).
 Funktionskörper werden verzögert ausgewertet und lesen aktuelle globale Werte;
-Parameter sind lokal. Globale Funktionen erhalten keine dynamischen Variablen
+Parameter sind lokal. Fehler gespeicherter Funktionskörper zeigen auf den
+aktuellen Aufrufbereich, damit Positionen zur aktuellen Eingabe gehören. Globale Funktionen erhalten keine dynamischen Variablen
 ihres Aufrufers. Der Funktions-Abhängigkeitsgraph wird bei Definition auf direkte
 und indirekte Zyklen geprüft (E_CYCLE), zusätzlich wird Rekursion zur Laufzeit
 abgewiesen. Noch undefinierte freie Namen sind zulässig und ergeben erst beim
-Aufruf den vorhandenen Unknown-Fehler. Importierte Environments werden validiert
+Aufruf den vorhandenen Unknown-Fehler. Environments enthalten maximal 1000 Variablen/Funktionen zusammen; Parameter
+maximal 128 pro Funktion. Listen enthalten insgesamt maximal 2048 Wertknoten
+und haben maximale Tiefe 128 (auch bei geteilten Objektgraphen).
+Importierte Environments werden validiert
 (E_ENVIRONMENT bei ungültiger Version, Namen, Werten oder ASTs).
 
 ### Genauigkeitsgarantien und Grenzen
@@ -434,3 +438,8 @@ Warm-up: glattes `integral(x^2,x,0,1)` unter 50 ms pro Aufruf; absolute Werte
 sind hardwareabhängig. `npm run check` und Chromium-CI bleiben verbindlich.
 Offen: ausschließlich die Modus-UI und deren Fehlerübersetzungen, Graph-Anbindung
 und interaktive Darstellung in späteren Paketen.
+
+Numerische Methoden: [NIST DLMF 5.11](https://dlmf.nist.gov/5.11) (Stirling),
+[QUADPACK dqk15](https://www.netlib.org/quadpack/dqk15.f) (Knoten, Gewichte und Fehlerskalierung).
+Gamma reduziert den Reflexionswinkel vorzeichentreu, damit winzige negative
+Argumente nicht auf die volle Periode gerundet werden.
