@@ -5,10 +5,11 @@ test('loads the production build under the Pages base path without external requ
   page,
   baseURL,
 }) => {
+  if (!baseURL) throw new Error('Missing Playwright baseURL');
   const external: string[] = [];
   const errors: string[] = [];
   page.on('request', (request) => {
-    if (new URL(request.url()).origin !== new URL(baseURL!).origin)
+    if (new URL(request.url()).origin !== new URL(baseURL).origin)
       external.push(request.url());
   });
   page.on('pageerror', (error) => errors.push(error.message));

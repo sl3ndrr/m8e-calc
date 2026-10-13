@@ -12,24 +12,18 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
-      - run: npm install
-      - run: npm audit --json > audit.json || true
-      - run: npx prettier --write .
+          cache: npm
+      - run: npm ci
       - run: npm run check
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
-      - name: Bootstrap local verification bundle
-        if: always()
-        run: |
-          tar -czf /tmp/foundation-bootstrap.tar.gz --exclude=.git .
-          mv /tmp/foundation-bootstrap.tar.gz .
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: foundation-bootstrap
-          path: foundation-bootstrap.tar.gz
-          retention-days: 1
+          name: playwright-results
+          path: test-results/
+          retention-days: 7
