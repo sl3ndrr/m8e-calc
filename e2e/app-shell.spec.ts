@@ -3,6 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 const modes = ['simple','scientific','convert','graph'] as const;
 const labels = ['Einfach','Wissenschaftlich','Umrechner','Graphen'] as const;
 test('switches lazy modes, resumes the last mode and persists visibility separately', async ({ page }) => {
+  await page.setViewportSize({ width: 1920, height: 1080 });
   await page.goto('/m8e-calc/');
   for (let i = 0; i < modes.length; i++) {
     await page.getByRole('link', { name: labels[i], exact: true }).click();
@@ -35,6 +36,7 @@ test('history is modal below 1440, closes on Escape and returns focus', async ({
   await expect(toggle).toHaveAttribute('aria-expanded','false');
 });
 test('rehydrates real entries, pins/searches/copies/exports and undoes clearing', async ({ page }) => {
+  await page.setViewportSize({ width: 1920, height: 1080 });
   await page.addInitScript(() => localStorage.setItem('m8e-calc.history', JSON.stringify({ version: 1, state: { entries: [{ id: 'test', mode: 'simple', ts: Date.now(), input: '2 + 3', result: '5', pinned: false, payload: { expression: '2 + 3' } }], visibility: { simple: true }, limit: 500 } })));
   await page.goto('/m8e-calc/'); await page.getByRole('button', { name: 'Anheften' }).click(); await expect(page.getByRole('button', { name: 'Lösen', exact: true })).toBeVisible();
   await page.getByRole('searchbox').fill('no match'); await expect(page.getByText('Keine passenden Einträge.')).toBeVisible(); await page.getByRole('searchbox').clear();

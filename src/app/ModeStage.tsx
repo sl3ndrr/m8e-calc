@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useState } from 'react';
 import { AnimatePresence, motion, useIsPresent } from 'motion/react';
 import { springs } from '../styles/motion';
 import { useSettingsStore } from '../shared/settingsStore';
@@ -19,9 +19,9 @@ function ModePanel({ mode, direction, spatial, off }: { mode: ModeId; direction:
   </motion.div>;
 }
 export function ModeStage({ mode }: { mode: ModeId }) {
-  const [previous, setPrevious] = useState(mode);
-  const direction = modeIds.indexOf(mode) >= modeIds.indexOf(previous) ? 1 : -1;
-  useEffect(() => { setPrevious(mode); }, [mode]);
+  const [transition, setTransition] = useState({ mode, direction: 1 });
+  if (transition.mode !== mode) setTransition({ mode, direction: modeIds.indexOf(mode) >= modeIds.indexOf(transition.mode) ? 1 : -1 });
+  const direction = transition.direction;
   const level = useSettingsStore(state => state.motionLevel);
   const reduced = useMediaQuery('(prefers-reduced-motion: reduce)');
   // Direction is an animation hint only. No feature state depends on it.

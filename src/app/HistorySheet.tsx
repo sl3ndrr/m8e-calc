@@ -20,10 +20,11 @@ function HistoryItem({ entry, restore }: { entry: HistoryEntry; restore: (entry:
   const reduced = useMediaQuery('(prefers-reduced-motion: reduce)');
   const element = useRef<HTMLLIElement>(null);
   useEffect(() => {
-    if (!element.current || level === 'off') return;
+    const node = element.current;
+    if (!node || level === 'off') return;
     const token = springs['spatial-fast'];
-    const animation = animate(element.current, reduced || level === 'reduced' ? { opacity: [0,1] } : { opacity: [0,1], y: [16,0], scale: [0.98,1] }, reduced || level === 'reduced' ? { duration: 0.15 } : { type: 'spring', stiffness: token.stiffness, damping: 2 * token.damping * Math.sqrt(token.stiffness) });
-    return () => { animation.stop(); if (element.current) { element.current.style.opacity = ''; element.current.style.transform = ''; } };
+    const animation = animate(node, reduced || level === 'reduced' ? { opacity: [0,1] } : { opacity: [0,1], y: [16,0], scale: [0.98,1] }, reduced || level === 'reduced' ? { duration: 0.15 } : { type: 'spring', stiffness: token.stiffness, damping: 2 * token.damping * Math.sqrt(token.stiffness) });
+    return () => { animation.stop(); node.style.opacity = ''; node.style.transform = ''; };
   }, [level, reduced]);
   async function copy(): Promise<void> {
     try { await navigator.clipboard.writeText(entry.result); snackbarQueue.add({ message: t('history.copied', locale) }, { timeout: 5000 }); }
