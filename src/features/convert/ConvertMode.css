@@ -54,7 +54,7 @@
       1.1fr
     );
   gap: 1.5rem;
-  align-items: start;
+  align-items: stretch;
 }
 .convert-categories {
   min-height: 0;
