@@ -67,6 +67,7 @@
   overflow: auto;
   align-content: start;
   scrollbar-gutter: stable;
+  grid-auto-rows: max(48px, 5rem);
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.5rem;
