@@ -12,7 +12,7 @@ Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet akzeptiert und integrie
 - [ ] 8 Wissenschaftlicher Modus — Editor/Ergebnis, Tastenfeld, Konstanten und persistente Definitionen für Physik/Mathematik (PR `feat/scientific-mode`; Details in `SCIENTIFIC_MODE.md`, Abnahme vor Merge). AP9 ergänzt den Informatik-Kontext.
 - [ ] 9 Programmierer-Panel — BigInt-Wörter, BitGrid, Basisanzeige, opt-in Parser, IEEE-754 und Unicode im AP8-Informatik-Kontext (PR `feat/programmer-panel`, Abnahme vor Merge).
 - [ ] 10 Einheiten-Engine — 286 Einheiten in 32 Kategorien, Decimal-Umrechnung, Suche/Parser/Compound-Ausgabe und unabhängige Referenz-/Paartests (PR `feat/units-engine`; Vertrag in `UNITS.md`, Abnahme vor Merge).
-- [ ] 11 Umrechner.
+- [ ] 11 Umrechner — AP10-Anbindung, lokalisierte Felder, Kartenraster, Schnelleingabe, persistente Paare und AP4-Ruheverlauf (PR `feat/convert-mode`; Vertrag in `CONVERT_MODE.md`, Abnahme vor Merge).
 - [ ] 12 Graph-Engine — reine 2D-Graphberechnung.
 - [ ] 13 Graphen-Modus — 2D-Plotter und Interaktion.
 - [ ] 14 Komfort — Konstanten, Variablen/eigene Funktionen, Command Palette, Permalinks und zusätzliche UI-Skalierungswahl; Verlauf mit Suche/Pins/Export sowie de/en und proportionale Desktop-Skalierung sind in AP4 vorgezogen.
@@ -26,3 +26,5 @@ AP5 zieht die beauftragten reellen wissenschaftlichen Grundfunktionen und eine
 erweiterbare Registry vor. AP6/AP8 binden die Result-API einschließlich Fehler-i18n
 an die Modi an; AP7 ergänzt komplexe Zahlen, Listen und numerische Analysis.
 AP12 nutzt den stabilen AST für den Graph-Kompilierer; AP7 liefert LaTeX und eigene Funktionsdefinitionen im Kern; deren UI folgt in AP8/AP14.
+
+AP11 implementiert den Umrechner auf AP10; Verhalten, Persistenz und Testvertrag stehen in [CONVERT_MODE.md](CONVERT_MODE.md).

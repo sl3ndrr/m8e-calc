@@ -107,3 +107,5 @@ error, onCopy })` zeigt eine Ausdruckszeile, animierte Zeichen mit tabellarische
 Ziffern, weich verkleinerte Schrift und ein Live-Output. Alle lokalisierten Texte
 und die formatierte Zahl kommen vom Aufrufer; der Baustein kennt keine Engine.
 AP8 kann dieselben Exporte aus `src/ui` verwenden.
+
+AP11 ergänzt `SelectOption.group`: Optionen mit Gruppe werden in benannten ListBox-Sections mit Überschrift dargestellt und bleiben durchsuchbar. `historyStore.replace(id, data)` ersetzt einen Eintrag atomar unter Erhalt von ID und Pin (Umrechner-Ruheverlauf).
