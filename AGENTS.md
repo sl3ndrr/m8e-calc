@@ -37,7 +37,7 @@ Einmalig für E2E: `npx playwright install chromium` (Linux-CI: `--with-deps`). 
 Engine-Einstieg: `src/engine/index.ts`. Öffentlicher readonly AST und Result-API gemäß
 `docs/ENGINE.md`; keine inkompatiblen AST-Änderungen ohne Vertragsänderung. Private
 decimal.js-Konfiguration: 50 Stellen, Anzeige 15; Kontextstandard `rad`/`strict`.
-Eigene Funktionen als Registry-Einträge. Eingabelokalisierung bleibt im UI-Adapter.
+AP7 ergänzt wissenschaftliche Registry-Einträge, AST-Binder, komplexe Werte, CODATA-2022-Konstanten und Export. Eigene Anweisungen über die immutable `execute`-API mit JSON-serialisierbarem Environment; Details, reservierte Namen und Genauigkeitsgrenzen in `docs/ENGINE.md`. Eigene vertrauenswürdige Funktionen als Registry-Einträge. Eingabelokalisierung bleibt im UI-Adapter.
 Engine-Tests laufen in einem separaten Vitest-Node-Projekt ohne UI-Testsetup.
 
 Datenfluss: Benutzereingabe → reine UI-Funktion/Reducer → Domäne → Ergebnis → Store/React → Ansicht. Keine fachlichen Seiteneffekte beim Rendern. Hash-Routen: `#/simple`, `#/scientific`, `#/convert`, `#/graph`, technisches Design-Lab `#/design`; leerer Hash setzt den zuletzt genutzten Modus fort (Standard Einfach); unbekannter Hash zeigt Einfach. Keine serverseitigen Rewrites voraussetzen.

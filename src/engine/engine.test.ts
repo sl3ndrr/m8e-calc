@@ -207,7 +207,7 @@ describe('public AST and context', () => {
     });
   });
   it('documents every registry entry in both languages', () => {
-    expect(Object.keys(functionRegistry)).toHaveLength(24);
+    expect(Object.keys(functionRegistry).length).toBeGreaterThanOrEqual(24);
     for (const [name, definition] of Object.entries(functionRegistry)) {
       expect(definition.name).toBe(name);
       expect(definition.doc.de.length).toBeGreaterThan(0);

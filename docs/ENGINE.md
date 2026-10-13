@@ -16,8 +16,8 @@ und Ergebnisse mit mehr als 50 Stellen sind entsprechend gerundete Näherungen.
 Die globale Konfiguration von `decimal.js` wird nicht verändert.
 
 `NumberValue = { readonly kind: 'number'; readonly value: Decimal }`.
-`Value` ist die diskriminierte Union der Einträge von `ValueKinds`; spätere Pakete
-können diese Schnittstelle um `complex` oder `list` erweitern. Operatoren prüfen
+`Value` ist die diskriminierte Union der Einträge von `ValueKinds`; AP7
+ergänzt `complex` und `list` (siehe unten). Operatoren prüfen
 den Werttyp; unbekannte Typen ergeben `E_TYPE`. `ans` und Variablen kommen
 ausschließlich aus dem Kontext, ohne versteckten Zustand oder Mutation.
 
@@ -82,7 +82,7 @@ Präzedenz: **`1/2x = (1/2)*x`**, `2π`, `2(3+4)`, `(1+2)(3+4)` und
   jeweils das aktuelle linke Ergebnis: `200+10%+10% = 242`.
   `a*b% = a*b/100`, `a/b% = a/(b/100)`; alleinstehende Prozentwerte bleiben
   Bruchteile. `50%% = 0.005` in beiden Modi.
-- Fakultät nur für nichtnegative ganze Zahlen; `0! = 1`. Keine Gamma-Erweiterung.
+- Fakultät nur für nichtnegative ganze Zahlen; `0! = 1`. Gamma ist eine separate Funktion (AP7).
   Das begrenzte ganzzahlige Produkt wird exakt mit BigInt gebildet, dann einmal
   auf 50 Stellen gerundet.
 - Reelle Werte: `0^0` ist `E_DOMAIN`; negative Basen benötigen ganzzahlige
@@ -98,7 +98,7 @@ Präzedenz: **`1/2x = (1/2)*x`**, `2π`, `2(3+4)`, `(1+2)(3+4)` und
 
 ## Winkel und Präzision
 
-`angleMode: 'rad' | 'deg' | 'grad'`, Standard `rad`. Direkte Funktionen nehmen
+`angleMode: 'rad' | 'deg' | 'grad'`, Standard `rad`. Direkte trigonometrische Funktionen nehmen
 Winkel in diesem Modus an; inverse Funktionen und `atan2` liefern ihn darin.
 Die Reduktion und trigonometrischen Zwischenwerte verwenden eine separate
 80-Stellen-Kopie und eine fest eingecheckte π-Konstante mit 110 Nachkommastellen.
@@ -145,9 +145,9 @@ AST-Knoten sind readonly diskriminierte Objekte mit `kind` und `range`:
 | ------------ | -------------------------------------------------------- |
 | `number`     | `literal: string` (Quellschreibweise, ohne Vorzeichen)   |
 | `identifier` | `name: string`                                           |
-| `unary`      | `operator: '+'                                           | '-'`, `operand`, `operatorRange` |
+| `unary`      | `operator: '+' oder '-'`, `operand`, `operatorRange`     |
 | `binary`     | `operator`, `left`, `right`, `implicit`, `operatorRange` |
-| `postfix`    | `operator: '!'                                           | '%'`, `operand`, `operatorRange` |
+| `postfix`    | `operator: '!' oder '%'`, `operand`, `operatorRange`     |
 | `group`      | `expression`                                             |
 | `call`       | `name`, `args: readonly Ast[]`, `nameRange`              |
 
@@ -255,9 +255,191 @@ Hardware und Messwerte werden im PR angegeben. Unit-Tests verwenden für den
 Kern eine Node-Umgebung ohne den UI-Testsetup. `npm run check` und Chromium-CI
 bleiben verbindlich.
 
-Offen in Folgepaketen: Modus-UI/Fehlerübersetzungen (AP6/AP8), komplexe Zahlen,
-Listen und numerische Analysis (AP7), Graph-Kompilierer (AP12), LaTeX-Export und
-eigene Funktionsdefinitionen in der UI (AP14).
+Offen in Folgepaketen: wissenschaftliche Modus-UI/Fehlerübersetzungen (AP8),
+Graph-Kompilierer (AP12) und Bedienoberflächen für eigene Funktionen (AP14).
+AP7 ergänzt die nachfolgend spezifizierten Kernfunktionen.
 
 Referenz: [decimal.js API](https://mikemcl.github.io/decimal.js/) (private
 Konfiguration, Rundung und transzendente Funktionen).
+
+## Wissenschaftlicher Kern · AP7 (Vertrag vor Tests und Implementierung)
+
+AP7 ergänzt ausschließlich den reinen TypeScript-Kern. Bestehende AP5-Knoten,
+Operatorpräzedenz und Result-APIs bleiben erhalten; die folgenden Ergänzungen
+ersetzen die früheren Folgepaket-Hinweise zu komplexen Zahlen, Analysis und Export.
+
+### Syntax, Registry und Werte
+
+Auf oberster Ebene ist zusätzlich genau eine Anweisung erlaubt:
+
+```ebnf
+statement = expression | name, "=", expression
+          | name, "(", name, { ",", name }, ")", "=", expression ;
+```
+
+Beispiele: `a = 5`, `f(x) = x^2 + a`, `f(x, y) = x*y + a`.
+Zuweisungen innerhalb von Ausdrücken sind unzulässig. Neue readonly AST-Knoten:
+`assignment { name, nameRange, expression }` und
+`definition { name, nameRange, parameters: readonly string[], expression }`.
+`print` und `toLatex` unterstützen beide. Namen bleiben case-sensitive.
+`π`, `φ` und `τ` sind zusätzliche symbolische Konstanten-Aliase; physikalische
+Symbole dienen der Anzeige, Ausdrücke verwenden die ASCII-Namen der Tabelle.
+
+`ValueKinds` erhält `complex { re: Decimal, im: Decimal }` und
+`list { values: readonly Value[] }`. Listen haben keine arithmetischen Operatoren.
+`factor(n)` liefert aufsteigende Primfaktoren mit Wiederholungen, `factor(1)`
+eine leere Liste. `isPrime` liefert numerisch `1` oder `0`.
+Alle Funktionen, auch Binder, stehen in `functionRegistry` mit `doc.de` und
+`doc.en`. Eine optionale `astImpl(args: readonly Ast[], context)` kennzeichnet
+Binder; diese erhalten **keine vorab ausgewerteten Argumente**. Der Kontext
+enthält `evaluate(ast, bindings?)`, das denselben Arbeitszähler verwendet.
+`sum` und `prod` sind ausschließlich Binder, niemals Statistik-Aliase.
+
+| Kategorie     | Neue / erweiterte Funktionen                                  | Vertrag                                                                                                                             |
+| ------------- | ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| hyperbolic    | sinh, cosh, tanh, asinh, acosh, atanh                         | reell, unabhängig vom Winkelmodus; acosh ≥ 1, abs(atanh-Eingabe) < 1                                                                |
+| trigonometry  | sec, csc, cot, deg2rad, rad2deg                               | reziproke Winkelfunktionen mit Polfehler; Konverter unabhängig vom Kontext                                                          |
+| combinatorics | factorial, gamma, nCr, nPr                                    | Fakultät auch `!`, nichtnegative ganze Zahlen ≤ 1000; 0 ≤ r ≤ n ≤ 1000; Gamma reell ohne nichtpositive ganzzahlige Pole             |
+| numberTheory  | gcd, lcm, isPrime, factor                                     | gcd/lcm für ganze Zahlen mit Betrag ≤ 10^15, gcd(0,0)=lcm(0,0)=0; Primprüfung 0…10^12, factor 1…10^12, darüber E_RESOURCE_LIMIT     |
+| rounding      | frac, round(x, n?)                                            | frac=x-trunc(x), vorzeichenbehaftet; n ganzzahlig −100…100, Standard 0, Gleichstand vom Nullpunkt weg                               |
+| aggregation   | total, mean, median, variance, stdev, stdevp, min, max, count | reell, variadisch; total()/count()=0, übrige ≥1, variance/stdev ≥2; variance und stdev Stichprobe (n−1), stdevp Grundgesamtheit (n) |
+| calculus      | sum(expr,k,from,to), prod(expr,k,from,to)                     | inklusive ganze Grenzen, Schritt +1, maximal 10000 Glieder; leer=0 bzw. 1                                                           |
+| calculus      | integral(expr,x,a,b), deriv(expr,x,point)                     | endliche reelle Grenzen/Stelle, lokaler Bindername; Integrale dürfen umgekehrte Grenzen haben                                       |
+| complex       | arg, conj, re, im                                             | Hauptargument (−π,π] im Winkelmodus, arg(0) E_DOMAIN; reelle Eingaben erlaubt                                                       |
+
+Binderargument 2 muss ein nichtreservierter Identifier sein. Lokale Bindung
+überschattet eine gleichnamige Kontextvariable, verschachtelte Binder sind
+lexikalisch; Grenzen werden außerhalb der neuen Bindung ausgewertet. Binder
+verändern den äußeren Kontext nicht. Analysis verlangt reelle Funktionswerte.
+
+### Komplexer Modus
+
+`EvaluationContext.complex: 'off' | 'on'`, Standard `off`. `i` und `j` sind
+reservierte imaginäre Einheiten, bei `off` E_DOMAIN. Auch komplexe Kontextwerte
+sind bei `off` unzulässig. `sqrt(-1)` und `ln(-1)` bleiben bei `off` E_DOMAIN,
+bei `on` liefern sie `i` bzw. `i*pi`. Gemischte Zahlen werden zu komplexen
+Werten promoviert. Unterstützt: `+ - * / ^ sqrt exp ln sin cos abs` und die
+oben genannten komplexen Funktionen. Andere reelle Funktionen geben E_TYPE
+für komplexe Argumente. Potenz, Wurzel und Logarithmus verwenden den Hauptzweig;
+`0^0` bleibt E_DOMAIN. Komplexe ganzzahlige Potenzen (Exponentbetrag ≤ 100000) werden durch wiederholtes
+Quadrieren gebildet; darüber E_RESOURCE_LIMIT. `sin`/`cos` skalieren beide Komponenten gemäß Winkelmodus;
+`exp`/`ln` arbeiten unabhängig davon. Nullkomponenten werden nicht pauschal
+abgeschnitten. `formatValue` bietet kartesisch `a+bi` und polar `r∠θ`; θ folgt
+`angleMode` (Standard rad). Für Null ist der polare Anzeigewinkel 0.
+
+### Konstanten und Namenskollisionen
+
+`constantRegistry` enthält pro ASCII-Namen `name: {de,en}`, `symbol`, `value`
+als unveränderten Dezimalstring, `unit`, `source`, `exact` und optional
+`uncertainty` sowie `expression` für abgeleitete Werte. Keine Laufzeitrequests.
+Quelle: [NIST CODATA 2022, vollständige Tabelle](https://physics.nist.gov/cuu/Constants/Table/allascii.txt),
+verifiziert am 2026-10-13. Testdaten speichern die veröffentlichten Werte und
+Unsicherheiten unabhängig von der Registry. Mathematische und abgeleitete
+irrationale Werte sind gespeicherte Näherungen; `exact` bezeichnet physikalische
+Definitionsgenauigkeit, nicht eine endliche Dezimaldarstellung.
+
+| Ausdruckname                    | Symbol            | Herkunft / Entscheidung                               |
+| ------------------------------- | ----------------- | ----------------------------------------------------- |
+| pi (π), e, phi (φ), tau (τ)     | π, e, φ, τ        | mathematisch, mindestens 50 Stellen                   |
+| c, h, qe, kB (k_B), NA (N_A)    | c, h, e, k_B, N_A | SI-exakt, vollständig gespeicherte Dezimalwerte       |
+| hbar                            | ħ                 | h/(2π), 50 Stellen, keine abgeschnittene NIST-Ellipse |
+| R                               | R                 | NA*kB, vollständiges exaktes Dezimalprodukt           |
+| G, gn (g_n), epsilon0, mu0      | G, g_n, ε0, μ0    | NIST 2022, gn konventionell exakt                     |
+| me (m_e), mp (m_p), mn (m_n), u | m_e, m_p, m_n, u  | NIST 2022                                             |
+| alpha, sigma, Rinf, a0, muB     | α, σ, R∞, a0, μB  | NIST 2022; sigma=2π^5*kB^4/(15*h^3*c^2), 50 Stellen   |
+
+Konstanten und ihre Aliase haben Vorrang vor `ctx.variables`. Konstanten,
+eingebaute und kontextregistrierte Funktionen, `i`, `j`, `ans`, `ans1`…`ansN`
+(alle Namen mit ans und positiver Ziffernfolge), `__proto__`, `prototype` und
+`constructor` dürfen weder zugewiesen noch als Parameter/Binder benutzt werden.
+Elementarladung heißt `qe`; `e` bleibt Eulers Zahl. Eigene Funktionen dürfen die
+Standardregistry über die bisherige vertrauenswürdige `ctx.functions`-API
+überlagern, `sum`/`prod` behalten jedoch ihre Binderbedeutung.
+
+### Environment und Anweisungs-API
+
+`createEnvironment()` liefert ein JSON-serialisierbares Objekt mit `version: 1`,
+`variables`, `functions` und `history` (maximal 100 Werte, neuester zuerst).
+Zahlen sind Strings, komplexe Komponenten ebenfalls Strings, Listen rekursiv;
+Funktionskörper werden als readonly AST gespeichert, Parameter als Namen.
+`execute(src, environment?, ctx?)` liefert Result von
+`{ value: Value | null, environment: Environment }`; eine Funktionsdefinition
+liefert null. Erfolgreiche Ausdrücke/Zuweisungen aktualisieren ans-Historie,
+Fehler verändern nichts. Keine Mutation des gelieferten Environments.
+`evaluate`/`evaluateString` bleiben reine Ausdrucksauswertung; Anweisungen
+liefern dort E_TYPE. Zum sequenziellen Arbeiten die Anweisungs-API verwenden.
+`ctx.environment` stellt gespeicherte Variablen/Funktionen/History auch der
+Ausdrucks-API bereit. Explizite `ctx.variables` haben vor Environmentvariablen
+Vorrang; `ctx.ans` überschreibt `ans`. `ans` und `ans1` sind das letzte Ergebnis,
+`ans2` das vorletzte usw.; fehlende Einträge E_UNKNOWN_VARIABLE.
+
+Variablenzuweisung ist sofortige Wertbindung (`a=a+1` liest den bisherigen Wert).
+Funktionskörper werden verzögert ausgewertet und lesen aktuelle globale Werte;
+Parameter sind lokal. Fehler gespeicherter Funktionskörper zeigen auf den
+aktuellen Aufrufbereich, damit Positionen zur aktuellen Eingabe gehören. Globale Funktionen erhalten keine dynamischen Variablen
+ihres Aufrufers. Der Funktions-Abhängigkeitsgraph wird bei Definition auf direkte
+und indirekte Zyklen geprüft (E_CYCLE), zusätzlich wird Rekursion zur Laufzeit
+abgewiesen. Noch undefinierte freie Namen sind zulässig und ergeben erst beim
+Aufruf den vorhandenen Unknown-Fehler. Environments enthalten maximal 1000 Variablen/Funktionen zusammen; Parameter
+maximal 128 pro Funktion. Listen enthalten insgesamt maximal 2048 Wertknoten
+und haben maximale Tiefe 128 (auch bei geteilten Objektgraphen).
+Importierte Environments werden validiert
+(E_ENVIRONMENT bei ungültiger Version, Namen, Werten oder ASTs).
+
+### Genauigkeitsgarantien und Grenzen
+
+- Decimal-Arithmetik und komplexe Komponenten bleiben bei 50 Stellen. Stark
+  schlecht konditionierte Ausdrücke können wie bisher Stellen verlieren.
+- Gamma nutzt Rekurrenz, Stirling-Reihe mit rationalen Bernoulli-Koeffizienten
+  und Reflexion; Ziel mindestens 15 signifikante Stellen für die geprüften
+  endlichen reellen Werte abseits der Pole. Gamma-Eingaben haben Betrag ≤ 1000;
+  keine universelle 50-Stellen-Garantie. Referenzen entstehen mit
+  unabhängiger Python-Decimal-Arithmetik bei 80 Stellen (geschlossene Formeln), geprüft mit relativer Toleranz 5e−16.
+- Integral verwendet adaptive eingebettete Gauß-Kronrod-7/15-Quadratur,
+  lokale resasc-Fehlerskalierung und globales Teilen des fehlerreichsten
+  Intervalls. `ctx.numerical` erlaubt `absoluteTolerance`, `relativeTolerance`
+  (positive Dezimalstrings, Standard 1e−12), `maxIntervals` (1…4096, Standard 256)
+  und `maxEvaluations` (15…100000, Standard 10000). Die Schätzung ist keine
+  mathematische Garantie für beliebige/oscillierende oder singuläre Funktionen;
+  bekannte Integrale werden unabhängig getestet. Keine uneigentlichen Integrale.
+- `integrate(callback,a,b,options?)` ist die reine numerische Hilfs-API und liefert
+  `{ value, errorEstimate, evaluations, intervals }` als Result. Der Binder gibt
+  nur value zurück. Erreicht die Schätzung die Toleranz nicht, E_CONVERGENCE;
+  dieselben Diagnosen stehen im optionalen `error.details`. Fehler in Ausdruck
+  oder Callback bleiben erhalten. Abtastung und Quadratur verwenden Decimal,
+  die Knoten/Gewichte 33 publizierte Dezimalstellen.
+- Derivative nutzt symmetrische Differenzen mit halbierten Schrittweiten und
+  Richardson-Extrapolation, bis zur Toleranz (Standard 1e−12) oder 12 Stufen.
+  Fehlerschätzung aus aufeinanderfolgenden Extrapolanten und links/rechts
+  Steigungen erkennt fehlende Konvergenz / Knicke (E_CONVERGENCE). Glattheit
+  bleibt Voraussetzung; keine allgemeine Garantie für beliebige ASTs.
+- Analysis/Binder teilen einen begrenzten Arbeitszähler (maximal 1000000
+  AST-Besuche) und die vorhandene Tiefe 128. Der bisherige Ausdruckszähler
+  2048 bleibt für normale Ausdrücke; Binder erhöhen das Laufzeitbudget.
+- Ganzzahlverfahren verwenden begrenzte BigInt-Rechnung; Faktorisierung und
+  Primprüfung per deterministischer Division ≤ 10^12, maximal 500000 Proben.
+  Grenzverletzung E_RESOURCE_LIMIT, ungültiger Bereich E_DOMAIN.
+
+### Export und Verifikation
+
+`toFraction(value,maxDenominator=1000000)` liefert Result von
+`{ numerator: string, denominator: string }` mittels Kettenbrüchen einschließlich
+begrenzter Zwischenkonvergenten. Nur reelle Zahlen; positiver sicherer ganzzahliger
+Nenner ≤ 10^9. Ergebnis ist gekürzt, Nenner positiv, gleich gute Näherungen
+bevorzugen den kleineren Nenner. Anzeige-Näherung, keine symbolische Algebra.
+`toLatex(ast | value)` liefert einen String, schützt Bezeichner vor LaTeX-Injektion
+und erhält die Semantik durch Klammern. Brüche, Potenzen, Wurzeln, Binder,
+komplexe Zahlen und Listen erhalten mathematische Notation.
+
+Mindestens 150 zusätzliche Referenzfälle inklusive Gamma, bekannte Integrale,
+Richardson-Ableitungen, Statistik und komplexe Identitäten; zusätzlich deterministisches
+Fuzzing, Environment-JSON- und Parse-Print-Roundtrips. Eigener Benchmark nach
+Warm-up: glattes `integral(x^2,x,0,1)` unter 50 ms pro Aufruf; absolute Werte
+sind hardwareabhängig. `npm run check` und Chromium-CI bleiben verbindlich.
+Offen: ausschließlich die Modus-UI und deren Fehlerübersetzungen, Graph-Anbindung
+und interaktive Darstellung in späteren Paketen.
+
+Numerische Methoden: [NIST DLMF 5.11](https://dlmf.nist.gov/5.11) (Stirling),
+[QUADPACK dqk15](https://www.netlib.org/quadpack/dqk15.f) (Knoten, Gewichte und Fehlerskalierung).
+Gamma reduziert den Reflexionswinkel vorzeichentreu, damit winzige negative
+Argumente nicht auf die volle Periode gerundet werden.

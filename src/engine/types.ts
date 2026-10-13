@@ -26,6 +26,10 @@ export type EvalErrorCode =
   | 'E_ARGUMENT_COUNT'
   | 'E_TYPE'
   | 'E_RESOURCE_LIMIT'
+  | 'E_CONVERGENCE'
+  | 'E_CYCLE'
+  | 'E_RESERVED_NAME'
+  | 'E_ENVIRONMENT'
   | 'E_INTERNAL';
 export interface ParseError {
   readonly code: ParseErrorCode;
@@ -34,6 +38,11 @@ export interface ParseError {
 export interface EvalError {
   readonly code: EvalErrorCode;
   readonly range: SourceRange;
+  readonly details?: {
+    readonly errorEstimate: string;
+    readonly evaluations: number;
+    readonly intervals: number;
+  };
 }
 export type EngineError = ParseError | EvalError;
 export interface FormatError {
@@ -83,7 +92,22 @@ export interface CallAst extends AstBase {
   readonly nameRange: SourceRange;
   readonly args: readonly Ast[];
 }
+export interface AssignmentAst extends AstBase {
+  readonly kind: 'assignment';
+  readonly name: string;
+  readonly nameRange: SourceRange;
+  readonly expression: Ast;
+}
+export interface DefinitionAst extends AstBase {
+  readonly kind: 'definition';
+  readonly name: string;
+  readonly nameRange: SourceRange;
+  readonly parameters: readonly string[];
+  readonly expression: Ast;
+}
 export type Ast =
+  | AssignmentAst
+  | DefinitionAst
   | NumberAst
   | IdentifierAst
   | UnaryAst
@@ -97,7 +121,18 @@ export interface NumberValue {
   readonly value: Decimal;
 }
 // Declaration merging makes additional value variants possible without changing callers.
+export interface ComplexValue {
+  readonly kind: 'complex';
+  readonly re: Decimal;
+  readonly im: Decimal;
+}
+export interface ListValue {
+  readonly kind: 'list';
+  readonly values: readonly Value[];
+}
 export interface ValueKinds {
+  readonly complex: ComplexValue;
+  readonly list: ListValue;
   readonly number: NumberValue;
 }
 export type Value = ValueKinds[keyof ValueKinds];
@@ -107,6 +142,13 @@ export type Arity = number | { readonly min: number; readonly max?: number };
 export interface FunctionContext {
   readonly angleMode: AngleMode;
   readonly range: SourceRange;
+  readonly complex?: ComplexMode;
+  readonly numerical?: NumericalOptions;
+  readonly evaluate?: (
+    ast: Ast,
+    bindings?: Readonly<Record<string, Value>>,
+  ) => Result<Value, EvalError>;
+  readonly isReserved?: (name: string) => boolean;
 }
 export interface FunctionDefinition {
   readonly name: string;
@@ -115,11 +157,43 @@ export interface FunctionDefinition {
     args: readonly Value[],
     context: FunctionContext,
   ) => Result<Value, EvalError>;
+  readonly astImpl?: (
+    args: readonly Ast[],
+    context: FunctionContext,
+  ) => Result<Value, EvalError>;
   readonly doc: { readonly de: string; readonly en: string };
   readonly category: string;
 }
 export type FunctionRegistry = Readonly<Record<string, FunctionDefinition>>;
+export type ComplexMode = 'off' | 'on';
+export interface NumericalOptions {
+  readonly absoluteTolerance?: string;
+  readonly relativeTolerance?: string;
+  readonly maxIntervals?: number;
+  readonly maxEvaluations?: number;
+}
+export type SerializedValue =
+  | { readonly kind: 'number'; readonly value: string }
+  | { readonly kind: 'complex'; readonly re: string; readonly im: string }
+  | { readonly kind: 'list'; readonly values: readonly SerializedValue[] };
+export interface UserFunction {
+  readonly parameters: readonly string[];
+  readonly expression: Ast;
+}
+export interface Environment {
+  readonly version: 1;
+  readonly variables: Readonly<Record<string, SerializedValue>>;
+  readonly functions: Readonly<Record<string, UserFunction>>;
+  readonly history: readonly SerializedValue[];
+}
+export interface Execution {
+  readonly value: Value | null;
+  readonly environment: Environment;
+}
 export interface EvaluationContext {
+  readonly complex?: ComplexMode;
+  readonly numerical?: NumericalOptions;
+  readonly environment?: Environment;
   readonly angleMode?: AngleMode;
   readonly percentMode?: PercentMode;
   readonly variables?: Readonly<Record<string, Value>>;
@@ -131,6 +205,14 @@ export interface FormatOptions {
   readonly digits?: number;
   readonly locale?: string;
   readonly grouping?: boolean;
+}
+export interface ValueFormatOptions extends FormatOptions {
+  readonly complexForm?: 'rectangular' | 'polar';
+  readonly angleMode?: AngleMode;
+}
+export interface Fraction {
+  readonly numerator: string;
+  readonly denominator: string;
 }
 export interface LocalizedNumberOptions {
   readonly locale?: string;

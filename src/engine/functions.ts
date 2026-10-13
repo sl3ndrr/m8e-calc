@@ -1,85 +1,9 @@
 import type Decimal from 'decimal.js';
-import type {
-  Arity,
-  FunctionContext,
-  FunctionDefinition,
-  FunctionRegistry,
-  Value,
-} from './types.ts';
-import {
-  acceptsArity,
-  checkedNumber,
-  D,
-  failure,
-  Guard,
-  NumericFault,
-  requireDomain,
-} from './numeric.ts';
+import type { FunctionDefinition, FunctionRegistry } from './types.ts';
+import { Guard, D, requireDomain } from './numeric.ts';
+import { define, unary, binary } from './functionHelpers.ts';
+import { scientificDefinitions } from './scientificFunctions.ts';
 import { fromRadians, sineCosine } from './trigonometry.ts';
-
-type NumericImplementation = (
-  args: readonly Decimal[],
-  context: FunctionContext,
-) => Decimal;
-
-function define(
-  name: string,
-  arity: Arity,
-  category: string,
-  de: string,
-  en: string,
-  compute: NumericImplementation,
-): FunctionDefinition {
-  return Object.freeze({
-    name,
-    arity,
-    category,
-    doc: Object.freeze({ de, en }),
-    impl: (args: readonly Value[], context: FunctionContext) => {
-      try {
-        if (!acceptsArity(arity, args.length))
-          return failure('E_ARGUMENT_COUNT', context.range);
-        const numbers: Decimal[] = [];
-        for (const arg of args) {
-          if (arg.kind !== 'number') return failure('E_TYPE', context.range);
-          const normalized = checkedNumber(arg.value, context.range);
-          if (!normalized.ok) return normalized;
-          numbers.push(normalized.value.value);
-        }
-        return checkedNumber(compute(numbers, context), context.range);
-      } catch (error) {
-        return failure(
-          error instanceof NumericFault ? error.code : 'E_INTERNAL',
-          context.range,
-        );
-      }
-    },
-  });
-}
-
-function unary(
-  name: string,
-  category: string,
-  de: string,
-  en: string,
-  compute: (value: Decimal, context: FunctionContext) => Decimal,
-): FunctionDefinition {
-  return define(name, 1, category, de, en, (args, context) =>
-    compute(args[0] ?? new D(0), context),
-  );
-}
-
-function binary(
-  name: string,
-  category: string,
-  de: string,
-  en: string,
-  compute: (a: Decimal, b: Decimal, context: FunctionContext) => Decimal,
-): FunctionDefinition {
-  return define(name, 2, category, de, en, (args, context) =>
-    compute(args[0] ?? new D(0), args[1] ?? new D(0), context),
-  );
-}
 
 function root(order: Decimal, radicand: Decimal): Decimal {
   requireDomain(order.isInteger() && !order.isZero());
@@ -106,8 +30,8 @@ const definitions: readonly FunctionDefinition[] = [
   unary(
     'sqrt',
     'algebra',
-    'Quadratwurzel (x ≥ 0).',
-    'Square root (x ≥ 0).',
+    'Quadratwurzel; komplexer Hauptzweig bei complex:on.',
+    'Square root; complex principal branch with complex:on.',
     (x) => {
       requireDomain(x.gte(0));
       return x.sqrt();
@@ -138,8 +62,8 @@ const definitions: readonly FunctionDefinition[] = [
   unary(
     'ln',
     'exponential',
-    'Natürlicher Logarithmus (x > 0).',
-    'Natural logarithm (x > 0).',
+    'Natürlicher Logarithmus; komplexer Hauptzweig bei complex:on.',
+    'Natural logarithm; complex principal branch with complex:on.',
     (x) => {
       requireDomain(x.gt(0));
       return x.ln();
@@ -302,6 +226,12 @@ const definitions: readonly FunctionDefinition[] = [
 
 export const functionRegistry: FunctionRegistry = Object.freeze(
   Object.fromEntries(
-    definitions.map((definition) => [definition.name, definition]),
+    [...definitions, ...scientificDefinitions].map((definition) => [
+      definition.name,
+      Object.freeze({
+        ...definition,
+        doc: Object.freeze({ ...definition.doc }),
+      }),
+    ]),
   ),
 );

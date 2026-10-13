@@ -33,3 +33,27 @@ console.log(
 );
 if (results.some(({ meanMilliseconds }) => meanMilliseconds >= 1))
   process.exitCode = 1;
+
+const integralExpression = 'integral(x^2,x,0,1)';
+for (let i = 0; i < 50; i++) evaluateString(integralExpression);
+const integralTimes = [];
+for (let i = 0; i < 100; i++) {
+  const start = performance.now();
+  const result = evaluateString(integralExpression);
+  if (!result.ok) throw new Error(JSON.stringify(result.error));
+  integralTimes.push(performance.now() - start);
+}
+const integralMaximum = Math.max(...integralTimes);
+console.log(
+  JSON.stringify(
+    {
+      expression: integralExpression,
+      maximumMilliseconds: integralMaximum,
+      meanMilliseconds:
+        integralTimes.reduce((a, b) => a + b, 0) / integralTimes.length,
+    },
+    null,
+    2,
+  ),
+);
+if (integralMaximum >= 50) process.exitCode = 1;

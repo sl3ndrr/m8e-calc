@@ -56,8 +56,8 @@ class Lexer {
       return { kind: 'number', text, range: { start, end } };
     }
     const name = /^[a-zA-Z_][a-zA-Z_0-9]*/u.exec(tail)?.[0];
-    if (name !== undefined || character === 'π') {
-      const text = name ?? 'π';
+    if (name !== undefined || 'πφτ'.includes(character)) {
+      const text = name ?? character;
       this.position += text.length;
       return { kind: 'identifier', text, range: { start, end: this.position } };
     }
@@ -66,7 +66,7 @@ class Lexer {
       ({ '−': '-', '×': '*', '·': '*', '÷': '/' } as Record<string, string>)[
         character
       ] ?? character;
-    if ('+-*/^!%'.includes(normalized))
+    if ('+-*/^!%='.includes(normalized))
       return {
         kind: 'operator',
         text: normalized,
@@ -128,7 +128,41 @@ class Parser {
 
   parse(): Ast {
     if (this.at('eof')) throw new ParseFault('E_SYNTAX', this.current.range);
-    const ast = this.sum();
+    let ast = this.sum();
+    if (this.current.text === '=') {
+      this.consume();
+      const expression = this.sum();
+      if (ast.kind === 'identifier') {
+        ast = this.node(
+          {
+            kind: 'assignment',
+            name: ast.name,
+            nameRange: ast.range,
+            expression,
+            range: { start: ast.range.start, end: expression.range.end },
+          },
+          [expression],
+        );
+      } else if (
+        ast.kind === 'call' &&
+        ast.args.length > 0 &&
+        ast.args.every((a) => a.kind === 'identifier')
+      ) {
+        ast = this.node(
+          {
+            kind: 'definition',
+            name: ast.name,
+            nameRange: ast.nameRange,
+            parameters: ast.args.map((a) =>
+              a.kind === 'identifier' ? a.name : '',
+            ),
+            expression,
+            range: { start: ast.range.start, end: expression.range.end },
+          },
+          [expression],
+        );
+      } else throw new ParseFault('E_UNEXPECTED_TOKEN', ast.range);
+    }
     if (!this.at('eof'))
       throw new ParseFault(
         this.current.kind === ')' ? 'E_UNEXPECTED_PAREN' : 'E_UNEXPECTED_TOKEN',
@@ -276,7 +310,7 @@ class Parser {
     }
     if (token.kind === 'identifier') {
       this.consume();
-      if (token.text !== 'π' && this.at('(')) {
+      if (!['π', 'φ', 'τ'].includes(token.text) && this.at('(')) {
         this.consume();
         const args: Ast[] = [];
         if (!this.at(')')) {
