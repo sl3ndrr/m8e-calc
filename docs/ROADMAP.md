@@ -11,7 +11,7 @@ Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet akzeptiert und integrie
 - [ ] 7 Engine wissenschaftlich — wissenschaftliche Registry, komplexe Zahlen, Σ/∫/d/dx, CODATA 2022, Environment und Export (PR `feat/engine-scientific`; Vertrag in `ENGINE.md`, Abnahme vor Merge).
 - [ ] 8 Wissenschaftlicher Modus — Editor/Ergebnis, Tastenfeld, Konstanten und persistente Definitionen für Physik/Mathematik (PR `feat/scientific-mode`; Details in `SCIENTIFIC_MODE.md`, Abnahme vor Merge). AP9 ergänzt den Informatik-Kontext.
 - [ ] 9 Programmierer-Panel — BigInt-Wörter, BitGrid, Basisanzeige, opt-in Parser, IEEE-754 und Unicode im AP8-Informatik-Kontext (PR `feat/programmer-panel`, Abnahme vor Merge).
-- [ ] 10 Einheiten-Engine — große Einheitenauswahl und geprüfte Umrechnungen.
+- [ ] 10 Einheiten-Engine — 286 Einheiten in 32 Kategorien, Decimal-Umrechnung, Suche/Parser/Compound-Ausgabe und unabhängige Referenz-/Paartests (PR `feat/units-engine`; Vertrag in `UNITS.md`, Abnahme vor Merge).
 - [ ] 11 Umrechner.
 - [ ] 12 Graph-Engine — reine 2D-Graphberechnung.
 - [ ] 13 Graphen-Modus — 2D-Plotter und Interaktion.
