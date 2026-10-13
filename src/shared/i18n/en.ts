@@ -1,4 +1,5 @@
-import type {
+import type { Dictionary } from '../i18n';
+export const en: Dictionary = {
   "convert.title": "Unit converter",
   "convert.eyebrow": "UNITS · LIVE",
   "convert.subtitle": "One value. Every unit. Precisely connected.",
@@ -46,8 +47,6 @@ import type {
   "convert.error.E_UNIT_QUERY": "Query not recognized. Example: 5 km in mi.",
   "convert.error.E_UNIT_COMPOUND": "Compound output is unavailable for these units.",
   "convert.error.E_UNIT_DYNAMIC_RATE": "Dynamic rates are unavailable.",
- Dictionary } from '../i18n';
-export const en: Dictionary = {
   'programmer.width': 'Word width',
   'programmer.signMode': 'Signedness',
   'programmer.signed': 'Signed',

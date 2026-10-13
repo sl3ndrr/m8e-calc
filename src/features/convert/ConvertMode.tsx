@@ -138,7 +138,7 @@ export default function ConvertMode() {
   }
   return <section ref={root} className="convert-mode" aria-label={t('convert.title', locale)}>
     <header className="convert-heading"><div><p className="shell-eyebrow">{t('convert.eyebrow', locale)}</p><h1>{t('convert.title', locale)}</h1></div><p>{t('convert.subtitle', locale)}</p></header>
-    <div ref={quick} className="convert-quick" onKeyDown={event => { if (event.key === 'Enter') { event.preventDefault(); applyQuery(); } }}>
+    <div ref={quick} role="group" aria-label={t("convert.quick", locale)} className="convert-quick" onKeyDown={event => { if (event.key === 'Enter') { event.preventDefault(); applyQuery(); } }}>
       <TextField label={t('convert.quick', locale)} description={t('convert.quickHint', locale)} value={query} onChange={value => { setQuery(value); setQueryError(null); }} isInvalid={!!queryError} errorMessage={queryError ? t(`convert.error.${queryError}`, locale) : undefined} />
       <Button onPress={applyQuery}>{t('convert.apply', locale)}</Button>
     </div>
