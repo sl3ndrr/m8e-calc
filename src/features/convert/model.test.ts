@@ -1,11 +1,23 @@
 import { describe, expect, it } from 'vitest';
 import {
-  categoryFor, categoryIndex, compoundText, convertReducer, filteredCategories,
-  historyDecision, historyPayload, initialConvertState, isPair, numericText,
-  parseInput, restorePayload, resultsFor, sortedUnits,
+  categoryFor,
+  categoryIndex,
+  compoundText,
+  convertReducer,
+  filteredCategories,
+  historyDecision,
+  historyPayload,
+  initialConvertState,
+  isPair,
+  numericText,
+  parseInput,
+  restorePayload,
+  resultsFor,
+  sortedUnits,
 } from './model';
 import type { HistoryEntry } from '../../shared/history';
-const query = (text: string, locale = 'de') => convertReducer(initialConvertState(), { type: 'query', text, locale });
+const query = (text: string, locale = 'de') =>
+  convertReducer(initialConvertState(), { type: 'query', text, locale });
 describe('converter adapter', () => {
   it('keeps exact values through conversion, target editing and swapping', () => {
     let state = query('5 km in mi');
@@ -13,7 +25,13 @@ describe('converter adapter', () => {
     state = convertReducer(state, { type: 'swap' });
     expect(state.fromId).toBe('mi');
     expect(Number(resultsFor(state).km)).toBeCloseTo(5, 12);
-    state = convertReducer(state, { type: 'edit', side: 'to', text: '10,5', locale: 'de', grouping: true });
+    state = convertReducer(state, {
+      type: 'edit',
+      side: 'to',
+      text: '10,5',
+      locale: 'de',
+      grouping: true,
+    });
     expect(Number(resultsFor(state).km)).toBeCloseTo(10.5, 12);
     expect(state.draft).toEqual({ side: 'to', text: '10,5' });
   });
@@ -33,7 +51,13 @@ describe('converter adapter', () => {
     expect(query('5 km in kg').error).toBe('E_UNIT_CATEGORY');
   });
   it('retains invalid drafts and never displays a stale result', () => {
-    const state = convertReducer(query('5 km in mi'), { type: 'edit', side: 'from', text: 'oops', locale: 'de', grouping: true });
+    const state = convertReducer(query('5 km in mi'), {
+      type: 'edit',
+      side: 'from',
+      text: 'oops',
+      locale: 'de',
+      grouping: true,
+    });
     expect(state.draft?.text).toBe('oops');
     expect(resultsFor(state)).toEqual({});
     expect(convertReducer(state, { type: 'swap' })).toBe(state);
@@ -42,22 +66,55 @@ describe('converter adapter', () => {
   });
   it('restores only validated pairs and finite allowed values', () => {
     const state = query('5 km in mi');
-    expect(restorePayload(historyPayload(state))).toEqual({ categoryId: 'length', fromId: 'km', toId: 'mi', value: '5' });
-    expect(restorePayload({ categoryId: 'length', fromId: 'km', toId: 'kg', value: '5' })).toBeNull();
-    expect(isPair({ categoryId: 'length', fromId: 'km', toId: 'mi' })).toBe(true);
-    expect(restorePayload({ categoryId: 'length', fromId: 'km', toId: 'mi', value: 'NaN' })).toBeNull();
+    expect(restorePayload(historyPayload(state))).toEqual({
+      categoryId: 'length',
+      fromId: 'km',
+      toId: 'mi',
+      value: '5',
+    });
+    expect(
+      restorePayload({
+        categoryId: 'length',
+        fromId: 'km',
+        toId: 'kg',
+        value: '5',
+      }),
+    ).toBeNull();
+    expect(isPair({ categoryId: 'length', fromId: 'km', toId: 'mi' })).toBe(
+      true,
+    );
+    expect(
+      restorePayload({
+        categoryId: 'length',
+        fromId: 'km',
+        toId: 'mi',
+        value: 'NaN',
+      }),
+    ).toBeNull();
   });
   it('filters categories, sorts scale sizes and formats without changing stored precision', () => {
-    expect(filteredCategories('laenge', 'de').map(c => c.id)).toEqual(['length']);
+    expect(filteredCategories('laenge', 'de').map((c) => c.id)).toEqual([
+      'length',
+    ]);
     const units = sortedUnits(categoryFor('length'), 'size', 'de');
     expect(units[0]?.id).toBe('nm');
-    expect(numericText('1234.567', 'm', { locale: 'de', digits: 6, grouping: true })).toBe('1.234,57');
+    expect(
+      numericText('1234.567', 'm', { locale: 'de', digits: 6, grouping: true }),
+    ).toBe('1.234,57');
     expect(compoundText(query('40 in in ft'), 'en')).toBe('3 ft 4 in');
     expect(compoundText(query('3661.5 s in h', 'en'), 'en')).toBe('1:01:01.5');
   });
   it('skips zero and unchanged history; replaces consecutive pairs', () => {
     const state = query('5 km in mi');
-    const latest: HistoryEntry = { id: '1', mode: 'convert', ts: 1, pinned: true, input: '', result: '', payload: historyPayload(state) };
+    const latest: HistoryEntry = {
+      id: '1',
+      mode: 'convert',
+      ts: 1,
+      pinned: true,
+      input: '',
+      result: '',
+      payload: historyPayload(state),
+    };
     expect(historyDecision(initialConvertState())).toBe('skip');
     expect(historyDecision(state)).toBe('add');
     expect(historyDecision(state, latest)).toBe('skip');

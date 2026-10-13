@@ -43,10 +43,22 @@ export function Select({
   ...props
 }: SelectProps) {
   const items = options.map((option) => ({ ...option }));
-  const groups = [...new Set(items.map(item => item.group).filter((group): group is string => !!group))];
+  const groups = [
+    ...new Set(
+      items
+        .map((item) => item.group)
+        .filter((group): group is string => !!group),
+    ),
+  ];
   const renderItem = (item: SelectOption) => (
-    <ListBoxItem key={item.id} id={item.id} textValue={item.label} className="ui-select-item">
-      <StateLayer />{item.label}
+    <ListBoxItem
+      key={item.id}
+      id={item.id}
+      textValue={item.label}
+      className="ui-select-item"
+    >
+      <StateLayer />
+      {item.label}
     </ListBoxItem>
   );
   const content = (
@@ -66,13 +78,19 @@ export function Select({
         </Button>
       )}
       <Popover>
-        <ListBox disabledKeys={items.filter(item => item.isDisabled).map(item => item.id)}>
-          {groups.length ? groups.map(group => (
-            <ListBoxSection key={group} id={group}>
-              <Header className="ui-select-heading">{group}</Header>
-              {items.filter(item => item.group === group).map(renderItem)}
-            </ListBoxSection>
-          )) : items.map(renderItem)}
+        <ListBox
+          disabledKeys={items
+            .filter((item) => item.isDisabled)
+            .map((item) => item.id)}
+        >
+          {groups.length
+            ? groups.map((group) => (
+                <ListBoxSection key={group} id={group}>
+                  <Header className="ui-select-heading">{group}</Header>
+                  {items.filter((item) => item.group === group).map(renderItem)}
+                </ListBoxSection>
+              ))
+            : items.map(renderItem)}
         </ListBox>
       </Popover>
       {description && <Text slot="description">{description}</Text>}
@@ -81,10 +99,7 @@ export function Select({
   );
   if (searchable)
     return (
-      <ComboBox
-        {...props}
-        className={`ui-select ${className}`}
-      >
+      <ComboBox {...props} className={`ui-select ${className}`}>
         {content}
       </ComboBox>
     );
@@ -116,4 +131,3 @@ export function Select({
     </AriaSelect>
   );
 }
-

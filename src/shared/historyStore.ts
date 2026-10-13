@@ -56,12 +56,20 @@ export function createHistoryStore(
           return snapshot;
         },
         replace: (entryId, data) => {
-          const previous = get().entries.find(entry => entry.id === entryId);
+          const previous = get().entries.find((entry) => entry.id === entryId);
           if (!previous) return;
           const entry = { ...previous, ...data, ts: now() };
-          if (!isHistoryEntry(entry)) throw new TypeError('Invalid history entry');
+          if (!isHistoryEntry(entry))
+            throw new TypeError('Invalid history entry');
           const snapshot: HistoryEntry = JSON.parse(JSON.stringify(entry));
-          set(state => ({ entries: trimHistory(state.entries.map(item => item.id === entryId ? snapshot : item), state.limit) }));
+          set((state) => ({
+            entries: trimHistory(
+              state.entries.map((item) =>
+                item.id === entryId ? snapshot : item,
+              ),
+              state.limit,
+            ),
+          }));
         },
         remove: (id) =>
           set((state) => ({
@@ -115,4 +123,3 @@ export function createHistoryStore(
 export const useHistoryStore = createHistoryStore(
   safeStorage(() => window.localStorage),
 );
-

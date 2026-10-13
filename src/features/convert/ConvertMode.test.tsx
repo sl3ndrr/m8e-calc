@@ -10,36 +10,70 @@ import { getMode } from '../../app/modeRegistry';
 import { t } from '../../shared/i18n';
 beforeEach(() => {
   useAppStore.setState({ locale: 'de' });
-  useSettingsStore.getState().updateSettings({ language: 'de', motionLevel: 'off' });
+  useSettingsStore
+    .getState()
+    .updateSettings({ language: 'de', motionLevel: 'off' });
   useHistoryStore.getState().resetHistory();
-  useConvertStore.getState().update({ favorites: [], recent: [], digits: 8, notation: 'auto', compound: false, sort: 'system' });
+  useConvertStore
+    .getState()
+    .update({
+      favorites: [],
+      recent: [],
+      digits: 8,
+      notation: 'auto',
+      compound: false,
+      sort: 'system',
+    });
 });
 afterEach(() => vi.useRealTimers());
 it('converts localized source and target inputs and swaps without rounding the model', async () => {
-  const user = userEvent.setup(); render(<ConvertMode />);
+  const user = userEvent.setup();
+  render(<ConvertMode />);
   await user.clear(screen.getByRole('textbox', { name: t('convert.from') }));
-  await user.type(screen.getByRole('textbox', { name: t('convert.from') }), '5');
-  expect(screen.getByRole('textbox', { name: t('convert.to') })).toHaveValue('3,106856');
+  await user.type(
+    screen.getByRole('textbox', { name: t('convert.from') }),
+    '5',
+  );
+  expect(screen.getByRole('textbox', { name: t('convert.to') })).toHaveValue(
+    '3,106856',
+  );
   await user.click(screen.getByRole('button', { name: t('convert.swap') }));
-  expect(screen.getByRole('textbox', { name: t('convert.to') })).toHaveValue('5');
+  expect(screen.getByRole('textbox', { name: t('convert.to') })).toHaveValue(
+    '5',
+  );
   await user.clear(screen.getByRole('textbox', { name: t('convert.to') }));
-  await user.type(screen.getByRole('textbox', { name: t('convert.to') }), '10,5');
-  expect(screen.getByRole('textbox', { name: t('convert.from') })).not.toHaveValue('5');
+  await user.type(
+    screen.getByRole('textbox', { name: t('convert.to') }),
+    '10,5',
+  );
+  expect(
+    screen.getByRole('textbox', { name: t('convert.from') }),
+  ).not.toHaveValue('5');
 });
 it('applies quick entry, keyboard focus and domain errors', async () => {
-  const user = userEvent.setup(); render(<ConvertMode />);
+  const user = userEvent.setup();
+  render(<ConvertMode />);
   await user.keyboard('/');
-  expect(screen.getByRole('textbox', { name: t('convert.quick') })).toHaveFocus();
-  await user.type(screen.getByRole('textbox', { name: t('convert.quick') }), '72 °F -> °C{Enter}');
+  expect(
+    screen.getByRole('textbox', { name: t('convert.quick') }),
+  ).toHaveFocus();
+  await user.type(
+    screen.getByRole('textbox', { name: t('convert.quick') }),
+    '72 °F -> °C{Enter}',
+  );
   expect(screen.getByRole('heading', { name: 'Temperatur' })).toBeVisible();
-  expect(screen.getByRole('textbox', { name: t('convert.to') })).toHaveValue('22,222222');
+  expect(screen.getByRole('textbox', { name: t('convert.to') })).toHaveValue(
+    '22,222222',
+  );
   const from = screen.getByRole('textbox', { name: t('convert.from') });
-  await user.clear(from); await user.type(from, '-1000');
+  await user.clear(from);
+  await user.type(from, '-1000');
   expect(screen.getByText(t('convert.error.E_UNIT_DOMAIN'))).toBeVisible();
   expect(screen.queryByLabelText(t('convert.result'))).not.toBeInTheDocument();
 });
 it('records after 1.5s quiet, replaces the pair, preserves pins, restores and cancels on unmount', () => {
-  vi.useFakeTimers(); const view = render(<ConvertMode />);
+  vi.useFakeTimers();
+  const view = render(<ConvertMode />);
   const from = screen.getByRole('textbox', { name: t('convert.from') });
   fireEvent.change(from, { target: { value: '5' } });
   act(() => vi.advanceTimersByTime(1499));
@@ -47,29 +81,47 @@ it('records after 1.5s quiet, replaces the pair, preserves pins, restores and ca
   fireEvent.change(from, { target: { value: '6' } });
   act(() => vi.advanceTimersByTime(1500));
   const entry = useHistoryStore.getState().entries[0];
-  expect(entry?.payload).toMatchObject({ value: '6', fromId: 'km', toId: 'mi' });
+  expect(entry?.payload).toMatchObject({
+    value: '6',
+    fromId: 'km',
+    toId: 'mi',
+  });
   if (!entry) throw Error('Missing history');
   act(() => useHistoryStore.getState().togglePin(entry.id));
   fireEvent.change(from, { target: { value: '7' } });
   act(() => vi.advanceTimersByTime(1500));
   expect(useHistoryStore.getState().entries).toHaveLength(1);
   expect(useHistoryStore.getState().entries[0]?.pinned).toBe(true);
-  act(() => { getMode('convert').historyAdapter.restore(entry); });
+  act(() => {
+    getMode('convert').historyAdapter.restore(entry);
+  });
   expect(from).toHaveValue('6');
   act(() => vi.advanceTimersByTime(2000));
-  expect(useHistoryStore.getState().entries[0]?.payload).toMatchObject({ value: '7' });
+  expect(useHistoryStore.getState().entries[0]?.payload).toMatchObject({
+    value: '7',
+  });
   fireEvent.change(from, { target: { value: '8' } });
-  view.unmount(); act(() => vi.advanceTimersByTime(2000));
+  view.unmount();
+  act(() => vi.advanceTimersByTime(2000));
   expect(useHistoryStore.getState().entries).toHaveLength(1);
 });
 it('groups searchable units with favorites first and filters categories', async () => {
-  const user = userEvent.setup(); render(<ConvertMode />);
+  const user = userEvent.setup();
+  render(<ConvertMode />);
   await user.click(screen.getByRole('button', { name: t('convert.favorite') }));
   expect(useConvertStore.getState().favorites).toHaveLength(1);
   const picker = screen.getByRole('combobox', { name: t('convert.fromUnit') });
-  await user.clear(picker); await user.type(picker, 'Kilometer');
-  expect(await screen.findByRole('option', { name: 'km · Kilometer' })).toBeVisible();
+  await user.clear(picker);
+  await user.type(picker, 'Kilometer');
+  expect(
+    await screen.findByRole('option', { name: 'km · Kilometer' }),
+  ).toBeVisible();
   await user.keyboard('{ArrowDown}{Enter}');
-  await user.type(screen.getByRole('searchbox', { name: t('convert.searchCategories') }), 'Temperatur');
-  expect(screen.getByRole('button', { name: 'Temperatur', exact: true })).toBeVisible();
+  await user.type(
+    screen.getByRole('searchbox', { name: t('convert.searchCategories') }),
+    'Temperatur',
+  );
+  expect(
+    screen.getByRole('button', { name: 'Temperatur', exact: true }),
+  ).toBeVisible();
 });
