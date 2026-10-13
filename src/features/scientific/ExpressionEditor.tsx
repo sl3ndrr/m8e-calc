@@ -1,5 +1,5 @@
 import { useEffect, useImperativeHandle, useRef, type Ref } from 'react';
-import { Compartment, EditorState, Prec } from '@codemirror/state';
+import { Annotation, Compartment, EditorState, Prec } from '@codemirror/state';
 import {
   EditorView,
   keymap,
@@ -51,6 +51,7 @@ interface Props {
   onEvaluate: () => void;
   onBrowse: (direction: -1 | 1) => void;
 }
+const externalChange = Annotation.define<boolean>();
 const language = StreamLanguage.define({
   token(stream) {
     if (stream.eatSpace()) return null;
@@ -158,16 +159,24 @@ function completions(locale: Locale) {
     ],
   });
 }
-export default function ExpressionEditor(props: Props) {
+export default function ExpressionEditor({
+  ref,
+  value,
+  locale,
+  error,
+  onChange,
+  onEvaluate,
+  onBrowse,
+}: Props) {
   const host = useRef<HTMLDivElement>(null),
     view = useRef<EditorView | null>(null);
-  const callbacks = useRef(props);
+  const callbacks = useRef({ value, locale, onChange, onEvaluate, onBrowse });
   const completionConfig = useRef(new Compartment());
   useEffect(() => {
-    callbacks.current = props;
+    callbacks.current = { value, locale, onChange, onEvaluate, onBrowse };
   });
   useImperativeHandle(
-    props.ref,
+    ref,
     () => ({
       focus: () => view.current?.focus(),
       insert: (insertion) => {
@@ -269,7 +278,10 @@ export default function ExpressionEditor(props: Props) {
             ...historyKeymap,
           ]),
           EditorView.updateListener.of((update) => {
-            if (update.docChanged)
+            if (
+              update.docChanged &&
+              !update.transactions.some((tr) => tr.annotation(externalChange))
+            )
               callbacks.current.onChange(update.state.doc.toString());
           }),
         ],
@@ -283,28 +295,34 @@ export default function ExpressionEditor(props: Props) {
   }, []);
   useEffect(() => {
     const editor = view.current;
-    if (!editor || editor.state.doc.toString() === props.value) return;
+    if (!editor || editor.state.doc.toString() === value) return;
     editor.dispatch({
-      changes: { from: 0, to: editor.state.doc.length, insert: props.value },
-      selection: { anchor: props.value.length },
+      changes: { from: 0, to: editor.state.doc.length, insert: value },
+      selection: { anchor: value.length },
+      annotations: externalChange.of(true),
     });
-  }, [props.value]);
+  }, [value]);
   useEffect(() => {
     const editor = view.current;
     if (!editor) return;
     editor.dispatch({
-      effects: completionConfig.current.reconfigure(completions(props.locale)),
+      effects: completionConfig.current.reconfigure(completions(locale)),
     });
     editor.contentDOM.setAttribute(
       'aria-label',
-      t('scientific.expression', props.locale),
+      t('scientific.expression', locale),
     );
-  }, [props.locale]);
+  }, [locale]);
   useEffect(() => {
     const editor = view.current;
     if (!editor) return;
-    const error = props.error;
     editor.contentDOM.setAttribute('aria-invalid', String(!!error));
+    editor.contentDOM.setAttribute(
+      'aria-describedby',
+      error
+        ? 'scientific-editor-help scientific-editor-error'
+        : 'scientific-editor-help',
+    );
     editor.dispatch(
       setDiagnostics(
         editor.state,
@@ -317,12 +335,12 @@ export default function ExpressionEditor(props: Props) {
                   Math.max(error.range.end, error.range.start),
                 ),
                 severity: 'error',
-                message: t(errorKey(error), props.locale),
+                message: t(errorKey(error), locale),
               },
             ]
           : [],
       ),
     );
-  }, [props.error, props.locale, props.value]);
+  }, [error, locale, value]);
   return <div ref={host} className="scientific-editor" />;
 }

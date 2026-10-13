@@ -267,7 +267,11 @@ export default function ScientificMode() {
               {t('scientific.hint', locale)}
             </p>
             {error && (
-              <p className="scientific-error" role="alert">
+              <p
+                id="scientific-editor-error"
+                className="scientific-error"
+                role="alert"
+              >
                 {t(errorKey(error), locale)}{' '}
                 <span>({error.range.start + 1})</span>
               </p>

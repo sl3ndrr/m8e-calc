@@ -166,7 +166,7 @@ export function ScientificKeypad({
         <KeypadKey
           id="equals"
           colorRole="equals"
-          label={t('scientific.evaluate', locale)}
+          label={t('simple.equals', locale)}
           onPress={evaluate}
         >
           =
