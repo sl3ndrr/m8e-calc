@@ -247,7 +247,7 @@ export const de = {
   'scientific.subtitle': 'Von der Idee zum Ergebnis.',
   'scientific.expression': 'Ausdruck',
   'scientific.hint':
-    'Enter berechnet · ↑/↓ Verlauf · Esc leert · Strg+Leertaste Vorschläge · Dezimalpunkt, Komma trennt Argumente',
+    'Enter berechnet · ↑/↓ Verlauf · Esc leert · Strg+Leertaste Vorschläge · Tab übernimmt · Dezimalpunkt, Komma trennt Argumente',
   'scientific.evaluate': 'Auswerten',
   'scientific.clear': 'Ausdruck leeren',
   'scientific.preview': 'Live-Vorschau',

@@ -245,7 +245,7 @@ export const en: Dictionary = {
   'scientific.subtitle': 'From idea to result.',
   'scientific.expression': 'Expression',
   'scientific.hint':
-    'Enter evaluates · ↑/↓ history · Esc clears · Ctrl+Space suggestions · Decimal point, commas separate arguments',
+    'Enter evaluates · ↑/↓ history · Esc clears · Ctrl+Space suggestions · Tab accepts · Decimal point, commas separate arguments',
   'scientific.evaluate': 'Evaluate',
   'scientific.clear': 'Clear expression',
   'scientific.preview': 'Live preview',

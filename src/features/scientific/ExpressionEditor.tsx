@@ -116,6 +116,10 @@ const theme = EditorView.theme({
     backgroundColor: 'var(--md-sys-color-primary-container)',
     color: 'var(--md-sys-color-on-primary-container)',
   },
+  '.cm-nonmatchingBracket': {
+    backgroundColor: 'var(--md-sys-color-error-container)',
+    color: 'var(--md-sys-color-on-error-container)',
+  },
   '.cm-tooltip': {
     border: '1px solid var(--md-sys-color-outline)',
     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
@@ -140,6 +144,8 @@ const theme = EditorView.theme({
 function completions(locale: Locale) {
   const entries = completionEntries(locale);
   return autocompletion({
+    // Tab explicitly accepts a visible completion; Enter is reserved for evaluation.
+    interactionDelay: 0,
     override: [
       (ctx: CompletionContext) => {
         const word = ctx.matchBefore(/[A-Za-z_πφτ][A-Za-z_0-9]*/);
