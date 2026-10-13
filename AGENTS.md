@@ -2,7 +2,7 @@
 
 ## Auftrag und Scope
 
-m8e-calc ist ein datenschutzfreundlicher Desktop-Browser-Taschenrechner. Die verbindliche Produktvision steht in `docs/PRODUCT_SPEC.md`, die Schichten in `docs/ARCHITECTURE.md`, die Paketfolge in `docs/ROADMAP.md`. AP1 legt die Toolchain an; AP2 liefert Theming und Design-Tokens gemäß `docs/DESIGN.md`. AP4 liefert die App-Hülle mit Registry, persistentem Verlauf, Einstellungen und i18n. AP5 liefert den reinen Rechenkern in `src/engine`; Vertrag und konservative Entscheidungen stehen in `docs/ENGINE.md`. AP6 liefert den Einfach-Modus in `src/features/simple` mit reinem Reducer, Engine-Anbindung und wiederverwendbaren Keypad-Bausteinen in `src/ui/keypad`. Die anderen Modi bleiben bis zu ihren UI-Paketen Leerzustände.
+m8e-calc ist ein datenschutzfreundlicher Desktop-Browser-Taschenrechner. Die verbindliche Produktvision steht in `docs/PRODUCT_SPEC.md`, die Schichten in `docs/ARCHITECTURE.md`, die Paketfolge in `docs/ROADMAP.md`. AP1 legt die Toolchain an; AP2 liefert Theming und Design-Tokens gemäß `docs/DESIGN.md`. AP4 liefert die App-Hülle mit Registry, persistentem Verlauf, Einstellungen und i18n. AP5 liefert den reinen Rechenkern in `src/engine`; Vertrag und konservative Entscheidungen stehen in `docs/ENGINE.md`. AP6 liefert den Einfach-Modus in `src/features/simple` mit reinem Reducer, Engine-Anbindung und wiederverwendbaren Keypad-Bausteinen in `src/ui/keypad`. AP8 liefert den Wissenschaftlich-Modus mit lazy CodeMirror/KaTeX, persistenten Definitionen und AP4-Verlauf. Details stehen in `docs/SCIENTIFIC_MODE.md`. Umrechner und Graphen bleiben bis zu ihren UI-Paketen Leerzustände.
 
 ## Arbeitsumgebung und Befehle
 

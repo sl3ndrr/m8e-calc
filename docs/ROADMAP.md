@@ -9,8 +9,8 @@ Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet akzeptiert und integrie
 - [ ] 5 Engine-Kern — Parser, stabiler AST, decimal.js-Auswertung, Registry, Zahlenformat und Fehler mit Bereichen (PR `feat/engine-core`; Vertrag in `ENGINE.md`, Abnahme vor Merge).
 - [ ] 6 Einfacher Rechner — herkömmlicher Funktionsumfang, reiner Reducer, Engine-Anbindung und Keypad/Display für AP8 (PR `feat/simple-calculator`; Abnahme vor Merge).
 - [ ] 7 Engine wissenschaftlich — wissenschaftliche Registry, komplexe Zahlen, Σ/∫/d/dx, CODATA 2022, Environment und Export (PR `feat/engine-scientific`; Vertrag in `ENGINE.md`, Abnahme vor Merge).
-- [ ] 8 Wissenschaftlicher Modus — UI für Physik, Informatik und Mathematik.
-- [ ] 9 Programmierer-Panel.
+- [ ] 8 Wissenschaftlicher Modus — Editor/Ergebnis, Tastenfeld, Konstanten und persistente Definitionen für Physik/Mathematik (PR `feat/scientific-mode`; Details in `SCIENTIFIC_MODE.md`, Abnahme vor Merge). Informatik bleibt ein AP9-Platzhalter.
+- [ ] 9 Programmierer-Panel — implementiert den vorbereiteten Informatik-Platz in AP8.
 - [ ] 10 Einheiten-Engine — große Einheitenauswahl und geprüfte Umrechnungen.
 - [ ] 11 Umrechner.
 - [ ] 12 Graph-Engine — reine 2D-Graphberechnung.

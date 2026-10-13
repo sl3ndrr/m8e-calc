@@ -1,3 +1,3 @@
-# features/scientific
+# Wissenschaftlich · AP8
 
-Reserviert für das zuständige Folgepaket; im Fundament noch keine Implementierung.
+Implementierung und Verifikation: [SCIENTIFIC_MODE.md](../../../docs/SCIENTIFIC_MODE.md).
