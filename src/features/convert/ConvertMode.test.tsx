@@ -119,7 +119,5 @@ it('groups searchable units with favorites first and filters categories', async 
     screen.getByRole('searchbox', { name: t('convert.searchCategories') }),
     'Temperatur',
   );
-  expect(
-    screen.getByRole('button', { name: 'Temperatur' }),
-  ).toBeVisible();
+  expect(screen.getByRole('button', { name: 'Temperatur' })).toBeVisible();
 });
