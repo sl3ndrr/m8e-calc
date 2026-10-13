@@ -116,7 +116,7 @@ export default function ScientificMode() {
           typeof config.signed === 'boolean' &&
           (config.overflow === 'wrap' || config.overflow === 'error')
         ) {
-          const next = {
+          const next: WordOptions = {
             width: Number(config.width) as WordOptions['width'],
             signed: config.signed,
             overflow: config.overflow,

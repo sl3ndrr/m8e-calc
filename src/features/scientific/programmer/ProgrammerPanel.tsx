@@ -165,7 +165,7 @@ export function ProgrammerPanel({
             }
             items={(['unsigned', 'signed'] as const).map((id) => ({
               id,
-              label: t('programmer.' + id, locale),
+              label: t(`programmer.${id}`, locale),
             }))}
           />
         </div>
@@ -184,7 +184,7 @@ export function ProgrammerPanel({
             }
             items={(['wrap', 'error'] as const).map((id) => ({
               id,
-              label: t('programmer.' + id, locale),
+              label: t(`programmer.${id}`, locale),
             }))}
           />
         </div>
@@ -207,7 +207,7 @@ export function ProgrammerPanel({
         onChange={(v) => setGrouping(v as BitGrouping)}
         items={(['none', 'nibble', 'byte'] as const).map((id) => ({
           id,
-          label: t('programmer.' + id, locale),
+          label: t(`programmer.${id}`, locale),
         }))}
       />
       <div className="programmer-bases">
@@ -216,7 +216,7 @@ export function ProgrammerPanel({
             locale={locale}
             key={id + value + options.width + options.signed}
             base={radix}
-            label={t('programmer.' + id, locale)}
+            label={t(`programmer.${id}`, locale)}
             value={formatBase(value, radix, options, grouping)}
             onSubmit={submit}
             copy={copy}
@@ -406,7 +406,7 @@ function IEEEView({
         {(['sign', 'exponent', 'mantissa'] as const).map((field) => (
           <TextField
             key={field + bits + width}
-            label={t('programmer.field.' + field, locale)}
+            label={t(`programmer.field.${field}`, locale)}
             defaultValue={String(parts[field])}
             onKeyDown={(e) => {
               if (e.key === 'Enter')
