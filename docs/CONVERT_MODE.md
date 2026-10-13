@@ -65,7 +65,9 @@ Playwright prüft Konvertierung, native Zwischenablage, Tastatur, Query,
 Einheitensuche, Verlauf/Restore/Persistenz, Reduced Motion und Axe.
 `e2e/convert.spec.ts` schreibt Screenshots bei 1920×1080 und 3840×2160 nach
 `test-results/`; der bestehende CI-Workflow veröffentlicht sie im Artefakt
-`playwright-results`.
+`playwright-results`. Visuell geprüfte Referenzbilder stehen in
+[Full HD](screenshots/convert-1920x1080.png) und
+[4K](screenshots/convert-3840x2160.png).
 
 ## Offen / Folge-Issues
 

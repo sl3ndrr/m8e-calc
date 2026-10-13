@@ -183,7 +183,10 @@ for (const [width, height] of [
     await expect(
       page.getByRole('textbox', { name: t('convert.to'), exact: true }),
     ).toHaveValue('3,106856');
-    const categoryCard = await page.locator('.convert-category').first().boundingBox();
+    const categoryCard = await page
+      .locator('.convert-category')
+      .first()
+      .boundingBox();
     expect(categoryCard?.height ?? 0).toBeGreaterThanOrEqual(48);
     await page.screenshot({
       path: `test-results/convert-${width}x${height}.png`,
