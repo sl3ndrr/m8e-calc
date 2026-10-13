@@ -59,15 +59,14 @@ try {
       const tooltip = page.locator(
         `[data-component="Tooltip"] [data-state="${state}"] button`,
       );
-      await page.keyboard.press('Tab');
-      await tooltip.focus();
-      await expect(tooltip).toBeFocused();
+      await tooltip.hover();
       await page.getByRole('tooltip').waitFor();
       await page.screenshot({
         path: `${output}/components-${theme}-tooltip${state === 'focus' ? '-rich' : ''}.png`,
         animations: 'disabled',
       });
       await page.keyboard.press('Escape');
+      await page.mouse.move(0, 0);
       await page.getByRole('tooltip').waitFor({ state: 'hidden' });
     }
     await page.locator('[data-component="Snackbar"] button').click();

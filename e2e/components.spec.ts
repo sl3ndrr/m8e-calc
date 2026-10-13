@@ -108,3 +108,21 @@ test('reduced motion freezes morphing and JS springs; narrow gallery stays insid
     page.getByRole('button', { name: 'Akzentfarbe anpassen' }),
   ).toBeFocused();
 });
+
+test('plain and rich tooltips appear on native keyboard focus', async ({
+  page,
+}) => {
+  await page.goto('/m8e-calc/#/design');
+  for (const state of ['default', 'focus']) {
+    const trigger = page.locator(
+      `[data-component="Tooltip"] [data-state="${state}"] button`,
+    );
+    await trigger.focus();
+    await page.keyboard.press('Shift+Tab');
+    await page.keyboard.press('Tab');
+    await expect(trigger).toBeFocused();
+    await expect(page.getByRole('tooltip')).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('tooltip')).toBeHidden();
+  }
+});
