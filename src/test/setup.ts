@@ -23,3 +23,6 @@ Object.defineProperty(window, 'matchMedia', {
     removeListener: vi.fn(),
   })),
 });
+
+
+Object.defineProperty(navigator, 'language', { configurable: true, value: 'de-DE' });

@@ -52,7 +52,7 @@ describe('settings', () => {
       motionLevel: 'off',
     });
     const payload = JSON.parse(storage.getItem() ?? '{}');
-    expect(payload.version).toBe(1);
+    expect(payload.version).toBe(2);
     expect(payload.state.updateSettings).toBeUndefined();
     expect(createSettingsStore(storage).getState()).toMatchObject(
       payload.state,
@@ -109,3 +109,4 @@ describe('settings', () => {
     expect(nextThemeMode('light', 'End')).toBe('dark');
   });
 });
+

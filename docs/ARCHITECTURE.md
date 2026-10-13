@@ -15,9 +15,33 @@ Domänen dürfen reine Domänenmodule verwenden. Imports in App, UI, Features, S
 
 ## Datenfluss
 
-Im Fundament: URL-Hash → reine Funktion `parseHash` → Modus der Ansicht → aktive Navigationsbeschriftung. `useSyncExternalStore` bindet `hashchange` an React an. Alle vier Routen zeigen dieselbe Platzhalterseite. Ungültige/leere Hashes wählen Einfach, ohne zusätzliche Navigation.
+AP4 bindet den URL-Hash über `useSyncExternalStore` an die Shell. Die Registry (`src/app/modeRegistry.ts`) enthält pro Modus `id`, lokale Icon-Glyphe, `labelKey`, `React.lazy`-Komponente und transienten `historyAdapter`. Jeder Feature-Einstieg bildet einen eigenen Build-Chunk. `#/design` bleibt als lazy geladenes technisches Lab verfügbar. Leere URLs setzen den im App-Store gemerkten Modus fort (Standard `simple`); explizit unbekannte Routen wählen `simple`.
 
-Der App-Store hält die Sprache; der separate Settings-Store persistiert Theme, Akzent, Schema-Variante, Kontrast und Motion mit validierter Migration (Version 1). `src/app/theme.ts` ist der Browseradapter für Media Queries, CSS-Rollen, Theme-Meta und View Transitions. Details stehen in `docs/DESIGN.md`. Store-Sprache → typisierte i18n-Schlüssel → Texte, Dokumenttitel und `lang`. Es gibt keinen Verlauf und keine Rechenzustände. `#/design` ergänzt die technischen Hash-Routen für das Design-Lab; unbekannte Hashes zeigen weiterhin Einfach.
+Die Shell nutzt Grid-Bereiche Rail/Bühne/Verlauf. Ab 1600 px ist die Rail standardmäßig aufgeklappt. Die root-Schrift skaliert mit `clamp(12px, min(0.833333vw, 1.481481vh), 32px)`: 16 px bei Full HD, 32 px bei 4K. Die Höhenbegrenzung hält Ultrawide-Elemente kompakt; zusätzliche Breite steht den Seitenbereichen zur Verfügung. Shapes und Typografie verwenden rem-Tokens. Die Bühne begrenzt ihren Inhalt und stellt einen Inline-Size-Container für modusinterne Container Queries bereit. Unter 1280 px bleiben die Bedienelemente erreichbar.
+
+Moduswechsel benutzen Shared-Axis-Springs aus den zentralen Expressive-Tokens (`motion/react`). Ausgehende Inhalte sind während ihrer Exit-Animation inert und für Assistenztechnik verborgen. Der docked-Verlauf verändert die Grid-Spalte über `useSpring`. Reduced Motion verwendet für Modus-/Eintragswechsel nur Opacity; Layoutwechsel erfolgen sofort. Off verzichtet auf Animation. OS-Präferenzen begrenzen gespeichertes Full.
+
+### Verlauf-API
+
+`src/shared/historyStore.ts` persistiert unter `m8e-calc.history` mit Schema-Version 1. Ein Eintrag besteht aus `{ id, mode, ts, input, result, pinned, payload }`; Payloads sind JSON-Werte und werden beim Hinzufügen kopiert. `ts` sind Epoch-Millisekunden. Die globale Obergrenze ist 500, das einstellbare Limit 1–500. Pins werden bei gewöhnlicher Verdrängung bevorzugt erhalten; auch ausschließlich angeheftete Einträge überschreiten das Limit nicht. Die Ansicht zeigt nur den aktuellen Modus; Sichtbarkeit wird für alle vier Modi separat gespeichert. Version 0 migriert `timestamp` zu `ts`. Rehydration validiert Einträge und entfernt Duplikate; zukünftige Versionen und beschädigte Daten werden verworfen. Storage-Fehler lassen die Oberfläche im Speicher weiter funktionieren.
+
+```tsx
+const onRestore = useCallback((entry: HistoryEntry) => {
+  // Die Feature-UI validiert entry.payload und setzt ihren Eingabezustand.
+}, []);
+const { entries, add, restore } = useModeHistory('simple', onRestore);
+add({ input: '2 + 3', result: '5', payload: { expression: '2 + 3' } });
+```
+
+Der Hook registriert den Restore-Callback nur während der Lebenszeit des Features. Stabile Callbacks verwenden; Cleanup entfernt nur die eigene Registrierung. `restore(entry)` liefert false für einen fremden Modus oder ohne Adapter-Registrierung. Platzhalter registrieren keine Restore-Funktion und erzeugen keine Einträge. Eine verständliche Nachricht erklärt noch nicht unterstützte Wiederherstellung. Spätere Features müssen ihre Payload-Version selbst validieren.
+
+`HistorySheet` ist ab 1440 px ein benanntes Aside, darunter ein React-Aria-Modal mit Fokuscontainment und Escape. Strg+H schaltet die Sichtbarkeit um; in Einstellungen ist das Kürzel ausgesetzt. Suche und lokale Tagesgruppen liegen in reinen Hilfsfunktionen. Pins, Einzel-Löschen, Clipboard und JSON/CSV/Markdown-Export sind implementiert. CSV-Zellen werden gequotet und Formeleingaben neutralisiert; Markdown escaped Tabellenzeichen. Alles-Löschen erhält eine Undo-Snapshot-Aktion ohne Ablaufzeit und führt sie mit inzwischen hinzugefügten Einträgen zusammen. Export umfasst den aktuellen Modus, unabhängig vom Suchfilter; Einstellungen können sämtliche Modi leeren.
+
+### Einstellungen und i18n-Konvention
+
+Settings-Version 2 ergänzt Sprache (`auto/de/en`), Dezimaltrennzeichen (`auto/comma/point`), Gruppierung und Verlaufslimit. Version 0/1 wird migriert; Theme-Bootstrap erkennt auch Version 2 vor dem ersten Paint. Export enthält `{ version, settings }`; Import prüft Schema und vorhandene Felder vor einer Zustandsänderung. Alles-Zurücksetzen löscht Einstellungen, Verlauf/Sichtbarkeit und zuletzt verwendeten Modus nach Bestätigung im Dialog.
+
+`src/shared/i18n/de.ts` ist die Schlüsselquelle. `Dictionary` verlangt alle Schlüssel und Pluralformen in `en.ts`; fehlende Übersetzungen brechen den Typecheck. Neue Aufrufer verwenden `t(key, params)` mit der aktiven Sprache; `t(key, locale, params)` bleibt für vorhandene Komponenten verfügbar. Platzhalter heißen `{name}`; Pluraltexte enthalten `one` und `other` und verwenden `Intl.PluralRules`. Datums-/Zeit- und Zahlenformatierung erfolgt über `Intl`, Dezimaltrennzeichen und Gruppierung über `formatNumber(value, locale, preferences)`. Auto wählt Englisch für `en-*`, sonst Deutsch. Sprache setzt `html.lang`, Dokumenttitel und React-Aria-`I18nProvider` und wird über Settings persistiert. UI-Texte und ARIA-Namen werden ausschließlich als Schlüssel gepflegt.
 
 Für Folgepakete: Benutzereingabe → reine UI-Funktion/Reducer → Domäne → typisiertes Ergebnis/Fehler → Store/Ansicht. Fehler werden in der UI über i18n angezeigt. DOM-Zugriffe und Seiteneffekte bleiben in Adaptern. Domänen können ohne Browser getestet und später bei Bedarf in Worker eingebunden werden.
 
@@ -32,3 +56,4 @@ Hash-Routing benötigt keine Pages-Rewrites. Vite erzeugt Assets relativ zum Bas
 CI läuft bei PRs und Pushes auf main. Pages baut bei Push auf main, prüft vor Upload und deployt mit OIDC in `github-pages`. In GitHub Settings → Pages ist die Quelle GitHub Actions zu aktivieren. Nach Merge den Workflow und die URL `https://sl3ndrr.github.io/m8e-calc/` prüfen. Ein grüner PR-Smoke belegt die lokale Auslieferung des Produktionsbuilds, nicht bereits ein öffentliches Deployment.
 
 Wöchentliche Dependabot-Updates werden getrennt für npm und GitHub Actions gruppiert. Architektur- und Konventionsänderungen müssen in dieser Datei und `AGENTS.md` dokumentiert werden.
+

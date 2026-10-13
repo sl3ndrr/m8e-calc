@@ -10,7 +10,7 @@ const root = Object.entries({ ...motionProperties, ...palette }).map(
 );
 const utilities = [];
 for (const [name, value] of Object.entries(shapes)) {
-  root.push(`  --md-sys-shape-${name}: ${value}px;`);
+  root.push(`  --md-sys-shape-${name}: ${value / 16}rem;`);
   utilities.push(
     `.shape-${name} { border-radius: var(--md-sys-shape-${name}); }`,
   );
@@ -60,3 +60,4 @@ writeFileSync(
     { parser: 'css', singleQuote: true },
   ),
 );
+

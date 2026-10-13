@@ -878,16 +878,16 @@
   --md-sys-color-tertiary-fixed-dim: #efb8c8;
   --md-sys-color-on-tertiary-fixed: #31101d;
   --md-sys-color-on-tertiary-fixed-variant: #633b48;
-  --md-sys-shape-none: 0px;
-  --md-sys-shape-extra-small: 4px;
-  --md-sys-shape-small: 8px;
-  --md-sys-shape-medium: 12px;
-  --md-sys-shape-large: 16px;
-  --md-sys-shape-large-increased: 20px;
-  --md-sys-shape-extra-large: 28px;
-  --md-sys-shape-extra-large-increased: 32px;
-  --md-sys-shape-extra-extra-large: 48px;
-  --md-sys-shape-full: 9999px;
+  --md-sys-shape-none: 0rem;
+  --md-sys-shape-extra-small: 0.25rem;
+  --md-sys-shape-small: 0.5rem;
+  --md-sys-shape-medium: 0.75rem;
+  --md-sys-shape-large: 1rem;
+  --md-sys-shape-large-increased: 1.25rem;
+  --md-sys-shape-extra-large: 1.75rem;
+  --md-sys-shape-extra-large-increased: 2rem;
+  --md-sys-shape-extra-extra-large: 3rem;
+  --md-sys-shape-full: 624.9375rem;
   --md-sys-typescale-display-large-font: 'Roboto Flex', sans-serif;
   --md-sys-typescale-display-large-size: 3.5625rem;
   --md-sys-typescale-display-large-line-height: 4rem;
@@ -1495,3 +1495,4 @@
     corner-shape: squircle;
   }
 }
+
