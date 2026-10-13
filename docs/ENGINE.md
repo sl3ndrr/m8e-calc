@@ -59,11 +59,11 @@ Höhere Zahl bindet stärker:
 
 | Stufe | Operatoren / Form             | Assoziativität |
 | ----- | ----------------------------- | -------------- |
-| 5     | Primärwerte, Klammern, Aufruf  | —              |
+| 5     | Primärwerte, Klammern, Aufruf | —              |
 | 4     | Postfix `!`, `%`              | links          |
 | 3     | `^`                           | **rechts**     |
 | 2     | Präfix `+`, `-`               | rechts         |
-| 1     | `*`, `/`, implizites Produkt   | **links**      |
+| 1     | `*`, `/`, implizites Produkt  | **links**      |
 | 0     | `+`, `-`                      | links          |
 
 Die rechte Potenzseite ist `unary`: `2^-3` ist erlaubt. `2^3^2 = 512`,
@@ -141,14 +141,14 @@ Funktionsimplementierungen ab (`E_INTERNAL`).
 
 AST-Knoten sind readonly diskriminierte Objekte mit `kind` und `range`:
 
-| kind         | Zusätzliche Felder                                      |
-| ------------ | ------------------------------------------------------- |
-| `number`     | `literal: string` (Quellschreibweise, ohne Vorzeichen)    |
-| `identifier` | `name: string`                                          |
-| `unary`      | `operator: '+' | '-'`, `operand`, `operatorRange`        |
+| kind         | Zusätzliche Felder                                       |
+| ------------ | -------------------------------------------------------- |
+| `number`     | `literal: string` (Quellschreibweise, ohne Vorzeichen)   |
+| `identifier` | `name: string`                                           |
+| `unary`      | `operator: '+'                                           | '-'`, `operand`, `operatorRange` |
 | `binary`     | `operator`, `left`, `right`, `implicit`, `operatorRange` |
-| `postfix`    | `operator: '!' | '%'`, `operand`, `operatorRange`        |
-| `group`      | `expression`                                            |
+| `postfix`    | `operator: '!'                                           | '%'`, `operand`, `operatorRange` |
+| `group`      | `expression`                                             |
 | `call`       | `name`, `args: readonly Ast[]`, `nameRange`              |
 
 `SourceRange = { start: number; end: number }` ist ein **halboffenes
@@ -170,37 +170,37 @@ des allgemeinen Ausdruckslimits. `impl(args, context)` liefert
 `Result<Value, EvalError>`. `context` enthält den Winkelmodus und den Bereich
 des gesamten Aufrufs. Die Auswertung prüft die Anzahl vor den Argumenten.
 
-| Kategorie       | Funktionen                                             |
-| --------------- | ------------------------------------------------------ |
-| algebra         | sqrt, cbrt, root, abs                                   |
-| exponential     | exp, ln, log (Basis 10), log2, logb(b,x)                 |
-| trigonometry    | sin, cos, tan, asin, acos, atan, atan2(y,x)              |
-| rounding        | floor, ceil, round, trunc, sign                         |
-| aggregation     | min, max                                               |
-| arithmetic      | mod                                                    |
+| Kategorie    | Funktionen                                  |
+| ------------ | ------------------------------------------- |
+| algebra      | sqrt, cbrt, root, abs                       |
+| exponential  | exp, ln, log (Basis 10), log2, logb(b,x)    |
+| trigonometry | sin, cos, tan, asin, acos, atan, atan2(y,x) |
+| rounding     | floor, ceil, round, trunc, sign             |
+| aggregation  | min, max                                    |
+| arithmetic   | mod                                         |
 
 Neue Pakete tragen vollständige Einträge über `ctx.functions` ein; Parser und
 Auswerter kennen keine fest verdrahtete Liste von Funktionsnamen.
 
 ## Fehlercodes und Grenzen
 
-| Code                       | Art    | Bereich / Bedeutung                                      |
-| -------------------------- | ------ | -------------------------------------------------------- |
-| `E_SYNTAX`                 | Parse  | Leere Eingabe                                            |
-| `E_INVALID_NUMBER`         | Parse  | Ganzes fehlerhaftes Zahlenliteral / unvollständiger Exponent |
-| `E_UNEXPECTED_TOKEN`       | Parse  | Unerwartetes Token, Zeichen oder EOF                      |
-| `E_MISSING_PAREN`          | Parse  | Erwartete schließende Klammer, Token oder EOF             |
-| `E_UNEXPECTED_PAREN`       | Parse  | Überzählige schließende Klammer                           |
-| `E_DIVISION_BY_ZERO`       | Eval   | Divisionsoperator; bei mod/Wurzel der gesamte Aufruf      |
-| `E_DOMAIN`                 | Eval   | Potenz-/Postfixoperator oder gesamter Funktionsaufruf     |
-| `E_OVERFLOW`               | Eval   | Zahl, Operation oder Aufruf außerhalb des Zahlenbereichs |
-| `E_UNKNOWN_VARIABLE`       | Eval   | Bezeichner einschließlich fehlendem ans                  |
-| `E_UNKNOWN_FUNCTION`       | Eval   | Funktionsname                                            |
-| `E_ARGUMENT_COUNT`         | Eval   | Gesamter Aufruf                                          |
-| `E_TYPE`                   | Eval   | Nicht unterstützter Werttyp                              |
-| `E_RESOURCE_LIMIT`         | beide  | Eingabe / Knoten überschreitet Arbeitsgrenze              |
-| `E_INTERNAL`               | beide  | Unerwarteter interner oder Registry-Fehler, ohne Text     |
-| `E_INVALID_LOCALIZED_NUMBER` | Format | Gesamte lokalisierte Zahl                              |
+| Code                         | Art    | Bereich / Bedeutung                                          |
+| ---------------------------- | ------ | ------------------------------------------------------------ |
+| `E_SYNTAX`                   | Parse  | Leere Eingabe                                                |
+| `E_INVALID_NUMBER`           | Parse  | Ganzes fehlerhaftes Zahlenliteral / unvollständiger Exponent |
+| `E_UNEXPECTED_TOKEN`         | Parse  | Unerwartetes Token, Zeichen oder EOF                         |
+| `E_MISSING_PAREN`            | Parse  | Erwartete schließende Klammer, Token oder EOF                |
+| `E_UNEXPECTED_PAREN`         | Parse  | Überzählige schließende Klammer                              |
+| `E_DIVISION_BY_ZERO`         | Eval   | Divisionsoperator; bei mod/Wurzel der gesamte Aufruf         |
+| `E_DOMAIN`                   | Eval   | Potenz-/Postfixoperator oder gesamter Funktionsaufruf        |
+| `E_OVERFLOW`                 | Eval   | Zahl, Operation oder Aufruf außerhalb des Zahlenbereichs     |
+| `E_UNKNOWN_VARIABLE`         | Eval   | Bezeichner einschließlich fehlendem ans                      |
+| `E_UNKNOWN_FUNCTION`         | Eval   | Funktionsname                                                |
+| `E_ARGUMENT_COUNT`           | Eval   | Gesamter Aufruf                                              |
+| `E_TYPE`                     | Eval   | Nicht unterstützter Werttyp                                  |
+| `E_RESOURCE_LIMIT`           | beide  | Eingabe / Knoten überschreitet Arbeitsgrenze                 |
+| `E_INTERNAL`                 | beide  | Unerwarteter interner oder Registry-Fehler, ohne Text        |
+| `E_INVALID_LOCALIZED_NUMBER` | Format | Gesamte lokalisierte Zahl                                    |
 
 Nichtnullwerte müssen einen Dezimalexponenten zwischen `-10000` und `10000`
 haben. Auch Unterlauf wird als `E_OVERFLOW` gemeldet, nicht still als null.

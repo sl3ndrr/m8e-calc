@@ -28,7 +28,8 @@ export default defineConfig({
     projects: [
       {
         test: {
-          name: 'ui', environment: 'jsdom',
+          name: 'ui',
+          environment: 'jsdom',
           setupFiles: ['./src/test/setup.ts'],
           include: ['src/**/*.test.{ts,tsx}'],
           exclude: ['src/engine/**/*.test.ts'],
@@ -36,7 +37,8 @@ export default defineConfig({
       },
       {
         test: {
-          name: 'engine', environment: 'node',
+          name: 'engine',
+          environment: 'node',
           include: ['src/engine/**/*.test.ts'],
         },
       },

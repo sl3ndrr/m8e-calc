@@ -16,7 +16,7 @@ Node 24 LTS (`nvm use`), npm und das eingecheckte `package-lock.json` verwenden.
 | `npm run lint`                | ESLint und Prettier-Formatprüfung                                      |
 | `npm run typecheck`           | Alle TypeScript-Projekte prüfen                                        |
 | `npm run test`                | Vitest, Testing Library und Property-Tests                             |
-| `npm run test:engine:bench`    | Parse + Eval typischer Ausdrücke; nach Warm-up jeweils unter 1 ms      |
+| `npm run test:engine:bench`   | Parse + Eval typischer Ausdrücke; nach Warm-up jeweils unter 1 ms      |
 | `npm run test:e2e`            | Playwright mit Chromium gegen den vorher erstellten Build              |
 | `npm run screenshots:gallery` | Galerie und Overlays in Hell/Dunkel aufnehmen (Preview vorher starten) |
 | `npm run check`               | lint + typecheck + test + build + Engine-Benchmark                     |

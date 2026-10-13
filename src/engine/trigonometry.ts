@@ -7,8 +7,13 @@ const sqrt2 = new Guard(2).sqrt();
 const sqrt3 = new Guard(3).sqrt();
 const sqrt6 = new Guard(6).sqrt();
 const firstQuadrant = [
-  new Guard(0), sqrt6.sub(sqrt2).div(4), new Guard('0.5'), sqrt2.div(2),
-  sqrt3.div(2), sqrt6.add(sqrt2).div(4), new Guard(1),
+  new Guard(0),
+  sqrt6.sub(sqrt2).div(4),
+  new Guard('0.5'),
+  sqrt2.div(2),
+  sqrt3.div(2),
+  sqrt6.add(sqrt2).div(4),
+  new Guard(1),
 ];
 
 function specialSine(index: number): Decimal {
@@ -18,10 +23,14 @@ function specialSine(index: number): Decimal {
   return i > 12 ? value.neg() : value;
 }
 
-export function sineCosine(input: Decimal, mode: AngleMode): readonly [Decimal, Decimal] {
+export function sineCosine(
+  input: Decimal,
+  mode: AngleMode,
+): readonly [Decimal, Decimal] {
   const original = new Guard(input);
   requireDomain(original.abs().lte('1e30'));
-  const period = mode === 'deg' ? new Guard(360) : mode === 'grad' ? new Guard(400) : twoPi;
+  const period =
+    mode === 'deg' ? new Guard(360) : mode === 'grad' ? new Guard(400) : twoPi;
   // Keep the remainder's sign: period - a tiny negative angle would lose its
   // phase at guard precision and could incorrectly snap to a full turn.
   const magnitude = original.abs().mod(period);
@@ -36,8 +45,11 @@ export function sineCosine(input: Decimal, mode: AngleMode): readonly [Decimal, 
     return [specialSine(index), specialSine(index + 6)];
   }
   const halfPeriod = period.div(2);
-  const centered = reduced.gt(halfPeriod) ? reduced.sub(period)
-    : reduced.lt(halfPeriod.neg()) ? reduced.add(period) : reduced;
+  const centered = reduced.gt(halfPeriod)
+    ? reduced.sub(period)
+    : reduced.lt(halfPeriod.neg())
+      ? reduced.add(period)
+      : reduced;
   const radians = mode === 'rad' ? centered : centered.div(period).mul(twoPi);
   return [radians.sin(), radians.cos()];
 }
