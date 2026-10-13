@@ -131,3 +131,19 @@ for (const motion of ['full', 'off']) {
     }
   });
 }
+
+test('tooltips open on pointer hover after keyboard interaction', async ({
+  page,
+}) => {
+  await page.goto('/m8e-calc/#/design');
+  await page.keyboard.press('Tab');
+  // Move outside the trigger first to establish pointer input before entering it.
+  await page.mouse.move(0, 0);
+  const trigger = page.locator(
+    '[data-component="Tooltip"] [data-state="default"] button',
+  );
+  await trigger.hover();
+  await expect(page.getByRole('tooltip')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('tooltip')).toBeHidden();
+});
