@@ -53,16 +53,21 @@ try {
       await page.keyboard.press('Escape');
     }
     for (const state of ['default', 'focus']) {
-+      const tooltip=page.locator(`[data-component="Tooltip"] [data-state="${state}"] button`);
-+      await tooltip.focus();
-+      await page.keyboard.press('Tab');
-+      await page.keyboard.press('Shift+Tab');
-+      await page.getByRole('tooltip').waitFor();
-+      await page.screenshot({path: `${output}/components-${theme}-tooltip${state==='focus'?'-rich':''}.png`, animations: 'disabled'});
-+      await page.keyboard.press('Escape');
-+      await page.getByRole('tooltip').waitFor({state:'hidden'});
-+    }
-+    await page.locator('[data-component="Snackbar"] button').click();
+      const tooltip = page.locator(
+        `[data-component="Tooltip"] [data-state="${state}"] button`,
+      );
+      await tooltip.focus();
+      await page.keyboard.press('Tab');
+      await page.keyboard.press('Shift+Tab');
+      await page.getByRole('tooltip').waitFor();
+      await page.screenshot({
+        path: `${output}/components-${theme}-tooltip${state === 'focus' ? '-rich' : ''}.png`,
+        animations: 'disabled',
+      });
+      await page.keyboard.press('Escape');
+      await page.getByRole('tooltip').waitFor({ state: 'hidden' });
+    }
+    await page.locator('[data-component="Snackbar"] button').click();
     await page
       .getByText(
         theme === 'light' ? 'Änderung gespeichert.' : 'Änderung gespeichert.',
