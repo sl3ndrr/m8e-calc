@@ -176,7 +176,7 @@ test('cross-fade fallback survives rapid changes and leaves no snapshots', async
   await expect(page.locator('.theme-snapshot')).toHaveCount(0);
 });
 
-test('corrupt, stale or denied storage cannot break prepaint or app startup', async ({
+test('corrupt storage cannot break prepaint or app startup', async ({
   page,
 }) => {
   await page.addInitScript(() => {
@@ -223,4 +223,25 @@ test('design lab stays usable at desktop and narrow widths, fonts are local vari
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+});
+
+test('denied storage keeps appearance usable without runtime errors', async ({
+  page,
+}) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.addInitScript(() => {
+    for (const method of ['getItem', 'setItem', 'removeItem'])
+      Object.defineProperty(Storage.prototype, method, {
+        value: () => {
+          throw new DOMException('Denied', 'SecurityError');
+        },
+      });
+  });
+  await page.goto('/m8e-calc/#/design');
+  await page.getByRole('radio', { name: 'Dunkel', exact: true }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  await page.getByRole('button', { name: 'Akzentfarbe anpassen' }).click();
+  await page.getByRole('button', { name: 'Koralle', exact: true }).click();
+  expect(errors).toEqual([]);
 });

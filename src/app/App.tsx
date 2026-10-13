@@ -41,9 +41,10 @@ export function App() {
       >
         <ThemeSwitch />
         <AccentPicker />
-        <label className="language-select">
-          <span>{t('language.label', locale)}</span>
+        <div className="language-select">
+          <label htmlFor="app-language">{t('language.label', locale)}</label>
           <select
+            id="app-language"
             value={locale}
             onChange={(event) =>
               useAppStore
@@ -54,7 +55,7 @@ export function App() {
             <option value="de">{t('language.de', locale)}</option>
             <option value="en">{t('language.en', locale)}</option>
           </select>
-        </label>
+        </div>
       </div>
       {mode === 'design' ? (
         <DesignLab />

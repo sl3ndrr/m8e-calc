@@ -80,7 +80,7 @@ AccentPicker: natives Auto-Popover mit Escape/Light-Dismiss, Fokus auf der erste
 
 `npm run tokens` generiert und formatiert `src/styles/tokens.css` aus den zentralen Definitionen. Die Datei ist eingecheckt; die Tokenwerte werden nicht in Komponenten dupliziert. `npm run check` prüft lint, Typen, Unit-/UI-Tests und Build; danach `npm run test:e2e` gegen den Produktionsbuild.
 
-Browserprüfungen: Persistenz, Tastatursteuerung, live `emulateMedia`, FOUC ohne App-JS, Reduced Motion, Fallback/rasche Wechsel, beschädigter Storage, lokale Fonts, Screenshots Hell/Dunkel/Popover und schmale Breiten. Der bestehende Smoke prüft weiterhin alle Routen, Laufzeitfehler und externe Requests. Screenshots werden als CI-Artefakte aufbewahrt.
+Browserprüfungen: Persistenz, Tastatursteuerung, live `emulateMedia`, FOUC ohne App-JS, Reduced Motion, Fallback/rasche Wechsel, beschädigter Storage, lokale Fonts, Screenshots Hell/Dunkel/Popover und schmale Breiten. Der bestehende Smoke prüft weiterhin alle Routen, Laufzeitfehler und externe Requests. Screenshots werden als CI-Artefakte aufbewahrt; geprüfte Ansichten liegen zusätzlich in `docs/screenshots/theming-{light,dark,accent-picker}.png`.
 
 ## Quellen
 

@@ -116,8 +116,8 @@ export function AccentPicker() {
             {settings.accent}
           </output>
         </div>
-        <label className="field" htmlFor={`${id}-hue`}>
-          {t('accent.hue', locale)}
+        <div className="field">
+          <label htmlFor={`${id}-hue`}>{t('accent.hue', locale)}</label>
           <input
             id={`${id}-hue`}
             type="range"
@@ -133,7 +133,7 @@ export function AccentPicker() {
               })
             }
           />
-        </label>
+        </div>
         <div
           className="palette-preview"
           role="group"
@@ -159,8 +159,8 @@ export function AccentPicker() {
             </div>
           ))}
         </div>
-        <label className="field" htmlFor={`${id}-variant`}>
-          {t('accent.variant', locale)}
+        <div className="field">
+          <label htmlFor={`${id}-variant`}>{t('accent.variant', locale)}</label>
           <select
             id={`${id}-variant`}
             value={settings.schemeVariant}
@@ -177,9 +177,11 @@ export function AccentPicker() {
               </option>
             ))}
           </select>
-        </label>
-        <label className="field" htmlFor={`${id}-contrast`}>
-          {t('accent.contrast', locale)}
+        </div>
+        <div className="field">
+          <label htmlFor={`${id}-contrast`}>
+            {t('accent.contrast', locale)}
+          </label>
           <select
             id={`${id}-contrast`}
             value={settings.contrast}
@@ -196,7 +198,7 @@ export function AccentPicker() {
               </option>
             ))}
           </select>
-        </label>
+        </div>
         <button
           className="tonal-button"
           type="button"

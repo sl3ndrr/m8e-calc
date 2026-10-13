@@ -10,6 +10,7 @@ out.mkdir(exist_ok=True)
 flex = TTFont(root / 'node_modules/@fontsource-variable/roboto-flex/files/roboto-flex-latin-full-normal.woff2')
 pinned = {axis.axisTag: axis.defaultValue for axis in flex['fvar'].axes if axis.axisTag not in {'wght', 'wdth', 'opsz'}}
 flex = instantiateVariableFont(flex, pinned, inplace=True)
+flex.recalcTimestamp = False
 flex.flavor = 'woff2'
 flex.save(out / 'roboto-flex-latin.woff2')
 shutil.copyfile(root / 'node_modules/@fontsource-variable/roboto-mono/files/roboto-mono-latin-wght-normal.woff2', out / 'roboto-mono-latin.woff2')
@@ -21,6 +22,7 @@ subsetter = subset.Subsetter(options=options)
 icons = 'light_mode brightness_auto dark_mode palette close check restart_alt play_arrow'.split()
 subsetter.populate(text=' '.join(icons), glyphs=[glyph for name in icons for glyph in (name, name + '.fill') if glyph in symbols.getGlyphOrder()])
 subsetter.subset(symbols)
+symbols.recalcTimestamp = False
 symbols.flavor = 'woff2'
 symbols.save(out / 'material-symbols-rounded.woff2')
 for name, package in [('roboto-flex', '@fontsource-variable/roboto-flex'), ('roboto-mono', '@fontsource-variable/roboto-mono'), ('material-symbols', 'material-symbols')]:

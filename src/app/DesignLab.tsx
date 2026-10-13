@@ -84,8 +84,10 @@ export function DesignLab() {
           <h2 id="motion-title">{t('design.motion', locale)}</h2>
         </div>
         <p>{t('design.motionHint', locale)}</p>
-        <label className="field motion-setting" htmlFor="motion-level">
-          {t('design.motionLevel', locale)}
+        <div className="field motion-setting">
+          <label htmlFor="motion-level">
+            {t('design.motionLevel', locale)}
+          </label>
           <select
             id="motion-level"
             value={settings.motionLevel}
@@ -102,7 +104,7 @@ export function DesignLab() {
               </option>
             ))}
           </select>
-        </label>
+        </div>
         <div className="motion-grid">
           {(Object.keys(springs) as SpringName[]).map((name) => (
             <MotionDemo key={name} name={name} />
