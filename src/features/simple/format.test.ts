@@ -1,5 +1,10 @@
 import { expect, it } from 'vitest';
-import { displayNumber, parsePastedNumber, numberLocale } from './format';
+import {
+  displayNumber,
+  parsePastedNumber,
+  numberLocale,
+  displayExpression,
+} from './format';
 const comma = { decimalSeparator: 'comma', grouping: true } as const;
 const point = { decimalSeparator: 'point', grouping: false } as const;
 it.each([
@@ -34,3 +39,6 @@ it.each([
 );
 it('rejects grouping when disabled', () =>
   expect(parsePastedNumber('1,234.5', 'en', point)).toBeNull());
+
+it('retains negative-base parentheses in the expression', () =>
+  expect(displayExpression('(-3)^2', 'de', comma)).toBe('(−3)^2'));

@@ -16,7 +16,7 @@ export function SideSheet({ mode = 'modal', ...props }: SideSheetProps) {
         className="ui-side-sheet ui-side-sheet-docked"
         aria-label={props.title}
       >
-        <h3>{props.title}</h3>
+        <h2>{props.title}</h2>
         {props.children}
       </aside>
     );

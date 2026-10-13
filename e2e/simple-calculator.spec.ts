@@ -126,6 +126,9 @@ for (const theme of ['light', 'dark'] as const)
         page.getByRole('complementary', { name: 'Verlauf' }),
       ).toBeVisible();
       await page.evaluate(() => document.fonts.ready);
+      await page.screenshot({
+        path: `test-results/simple-${theme}-${width}.png`,
+      });
       expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
       const metrics = await page.evaluate(() => {
         const keypad = document.querySelector('.keypad');
@@ -142,8 +145,5 @@ for (const theme of ['light', 'dark'] as const)
         (width ?? 1920) === 3840 ? 1400 : 700,
       );
       expect(metrics.overflow).toBe(false);
-      await page.screenshot({
-        path: `test-results/simple-${theme}-${width}.png`,
-      });
     });
   }

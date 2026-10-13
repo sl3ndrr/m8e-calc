@@ -67,6 +67,7 @@ export function CalculatorDisplay({
     >
       <div
         className="calculator-expression expression"
+        role="group"
         aria-label={expressionLabel}
       >
         {expression || '\u00a0'}

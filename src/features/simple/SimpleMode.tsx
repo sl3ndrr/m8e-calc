@@ -386,6 +386,7 @@ export default function SimpleMode() {
         <h1>{t('simple.title', locale)}</h1>
         <span
           className="simple-memory"
+          role="img"
           aria-label={t(
             state.memory === null
               ? 'simple.memoryEmpty'

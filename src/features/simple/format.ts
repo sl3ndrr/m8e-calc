@@ -52,7 +52,7 @@ export function displayExpression(
   preferences: NumberPreferences,
 ): string {
   return expression
-    .replace(/\(([+-]?\d+(?:\.\d*)?(?:e[+-]?\d+)?)\)/gi, '$1')
+    .replace(/\((\d+(?:\.\d*)?(?:e[+-]?\d+)?)\)/gi, '$1')
     .replace(/\d+(?:\.\d*)?(?:e[+-]?\d+)?/gi, (value) =>
       displayNumber(value, locale, preferences),
     )
