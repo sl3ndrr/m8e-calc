@@ -1,3 +1,4 @@
+/* global document */
 import { chromium } from 'playwright';
 import { expect } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
@@ -31,7 +32,7 @@ try {
       theme,
     );
     await page.goto(base);
-    // eslint-disable-next-line no-undef -- Evaluated in the browser document.
+
     await page.evaluate(() => document.fonts.ready);
     await page.locator('[data-component="LoadingIndicator"]').waitFor();
     await page.locator('.component-gallery').screenshot({
@@ -56,11 +57,44 @@ try {
       await expect(trigger).toBeFocused();
     }
     for (const state of ['default', 'focus']) {
+      await page.reload();
+      await page.evaluate(() => document.fonts.ready);
       const tooltip = page.locator(
         `[data-component="Tooltip"] [data-state="${state}"] button`,
       );
       await tooltip.hover();
-      await page.getByRole('tooltip').waitFor();
+      try {
+        await page.getByRole('tooltip').waitFor({ timeout: 5000 });
+      } catch (error) {
+        console.log(
+          JSON.stringify(
+            await page.evaluate(() => ({
+              focused: document.activeElement?.outerHTML,
+              triggers: document.querySelector('[data-component="Tooltip"]')
+                ?.outerHTML,
+              tooltips: Array.from(
+                document.querySelectorAll('[role="tooltip"]'),
+              ).map((node) => ({
+                html: node.outerHTML,
+                hidden: Array.from(
+                  node.parentElement?.closest('[aria-hidden="true"]')
+                    ? [
+                        node.parentElement
+                          .closest('[aria-hidden="true"]')
+                          .outerHTML.slice(0, 1000),
+                      ]
+                    : [],
+                ),
+                rect: node.getBoundingClientRect().toJSON(),
+              })),
+            })),
+          ),
+        );
+        await page.screenshot({
+          path: `${output}/components-${theme}-tooltip-debug.png`,
+        });
+        throw error;
+      }
       await page.screenshot({
         path: `${output}/components-${theme}-tooltip${state === 'focus' ? '-rich' : ''}.png`,
         animations: 'disabled',
