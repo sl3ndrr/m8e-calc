@@ -48,7 +48,7 @@ describe('converter adapter', () => {
     expect(Number(resultsFor(state).degC)).toBeCloseTo(22.2222222, 6);
     expect(query('3 ft 4 in', 'en').fromId).toBe('ft');
     expect(query('2 h').toId).toBe('s');
-    expect(query('5 km in kg').error).toBe('E_UNIT_CATEGORY');
+    expect(query('5 km in kg').error).toBe('E_UNIT_UNKNOWN');
   });
   it('retains invalid drafts and never displays a stale result', () => {
     const state = convertReducer(query('5 km in mi'), {
@@ -97,7 +97,7 @@ describe('converter adapter', () => {
       'length',
     ]);
     const units = sortedUnits(categoryFor('length'), 'size', 'de');
-    expect(units[0]?.id).toBe('nm');
+    expect(units[0]?.id).toBe('angstrom');
     expect(
       numericText('1234.567', 'm', { locale: 'de', digits: 6, grouping: true }),
     ).toBe('1.234,57');

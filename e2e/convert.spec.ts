@@ -128,7 +128,9 @@ test('quiet history replaces pairs, restores and survives reload with favorites'
   await expect(from).toHaveValue('6');
   await page.reload();
   await expect(
-    page.getByRole('region', { name: t('convert.favorites'), exact: true }).getByRole('button', { name: 'Länge: km nach mi laden' }),
+    page
+      .getByRole('region', { name: t('convert.favorites'), exact: true })
+      .getByRole('button', { name: 'Länge: km nach mi laden' }),
   ).toBeVisible();
 });
 test('category grid arrows, copying, reduced motion and accessibility', async ({
