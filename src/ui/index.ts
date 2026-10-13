@@ -31,3 +31,4 @@ export * from './useSpring';
 export * from './useMediaQuery';
 export * from './ThemeSwitch';
 export * from './AccentPicker';
+export * from './keypad';

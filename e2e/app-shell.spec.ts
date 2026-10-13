@@ -53,7 +53,7 @@ for (const [width, height] of [
     });
     await page.goto('/m8e-calc/');
     await expect(
-      page.getByRole('heading', { name: 'Bereit für deine Ideen.' }),
+      page.getByRole('heading', { name: 'Einfach rechnen.' }),
     ).toBeVisible();
     for (const label of labels) {
       await page.getByRole('link', { name: label, exact: true }).click();
