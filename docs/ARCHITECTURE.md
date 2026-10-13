@@ -73,3 +73,6 @@ Wöchentliche Dependabot-Updates werden getrennt für npm und GitHub Actions gru
 ## AP4-Verifikation
 
 Die Shell-Browserprüfungen warten auf den aktiven Modus, vollständige Opacity und die Zielbreite des angedockten Panels. Neben Dokument- und Container-Überläufen werden Panel-Grenzen im Viewport geprüft. Reproduzierbare Referenzaufnahmen: [Full HD](screenshots/app-shell-1920.png), [QHD](screenshots/app-shell-2560.png), [4K](screenshots/app-shell-3840.png) und [Ultrawide](screenshots/app-shell-3440.png). `e2e/app-shell.spec.ts` erzeugt sie erneut; CI bewahrt zusätzliche Browser-/Galerie-Artefakte auf.
+
+Die axe-Prüfung des Einstellungsdialogs wartet auf das Ende seiner Einblendung
+(`data-entering` entfernt) und prüft anschließend den vollständigen Textkontrast.
