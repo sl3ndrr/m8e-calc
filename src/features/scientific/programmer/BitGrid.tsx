@@ -1,6 +1,8 @@
 import { useRef, type CSSProperties } from 'react';
 import { t, type Locale } from '../../../shared/i18n';
 import { useSpring } from '../../../ui/useSpring';
+import type { WordWidth } from '../../../engine/programmer';
+import { setBit } from './model';
 function Bit({
   index,
   enabled,
@@ -44,7 +46,7 @@ export function BitGrid({
   float = false,
 }: {
   bits: bigint;
-  width: number;
+  width: WordWidth;
   locale: Locale;
   onChange: (bits: bigint) => void;
   onCommit: (bits: bigint) => void;
@@ -59,8 +61,11 @@ export function BitGrid({
   const paint = (index: number) => {
     const g = gesture.current;
     if (!g) return;
-    const bit = 1n << BigInt(index),
-      next = g.enabled ? g.bits | bit : g.bits & ~bit;
+    const next = setBit(g.bits, index, g.enabled, {
+      width,
+      signed: false,
+      overflow: 'wrap',
+    });
     if (next !== g.bits) {
       g.bits = next;
       onChange(next);
@@ -132,7 +137,11 @@ export function BitGrid({
                   field={field}
                   locale={locale}
                   onToggle={() => {
-                    const next = bits ^ (1n << BigInt(index));
+                    const next = setBit(bits, index, !enabled, {
+                      width,
+                      signed: false,
+                      overflow: 'wrap',
+                    });
                     onChange(next);
                     onCommit(next);
                   }}
