@@ -23,3 +23,7 @@ Projektregeln und Befehle: [AGENTS.md](AGENTS.md). Produkt: [PRODUCT_SPEC](docs/
 ## GitHub Pages
 
 In Settings → Pages **GitHub Actions** als Quelle auswählen. Nach Merge auf main baut, prüft und veröffentlicht `pages.yml` den Inhalt von `dist/` unter <https://sl3ndrr.github.io/m8e-calc/>. `ci.yml` prüft PRs und main einschließlich Chromium-Smoke am Base-Pfad. Die erste öffentliche Bereitstellung kann erst nach Merge geprüft werden.
+
+## Theming und Design-Lab
+
+`#/design` zeigt Material-3-Farbrollen, Typografie, Formen und alle Springs. Hell/System/Dunkel und Akzentfarbe sind persistent; alle Fonts werden lokal ausgeliefert. Details, Token-Regeneration, Motion-Abweichung und Testumfang: [docs/DESIGN.md](docs/DESIGN.md). Rechner-Modi bleiben Platzhalter.

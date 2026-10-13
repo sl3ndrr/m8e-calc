@@ -17,13 +17,13 @@ Domänen dürfen reine Domänenmodule verwenden. Imports in App, UI, Features, S
 
 Im Fundament: URL-Hash → reine Funktion `parseHash` → Modus der Ansicht → aktive Navigationsbeschriftung. `useSyncExternalStore` bindet `hashchange` an React an. Alle vier Routen zeigen dieselbe Platzhalterseite. Ungültige/leere Hashes wählen Einfach, ohne zusätzliche Navigation.
 
-Der Zustand-Store hält aktuell nur die Sprache. Store-Sprache → typisierte i18n-Schlüssel → Texte, Dokumenttitel und `lang`. Es gibt noch keine Persistenz, keinen Verlauf und keine Rechenzustände.
+Der App-Store hält die Sprache; der separate Settings-Store persistiert Theme, Akzent, Schema-Variante, Kontrast und Motion mit validierter Migration (Version 1). `src/app/theme.ts` ist der Browseradapter für Media Queries, CSS-Rollen, Theme-Meta und View Transitions. Details stehen in `docs/DESIGN.md`. Store-Sprache → typisierte i18n-Schlüssel → Texte, Dokumenttitel und `lang`. Es gibt keinen Verlauf und keine Rechenzustände. `#/design` ergänzt die technischen Hash-Routen für das Design-Lab; unbekannte Hashes zeigen weiterhin Einfach.
 
 Für Folgepakete: Benutzereingabe → reine UI-Funktion/Reducer → Domäne → typisiertes Ergebnis/Fehler → Store/Ansicht. Fehler werden in der UI über i18n angezeigt. DOM-Zugriffe und Seiteneffekte bleiben in Adaptern. Domänen können ohne Browser getestet und später bei Bedarf in Worker eingebunden werden.
 
 ## Routing, Build und Hosting
 
-Hash-Routing benötigt keine Pages-Rewrites. Vite erzeugt Assets relativ zum Base-Pfad `/m8e-calc/`, überschreibbar über `VITE_BASE_PATH`. Pages erhält ausschließlich `dist/`. Keine externen Requests zur Laufzeit; zunächst Systemfonts. Tokens liegen ausschließlich in `src/styles/base.css`; Material-3-Expressive-Theming und Komponenten folgen in AP2/AP3.
+Hash-Routing benötigt keine Pages-Rewrites. Vite erzeugt Assets relativ zum Base-Pfad `/m8e-calc/`, überschreibbar über `VITE_BASE_PATH`. Pages erhält ausschließlich `dist/`. Keine externen Requests zur Laufzeit; Fonts sind selbst gehostete, subsettete Variable-Fonts mit Preloads. Tokens liegen zentral in `src/styles`, generiert mit `npm run tokens`. AP2 liefert das Material-3-Expressive-Fundament und zwei Theme-Komponenten; weitere Komponenten folgen in AP3. Das Inline-Bootstrap in `index.html` wird von Vite vor App-JavaScript eingefügt und stellt den passenden Modus mit validiertem Farbcache vor dem ersten Paint her.
 
 `tsconfig.app.json` prüft Browsercode, `tsconfig.node.json` Tooling/E2E und `tsconfig.domain.json` reine Domänen. `tsc -b` prüft alle drei. ESLint/Prettier, Vitest und Produktionsbuild laufen über `npm run check`; Playwright prüft danach Base-Pfad, alle Hash-Routen, Tastaturfokus, Laufzeitfehler und externe Requests.
 
