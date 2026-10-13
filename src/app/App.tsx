@@ -2,6 +2,9 @@ import { useEffect, useSyncExternalStore } from 'react';
 import { t } from '../shared/i18n';
 import { useAppStore } from '../shared/store';
 import { modes, parseHash } from './routing';
+import { DesignLab } from './DesignLab';
+import { ThemeSwitch } from '../ui/ThemeSwitch';
+import { AccentPicker } from '../ui/AccentPicker';
 
 function subscribe(listener: () => void) {
   window.addEventListener('hashchange', listener);
@@ -31,10 +34,36 @@ export function App() {
           </a>
         ))}
       </nav>
-      <section aria-labelledby="foundation-title">
-        <h1 id="foundation-title">{t('app.foundation', locale)}</h1>
-        <p>{t('app.placeholder', locale)}</p>
-      </section>
+      <div
+        className="appearance-toolbar"
+        role="group"
+        aria-label={t('design.controls', locale)}
+      >
+        <ThemeSwitch />
+        <AccentPicker />
+        <label className="language-select">
+          <span>{t('language.label', locale)}</span>
+          <select
+            value={locale}
+            onChange={(event) =>
+              useAppStore
+                .getState()
+                .setLocale(event.target.value === 'en' ? 'en' : 'de')
+            }
+          >
+            <option value="de">{t('language.de', locale)}</option>
+            <option value="en">{t('language.en', locale)}</option>
+          </select>
+        </label>
+      </div>
+      {mode === 'design' ? (
+        <DesignLab />
+      ) : (
+        <section aria-labelledby="foundation-title">
+          <h1 id="foundation-title">{t('app.foundation', locale)}</h1>
+          <p>{t('app.placeholder', locale)}</p>
+        </section>
+      )}
     </main>
   );
 }

@@ -1,10 +1,10 @@
 # Roadmap
 
-Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet akzeptiert und integriert; AP1 bleibt bis zum Merge offen.
+Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet akzeptiert und integriert; Die Haken werden nach Abnahme und Merge gesetzt.
 
-- [ ] 1 Fundament — Toolchain, Struktur, Platzhalter, CI/Pages und Projektgedächtnis (dieser PR).
-- [ ] 2 Theming — Material 3 Expressive, Hell/System/Dunkel und frei wählbare Akzentfarbe.
-- [ ] 3 Komponenten — Design-System, Shape-/Motion-Tokens und Barrierefreiheit.
+- [ ] 1 Fundament — Toolchain, Struktur, Platzhalter, CI/Pages und Projektgedächtnis.
+- [ ] 2 Theming — Material 3 Expressive, Hell/System/Dunkel, Akzentwahl, Typography-/Shape-/Motion-Fundament und `#/design` (PR `feat/theming`, Details: `DESIGN.md`).
+- [ ] 3 Komponenten — Erweiterung des Design-Systems auf Basis der AP2-Tokens und Accessibility-Hardening.
 - [ ] 4 App-Shell/Verlauf — Modusflächen und ein-/ausblendbarer Verlauf in jedem Modus.
 - [ ] 5 Engine-Kern — Parser, Auswertung, Fehler und Tests.
 - [ ] 6 Einfacher Rechner — herkömmlicher Funktionsumfang.
