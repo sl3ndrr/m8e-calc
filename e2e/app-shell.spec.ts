@@ -218,6 +218,9 @@ test('shell and open settings pass axe in light and dark', async ({ page }) => {
   await page
     .getByRole('button', { name: 'Einstellungen', exact: true })
     .click();
+  const modal = page.locator('.settings-dialog');
+  await expect(modal).toBeVisible();
+  await expect(modal).not.toHaveAttribute('data-entering');
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
 });
 

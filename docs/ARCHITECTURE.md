@@ -13,6 +13,19 @@
 
 Domänen dürfen reine Domänenmodule verwenden. Imports in App, UI, Features, Shared oder Styles sind verboten. ESLint sperrt React, DOM-Globals, Zustand, dynamische Imports, `require` und TS-Import-Ausdrücke; `.tsx` wird in Domänen abgelehnt. Ein eigenes TypeScript-Projekt ohne DOM-Library und automatische Umgebungstypen ergänzt diese Grenze. Neue Aliase dürfen die Importregel nicht umgehen und müssen dort ergänzt werden.
 
+### AP5-Rechenkern
+
+`src/engine/index.ts` exportiert Parser, stabilen readonly AST, Auswerter,
+Funktionsregistry und Zahlenformatierung. [ENGINE.md](ENGINE.md) enthält EBNF,
+Präzedenz, Result-API, Fehlercodes mit UTF-16-Bereichen und numerische Grenzen.
+Der Kern verwendet private decimal.js-Kopien (50 Stellen, 80 Schutzstellen für
+Winkelreduktion); die globale Konfiguration bleibt unabhängig. Anzeige und
+lokalisierte Zahleneingaben haben eigene reine Hilfsfunktionen. Kontext enthält
+Variablen, ans, Winkel-/Prozentmodus und zusätzliche Registry-Einträge. Graph und
+LaTeX können den AST später direkt verwenden. UI-Adapter und Modusinhalte folgen
+ihren Paketen. Die Engine hat ein eigenes Vitest-Node-Projekt ohne DOM-Testsetup;
+alle bestehenden UI- und Chromium-Prüfungen bleiben im Gesamtcheck.
+
 ## Datenfluss
 
 AP4 bindet den URL-Hash über `useSyncExternalStore` an die Shell. Die Registry (`src/app/modeRegistry.ts`) enthält pro Modus `id`, lokale Icon-Glyphe, `labelKey`, `React.lazy`-Komponente und transienten `historyAdapter`. Jeder Feature-Einstieg bildet einen eigenen Build-Chunk. `#/design` bleibt als lazy geladenes technisches Lab verfügbar. Leere URLs setzen den im App-Store gemerkten Modus fort (Standard `simple`); explizit unbekannte Routen wählen `simple`.
@@ -60,3 +73,6 @@ Wöchentliche Dependabot-Updates werden getrennt für npm und GitHub Actions gru
 ## AP4-Verifikation
 
 Die Shell-Browserprüfungen warten auf den aktiven Modus, vollständige Opacity und die Zielbreite des angedockten Panels. Neben Dokument- und Container-Überläufen werden Panel-Grenzen im Viewport geprüft. Reproduzierbare Referenzaufnahmen: [Full HD](screenshots/app-shell-1920.png), [QHD](screenshots/app-shell-2560.png), [4K](screenshots/app-shell-3840.png) und [Ultrawide](screenshots/app-shell-3440.png). `e2e/app-shell.spec.ts` erzeugt sie erneut; CI bewahrt zusätzliche Browser-/Galerie-Artefakte auf.
+
+Die axe-Prüfung des Einstellungsdialogs wartet auf das Ende seiner Einblendung
+(`data-entering` entfernt) und prüft anschließend den vollständigen Textkontrast.
