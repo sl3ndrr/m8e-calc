@@ -29,3 +29,5 @@ export * from './VisuallyHidden';
 export * from './StateLayer';
 export * from './useSpring';
 export * from './useMediaQuery';
+export * from './ThemeSwitch';
+export * from './AccentPicker';

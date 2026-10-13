@@ -34,9 +34,11 @@ test('persists theme, seed, variant, contrast and motion, with accessible keyboa
   await expect(page.getByLabel('Animationsstufe')).toHaveValue('off');
   await page.getByRole('button', { name: 'Akzentfarbe anpassen' }).click();
   await expect(picker.getByLabel('Eigene Farbe')).toHaveValue('#e2675a');
-  await expect(picker.getByLabel('Schema-Variante')).toHaveValue('expressive');
-  await expect(picker.getByLabel('Kontrast', { exact: true })).toHaveValue(
-    'high',
+  await expect(
+    picker.getByRole('button', { name: /Schema-Variante/ }),
+  ).toContainText('Expressive');
+  await expect(picker.getByRole('button', { name: /Kontrast/ })).toContainText(
+    'Hoch',
   );
   await picker.getByRole('button', { name: 'Farben zurücksetzen' }).click();
   await expect(picker.getByLabel('Eigene Farbe')).toHaveValue('#6750a4');
@@ -53,12 +55,20 @@ test('follows live system changes and keeps explicit light/dark independent', as
   await expect(
     page.getByRole('radio', { name: /System: Dunkel aktiv/ }),
   ).toBeChecked();
-  await page.getByRole('radio', { name: 'Hell', exact: true }).click();
+  await page
+    .getByRole('radio', { name: 'Hell', exact: true })
+    .locator('..')
+    .locator('..')
+    .click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   await page.emulateMedia({ colorScheme: 'light' });
   await page.emulateMedia({ colorScheme: 'dark' });
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
-  await page.getByRole('radio', { name: /^System/ }).click();
+  await page
+    .getByRole('radio', { name: /^System/ })
+    .locator('..')
+    .locator('..')
+    .click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 });
 
@@ -131,7 +141,11 @@ test('reduced motion defaults to opacity only and switches themes immediately', 
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/m8e-calc/#/design');
   await expect(page.getByLabel('Animationsstufe')).toHaveValue('reduced');
-  await page.getByRole('radio', { name: 'Dunkel', exact: true }).click();
+  await page
+    .getByRole('radio', { name: 'Dunkel', exact: true })
+    .locator('..')
+    .locator('..')
+    .click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   expect(
     await page.evaluate(
@@ -166,8 +180,16 @@ test('cross-fade fallback survives rapid changes and leaves no snapshots', async
     }),
   );
   await page.goto('/m8e-calc/#/design');
-  await page.getByRole('radio', { name: 'Dunkel', exact: true }).click();
-  await page.getByRole('radio', { name: 'Hell', exact: true }).click();
+  await page
+    .getByRole('radio', { name: 'Dunkel', exact: true })
+    .locator('..')
+    .locator('..')
+    .click();
+  await page
+    .getByRole('radio', { name: 'Hell', exact: true })
+    .locator('..')
+    .locator('..')
+    .click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   await expect(page.locator('.theme-snapshot')).toHaveCount(0);
 });
@@ -183,7 +205,11 @@ test('corrupt storage cannot break prepaint or app startup', async ({
   await expect(
     page.getByRole('heading', { name: 'Raum für deinen Stil.' }),
   ).toBeVisible();
-  await page.getByRole('radio', { name: 'Dunkel', exact: true }).click();
+  await page
+    .getByRole('radio', { name: 'Dunkel', exact: true })
+    .locator('..')
+    .locator('..')
+    .click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 });
 
@@ -204,7 +230,11 @@ test('design lab stays usable at desktop and narrow widths, fonts are local vari
     path: 'test-results/design-light.png',
     fullPage: true,
   });
-  await page.getByRole('radio', { name: 'Dunkel', exact: true }).click();
+  await page
+    .getByRole('radio', { name: 'Dunkel', exact: true })
+    .locator('..')
+    .locator('..')
+    .click();
   await page.waitForTimeout(800);
   await page.screenshot({
     path: 'test-results/design-dark.png',
@@ -235,7 +265,11 @@ test('denied storage keeps appearance usable without runtime errors', async ({
       });
   });
   await page.goto('/m8e-calc/#/design');
-  await page.getByRole('radio', { name: 'Dunkel', exact: true }).click();
+  await page
+    .getByRole('radio', { name: 'Dunkel', exact: true })
+    .locator('..')
+    .locator('..')
+    .click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   await page.getByRole('button', { name: 'Akzentfarbe anpassen' }).click();
   await page.getByRole('button', { name: 'Koralle', exact: true }).click();

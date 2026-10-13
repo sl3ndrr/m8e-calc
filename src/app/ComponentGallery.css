@@ -39,6 +39,10 @@
 .gallery-example > * {
   max-width: 100%;
 }
+.gallery-example .ui-navigation-rail[data-expanded] {
+  width: 100%;
+  max-width: 240px;
+}
 .gallery-variants {
   margin-block: 2rem;
 }
@@ -57,14 +61,14 @@
 }
 .gallery-state-focus
   :where(
-    .ui-segment,
+    .ui-segment[data-selected],
     .ui-checkbox,
     .ui-switch,
     .ui-slider-thumb,
     .ui-list-item,
     .ui-select-control,
     .ui-text-input,
-    .ui-rail-link
+    .ui-rail-link[aria-current='page']
   ) {
   outline: 3px solid var(--md-sys-color-primary);
   outline-offset: 3px;
@@ -79,4 +83,8 @@
   .ui-button-group[data-connected]
   .ui-button:not(:first-child) {
   flex-grow: 1;
+}
+
+.gallery-state-focus .ui-button-group .ui-button:not(:first-child) {
+  outline: none;
 }

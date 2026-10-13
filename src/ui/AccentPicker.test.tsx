@@ -13,8 +13,9 @@ it('updates seeds and customization, with color reset preserving appearance and 
     motionLevel: 'off',
   });
   render(<AccentPicker />);
-  // jsdom has no native popover presentation; expose its mounted content.
-  screen.getByRole('dialog', { hidden: true }).style.display = 'block';
+  await user.click(
+    screen.getByRole('button', { name: 'Akzentfarbe anpassen' }),
+  );
   fireEvent.click(
     screen.getByRole('button', { name: 'Koralle', hidden: true }),
   );

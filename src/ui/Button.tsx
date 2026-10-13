@@ -1,4 +1,9 @@
-import type { CSSProperties, ReactNode, Ref } from 'react';
+import {
+  useCallback,
+  type CSSProperties,
+  type ReactNode,
+  type Ref,
+} from 'react';
 import {
   Button as AriaButton,
   ToggleButton,
@@ -67,16 +72,19 @@ export function Button({
   popoverTargetAction,
   ...props
 }: ButtonProps) {
-  const nativeRef = (node: HTMLButtonElement | null) => {
-    if (node) {
-      if (title) node.title = title;
-      if (popoverTarget) node.setAttribute('popovertarget', popoverTarget);
-      if (popoverTargetAction)
-        node.setAttribute('popovertargetaction', popoverTargetAction);
-    }
-    if (typeof ref === 'function') ref(node);
-    else if (ref) ref.current = node;
-  };
+  const nativeRef = useCallback(
+    (node: HTMLButtonElement | null) => {
+      if (node) {
+        if (title) node.title = title;
+        if (popoverTarget) node.setAttribute('popovertarget', popoverTarget);
+        if (popoverTargetAction)
+          node.setAttribute('popovertargetaction', popoverTargetAction);
+      }
+      if (typeof ref === 'function') ref(node);
+      else if (ref) ref.current = node;
+    },
+    [title, popoverTarget, popoverTargetAction, ref],
+  );
   const shared = {
     ...props,
     ref: nativeRef,

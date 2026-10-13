@@ -89,3 +89,13 @@
   box-shadow: none;
   cursor: default;
 }
+:root[data-motion='reduced']
+  .ui-button:where([data-pressed], .ui-state-pressed),
+:root[data-motion='off'] .ui-button:where([data-pressed], .ui-state-pressed) {
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ui-button:where([data-pressed], .ui-state-pressed) {
+    transform: none;
+  }
+}

@@ -99,7 +99,7 @@ function Example({ name, state }: { name: Name; state: State }) {
       return (
         <div className={className}>
           <UI.NavigationRail
-            label={text('ui.component.NavigationRail')}
+            label={`${text('ui.component.NavigationRail')} · ${text(`ui.${state}`)}`}
             expanded={selected}
             selectedId={selected ? 'two' : 'one'}
             items={options.slice(0, 2).map((item) => ({

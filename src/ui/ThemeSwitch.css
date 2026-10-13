@@ -92,7 +92,7 @@
   background: transparent;
   border-radius: var(--md-sys-shape-full);
 }
-.theme-switch .ui-segment > span:not(.ui-state-layer) {
+.theme-switch .ui-segment > span[title] {
   display: flex;
   align-items: center;
   gap: 0.4rem;

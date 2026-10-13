@@ -74,7 +74,7 @@ ThemeSwitch: drei Segmente Sonne / Auto / Mond; `radiogroup` mit `radio`, `aria-
 
 Theme-Wechsel mit View Transitions: Kreis vom Mittelpunkt des Schalters bis zum äußersten Viewport-Eckpunkt. Ein neuer Wechsel überspringt den vorherigen; veraltete Callbacks dürfen den zuletzt gewählten Modus nicht überschreiben. Während des Reveals wird die Rollen-Transition deaktiviert, damit die neue Ansicht die endgültigen Farben besitzt. Ohne View Transitions überblendet ein inertes, für Assistenztechnik verstecktes Snapshot-Overlay die alte Ansicht. Reduced/Off wechselt synchron.
 
-AccentPicker: natives Auto-Popover mit Escape/Light-Dismiss, Fokus auf der ersten Seed-Farbe beim Öffnen. 16 benannte Seeds, nativer Color-Input und wahrnehmungsbasierter HCT-Hue-Regler, Live-Vorschau Primary/Secondary/Tertiary, Variante und Kontrast. „Farben zurücksetzen“ setzt nur die Farbeinstellungen zurück und erhält Theme-/Motion-Auswahl.
+AccentPicker: React-Aria-Popover mit Escape/Light-Dismiss, Fokus auf der ersten Seed-Farbe beim Öffnen. 16 benannte Seeds, nativer Color-Input und wahrnehmungsbasierter HCT-Hue-Regler, Live-Vorschau Primary/Secondary/Tertiary, Variante und Kontrast. „Farben zurücksetzen“ setzt nur die Farbeinstellungen zurück und erhält Theme-/Motion-Auswahl.
 
 ## Generierung und Verifikation
 

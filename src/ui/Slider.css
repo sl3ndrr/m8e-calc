@@ -65,6 +65,6 @@
   .ui-slider-bubble {
   opacity: 1;
 }
-.ui-slider[data-disabled] {
+.ui-slider[data-disabled] .ui-slider-track {
   opacity: 0.38;
 }

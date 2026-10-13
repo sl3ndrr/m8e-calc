@@ -27,7 +27,7 @@
   box-shadow: 0 16px 64px
     color-mix(in srgb, var(--md-sys-color-shadow) 20%, transparent);
 }
-.accent-popover:popover-open {
+.accent-popover .react-aria-Dialog {
   display: grid;
   gap: 1rem;
 }
@@ -47,7 +47,7 @@
 }
 .seed-grid {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(6, minmax(48px, 1fr));
   gap: 0.3rem;
 }
 .seed {
@@ -78,7 +78,7 @@ input[type='color'] {
   border: 1px solid var(--md-sys-color-outline);
   border-radius: var(--md-sys-shape-small);
   width: 48px;
-  height: 44px;
+  height: 48px;
   padding: 4px;
   cursor: pointer;
 }
@@ -114,5 +114,31 @@ input[type='color'] {
 @media (max-width: 640px) {
   .seed-grid {
     grid-template-columns: repeat(4, minmax(48px, 1fr));
+  }
+}
+
+.accent-popover.ui-popover {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+  max-height: calc(100dvh - 32px) !important;
+  margin: 0;
+}
+.accent-popover .react-aria-Dialog {
+  outline: none;
+}
+.accent-popover[data-entering] {
+  animation: ui-accent-popover-in var(--md-sys-motion-spatial-fast-duration)
+    var(--md-sys-motion-spatial-fast-easing);
+}
+@keyframes ui-accent-popover-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
   }
 }
