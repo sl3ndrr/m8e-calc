@@ -9,7 +9,19 @@ export type IconName =
   | 'close'
   | 'check'
   | 'restart_alt'
-  | 'play_arrow';
+  | 'play_arrow'
+  | 'calculate'
+  | 'science'
+  | 'swap_horiz'
+  | 'show_chart'
+  | 'construction'
+  | 'history'
+  | 'settings'
+  | 'menu'
+  | 'menu_open'
+  | 'push_pin'
+  | 'content_copy'
+  | 'delete';
 export interface IconProps extends Omit<
   HTMLAttributes<HTMLSpanElement>,
   'children'

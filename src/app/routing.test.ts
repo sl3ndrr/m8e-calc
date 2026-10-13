@@ -18,3 +18,8 @@ describe('hash routing', () => {
     );
   });
 });
+
+it('resumes only an empty hash and keeps unknown links deterministic', () => {
+  expect(parseHash('', 'graph')).toBe('graph');
+  expect(parseHash('#/unknown', 'graph')).toBe('simple');
+});

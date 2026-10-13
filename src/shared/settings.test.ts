@@ -52,7 +52,7 @@ describe('settings', () => {
       motionLevel: 'off',
     });
     const payload = JSON.parse(storage.getItem() ?? '{}');
-    expect(payload.version).toBe(1);
+    expect(payload.version).toBe(2);
     expect(payload.state.updateSettings).toBeUndefined();
     expect(createSettingsStore(storage).getState()).toMatchObject(
       payload.state,
@@ -107,5 +107,33 @@ describe('settings', () => {
     expect(nextThemeMode('system', 'ArrowUp')).toBe('light');
     expect(nextThemeMode('system', 'Home')).toBe('light');
     expect(nextThemeMode('light', 'End')).toBe('dark');
+  });
+});
+
+it('migrates v1 appearance without losing it and validates v2 preferences', () => {
+  expect(
+    migrateSettings(
+      { themeMode: 'dark', accent: '#008ba9', motionLevel: 'off' },
+      1,
+    ),
+  ).toMatchObject({
+    themeMode: 'dark',
+    accent: '#008ba9',
+    motionLevel: 'off',
+    language: 'auto',
+    historyLimit: 500,
+  });
+  expect(
+    normalizeSettings({
+      language: 'en',
+      decimalSeparator: 'point',
+      grouping: false,
+      historyLimit: 10,
+    }),
+  ).toMatchObject({
+    language: 'en',
+    decimalSeparator: 'point',
+    grouping: false,
+    historyLimit: 10,
   });
 });

@@ -15,11 +15,11 @@ Das visuelle Ziel ist Material 3 Expressive. Ansprechendes Design, gute Handhabu
 | Umrechner        | Große Auswahl von Einheiten mit nachvollziehbaren Umrechnungen.  |
 | Graphen          | 2D-Plotter zur Darstellung und Untersuchung von Funktionen.      |
 
-In jedem Modus kann der Berechnungsverlauf ein- und ausgeblendet werden. Moduswechsel erfolgen über Hash-Routen: `#/simple`, `#/scientific`, `#/convert`, `#/graph`. Leere oder unbekannte Hashes führen zur Ansicht Einfach.
+In jedem Modus kann der Berechnungsverlauf ein- und ausgeblendet werden. Moduswechsel erfolgen über Hash-Routen: `#/simple`, `#/scientific`, `#/convert`, `#/graph`. Leere Hashes setzen den zuletzt genutzten Modus fort (Standard Einfach), unbekannte Hashes führen zur Ansicht Einfach.
 
 ## Personalisierung
 
-Ein 3-Wege-Schalter bietet **Hell / System / Dunkel**. Die mittlere Position folgt der Systemeinstellung einschließlich späterer Änderungen. Die Akzentfarbe ist frei wählbar; abgeleitete Farbtokens müssen lesbare Kontraste sichern. Die Oberfläche wird auf Deutsch und Englisch angeboten, Deutsch ist Standard. UI-Skalierung ist als Komfortfunktion geplant.
+Ein 3-Wege-Schalter bietet **Hell / System / Dunkel**. Die mittlere Position folgt der Systemeinstellung einschließlich späterer Änderungen. Die Akzentfarbe ist frei wählbar; abgeleitete Farbtokens müssen lesbare Kontraste sichern. Die Oberfläche wird auf Deutsch und Englisch angeboten, Auto erkennt Englisch aus `navigator.language`, sonst gilt Deutsch als Fallback. UI-Skalierung ist als Komfortfunktion geplant.
 
 ## Geplante Zusatzfeatures
 

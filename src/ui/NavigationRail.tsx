@@ -16,18 +16,20 @@ export interface NavigationRailProps {
   items: readonly NavigationDestination[];
   selectedId: string;
   expanded?: boolean;
+  scaled?: boolean;
 }
 export function NavigationRail({
   label,
   items,
   selectedId,
   expanded = false,
+  scaled = false,
 }: NavigationRailProps) {
   const selected = Math.max(
     0,
     items.findIndex((item) => item.id === selectedId),
   );
-  const y = useSpring(selected * 72);
+  const y = useSpring(selected);
   const rail = useRef<HTMLElement>(null);
   return (
     <nav
@@ -38,13 +40,18 @@ export function NavigationRail({
     >
       <span
         className="ui-rail-pill"
-        style={{ transform: `translateY(${y}px)` } as CSSProperties}
+        style={
+          {
+            transform: `translateY(${y * (scaled ? 4.5 : 72)}${scaled ? 'rem' : 'px'})`,
+          } as CSSProperties
+        }
         aria-hidden="true"
       />
       {items.map((item) => (
         <Link
           key={item.id}
           href={item.href}
+          aria-label={item.label}
           aria-current={item.id === selectedId ? 'page' : undefined}
           className="ui-rail-link"
         >
