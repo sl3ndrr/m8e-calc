@@ -25,6 +25,10 @@ function wrap(ast: Ast, needed: boolean): string {
 /** Canonical source for a valid, bounded, acyclic public AST. */
 export function print(ast: Ast): string {
   switch (ast.kind) {
+    case 'assignment':
+      return `${ast.name} = ${print(ast.expression)}`;
+    case 'definition':
+      return `${ast.name}(${ast.parameters.join(', ')}) = ${print(ast.expression)}`;
     case 'number':
       return ast.literal;
     case 'identifier':

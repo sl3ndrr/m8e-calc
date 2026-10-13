@@ -75,9 +75,9 @@ function calculate(
   expression: string,
 ): { value: string } | { error: SimpleError } {
   const result = evaluateString(expression, { percentMode: 'calculator' });
-  return result.ok
+  return result.ok && result.value.kind === 'number'
     ? { value: result.value.value.toString() }
-    : { error: errorCode(result.error) };
+    : { error: result.ok ? 'invalid' : errorCode(result.error) };
 }
 function fail(state: SimpleState, error: SimpleError): SimpleState {
   return { ...state, phase: 'error', error, repeat: null };
