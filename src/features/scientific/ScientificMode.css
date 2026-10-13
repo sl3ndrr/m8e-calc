@@ -331,3 +331,10 @@
 .scientific-math .katex-display {
   margin: 0.5rem 0;
 }
+
+.scientific-ap9 {
+  display: none;
+}
+.scientific-tools[data-tab='computerScience'] .scientific-ap9 {
+  display: block;
+}
