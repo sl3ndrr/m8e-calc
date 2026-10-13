@@ -111,3 +111,11 @@ Geprüfte Referenzaufnahmen: [Full HD Hell](screenshots/simple-light-1920.png),
 [4K Hell](screenshots/simple-light-3840.png) und
 [4K Dunkel](screenshots/simple-dark-3840.png). Der AP6-Reducer hat 102 Unit-Fälle;
 die Gesamtprüfung umfasst 800 Unit-/Komponententests und 44 Chromium-E2E.
+
+## AP8 · Wissenschaftlicher Modus
+
+`src/features/scientific` trennt reine Einfüge-/Auswertungslogik, Browserpersistenz
+und Rendering. CodeMirror/KaTeX werden lazy geladen; KaTeX-Fonts werden vom Bundler
+lokal ausgeliefert. Das Environment bleibt JSON-serialisierbar und wird beim Laden
+validiert. Vorschau und Wiederherstellung führen keine gespeicherten Anweisungen
+automatisch aus. Bedienung, Payloads und Verifikation: [SCIENTIFIC_MODE.md](SCIENTIFIC_MODE.md).
