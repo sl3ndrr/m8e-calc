@@ -313,6 +313,7 @@ export default function SimpleMode() {
       )
         return;
       event.preventDefault();
+      event.stopPropagation();
       setPressed((current) =>
         current.includes(command.id) ? current : [...current, command.id],
       );
@@ -324,6 +325,15 @@ export default function SimpleMode() {
         dispatch(command.action);
     }
     function up(event: KeyboardEvent): void {
+      if (
+        event.key === 'Enter' &&
+        available(event.target) &&
+        event.target instanceof HTMLElement &&
+        event.target.closest('.keypad-cell')
+      ) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
       const command = keyCommand(event.key);
       if (command)
         setPressed((current) => current.filter((id) => id !== command.id));
@@ -341,13 +351,13 @@ export default function SimpleMode() {
       );
       dispatch({ type: 'paste', value: value ?? '' });
     }
-    window.addEventListener('keydown', down);
-    window.addEventListener('keyup', up);
+    window.addEventListener('keydown', down, true);
+    window.addEventListener('keyup', up, true);
     window.addEventListener('blur', blur);
     window.addEventListener('paste', paste);
     return () => {
-      window.removeEventListener('keydown', down);
-      window.removeEventListener('keyup', up);
+      window.removeEventListener('keydown', down, true);
+      window.removeEventListener('keyup', up, true);
       window.removeEventListener('blur', blur);
       window.removeEventListener('paste', paste);
     };

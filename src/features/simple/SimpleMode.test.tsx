@@ -185,3 +185,14 @@ it('responds to decimal and grouping preference changes', async () => {
   );
   expect(result()).toHaveTextContent('1234.5');
 });
+
+it('Enter computes once when a keypad button retains focus', async () => {
+  const user = userEvent.setup();
+  render(<SimpleMode />);
+  await user.click(screen.getByRole('button', { name: 'Ziffer 2' }));
+  await user.click(screen.getByRole('button', { name: 'Addieren' }));
+  await user.click(screen.getByRole('button', { name: 'Ziffer 3' }));
+  await user.keyboard('{Enter}');
+  expect(result()).toHaveTextContent('5');
+  expect(useHistoryStore.getState().entries).toHaveLength(1);
+});

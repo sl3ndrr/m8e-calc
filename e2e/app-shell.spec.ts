@@ -130,7 +130,12 @@ test('rehydrates real entries, pins/searches/copies/exports and undoes clearing'
               input: '2 + 3',
               result: '5',
               pinned: false,
-              payload: { expression: '2 + 3' },
+              payload: {
+                version: 1,
+                entry: { value: '3', expression: '3' },
+                accumulator: '2',
+                operator: '+',
+              },
             },
           ],
           visibility: { simple: true },
@@ -151,11 +156,7 @@ test('rehydrates real entries, pins/searches/copies/exports and undoes clearing'
   await page.getByRole('button', { name: 'JSON', exact: true }).click();
   expect((await download).suggestedFilename()).toBe('m8e-calc-simple.json');
   await page.getByRole('button', { name: 'Wiederherstellen: 2 + 3' }).click();
-  await expect(
-    page.getByText(
-      'Dieser Eintrag kann in diesem Modus noch nicht wiederhergestellt werden.',
-    ),
-  ).toBeVisible();
+  await expect(page.getByText('Eintrag wiederhergestellt.')).toBeVisible();
   await page
     .getByRole('button', { name: 'Schließen', exact: true })
     .last()

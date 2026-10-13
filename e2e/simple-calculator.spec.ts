@@ -20,7 +20,7 @@ for (const [sequence, expected] of [
   ['2+3*4=', '20'],
   ['9999999999999999+1=', '1e+16'],
   ['12345678901234567', '1.234.567.890.123.456'],
-])
+] as const)
   test(`keyboard only: ${sequence}`, async ({ page }) => {
     await page.keyboard.type(sequence);
     await expect(result(page)).toHaveText(expected);
