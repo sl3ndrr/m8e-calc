@@ -1,0 +1,4 @@
+.ui-fab {
+  box-shadow: 0 4px 10px
+    color-mix(in srgb, var(--md-sys-color-shadow) 20%, transparent);
+}

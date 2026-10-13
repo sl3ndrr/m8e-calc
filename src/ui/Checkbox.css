@@ -1,0 +1,37 @@
+.ui-checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: var(--md-sys-shape-small);
+  color: var(--md-sys-color-on-surface);
+}
+.ui-checkbox-box {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--md-sys-color-outline);
+  border-radius: var(--md-sys-shape-extra-small);
+}
+.ui-checkbox:where([data-selected], [data-indeterminate]) .ui-checkbox-box {
+  color: var(--md-sys-color-on-primary);
+  background: var(--md-sys-color-primary);
+  border-color: var(--md-sys-color-primary);
+}
+.ui-checkbox-dash {
+  width: 12px;
+  height: 2px;
+  background: currentColor;
+}
+.ui-checkbox[data-disabled] {
+  opacity: 0.38;
+  cursor: default;
+}
+.ui-checkbox[data-invalid] .ui-checkbox-box {
+  border-color: var(--md-sys-color-error);
+}

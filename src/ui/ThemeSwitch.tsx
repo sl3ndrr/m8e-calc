@@ -1,84 +1,67 @@
 import { useRef } from 'react';
 import { useSettingsStore } from '../shared/settingsStore';
-import { themeModes, nextThemeMode } from '../shared/settings';
+import { themeModes } from '../shared/settings';
 import { useAppStore } from '../shared/store';
 import { t } from '../shared/i18n';
 import { changeTheme, useSystemDark } from '../app/theme';
-import { Symbol } from './Symbol';
-const symbols = {
+import { SegmentedControl } from './SegmentedControl';
+import { Icon, type IconName } from './Icon';
+import './ThemeSwitch.css';
+const symbols: Record<(typeof themeModes)[number], IconName> = {
   light: 'light_mode',
   system: 'brightness_auto',
   dark: 'dark_mode',
 };
 export function ThemeSwitch() {
-  const mode = useSettingsStore((state) => state.themeMode);
-  const locale = useAppStore((state) => state.locale);
+  const mode = useSettingsStore((s) => s.themeMode);
+  const locale = useAppStore((s) => s.locale);
   const systemDark = useSystemDark();
   const group = useRef<HTMLDivElement>(null);
+  const status = t(
+    systemDark ? 'theme.systemDark' : 'theme.systemLight',
+    locale,
+  );
   return (
-    <div
-      className="theme-switch"
+    <SegmentedControl
       ref={group}
-      role="radiogroup"
+      className="theme-switch"
       aria-label={t('theme.label', locale)}
+      value={mode}
       data-selected={mode}
-    >
-      <span className="theme-thumb" aria-hidden="true" />
-      {themeModes.map((item) => {
-        const label = t(`theme.${item}`, locale);
-        const status = t(
-          systemDark ? 'theme.systemDark' : 'theme.systemLight',
-          locale,
-        );
-        return (
-          <button
-            key={item}
-            type="button"
-            role="radio"
-            aria-checked={mode === item}
-            tabIndex={mode === item ? 0 : -1}
-            aria-label={item === 'system' ? `${label} · ${status}` : label}
-            title={item === 'system' ? `${label} · ${status}` : label}
-            onClick={() => {
-              if (group.current) changeTheme(item, group.current);
-            }}
-            onKeyDown={(event) => {
-              if (
-                ![
-                  'ArrowLeft',
-                  'ArrowRight',
-                  'ArrowUp',
-                  'ArrowDown',
-                  'Home',
-                  'End',
-                ].includes(event.key)
-              )
-                return;
-              event.preventDefault();
-              const next = nextThemeMode(item, event.key);
-              if (group.current) changeTheme(next, group.current);
-              const buttons =
-                group.current?.querySelectorAll<HTMLButtonElement>('button');
-              buttons?.[themeModes.indexOf(next)]?.focus();
-            }}
-          >
-            <Symbol name={symbols[item]} />
-            <span className="theme-label">{label}</span>
+      adornment={<span className="theme-thumb" aria-hidden="true" />}
+      onChange={(value) => {
+        const next = themeModes.find((item) => item === value);
+        if (next && group.current) changeTheme(next, group.current);
+      }}
+      items={themeModes.map((item) => ({
+        id: item,
+        ariaLabel:
+          item === 'system'
+            ? `${t(`theme.${item}`, locale)} · ${status}`
+            : t(`theme.${item}`, locale),
+        title:
+          item === 'system'
+            ? `${t(`theme.${item}`, locale)} · ${status}`
+            : t(`theme.${item}`, locale),
+        label: (
+          <>
+            <Icon name={symbols[item]} filled={mode === item} />
+            <span className="theme-label">{t(`theme.${item}`, locale)}</span>
             {item === 'system' && (
               <span
                 className="system-indicator"
                 data-dark={systemDark}
                 aria-hidden="true"
               >
-                <Symbol name={systemDark ? 'dark_mode' : 'light_mode'} />
+                <Icon name={systemDark ? 'dark_mode' : 'light_mode'} />
               </span>
             )}
             <span className="tooltip" aria-hidden="true">
-              {item === 'system' ? status : label}
+              {item === 'system' ? status : t(`theme.${item}`, locale)}
             </span>
-          </button>
-        );
-      })}
-    </div>
+          </>
+        ),
+      }))}
+    />
   );
 }

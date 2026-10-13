@@ -15,7 +15,8 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "check": "npm run lint && npm run typecheck && npm run test && npm run build",
-    "tokens": "node scripts/generate-tokens.mjs"
+    "tokens": "node scripts/generate-tokens.mjs",
+    "screenshots:gallery": "node scripts/gallery-screenshots.mjs"
   },
   "dependencies": {
     "@material/material-color-utilities": "^0.3.0",

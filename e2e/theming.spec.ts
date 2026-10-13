@@ -14,10 +14,7 @@ test('persists theme, seed, variant, contrast and motion, with accessible keyboa
   const group = page.getByRole('radiogroup', { name: 'Erscheinungsbild' });
   await group.getByRole('radio', { name: /^System/ }).focus();
   await page.keyboard.press('ArrowRight');
-  await expect(group.getByRole('radio', { name: 'Dunkel' })).toHaveAttribute(
-    'aria-checked',
-    'true',
-  );
+  await expect(group.getByRole('radio', { name: 'Dunkel' })).toBeChecked();
   await expect(group.getByRole('radio', { name: 'Dunkel' })).toBeFocused();
   await page.getByRole('button', { name: 'Akzentfarbe anpassen' }).click();
   const picker = page.getByRole('dialog', { name: 'Deine Farbwelt' });
@@ -25,16 +22,15 @@ test('persists theme, seed, variant, contrast and motion, with accessible keyboa
     picker.getByRole('button', { name: 'Iris', exact: true }),
   ).toBeFocused();
   await picker.getByRole('button', { name: 'Koralle', exact: true }).click();
-  await picker.getByLabel('Schema-Variante').selectOption('expressive');
-  await picker.getByLabel('Kontrast', { exact: true }).selectOption('high');
+  await picker.getByRole('button', { name: /Schema-Variante/ }).click();
+  await page.getByRole('option', { name: 'Expressive', exact: true }).click();
+  await picker.getByRole('button', { name: /Kontrast/ }).click();
+  await page.getByRole('option', { name: 'Hoch', exact: true }).click();
   await page.keyboard.press('Escape');
   await expect(picker).not.toBeVisible();
   await page.getByLabel('Animationsstufe').selectOption('off');
   await page.reload();
-  await expect(group.getByRole('radio', { name: 'Dunkel' })).toHaveAttribute(
-    'aria-checked',
-    'true',
-  );
+  await expect(group.getByRole('radio', { name: 'Dunkel' })).toBeChecked();
   await expect(page.getByLabel('Animationsstufe')).toHaveValue('off');
   await page.getByRole('button', { name: 'Akzentfarbe anpassen' }).click();
   await expect(picker.getByLabel('Eigene Farbe')).toHaveValue('#e2675a');
@@ -56,7 +52,7 @@ test('follows live system changes and keeps explicit light/dark independent', as
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   await expect(
     page.getByRole('radio', { name: /System: Dunkel aktiv/ }),
-  ).toHaveAttribute('aria-checked', 'true');
+  ).toBeChecked();
   await page.getByRole('radio', { name: 'Hell', exact: true }).click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   await page.emulateMedia({ colorScheme: 'light' });

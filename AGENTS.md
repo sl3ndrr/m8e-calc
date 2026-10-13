@@ -8,16 +8,17 @@ m8e-calc ist ein datenschutzfreundlicher Desktop-Browser-Taschenrechner. Die ver
 
 Node 24 LTS (`nvm use`), npm und das eingecheckte `package-lock.json` verwenden. Installation: `npm ci`.
 
-| Befehl              | Zweck                                                     |
-| ------------------- | --------------------------------------------------------- |
-| `npm run dev`       | Vite-Entwicklungsserver                                   |
-| `npm run build`     | TypeScript prüfen und Produktionsbuild nach `dist/`       |
-| `npm run preview`   | Produktionsbuild lokal ausliefern                         |
-| `npm run lint`      | ESLint und Prettier-Formatprüfung                         |
-| `npm run typecheck` | Alle TypeScript-Projekte prüfen                           |
-| `npm run test`      | Vitest, Testing Library und Property-Tests                |
-| `npm run test:e2e`  | Playwright mit Chromium gegen den vorher erstellten Build |
-| `npm run check`     | lint + typecheck + test + build                           |
+| Befehl                        | Zweck                                                                  |
+| ----------------------------- | ---------------------------------------------------------------------- |
+| `npm run dev`                 | Vite-Entwicklungsserver                                                |
+| `npm run build`               | TypeScript prüfen und Produktionsbuild nach `dist/`                    |
+| `npm run preview`             | Produktionsbuild lokal ausliefern                                      |
+| `npm run lint`                | ESLint und Prettier-Formatprüfung                                      |
+| `npm run typecheck`           | Alle TypeScript-Projekte prüfen                                        |
+| `npm run test`                | Vitest, Testing Library und Property-Tests                             |
+| `npm run test:e2e`            | Playwright mit Chromium gegen den vorher erstellten Build              |
+| `npm run screenshots:gallery` | Galerie und Overlays in Hell/Dunkel aufnehmen (Preview vorher starten) |
+| `npm run check`               | lint + typecheck + test + build                                        |
 
 Einmalig für E2E: `npx playwright install chromium` (Linux-CI: `--with-deps`). Vor E2E `npm run build` ausführen. Formatieren: `npx prettier --write .`. `VITE_BASE_PATH` überschreibt den Standard `/m8e-calc/`; als absoluter Pfad mit führendem und abschließendem Slash setzen. Der Pages-Smoke prüft bewusst den Standardpfad.
 
@@ -38,7 +39,7 @@ Datenfluss: Benutzereingabe → reine UI-Funktion/Reducer → Domäne → Ergebn
 
 1. **Datenschutz:** Keine externen Requests zur Laufzeit. Assets lokal ausliefern, Fonts selbst hosten; bis dahin Systemfonts. Keine CDNs, Analytics oder entfernten Rechenservices. Entwicklungs- und CI-Paketdownloads sind davon getrennt.
 2. **i18n:** Alle UI-Texte einschließlich Titel, ARIA-Beschriftungen und Fehlermeldungen über i18n-Schlüssel, niemals hartkodiert. `de` ist Standard, `en` vollständig pflegen. Technische Fehler für Entwickler dürfen außerhalb sichtbarer UI stehen.
-3. **Tokens:** Keine Farbwerte in Komponenten oder Feature-CSS; Farben ausschließlich über `--md-sys-color-*`. Formen und Bewegung ausschließlich über Shape- und Motion-Tokens (`--md-sys-shape-*`, `--md-sys-motion-*`). Tokenwerte zentral in `src/styles`. `prefers-reduced-motion` respektieren. AP2 liefert zentrale Farbrollen, Typografie, Shape- und Spring-Tokens; `npm run tokens` regeneriert `src/styles/tokens.css`. Neue Icons erfordern Font-Subsetting gemäß `docs/DESIGN.md`; AP3 erweitert die Komponenten.
+3. **Tokens:** Keine Farbwerte in Komponenten oder Feature-CSS; Farben ausschließlich über `--md-sys-color-*`. Formen und Bewegung ausschließlich über Shape- und Motion-Tokens (`--md-sys-shape-*`, `--md-sys-motion-*`). Tokenwerte zentral in `src/styles`. `prefers-reduced-motion` respektieren. AP2 liefert zentrale Farbrollen, Typografie, Shape- und Spring-Tokens; `npm run tokens` regeneriert `src/styles/tokens.css`. Neue Icons erfordern Font-Subsetting gemäß `docs/DESIGN.md`; AP3 liefert die Komponenten; öffentliche API und Beispiele stehen in `docs/COMPONENTS.md`. Neue Modus-UI verwendet die Bausteine aus `src/ui/index.ts`.
 4. **Tests und Logik:** Jede Logik bekommt Tests. UI-Logik als reine Funktionen/Reducer, getrennt von Komponenten. Komponenten orchestrieren Rendering und Browseradapter. Vitest für Logik, Testing Library für UI-Verhalten, fast-check für sinnvolle Eigenschaften, Playwright für Integration im Browser. Keine Rechenengine als Nebenaufgabe hinzufügen.
 5. **Barrierefreiheit:** Vollständige Tastaturbedienung, sichtbarer Fokus, semantisches HTML und geeignete ARIA-Beschriftungen; Text- und Fokuskontrast prüfen. Animationen dürfen Bedienung nicht blockieren.
 6. **Scope-Disziplin:** Nur das beauftragte Paket umsetzen. Restpunkte als Liste **„Offen / Folge-Issues“** in die PR-Beschreibung aufnehmen. Folgepakete in der Roadmap dokumentieren.

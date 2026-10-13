@@ -1,0 +1,50 @@
+const states = [
+  'default',
+  'hover',
+  'focus',
+  'pressed',
+  'disabled',
+  'selected',
+  'error',
+] as const;
+export type State = (typeof states)[number];
+const interactive: readonly State[] = [
+  'default',
+  'hover',
+  'focus',
+  'pressed',
+  'disabled',
+];
+const selectable: readonly State[] = [...interactive, 'selected'];
+const fields: readonly State[] = [...interactive, 'error'];
+export const galleryEntries = {
+  Button: selectable,
+  IconButton: selectable,
+  Icon: ['default', 'selected'],
+  ButtonGroup: interactive,
+  SegmentedControl: selectable,
+  Fab: interactive,
+  ExtendedFab: interactive,
+  FabMenu: interactive,
+  NavigationRail: ['default', 'hover', 'focus', 'selected'],
+  Switch: selectable,
+  Checkbox: states,
+  Slider: interactive,
+  Chip: selectable,
+  TextField: fields,
+  Select: [...fields, 'selected'],
+  Menu: interactive,
+  Dialog: interactive,
+  SideSheet: interactive,
+  Popover: interactive,
+  Tooltip: interactive,
+  Snackbar: ['default'],
+  Card: ['default'],
+  List: selectable,
+  ListItem: selectable,
+  Divider: ['default'],
+  LoadingIndicator: ['default'],
+  FocusRing: ['default', 'focus'],
+  VisuallyHidden: ['default'],
+  StateLayer: ['default', 'hover', 'focus', 'pressed'],
+} as const satisfies Record<string, readonly State[]>;

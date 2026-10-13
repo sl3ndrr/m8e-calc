@@ -1,0 +1,82 @@
+.component-gallery {
+  margin-block: 3rem;
+  padding-block: 2rem;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+}
+.component-gallery > header {
+  margin-bottom: 2rem;
+}
+.gallery-component {
+  margin-block: 1rem;
+  padding: 1.25rem;
+  background: var(--md-sys-color-surface-container-low);
+  border-radius: var(--md-sys-shape-extra-large);
+}
+.gallery-component h3 {
+  margin: 0 0 1rem;
+  font-size: var(--md-sys-typescale-title-medium-size);
+}
+.gallery-matrix {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+.gallery-cell {
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+  min-width: 0;
+}
+.gallery-state-label {
+  font-size: var(--md-sys-typescale-label-medium-size);
+  color: var(--md-sys-color-on-surface-variant);
+}
+.gallery-example {
+  display: flex;
+  align-items: center;
+  min-height: 72px;
+}
+.gallery-example > * {
+  max-width: 100%;
+}
+.gallery-variants {
+  margin-block: 2rem;
+}
+.gallery-variants > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+.gallery-state-hover .ui-state-layer {
+  opacity: 0.08;
+}
+.gallery-state-focus .ui-state-layer,
+.gallery-state-pressed .ui-state-layer {
+  opacity: 0.1;
+}
+.gallery-state-focus
+  :where(
+    .ui-segment,
+    .ui-checkbox,
+    .ui-switch,
+    .ui-slider-thumb,
+    .ui-list-item,
+    .ui-select-control,
+    .ui-text-input,
+    .ui-rail-link
+  ) {
+  outline: 3px solid var(--md-sys-color-primary);
+  outline-offset: 3px;
+}
+.gallery-state-pressed .ui-slider-thumb::after {
+  inset: 8px 22px;
+}
+.gallery-state-pressed .ui-button-group[data-connected] .ui-button:first-child {
+  flex-grow: 1.6;
+}
+.gallery-state-pressed
+  .ui-button-group[data-connected]
+  .ui-button:not(:first-child) {
+  flex-grow: 1;
+}

@@ -1,0 +1,13 @@
+.ui-divider {
+  border: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--md-sys-color-outline-variant);
+  margin-block: 1rem;
+}
+.ui-divider[aria-orientation='vertical'] {
+  width: 1px;
+  height: auto;
+  align-self: stretch;
+  margin-inline: 1rem;
+}

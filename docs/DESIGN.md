@@ -93,3 +93,7 @@ Browserprüfungen: Persistenz, Tastatursteuerung, live `emulateMedia`, FOUC ohne
 ## Offen / Folge-Issues
 
 AP3 erweitert das allgemeine Komponenten-System und Accessibility-Hardening. Die vollständige Shell/Verlauf bleibt AP4; Engines und Modusinhalte folgen ihren Paketen. PWA/Offline, plattformübergreifende Browserabnahme und UI-Skalierung bleiben gemäß Roadmap späteren Paketen vorbehalten.
+
+## AP3-Komponenten
+
+Die Implementierung und Konventionen der wiederverwendbaren Bausteine stehen in [COMPONENTS.md](COMPONENTS.md). ThemeSwitch verwendet nun React-Aria-Radios; AccentPicker verwendet die neuen Buttons, Slider und Selects bei unveränderter Settings-/Reset-Logik. Die Galerie enthält alle unterstützten Zustände und Varianten sowie live bedienbare Overlays.

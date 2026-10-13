@@ -13,7 +13,13 @@ import { seeds } from '../styles/seeds';
 import { colorHue, colorWithHue } from '../shared/colorInput';
 import { useSystemDark } from '../app/theme';
 import { resolveDark } from '../shared/settings';
-import { Symbol } from './Symbol';
+import { Icon } from './Icon';
+import { Button } from './Button';
+import { IconButton } from './IconButton';
+import { Slider } from './Slider';
+import { Select } from './Select';
+import { Popover } from './Popover';
+import './AccentPicker.css';
 export function AccentPicker() {
   const id = useId();
   const picker = useRef<HTMLDivElement>(null);
@@ -29,7 +35,8 @@ export function AccentPicker() {
   );
   return (
     <>
-      <button
+      <Button
+        variant="tonal"
         ref={trigger}
         className="accent-trigger"
         type="button"
@@ -37,13 +44,13 @@ export function AccentPicker() {
         aria-label={t('accent.open', locale)}
         title={t('accent.open', locale)}
       >
-        <Symbol name="palette" />
+        <Icon name="palette" />
         <span>{t('accent.open', locale)}</span>
-      </button>
-      <div
+      </Button>
+      <Popover
+        native
         id={id}
         ref={picker}
-        popover="auto"
         className="accent-popover"
         role="dialog"
         aria-labelledby={`${id}-title`}
@@ -59,15 +66,14 @@ export function AccentPicker() {
             <h2 id={`${id}-title`}>{t('accent.title', locale)}</h2>
             <p>{t('accent.description', locale)}</p>
           </div>
-          <button
-            type="button"
+          <IconButton
+            icon="close"
+            variant="text"
             className="icon-button"
             popoverTarget={id}
             popoverTargetAction="hide"
             aria-label={t('accent.close', locale)}
-          >
-            <Symbol name="close" />
-          </button>
+          />
         </header>
         <div
           role="group"
@@ -82,8 +88,10 @@ export function AccentPicker() {
               settings.contrast,
             );
             return (
-              <button
+              <Button
                 className="seed"
+                variant="text"
+                isSelected={settings.accent === hex}
                 type="button"
                 key={name}
                 aria-label={t(`seed.${name}`, locale)}
@@ -95,10 +103,10 @@ export function AccentPicker() {
                     '--md-sys-color-on-seed': scheme[roleProperty('onPrimary')],
                   } as CSSProperties
                 }
-                onClick={() => settings.updateSettings({ accent: hex })}
+                onPress={() => settings.updateSettings({ accent: hex })}
               >
-                {settings.accent === hex && <Symbol name="check" />}
-              </button>
+                {settings.accent === hex && <Icon name="check" />}
+              </Button>
             );
           })}
         </div>
@@ -116,24 +124,17 @@ export function AccentPicker() {
             {settings.accent}
           </output>
         </div>
-        <div className="field">
-          <label htmlFor={`${id}-hue`}>{t('accent.hue', locale)}</label>
-          <input
-            id={`${id}-hue`}
-            type="range"
-            min="0"
-            max="360"
-            value={Math.round(colorHue(settings.accent))}
-            onChange={(event) =>
-              settings.updateSettings({
-                accent: colorWithHue(
-                  settings.accent,
-                  Number(event.target.value),
-                ),
-              })
-            }
-          />
-        </div>
+        <Slider
+          label={t('accent.hue', locale)}
+          minValue={0}
+          maxValue={360}
+          value={Math.round(colorHue(settings.accent))}
+          onChange={(hue) =>
+            settings.updateSettings({
+              accent: colorWithHue(settings.accent, hue),
+            })
+          }
+        />
         <div
           className="palette-preview"
           role="group"
@@ -159,58 +160,43 @@ export function AccentPicker() {
             </div>
           ))}
         </div>
-        <div className="field">
-          <label htmlFor={`${id}-variant`}>{t('accent.variant', locale)}</label>
-          <select
-            id={`${id}-variant`}
-            value={settings.schemeVariant}
-            onChange={(event) => {
-              const variant = schemeVariants.find(
-                (item) => item === event.target.value,
-              );
-              if (variant) settings.updateSettings({ schemeVariant: variant });
-            }}
-          >
-            {schemeVariants.map((item) => (
-              <option key={item} value={item}>
-                {t(`variant.${item}`, locale)}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="field">
-          <label htmlFor={`${id}-contrast`}>
-            {t('accent.contrast', locale)}
-          </label>
-          <select
-            id={`${id}-contrast`}
-            value={settings.contrast}
-            onChange={(event) => {
-              const contrast = contrasts.find(
-                (item) => item === event.target.value,
-              );
-              if (contrast) settings.updateSettings({ contrast });
-            }}
-          >
-            {contrasts.map((item) => (
-              <option key={item} value={item}>
-                {t(`contrast.${item}`, locale)}
-              </option>
-            ))}
-          </select>
-        </div>
-        <button
+        <Select
+          label={t('accent.variant', locale)}
+          selectedKey={settings.schemeVariant}
+          options={schemeVariants.map((item) => ({
+            id: item,
+            label: t(`variant.${item}`, locale),
+          }))}
+          onSelectionChange={(key) => {
+            const variant = schemeVariants.find((item) => item === key);
+            if (variant) settings.updateSettings({ schemeVariant: variant });
+          }}
+        />
+        <Select
+          label={t('accent.contrast', locale)}
+          selectedKey={settings.contrast}
+          options={contrasts.map((item) => ({
+            id: item,
+            label: t(`contrast.${item}`, locale),
+          }))}
+          onSelectionChange={(key) => {
+            const contrast = contrasts.find((item) => item === key);
+            if (contrast) settings.updateSettings({ contrast });
+          }}
+        />
+        <Button
+          variant="tonal"
           className="tonal-button"
           type="button"
-          onClick={() => {
+          onPress={() => {
             const { accent, schemeVariant, contrast } = defaultSettings();
             settings.updateSettings({ accent, schemeVariant, contrast });
           }}
         >
-          <Symbol name="restart_alt" />
+          <Icon name="restart_alt" />
           {t('accent.reset', locale)}
-        </button>
-      </div>
+        </Button>
+      </Popover>
     </>
   );
 }

@@ -1,0 +1,26 @@
+.ui-popover {
+  padding: 1rem;
+  max-width: min(28rem, calc(100vw - 32px));
+  max-height: min(80dvh, 40rem);
+  overflow: auto;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--md-sys-shape-large);
+  background: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+  box-shadow: 0 8px 28px
+    color-mix(in srgb, var(--md-sys-color-shadow) 20%, transparent);
+}
+.ui-popover[data-entering] {
+  animation: ui-popover-in var(--md-sys-motion-spatial-fast-duration)
+    var(--md-sys-motion-spatial-fast-easing);
+}
+@keyframes ui-popover-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

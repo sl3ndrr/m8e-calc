@@ -1,0 +1,22 @@
+.ui-snackbar-region {
+  position: fixed;
+  z-index: 200;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: calc(100vw - 32px);
+}
+.ui-snackbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--md-sys-shape-small);
+  background: var(--md-sys-color-inverse-surface);
+  color: var(--md-sys-color-inverse-on-surface);
+  box-shadow: 0 4px 10px
+    color-mix(in srgb, var(--md-sys-color-shadow) 20%, transparent);
+}
+.ui-snackbar .ui-snackbar-action {
+  color: var(--md-sys-color-inverse-primary);
+}

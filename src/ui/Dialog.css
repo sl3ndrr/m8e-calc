@@ -1,0 +1,41 @@
+.ui-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: color-mix(in srgb, var(--md-sys-color-scrim) 40%, transparent);
+}
+.ui-modal {
+  width: min(36rem, 100%);
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  padding: 1.5rem;
+  border-radius: var(--md-sys-shape-extra-large);
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+}
+.ui-dialog {
+  display: grid;
+  gap: 1rem;
+  outline: none;
+}
+.ui-dialog > .ui-button {
+  justify-self: end;
+}
+.ui-modal[data-entering] {
+  animation: ui-dialog-in var(--md-sys-motion-spatial-default-duration)
+    var(--md-sys-motion-spatial-default-easing);
+}
+@keyframes ui-dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

@@ -1,0 +1,49 @@
+.ui-text-field {
+  display: grid;
+  gap: 0.4rem;
+  min-width: 160px;
+  color: var(--md-sys-color-on-surface);
+}
+.ui-text-input {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 56px;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: var(--md-sys-shape-extra-small);
+  background: var(--md-sys-color-surface);
+}
+.ui-text-input input {
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  outline: none;
+}
+.ui-text-input:has(input[data-focused]) {
+  outline: 3px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+}
+.ui-text-field[data-variant='filled'] .ui-text-input {
+  background: var(--md-sys-color-surface-container-highest);
+  border: 0;
+  border-bottom: 1px solid var(--md-sys-color-on-surface-variant);
+  border-end-start-radius: var(--md-sys-shape-none);
+  border-end-end-radius: var(--md-sys-shape-none);
+}
+.ui-text-field[data-invalid] .ui-text-input {
+  border-color: var(--md-sys-color-error);
+}
+.ui-text-field [slot='description'] {
+  font-size: var(--md-sys-typescale-body-small-size);
+  color: var(--md-sys-color-on-surface-variant);
+}
+.ui-text-field .react-aria-FieldError {
+  font-size: var(--md-sys-typescale-body-small-size);
+  color: var(--md-sys-color-error);
+}
+.ui-text-field[data-disabled] {
+  opacity: 0.38;
+}

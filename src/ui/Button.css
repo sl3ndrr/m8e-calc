@@ -1,0 +1,91 @@
+.ui-button {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: var(--md-sys-shape-full);
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  font-size: var(--md-sys-typescale-label-large-size);
+  font-weight: var(--md-sys-typescale-label-large-emphasized-weight);
+  transition:
+    border-radius var(--md-sys-motion-spatial-fast-duration)
+      var(--md-sys-motion-spatial-fast-easing),
+    transform var(--md-sys-motion-spatial-fast-duration)
+      var(--md-sys-motion-spatial-fast-easing),
+    flex-grow var(--md-sys-motion-spatial-fast-duration)
+      var(--md-sys-motion-spatial-fast-easing);
+}
+.ui-button-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+.ui-button[data-variant='tonal'] {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+.ui-button[data-variant='elevated'] {
+  background: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-primary);
+  box-shadow: 0 2px 5px
+    color-mix(in srgb, var(--md-sys-color-shadow) 20%, transparent);
+}
+.ui-button[data-variant='outlined'],
+.ui-button[data-variant='text'] {
+  background: transparent;
+  color: var(--md-sys-color-primary);
+}
+.ui-button[data-variant='outlined'] {
+  border-color: var(--md-sys-color-outline);
+}
+.ui-button[data-size='xs'] {
+  padding: 0.35rem 0.75rem;
+  font-size: var(--md-sys-typescale-label-small-size);
+}
+.ui-button[data-size='sm'] {
+  padding: 0.5rem 1rem;
+}
+.ui-button[data-size='lg'] {
+  min-height: 64px;
+  padding: 1rem 2rem;
+  font-size: var(--md-sys-typescale-title-medium-size);
+}
+.ui-button[data-size='xl'] {
+  min-height: 80px;
+  padding: 1.25rem 2.5rem;
+  font-size: var(--md-sys-typescale-title-large-size);
+}
+.ui-button[data-shape='square'] {
+  border-radius: var(--md-sys-shape-large);
+}
+.ui-button[data-selected] {
+  border-radius: var(--md-sys-shape-large);
+  background: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+.ui-button[data-shape='square'][data-selected] {
+  border-radius: var(--md-sys-shape-full);
+}
+.ui-button:where([data-pressed], .ui-state-pressed) {
+  border-radius: var(--md-sys-shape-small);
+  transform: scale(0.96);
+}
+.ui-button[data-disabled] {
+  background: color-mix(
+    in srgb,
+    var(--md-sys-color-on-surface) 12%,
+    transparent
+  );
+  color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+  box-shadow: none;
+  cursor: default;
+}

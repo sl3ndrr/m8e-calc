@@ -1,0 +1,50 @@
+.ui-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 48px;
+  cursor: pointer;
+  border-radius: var(--md-sys-shape-small);
+  color: var(--md-sys-color-on-surface);
+}
+.ui-switch-track {
+  width: 52px;
+  height: 32px;
+  border: 2px solid var(--md-sys-color-outline);
+  border-radius: var(--md-sys-shape-full);
+  background: var(--md-sys-color-surface-container-high);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+.ui-switch-thumb {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--md-sys-shape-full);
+  background: var(--md-sys-color-outline);
+  transition:
+    transform var(--md-sys-motion-spatial-fast-duration)
+      var(--md-sys-motion-spatial-fast-easing),
+    width var(--md-sys-motion-spatial-fast-duration)
+      var(--md-sys-motion-spatial-fast-easing);
+}
+.ui-switch[data-selected] .ui-switch-track {
+  background: var(--md-sys-color-primary);
+  border-color: var(--md-sys-color-primary);
+}
+.ui-switch[data-selected] .ui-switch-thumb {
+  background: var(--md-sys-color-on-primary);
+  transform: translateX(22px);
+}
+.ui-switch:where([data-hovered], [data-pressed])
+  .ui-switch-thumb
+  > .ui-state-layer {
+  opacity: 0.1;
+  inset: -10px;
+}
+.ui-switch[data-disabled] {
+  opacity: 0.38;
+  cursor: default;
+}

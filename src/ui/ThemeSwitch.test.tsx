@@ -15,11 +15,11 @@ it('exposes one tab stop and navigates the three radio segments by keyboard', ()
   fireEvent.keyDown(system, { key: 'ArrowRight' });
   const dark = screen.getByRole('radio', { name: 'Dunkel' });
   expect(dark).toHaveFocus();
-  expect(dark).toHaveAttribute('aria-checked', 'true');
+  expect(dark).toBeChecked();
   fireEvent.keyDown(dark, { key: 'ArrowRight' });
   const light = screen.getByRole('radio', { name: 'Hell' });
   expect(light).toHaveFocus();
-  expect(light).toHaveAttribute('aria-checked', 'true');
+  expect(light).toBeChecked();
   fireEvent.keyDown(light, { key: 'End' });
   expect(dark).toHaveFocus();
   fireEvent.keyDown(dark, { key: 'Home' });
