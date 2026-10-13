@@ -60,4 +60,3 @@ writeFileSync(
     { parser: 'css', singleQuote: true },
   ),
 );
-

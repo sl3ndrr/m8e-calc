@@ -40,7 +40,11 @@ export function NavigationRail({
     >
       <span
         className="ui-rail-pill"
-        style={{ transform: `translateY(${y * (scaled ? 4.5 : 72)}${scaled ? 'rem' : 'px'})` } as CSSProperties}
+        style={
+          {
+            transform: `translateY(${y * (scaled ? 4.5 : 72)}${scaled ? 'rem' : 'px'})`,
+          } as CSSProperties
+        }
         aria-hidden="true"
       />
       {items.map((item) => (
@@ -62,4 +66,3 @@ export function NavigationRail({
     </nav>
   );
 }
-

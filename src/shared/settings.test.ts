@@ -110,3 +110,30 @@ describe('settings', () => {
   });
 });
 
+it('migrates v1 appearance without losing it and validates v2 preferences', () => {
+  expect(
+    migrateSettings(
+      { themeMode: 'dark', accent: '#008ba9', motionLevel: 'off' },
+      1,
+    ),
+  ).toMatchObject({
+    themeMode: 'dark',
+    accent: '#008ba9',
+    motionLevel: 'off',
+    language: 'auto',
+    historyLimit: 500,
+  });
+  expect(
+    normalizeSettings({
+      language: 'en',
+      decimalSeparator: 'point',
+      grouping: false,
+      historyLimit: 10,
+    }),
+  ).toMatchObject({
+    language: 'en',
+    decimalSeparator: 'point',
+    grouping: false,
+    historyLimit: 10,
+  });
+});

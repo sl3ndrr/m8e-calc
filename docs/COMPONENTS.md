@@ -5,7 +5,7 @@
 ## Konventionen
 
 - Props sind explizit typisiert. React-Aria-Konventionen verwenden `isDisabled`, `isSelected`, `defaultSelected`, `onPress`, `selectedKey`, `onSelectionChange`, `isOpen` und `onOpenChange`. Kontrollierte Werte erhalten ihren Änderungs-Callback; unkontrollierte Werte verwenden `default*`.
-- Sichtbare Texte, ARIA-Namen, Beschreibungen und Fehler kommen vom Aufrufer über `t(key, locale)`. Neue Schlüssel immer in `de` und `en` ergänzen. Symbolnamen, Zahlen und API-Bezeichner sind technische Werte.
+- Sichtbare Texte, ARIA-Namen, Beschreibungen und Fehler kommen vom Aufrufer über `t(key, params)` oder `t(key, locale, params)`. Neue Schlüssel immer in `de` und `en` ergänzen. Symbolnamen, Zahlen und API-Bezeichner sind technische Werte.
 - Icon-only-Aktionen verlangen `aria-label`. `Icon` ist standardmäßig dekorativ; `label` macht es zu einem benannten Bild. `VisuallyHidden` liefert Text für Assistenztechnik.
 - Farben ausschließlich aus `--md-sys-color-*`; Radien aus `--md-sys-shape-*`; Bewegungen aus den AP2-Spring-Tokens. `StateLayer` erzeugt Hover/Focus/Pressed-Überlagerungen aus `currentColor`. Interaktive Ziele haben mindestens 48 × 48 px; visuelle Slider-/Switch-Griffe dürfen kleiner sein.
 - Tastaturfokus benutzt einen 3-px-Primary-Ring mit Abstand; Forced Colors benutzt `Highlight`. React Aria veröffentlicht `data-focus-visible`. Der `FocusRing`-Wrapper eignet sich für zusammengesetzte Flächen.
@@ -18,7 +18,7 @@
 | Bausteine                             | Verhalten und Varianten                                                                                                                                                                                                                                                                          |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Button                                | filled, tonal, elevated, outlined, text; xs/sm/md/lg/xl; round/square; Enter und Leertaste. Toggle über `isSelected`/`defaultSelected` und `onSelectedChange`. Radius und leichte Skalierung beim Drücken; ausgewählte Toggle-Form invertiert round/square.                                      |
-| IconButton, Icon                      | IconButton nutzt Button-Verhalten; lokale Material Symbols mit interpolierter FILL-Achse. Acht vorhandene Glyphen als `IconName`-Union. Neue Glyphen zuerst in `scripts/subset-fonts.py` aufnehmen und lokal neu generieren.                                                                     |
+| IconButton, Icon                      | IconButton nutzt Button-Verhalten; lokale Material Symbols mit interpolierter FILL-Achse. Zwanzig vorhandene Glyphen als `IconName`-Union. Neue Glyphen zuerst in `scripts/subset-fonts.py` aufnehmen und lokal neu generieren.                                                                  |
 | ButtonGroup                           | React-Aria-Toolbar mit einem Tab-Einstieg und Pfeilnavigation. `connected` teilt eine feste Breite: gedrückte Aktion wächst, Nachbarn schrumpfen mit Spatial Fast.                                                                                                                               |
 | SegmentedControl                      | Native Radios über React Aria, ein Tab-Stopp, Pfeile mit Wraparound und Überspringen deaktivierter Optionen; Home/End zum ersten/letzten aktivierten Segment.                                                                                                                                    |
 | Fab, ExtendedFab, FabMenu             | FABs verwenden Button-Press-Verhalten; FAB-Menü verwendet MenuTrigger, Pfeile/Enter und Escape mit Fokus-Rückgabe.                                                                                                                                                                               |
@@ -89,7 +89,7 @@ Das Playwright-Skript speichert `docs/screenshots/components-{light,dark}.png` u
 
 ## Offen / Folge-Issues
 
-- Rechner-Shell, Verlauf und Modusinhalte folgen AP4 und den späteren Paketen.
+- Rechner-Shell und Verlauf sind in AP4 implementiert; die Modusinhalte folgen den späteren Paketen.
 - Weitere Material-Symbol-Glyphen erst bei konkreten Aktionen subsetten; kein externer Fontdownload zur Laufzeit.
 - Snackbar kapselt die derzeit als UNSTABLE exportierte React-Aria-Toast-API. Bei deren Stabilisierung nur den Adapter ändern.
 - Screenreader-Abnahme und weitere Browser/Plattformen bleiben ergänzend zur automatischen axe-/Chromium-Prüfung spätere Integrationsaufgaben.

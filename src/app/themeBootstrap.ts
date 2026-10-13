@@ -80,4 +80,3 @@ export function bootstrapTheme(defaults: {
     .querySelector('meta[name="theme-color"]')
     ?.setAttribute('content', colors['--md-sys-color-surface'] ?? '');
 }
-

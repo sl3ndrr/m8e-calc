@@ -8,7 +8,16 @@ export interface HistoryAdapter {
 export function createHistoryAdapter(): HistoryAdapter {
   let callback: RestoreCallback | undefined;
   return {
-    register(next) { callback = next; return () => { if (callback === next) callback = undefined; }; },
-    restore(entry) { if (!callback) return false; callback(entry); return true; },
+    register(next) {
+      callback = next;
+      return () => {
+        if (callback === next) callback = undefined;
+      };
+    },
+    restore(entry) {
+      if (!callback) return false;
+      callback(entry);
+      return true;
+    },
   };
 }

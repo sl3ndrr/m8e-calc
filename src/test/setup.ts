@@ -24,5 +24,7 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-
-Object.defineProperty(navigator, 'language', { configurable: true, value: 'de-DE' });
+Object.defineProperty(navigator, 'language', {
+  configurable: true,
+  value: 'de-DE',
+});

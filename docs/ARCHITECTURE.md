@@ -56,4 +56,3 @@ Hash-Routing benötigt keine Pages-Rewrites. Vite erzeugt Assets relativ zum Bas
 CI läuft bei PRs und Pushes auf main. Pages baut bei Push auf main, prüft vor Upload und deployt mit OIDC in `github-pages`. In GitHub Settings → Pages ist die Quelle GitHub Actions zu aktivieren. Nach Merge den Workflow und die URL `https://sl3ndrr.github.io/m8e-calc/` prüfen. Ein grüner PR-Smoke belegt die lokale Auslieferung des Produktionsbuilds, nicht bereits ein öffentliches Deployment.
 
 Wöchentliche Dependabot-Updates werden getrennt für npm und GitHub Actions gruppiert. Architektur- und Konventionsänderungen müssen in dieser Datei und `AGENTS.md` dokumentiert werden.
-

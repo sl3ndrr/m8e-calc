@@ -97,3 +97,9 @@ AP3 erweitert das allgemeine Komponenten-System und Accessibility-Hardening. Die
 ## AP3-Komponenten
 
 Die Implementierung und Konventionen der wiederverwendbaren Bausteine stehen in [COMPONENTS.md](COMPONENTS.md). ThemeSwitch verwendet nun React-Aria-Radios; AccentPicker verwendet die neuen Buttons, Slider und Selects bei unveränderter Settings-/Reset-Logik. Die Galerie enthält alle unterstützten Zustände und Varianten sowie live bedienbare Overlays.
+
+## AP4-Shell-Ergänzungen
+
+Die Settings nutzen jetzt Version 2 (Version 0/1 wird migriert) und ergänzen Sprache, Zahlenformat und Verlaufslimit. Der frühe Theme-Bootstrap akzeptiert alle drei bekannten Versionen. Die Shell skaliert die root-Schrift von 12 bis 32 px, mit Full HD als 16-px-Referenz und Höhenbegrenzung für Ultrawide. Shape-Tokens verwenden jetzt rem, genauso wie die Typografie. NavigationRail kann die Aktivpille mit `scaled` in rem-Schritten animieren; die Galerie behält ihre bisherigen px-Slots.
+
+Das lokale Material-Symbol-Subset enthält die zwölf zusätzlichen Shell-Glyphen (Rechnermodi, Verlauf, Einstellungen, Navigation und Verlaufsaktionen), insgesamt zwanzig. `scripts/subset-fonts.py` bleibt die Quelle. Die vier Modus-Chunks zeigen ausschließlich Leerzustände; die Verlaufs-API, Shell und Einstellungen stehen in `ARCHITECTURE.md`.

@@ -43,4 +43,3 @@ test('loads the production build under the Pages base path without external requ
   expect(external).toEqual([]);
   expect(errors).toEqual([]);
 });
-

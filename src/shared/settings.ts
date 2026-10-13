@@ -45,10 +45,21 @@ export function normalizeSettings(
   const fallback = defaultSettings(reducedMotion);
   if (!isRecord(value)) return fallback;
   return {
-    language: value.language === 'de' || value.language === 'en' ? value.language : 'auto',
-    decimalSeparator: value.decimalSeparator === 'comma' || value.decimalSeparator === 'point' ? value.decimalSeparator : 'auto',
-    grouping: typeof value.grouping === 'boolean' ? value.grouping : fallback.grouping,
-    historyLimit: typeof value.historyLimit === 'number' && Number.isFinite(value.historyLimit) ? Math.max(1, Math.min(500, Math.trunc(value.historyLimit))) : fallback.historyLimit,
+    language:
+      value.language === 'de' || value.language === 'en'
+        ? value.language
+        : 'auto',
+    decimalSeparator:
+      value.decimalSeparator === 'comma' || value.decimalSeparator === 'point'
+        ? value.decimalSeparator
+        : 'auto',
+    grouping:
+      typeof value.grouping === 'boolean' ? value.grouping : fallback.grouping,
+    historyLimit:
+      typeof value.historyLimit === 'number' &&
+      Number.isFinite(value.historyLimit)
+        ? Math.max(1, Math.min(500, Math.trunc(value.historyLimit)))
+        : fallback.historyLimit,
     themeMode:
       themeModes.find((item) => item === value.themeMode) ?? fallback.themeMode,
     accent:
@@ -97,4 +108,3 @@ export function nextThemeMode(mode: ThemeMode, key: string): ThemeMode {
   const delta = key === 'ArrowRight' || key === 'ArrowDown' ? 1 : -1;
   return themeModes[(themeModes.indexOf(mode) + delta + 3) % 3] ?? 'system';
 }
-
