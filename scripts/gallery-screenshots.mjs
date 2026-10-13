@@ -62,39 +62,12 @@ try {
       const tooltip = page.locator(
         `[data-component="Tooltip"] [data-state="${state}"] button`,
       );
-      await tooltip.hover();
-      try {
-        await page.getByRole('tooltip').waitFor({ timeout: 5000 });
-      } catch (error) {
-        console.log(
-          JSON.stringify(
-            await page.evaluate(() => ({
-              focused: document.activeElement?.outerHTML,
-              triggers: document.querySelector('[data-component="Tooltip"]')
-                ?.outerHTML,
-              tooltips: Array.from(
-                document.querySelectorAll('[role="tooltip"]'),
-              ).map((node) => ({
-                html: node.outerHTML,
-                hidden: Array.from(
-                  node.parentElement?.closest('[aria-hidden="true"]')
-                    ? [
-                        node.parentElement
-                          .closest('[aria-hidden="true"]')
-                          .outerHTML.slice(0, 1000),
-                      ]
-                    : [],
-                ),
-                rect: node.getBoundingClientRect().toJSON(),
-              })),
-            })),
-          ),
-        );
-        await page.screenshot({
-          path: `${output}/components-${theme}-tooltip-debug.png`,
-        });
-        throw error;
-      }
+      // Enter with native keyboard focus so capture also verifies accessibility.
+      await tooltip.focus();
+      await page.keyboard.press('Shift+Tab');
+      await page.keyboard.press('Tab');
+      await expect(tooltip).toBeFocused();
+      await expect(page.getByRole('tooltip')).toBeVisible();
       await page.screenshot({
         path: `${output}/components-${theme}-tooltip${state === 'focus' ? '-rich' : ''}.png`,
         animations: 'disabled',
@@ -104,11 +77,7 @@ try {
       await page.getByRole('tooltip').waitFor({ state: 'hidden' });
     }
     await page.locator('[data-component="Snackbar"] button').click();
-    await page
-      .getByText(
-        theme === 'light' ? 'Änderung gespeichert.' : 'Änderung gespeichert.',
-      )
-      .waitFor();
+    await page.getByText('Änderung gespeichert.').waitFor();
     await page.screenshot({
       path: `${output}/components-${theme}-snackbar.png`,
       animations: 'disabled',
