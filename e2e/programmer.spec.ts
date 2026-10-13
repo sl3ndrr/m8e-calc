@@ -15,7 +15,9 @@ test('hex input, bit clicks, widths, expression and history restore', async ({
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   const panel = page.locator('.programmer-panel'),
     grid = panel.locator('.programmer-word-grid');
-  await panel.getByRole('radio', { name: '8', exact: true }).click();
+  const width8 = panel.getByRole('radio', { name: '8', exact: true });
+  await width8.focus();
+  await width8.press('Space');
   const hex = panel.getByRole('textbox', { name: t('programmer.hex') });
   await hex.fill('FF');
   await hex.press('Enter');
@@ -27,7 +29,9 @@ test('hex input, bit clicks, widths, expression and history restore', async ({
     })
     .click();
   await expect(hex).toHaveValue('7F');
-  await panel.getByRole('radio', { name: '64', exact: true }).click();
+  const width64 = panel.getByRole('radio', { name: '64', exact: true });
+  await width64.focus();
+  await width64.press('Space');
   await expect(grid.getByRole('switch')).toHaveCount(64);
   await hex.fill('FFFFFFFFFFFFFFFF');
   await hex.press('Enter');
@@ -85,7 +89,7 @@ test('drag paints once, keyboard toggles, IEEE and Unicode', async ({
     '0.100000001490116119384765625',
   );
   await panel
-    .getByRole('textbox', { name: t('programmer.character') })
+    .getByRole('textbox', { name: t('programmer.character'), exact: true })
     .fill('😀');
   await expect(panel.locator('.programmer-utf8')).toContainText('F0 9F 98 80');
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
