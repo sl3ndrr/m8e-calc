@@ -57,6 +57,12 @@ for (const [width, height] of [
     ).toBeVisible();
     for (const label of labels) {
       await page.getByRole('link', { name: label, exact: true }).click();
+      const activeStage = page.locator('.mode-stage:not([aria-hidden])');
+      await expect(activeStage).toHaveAttribute(
+        'data-mode',
+        modes[labels.indexOf(label)] ?? 'simple',
+      );
+      await expect(activeStage).toHaveCSS('opacity', '1');
       await page
         .getByRole('button', { name: 'Verlauf ein-/ausblenden' })
         .click();
@@ -75,6 +81,12 @@ for (const [width, height] of [
             return (
               root.scrollWidth <= innerWidth &&
               root.scrollHeight <= innerHeight &&
+              history instanceof HTMLElement &&
+              history.getBoundingClientRect().right <= innerWidth + 1 &&
+              history.parentElement instanceof HTMLElement &&
+              Math.abs(
+                history.parentElement.clientWidth - history.clientWidth,
+              ) <= 1 &&
               [shell, stage, rail, toolbar, history].every(
                 (element) =>
                   element instanceof HTMLElement &&
