@@ -224,7 +224,7 @@ export function App() {
         </div>
       )}
       <SettingsDialog isOpen={settingsOpen} onOpenChange={setSettingsOpen} />
-      {notifications}
+      {route !== 'design' && notifications}
     </I18nProvider>
   );
 }
