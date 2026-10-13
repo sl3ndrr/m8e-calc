@@ -4,6 +4,7 @@ import { Guard, D, requireDomain } from './numeric.ts';
 import { define, unary, binary } from './functionHelpers.ts';
 import { scientificDefinitions } from './scientificFunctions.ts';
 import { fromRadians, sineCosine } from './trigonometry.ts';
+import { floatImplementations } from './floatFunctions.ts';
 
 function root(order: Decimal, radicand: Decimal): Decimal {
   requireDomain(order.isInteger() && !order.isZero());
@@ -230,6 +231,9 @@ export const functionRegistry: FunctionRegistry = Object.freeze(
       definition.name,
       Object.freeze({
         ...definition,
+        ...(floatImplementations[definition.name]
+          ? { floatImpl: floatImplementations[definition.name] }
+          : {}),
         doc: Object.freeze({ ...definition.doc }),
       }),
     ]),
