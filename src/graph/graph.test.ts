@@ -311,6 +311,45 @@ describe('adaptive world-space sampling', () => {
 });
 
 describe('visible numerical analysis', () => {
+  it('analyses parametric and polar coordinates in world space', () => {
+    for (const circle of [curve('(cos(t),sin(t))'), curve('r=1')]) {
+      const roots = findRoots(circle, bounds);
+      expect(roots).toHaveLength(2);
+      expect(roots.every((p) => Math.abs(p.y) < 1e-7 && p.confidence)).toBe(
+        true,
+      );
+      const extrema = findExtrema(circle, bounds);
+      expect(extrema).toHaveLength(2);
+      expect(
+        extrema.some((p) => Math.abs(p.y - 1) < 1e-7 && p.kind === 'maximum'),
+      ).toBe(true);
+      expect(findInflections(circle, bounds)).toEqual([]);
+      const slope = slopeAt(circle, Math.PI / 2, bounds);
+      close(slope.value, 0);
+      expect(slope.confidence).toBe(true);
+      expect(slopeAt(circle, 0, bounds).confidence).toBe(false);
+    }
+    const cubic = curve('(t,t^3)', { range: [-1, 1] });
+    expect(findInflections(cubic, bounds)).toHaveLength(1);
+    const intercept = yIntercept(curve('x=0'), bounds);
+    expect(intercept).toBeNull();
+  });
+  it('refines intersections involving vertical, parametric and polar curves', () => {
+    const circles = [curve('(cos(t),sin(t))'), curve('r=1')];
+    for (const circle of circles) {
+      const hits = findIntersections(circle, curve('x=.5'), bounds);
+      expect(hits).toHaveLength(2);
+      for (const p of hits) {
+        close(p.x, 0.5);
+        close(Math.abs(p.y), Math.sqrt(0.75));
+        expect(p.confidence).toBe(true);
+      }
+      expect(findIntersections(circle, curve('1/x'), bounds)).toEqual([]);
+    }
+    const hits = findIntersections(curve('x=1'), curve('x^2'), bounds);
+    expect(hits).toHaveLength(1);
+    close(hits[0]?.y ?? NaN, 1);
+  });
   const box = { xMin: -Math.PI, xMax: Math.PI, yMin: -10, yMax: 10 };
   it('roots of sine and residual validation at poles', () => {
     const roots = findRoots(curve('sin(x)'), box);

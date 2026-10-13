@@ -78,11 +78,14 @@ Pathologische Kurven bleiben durch ein Arbeitsbudget begrenzt.
 ## Analysis
 
 `findRoots`, `findExtrema`, `findInflections`, `findIntersections`, `yIntercept`,
-`slopeAt`, `tangentAt`, `definiteIntegral` und `areaBetween` arbeiten auf expliziten
-Kurven im übergebenen sichtbaren Bereich. Nicht explizite Kurven liefern keine
-Analysis-Punkte bzw. eine Schätzung mit confidence=false; AP13 kann dies anhand
-von kind bereits vor dem Aufruf anzeigen. Parametrische Selbstschnitte/vertikale
-Tangenten und implizite Analysis gehören ins Folgepaket.
+`slopeAt` und `tangentAt` unterstützen alle fertigen Kurventypen. Nullstellen sind
+Schnitte mit y=0, Extrema Wechsel von dy/du, Wendepunkte Wechsel der signierten
+Krümmung; u ist x, t, theta bzw. y bei vertikalen Geraden. Alle Treffer werden
+auf das sichtbare Rechteck gefiltert und geometrisch dedupliziert. Steigung und
+Tangente erhalten für parametrische/polare Kurven eine Parameterstelle; dy/dx
+wird aus dy/du und dx/du gebildet, vertikale Tangenten haben confidence=false.
+`definiteIntegral` und `areaBetween` verlangen explizite, einwertige y(x)-Kurven;
+bei anderen Kurventypen ist diese x-Fläche nicht definiert (confidence=false).
 
 Punktergebnisse: `{ x, y, errorEstimate, confidence }`, Extrema zusätzlich kind.
 Skalare: `{ value, errorEstimate, confidence }`; Tangente zusätzlich point/slope/
@@ -96,7 +99,12 @@ Nullstellen: endliche Rasterwerte, Vorzeichenwechsel, Brent-Dekker mit gesichert
 Bisektion und abschließender Residuenprüfung. Ein Vorzeichenwechsel an 1/x ist
 keine Nullstelle. Rastertreffer bei |f|<=valueTolerance zählen; berührende Nullstellen
 ohne Rastertreffer sind nicht garantiert. Identisch null liefert keine diskrete
-Trefferliste. Differenzkurven geben Schnittpunkte; identische Kurven keine Liste.
+Trefferliste. Differenzkurven geben explizite Schnittpunkte; identische Kurven
+keine Liste. Andere Kurvenpaare nutzen maximal 512 Parameterintervalle als
+Startkandidaten, dann gedämpfte zweidimensionale Newton-Verfeinerung und eine
+Residuenprüfung beider Weltkoordinaten. Tangentiale Berührungen und sehr kleine
+Schleifen ohne Rasterkandidat sind nicht garantiert; keine falschen Treffer an
+Polen. Der Paarvergleich ist auf 512² begrenzt, die Auswertungen bleiben budgetiert.
 
 Ableitungen: zentrale Differenzen mit halbierten Schritten und Richardson-
 Extrapolation; links/rechts Steigungen prüfen Knicke. Extrema suchen Wechsel
