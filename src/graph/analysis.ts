@@ -141,16 +141,16 @@ export function findInflections(
   options: AnalysisOptions = {},
 ): AnalysisPoint[] {
   validateBounds(bounds);
-  if (curve.kind !== 'explicit')
-    return pathInflections(curve, bounds, settings(options), roots);
   const limits = settings(options),
     f = explicit(curve, limits);
   // The second derivative's cancellation error is larger than the slope's.
   const derivativeLimits = {
     ...limits,
-    absoluteTolerance: Math.max(limits.absoluteTolerance, 1e-6),
-    relativeTolerance: Math.max(limits.relativeTolerance, 1e-6),
+    absoluteTolerance: options.absoluteTolerance ?? 1e-6,
+    relativeTolerance: options.relativeTolerance ?? 1e-6,
   };
+  if (curve.kind !== 'explicit')
+    return pathInflections(curve, bounds, limits, roots, derivativeLimits);
   const d = (x: number): number => {
     const r = derivative(f, x, 2, derivativeLimits);
     return r.confidence ? r.value : NaN;

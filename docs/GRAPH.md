@@ -91,7 +91,8 @@ Punktergebnisse: `{ x, y, errorEstimate, confidence }`, Extrema zusätzlich kind
 Skalare: `{ value, errorEstimate, confidence }`; Tangente zusätzlich point/slope/
 intercept. confidence kennzeichnet bestandene numerische Prüfungen, keinen Beweis.
 Standardtoleranzen: xTolerance=1e-8, valueTolerance=1e-8, absoluteTolerance=1e-9,
-relativeTolerance=1e-9; positive endliche Optionen, maxIterations=100,
+relativeTolerance=1e-9 (zweite Ableitung wegen Auslöschung standardmäßig 1e-6;
+explizite Optionen werden eingehalten); positive endliche Optionen, maxIterations=100,
 maxEvaluations=30000. Suchraster 1024 Intervalle, begrenzt auf 16384.
 Nur sichtbare Punkte werden zurückgegeben und nahe Treffer dedupliziert.
 
@@ -142,7 +143,7 @@ Kardioide/Lissajous, unabhängige Bildschirm-Fehlerproben, Pole zwischen Rasterp
 NaN/Infinity, deterministisches fast-check-Fuzzing, Viewport-Invarianten und Benchmark.
 `npm run check` und Chromium-CI sind verbindlich. Keine UI-Änderung/Screenshots in AP12.
 
-Folge-Issue: adaptive implizite Kurven F(x,y)=0 mit Marching Squares passend zur
+[Folge-Issue #17](https://github.com/sl3ndrr/m8e-calc/issues/17): adaptive implizite Kurven F(x,y)=0 mit Marching Squares passend zur
 Plot-Auflösung, asymptotischem Sattel-Decider, konsistenter Zellrand-Stitching-
 Strategie, Kreisen/Hyperbeln/Kreuzungen und isolierten Komponenten. Akzeptanz:
 keine Risse bei adaptiven Zellgrößen, dokumentierte Pixelgenauigkeit und eigenes

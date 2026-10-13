@@ -149,15 +149,11 @@ export function pathInflections(
   bounds: Bounds,
   limits: Settings,
   scan: RootScanner,
+  secondLimits: Settings,
 ): AnalysisPoint[] {
   const p = path(curve, bounds, limits),
     x = (u: number): number => p.point(u).x,
     y = (u: number): number => p.point(u).y;
-  const secondLimits = {
-    ...limits,
-    absoluteTolerance: Math.max(limits.absoluteTolerance, 1e-6),
-    relativeTolerance: Math.max(limits.relativeTolerance, 1e-6),
-  };
   const curvature = (u: number): number => {
     const dx = derivative(x, u, 1, limits),
       dy = derivative(y, u, 1, limits),

@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import fc from 'fast-check';
-import { performance as clock } from 'node:perf_hooks';
 import { parse, functionRegistry, evaluateString } from '../engine/index.ts';
 import type { Ast, FunctionRegistry } from '../engine/index.ts';
 import {
@@ -482,6 +481,17 @@ describe('viewport and ticks', () => {
   });
 });
 
+describe('extreme tick ranges', () => {
+  it('bounds pi labels at very large finite world values', () => {
+    const v = new Viewport(
+      { xMin: 1e308, xMax: 1.1e308, yMin: -1, yMax: 1 },
+      pixels,
+    );
+    expect(() => v.ticks('x', { pi: true })).not.toThrow();
+    expect(v.ticks('x', { pi: true }).length).toBeLessThanOrEqual(1001);
+  });
+});
+
 describe('termination, fuzzing and performance', () => {
   it('seeded arbitrary inputs never crash parsing', () =>
     fc.assert(
@@ -529,9 +539,9 @@ describe('termination, fuzzing and performance', () => {
     for (let i = 0; i < 20; i++)
       for (const c of curves) sampleCurve(c, bounds, pixels);
     for (const c of curves) {
-      const start = clock.now();
+      const start = Date.now();
       for (let i = 0; i < 40; i++) sampleCurve(c, bounds, pixels);
-      expect((clock.now() - start) / 40).toBeLessThan(25);
+      expect((Date.now() - start) / 40).toBeLessThan(25);
     }
   }, 15000);
 });

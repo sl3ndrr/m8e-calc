@@ -32,6 +32,9 @@ function niceStep(raw: number): number {
   );
 }
 function piLabel(value: number): string {
+  const multiple = Math.abs(value) / Math.PI;
+  if (multiple > Number.MAX_SAFE_INTEGER / 8)
+    return `${value < 0 ? '−' : ''}${Number(multiple.toPrecision(6))}π`;
   const sign = value < 0 ? '−' : '',
     n = Math.round(Math.abs(value / Math.PI) * 8);
   if (n === 0) return '0';
