@@ -8,7 +8,7 @@ Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet akzeptiert und integrie
 - [ ] 4 App-Shell/Verlauf — Registry und lazy Platzhalter, skalierende Desktop-Shell, persistenter Verlauf mit Suche/Pins/Undo/Export, Einstellungen und de/en/Auto (PR `feat/app-shell`; Abnahme vor Merge).
 - [ ] 5 Engine-Kern — Parser, stabiler AST, decimal.js-Auswertung, Registry, Zahlenformat und Fehler mit Bereichen (PR `feat/engine-core`; Vertrag in `ENGINE.md`, Abnahme vor Merge).
 - [ ] 6 Einfacher Rechner — herkömmlicher Funktionsumfang, reiner Reducer, Engine-Anbindung und Keypad/Display für AP8 (PR `feat/simple-calculator`; Abnahme vor Merge).
-- [ ] 7 Engine wissenschaftlich — wissenschaftliche Funktionen, komplexe Zahlen, Σ/∫/d/dx.
+- [ ] 7 Engine wissenschaftlich — wissenschaftliche Registry, komplexe Zahlen, Σ/∫/d/dx, CODATA 2022, Environment und Export (PR `feat/engine-scientific`; Vertrag in `ENGINE.md`, Abnahme vor Merge).
 - [ ] 8 Wissenschaftlicher Modus — UI für Physik, Informatik und Mathematik.
 - [ ] 9 Programmierer-Panel.
 - [ ] 10 Einheiten-Engine — große Einheitenauswahl und geprüfte Umrechnungen.
@@ -25,5 +25,4 @@ AP3: Komponentenbibliothek in `src/ui`, Zustandsmatrix im Design-Lab, Tastatur-/
 AP5 zieht die beauftragten reellen wissenschaftlichen Grundfunktionen und eine
 erweiterbare Registry vor. AP6/AP8 binden die Result-API einschließlich Fehler-i18n
 an die Modi an; AP7 ergänzt komplexe Zahlen, Listen und numerische Analysis.
-AP12 nutzt den stabilen AST für den Graph-Kompilierer; LaTeX und eigene
-Funktionsdefinitionen in der UI folgen in AP14.
+AP12 nutzt den stabilen AST für den Graph-Kompilierer; AP7 liefert LaTeX und eigene Funktionsdefinitionen im Kern; deren UI folgt in AP8/AP14.
