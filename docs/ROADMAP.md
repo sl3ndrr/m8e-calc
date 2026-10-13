@@ -26,3 +26,6 @@ AP5 zieht die beauftragten reellen wissenschaftlichen Grundfunktionen und eine
 erweiterbare Registry vor. AP6/AP8 binden die Result-API einschließlich Fehler-i18n
 an die Modi an; AP7 ergänzt komplexe Zahlen, Listen und numerische Analysis.
 AP12 nutzt den stabilen AST für den Graph-Kompilierer; AP7 liefert LaTeX und eigene Funktionsdefinitionen im Kern; deren UI folgt in AP8/AP14.
+
+
+AP11 implementiert den Umrechner auf AP10; Verhalten, Persistenz und Testvertrag stehen in [CONVERT_MODE.md](CONVERT_MODE.md).
