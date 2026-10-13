@@ -293,7 +293,7 @@ export default function ConvertMode() {
     state.draft?.side === 'to'
       ? state.draft.text
       : values[state.toId]
-        ? numericText(values[state.toId], state.toId, options)
+        ? numericText(values[state.toId] ?? '0', state.toId, options)
         : '';
   const compound = preferences.compound
     ? compoundText(state, formatLocale)
@@ -351,7 +351,10 @@ export default function ConvertMode() {
         ref={quick}
         aria-label={t('convert.quick', locale)}
         className="convert-quick"
-        onSubmit={(event) => { event.preventDefault(); applyQuery(); }}
+        onSubmit={(event) => {
+          event.preventDefault();
+          applyQuery();
+        }}
       >
         <TextField
           label={t('convert.quick', locale)}
@@ -540,7 +543,7 @@ export default function ConvertMode() {
             {!state.error && values[state.toId] && (
               <>
                 <AnimatedNumber
-                  value={values[state.toId]}
+                  value={values[state.toId] ?? '0'}
                   unitId={state.toId}
                   options={options}
                 />
@@ -642,7 +645,7 @@ export default function ConvertMode() {
                   </span>
                   <strong className="expression">
                     {values[unit.id] !== undefined
-                      ? numericText(values[unit.id], unit.id, options)
+                      ? numericText(values[unit.id] ?? '0', unit.id, options)
                       : '—'}
                   </strong>
                   <span className="convert-unit-symbol">

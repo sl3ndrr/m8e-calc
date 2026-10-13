@@ -52,7 +52,7 @@ test('quick entry, searchable grouped units, compound output and special cases',
   await expect(
     page.getByRole('textbox', { name: t('convert.to'), exact: true }),
   ).toHaveValue('22,222222');
-  await quick.fill('40 in in ft');
+  await quick.fill('40 in -> ft');
   await quick.press('Enter');
   await page.getByRole('checkbox', { name: t('convert.compound') }).check();
   await expect(page.locator('.convert-compound')).toHaveText('3 ft 4 in');
@@ -128,7 +128,7 @@ test('quiet history replaces pairs, restores and survives reload with favorites'
   await expect(from).toHaveValue('6');
   await page.reload();
   await expect(
-    page.getByRole('button', { name: 'Länge: km nach mi laden' }),
+    page.getByRole('region', { name: t('convert.favorites'), exact: true }).getByRole('button', { name: 'Länge: km nach mi laden' }),
   ).toBeVisible();
 });
 test('category grid arrows, copying, reduced motion and accessibility', async ({

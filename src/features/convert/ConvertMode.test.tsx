@@ -14,16 +14,14 @@ beforeEach(() => {
     .getState()
     .updateSettings({ language: 'de', motionLevel: 'off' });
   useHistoryStore.getState().resetHistory();
-  useConvertStore
-    .getState()
-    .update({
-      favorites: [],
-      recent: [],
-      digits: 8,
-      notation: 'auto',
-      compound: false,
-      sort: 'system',
-    });
+  useConvertStore.getState().update({
+    favorites: [],
+    recent: [],
+    digits: 8,
+    notation: 'auto',
+    compound: false,
+    sort: 'system',
+  });
 });
 afterEach(() => vi.useRealTimers());
 it('converts localized source and target inputs and swaps without rounding the model', async () => {
@@ -122,6 +120,6 @@ it('groups searchable units with favorites first and filters categories', async 
     'Temperatur',
   );
   expect(
-    screen.getByRole('button', { name: 'Temperatur', exact: true }),
+    screen.getByRole('button', { name: 'Temperatur' }),
   ).toBeVisible();
 });

@@ -52,7 +52,7 @@ interface PreferencesState extends ConvertPreferences {
 }
 export function createConvertStore(storage: StateStorage) {
   return create<PreferencesState>()(
-    persist(
+    persist<PreferencesState, [], [], ConvertPreferences>(
       (set) => ({
         ...normalizePreferences(null),
         update: (patch) =>

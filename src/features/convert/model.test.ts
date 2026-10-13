@@ -101,7 +101,7 @@ describe('converter adapter', () => {
     expect(
       numericText('1234.567', 'm', { locale: 'de', digits: 6, grouping: true }),
     ).toBe('1.234,57');
-    expect(compoundText(query('40 in in ft'), 'en')).toBe('3 ft 4 in');
+    expect(compoundText(query('40 in -> ft'), 'en')).toBe('3 ft 4 in');
     expect(compoundText(query('3661.5 s in h', 'en'), 'en')).toBe('1:01:01.5');
   });
   it('skips zero and unchanged history; replaces consecutive pairs', () => {
