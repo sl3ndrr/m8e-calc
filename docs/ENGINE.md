@@ -1,5 +1,10 @@
 # Engine-Kern · AP5
 
+AP12 ergänzt `FunctionDefinition` additiv um optionales
+`floatImpl(args: readonly number[], { angleMode }): number` für reelle Graphen.
+Die bestehende Decimal-Implementierung und der AST bleiben unverändert.
+Float-Vertrag, unterstützte Funktionen und Toleranzen stehen in [GRAPH.md](GRAPH.md).
+
 ## Informatik · AP9 (Vertrag vor Tests und Implementierung)
 
 `src/engine/programmer/index.ts` liefert reine BigInt-Wortoperationen. `WordOptions`
