@@ -2,7 +2,7 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [main, feat/foundation]
+    branches: [main, feat/foundation, feat/components]
 permissions:
   contents: read
 concurrency:
@@ -21,9 +21,17 @@ jobs:
       - run: npm run check
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
+      - name: Gallery screenshots
+        if: ${{ !cancelled() }}
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 --strictPort > /tmp/m8e-preview.log 2>&1 &
+          for attempt in $(seq 1 30); do curl -sf http://127.0.0.1:4173/m8e-calc/ > /dev/null && break; sleep 1; done
+          npm run screenshots:gallery
       - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: playwright-results
-          path: test-results/
+          path: |
+            test-results/
+            docs/screenshots/components-*.png
           retention-days: 7

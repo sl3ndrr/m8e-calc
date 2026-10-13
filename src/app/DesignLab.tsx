@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react';
+import { ComponentGallery } from './ComponentGallery';
 import { useAppStore } from '../shared/store';
 import { useSettingsStore } from '../shared/settingsStore';
 import { motionLevels, resolveDark } from '../shared/settings';
@@ -30,6 +31,7 @@ export function DesignLab() {
           <span />
         </div>
       </header>
+      <ComponentGallery />
       <section className="lab-section" aria-labelledby="type-title">
         <div className="section-heading">
           <span className="section-number" aria-hidden="true">

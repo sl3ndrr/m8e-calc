@@ -1,0 +1,19 @@
+.ui-tooltip {
+  max-width: 24rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--md-sys-shape-small);
+  background: var(--md-sys-color-inverse-surface);
+  color: var(--md-sys-color-inverse-on-surface);
+  font-size: var(--md-sys-typescale-body-small-size);
+  box-shadow: 0 3px 8px
+    color-mix(in srgb, var(--md-sys-color-shadow) 20%, transparent);
+}
+.ui-tooltip-anchor {
+  display: inline-flex;
+}
+.ui-tooltip[data-rich] {
+  padding: 1rem;
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+  border-radius: var(--md-sys-shape-medium);
+}

@@ -1,0 +1,35 @@
+.ui-segments {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: var(--md-sys-shape-full);
+}
+.ui-segment {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-height: 48px;
+  min-width: 48px;
+  padding: 0.5rem 1rem;
+  border-radius: var(--md-sys-shape-full);
+  cursor: pointer;
+  color: var(--md-sys-color-on-surface);
+  transition: border-radius var(--md-sys-motion-spatial-fast-duration)
+    var(--md-sys-motion-spatial-fast-easing);
+}
+.ui-segment[data-selected] {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  border-radius: var(--md-sys-shape-large);
+}
+.ui-segment[data-disabled] {
+  opacity: 0.38;
+  cursor: default;
+}
+.ui-segments[data-orientation='vertical'] {
+  flex-direction: column;
+}

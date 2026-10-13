@@ -1,0 +1,16 @@
+.ui-icon {
+  --icon-fill: 0;
+  font-variation-settings:
+    'FILL' var(--icon-fill),
+    'wght' 500,
+    'GRAD' 0,
+    'opsz' 24;
+  transition: font-variation-settings
+    var(--md-sys-motion-effects-default-duration)
+    var(--md-sys-motion-effects-default-easing);
+  flex-shrink: 0;
+}
+.ui-icon[data-filled],
+.ui-button[data-selected] .ui-icon {
+  --icon-fill: 1;
+}

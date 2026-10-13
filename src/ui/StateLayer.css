@@ -1,0 +1,22 @@
+.ui-state-layer {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--md-sys-motion-effects-fast-duration)
+    var(--md-sys-motion-effects-fast-easing);
+}
+:where([data-hovered], .ui-state-hover) > .ui-state-layer {
+  opacity: 0.08;
+}
+:where([data-focus-visible], .ui-state-focus) > .ui-state-layer {
+  opacity: 0.1;
+}
+:where([data-pressed], .ui-state-pressed) > .ui-state-layer {
+  opacity: 0.1;
+}
+:where([data-disabled]) > .ui-state-layer {
+  opacity: 0;
+}

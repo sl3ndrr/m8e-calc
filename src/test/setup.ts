@@ -4,6 +4,12 @@ import { cleanup } from '@testing-library/react';
 afterEach(cleanup);
 
 import { vi } from 'vitest';
+window.HTMLElement.prototype.scrollIntoView = vi.fn();
+globalThis.ResizeObserver = class {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+};
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: vi.fn((query: string) => ({

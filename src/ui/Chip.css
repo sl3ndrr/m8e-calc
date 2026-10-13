@@ -1,0 +1,17 @@
+.ui-chip-wrap {
+  display: inline-flex;
+  align-items: center;
+}
+.ui-chip {
+  border-radius: var(--md-sys-shape-small);
+}
+.ui-chip-wrap:has(.ui-chip-remove) {
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: var(--md-sys-shape-small);
+}
+.ui-chip-wrap:has(.ui-chip-remove) .ui-chip {
+  border: 0;
+}
+.ui-chip-remove {
+  border-radius: var(--md-sys-shape-small);
+}

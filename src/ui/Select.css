@@ -1,0 +1,53 @@
+.ui-select {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 160px;
+  color: var(--md-sys-color-on-surface);
+}
+.ui-select-control {
+  position: relative;
+  display: flex;
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: var(--md-sys-shape-small);
+}
+.ui-select-control:hover > .ui-state-layer {
+  opacity: 0.08;
+}
+.ui-select-control:has(input[data-focused]) > .ui-state-layer,
+.ui-select-control:has(input:active) > .ui-state-layer {
+  opacity: 0.1;
+}
+.ui-select[data-disabled] .ui-state-layer {
+  opacity: 0;
+}
+.ui-select-control input {
+  background: transparent;
+  color: inherit;
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  padding: 0.75rem;
+}
+.ui-select-item {
+  position: relative;
+  padding: 0.75rem 1rem;
+  min-height: 48px;
+  min-width: 160px;
+  border-radius: var(--md-sys-shape-small);
+  outline: none;
+  color: var(--md-sys-color-on-surface);
+}
+.ui-select-item[data-focused] {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+.ui-select-item[data-selected] {
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+.ui-select-item[data-disabled] {
+  opacity: 0.38;
+}
+.ui-select[data-invalid] {
+  color: var(--md-sys-color-error);
+}

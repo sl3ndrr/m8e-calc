@@ -1,0 +1,22 @@
+:where(
+  .ui-button,
+  .ui-segment,
+  .ui-switch,
+  .ui-checkbox,
+  .ui-slider-thumb,
+  .ui-menu-item,
+  .ui-list-item,
+  .ui-dialog,
+  .ui-tooltip
+)[data-focus-visible],
+.ui-button.ui-state-focus,
+.ui-focus-ring.ui-state-focus,
+.ui-focus-ring:has(:focus-visible) {
+  outline: 3px solid var(--md-sys-color-primary);
+  outline-offset: 4px;
+}
+@media (forced-colors: active) {
+  :where([data-focus-visible], .ui-state-focus) {
+    outline-color: Highlight;
+  }
+}

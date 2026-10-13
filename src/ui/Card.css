@@ -1,0 +1,15 @@
+.ui-card {
+  padding: 1.5rem;
+  border-radius: var(--md-sys-shape-large);
+  background: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+}
+.ui-card[data-variant='outlined'] {
+  background: var(--md-sys-color-surface);
+  border: 1px solid var(--md-sys-color-outline-variant);
+}
+.ui-card[data-variant='elevated'] {
+  background: var(--md-sys-color-surface-container-low);
+  box-shadow: 0 3px 10px
+    color-mix(in srgb, var(--md-sys-color-shadow) 20%, transparent);
+}

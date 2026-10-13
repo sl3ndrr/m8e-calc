@@ -1,0 +1,7 @@
+.ui-loading {
+  display: inline-flex;
+  color: var(--md-sys-color-primary);
+}
+.ui-loading path {
+  fill: currentColor;
+}
