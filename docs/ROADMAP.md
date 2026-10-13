@@ -7,7 +7,7 @@ Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet akzeptiert und integrie
 - [ ] 3 Komponenten — Erweiterung des Design-Systems auf Basis der AP2-Tokens und Accessibility-Hardening.
 - [ ] 4 App-Shell/Verlauf — Registry und lazy Platzhalter, skalierende Desktop-Shell, persistenter Verlauf mit Suche/Pins/Undo/Export, Einstellungen und de/en/Auto (PR `feat/app-shell`; Abnahme vor Merge).
 - [ ] 5 Engine-Kern — Parser, stabiler AST, decimal.js-Auswertung, Registry, Zahlenformat und Fehler mit Bereichen (PR `feat/engine-core`; Vertrag in `ENGINE.md`, Abnahme vor Merge).
-- [ ] 6 Einfacher Rechner — herkömmlicher Funktionsumfang.
+- [ ] 6 Einfacher Rechner — herkömmlicher Funktionsumfang, reiner Reducer, Engine-Anbindung und Keypad/Display für AP8 (PR `feat/simple-calculator`; Abnahme vor Merge).
 - [ ] 7 Engine wissenschaftlich — wissenschaftliche Funktionen, komplexe Zahlen, Σ/∫/d/dx.
 - [ ] 8 Wissenschaftlicher Modus — UI für Physik, Informatik und Mathematik.
 - [ ] 9 Programmierer-Panel.

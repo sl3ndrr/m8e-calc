@@ -76,3 +76,38 @@ Die Shell-Browserprüfungen warten auf den aktiven Modus, vollständige Opacity 
 
 Die axe-Prüfung des Einstellungsdialogs wartet auf das Ende seiner Einblendung
 (`data-entering` entfernt) und prüft anschließend den vollständigen Textkontrast.
+
+## AP6 · Einfacher Rechner
+
+`src/features/simple/model.ts` ist eine reine Zustandsmaschine mit den Phasen
+Eingabe, wartender Operator, Ergebnis und Fehler. Grundrechenarten werden sofort
+von links nach rechts ausgewertet; sämtliche Berechnungen einschließlich Speicher
+und unärer Funktionen laufen über die AP5-Engine mit `percentMode: 'calculator'`.
+Wiederholtes `=` verwendet den letzten Operator und den effektiven rechten Wert
+(`100+10%==` ergibt 120). C erhält den Speicher, CE erhält den wartenden Operator.
+Eingaben sind auf 16 Ziffern begrenzt, die Engine rechnet weiterhin mit 50 Stellen;
+Ergebnisse werden mit 15 Stellen und bei Überlänge wissenschaftlich angezeigt.
+
+`format.ts` übernimmt ausschließlich lokalisierte Anzeige und das Einfügen einer
+Zahl. Eingabe-Endnullen bleiben erhalten; Gruppierung und Dezimaltrennzeichen
+folgen den Einstellungen. `keyboard.ts` bildet Tasten auf Reducer-Aktionen ab.
+`SimpleMode` orchestriert Zwischenablage, Snackbar und `useModeHistory`. Der
+Reducer liefert eine bestätigbare Liste abgeschlossener Berechnungen, sodass auch
+gebündelte Tastatureingaben und StrictMode keine Verlaufseinträge verlieren oder
+verdoppeln. Payload-Version 1 enthält die exakten Operanden **vor** `=` und wird
+vor Wiederherstellung validiert; fremde/alte Payloads zeigen einen Eingabefehler.
+
+`src/ui/keypad` exportiert `Keypad`, `KeypadKey` und `CalculatorDisplay` über
+`src/ui`. Sie enthalten keine Rechenlogik und stehen AP8 zur Verfügung. Farbrollen,
+Formen, Tastendruck, Operatorzustand, Zeichen-Slide und fließende Schriftgröße
+verwenden die zentralen Tokens/Springs und berücksichtigen Reduced/Off sowie
+OS-Präferenzen. Der Einfach-Modus übernimmt AP4s rem-Skalierung und docked/modal
+Verlauf unverändert. Tastaturbefehle ruhen in Formularen, Overlays und inerten
+Modusflächen. Browserprüfungen erzeugen vier Ansichten in `test-results`:
+1920×1080 und 3840×2160, jeweils Hell/Dunkel.
+
+Geprüfte Referenzaufnahmen: [Full HD Hell](screenshots/simple-light-1920.png),
+[Full HD Dunkel](screenshots/simple-dark-1920.png),
+[4K Hell](screenshots/simple-light-3840.png) und
+[4K Dunkel](screenshots/simple-dark-3840.png). Der AP6-Reducer hat 102 Unit-Fälle;
+die Gesamtprüfung umfasst 800 Unit-/Komponententests und 44 Chromium-E2E.

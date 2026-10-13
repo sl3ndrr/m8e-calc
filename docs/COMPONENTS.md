@@ -93,3 +93,17 @@ Das Playwright-Skript speichert `docs/screenshots/components-{light,dark}.png` u
 - Weitere Material-Symbol-Glyphen erst bei konkreten Aktionen subsetten; kein externer Fontdownload zur Laufzeit.
 - Snackbar kapselt die derzeit als UNSTABLE exportierte React-Aria-Toast-API. Bei deren Stabilisierung nur den Adapter ändern.
 - Screenreader-Abnahme und weitere Browser/Plattformen bleiben ergänzend zur automatischen axe-/Chromium-Prüfung spätere Integrationsaufgaben.
+
+## AP6 · Wiederverwendbares Keypad
+
+`Keypad({ label, children })` liefert das zugängliche Tastenraster;
+`KeypadKey({ id, label, colorRole, pressed, active, disabled, onPress, children })`
+verwendet Button/React Aria. Rollen: digit, operator, equals, clear, function,
+memory. `pressed` bildet globale Tastaturbefehle ab, `active` einen wartenden
+Operator. Features legen Reihenfolge und Raster ausschließlich per CSS fest.
+
+`CalculatorDisplay({ value, expression, copyLabel, resultLabel, expressionLabel,
+error, onCopy })` zeigt eine Ausdruckszeile, animierte Zeichen mit tabellarischen
+Ziffern, weich verkleinerte Schrift und ein Live-Output. Alle lokalisierten Texte
+und die formatierte Zahl kommen vom Aufrufer; der Baustein kennt keine Engine.
+AP8 kann dieselben Exporte aus `src/ui` verwenden.

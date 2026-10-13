@@ -1,0 +1,69 @@
+.mode-stage[data-mode='simple'] {
+  padding: 1.5rem 2rem;
+}
+.simple-calculator {
+  width: min(100%, 52rem);
+  min-width: 0;
+  align-self: center;
+}
+.simple-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 0.5rem;
+}
+.simple-heading h1 {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface-variant);
+}
+.simple-memory {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2rem;
+  height: 2rem;
+  border-radius: var(--md-sys-shape-small);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+.simple-memory[data-stored] {
+  background: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+.simple-memory-keys {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-block: 0.25rem 0.75rem;
+}
+.simple-calculator .keypad {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-rows: repeat(5, minmax(4.75rem, 1fr));
+}
+.simple-calculator .keypad-cell[data-key='equals'] {
+  grid-column: 5;
+  grid-row: 4 / 6;
+}
+.simple-keyboard-hint {
+  margin: 1rem 0 0;
+  font-size: 0.8rem;
+  text-align: center;
+  color: var(--md-sys-color-on-surface-variant);
+}
+.simple-history-flight {
+  position: fixed;
+  z-index: 20;
+  pointer-events: none;
+  text-align: right;
+  transform-origin: right center;
+}
+@container (max-width: 38rem) {
+  .mode-stage[data-mode='simple'] {
+    padding: 1.25rem;
+  }
+  .simple-calculator .keypad-key {
+    min-height: max(48px, 3.75rem);
+  }
+}
