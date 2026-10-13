@@ -6,3 +6,6 @@ Tastaturabbildung in `keyboard.ts` und Browser-/React-Orchestrierung in
 
 Wiederverwendbare Anzeige und Tasten: `src/ui/keypad`, exportiert über `src/ui`.
 Details zu Zuständen, Verlaufspayload und Tests in `docs/ARCHITECTURE.md`.
+
+Tastatur: Ziffern, Punkt/Komma, + − * /, Enter/=, Backspace, Esc (C),
+Delete (CE) und %. Strg+V fügt eine einzelne lokalisierte Zahl ein.
