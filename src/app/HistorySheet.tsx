@@ -46,19 +46,18 @@ function HistoryItem({
   useEffect(() => {
     const node = element.current;
     if (!node || level === 'off') return;
-    const token = springs['spatial-fast'];
+    const token =
+      springs[reduced || level === 'reduced' ? 'effects-fast' : 'spatial-fast'];
     const animation = animate(
       node,
       reduced || level === 'reduced'
         ? { opacity: [0, 1] }
         : { opacity: [0, 1], y: [16, 0], scale: [0.98, 1] },
-      reduced || level === 'reduced'
-        ? { duration: 0.15 }
-        : {
-            type: 'spring',
-            stiffness: token.stiffness,
-            damping: 2 * token.damping * Math.sqrt(token.stiffness),
-          },
+      {
+        type: 'spring',
+        stiffness: token.stiffness,
+        damping: 2 * token.damping * Math.sqrt(token.stiffness),
+      },
     );
     return () => {
       animation.stop();
