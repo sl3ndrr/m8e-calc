@@ -166,7 +166,7 @@ function binary(
   left: string,
   right: Operand,
 ): SimpleState {
-  const result = calculate(`(${left}) ${operator} ${right.expression}`);
+  const result = calculate(`(${left}) ${operator} (${right.expression})`);
   if ('error' in result) return fail(state, result.error);
   return { ...state, entry: operand(result.value), error: null };
 }
@@ -333,7 +333,7 @@ export function simpleReducer(
           ? operand(state.repeat.operand)
           : state.entry;
       const input = operator
-        ? `(${left}) ${operator} ${right.expression}`
+        ? `(${left}) ${operator} (${right.expression})`
         : right.expression;
       const next = operator
         ? binary(state, operator, left, right)

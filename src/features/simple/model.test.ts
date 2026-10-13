@@ -123,6 +123,10 @@ describe('editing, unary operations and failures', () => {
     expect(unary('4', 'reciprocal').entry.value).toBe('0.25'));
   it('reciprocal zero', () =>
     expect(unary('0', 'reciprocal').error).toBe('divisionByZero'));
+  it('divides by a reciprocal operand with correct grouping', () =>
+    expect(run('=', unary('5/2', 'reciprocal')).entry.value).toBe('10'));
+  it('repeats division by the evaluated reciprocal', () =>
+    expect(run('==', unary('5/2', 'reciprocal')).entry.value).toBe('20'));
   it('division by zero', () =>
     expect(run('1/0=').error).toBe('divisionByZero'));
   it('zero divided by zero', () =>
