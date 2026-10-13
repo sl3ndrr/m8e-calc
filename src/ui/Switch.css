@@ -48,3 +48,12 @@
   opacity: 0.38;
   cursor: default;
 }
+.ui-switch[data-hovered] .ui-switch-thumb > .ui-state-layer {
+  opacity: 0.08;
+}
+.ui-switch:where([data-focus-visible], [data-pressed])
+  .ui-switch-thumb
+  > .ui-state-layer {
+  opacity: 0.1;
+  inset: -10px;
+}

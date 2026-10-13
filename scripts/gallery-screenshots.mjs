@@ -1,4 +1,5 @@
 import { chromium } from 'playwright';
+import { expect } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
 const base =
   process.env.GALLERY_URL ?? 'http://127.0.0.1:4173/m8e-calc/#/design';
@@ -51,14 +52,16 @@ try {
         animations: 'disabled',
       });
       await page.keyboard.press('Escape');
+      await overlay.waitFor({ state: 'hidden' });
+      await expect(trigger).toBeFocused();
     }
     for (const state of ['default', 'focus']) {
       const tooltip = page.locator(
         `[data-component="Tooltip"] [data-state="${state}"] button`,
       );
-      await tooltip.focus();
       await page.keyboard.press('Tab');
-      await page.keyboard.press('Shift+Tab');
+      await tooltip.focus();
+      await expect(tooltip).toBeFocused();
       await page.getByRole('tooltip').waitFor();
       await page.screenshot({
         path: `${output}/components-${theme}-tooltip${state === 'focus' ? '-rich' : ''}.png`,

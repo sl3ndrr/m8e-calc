@@ -68,3 +68,6 @@
 .ui-slider[data-disabled] .ui-slider-track {
   opacity: 0.38;
 }
+.ui-slider-thumb[data-dragging] > .ui-state-layer {
+  opacity: 0.1;
+}

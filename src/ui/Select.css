@@ -5,9 +5,20 @@
   color: var(--md-sys-color-on-surface);
 }
 .ui-select-control {
+  position: relative;
   display: flex;
   border: 1px solid var(--md-sys-color-outline);
   border-radius: var(--md-sys-shape-small);
+}
+.ui-select-control:hover > .ui-state-layer {
+  opacity: 0.08;
+}
+.ui-select-control:has(input[data-focused]) > .ui-state-layer,
+.ui-select-control:has(input:active) > .ui-state-layer {
+  opacity: 0.1;
+}
+.ui-select[data-disabled] .ui-state-layer {
+  opacity: 0;
 }
 .ui-select-control input {
   background: transparent;

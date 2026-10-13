@@ -8,6 +8,7 @@ import {
   type TextFieldProps as AriaTextFieldProps,
 } from 'react-aria-components';
 import './TextField.css';
+import { StateLayer } from './StateLayer';
 export interface TextFieldProps extends Omit<
   AriaTextFieldProps,
   'children' | 'className'
@@ -38,6 +39,7 @@ export function TextField({
     >
       <Label>{label}</Label>
       <div className="ui-text-input">
+        <StateLayer />
         {prefix && <span aria-hidden="true">{prefix}</span>}
         <Input />
         {suffix && <span aria-hidden="true">{suffix}</span>}

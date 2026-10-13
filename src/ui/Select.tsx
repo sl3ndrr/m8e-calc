@@ -45,6 +45,7 @@ export function Select({
       <Label>{label}</Label>
       {searchable ? (
         <div className="ui-select-control">
+          <StateLayer />
           <Input />
           <Button variant="text" aria-label={label}>
             ▾
