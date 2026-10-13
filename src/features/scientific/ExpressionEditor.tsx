@@ -55,6 +55,8 @@ const externalChange = Annotation.define<boolean>();
 const language = StreamLanguage.define({
   token(stream) {
     if (stream.eatSpace()) return null;
+    if (stream.match(/^0(?:[xX][0-9a-fA-F]+|[bB][01]+|[oO][0-7]+)/))
+      return 'number';
     if (stream.match(/^(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?/))
       return 'number';
     const name = stream.match(/^[A-Za-z_πφτ][A-Za-z_0-9]*/);
@@ -67,7 +69,7 @@ const language = StreamLanguage.define({
           ? 'variableName.constant'
           : 'variableName';
     }
-    if (stream.match(/^[+\-*/^!=%°×÷−]/)) return 'operator';
+    if (stream.match(/^(?:<<|>>|[&|~+\-*/^!=%°×÷−])/)) return 'operator';
     if (stream.match(/^[()]/)) return 'paren';
     stream.next();
     return 'punctuation';

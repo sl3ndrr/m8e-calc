@@ -73,7 +73,7 @@ it('debounces previews, hides invalid previews and exposes errors', async () => 
   await user.click(screen.getByRole('button', { name: 'Auswerten' }));
   expect(screen.getByRole('alert')).toHaveTextContent('Durch null');
 });
-it('uses full English metadata and reserves the AP9 panel', async () => {
+it('uses full English metadata and exposes the programmer panel', async () => {
   useAppStore.setState({ locale: 'en' });
   const user = userEvent.setup();
   render(<ScientificMode />);
@@ -85,7 +85,5 @@ it('uses full English metadata and reserves the AP9 panel', async () => {
   );
   expect(screen.getByText('Speed of light')).toBeVisible();
   await user.click(screen.getByRole('radio', { name: 'Computer science' }));
-  expect(
-    screen.getByText('The programmer panel is coming in AP9.'),
-  ).toBeVisible();
+  expect(screen.getByRole('textbox', { name: 'Hexadecimal' })).toBeVisible();
 });

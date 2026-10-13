@@ -1,5 +1,52 @@
 # Engine-Kern · AP5
 
+## Informatik · AP9 (Vertrag vor Tests und Implementierung)
+
+`src/engine/programmer/index.ts` liefert reine BigInt-Wortoperationen. `WordOptions`
+enthält `width: 8 | 16 | 32 | 64`, `signed: boolean`, `overflow: 'wrap' | 'error'`.
+`word(value, options)` normalisiert Zahlenwerte; `fromBits(bits, options)` interpretiert
+ein Bitmuster als Zweierkomplement. Operationen liefern Zahlenwerte im gewählten
+Bereich. Überlauf bei Zahleneingabe und Linksverschiebung folgt der Option; reine
+Bitoperationen interpretieren das resultierende Bitmuster. Negative Shift-/Rotationszahlen
+sind E_DOMAIN; Shifts ≥ Wortbreite liefern null bzw. beim arithmetischen Rechtsshift
+die Vorzeichenerweiterung, Rotationen verwenden Anzahl modulo Wortbreite.
+`>>` ist signed arithmetisch, unsigned logisch; `lsr` und `asr` sind explizit.
+`operate` unterstützt and/or/xor/not/nand/nor/xnor/shl/lsr/asr/rol/ror/bswap/popcount/clz/ctz.
+Für null liefern clz/ctz die Wortbreite. Byte-Swap ist unabhängig von Host-Endianness.
+Die Hilfs-APIs werfen `NumericFault` mit Engine-Fehlercode bei ungültigen Eingaben;
+die Engine-Result-APIs übersetzen ihn mit dem Quellbereich.
+
+`parse(src, { bitwise?: boolean })` erweitert den AST additiv um unär `~` und binär
+`& | << >>`. `EvaluationContext.bitwise` schaltet Auswertung und `xor(a,b)` frei;
+`programmer?: WordOptions` setzt den Wortkontext (Standard 32 Bit, unsigned, wrap).
+`evaluateString` und `execute` reichen bitwise an den Parser weiter. Ganzzahlliterale
+`0x`, `0b`, `0o` (auch Großbuchstaben) sind in allen Kontexten erlaubt, ungültige
+Ziffern melden E_INVALID_NUMBER. Bitoperationen verlangen endliche reelle Ganzzahlen. Ganzzahlige Endergebnisse im
+Informatik-Kontext werden gemäß Wortbreite und Überlauf normalisiert; gewöhnliche
+nichtganzzahlige wissenschaftliche Ergebnisse bleiben darstellbar. Die freigeschalteten
+Aufrufe sind xor/nand/nor/xnor/shl/lsr/asr/rol/ror (2 Argumente) und
+bswap/popcount/clz/ctz (1 Argument), im aktiven Kontext reserviert.
+`^` bleibt rechtsassoziative Potenz. Unterhalb der bestehenden Präzedenz gelten
+wie in C, von stark nach schwach: `+ -` → `<< >>` → `&` → `|`, jeweils linksassoziativ.
+Präfix `~` hat dieselbe Bindung wie die vorhandenen Präfix-Vorzeichen; Potenz und
+Postfix binden weiterhin stärker. C-XOR `^` wird deshalb durch `xor(a,b)` ersetzt.
+Print, LaTeX und Environment-Validierung unterstützen die ergänzten AST-Operatoren.
+
+`parseBase`/`formatBase` unterstützen Basen 2…36. Nichtdezimalzahlen sind Bitmuster,
+Dezimalzahlen signed/unsigned Zahlenwerte. Gruppierung ist optional in Nibbles oder
+Bytes; Eingabe erlaubt die so erzeugten Leerzeichen, keine fremden Trennzeichen.
+Binär/Hex/Oktal werden zur Wortbreite aufgefüllt. 64-Bit-Integer passieren nie Number.
+
+`floatFromBits(bits, 32 | 64)`, `floatToBits(number, width)` und
+`composeFloat(sign, exponent, mantissa, width)` zerlegen/erzeugen IEEE-754-Bitmuster.
+Rohfelder werden validiert, NaN-Payloads beim Bit-Roundtrip erhalten. Klassen:
+zero, normal, subnormal, infinity, nan. `exact` ist die vollständige Dezimaldarstellung
+des binären rationalen Werts (BigInt mit Potenzen von 5), einschließlich `-0`,
+`NaN`, `Infinity`, `-Infinity`. Number-Eingabe rundet float32 gemäß IEEE nearest-even.
+`characterInfo` verlangt genau einen Unicode-Skalar, `codepointInfo` einen gültigen
+Skalar 0…10FFFF ohne Surrogate; beide liefern Zeichen, Codepoint und UTF-8-Bytes.
+Keine TextEncoder-/Browserabhängigkeit.
+
 `src/engine/index.ts` ist der öffentliche Einstiegspunkt. Alle Module sind reines
 TypeScript ohne React, DOM, Store, IO, `eval` oder `new Function`. Die vier Modi
 binden den Kern erst in ihren eigenen Paketen an. Dieser Vertrag wurde **vor den

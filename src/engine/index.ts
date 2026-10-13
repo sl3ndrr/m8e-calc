@@ -19,6 +19,7 @@ export type {
   NumberAst,
   NumberValue,
   ParseError,
+  ParseOptions,
   ParseErrorCode,
   PercentMode,
   PostfixAst,

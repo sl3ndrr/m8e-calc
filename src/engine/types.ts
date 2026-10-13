@@ -1,4 +1,5 @@
 import type Decimal from 'decimal.js';
+import type { WordOptions } from './programmer/index.ts';
 
 export interface SourceRange {
   readonly start: number;
@@ -64,13 +65,13 @@ export interface IdentifierAst extends AstBase {
 }
 export interface UnaryAst extends AstBase {
   readonly kind: 'unary';
-  readonly operator: '+' | '-';
+  readonly operator: '+' | '-' | '~';
   readonly operand: Ast;
   readonly operatorRange: SourceRange;
 }
 export interface BinaryAst extends AstBase {
   readonly kind: 'binary';
-  readonly operator: '+' | '-' | '*' | '/' | '^';
+  readonly operator: '+' | '-' | '*' | '/' | '^' | '&' | '|' | '<<' | '>>';
   readonly left: Ast;
   readonly right: Ast;
   readonly implicit: boolean;
@@ -190,7 +191,11 @@ export interface Execution {
   readonly value: Value | null;
   readonly environment: Environment;
 }
-export interface EvaluationContext {
+export interface ParseOptions {
+  readonly bitwise?: boolean;
+}
+export interface EvaluationContext extends ParseOptions {
+  readonly programmer?: WordOptions;
   readonly complex?: ComplexMode;
   readonly numerical?: NumericalOptions;
   readonly environment?: Environment;

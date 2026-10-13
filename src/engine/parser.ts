@@ -1,6 +1,8 @@
 import type {
   Ast,
   ParseError,
+  ParseOptions,
+  BinaryAst,
   ParseErrorCode,
   Result,
   SourceRange,
@@ -24,7 +26,9 @@ class ParseFault extends Error {
 class Lexer {
   private readonly src: string;
   private position = 0;
-  constructor(src: string) {
+  private readonly options: ParseOptions;
+  constructor(src: string, options: ParseOptions) {
+    this.options = options;
     this.src = src;
   }
 
@@ -39,6 +43,25 @@ class Lexer {
     if (character === undefined)
       return { kind: 'eof', text: '', range: { start, end: start } };
     const tail = this.src.slice(start);
+    if (/^0[xbo]/i.test(tail)) {
+      const text = /^0[xbo][a-z0-9]*/i.exec(tail)?.[0] ?? '';
+      const valid =
+        /^0x[0-9a-f]+$/i.test(text) ||
+        /^0b[01]+$/i.test(text) ||
+        /^0o[0-7]+$/i.test(text);
+      if (!valid)
+        throw new ParseFault('E_INVALID_NUMBER', {
+          start,
+          end: start + text.length,
+        });
+      this.position += text.length;
+      return { kind: 'number', text, range: { start, end: this.position } };
+    }
+    if (this.options.bitwise && /^(?:<<|>>|[&|~])/.test(tail)) {
+      const text = /^(?:<<|>>|[&|~])/.exec(tail)?.[0] ?? '';
+      this.position += text.length;
+      return { kind: 'operator', text, range: { start, end: this.position } };
+    }
     const number = /^(?:\d+(?:\.\d*)?|\.\d+)/u.exec(tail)?.[0];
     if (number !== undefined) {
       let text = number;
@@ -95,8 +118,10 @@ class Parser {
   private nodeCount = 0;
   private readonly heights = new WeakMap<Ast, number>();
 
-  constructor(src: string) {
-    this.lexer = new Lexer(src);
+  private readonly options: ParseOptions;
+  constructor(src: string, options: ParseOptions) {
+    this.options = options;
+    this.lexer = new Lexer(src, options);
     this.current = this.lexer.next();
     this.previous = this.current;
   }
@@ -128,10 +153,10 @@ class Parser {
 
   parse(): Ast {
     if (this.at('eof')) throw new ParseFault('E_SYNTAX', this.current.range);
-    let ast = this.sum();
+    let ast = this.expression();
     if (this.current.text === '=') {
       this.consume();
-      const expression = this.sum();
+      const expression = this.expression();
       if (ast.kind === 'identifier') {
         ast = this.node(
           {
@@ -171,6 +196,31 @@ class Parser {
     return ast;
   }
 
+  private expression(): Ast {
+    return this.bitwiseLevel(0);
+  }
+  private bitwiseLevel(level: number): Ast {
+    if (!this.options.bitwise || level === 3) return this.sum();
+    const operators = level === 0 ? ['|'] : level === 1 ? ['&'] : ['<<', '>>'];
+    let left = this.bitwiseLevel(level + 1);
+    while (operators.includes(this.current.text)) {
+      const operator = this.consume(),
+        right = this.bitwiseLevel(level + 1);
+      left = this.node(
+        {
+          kind: 'binary',
+          operator: operator.text as BinaryAst['operator'],
+          left,
+          right,
+          implicit: false,
+          operatorRange: operator.range,
+          range: { start: left.range.start, end: right.range.end },
+        },
+        [left, right],
+      );
+    }
+    return left;
+  }
   private sum(): Ast {
     let left = this.product();
     while (this.current.text === '+' || this.current.text === '-') {
@@ -235,13 +285,18 @@ class Parser {
     if (this.recursion > MAX_DEPTH)
       throw new ParseFault('E_RESOURCE_LIMIT', this.current.range);
     try {
-      if (this.current.text === '+' || this.current.text === '-') {
+      if (
+        this.current.text === '+' ||
+        this.current.text === '-' ||
+        (this.options.bitwise && this.current.text === '~')
+      ) {
         const operator = this.consume();
         const operand = this.unary();
         return this.node(
           {
             kind: 'unary',
-            operator: operator.text === '+' ? '+' : '-',
+            operator:
+              operator.text === '~' ? '~' : operator.text === '+' ? '+' : '-',
             operand,
             operatorRange: operator.range,
             range: { start: operator.range.start, end: operand.range.end },
@@ -314,10 +369,10 @@ class Parser {
         this.consume();
         const args: Ast[] = [];
         if (!this.at(')')) {
-          args.push(this.sum());
+          args.push(this.expression());
           while (this.at(',')) {
             this.consume();
-            args.push(this.sum());
+            args.push(this.expression());
           }
         }
         const end = this.closing().range.end;
@@ -340,7 +395,7 @@ class Parser {
     }
     if (token.kind === '(') {
       this.consume();
-      const expression = this.sum();
+      const expression = this.expression();
       const end = this.closing().range.end;
       return this.node(
         { kind: 'group', expression, range: { start: token.range.start, end } },
@@ -351,7 +406,10 @@ class Parser {
   }
 }
 
-export function parse(src: string): Result<Ast, ParseError> {
+export function parse(
+  src: string,
+  options: ParseOptions = {},
+): Result<Ast, ParseError> {
   try {
     if (src.length > MAX_SOURCE_LENGTH)
       return {
@@ -361,7 +419,7 @@ export function parse(src: string): Result<Ast, ParseError> {
           range: { start: 0, end: src.length },
         },
       };
-    return { ok: true, value: new Parser(src).parse() };
+    return { ok: true, value: new Parser(src, options).parse() };
   } catch (error) {
     return {
       ok: false,

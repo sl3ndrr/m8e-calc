@@ -1,3 +1,11 @@
+import {
+  defaultWordOptions,
+  operate,
+  parseBase,
+  programmerFunctions,
+  word,
+  type WordOperation,
+} from './programmer/index.ts';
 import type Decimal from 'decimal.js';
 import type {
   Ast,
@@ -57,6 +65,31 @@ export function evaluate(
   const activeFunctions = new Set<string>();
   const normalize = (v: Value, r: SourceRange): Value =>
     take(normalizeValue(v, r, mode));
+  function bitOperation(
+    op: WordOperation,
+    args: readonly Value[],
+    range: SourceRange,
+  ): Value {
+    if (!ctx.bitwise) return take(failure('E_TYPE', range));
+    try {
+      const integers = args.map((v) => {
+        const d = numeric(v, range);
+        if (!d.isInteger()) throw new NumericFault('E_DOMAIN');
+        if (d.e > 100) throw new NumericFault('E_RESOURCE_LIMIT');
+        return BigInt(d.toFixed());
+      });
+      const result = operate(
+        op,
+        integers[0] ?? 0n,
+        integers[1] ?? 0n,
+        ctx.programmer ?? defaultWordOptions,
+      );
+      return take(checkedNumber(result.toString(), range));
+    } catch (e) {
+      if (e instanceof NumericFault) return take(failure(e.code, range));
+      throw e;
+    }
+  }
   function visit(
     node: Ast,
     depth: number,
@@ -69,8 +102,29 @@ export function evaluate(
       case 'assignment':
       case 'definition':
         return take(failure('E_TYPE', node.range));
-      case 'number':
-        return take(checkedNumber(node.literal, node.range));
+      case 'number': {
+        try {
+          const literal = node.literal.toLowerCase();
+          if (ctx.bitwise && /^0[xbo]/.test(literal)) {
+            const base = literal[1] === 'x' ? 16 : literal[1] === 'b' ? 2 : 8;
+            return take(
+              checkedNumber(
+                parseBase(
+                  literal,
+                  base,
+                  ctx.programmer ?? defaultWordOptions,
+                ).toString(),
+                node.range,
+              ),
+            );
+          }
+          return take(checkedNumber(literal, node.range));
+        } catch (e) {
+          if (e instanceof NumericFault)
+            return take(failure(e.code, node.range));
+          throw e;
+        }
+      }
       case 'identifier': {
         const constant = lookupConstant(node.name);
         if (constant) return take(checkedNumber(constant.value, node.range));
@@ -110,6 +164,8 @@ export function evaluate(
         return child(node.expression);
       case 'unary': {
         const v = child(node.operand);
+        if (node.operator === '~')
+          return bitOperation('not', [v], node.operatorRange);
         if (node.operator === '+') {
           if (v.kind === 'list')
             return take(failure('E_TYPE', node.operatorRange));
@@ -154,6 +210,24 @@ export function evaluate(
         const left = child(node.left);
         let right = child(node.right);
         if (
+          node.operator === '&' ||
+          node.operator === '|' ||
+          node.operator === '<<' ||
+          node.operator === '>>'
+        ) {
+          const op =
+            node.operator === '&'
+              ? 'and'
+              : node.operator === '|'
+                ? 'or'
+                : node.operator === '<<'
+                  ? 'shl'
+                  : ctx.programmer?.signed
+                    ? 'asr'
+                    : 'lsr';
+          return bitOperation(op, [left, right], node.operatorRange);
+        }
+        if (
           ctx.percentMode === 'calculator' &&
           (node.operator === '+' || node.operator === '-') &&
           isPercentTerm(node.right)
@@ -164,6 +238,21 @@ export function evaluate(
         );
       }
       case 'call': {
+        if (
+          ctx.bitwise &&
+          programmerFunctions.some((name) => name === node.name)
+        ) {
+          const arity = ['bswap', 'popcount', 'clz', 'ctz'].includes(node.name)
+            ? 1
+            : 2;
+          if (node.args.length !== arity)
+            return take(failure('E_ARGUMENT_COUNT', node.range));
+          return bitOperation(
+            node.name as WordOperation,
+            node.args.map(child),
+            node.range,
+          );
+        }
         const user =
           ctx.environment && Object.hasOwn(ctx.environment.functions, node.name)
             ? ctx.environment.functions[node.name]
@@ -254,7 +343,18 @@ export function evaluate(
       const checked = validateEnvironment(ctx.environment, ast.range, ctx);
       if (!checked.ok) return checked;
     }
-    return { ok: true, value: visit(ast, 1) };
+    const value = visit(ast, 1);
+    if (ctx.bitwise && value.kind === 'number' && value.value.isInteger()) {
+      if (value.value.e > 100) return failure('E_RESOURCE_LIMIT', ast.range);
+      return checkedNumber(
+        word(
+          BigInt(value.value.toFixed()),
+          ctx.programmer ?? defaultWordOptions,
+        ).toString(),
+        ast.range,
+      );
+    }
+    return { ok: true, value };
   } catch (e) {
     return e instanceof EvaluationFault
       ? { ok: false, error: e.error }
@@ -265,6 +365,6 @@ export function evaluateString(
   src: string,
   ctx: EvaluationContext = {},
 ): Result<Value, EngineError> {
-  const parsed = parse(src);
+  const parsed = parse(src, ctx);
   return parsed.ok ? evaluate(parsed.value, ctx) : parsed;
 }

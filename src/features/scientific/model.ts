@@ -7,6 +7,7 @@ import {
   toFraction,
   toLatex,
   type AngleMode,
+  type EvaluationContext,
   type ComplexMode,
   type EngineError,
   type Environment,
@@ -19,7 +20,10 @@ export interface Calculation {
   expressionLatex: string;
   value: Value | null;
 }
-export interface ScientificOptions {
+export interface ScientificOptions extends Pick<
+  EvaluationContext,
+  'bitwise' | 'programmer'
+> {
   angleMode: AngleMode;
   complex: ComplexMode;
 }
@@ -83,7 +87,7 @@ export function calculate(
       },
     };
   }
-  const ast = parse(normalized.text);
+  const ast = parse(normalized.text, options);
   return {
     ok: true as const,
     environment: result.value.environment,
@@ -99,7 +103,10 @@ export function preview(
   environment: Environment,
   options: ScientificOptions,
 ): Calculation | null {
-  const parsed = parse(normalizeDegrees(expression, options.angleMode).text);
+  const parsed = parse(
+    normalizeDegrees(expression, options.angleMode).text,
+    options,
+  );
   if (
     !parsed.ok ||
     parsed.value.kind === 'assignment' ||
@@ -133,7 +140,10 @@ export function displayResult(
 }
 export function normalizeEnvironment(input: unknown): Environment {
   if (!input || typeof input !== 'object') return createEnvironment();
-  const checked = execute('0', input as Environment, { complex: 'on' });
+  const checked = execute('0', input as Environment, {
+    complex: 'on',
+    bitwise: true,
+  });
   return checked.ok ? (input as Environment) : createEnvironment();
 }
 export function removeDefinition(
@@ -155,7 +165,7 @@ export function definitionSource(
     : undefined;
   if (fn)
     return `${name}(${fn.parameters.join(', ')}) = ${print(fn.expression)}`;
-  const result = execute(name, environment, { complex: 'on' });
+  const result = execute(name, environment, { complex: 'on', bitwise: true });
   return result.ok && result.value.value
     ? `${name} = ${formatValue(result.value.value, { digits: 50 })}`
     : '';

@@ -23,7 +23,7 @@ Engine und AST-Vertrag bleiben unverändert.
   und formatiertes Ergebnis mit MathML. Komplexe Zahlen können aktiviert werden.
 - Ab 1920 px erscheinen Editor/Ergebnis, Tastenfeld und Referenzspalte gemeinsam;
   die Shell dockt den Verlauf rechts. Darunter wechseln Tabs die Bedienfelder.
-  Das Informatik-Panel enthält ausschließlich den AP9-Platzhalter.
+  Das Informatik-Panel wird von AP9 geliefert (siehe unten).
 - 2nd wechselt Funktionspaare. Funktionstasten umschließen die Auswahl; bei leerer
   Auswahl steht der Cursor im Argument. Analysis-Vorlagen enthalten Binder und
   Grenzen. Konstanten fügen ASCII-Ausdrucknamen ein (z. B. `qe`, da `e` Euler ist).
@@ -47,6 +47,33 @@ Verlauf, Selektionen, Completion, lokale Fonts und Zwischenablage.
 
 ## Offen / Folge-Issues
 
-- AP9: Programmierer-Panel im vorbereiteten Informatik-Platz.
+- AP9: BigInt-Panel und Inspektoren sind unten dokumentiert.
 - AP12/AP13: Graph-Anbindung der vorhandenen Engine-Definitionen.
 - AP14/AP15: Komfort/Import-Export der Definitionen und zusätzliches Hardening.
+
+## Informatik · AP9
+
+Informatik aktiviert den Bitparser im vorhandenen Editor. Alle Wortoperationen,
+Basis-Eingaben und Bitgesten werden über denselben Engine-/Verlaufspfad berechnet.
+Verlaufseinträge speichern Wortbreite, signed/unsigned und Überlauf; Wiederherstellen
+öffnet den Informatik-Kontext mit diesen Optionen. Ein Drag schreibt einen Eintrag
+am Ende, Tastatur-Space und Enter kippen ein fokussiertes Bit. Fehler ändern den
+Wortwert nicht. Wortbreitenwechsel respektiert die Überlaufoption; signed-Wechsel
+interpretiert das vorhandene Bitmuster neu. Das Raster zeigt 16 Bits pro Reihe.
+Bei großen Monitoren nutzt Informatik die gesamte Werkzeugspalte.
+
+Die vier Basiszeilen sind unabhängig editierbar (Enter oder Übernehmen) und kopierbar.
+Die zusätzliche Basiszeile akzeptiert 2…36; Binär und Hex unterstützen Nibble-/Byte-Gruppen.
+Nichtdezimal-Eingaben sind Bitmuster, Dezimal-Eingaben Zahlenwerte. Ein zweiter Operand
+kann ein Editor-Ausdruck sein. >> folgt signed/unsigned; LSR und ASR sind explizit.
+
+IEEE-754 hat einen eigenen 32-/64-Bit-Kontext. Zahleneingabe, Hex-Bits, rohe Felder
+und Bitraster sind editierbar; Farben trennen Vorzeichen, Exponent und Mantisse.
+Das genaue Dezimalergebnis (bis 1074 Nachkommastellen) wird aus den Bits gebildet
+und ist separat kopierbar. NaN-Payloads bleiben bei Bit-/Feldänderungen erhalten.
+Unicode konvertiert einen Skalar oder dezimalen/hexadezimalen Codepoint in Zeichen
+und UTF-8-Bytes. Die beiden Inspektoren führen keine Integer-Berechnung aus.
+
+Prüfungen: 285 tabellengesteuerte Kernfälle, Komponenten-/Modellprüfungen, Chromium
+für Hex-Eingabe, 64-Bit-Grenze, Bit-Klick/Drag/Space, Kontext-Verlauf, IEEE und Unicode,
+axe sowie Hell-/Dunkel-Aufnahmen bei Full HD und 4K. Vertrag in ENGINE.md.

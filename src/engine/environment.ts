@@ -15,6 +15,7 @@ import { checkedNumber, failure, MAX_DEPTH, MAX_NODES } from './numeric.ts';
 import { checkedComplex } from './values.ts';
 import { lookupConstant } from './constants.ts';
 import { functionRegistry } from './functions.ts';
+import { programmerFunctions } from './programmer/index.ts';
 import { parse } from './parser.ts';
 import { print } from './print.ts';
 import { evaluate } from './evaluate.ts';
@@ -22,6 +23,7 @@ import { evaluate } from './evaluate.ts';
 export function isReserved(name: string, ctx: EvaluationContext = {}): boolean {
   return (
     lookupConstant(name) !== undefined ||
+    (ctx.bitwise === true && programmerFunctions.some((n) => n === name)) ||
     Object.hasOwn(functionRegistry, name) ||
     !!(ctx.functions && Object.hasOwn(ctx.functions, name)) ||
     ['i', 'j', 'ans', '__proto__', 'prototype', 'constructor'].includes(name) ||
@@ -128,7 +130,9 @@ function validAst(input: Ast): boolean {
       case 'number':
         valid =
           typeof node.literal === 'string' &&
-          /^(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?$/.test(node.literal);
+          /^(?:(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?|0[xX][0-9a-fA-F]+|0[bB][01]+|0[oO][0-7]+)$/.test(
+            node.literal,
+          );
         break;
       case 'identifier':
         valid =
@@ -142,7 +146,7 @@ function validAst(input: Ast): boolean {
       case 'postfix':
         valid =
           !!operatorRange &&
-          (node.kind === 'unary' ? ['+', '-'] : ['!', '%']).includes(
+          (node.kind === 'unary' ? ['+', '-', '~'] : ['!', '%']).includes(
             node.operator,
           ) &&
           walk(node.operand, depth + 1);
@@ -150,7 +154,9 @@ function validAst(input: Ast): boolean {
       case 'binary':
         valid =
           !!operatorRange &&
-          ['+', '-', '*', '/', '^'].includes(node.operator) &&
+          ['+', '-', '*', '/', '^', '&', '|', '<<', '>>'].includes(
+            node.operator,
+          ) &&
           typeof node.implicit === 'boolean' &&
           walk(node.left, depth + 1) &&
           walk(node.right, depth + 1);
@@ -253,7 +259,7 @@ export function validateEnvironment(
       )
         return failure('E_ENVIRONMENT', range);
       // Validate canonical source against lexer/parser limits as well as runtime shape.
-      const parsed = parse(print(fn.expression));
+      const parsed = parse(print(fn.expression), { bitwise: true });
       if (!parsed.ok) return failure('E_ENVIRONMENT', range);
     }
     for (const value of env.history)
@@ -271,7 +277,7 @@ export function execute(
   environment: Environment = createEnvironment(),
   ctx: EvaluationContext = {},
 ): Result<Execution, EvalError | ParseError> {
-  const parsed = parse(src);
+  const parsed = parse(src, ctx);
   if (!parsed.ok) return parsed;
   const ast = parsed.value;
   const valid = validateEnvironment(environment, ast.range, ctx);
