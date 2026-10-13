@@ -17,6 +17,7 @@ jobs:
         with:
           node-version-file: .nvmrc
       - run: npm install
+      - run: npm audit --json > audit.json || true
       - run: npx prettier --write .
       - run: npm run check
       - run: npx playwright install --with-deps chromium
@@ -32,4 +33,3 @@ jobs:
           name: foundation-bootstrap
           path: foundation-bootstrap.tar.gz
           retention-days: 1
-

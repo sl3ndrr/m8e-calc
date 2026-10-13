@@ -2,14 +2,14 @@
 
 ## Schichten
 
-| Schicht | Ordner | Verantwortung / Abhängigkeiten |
-| --- | --- | --- |
-| Einstieg und Shell | `src/main.tsx`, `src/app` | React-Bootstrap, Browseradapter und Hash-Routing; orchestriert Features und Shared. |
-| Präsentation | `src/ui`, `src/styles` | Zugängliche Komponenten und zentrale CSS-Tokens. Keine fachliche Engine. |
-| Features | `src/features/{simple,scientific,convert,graph}` | Modus-UI, reine UI-Funktionen/Reducer und Adapter zu Domänen/Store. In AP1 nur reserviert. |
-| App-Dienste | `src/shared` | Zustand und typisierte i18n (`de` Standard, `en`); allgemeine Utilities. |
-| Domänen | `src/engine`, `src/units`, `src/graph` | Reines TypeScript, keine React-/DOM-/Store-Abhängigkeit; künftig Berechnung, Umrechnung und Graphdaten. In AP1 leer. |
-| Verifikation | Tests neben Modulen, `src/test`, `e2e` | Verhalten, Eigenschaften und Produktionsbuild im Browser. |
+| Schicht            | Ordner                                           | Verantwortung / Abhängigkeiten                                                                                       |
+| ------------------ | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| Einstieg und Shell | `src/main.tsx`, `src/app`                        | React-Bootstrap, Browseradapter und Hash-Routing; orchestriert Features und Shared.                                  |
+| Präsentation       | `src/ui`, `src/styles`                           | Zugängliche Komponenten und zentrale CSS-Tokens. Keine fachliche Engine.                                             |
+| Features           | `src/features/{simple,scientific,convert,graph}` | Modus-UI, reine UI-Funktionen/Reducer und Adapter zu Domänen/Store. In AP1 nur reserviert.                           |
+| App-Dienste        | `src/shared`                                     | Zustand und typisierte i18n (`de` Standard, `en`); allgemeine Utilities.                                             |
+| Domänen            | `src/engine`, `src/units`, `src/graph`           | Reines TypeScript, keine React-/DOM-/Store-Abhängigkeit; künftig Berechnung, Umrechnung und Graphdaten. In AP1 leer. |
+| Verifikation       | Tests neben Modulen, `src/test`, `e2e`           | Verhalten, Eigenschaften und Produktionsbuild im Browser.                                                            |
 
 Domänen dürfen reine Domänenmodule verwenden. Imports in App, UI, Features, Shared oder Styles sind verboten. ESLint sperrt React, DOM-Globals, Zustand, dynamische Imports, `require` und TS-Import-Ausdrücke; `.tsx` wird in Domänen abgelehnt. Ein eigenes TypeScript-Projekt ohne DOM-Library und automatische Umgebungstypen ergänzt diese Grenze. Neue Aliase dürfen die Importregel nicht umgehen und müssen dort ergänzt werden.
 

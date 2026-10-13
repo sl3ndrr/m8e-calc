@@ -8,16 +8,16 @@ m8e-calc ist ein datenschutzfreundlicher Desktop-Browser-Taschenrechner. Die ver
 
 Node 24 LTS (`nvm use`), npm und das eingecheckte `package-lock.json` verwenden. Installation: `npm ci`.
 
-| Befehl | Zweck |
-| --- | --- |
-| `npm run dev` | Vite-Entwicklungsserver |
-| `npm run build` | TypeScript prüfen und Produktionsbuild nach `dist/` |
-| `npm run preview` | Produktionsbuild lokal ausliefern |
-| `npm run lint` | ESLint und Prettier-Formatprüfung |
-| `npm run typecheck` | Alle TypeScript-Projekte prüfen |
-| `npm run test` | Vitest, Testing Library und Property-Tests |
-| `npm run test:e2e` | Playwright mit Chromium gegen den vorher erstellten Build |
-| `npm run check` | lint + typecheck + test + build |
+| Befehl              | Zweck                                                     |
+| ------------------- | --------------------------------------------------------- |
+| `npm run dev`       | Vite-Entwicklungsserver                                   |
+| `npm run build`     | TypeScript prüfen und Produktionsbuild nach `dist/`       |
+| `npm run preview`   | Produktionsbuild lokal ausliefern                         |
+| `npm run lint`      | ESLint und Prettier-Formatprüfung                         |
+| `npm run typecheck` | Alle TypeScript-Projekte prüfen                           |
+| `npm run test`      | Vitest, Testing Library und Property-Tests                |
+| `npm run test:e2e`  | Playwright mit Chromium gegen den vorher erstellten Build |
+| `npm run check`     | lint + typecheck + test + build                           |
 
 Einmalig für E2E: `npx playwright install chromium` (Linux-CI: `--with-deps`). Vor E2E `npm run build` ausführen. Formatieren: `npx prettier --write .`. `VITE_BASE_PATH` überschreibt den Standard `/m8e-calc/`; als absoluter Pfad mit führendem und abschließendem Slash setzen. Der Pages-Smoke prüft bewusst den Standardpfad.
 

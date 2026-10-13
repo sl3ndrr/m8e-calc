@@ -8,12 +8,12 @@ Das visuelle Ziel ist Material 3 Expressive. Ansprechendes Design, gute Handhabu
 
 ## Vier Modi
 
-| Modus | Ziel und Umfang |
-| --- | --- |
-| Einfach | Herkömmlicher Taschenrechnerumfang für alltägliche Berechnungen. |
+| Modus            | Ziel und Umfang                                                  |
+| ---------------- | ---------------------------------------------------------------- |
+| Einfach          | Herkömmlicher Taschenrechnerumfang für alltägliche Berechnungen. |
 | Wissenschaftlich | Werkzeuge für Studierende der Physik, Informatik und Mathematik. |
-| Umrechner | Große Auswahl von Einheiten mit nachvollziehbaren Umrechnungen. |
-| Graphen | 2D-Plotter zur Darstellung und Untersuchung von Funktionen. |
+| Umrechner        | Große Auswahl von Einheiten mit nachvollziehbaren Umrechnungen.  |
+| Graphen          | 2D-Plotter zur Darstellung und Untersuchung von Funktionen.      |
 
 In jedem Modus kann der Berechnungsverlauf ein- und ausgeblendet werden. Moduswechsel erfolgen über Hash-Routen: `#/simple`, `#/scientific`, `#/convert`, `#/graph`. Leere oder unbekannte Hashes führen zur Ansicht Einfach.
 

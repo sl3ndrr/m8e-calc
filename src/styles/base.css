@@ -12,15 +12,62 @@
   color: var(--md-sys-color-on-surface);
   background: var(--md-sys-color-surface);
 }
-* { box-sizing: border-box; }
-body { margin: 0; }
-.placeholder { max-width: 90rem; margin: 0 auto; padding: clamp(1.5rem, 5vw, 6rem); }
-.brand { font-weight: 700; font-size: 1.5rem; }
-nav { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-block: 2rem; }
-a { color: var(--md-sys-color-primary); padding: 0.75rem 1rem; border-radius: var(--md-sys-shape-control); text-decoration: none; transition: background var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard); }
-a:hover, a[aria-current='page'] { background: var(--md-sys-color-surface-container); }
-a:focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: 3px; }
-section { padding: clamp(1.5rem, 4vw, 4rem); border-radius: var(--md-sys-shape-container); background: var(--md-sys-color-surface-container); }
-h1 { font-size: clamp(2rem, 3vw, 3.5rem); margin-block: 0 1rem; }
-section p { max-width: 65ch; line-height: 1.6; }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+.placeholder {
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 5vw, 6rem);
+}
+.brand {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-block: 2rem;
+}
+a {
+  color: var(--md-sys-color-primary);
+  padding: 0.75rem 1rem;
+  border-radius: var(--md-sys-shape-control);
+  text-decoration: none;
+  transition: background var(--md-sys-motion-duration-short)
+    var(--md-sys-motion-easing-standard);
+}
+a:hover,
+a[aria-current='page'] {
+  background: var(--md-sys-color-surface-container);
+}
+a:focus-visible {
+  outline: 3px solid var(--md-sys-color-primary);
+  outline-offset: 3px;
+}
+section {
+  padding: clamp(1.5rem, 4vw, 4rem);
+  border-radius: var(--md-sys-shape-container);
+  background: var(--md-sys-color-surface-container);
+}
+h1 {
+  font-size: clamp(2rem, 3vw, 3.5rem);
+  margin-block: 0 1rem;
+}
+section p {
+  max-width: 65ch;
+  line-height: 1.6;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

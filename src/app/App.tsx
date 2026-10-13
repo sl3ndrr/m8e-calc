@@ -7,7 +7,9 @@ function subscribe(listener: () => void) {
   window.addEventListener('hashchange', listener);
   return () => window.removeEventListener('hashchange', listener);
 }
-function getHash() { return window.location.hash; }
+function getHash() {
+  return window.location.hash;
+}
 export function App() {
   const mode = parseHash(useSyncExternalStore(subscribe, getHash));
   const locale = useAppStore((state) => state.locale);
@@ -19,7 +21,15 @@ export function App() {
     <main className="placeholder">
       <p className="brand">{t('app.name', locale)}</p>
       <nav aria-label={t('app.navigation', locale)}>
-        {modes.map((item) => <a key={item} href={`#/${item}`} aria-current={mode === item ? 'page' : undefined}>{t(`mode.${item}`, locale)}</a>)}
+        {modes.map((item) => (
+          <a
+            key={item}
+            href={`#/${item}`}
+            aria-current={mode === item ? 'page' : undefined}
+          >
+            {t(`mode.${item}`, locale)}
+          </a>
+        ))}
       </nav>
       <section aria-labelledby="foundation-title">
         <h1 id="foundation-title">{t('app.foundation', locale)}</h1>
