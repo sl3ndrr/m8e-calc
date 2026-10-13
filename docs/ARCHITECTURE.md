@@ -119,3 +119,13 @@ und Rendering. CodeMirror/KaTeX werden lazy geladen; KaTeX-Fonts werden vom Bund
 lokal ausgeliefert. Das Environment bleibt JSON-serialisierbar und wird beim Laden
 validiert. Vorschau und Wiederherstellung führen keine gespeicherten Anweisungen
 automatisch aus. Bedienung, Payloads und Verifikation: [SCIENTIFIC_MODE.md](SCIENTIFIC_MODE.md).
+
+## AP10 · Einheiten-Engine
+
+`src/units` liefert einen rein deklarativen Katalog und die browserfreie Decimal-API.
+Alle Umrechnungen gehen über eine Kategorie-Basis; rationale Faktoren bleiben
+Zähler/Divisor, Temperatur ist affin und Verbrauch reziprok. Energie/Drehmoment,
+Aktivität/Energie-/Äquivalentdosis sowie beide Viskositäten sind dimensionsgerecht
+getrennt. Suchauflösung meldet mehrdeutige Symbole; Formatierung nutzt die Engine.
+Dynamische Kurse sind nur als AP17-Typ vorgesehen. Datenmodell, Quellen und
+Erweiterung: [UNITS.md](UNITS.md). Tests laufen im Engine-Node-Projekt ohne DOM.
