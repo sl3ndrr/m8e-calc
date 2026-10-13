@@ -16,11 +16,13 @@ jobs:
       - run: python scripts/subset-fonts.py
       - run: npm run tokens
       - run: npx prettier --write .
-      - run: |
+      - if: always()
+        run: |
           mkdir -p test-results
           git diff --binary > test-results/preparation.patch
           tar -czf test-results/dependencies.tar.gz node_modules
       - uses: actions/upload-artifact@v7
+        if: always()
         with:
           name: app-shell-preparation
           path: |

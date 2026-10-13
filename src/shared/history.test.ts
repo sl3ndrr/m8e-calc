@@ -58,6 +58,6 @@ it('searches and groups in local days, including yesterday across calendar bound
 it('exports complete JSON and escaped CSV/Markdown', () => {
   const sample = { ...entry(), input: '=SUM(1,2)', result: 'a"b|c\n<test>' };
   expect(JSON.parse(exportHistory([sample], 'json')).entries).toEqual([sample]);
-  expect(exportHistory([sample], 'csv')).toContain('"'=SUM(1,2)"'); expect(exportHistory([sample], 'csv')).toContain('a""b');
+  expect(exportHistory([sample], 'csv')).toContain(`"'=SUM(1,2)"`); expect(exportHistory([sample], 'csv')).toContain('a""b');
   expect(exportHistory([sample], 'markdown')).toContain('b\\|c &lt;test&gt;');
 });
