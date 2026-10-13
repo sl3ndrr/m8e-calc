@@ -83,6 +83,8 @@ Präzedenz: **`1/2x = (1/2)*x`**, `2π`, `2(3+4)`, `(1+2)(3+4)` und
   `a*b% = a*b/100`, `a/b% = a/(b/100)`; alleinstehende Prozentwerte bleiben
   Bruchteile. `50%% = 0.005` in beiden Modi.
 - Fakultät nur für nichtnegative ganze Zahlen; `0! = 1`. Keine Gamma-Erweiterung.
+  Das begrenzte ganzzahlige Produkt wird exakt mit BigInt gebildet, dann einmal
+  auf 50 Stellen gerundet.
 - Reelle Werte: `0^0` ist `E_DOMAIN`; negative Basen benötigen ganzzahlige
   Exponenten. `root(n,x)` verlangt eine von null verschiedene ganze Wurzelordnung;
   negative Ordnungen sind reziproke Wurzeln. Negative Radikanden brauchen eine
@@ -103,7 +105,9 @@ Die Reduktion und trigonometrischen Zwischenwerte verwenden eine separate
 Der finale Wert wird auf 50 Stellen gerundet.
 
 Reduktion zunächst in der Eingabeeinheit auf eine Periode (`360`, `400`, `2π`),
-dann in Radiant. Für `sin`, `cos` und `tan` wird der reduzierte Winkel an das
+dabei bleibt das Vorzeichen des Restes erhalten, damit winzige negative Winkel
+nicht als gerundete volle Periode verschwinden. Danach Umrechnung in Radiant.
+Für `sin`, `cos` und `tan` wird der reduzierte Winkel an das
 nächste Vielfache von 15° eingerastet, **nur wenn** sein Abstand in der
 Eingabeeinheit `<= abs(originaler Winkel) * 10^-48` ist. Der Nullwinkel wird
 direkt behandelt. Das ist kein pauschales Runden kleiner Funktionswerte:

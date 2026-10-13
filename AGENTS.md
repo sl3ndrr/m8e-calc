@@ -2,7 +2,7 @@
 
 ## Auftrag und Scope
 
-m8e-calc ist ein datenschutzfreundlicher Desktop-Browser-Taschenrechner. Die verbindliche Produktvision steht in `docs/PRODUCT_SPEC.md`, die Schichten in `docs/ARCHITECTURE.md`, die Paketfolge in `docs/ROADMAP.md`. AP1 legt die Toolchain an; AP2 liefert Theming und Design-Tokens gemäß `docs/DESIGN.md`. AP4 liefert die App-Hülle mit Registry, persistentem Verlauf, Einstellungen und i18n. Es gibt noch keine Rechenfunktion; die vier Modi bleiben Leerzustände.
+m8e-calc ist ein datenschutzfreundlicher Desktop-Browser-Taschenrechner. Die verbindliche Produktvision steht in `docs/PRODUCT_SPEC.md`, die Schichten in `docs/ARCHITECTURE.md`, die Paketfolge in `docs/ROADMAP.md`. AP1 legt die Toolchain an; AP2 liefert Theming und Design-Tokens gemäß `docs/DESIGN.md`. AP4 liefert die App-Hülle mit Registry, persistentem Verlauf, Einstellungen und i18n. AP5 liefert den reinen Rechenkern in `src/engine`; Vertrag und konservative Entscheidungen stehen in `docs/ENGINE.md`. Die vier Modi bleiben bis zu ihren UI-Paketen Leerzustände.
 
 ## Arbeitsumgebung und Befehle
 
@@ -16,9 +16,10 @@ Node 24 LTS (`nvm use`), npm und das eingecheckte `package-lock.json` verwenden.
 | `npm run lint`                | ESLint und Prettier-Formatprüfung                                      |
 | `npm run typecheck`           | Alle TypeScript-Projekte prüfen                                        |
 | `npm run test`                | Vitest, Testing Library und Property-Tests                             |
+| `npm run test:engine:bench`    | Parse + Eval typischer Ausdrücke; nach Warm-up jeweils unter 1 ms      |
 | `npm run test:e2e`            | Playwright mit Chromium gegen den vorher erstellten Build              |
 | `npm run screenshots:gallery` | Galerie und Overlays in Hell/Dunkel aufnehmen (Preview vorher starten) |
-| `npm run check`               | lint + typecheck + test + build                                        |
+| `npm run check`               | lint + typecheck + test + build + Engine-Benchmark                     |
 
 Einmalig für E2E: `npx playwright install chromium` (Linux-CI: `--with-deps`). Vor E2E `npm run build` ausführen. Formatieren: `npx prettier --write .`. `VITE_BASE_PATH` überschreibt den Standard `/m8e-calc/`; als absoluter Pfad mit führendem und abschließendem Slash setzen. Der Pages-Smoke prüft bewusst den Standardpfad.
 
@@ -32,6 +33,12 @@ Einmalig für E2E: `npx playwright install chromium` (Linux-CI: `--with-deps`). 
 - `src/shared`: Zustand-Store, typisierte i18n-Dictionaries und allgemeine Hilfsfunktionen. UI-unabhängige Fachlogik gehört in die Domänen.
 - `src/test`: gemeinsame Testinitialisierung; Unit-Tests neben dem geprüften Modul; `e2e/`: Browserprüfungen.
 - `docs/`: Produkt, Architektur, Roadmap und Entscheidungen. Keine Planung ausschließlich im Chat.
+
+Engine-Einstieg: `src/engine/index.ts`. Öffentlicher readonly AST und Result-API gemäß
+`docs/ENGINE.md`; keine inkompatiblen AST-Änderungen ohne Vertragsänderung. Private
+decimal.js-Konfiguration: 50 Stellen, Anzeige 15; Kontextstandard `rad`/`strict`.
+Eigene Funktionen als Registry-Einträge. Eingabelokalisierung bleibt im UI-Adapter.
+Engine-Tests laufen in einem separaten Vitest-Node-Projekt ohne UI-Testsetup.
 
 Datenfluss: Benutzereingabe → reine UI-Funktion/Reducer → Domäne → Ergebnis → Store/React → Ansicht. Keine fachlichen Seiteneffekte beim Rendern. Hash-Routen: `#/simple`, `#/scientific`, `#/convert`, `#/graph`, technisches Design-Lab `#/design`; leerer Hash setzt den zuletzt genutzten Modus fort (Standard Einfach); unbekannter Hash zeigt Einfach. Keine serverseitigen Rewrites voraussetzen.
 

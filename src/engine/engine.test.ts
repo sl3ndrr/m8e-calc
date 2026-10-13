@@ -130,6 +130,8 @@ describe('public AST and context', () => {
   });
   it('preserves tiny angles and distinguishes values beside a pole', () => {
     expect(value('sin(1e-60)').isZero()).toBe(false);
+    expect(value('sin(-1e-1000)').toString()).toBe('-1e-1000');
+    expect(value('sin(1e-1000)').toString()).toBe('1e-1000');
     expect(value('cos(90.00000000000000000001)', { angleMode: 'deg' }).isZero()).toBe(false);
     expect(value('tan(89.99999999999999999999)', { angleMode: 'deg' }).isFinite()).toBe(true);
     expect(value('sin(1000000000110)', { angleMode: 'deg' }).toString()).toBe('0.5');
@@ -145,6 +147,9 @@ describe('public AST and context', () => {
     expect(evaluateString('x+1', { variables: { x: future } })).toMatchObject({ ok: false, error: { code: 'E_TYPE' } });
     expect(numberValue('Infinity')).toMatchObject({ ok: false, error: { code: 'E_OVERFLOW' } });
     expect(numberValue('not a number')).toMatchObject({ ok: false });
+  });
+  it('rounds the exact factorial once', () => {
+    expect(value('100!').toString()).toBe('9.3326215443944152681699238856266700490715968264382e+157');
   });
 });
 

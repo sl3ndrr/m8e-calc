@@ -23,10 +23,23 @@ export default defineConfig({
     },
   ],
   test: {
-    environment: 'jsdom',
     pool: 'threads',
     maxWorkers: 2,
-    setupFiles: ['./src/test/setup.ts'],
-    include: ['src/**/*.test.{ts,tsx}'],
+    projects: [
+      {
+        test: {
+          name: 'ui', environment: 'jsdom',
+          setupFiles: ['./src/test/setup.ts'],
+          include: ['src/**/*.test.{ts,tsx}'],
+          exclude: ['src/engine/**/*.test.ts'],
+        },
+      },
+      {
+        test: {
+          name: 'engine', environment: 'node',
+          include: ['src/engine/**/*.test.ts'],
+        },
+      },
+    ],
   },
 });
