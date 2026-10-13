@@ -105,3 +105,9 @@ OS-Präferenzen. Der Einfach-Modus übernimmt AP4s rem-Skalierung und docked/mod
 Verlauf unverändert. Tastaturbefehle ruhen in Formularen, Overlays und inerten
 Modusflächen. Browserprüfungen erzeugen vier Ansichten in `test-results`:
 1920×1080 und 3840×2160, jeweils Hell/Dunkel.
+
+Geprüfte Referenzaufnahmen: [Full HD Hell](screenshots/simple-light-1920.png),
+[Full HD Dunkel](screenshots/simple-dark-1920.png),
+[4K Hell](screenshots/simple-light-3840.png) und
+[4K Dunkel](screenshots/simple-dark-3840.png). Der AP6-Reducer hat 102 Unit-Fälle;
+die Gesamtprüfung umfasst 800 Unit-/Komponententests und 44 Chromium-E2E.
