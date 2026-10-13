@@ -36,7 +36,7 @@ test('hex input, bit clicks, widths, expression and history restore', async ({
   await hex.fill('FFFFFFFFFFFFFFFF');
   await hex.press('Enter');
   await expect(
-    panel.getByRole('textbox', { name: t('programmer.dec') }),
+    panel.getByRole('textbox', { name: t('programmer.dec'), exact: true }),
   ).toHaveValue('18446744073709551615');
   const editor = page.getByRole('textbox', {
     name: t('scientific.expression'),
@@ -112,9 +112,10 @@ test('screenshots and scaling', async ({ page }) => {
         .getByRole('textbox', { name: t('programmer.hex') })
         .press('Enter');
       await expect(page.locator('.programmer-word-grid')).toBeVisible();
-      await expect(
-        page.locator('.scientific-result-card .katex'),
-      ).toBeVisible();
+      const formulas = page.locator('.scientific-result-card .katex');
+      await expect(formulas).toHaveCount(2);
+      await expect(formulas.nth(0)).toBeVisible();
+      await expect(formulas.nth(1)).toBeVisible();
       await page.evaluate(() => document.fonts.ready);
       await page.locator('.scientific-heading').scrollIntoViewIfNeeded();
       expect(
