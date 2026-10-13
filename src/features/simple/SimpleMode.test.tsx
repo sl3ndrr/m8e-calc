@@ -15,14 +15,12 @@ import { getMode } from '../../app/modeRegistry';
 import { snackbarQueue, Snackbar } from '../../ui';
 const result = () => screen.getByLabelText('Ergebnis', { selector: 'output' });
 beforeEach(() => {
-  useSettingsStore
-    .getState()
-    .updateSettings({
-      language: 'de',
-      motionLevel: 'off',
-      decimalSeparator: 'comma',
-      grouping: true,
-    });
+  useSettingsStore.getState().updateSettings({
+    language: 'de',
+    motionLevel: 'off',
+    decimalSeparator: 'comma',
+    grouping: true,
+  });
   useAppStore.setState({ locale: 'de' });
   useHistoryStore.getState().resetHistory();
 });

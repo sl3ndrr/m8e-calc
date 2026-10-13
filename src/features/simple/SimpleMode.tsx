@@ -410,7 +410,7 @@ export default function SimpleMode() {
             key={operation}
             id={operation}
             label={t(`simple.${operation}`, locale)}
-            role="memory"
+            colorRole="memory"
             disabled={
               (operation === 'MC' || operation === 'MR') &&
               state.memory === null
@@ -426,7 +426,7 @@ export default function SimpleMode() {
           <KeypadKey
             key={key.id}
             id={key.id}
-            role={key.role}
+            colorRole={key.role}
             label={t(key.label, locale, { digit: key.text })}
             active={state.operator === key.id}
             pressed={pressed.includes(key.id)}

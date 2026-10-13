@@ -7,7 +7,7 @@ export interface KeypadKeyProps {
   id: string;
   children: ReactNode;
   label: string;
-  role?: KeyRole;
+  colorRole?: KeyRole;
   pressed?: boolean;
   active?: boolean;
   disabled?: boolean;
@@ -17,7 +17,7 @@ export function KeypadKey({
   id,
   children,
   label,
-  role = 'digit',
+  colorRole = 'digit',
   pressed,
   active,
   disabled,
@@ -27,7 +27,7 @@ export function KeypadKey({
     <div
       className="keypad-cell"
       data-key={id}
-      data-role={role}
+      data-role={colorRole}
       data-key-pressed={pressed || undefined}
       data-active={active || undefined}
     >

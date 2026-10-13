@@ -97,7 +97,7 @@ Das Playwright-Skript speichert `docs/screenshots/components-{light,dark}.png` u
 ## AP6 · Wiederverwendbares Keypad
 
 `Keypad({ label, children })` liefert das zugängliche Tastenraster;
-`KeypadKey({ id, label, role, pressed, active, disabled, onPress, children })`
+`KeypadKey({ id, label, colorRole, pressed, active, disabled, onPress, children })`
 verwendet Button/React Aria. Rollen: digit, operator, equals, clear, function,
 memory. `pressed` bildet globale Tastaturbefehle ab, `active` einen wartenden
 Operator. Features legen Reihenfolge und Raster ausschließlich per CSS fest.

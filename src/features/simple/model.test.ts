@@ -193,7 +193,10 @@ describe('memory', () => {
     expect(memory(run('42'), 'MR').entry.value).toBe('42'));
   it('MR replaces rhs', () =>
     expect(
-      run('=', memory(run('5+', memory(run('7'), 'MS')), 'MR')).entry.value,
+      run(
+        '=',
+        memory(run('5+', act(memory(run('7'), 'MS'), { type: 'clear' })), 'MR'),
+      ).entry.value,
     ).toBe('12'));
   it('M+ initializes memory', () =>
     expect(memory(run('0.1'), 'M+').memory).toBe('0.1'));
