@@ -21,7 +21,11 @@ die Engine-Result-APIs übersetzen ihn mit dem Quellbereich.
 `programmer?: WordOptions` setzt den Wortkontext (Standard 32 Bit, unsigned, wrap).
 `evaluateString` und `execute` reichen bitwise an den Parser weiter. Ganzzahlliterale
 `0x`, `0b`, `0o` (auch Großbuchstaben) sind in allen Kontexten erlaubt, ungültige
-Ziffern melden E_INVALID_NUMBER. Bitoperationen verlangen endliche reelle Ganzzahlen.
+Ziffern melden E_INVALID_NUMBER. Bitoperationen verlangen endliche reelle Ganzzahlen. Ganzzahlige Endergebnisse im
+Informatik-Kontext werden gemäß Wortbreite und Überlauf normalisiert; gewöhnliche
+nichtganzzahlige wissenschaftliche Ergebnisse bleiben darstellbar. Die freigeschalteten
+Aufrufe sind xor/nand/nor/xnor/shl/lsr/asr/rol/ror (2 Argumente) und
+bswap/popcount/clz/ctz (1 Argument), im aktiven Kontext reserviert.
 `^` bleibt rechtsassoziative Potenz. Unterhalb der bestehenden Präzedenz gelten
 wie in C, von stark nach schwach: `+ -` → `<< >>` → `&` → `|`, jeweils linksassoziativ.
 Präfix `~` hat dieselbe Bindung wie die vorhandenen Präfix-Vorzeichen; Potenz und

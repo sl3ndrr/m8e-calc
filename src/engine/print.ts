@@ -3,6 +3,9 @@ import type { Ast } from './types.ts';
 function precedence(ast: Ast): number {
   switch (ast.kind) {
     case 'binary':
+      if (ast.operator === '|') return -3;
+      if (ast.operator === '&') return -2;
+      if (ast.operator === '<<' || ast.operator === '>>') return -1;
       return ast.operator === '^'
         ? 3
         : ast.operator === '*' || ast.operator === '/'

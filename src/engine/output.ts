@@ -100,18 +100,23 @@ function nameLatex(name: string): string {
   return /^[A-Za-z]$/.test(name) ? name : `\\mathrm{${escaped}}`;
 }
 function numberLatex(text: string): string {
+  if (/^0[xbo]/i.test(text)) return `\\mathtt{${text}}`;
   const [mantissa = '0', exponent] = text.split(/[eE]/);
   return exponent === undefined
     ? mantissa
     : `${mantissa}\\times 10^{${Number(exponent)}}`;
 }
 function priority(ast: Ast): number {
-  if (ast.kind === 'binary')
+  if (ast.kind === 'binary') {
+    if (ast.operator === '|') return -3;
+    if (ast.operator === '&') return -2;
+    if (ast.operator === '<<' || ast.operator === '>>') return -1;
     return ast.operator === '^'
       ? 3
       : ast.operator === '*' || ast.operator === '/'
         ? 1
         : 0;
+  }
   return ast.kind === 'unary' ? 2 : ast.kind === 'postfix' ? 4 : 5;
 }
 function astLatex(ast: Ast): string {
@@ -129,7 +134,10 @@ function astLatex(ast: Ast): string {
     case 'definition':
       return `${nameLatex(ast.name)}\\left(${ast.parameters.map(nameLatex).join(',')}\\right)=${astLatex(ast.expression)}`;
     case 'unary':
-      return ast.operator + wrap(ast.operand, priority(ast.operand) < 2);
+      return (
+        (ast.operator === '~' ? '\\sim ' : ast.operator) +
+        wrap(ast.operand, priority(ast.operand) < 2)
+      );
     case 'postfix':
       return (
         wrap(ast.operand, priority(ast.operand) < 4) +
@@ -143,7 +151,7 @@ function astLatex(ast: Ast): string {
       const p = priority(ast),
         left = wrap(ast.left, priority(ast.left) < p),
         right = wrap(ast.right, priority(ast.right) <= p);
-      return `${left}${ast.operator === '*' ? '\\cdot ' : ast.operator}${right}`;
+      return `${left}${ast.operator === '*' ? '\\cdot ' : ast.operator === '&' ? '\\mathbin{\\&}' : ast.operator === '|' ? '\\mathbin{\\vert}' : ast.operator === '<<' ? '\\ll ' : ast.operator === '>>' ? '\\gg ' : ast.operator}${right}`;
     }
     case 'call': {
       const args = ast.args.map(astLatex);

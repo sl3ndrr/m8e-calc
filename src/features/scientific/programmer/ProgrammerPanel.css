@@ -1,0 +1,152 @@
+.programmer-panel {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+.programmer-panel h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+.programmer-controls,
+.programmer-operations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.programmer-controls .ui-segment {
+  padding-inline: 0.6rem;
+}
+.programmer-bit-grid {
+  display: grid;
+  grid-template-columns: repeat(calc(var(--bit-columns) / 4), minmax(0, 1fr));
+  gap: 0.5rem;
+  touch-action: none;
+  user-select: none;
+}
+.programmer-nibble {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.2rem;
+  border-inline-end: 1px solid var(--md-sys-color-outline-variant);
+  padding-inline-end: 0.35rem;
+}
+.programmer-bit {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  min-height: 2.75rem;
+  padding: 0.2rem;
+  border: 1px solid var(--md-sys-color-outline);
+  color: var(--md-sys-color-on-surface);
+  background: var(--md-sys-color-surface-container-highest);
+  cursor: pointer;
+  border-radius: calc(
+    var(--md-sys-shape-small) + var(--bit-morph) *
+      (var(--md-sys-shape-large) - var(--md-sys-shape-small))
+  );
+  transform: scale(calc(1 - var(--bit-morph) * 0.04));
+  font-family: 'Roboto Mono', monospace;
+}
+.programmer-bit small {
+  font-size: 0.625rem;
+}
+.programmer-bit[data-on='true'] {
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  border-color: var(--md-sys-color-primary);
+}
+.programmer-bit:focus-visible {
+  outline: 3px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+}
+.programmer-nibble-hex {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--md-sys-color-on-surface-variant);
+  font-family: 'Roboto Mono', monospace;
+}
+.programmer-base-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 0.25rem;
+  align-items: end;
+}
+.programmer-base-row .ui-button {
+  padding-inline: 0.5rem;
+  font-size: 0.75rem;
+}
+.programmer-base-row input {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.875rem;
+  min-width: 0;
+}
+.programmer-bases,
+.programmer-ieee,
+.programmer-character {
+  display: grid;
+  gap: 0.75rem;
+  min-width: 0;
+}
+.programmer-ieee,
+.programmer-character {
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  padding-top: 1rem;
+}
+.programmer-arbitrary {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr);
+  gap: 0.5rem;
+  align-items: end;
+}
+.programmer-float-fields,
+.programmer-field-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.programmer-field-inputs > * {
+  flex: 1;
+  min-width: 6rem;
+}
+.programmer-float-fields span {
+  padding: 0.35rem 0.5rem;
+  border-radius: var(--md-sys-shape-small);
+}
+.programmer-bit[data-field='sign'],
+.programmer-float-fields [data-field='sign'] {
+  background: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+.programmer-bit[data-field='exponent'],
+.programmer-float-fields [data-field='exponent'] {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+.programmer-bit[data-field='mantissa'],
+.programmer-float-fields [data-field='mantissa'] {
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+.programmer-bit[data-field]:not([data-field='word'])[data-on='false'] {
+  background: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+}
+.programmer-exact {
+  font-family: 'Roboto Mono', monospace;
+  overflow-wrap: anywhere;
+  max-height: 12rem;
+  overflow: auto;
+  font-size: 0.875rem;
+}
+@media (min-width: 1920px) {
+  .scientific-tools[data-tab='computerScience'] .scientific-keypad-wrap,
+  .scientific-tools[data-tab='computerScience'] .scientific-reference-column {
+    display: none;
+  }
+}
+@media (min-width: 2560px) {
+  .programmer-bit {
+    min-height: 3.25rem;
+    font-size: 1.25rem;
+  }
+}

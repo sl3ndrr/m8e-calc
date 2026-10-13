@@ -46,6 +46,13 @@ import { useScientificStore } from './scientificStore';
 import type { EditorHandle } from './ExpressionEditor';
 import { ScientificKeypad } from './ScientificKeypad';
 import { ConstantsPanel, VariablesPanel } from './ReferencePanels';
+import { ProgrammerPanel } from './programmer/ProgrammerPanel';
+import { integerResult, reconfigure } from './programmer/model';
+import {
+  defaultWordOptions,
+  word,
+  type WordOptions,
+} from '../../engine/programmer';
 import './ScientificMode.css';
 const ExpressionEditor = lazy(() => import('./ExpressionEditor'));
 const MathDisplay = lazy(() => import('./MathDisplay'));
@@ -66,6 +73,8 @@ export default function ScientificMode() {
       useState<NonNullable<ValueFormatOptions['notation']>>('auto'),
     [digits, setDigits] = useState(15),
     [fraction, setFraction] = useState(false);
+  const [programmer, setProgrammer] = useState<WordOptions>(defaultWordOptions),
+    [wordValue, setWordValue] = useState(0n);
   const [tab, setTab] = useState('keypad'),
     [storeName, setStoreName] = useState('a'),
     [storeError, setStoreError] = useState('');
@@ -74,6 +83,8 @@ export default function ScientificMode() {
     environment: typeof environment;
     angleMode: AngleMode;
     complex: ComplexMode;
+    bitwise: boolean;
+    programmer: WordOptions;
     calculation: Calculation | null;
   } | null>(null);
   const editor = useRef<EditorHandle>(null),
@@ -94,13 +105,35 @@ export default function ScientificMode() {
         typeof p.expression !== 'string'
       )
         return;
+      if (
+        p.programmer &&
+        typeof p.programmer === 'object' &&
+        !Array.isArray(p.programmer)
+      ) {
+        const config = p.programmer;
+        if (
+          [8, 16, 32, 64].includes(Number(config.width)) &&
+          typeof config.signed === 'boolean' &&
+          (config.overflow === 'wrap' || config.overflow === 'error')
+        ) {
+          const next = {
+            width: Number(config.width) as WordOptions['width'],
+            signed: config.signed,
+            overflow: config.overflow,
+          };
+          setProgrammer(next);
+          setWordValue(0n);
+          setTab('computerScience');
+        }
+      }
       change(p.expression);
       editor.current?.focus();
     },
     [change],
   );
   const { entries, add } = useModeHistory('scientific', restore);
-  const options = { angleMode, complex };
+  const bitwise = tab === 'computerScience';
+  const options = { angleMode, complex, bitwise, programmer };
   const format = {
     notation,
     digits,
@@ -115,7 +148,9 @@ export default function ScientificMode() {
     live?.expression === expression &&
     live.environment === environment &&
     live.angleMode === angleMode &&
-    live.complex === complex
+    live.complex === complex &&
+    live.bitwise === bitwise &&
+    live.programmer === programmer
       ? live.calculation
       : null;
   const liveText = liveCalculation?.value
@@ -129,30 +164,40 @@ export default function ScientificMode() {
           environment,
           angleMode,
           complex,
-          calculation: preview(expression, environment, { angleMode, complex }),
+          bitwise,
+          programmer,
+          calculation: preview(expression, environment, {
+            angleMode,
+            complex,
+            bitwise,
+            programmer,
+          }),
         }),
       250,
     );
     return () => window.clearTimeout(timer);
-  }, [expression, environment, angleMode, complex]);
-  function evaluate(): void {
-    const result = calculate(expression, environment, options);
+  }, [expression, environment, angleMode, complex, bitwise, programmer]);
+  function evaluate(source: string = expression): void {
+    const result = calculate(source, environment, options);
     if (!result.ok) {
       setError(result.error);
       return;
     }
     setError(null);
     setCalculation(result.calculation);
+    const integer = integerResult(result.calculation.value);
+    if (bitwise && integer !== null) setWordValue(word(integer, programmer));
     commit(result.environment);
     const output = result.calculation.value
       ? displayResult(result.calculation.value, format, fraction)
       : { text: t('scientific.definitionSaved', locale), latex: '' };
     add({
-      input: expression,
+      input: source,
       result: output.text,
       payload: {
         version: 1,
-        expression,
+        expression: source,
+        ...(bitwise ? { programmer: { ...programmer } } : {}),
         latex: {
           expression: result.calculation.expressionLatex,
           result: output.latex,
@@ -278,7 +323,7 @@ export default function ScientificMode() {
                 ref={editor}
                 value={expression}
                 onChange={change}
-                onEvaluate={evaluate}
+                onEvaluate={() => evaluate()}
                 onBrowse={browse}
                 locale={locale}
                 error={error}
@@ -309,7 +354,7 @@ export default function ScientificMode() {
               )}
             </div>
             <div className="scientific-actions">
-              <Button onPress={evaluate}>
+              <Button onPress={() => evaluate()}>
                 {t('scientific.evaluate', locale)}
               </Button>
               <Button
@@ -428,7 +473,7 @@ export default function ScientificMode() {
             <ScientificKeypad
               locale={locale}
               insert={insert}
-              evaluate={evaluate}
+              evaluate={() => evaluate()}
               clear={() => {
                 change('');
                 editor.current?.focus();
@@ -468,8 +513,31 @@ export default function ScientificMode() {
             />
           </div>
           <div className="scientific-ap9">
-            <h2>{t('scientific.computerScience', locale)}</h2>
-            <p>{t('scientific.ap9', locale)}</p>
+            <ProgrammerPanel
+              value={wordValue}
+              options={programmer}
+              locale={locale}
+              onRun={(source) => {
+                change(source);
+                evaluate(source);
+              }}
+              onConfigure={(next) => {
+                try {
+                  const value = reconfigure(wordValue, programmer, next);
+                  setWordValue(value);
+                  setProgrammer(next);
+                  setError(null);
+                } catch {
+                  setError({
+                    code: 'E_OVERFLOW',
+                    range: { start: 0, end: expression.length },
+                  });
+                }
+              }}
+              copy={(text) => {
+                void copy(text);
+              }}
+            />
           </div>
         </div>
       </div>
