@@ -1,4 +1,11 @@
 import { compile } from './compile.ts';
+import {
+  pathAxisHits,
+  pathExtrema,
+  pathInflections,
+  pathIntersections,
+  pathSlope,
+} from './curveAnalysis.ts';
 import { validateBounds, visible } from './geometry.ts';
 import {
   brent,
@@ -89,6 +96,8 @@ export function findRoots(
   options: AnalysisOptions = {},
 ): AnalysisPoint[] {
   validateBounds(bounds);
+  if (curve.kind !== 'explicit')
+    return pathAxisHits(curve, bounds, settings(options), roots, 'y');
   const limits = settings(options),
     f = explicit(curve, limits);
   return points(roots(f, bounds.xMin, bounds.xMax, limits), f, bounds);
@@ -99,6 +108,8 @@ export function findExtrema(
   options: AnalysisOptions = {},
 ): Extremum[] {
   validateBounds(bounds);
+  if (curve.kind !== 'explicit')
+    return pathExtrema(curve, bounds, settings(options), roots);
   const limits = settings(options),
     f = explicit(curve, limits);
   const d = (x: number): number => {
@@ -130,6 +141,8 @@ export function findInflections(
   options: AnalysisOptions = {},
 ): AnalysisPoint[] {
   validateBounds(bounds);
+  if (curve.kind !== 'explicit')
+    return pathInflections(curve, bounds, settings(options), roots);
   const limits = settings(options),
     f = explicit(curve, limits);
   // The second derivative's cancellation error is larger than the slope's.
@@ -164,6 +177,8 @@ export function findIntersections(
   options: AnalysisOptions = {},
 ): AnalysisPoint[] {
   validateBounds(bounds);
+  if (a.kind !== 'explicit' || b.kind !== 'explicit')
+    return pathIntersections(a, b, bounds, settings(options));
   const limits = settings(options),
     f = explicit(a, limits),
     g = explicit(b, limits);
@@ -179,6 +194,10 @@ export function yIntercept(
   options: AnalysisOptions = {},
 ): AnalysisPoint | null {
   validateBounds(bounds);
+  if (curve.kind !== 'explicit')
+    return (
+      pathAxisHits(curve, bounds, settings(options), roots, 'x')[0] ?? null
+    );
   const limits = settings(options),
     y = explicit(curve, limits)(0),
     point = { x: 0, y, errorEstimate: 0, confidence: Number.isFinite(y) };
@@ -191,6 +210,8 @@ export function slopeAt(
   options: AnalysisOptions = {},
 ): Estimate {
   validateBounds(bounds);
+  if (curve.kind !== 'explicit')
+    return pathSlope(curve, x, bounds, settings(options)).estimate;
   const limits = settings(options),
     f = explicit(curve, limits);
   if (!visible({ x, y: f(x) }, bounds)) return uncertain();
@@ -203,6 +224,15 @@ export function tangentAt(
   options: AnalysisOptions = {},
 ): Tangent {
   validateBounds(bounds);
+  if (curve.kind !== 'explicit') {
+    const { point, estimate } = pathSlope(curve, x, bounds, settings(options));
+    return {
+      ...estimate,
+      point,
+      slope: estimate.value,
+      intercept: point.y - estimate.value * point.x,
+    };
+  }
   const limits = settings(options),
     y = explicit(curve, limits)(x),
     slope = slopeAt(curve, x, bounds, options);
