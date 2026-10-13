@@ -112,6 +112,11 @@ test('screenshots and scaling', async ({ page }) => {
         .getByRole('textbox', { name: t('programmer.hex') })
         .press('Enter');
       await expect(page.locator('.programmer-word-grid')).toBeVisible();
+      await expect(
+        page.locator('.scientific-result-card .katex'),
+      ).toBeVisible();
+      await page.evaluate(() => document.fonts.ready);
+      await page.locator('.scientific-heading').scrollIntoViewIfNeeded();
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth,
@@ -120,6 +125,22 @@ test('screenshots and scaling', async ({ page }) => {
       await page.screenshot({
         path:
           'test-results/programmer-' +
+          (dark ? 'dark' : 'light') +
+          '-' +
+          width +
+          '.png',
+        fullPage: true,
+      });
+      const ieee = page.locator('.programmer-ieee');
+      const numeric = ieee.getByRole('textbox', {
+        name: t('programmer.floatValue'),
+      });
+      await numeric.fill('0.1');
+      await numeric.press('Enter');
+      await ieee.scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path:
+          'test-results/programmer-ieee-' +
           (dark ? 'dark' : 'light') +
           '-' +
           width +
