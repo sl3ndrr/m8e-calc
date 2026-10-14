@@ -45,7 +45,7 @@ export function TextField({
         {suffix && <span aria-hidden="true">{suffix}</span>}
       </div>
       {description && <Text slot="description">{description}</Text>}
-      <FieldError role="alert">{errorMessage}</FieldError>
+      <div aria-live="assertive" aria-atomic="true"><FieldError>{errorMessage}</FieldError></div>
     </AriaTextField>
   );
 }

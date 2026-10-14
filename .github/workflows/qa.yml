@@ -20,6 +20,9 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      - name: Package local verification dependencies
+        if: matrix.phase == 'after'
+        run: tar -czf /tmp/qa-deps.tgz node_modules
       - name: Format patch for review
         if: matrix.phase == 'after'
         run: |
@@ -75,6 +78,7 @@ jobs:
             .qa-baseline/test-results/
             .qa-baseline/.lighthouseci/
             /tmp/format.patch
+            /tmp/qa-deps.tgz
           retention-days: 14
   browsers:
     runs-on: ubuntu-latest

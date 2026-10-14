@@ -1,4 +1,5 @@
-import type { ComponentType } from 'react';
+import { lazy, type ComponentType, type LazyExoticComponent } from 'react';
+import { ModeLoadError } from './ModeErrorBoundary';
 import type { IconName } from '../ui';
 import type { MessageKey } from '../shared/i18n';
 import type { ModeId } from '../shared/modes';
@@ -10,7 +11,7 @@ export interface ModeDefinition {
   id: ModeId;
   icon: IconName;
   labelKey: MessageKey;
-  load: () => Promise<{ default: ComponentType }>;
+  component: LazyExoticComponent<ComponentType>;
   historyAdapter: HistoryAdapter;
 }
 export const modeRegistry: readonly ModeDefinition[] = [
@@ -18,28 +19,28 @@ export const modeRegistry: readonly ModeDefinition[] = [
     id: 'simple',
     icon: 'calculate',
     labelKey: 'mode.simple',
-    load: () => import('../features/simple/SimpleMode'),
+    component: lazy(() => import('../features/simple/SimpleMode').catch(() => { throw new ModeLoadError('Mode load failed'); })),
     historyAdapter: createHistoryAdapter(),
   },
   {
     id: 'scientific',
     icon: 'science',
     labelKey: 'mode.scientific',
-    load: () => import('../features/scientific/ScientificMode'),
+    component: lazy(() => import('../features/scientific/ScientificMode').catch(() => { throw new ModeLoadError('Mode load failed'); })),
     historyAdapter: createHistoryAdapter(),
   },
   {
     id: 'convert',
     icon: 'swap_horiz',
     labelKey: 'mode.convert',
-    load: () => import('../features/convert/ConvertMode'),
+    component: lazy(() => import('../features/convert/ConvertMode').catch(() => { throw new ModeLoadError('Mode load failed'); })),
     historyAdapter: createHistoryAdapter(),
   },
   {
     id: 'graph',
     icon: 'show_chart',
     labelKey: 'mode.graph',
-    load: () => import('../features/graph/GraphMode'),
+    component: lazy(() => import('../features/graph/GraphMode').catch(() => { throw new ModeLoadError('Mode load failed'); })),
     historyAdapter: createHistoryAdapter(),
   },
 ];
