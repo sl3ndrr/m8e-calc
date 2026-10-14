@@ -1,6 +1,6 @@
 {
   "name": "m8e-calc",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -18,7 +18,8 @@
     "tokens": "node scripts/generate-tokens.mjs",
     "screenshots:gallery": "node scripts/gallery-screenshots.mjs",
     "test:engine:bench": "node scripts/engine-benchmark.mjs",
-    "test:graph:bench": "node scripts/graph-benchmark.mjs"
+    "test:graph:bench": "node scripts/graph-benchmark.mjs",
+    "screenshots": "node scripts/release-screenshots.mjs"
   },
   "dependencies": {
     "@material/material-color-utilities": "^0.3.0",

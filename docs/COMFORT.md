@@ -110,7 +110,7 @@ Unit: Fuzzy-Suche, Query-Auswertung, Kürzelkonflikte/Input-Scope, Settings-Migr
 Permalink-Roundtrips, Unicode-Kompression und Fuzzing. E2E: Palette/Fokus/ARIA/axe,
 Roundtrip jedes Modus, ungültige Links, Skalierung/Präsentation und vier Modi mit
 Playwright-Offline-Emulation nach ausschließlich dem ersten Einfach-Laden.
-Screenshots: [Palette](screenshots/comfort-palette.png), [Präsentation](screenshots/comfort-presentation.png); E2E erzeugt sie erneut im CI-Artefakt.
+Aktualisierte Aufnahmen aus Hardening-CI `38593558518` (Produktcode seit diesem Lauf unverändert): [Palette](screenshots/comfort-palette.png), [Präsentation](screenshots/comfort-presentation.png); E2E erzeugt sie erneut im CI-Artefakt.
 Weitere Browser und physische Betriebssystem-Installation bleiben AP15-Abnahme.
 
 Stand der vollständigen Verifikation: 1.978 Unit-/Komponententests und 81

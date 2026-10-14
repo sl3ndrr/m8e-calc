@@ -174,17 +174,17 @@ Alle anderen Kategorien haben mindestens sechs Einheiten.
   Customary-/CGS-Definitionen. Die Tabelle ist überwiegend auf sieben signifikante
   Stellen gerundet; hier werden die exakten Definitionen ausgeschrieben. Acre
   ausdrücklich international, au/eV/u gemäß neueren Quellen statt alten Tabellen.
-- [NIST Handbook 44](https://www.nist.gov/pml/owm/publications/nist-handbooks/handbook-44):
+- [NIST Handbook 44](https://www.nist.gov/pml/owm/nist-handbook-44-current-edition):
   Zoll, Fuß, Pfund und US-liquid-Maße.
-- [IAU Resolutionen](https://www.iau.org/static/resolutions/IAU2015_English.pdf)
+- [IAU Resolutionen](https://iauarchive.eso.org/administration/resolutions/general_assemblies/)
   und [IAU Measuring the Universe](https://iauarchive.eso.org/public/themes/measuring/):
   au, Parsec, Julianisches Jahr und Lichtjahr aus c × Julianischem Jahr.
 - [NIST CODATA 2022](https://physics.nist.gov/cuu/pdf/all.pdf): atomare Masseneinheit.
 - [NIST binary prefixes](https://physics.nist.gov/cuu/Units/binary.html): IEC-Binärpräfixe.
 - [ISO 2533:1975](https://www.iso.org/standard/7472.html): ISA-Modell und
-  [NASA SP 367](https://appel.nasa.gov/wp-content/uploads/2018/08/NASA-SP-367-Intro-to-Aero-of-Flight.pdf)
+  [NASA SP 367](https://ntrs.nasa.gov/api/citations/19760003955/downloads/19760003955.pdf)
   als unabhängige Kontrolle des gerundeten Meereshöhenwerts 340,294 m/s.
-- [FDA Household Measures](https://www.fda.gov/regulatory-information/search-fda-guidance-documents/guidance-industry-guidelines-determining-metric-equivalents-household-measures):
+- [FDA Household Measures](https://www.hhs.gov/guidance/document/guidance-industry-guidelines-determining-metric-equivalents-household-measures):
   ausdrücklich definierte metrische 15-/5-mL-Löffel.
 
 274 statische, unabhängig eingetragene Referenzfälle decken SI/Customary/CGS,

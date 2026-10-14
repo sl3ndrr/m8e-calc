@@ -21,7 +21,7 @@ In jedem Modus kann der Berechnungsverlauf ein- und ausgeblendet werden. Moduswe
 
 Ein 3-Wege-Schalter bietet **Hell / System / Dunkel**. Die mittlere Position folgt der Systemeinstellung einschließlich späterer Änderungen. Die Akzentfarbe ist frei wählbar; abgeleitete Farbtokens müssen lesbare Kontraste sichern. Die Oberfläche wird auf Deutsch und Englisch angeboten, Auto erkennt Englisch aus `navigator.language`, sonst gilt Deutsch als Fallback. UI-Größe (80–150 %), Präsentation, Command Palette, Permalinks und Offline-Nutzung sind in AP14 umgesetzt; Details in `COMFORT.md`.
 
-## Geplante Zusatzfeatures
+## Umgesetzte Zusatzfeatures (AP1–AP15)
 
 - Programmierer-Panel.
 - Konstanten, Variablen und eigene Funktionen.
@@ -31,7 +31,8 @@ Ein 3-Wege-Schalter bietet **Hell / System / Dunkel**. Die mittlere Position fol
 - Command Palette und Permalinks.
 - PWA und Offline-Nutzung.
 - UI-Skalierung, Deutsch und Englisch.
-- Währungen optional in AP17; Datenquelle, Aktualisierung und Offline-Verhalten müssen vorab mit der Regel „keine externen Requests zur Laufzeit“ vereinbar festgelegt werden.
+
+Noch offen: Währungen optional in AP17; Datenquelle, Aktualisierung und Offline-Verhalten müssen vorab mit der Regel „keine externen Requests zur Laufzeit“ vereinbar festgelegt werden.
 
 ## Technische Leitplanken
 

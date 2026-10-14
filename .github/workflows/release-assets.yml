@@ -1,0 +1,29 @@
+name: Release assets
+on:
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: release-assets-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  images:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run screenshots
+      - name: Check documentation links and commands
+        run: node scripts/check-release-docs.mjs --external
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: release-assets
+          path: docs/img/
+          retention-days: 14
