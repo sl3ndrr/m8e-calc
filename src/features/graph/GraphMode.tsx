@@ -45,7 +45,7 @@ export default function GraphMode() {
   const [state, dispatch] = useReducer(
     plotReducer,
     undefined,
-    () => readModeLink('graph') ?? initialPlot(),
+    () => readModeLink('graph', restorePlot) ?? initialPlot(),
   );
   const [palette, setPalette] = useState<string[]>([]),
     [markers, setMarkers] = useState<Marker[]>([]),
@@ -391,6 +391,7 @@ export default function GraphMode() {
               <p>{t('graph.emptyHint', locale)}</p>
             </div>
           )}
+          <div aria-live="polite" aria-atomic="true">
           {(markers.length > 0 || integral) && (
             <div
               className="graph-results"
@@ -443,6 +444,7 @@ export default function GraphMode() {
               )}
             </div>
           )}
+          </div>
           <div className="graph-export">
             <Button
               size="sm"
@@ -603,3 +605,4 @@ export default function GraphMode() {
     </section>
   );
 }
+

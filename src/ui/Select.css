@@ -49,7 +49,7 @@
   opacity: 0.38;
 }
 .ui-select[data-invalid] {
-  color: var(--md-sys-color-error);
+  color: var(--md-sys-color-error-text);
 }
 
 .ui-select-heading {
@@ -58,3 +58,4 @@
   font-weight: 700;
   color: var(--md-sys-color-on-surface-variant);
 }
+

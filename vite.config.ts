@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitest/config';
+import { cspPlugin } from './scripts/cspPlugin';
 import react from '@vitejs/plugin-react';
 import { pwaPlugin } from './scripts/pwaPlugin';
 import { buildScheme } from './src/styles/buildScheme.ts';
@@ -6,9 +7,11 @@ import { bootstrapTheme } from './src/app/themeBootstrap.ts';
 
 export default defineConfig({
   base: process.env.VITE_BASE_PATH ?? '/m8e-calc/',
+  build: { manifest: true },
   plugins: [
     react(),
     pwaPlugin(),
+    cspPlugin(),
     {
       name: 'inline-theme-bootstrap',
       transformIndexHtml: {
@@ -55,3 +58,4 @@ export default defineConfig({
     ],
   },
 });
+

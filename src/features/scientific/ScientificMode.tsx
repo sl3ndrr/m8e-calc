@@ -55,7 +55,7 @@ import {
 } from '../../engine/programmer';
 import './ScientificMode.css';
 import { CopyLinkButton } from '../../app/CopyLinkButton';
-import { readModeLink } from '../../app/permalinks';
+import { readModeLink, validateScientificLink } from '../../app/permalinks';
 import { useScientificInsertion } from '../../app/scientificInsertion';
 const ExpressionEditor = lazy(() => import('./ExpressionEditor'));
 const MathDisplay = lazy(() => import('./MathDisplay'));
@@ -68,12 +68,12 @@ export default function ScientificMode() {
     commit = useScientificStore((s) => s.commit),
     remove = useScientificStore((s) => s.remove);
   const [expression, setExpression] = useState(
-      () => readModeLink('scientific')?.expression ?? '',
+      () => readModeLink('scientific', validateScientificLink)?.expression ?? '',
     ),
     [error, setError] = useState<EngineError | null>(null),
     [calculation, setCalculation] = useState<Calculation | null>(null);
   const [angleMode, setAngleMode] = useState<AngleMode>(
-      () => readModeLink('scientific')?.angleMode ?? 'deg',
+      () => readModeLink('scientific', validateScientificLink)?.angleMode ?? 'deg',
     ),
     [complex, setComplex] = useState<ComplexMode>('off');
   const [notation, setNotation] =
@@ -553,3 +553,4 @@ export default function ScientificMode() {
     </section>
   );
 }
+

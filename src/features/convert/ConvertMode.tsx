@@ -145,7 +145,7 @@ const signature = (state: ConvertState): string =>
 export default function ConvertMode() {
   const [state, dispatch] = useReducer(convertReducer, undefined, () => ({
     ...initialConvertState(),
-    ...(readModeLink('convert') ?? {}),
+    ...(readModeLink('convert', restorePayload) ?? {}),
   }));
   const [search, setSearch] = useState('');
   const [query, setQuery] = useState('');
@@ -675,3 +675,4 @@ export default function ConvertMode() {
     </section>
   );
 }
+

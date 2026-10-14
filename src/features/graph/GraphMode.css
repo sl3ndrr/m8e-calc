@@ -180,7 +180,7 @@
 }
 .graph-error {
   font-size: 0.75rem;
-  color: var(--md-sys-color-error);
+  color: var(--md-sys-color-error-text);
   margin: 0.4rem 0.5rem;
 }
 .graph-parameter {
@@ -315,3 +315,4 @@
     padding: 1rem;
   }
 }
+

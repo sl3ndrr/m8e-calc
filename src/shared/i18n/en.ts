@@ -1,5 +1,10 @@
 import type { Dictionary } from '../i18n';
 export const en: Dictionary = {
+  'error.modeTitle': 'This mode could not be loaded',
+  'error.modeHint': 'Please reset this mode or switch to another mode. Your history is preserved.',
+  'error.reset': 'Reset',
+  'error.global': 'Something went wrong. Please try the action again.',
+
   'comfort.palette': 'Command palette',
   'comfort.search': 'Search modes, actions, constants or conversions',
   'comfort.paletteHint': '↑ ↓ select · Enter run · Esc close · e.g. 5 km in mi',
@@ -555,3 +560,4 @@ export const en: Dictionary = {
   'graph.emptyHint': 'Choose an example on the right or add a function.',
   'graph.reorder': 'Reorder function {n}; keyboard actions in menu',
 };
+

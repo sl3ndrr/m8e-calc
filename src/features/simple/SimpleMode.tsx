@@ -27,7 +27,7 @@ import { keyCommand } from './keyboard';
 import './SimpleMode.css';
 import { isInputTarget, shortcutHint } from '../../app/shortcuts';
 import { CopyLinkButton } from '../../app/CopyLinkButton';
-import { initialLinkedSimple, simpleLink } from '../../app/permalinks';
+import { initialLinkedSimple, simpleLink } from '../../app/simpleLinks';
 interface KeyDefinition {
   id: string;
   text: string;
@@ -459,3 +459,4 @@ export default function SimpleMode() {
     </section>
   );
 }
+

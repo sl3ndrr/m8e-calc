@@ -21,6 +21,7 @@ import {
   LoadingIndicator,
   NavigationRail,
   Snackbar,
+  snackbarQueue,
   ThemeSwitch,
   Tooltip,
   useMediaQuery,
@@ -30,13 +31,13 @@ import { ModeStage } from './ModeStage';
 import { HistorySheet } from './HistorySheet';
 import { SettingsDialog } from './SettingsDialog';
 import './AppShell.css';
-import { CommandPalette } from './CommandPalette';
+const CommandPalette = lazy(() => import('./CommandPalette').then(m => ({ default: m.CommandPalette })));
 import { ShortcutDialog } from './ShortcutDialog';
 import { findGlobalShortcut, isInputTarget, shortcutHint } from './shortcuts';
 import type { PaletteCommand } from './paletteModel';
 import { insertScientific } from './scientificInsertion';
 import { encodePermalink } from './permalinks';
-import { convertReducer, initialConvertState } from '../features/convert/model';
+
 import { isModeId } from '../shared/modes';
 import { downloadFile } from './fileTransfer';
 import { exportHistory } from '../shared/history';
@@ -97,7 +98,7 @@ export function App() {
       String(uiSize / 100),
     );
   }, [uiSize]);
-  function command(item: PaletteCommand): void {
+  async function command(item: PaletteCommand): Promise<void> {
     switch (item.action) {
       case 'mode':
         if (isModeId(item.value)) window.location.hash = `#/${item.value}`;
@@ -153,6 +154,7 @@ export function App() {
           });
         break;
       case 'conversion': {
+        const { convertReducer, initialConvertState } = await import('../features/convert/model');
         const state = convertReducer(initialConvertState(), {
           type: 'query',
           text: item.value ?? '',
@@ -316,7 +318,7 @@ export function App() {
                 </Tooltip>
                 <Tooltip
                   trigger={
-                    <Button variant="text" onPress={() => setHelpOpen(true)}>
+                    <Button variant="text" aria-label={t('comfort.shortcuts', locale)} onPress={() => setHelpOpen(true)}>
                       ?
                     </Button>
                   }
@@ -395,10 +397,10 @@ export function App() {
         </div>
       )}
       {paletteOpen && (
-        <CommandPalette
+        <Suspense fallback={<LoadingIndicator label={t('ui.loading', locale)} />}><CommandPalette
           onClose={() => setPaletteOpen(false)}
-          onCommand={command}
-        />
+          onCommand={(item) => { void command(item).catch(() => snackbarQueue.add({ message: t('error.global', locale) })); }}
+        /></Suspense>
       )}
       {helpOpen && <ShortcutDialog onClose={() => setHelpOpen(false)} />}
       <SettingsDialog isOpen={settingsOpen} onOpenChange={setSettingsOpen} />
@@ -406,3 +408,4 @@ export function App() {
     </I18nProvider>
   );
 }
+

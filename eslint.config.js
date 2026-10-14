@@ -11,6 +11,8 @@ export default tseslint.config(
       'node_modules/**',
       'playwright-report/**',
       'test-results/**',
+      '.lighthouseci/**',
+      '.qa-baseline/**',
     ],
   },
   js.configs.recommended,
@@ -92,3 +94,4 @@ export default tseslint.config(
     },
   },
 );
+

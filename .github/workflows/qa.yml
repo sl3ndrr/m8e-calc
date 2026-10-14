@@ -1,0 +1,117 @@
+name: Hardening QA
+on:
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: qa-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        phase: [before, after]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Format patch for review
+        if: matrix.phase == 'after'
+        run: |
+          npm run tokens
+          npx prettier --write . > /tmp/qa-format.log
+          git diff --binary > /tmp/format.patch
+          cat /tmp/qa-format.log
+          echo 'QA_FORMAT_PATCH_START'
+          base64 -w0 /tmp/format.patch
+          echo
+          echo 'QA_FORMAT_PATCH_END'
+      - name: Prepare pinned baseline
+        if: matrix.phase == 'before'
+        run: |
+          git fetch --depth=1 origin 67d9c9688d1cc7169a73262b21e738ff09c8bcda
+          git worktree add .qa-baseline FETCH_HEAD
+          cp scripts/qa-*.mjs .qa-baseline/scripts/
+          cp lighthouserc.cjs .qa-baseline/
+          cd .qa-baseline
+          npm ci
+      - name: Build and measure
+        env:
+          PHASE: ${{ matrix.phase }}
+        run: |
+          if [ "$PHASE" = before ]; then cd .qa-baseline; export QA_BASELINE=1; fi
+          npx vite build --manifest
+          node scripts/qa-bundle.mjs
+          node scripts/qa-contrast.mjs
+      - name: Full audit
+        if: always()
+        env:
+          PHASE: ${{ matrix.phase }}
+        run: |
+          if [ "$PHASE" = before ]; then cd .qa-baseline; fi
+          mkdir -p test-results/qa
+          npm audit --json > test-results/qa/audit.json || true
+          cat test-results/qa/audit.json
+      - name: Lighthouse CI
+        if: always()
+        continue-on-error: ${{ matrix.phase == 'before' }}
+        env:
+          PHASE: ${{ matrix.phase }}
+        run: |
+          if [ "$PHASE" = before ]; then cd .qa-baseline; fi
+          npx --yes --package @lhci/cli@0.15.1 lhci autorun
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: qa-${{ matrix.phase }}
+          path: |
+            test-results/
+            .lighthouseci/
+            .qa-baseline/test-results/
+            .qa-baseline/.lighthouseci/
+            /tmp/format.patch
+          retention-days: 14
+  browsers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: npx playwright test --project=chromium --project=firefox --project=webkit --project=qa-performance
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: qa-browsers
+          path: test-results/
+          retention-days: 14
+  visual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Compare committed references
+        run: npx playwright test --project=qa-visual
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: qa-visual
+          path: |
+            test-results/
+            e2e/qa-visual.spec.ts-snapshots/
+          retention-days: 14

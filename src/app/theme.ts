@@ -1,3 +1,4 @@
+import { supportedEasing } from './browserMotion';
 import { useSyncExternalStore } from 'react';
 import { flushSync } from 'react-dom';
 import { buildScheme, type ColorScheme } from '../styles/buildScheme';
@@ -87,7 +88,7 @@ export function applyTheme(): void {
 }
 export function initializeTheme(): () => void {
   Object.entries(motionProperties).forEach(([name, value]) =>
-    document.documentElement.style.setProperty(name, value),
+    document.documentElement.style.setProperty(name, name.endsWith('-easing') ? supportedEasing(value) : value),
   );
   applyTheme();
   const unsubscribe = useSettingsStore.subscribe(applyTheme);
@@ -152,7 +153,7 @@ export function changeTheme(mode: ThemeMode, origin: HTMLElement): void {
               `circle(${radius}px at ${x}px ${y}px)`,
             ],
           },
-          { duration, easing, pseudoElement: '::view-transition-new(root)' },
+          { duration, easing: supportedEasing(easing), pseudoElement: '::view-transition-new(root)' },
         );
         stopTransition = () => {
           animation.cancel();
@@ -189,7 +190,7 @@ export function changeTheme(mode: ThemeMode, origin: HTMLElement): void {
     snapshot.dataset.motion = 'off';
     const fade = snapshot.animate([{ opacity: 1 }, { opacity: 0 }], {
       duration,
-      easing,
+      easing: supportedEasing(easing),
     });
     const finish = () => {
       snapshot.remove();
@@ -203,3 +204,4 @@ export function changeTheme(mode: ThemeMode, origin: HTMLElement): void {
     void fade.finished.catch(() => {}).finally(finish);
   }
 }
+

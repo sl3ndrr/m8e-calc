@@ -1,4 +1,9 @@
 export const de = {
+  'error.modeTitle': 'Dieser Modus konnte nicht geladen werden',
+  'error.modeHint': 'Bitte setze den Modus zurück oder wechsle zu einem anderen Modus. Dein Verlauf bleibt erhalten.',
+  'error.reset': 'Zurücksetzen',
+  'error.global': 'Etwas ist schiefgegangen. Bitte versuche die Aktion erneut.',
+
   'comfort.palette': 'Befehlspalette',
   'comfort.search': 'Modus, Aktion, Konstante oder Umrechnung suchen',
   'comfort.paletteHint':
@@ -570,3 +575,4 @@ export const de = {
   'graph.emptyHint': 'Wähle rechts ein Beispiel oder füge eine Funktion hinzu.',
   'graph.reorder': 'Funktion {n} verschieben; Pfeilaktionen im Menü',
 } as const;
+

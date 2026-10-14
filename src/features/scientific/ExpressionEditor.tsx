@@ -85,15 +85,15 @@ const highlights = HighlightStyle.define([
   { tag: tags.number, color: 'var(--md-sys-color-on-surface)' },
   {
     tag: tags.function(tags.variableName),
-    color: 'var(--md-sys-color-primary)',
+    color: 'var(--md-sys-color-primary-text)',
     fontWeight: '650',
   },
   {
     tag: tags.constant(tags.variableName),
-    color: 'var(--md-sys-color-tertiary)',
+    color: 'var(--md-sys-color-tertiary-text)',
   },
-  { tag: tags.variableName, color: 'var(--md-sys-color-secondary)' },
-  { tag: tags.operator, color: 'var(--md-sys-color-primary)' },
+  { tag: tags.variableName, color: 'var(--md-sys-color-secondary-text)' },
+  { tag: tags.operator, color: 'var(--md-sys-color-primary-text)' },
   { tag: tags.paren, color: 'var(--md-sys-color-on-surface-variant)' },
 ]);
 const theme = EditorView.theme({
@@ -379,3 +379,4 @@ export default function ExpressionEditor({
     />
   );
 }
+

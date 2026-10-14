@@ -20,7 +20,7 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e
+      - run: npx playwright test --project=chromium --project=chromium-graph-performance
       - name: Gallery screenshots
         if: ${{ !cancelled() }}
         run: |
@@ -36,3 +36,4 @@ jobs:
             docs/screenshots/components-*.png
             docs/screenshots/comfort-*.png
           retention-days: 7
+

@@ -172,7 +172,7 @@ test('invalid links, input shortcut suppression, help, scaling and presentation'
   await expect(
     page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }),
   ).toHaveAttribute('aria-expanded', before ?? 'false');
-  await page.getByRole('button', { name: '?', exact: true }).focus();
+  await page.getByRole('button', { name: 'Tastenkürzel', exact: true }).focus();
   await page.keyboard.press('?');
   await expect(
     page.getByRole('dialog', { name: 'Tastenkürzel' }),
@@ -276,3 +276,4 @@ test('PWA installability and all four modes offline after only the first load', 
   await expect(page.locator('.graph-trace')).toBeVisible();
   expect(errors).toEqual([]);
 });
+

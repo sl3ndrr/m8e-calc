@@ -1,9 +1,11 @@
-import { Suspense, useState } from 'react';
+import { lazy, Suspense, useMemo, useState } from 'react';
 import { AnimatePresence, motion, useIsPresent } from 'motion/react';
 import { springs } from '../styles/motion';
 import { useSettingsStore } from '../shared/settingsStore';
 import type { ModeId } from '../shared/modes';
 import { modeIds } from '../shared/modes';
+import { useAppStore } from '../shared/store';
+import { ModeErrorBoundary, ModeLoadError } from './ModeErrorBoundary';
 import { t } from '../shared/i18n';
 import { LoadingIndicator, useMediaQuery } from '../ui';
 import { getMode } from './modeRegistry';
@@ -13,7 +15,13 @@ function ModePanel({ mode, direction }: { mode: ModeId; direction: number }) {
   const spatial = level === 'full' && !reduced;
   const off = level === 'off';
   const present = useIsPresent();
-  const Component = getMode(mode).component;
+  const locale = useAppStore((s) => s.locale);
+  const [attempt, setAttempt] = useState(0);
+  const Component = useMemo(() => {
+    // Each retry gets a fresh React.lazy promise, including after a failed download.
+    void attempt;
+    return lazy(() => getMode(mode).load().catch(() => { throw new ModeLoadError('Mode load failed'); }));
+  }, [mode, attempt]);
   const token = springs[spatial ? 'spatial-default' : 'effects-fast'];
   return (
     <motion.div
@@ -40,9 +48,15 @@ function ModePanel({ mode, direction }: { mode: ModeId; direction: number }) {
             }
       }
     >
+      <ModeErrorBoundary key={attempt} locale={locale} onReset={(reload) => {
+        window.history.replaceState(null, '', `#/${mode}`);
+        if (reload) { window.location.reload(); return; }
+        setAttempt((value) => value + 1);
+      }}>
       <Suspense fallback={<LoadingIndicator label={t('ui.loading')} />}>
         <Component />
       </Suspense>
+      </ModeErrorBoundary>
     </motion.div>
   );
 }
@@ -70,3 +84,4 @@ export function ModeStage({
     </div>
   );
 }
+

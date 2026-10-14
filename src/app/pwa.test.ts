@@ -59,3 +59,21 @@ it('offers installation only when the browser supplies its prompt', async () => 
   expect(snackbarQueue.visibleToasts).toEqual([]);
   unmount();
 });
+
+it('detaches registration and installing-worker listeners after repeated mount/unmount',async()=>{
+  vi.stubEnv('PROD',true);
+  const worker=Object.assign(new EventTarget(),{state:'installing'});
+  const workerRemove=vi.spyOn(worker,'removeEventListener');
+  const reg=Object.assign(new EventTarget(),{waiting:null,installing:worker,update:vi.fn(()=>Promise.resolve())});
+  const regRemove=vi.spyOn(reg,'removeEventListener');
+  const serviceWorker=Object.assign(new EventTarget(),{controller:{},register:vi.fn(()=>Promise.resolve(reg))});
+  vi.stubGlobal('navigator',{serviceWorker});
+  for(let i=0;i<3;i++){
+    const {unmount}=renderHook(usePwa);await waitFor(()=>expect(serviceWorker.register).toHaveBeenCalledTimes(i+1));
+    await act(async()=>{await Promise.resolve();});unmount();
+  }
+  expect(regRemove.mock.calls.filter(([name])=>name==='updatefound')).toHaveLength(3);
+  expect(workerRemove.mock.calls.filter(([name])=>name==='statechange')).toHaveLength(3);
+  act(()=>{worker.state='installed';worker.dispatchEvent(new Event('statechange'));});
+  expect(snackbarQueue.visibleToasts).toHaveLength(0);
+});
