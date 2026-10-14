@@ -70,7 +70,7 @@ Modus; unbekannte Routen fallen wie bisher auf Einfach zurück. Keine Abstürze.
 
 ## Skalierung und Präsentation
 
-Settings-Version 3 migriert Version 0–2. „UI-Größe“ (80–150 %, Standard 100 %)
+Settings-Version 4 migriert Version 0–3 und ergänzt standardmäßig deaktivierte Online-Kurse (AP17). „UI-Größe“ (80–150 %, Standard 100 %)
 multipliziert AP4s fluide Root-Schrift, inklusive rem-Typografie und Formen.
 „Verlauf in Präsentation anzeigen“ entscheidet, ob ein bereits sichtbarer Verlauf
 auch während der Präsentation bleibt. Der Präsentationsmodus blendet Rail,
@@ -93,7 +93,7 @@ Fetch-Handling ist auf dieselbe Origin und den Base-Pfad beschränkt. Nach Aktiv
 werden nur alte app-/base-spezifische Caches entfernt. `skipWaiting` erfolgt für
 Updates erst nach Klick auf „Jetzt aktualisieren“ in der Snackbar „Neue Version
 verfügbar“. Controllerwechsel lädt danach neu. Registrierung prüft beim nächsten
-sichtbaren Tabwechsel und stündlich; keine externen Laufzeitrequests.
+sichtbaren Tabwechsel und stündlich; keine externen Laufzeitrequests durch PWA-Updates; AP17-Kurse sind separat ausdrücklich opt-in.
 
 Manifest: Standalone, Start-URL/Scope unter Base, SVG sowie 192-/512-PNG und
 separates opakes maskable-512-PNG. Das neutrale Icon bleibt unabhängig vom Akzent;

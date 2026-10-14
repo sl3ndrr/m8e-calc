@@ -22,3 +22,10 @@ it('rejects corrupt, future, unknown and invalid fields', () => {
   ])
     expect(() => importSettings(data)).toThrow();
 });
+
+it('never imports network consent', () => {
+  expect(
+    importSettings(exportSettings({ ...defaultSettings(), onlineRates: true }))
+      .onlineRates,
+  ).toBe(false);
+});

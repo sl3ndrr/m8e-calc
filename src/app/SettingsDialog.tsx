@@ -40,7 +40,7 @@ export function SettingsDialog({
     try {
       if (file.size > 100000) throw new TypeError('Settings file too large');
       const next = importSettings(await file.text());
-      settings.updateSettings(next);
+      settings.updateSettings({ ...next, onlineRates: settings.onlineRates });
       snackbarQueue.add({ message: t('settings.imported') }, { timeout: 5000 });
     } catch {
       snackbarQueue.add({ message: t('settings.invalid') }, { timeout: 5000 });
@@ -75,6 +75,16 @@ export function SettingsDialog({
         >
           {t('comfort.presentationHistory', locale)}
         </Switch>
+        <section aria-label={t('currency.online', locale)}>
+          <Switch
+            isSelected={settings.onlineRates}
+            onChange={(onlineRates) => settings.updateSettings({ onlineRates })}
+            aria-describedby="currency-privacy"
+          >
+            {t('currency.online', locale)}
+          </Switch>
+          <p id="currency-privacy">{t('currency.privacy', locale)}</p>
+        </section>
         <Select
           label={t('language.label', locale)}
           options={languageOptions}

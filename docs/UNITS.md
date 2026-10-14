@@ -25,9 +25,10 @@ Suchbegriffe werden bei der Auflösung als Mehrdeutigkeit gemeldet.
   Decimal-Rückgabewerten. Für reziproken Verbrauch und exakte Definitionen mit
   irrationalen Konstanten (Winkel/Parsec/ISA-Mach).
 - `dynamicRate`: reservierter `providerId`. `DynamicRateProvider` beschreibt
-  einen Adapter für bereits beschaffte Daten. Dynamische Umrechnung wirft derzeit
-  `E_UNIT_DYNAMIC_RATE`; es gibt keine Währungen oder Kursimplementierung. AP17
-  muss Datenschutz, Aktualität und Offline-Verhalten gesondert klären.
+  einen Adapter für bereits beschaffte Daten. `createUnitsEngine(registry, providers)`
+  erhält explizite Provider. Fehlende, nicht endliche oder nicht positive Kurse
+  ergeben `E_UNIT_DYNAMIC_RATE`. AP17 liefert Währungen nur im Opt-in-UI;
+  die Standard-Engine und der statische Katalog bleiben ohne Währungen.
 
 Jede Umrechnung geht über die Kategorie-Basis. Private decimal.js-Konfiguration:
 80 signifikante Stellen, `ROUND_HALF_UP`; globale Decimal-Einstellungen bleiben
@@ -196,3 +197,126 @@ Toleranz `1e-65 × (|Wert| + 1)`. Zusätzliche Tests prüfen Dateneintragung,
 Global-Decimal-Isolation, Dimensionsgrenzen, Mehrdeutigkeit, lokalisierte Eingaben,
 Compound-Überträge und Formatierung. Sie laufen im Vitest-Node-Projekt der Engine
 ohne DOM und UI-Testsetup.
+
+## AP17 · Optionale Währungsumrechnung
+
+### Quelle und Prüfung (14. Oktober 2026)
+
+- Aktueller Endpunkt: `https://api.frankfurter.dev/v2/providers/ecb/rates?base=EUR`.
+  [Frankfurter v2](https://frankfurter.dev/) und die
+  [OpenAPI](https://api.frankfurter.dev/v2/openapi.json)
+  dokumentieren ein Array `{ date, base, quote, rate }`. Der allgemeine
+  `/v2/rates`-Endpunkt mischt Quellen; deshalb wird ausschließlich der explizite
+  EZB-Provider genutzt. v1 ist veraltet. Kein API-Key erforderlich.
+- CORS: Die [JavaScript-Dokumentation](https://frankfurter.dev/javascript/)
+  bestätigt offene Browserzugriffe. Der [Servercode](https://github.com/lineofflight/frankfurter/blob/main/lib/app.rb)
+  erlaubt `origins "*"` sowie GET/OPTIONS ohne Credentials.
+- Verfügbarkeit: Website und aktuelle Dokumentation waren erreichbar. Die
+  direkte API-Probe aus der Entwicklungsumgebung wurde am 14.10.2026 durch die
+  Netzwerk-Allowlist mit HTTP 403 „Forbidden. Calls to this URL are not allowed.“
+  blockiert; auch der alternative Web-Lesezugang konnte den API-Host nicht
+  erreichen. Das ist **kein nachgewiesener Ausfall von Frankfurter**. Die
+  Header-Prüfung auf der öffentlichen Instanz war vor der Umsetzung deshalb
+  nicht möglich. Die nachfolgende [CI-Liveprobe](https://github.com/sl3ndrr/m8e-calc/actions/runs/38603291035/job/115987658993)
+  war am **14.10.2026 um 17:03:01 UTC erfolgreich**: HTTP 200,
+  `Access-Control-Allow-Origin: *`, 30 Währungen einschließlich EUR,
+  einheitliches Kursdatum `2026-10-14`. Damit ist die Quelle auch live als
+  verfügbar und CORS-kompatibel geprüft. `node scripts/check-currency-source.mjs` prüft HTTP-Status,
+  tatsächliche CORS-Header und Antwortschema separat in CI; das Ergebnis wird
+  im PR festgehalten. Mock-Tests sind kein Beleg für Live-Verfügbarkeit.
+- Die [aktuelle EZB-Tabelle](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html)
+  umfasst 29 Fremdwährungen plus EUR (30 Einträge). BGN entfiel am 02.01.2026,
+  RUB ist seit März 2022 ausgesetzt. Diese beiden werden nicht angezeigt.
+  Kurse werden an EZB-Arbeitstagen ungefähr um 16 Uhr MEZ veröffentlicht.
+- Bewertung: Die ausdrücklich gewählte EZB-Quelle passt nach Dokumentation,
+  Schema und CORS-Vertrag. Sollte die Liveprobe Verfügbarkeit/CORS widerlegen,
+  ist ein selbst gehosteter Frankfurter-EZB-Adapter unter eigener Origin die
+  bevorzugte Alternative. Er benötigt gesondertes Hosting; kein stiller
+  Wechsel auf Frankfurters gemischten Feed oder einen anderen Dienst.
+
+### Zustimmung, Datenschutz und CSP
+
+`onlineRates` ist in Settings-Version 4 standardmäßig `false`; Versionen 0–3
+migrieren ohne Zustimmung. Persistierte Zustimmung aus Version 4 gilt weiter.
+Der sichtbare Schalter „Online-Kurse laden“ erklärt EZB/Frankfurter, Übertragung
+von IP-Adresse/Verbindungsdaten, rein lokale Beträge und Speicherung der Kurse.
+Settings-Import erteilt keine Zustimmung und erhält höchstens eine bereits
+aktive Zustimmung. Alles-Zurücksetzen schaltet die Funktion aus.
+
+Ohne Zustimmung existiert keine Währungskategorie, auch nicht bei vorhandenem
+Kurscache. Selbst manuelle Provider-Aufrufe prüfen Zustimmung vor jeder IO.
+Aktivierung im Umrechner lädt einen vollständigen Snapshot; Eingabe,
+Währungswechsel und Swap rechnen ausschließlich lokal. Deaktivierung bricht
+laufende Requests ab und verwirft verspätete Antworten. Der Cache bleibt lokal
+für eine spätere ausdrücklich aktivierte Sitzung erhalten.
+
+Die Produktions-CSP erlaubt zusätzlich zu `self` nur
+`https://api.frankfurter.dev/v2/providers/ecb/rates` in `connect-src`, also Host
+**und Pfad**, ohne Wildcards oder weitere API-Routen. Eine statische CSP kann
+nicht den Zweck eines Requests prüfen oder nachträglich gelockert werden;
+das Opt-in erzwingt der einzige Request-Adapter. Er nutzt `credentials: omit`,
+`referrerPolicy: no-referrer`, CORS und `redirect: error`. Kein Betrag, keine
+Berechnung und kein Verlauf steht im Request. Der Service Worker ignoriert
+fremde Origins; Kurse gelangen nicht in den PWA-Assetcache.
+
+### Cache und Fehler
+
+`m8e-calc.currency-rates` enthält `{ version: 1, source: 'ecb-frankfurter', date,
+fetchedAt, rates }`; Kurse sind Dezimalstrings in Einheiten je EUR. `date` ist
+das Kursdatum, `fetchedAt` der UTC-Abrufzeitpunkt als Epoch-Millisekunden.
+Automatisch wird höchstens alle vier Stunden aktualisiert, auch nach Fehlern;
+frischer Cache vermeidet Requests beim Remount/Reload. Der letzte Request-Versuch
+wird zusätzlich in `m8e-calc.currency-rates.last-attempt` gespeichert; dadurch
+bleibt die automatische Fehler-Drosselung auch nach Reload wirksam. Ein Button aktualisiert
+explizit. Gleichzeitige Ladeversuche teilen denselben Request. Es gibt keine
+automatischen Wiederholungen pro Fehler und keine Requests im Hintergrund,
+wenn der Umrechner nicht aktiv ist.
+
+Timeout: zehn Sekunden. HTTP-/Schemafehler, Netzfehler, Timeout und Offline
+werden lokalisiert als Snackbar gemeldet. Ein validierter letzter Snapshot
+bleibt nutzbar; ohne Snapshot wird ein Leerzustand angezeigt. Der Ladezustand
+nutzt `LoadingIndicator`, ohne vorhandene Kurse zu löschen. Beschädigter,
+unvollständiger oder fremder Cache wird verworfen. Verweigerter/voller Storage
+verhindert weder Laden noch Umrechnung im Arbeitsspeicher.
+
+„Stand: Datum“ zeigt stets das **Kursdatum**, keine scheinbare Aktualität durch
+frisches Herunterladen. „veraltet“ erscheint ab 48 Stunden nach 00:00 UTC dieses
+Datums (konservativ, weil das API-Datum keine Publikationsuhrzeit enthält).
+Auch ein frisch geholter Wochenend-/Feiertagskurs kann daher veraltet sein.
+Offline/fehlgeschlagene Aktualisierung nennt ausdrücklich den gespeicherten
+Stand. Die Altersanzeige wird jede Minute aktualisiert.
+
+### Umrechnung und Oberfläche
+
+Der AP10-Provider liefert EUR pro Einheit als Decimal; API-Kurse sind dagegen
+Einheiten pro EUR. Der private 80-Stellen-Kontext invertiert die Dezimalstrings;
+Umrechnung geht über EUR und rundet keine Zwischenwerte explizit. Rundung
+findet nur in `formatQuantity` für die Anzeige statt; Swap behält den kompletten
+Decimal-String. `number`-Kurse aus der JSON-Antwort werden unmittelbar mit
+`String(rate)` übernommen, ohne binäre Rechenoperationen; der EZB-Feed hat
+wenige veröffentlichte Dezimalstellen. Es wird keine höhere Quellengenauigkeit
+behauptet. Globale decimal.js-Einstellungen bleiben unverändert.
+
+30 Währungen werden mit ISO-Code, Symbol aus `Intl.NumberFormat` und Namen aus
+`Intl.DisplayNames` für de/en angezeigt. Keine Flaggen. Suchbare Picker,
+Kursquelle/-datum, LoadingIndicator, manuelle Aktualisierung und sämtliche
+Ergebnisse sind über bestehende UI-Bausteine bedienbar. Hinweis:
+„Keine Anlageberatung, Kurse unverbindlich“. Währungswerte werden in diesem
+Paket nicht in Favoriten, Permalinks oder den persistenten Verlauf übernommen:
+ein späteres Restore bräuchte einen versionierten Kurs-Snapshot.
+
+### Verifikation
+
+`src/units/currency.test.ts` prüft unabhängige Dezimal-/Crossrate-Fälle,
+Vorzeichen/Null, Anzeige ohne Wertmutation, fehlende/ungültige Provider und
+Decimal-Isolation. `rates.test.ts` mockt Erfolg, Netz-/API-/Schemafehler,
+Timeout, Offline und veraltete Daten; zusätzlich Cache-Versionen, Quellen,
+Zeitstempel, Storage-Ausfälle, Vierstundenintervall, manuelle Aktualisierung,
+Request-Deduplizierung und Zustimmungsentzug mit verspäteter Antwort.
+Settings-/Importtests verhindern versehentliche Zustimmung durch Migration
+oder Import. `e2e/currency.spec.ts` fängt alle API-Requests ab: Opt-in aus =
+keine externen Requests, Opt-in an ohne Cache = exakt ein Request; Eingabe,
+Währungswechsel, Swap und Reload mit frischem Cache erzeugen keine weiteren.
+Zusätzlich LoadingIndicator, Snackbar, manueller Request, Offline-/Altersanzeige,
+Axe-Prüfung und Screenshots in Hell/Dunkel. Standard-Smoke bleibt ohne Opt-in
+frei von externen Requests. Die Liveprobe ist ein eigener Tooling-Check.
