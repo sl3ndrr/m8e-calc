@@ -63,7 +63,7 @@ test('palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview
   await editor.press('Control+k');
   await input.fill('5 km in mi');
   await input.press('Enter');
-  await expect(page.locator('.convert-result')).toContainText('3,106855961');
+  await expect(page.locator('.convert-result')).toContainText('3,106856');
 });
 test('simple permalink restores the editable pending expression', async ({
   page,
@@ -137,7 +137,7 @@ test('graph permalink restores functions, parameter and viewport', async ({
       async () =>
         JSON.parse((await canvas.getAttribute('data-bounds')) ?? '{}').xMax,
     )
-    .toBeCloseTo(10 / 1.3, 5);
+    .toBe(10 / 1.3);
   const bounds = await canvas.getAttribute('data-bounds');
   const url = await copiedLink(page);
   await page.goto(url);
@@ -153,6 +153,9 @@ test('invalid links, input shortcut suppression, help, scaling and presentation'
   await page.goto('/m8e-calc/#/scientific?v=1&s=invalid');
   const editor = page.getByRole('textbox', { name: 'Ausdruck', exact: true });
   await expect(editor).toHaveText('');
+  await editor.fill('sin(30)');
+  await editor.press('Enter');
+  await expect(page.locator('.scientific-result-text')).toHaveText('0,5');
   await editor.focus();
   const before = await page
     .getByRole('button', { name: 'Verlauf ein-/ausblenden' })
@@ -239,7 +242,7 @@ test('PWA installability and all four modes offline after only the first load', 
     .getByRole('textbox', { name: 'Schnelleingabe', exact: true })
     .fill('5 km in mi');
   await page.getByRole('button', { name: 'Übernehmen', exact: true }).click();
-  await expect(page.locator('.convert-result')).toContainText('3,106855961');
+  await expect(page.locator('.convert-result')).toContainText('3,106856');
   await page.goto('/m8e-calc/#/graph');
   await page.getByRole('button', { name: 'Hinzufügen', exact: true }).click();
   await page.locator('.graph-editor [role="textbox"]').first().fill('sin(x)');

@@ -188,6 +188,7 @@ export function App() {
           return;
       }
       event.preventDefault();
+      event.stopPropagation();
       if (item.id === 'palette') setPaletteOpen(true);
       else if (item.id === 'help') setHelpOpen(true);
       else if (item.id === 'history') toggleHistory();
@@ -196,8 +197,8 @@ export function App() {
       else if (item.id.startsWith('mode.'))
         window.location.hash = `#/${item.id.slice(5)}`;
     }
-    window.addEventListener('keydown', shortcut);
-    return () => window.removeEventListener('keydown', shortcut);
+    window.addEventListener('keydown', shortcut, true);
+    return () => window.removeEventListener('keydown', shortcut, true);
   });
   const personalization = (
     <div
