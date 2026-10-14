@@ -80,6 +80,7 @@ export interface DrawOptions {
   animate: boolean;
   transparent?: boolean;
   fontSize: number;
+  revealDuration: number;
 }
 export function drawGraph(
   ctx: CanvasRenderingContext2D,
@@ -87,7 +88,7 @@ export function drawGraph(
 ): boolean {
   const { viewport: v, colors: c } = options,
     { width: w, height: h } = v.pixelSize;
-  ctx.clearRect(0, 0, w, h);
+  if (options.transparent) ctx.clearRect(0, 0, w, h);
   if (!options.transparent) {
     ctx.fillStyle = c.background;
     ctx.fillRect(0, 0, w, h);
@@ -193,7 +194,10 @@ export function drawGraph(
     const sx = (end.x - start.x) / base.pixelSize.width,
       sy = (end.y - start.y) / base.pixelSize.height;
     const progress = options.animate
-      ? Math.min(1, (options.now - cache.born) / 500)
+      ? Math.min(
+          1,
+          (options.now - cache.born) / Math.max(1, options.revealDuration),
+        )
       : 1;
     active ||= progress < 1;
     ctx.save();

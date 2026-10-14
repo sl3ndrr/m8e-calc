@@ -77,7 +77,9 @@ for (const [width, height] of [
             const stage = document.querySelector('.mode-stage-frame');
             const rail = document.querySelector('.shell-rail');
             const toolbar = document.querySelector('.shell-toolbar');
-            const history = document.querySelector('.ui-side-sheet-docked');
+            const history = document.querySelector(
+              '.shell-history .ui-side-sheet-docked',
+            );
             return (
               root.scrollWidth <= innerWidth &&
               root.scrollHeight <= innerHeight &&

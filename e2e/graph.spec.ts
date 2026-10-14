@@ -37,7 +37,7 @@ test('AP13 input, wheel zoom, slider, roots, trace, integral, PNG and restoratio
   const slider = page.getByRole('slider', { name: 'a', exact: true });
   await slider.focus();
   await slider.press('ArrowRight');
-  await expect(slider).toHaveAttribute('aria-valuenow', '1.1');
+  await expect(slider).toHaveValue('1.1');
   await page.getByRole('button', { name: 'Aktionen für Funktion 1' }).click();
   await page
     .getByRole('menuitem', { name: 'Nullstellen', exact: true })
@@ -113,6 +113,20 @@ test('invalid input and visibility do not crash the plot; complete plot sets res
   );
   expect(entry.payload.rows[0].visible).toBe(false);
   expect(entry.payload.rows[0].input).toBe('a*sin(x)');
+  await page.locator('.graph-editor [role="textbox"]').fill('x^2');
+  await page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }).click();
+  await page
+    .getByRole('button', { name: 'Wiederherstellen: a*sin(x)' })
+    .click();
+  await expect(page.locator('.graph-editor [role="textbox"]')).toHaveText(
+    'a*sin(x)',
+  );
+  await expect(
+    page.getByRole('slider', { name: 'a', exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('button', { name: 'Sichtbarkeit von Funktion 1' }),
+  ).toHaveAttribute('aria-pressed', 'false');
 });
 test('HiDPI canvas and reduced motion keep keyboard zoom usable', async ({
   browser,

@@ -146,6 +146,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       latestId = 0,
       sampleTimer = 0,
       viewTimer = 0;
+    let revealDuration = 1;
     let sampleSignature = '',
       fontSize = 14,
       colorUntil = 0;
@@ -155,6 +156,10 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         token = (name: string) =>
           css.getPropertyValue(`--md-sys-color-${name}`).trim();
       fontSize = parseFloat(css.fontSize) * 0.65;
+      revealDuration =
+        parseFloat(
+          css.getPropertyValue('--md-sys-motion-effects-slow-duration'),
+        ) || 1;
       colors = {
         background: token('surface'),
         grid: token('outline-variant'),
@@ -359,6 +364,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
           now: time,
           animate: animation,
           fontSize,
+          revealDuration,
         });
         if (selection) {
           const a = viewport.worldToScreen({ x: selection[0], y: 0 }),
@@ -638,6 +644,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
           animate: false,
           transparent,
           fontSize,
+          revealDuration,
         });
         return new Promise<Blob>((resolve, reject) =>
           output.toBlob(

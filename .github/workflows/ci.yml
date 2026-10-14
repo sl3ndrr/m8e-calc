@@ -20,13 +20,6 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npx playwright install --with-deps chromium
-      - name: Temporary local Chromium verification
-        run: tar -czf /tmp/graph-browser.tgz -C "$HOME/.cache/ms-playwright" $(ls "$HOME/.cache/ms-playwright" | grep '^chromium_headless_shell-')
-      - uses: actions/upload-artifact@v7
-        with:
-          name: graph-offline-browser
-          path: /tmp/graph-browser.tgz
-          retention-days: 1
       - run: npm run test:e2e
       - name: Gallery screenshots
         if: ${{ !cancelled() }}
