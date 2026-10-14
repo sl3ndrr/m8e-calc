@@ -47,9 +47,9 @@ Verlauf, Selektionen, Completion, lokale Fonts und Zwischenablage.
 
 ## Offen / Folge-Issues
 
-- AP9: BigInt-Panel und Inspektoren sind unten dokumentiert.
-- AP12/AP13: Graph-Anbindung der vorhandenen Engine-Definitionen.
-- AP14/AP15: Komfort/Import-Export der Definitionen und zusätzliches Hardening.
+- AP9 ist integriert: BigInt-Panel und Inspektoren sind unten dokumentiert.
+- AP12/AP13 sind integriert; Graph-Verträge stehen in [GRAPH.md](GRAPH.md) und [GRAPH_MODE.md](GRAPH_MODE.md). Gespeicherte wissenschaftliche Environments werden nicht über Permalinks übertragen.
+- AP14/AP15 sind integriert: [Komfort](COMFORT.md) und [Hardening](QA_REPORT.md). Weitergehender Import/Export gespeicherter Definitionen bleibt Folgearbeit.
 
 ## Informatik · AP9
 

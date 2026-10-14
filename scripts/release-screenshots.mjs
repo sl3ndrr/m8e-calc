@@ -1,4 +1,4 @@
-/* global document, localStorage, requestAnimationFrame */
+/* global document, requestAnimationFrame */
 import { chromium, expect } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
@@ -7,7 +7,15 @@ const origin = 'http://127.0.0.1:4175';
 const base = `${origin}/m8e-calc/`;
 const server = spawn(
   process.execPath,
-  ['node_modules/vite/bin/vite.js', 'preview', '--host', '127.0.0.1', '--port', '4175', '--strictPort'],
+  [
+    'node_modules/vite/bin/vite.js',
+    'preview',
+    '--host',
+    '127.0.0.1',
+    '--port',
+    '4175',
+    '--strictPort',
+  ],
   { stdio: 'inherit' },
 );
 let browser;
@@ -39,13 +47,22 @@ try {
       const page = await context.newPage();
       const externalRequests = [];
       page.on('request', (request) => {
-        if (new URL(request.url()).origin !== origin) externalRequests.push(request.url());
+        if (new URL(request.url()).origin !== origin)
+          externalRequests.push(request.url());
       });
       await page.addInitScript((theme) => {
-        localStorage.setItem('m8e-calc.settings', JSON.stringify({
-          version: 3,
-          state: { themeMode: theme, accent: '#6750a4', motionLevel: 'off', language: 'de' },
-        }));
+        localStorage.setItem(
+          'm8e-calc.settings',
+          JSON.stringify({
+            version: 3,
+            state: {
+              themeMode: theme,
+              accent: '#6750a4',
+              motionLevel: 'off',
+              language: 'de',
+            },
+          }),
+        );
       }, theme);
       await page.goto(`${base}#/${mode}`);
       await page.locator(`[data-mode="${mode}"]:not([inert])`).waitFor();
@@ -55,30 +72,54 @@ try {
         await expect(page.locator('.calculator-display')).toBeVisible();
       }
       if (mode === 'scientific') {
-        const editor = page.getByRole('textbox', { name: 'Ausdruck', exact: true });
+        const editor = page.getByRole('textbox', {
+          name: 'Ausdruck',
+          exact: true,
+        });
         await editor.fill('sin(30)');
         await editor.press('Enter');
         await expect(page.locator('.scientific-result-text')).toHaveText('0,5');
+        await expect(page.locator('.scientific-result-card .katex')).toHaveCount(2);
       }
       if (mode === 'convert') {
-        const editor = page.getByRole('textbox', { name: 'Schnelleingabe', exact: true });
+        const editor = page.getByRole('textbox', {
+          name: 'Schnelleingabe',
+          exact: true,
+        });
         await editor.fill('5 km in mi');
         await editor.press('Enter');
         await expect(page.locator('.convert-result')).toContainText('3,106856');
       }
       if (mode === 'graph') {
-        await page.getByRole('button', { name: 'Hinzufügen', exact: true }).click();
+        await page
+          .getByRole('button', { name: 'Hinzufügen', exact: true })
+          .click();
         await page.locator('.graph-editor [role="textbox"]').fill('sin(x)');
-        await expect(page.locator('canvas.graph-canvas')).toHaveAttribute('data-curve-count', '1');
+        await expect(page.locator('canvas.graph-canvas')).toHaveAttribute(
+          'data-curve-count',
+          '1',
+        );
       }
       await page.evaluate(() => document.fonts.ready);
-      await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
-      await page.screenshot({ path: `docs/img/${mode}-${theme}.png`, animations: 'disabled', caret: 'hide' });
+      await page.evaluate(
+        () =>
+          new Promise((resolve) =>
+            requestAnimationFrame(() => requestAnimationFrame(resolve)),
+          ),
+      );
+      await page.screenshot({
+        path: `docs/img/${mode}-${theme}.png`,
+        animations: 'disabled',
+        caret: 'hide',
+      });
       if (mode === 'graph' && theme === 'dark') {
         // Render the actual app at a half CSS scale; no synthetic marketing UI.
         const session = await context.newCDPSession(page);
         await session.send('Emulation.setDeviceMetricsOverride', {
-          width: 2560, height: 1280, deviceScaleFactor: 1, mobile: false,
+          width: 2560,
+          height: 1280,
+          deviceScaleFactor: 1,
+          mobile: false,
           scale: 0.5,
         });
         const { data } = await session.send('Page.captureScreenshot', {
@@ -87,7 +128,9 @@ try {
         });
         const { writeFile } = await import('node:fs/promises');
         const image = Buffer.from(data, 'base64');
-        expect([image.readUInt32BE(16), image.readUInt32BE(20)]).toEqual([1280, 640]);
+        expect([image.readUInt32BE(16), image.readUInt32BE(20)]).toEqual([
+          1280, 640,
+        ]);
         await writeFile('docs/img/social-preview.png', image);
       }
       expect(externalRequests, 'No external runtime requests').toEqual([]);

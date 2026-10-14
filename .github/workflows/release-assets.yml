@@ -17,10 +17,12 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Format release sources
-        run: npx prettier --write README.md CHANGELOG.md AGENTS.md docs/ROADMAP.md docs/PRODUCT_SPEC.md docs/RELEASE.md docs/RELEASE_NOTES_1.0.md scripts/release-screenshots.mjs .github/workflows/release-assets.yml package.json
+        run: npx prettier --write README.md CHANGELOG.md AGENTS.md docs/ROADMAP.md docs/PRODUCT_SPEC.md docs/RELEASE.md docs/RELEASE_NOTES_1.0.md scripts/release-screenshots.mjs .github/workflows/release-assets.yml package.json scripts/check-release-docs.mjs docs/SCIENTIFIC_MODE.md
       - run: npm run build
       - run: npx playwright install --with-deps chromium
       - run: npm run screenshots
+      - name: Check documentation links and commands
+        run: node scripts/check-release-docs.mjs
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -37,5 +39,8 @@ jobs:
             scripts/release-screenshots.mjs
             .github/workflows/release-assets.yml
             package.json
+            scripts/check-release-docs.mjs
+            docs/SCIENTIFIC_MODE.md
+            node_modules/prettier/
           include-hidden-files: true
           retention-days: 14
