@@ -86,6 +86,8 @@ test('4K six-curve pan render budget and idle rendering', async ({ page }) => {
     JSON.stringify(report, null, 2),
   );
   expect(p95).toBeLessThan(16.67);
+  // Allow a small scheduling margin on the shared CI runner around 60 Hz.
+  expect(report.observedRafFps).toBeGreaterThanOrEqual(55);
   await page.mouse.move(0, 0);
   await page.waitForTimeout(1600);
   const idle = JSON.parse(

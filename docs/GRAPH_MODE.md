@@ -81,3 +81,15 @@ werden lokal angezeigt; keine externen Laufzeitrequests.
 Implizite Kurven bleiben in AP12-Folge-Issue #17. Numerische Analysis, Trace und
 Sampling haben die in GRAPH.md dokumentierten Grenzen. Touch-Pinch und weitere
 Browser/GPU-/Screenreader-Abnahmen bleiben spätere Integrationsaufgaben.
+
+## Gemessener Stand (14.10.2026)
+
+CI auf dem AP13-Code: 1.958 Unit-/Komponententests und 74 Chromium-E2E bestehen.
+Volle Canvas-Fläche 3840×2160, sechs Kurven, Trace-Aufnahme aus:
+58,8 beobachtete rAF-fps (17,01 ms Mittel), Canvas-Render-p95 0,5 ms.
+Letzter sechs-Kurven-Samplingauftrag im Worker: 19,7 ms, außerhalb des UI-Threads.
+Der Regressionstest verlangt Render-p95 <16,67 ms und ≥55 beobachtete fps als
+CI-Toleranz um das 60-Hz-Ziel. Dies ersetzt keine physische Monitor-/GPU-Abnahme.
+Die ersten Messungen mit Trace-Screenshots waren durch Aufnahme-/Protokolllast
+verfälscht; nur der ungetracete Lastlauf ist der dokumentierte Vergleichswert.
+Messdatei: [graph-performance.json](graph-performance.json).
