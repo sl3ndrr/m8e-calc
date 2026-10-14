@@ -180,7 +180,9 @@ test('invalid links, input shortcut suppression, help, scaling and presentation'
   await size.press('End');
   await expect(size).toHaveValue('150');
   await page.keyboard.press('Escape');
-  await expect(page.getByRole('dialog', { name: 'Einstellungen' })).toBeHidden();
+  await expect(
+    page.getByRole('dialog', { name: 'Einstellungen' }),
+  ).toBeHidden();
   await page
     .getByRole('button', { name: 'Präsentationsmodus', exact: true })
     .focus();
