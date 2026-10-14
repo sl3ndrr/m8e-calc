@@ -1,23 +1,28 @@
 import type { SimpleAction } from './model';
+import { shortcuts, matchesKey } from '../../app/shortcuts';
 export interface KeyCommand {
   id: string;
   action: SimpleAction;
 }
 export function keyCommand(key: string): KeyCommand | null {
-  if (/^\d$/.test(key))
-    return { id: key, action: { type: 'digit', digit: key } };
-  if (key === '+' || key === '-' || key === '*' || key === '/')
-    return { id: key, action: { type: 'operator', operator: key } };
-  if (key === '.' || key === ',')
-    return { id: 'decimal', action: { type: 'decimal' } };
-  if (key === 'Enter' || key === '=')
-    return { id: 'equals', action: { type: 'equals' } };
-  if (key === 'Backspace')
-    return { id: 'backspace', action: { type: 'backspace' } };
-  if (key === 'Escape') return { id: 'clear', action: { type: 'clear' } };
-  if (key === 'Delete')
-    return { id: 'clearEntry', action: { type: 'clearEntry' } };
-  if (key === '%')
-    return { id: 'percent', action: { type: 'unary', operation: 'percent' } };
+  const registered = shortcuts.find(
+    (s) =>
+      s.id.startsWith('simple.') && s.keys.some((k) => matchesKey(k, { key })),
+  );
+  if (!registered) return null;
+  const id = registered.id.slice(7);
+  if (/^\d$/.test(id)) return { id, action: { type: 'digit', digit: id } };
+  if (id === '+' || id === '-' || id === '*' || id === '/')
+    return { id, action: { type: 'operator', operator: id } };
+  if (id === 'percent')
+    return { id, action: { type: 'unary', operation: 'percent' } };
+  if (
+    id === 'decimal' ||
+    id === 'equals' ||
+    id === 'backspace' ||
+    id === 'clear' ||
+    id === 'clearEntry'
+  )
+    return { id, action: { type: id } };
   return null;
 }

@@ -15,7 +15,7 @@ import { useHistoryStore } from '../../shared/historyStore';
 import { useModeHistory } from '../../shared/useModeHistory';
 import type { HistoryEntry } from '../../shared/history';
 import { springs } from '../../styles/motion';
-import { initialSimpleState, simpleReducer, type SimpleAction } from './model';
+import { simpleReducer, type SimpleAction } from './model';
 import {
   displayExpression,
   displayNumber,
@@ -25,6 +25,9 @@ import {
 } from './format';
 import { keyCommand } from './keyboard';
 import './SimpleMode.css';
+import { isInputTarget, shortcutHint } from '../../app/shortcuts';
+import { CopyLinkButton } from '../../app/CopyLinkButton';
+import { initialLinkedSimple, simpleLink } from '../../app/permalinks';
 interface KeyDefinition {
   id: string;
   text: string;
@@ -192,7 +195,7 @@ export default function SimpleMode() {
   const [state, dispatch] = useReducer(
     simpleReducer,
     undefined,
-    initialSimpleState,
+    initialLinkedSimple,
   );
   const [pressed, setPressed] = useState<string[]>([]);
   const locale = useAppStore((s) => s.locale);
@@ -287,11 +290,10 @@ export default function SimpleMode() {
         )
       )
         return false;
+      if (isInputTarget(target)) return false;
       return !(
         target instanceof HTMLElement &&
-        target.closest(
-          'input, textarea, select, [contenteditable="true"], .shell-history, .shell-personalization',
-        )
+        target.closest('.shell-history, .shell-personalization')
       );
     }
     function down(event: KeyboardEvent): void {
@@ -384,6 +386,7 @@ export default function SimpleMode() {
     >
       <div className="simple-heading">
         <h1>{t('simple.title', locale)}</h1>
+        <CopyLinkButton mode="simple" data={simpleLink(state)} />
         <span
           className="simple-memory"
           role="img"
@@ -438,6 +441,7 @@ export default function SimpleMode() {
             key={key.id}
             id={key.id}
             colorRole={key.role}
+            shortcut={shortcutHint(`simple.${key.id}`)}
             label={t(key.label, locale, { digit: key.text })}
             active={state.operator === key.id}
             pressed={pressed.includes(key.id)}

@@ -19,7 +19,7 @@ In jedem Modus kann der Berechnungsverlauf ein- und ausgeblendet werden. Moduswe
 
 ## Personalisierung
 
-Ein 3-Wege-Schalter bietet **Hell / System / Dunkel**. Die mittlere Position folgt der Systemeinstellung einschließlich späterer Änderungen. Die Akzentfarbe ist frei wählbar; abgeleitete Farbtokens müssen lesbare Kontraste sichern. Die Oberfläche wird auf Deutsch und Englisch angeboten, Auto erkennt Englisch aus `navigator.language`, sonst gilt Deutsch als Fallback. UI-Skalierung ist als Komfortfunktion geplant.
+Ein 3-Wege-Schalter bietet **Hell / System / Dunkel**. Die mittlere Position folgt der Systemeinstellung einschließlich späterer Änderungen. Die Akzentfarbe ist frei wählbar; abgeleitete Farbtokens müssen lesbare Kontraste sichern. Die Oberfläche wird auf Deutsch und Englisch angeboten, Auto erkennt Englisch aus `navigator.language`, sonst gilt Deutsch als Fallback. UI-Größe (80–150 %), Präsentation, Command Palette, Permalinks und Offline-Nutzung sind in AP14 umgesetzt; Details in `COMFORT.md`.
 
 ## Geplante Zusatzfeatures
 

@@ -30,7 +30,8 @@ afterEach(() => {
 });
 it('offers every required function and initially disables empty memory recall', () => {
   render(<SimpleMode />);
-  expect(screen.getAllByRole('button')).toHaveLength(30);
+  expect(screen.getAllByRole('button')).toHaveLength(31);
+  expect(screen.getByRole('button', { name: 'Link kopieren' })).toBeEnabled();
   expect(screen.getByRole('button', { name: 'Kehrwert' })).toBeVisible();
   expect(
     screen.getByRole('button', { name: 'Speicher abrufen' }),

@@ -54,6 +54,9 @@ import {
   type WordOptions,
 } from '../../engine/programmer';
 import './ScientificMode.css';
+import { CopyLinkButton } from '../../app/CopyLinkButton';
+import { readModeLink } from '../../app/permalinks';
+import { useScientificInsertion } from '../../app/scientificInsertion';
 const ExpressionEditor = lazy(() => import('./ExpressionEditor'));
 const MathDisplay = lazy(() => import('./MathDisplay'));
 export default function ScientificMode() {
@@ -64,10 +67,14 @@ export default function ScientificMode() {
   const environment = useScientificStore((s) => s.environment),
     commit = useScientificStore((s) => s.commit),
     remove = useScientificStore((s) => s.remove);
-  const [expression, setExpression] = useState(''),
+  const [expression, setExpression] = useState(
+      () => readModeLink('scientific')?.expression ?? '',
+    ),
     [error, setError] = useState<EngineError | null>(null),
     [calculation, setCalculation] = useState<Calculation | null>(null);
-  const [angleMode, setAngleMode] = useState<AngleMode>('deg'),
+  const [angleMode, setAngleMode] = useState<AngleMode>(
+      () => readModeLink('scientific')?.angleMode ?? 'deg',
+    ),
     [complex, setComplex] = useState<ComplexMode>('off');
   const [notation, setNotation] =
       useState<NonNullable<ValueFormatOptions['notation']>>('auto'),
@@ -220,6 +227,7 @@ export default function ScientificMode() {
   function insert(insertion: Insertion): void {
     editor.current?.insert(insertion);
   }
+  useScientificInsertion((text) => editor.current?.insert({ text }));
   async function copy(text: string): Promise<void> {
     try {
       await navigator.clipboard.writeText(text);
@@ -259,6 +267,7 @@ export default function ScientificMode() {
       aria-label={t('scientific.title', locale)}
     >
       <header className="scientific-heading">
+        <CopyLinkButton mode="scientific" data={{ expression, angleMode }} />
         <div>
           <p>{t('scientific.subtitle', locale)}</p>
           <h1>{t('scientific.title', locale)}</h1>

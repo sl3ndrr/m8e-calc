@@ -13,7 +13,10 @@ export function bootstrapTheme(defaults: {
     );
     if (
       saved &&
-      (saved.version === 2 || saved.version === 1 || saved.version === 0) &&
+      (saved.version === 3 ||
+        saved.version === 2 ||
+        saved.version === 1 ||
+        saved.version === 0) &&
       saved.state &&
       typeof saved.state === 'object'
     ) {

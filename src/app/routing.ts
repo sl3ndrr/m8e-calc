@@ -4,6 +4,6 @@ export type AppRoute = ModeId | 'design';
 /** Empty hashes resume; explicit invalid links always fall back to simple. */
 export function parseHash(hash: string, lastMode: ModeId = 'simple'): AppRoute {
   if (!hash || hash === '#' || hash === '#/') return lastMode;
-  const candidate = hash.replace(/^#\//, '');
+  const candidate = hash.replace(/^#\//, '').split('?')[0];
   return candidate === 'design' || isModeId(candidate) ? candidate : 'simple';
 }

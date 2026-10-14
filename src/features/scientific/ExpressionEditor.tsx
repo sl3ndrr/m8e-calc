@@ -37,6 +37,7 @@ import {
   type Insertion,
 } from './editorModel';
 import { errorKey } from './model';
+import { shortcutHint } from '../../app/shortcuts';
 import { completionEntries } from './registry';
 export interface EditorHandle {
   insert: (insertion: Insertion) => void;
@@ -254,9 +255,12 @@ export default function ExpressionEditor({
           ),
           Prec.high(
             keymap.of([
-              { key: 'Tab', run: acceptCompletion },
               {
-                key: 'Enter',
+                key: shortcutHint('scientific.complete'),
+                run: acceptCompletion,
+              },
+              {
+                key: shortcutHint('scientific.evaluate'),
                 run: () => {
                   callbacks.current.onEvaluate();
                   return true;
@@ -279,7 +283,7 @@ export default function ExpressionEditor({
                 },
               },
               {
-                key: 'Escape',
+                key: shortcutHint('scientific.clear'),
                 run: (v) => {
                   closeCompletion(v);
                   callbacks.current.onChange('');

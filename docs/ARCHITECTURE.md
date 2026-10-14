@@ -129,3 +129,15 @@ Aktivität/Energie-/Äquivalentdosis sowie beide Viskositäten sind dimensionsge
 getrennt. Suchauflösung meldet mehrdeutige Symbole; Formatierung nutzt die Engine.
 Dynamische Kurse sind nur als AP17-Typ vorgesehen. Datenmodell, Quellen und
 Erweiterung: [UNITS.md](UNITS.md). Tests laufen im Engine-Node-Projekt ohne DOM.
+
+## AP14 · Komfort und Offline
+
+Gemeinsame Palette, Shortcut-Dispatch, Permalink-Validierung und PWA-Browseradapter
+liegen in `src/app`, die begrenzte LZW-Kodierung in `src/shared/linkCodec.ts`.
+Feature-Reducer bleiben lokale Zustandsquellen; Hashwechsel remounten eine Bühne
+und ihre Initializer lesen ausschließlich validierte Modusdaten. Der Graph-Link
+liest den aktuellen Canvas-Viewport beim Kopieren, auch während eines Übergangs.
+Settings-Version 3 ergänzt UI-Größe und optionale Präsentationshistorie. Die
+Root-Schrift multipliziert die vorhandene AP4-Fluidskalierung. Der Vite-Adapter
+erzeugt einen inhaltsversionierten vollständigen Offline-Precache. Vertrag und
+aktuelle Kürzeltabelle: [COMFORT.md](COMFORT.md).

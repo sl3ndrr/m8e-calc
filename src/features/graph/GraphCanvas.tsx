@@ -1,3 +1,4 @@
+import { shortcutMatches } from '../../app/shortcuts';
 import {
   useEffect,
   useImperativeHandle,
@@ -499,10 +500,10 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
     }
     function key(event: KeyboardEvent): void {
       if (event.ctrlKey || event.metaKey || event.altKey) return;
-      if (['+', '=', '-', '−'].includes(event.key)) {
+      if (shortcutMatches('graph.zoom', event)) {
         event.preventDefault();
         api.zoom(event.key === '-' || event.key === '−' ? 1 / 1.3 : 1.3);
-      } else if (event.key.startsWith('Arrow')) {
+      } else if (shortcutMatches('graph.trace', event)) {
         event.preventDefault();
         const direction =
           event.key === 'ArrowLeft' || event.key === 'ArrowDown' ? -1 : 1;
@@ -526,8 +527,8 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
           if (Number.isFinite(point.x) && Number.isFinite(point.y))
             updateTrace({ id: row.row.id, u, point });
         }
-      } else if (event.key === 'Escape') updateTrace(null);
-      else if (event.key === 'F10' && event.shiftKey && activeTrace) {
+      } else if (shortcutMatches('graph.clearTrace', event)) updateTrace(null);
+      else if (shortcutMatches('graph.context', event) && activeTrace) {
         event.preventDefault();
         current.onContext(activeTrace);
       }

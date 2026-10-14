@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
+import { pwaPlugin } from './scripts/pwaPlugin';
 import { buildScheme } from './src/styles/buildScheme.ts';
 import { bootstrapTheme } from './src/app/themeBootstrap.ts';
 
@@ -7,6 +8,7 @@ export default defineConfig({
   base: process.env.VITE_BASE_PATH ?? '/m8e-calc/',
   plugins: [
     react(),
+    pwaPlugin(),
     {
       name: 'inline-theme-bootstrap',
       transformIndexHtml: {

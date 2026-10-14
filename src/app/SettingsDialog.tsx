@@ -4,6 +4,7 @@ import {
   Dialog,
   Select,
   Switch,
+  Slider,
   TextField,
   snackbarQueue,
 } from '../ui';
@@ -59,6 +60,23 @@ export function SettingsDialog({
       }}
     >
       <div className="settings-sections">
+        <Slider
+          label={t('comfort.uiSize', locale)}
+          minValue={80}
+          maxValue={150}
+          step={5}
+          value={settings.uiSize}
+          formatOptions={{ style: 'unit', unit: 'percent' }}
+          onChange={(uiSize) => settings.updateSettings({ uiSize })}
+        />
+        <Switch
+          isSelected={settings.presentationHistory}
+          onChange={(presentationHistory) =>
+            settings.updateSettings({ presentationHistory })
+          }
+        >
+          {t('comfort.presentationHistory', locale)}
+        </Switch>
         <Select
           label={t('language.label', locale)}
           options={languageOptions}

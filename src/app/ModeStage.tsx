@@ -46,7 +46,13 @@ function ModePanel({ mode, direction }: { mode: ModeId; direction: number }) {
     </motion.div>
   );
 }
-export function ModeStage({ mode }: { mode: ModeId }) {
+export function ModeStage({
+  mode,
+  routeKey = mode,
+}: {
+  mode: ModeId;
+  routeKey?: string;
+}) {
   const [transition, setTransition] = useState({ mode, direction: 1 });
   if (transition.mode !== mode)
     setTransition({
@@ -59,7 +65,7 @@ export function ModeStage({ mode }: { mode: ModeId }) {
   return (
     <div className="mode-stage-frame">
       <AnimatePresence initial={false} mode="wait" custom={direction}>
-        <ModePanel key={mode} mode={mode} direction={direction} />
+        <ModePanel key={routeKey} mode={mode} direction={direction} />
       </AnimatePresence>
     </div>
   );
