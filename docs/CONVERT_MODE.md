@@ -34,7 +34,7 @@ Schnelleingabe: `/` fokussiert; Enter übernimmt z. B. `5 km in mi`,
 erhalten, andernfalls wird die Kategorie-Basis gewählt. Dezimalzeichen folgt
 den Zahleneinstellungen. AP10-Abfragen akzeptieren keine Tausendergruppierung.
 Ziffern außerhalb von Eingabefeldern fokussieren Von und beginnen eine Eingabe;
-Strg+Umschalt+S tauscht auch innerhalb der Zahlenfelder. Overlays und fremde
+Strg+Umschalt+S tauscht außerhalb der Eingabefelder (zentrale AP14-Registry). Overlays und fremde
 Editoren erhalten ihre Tastaturbedienung. Strg+H und die Shell-Aktion steuern
 den AP4-Verlauf.
 
@@ -72,6 +72,7 @@ Einheitensuche, Verlauf/Restore/Persistenz, Reduced Motion und Axe.
 ## Offen / Folge-Issues
 
 Keine neuen Kategorien oder dynamischen Kurse (AP17). Browserabnahme außerhalb
-Chromium und globale UI-Skalierung folgen der Roadmap. Die Sortierung nach
+Chromium folgt der Roadmap. Globale UI-Skalierung ist in AP14 umgesetzt. Die Sortierung nach
 Größe bezeichnet Definitionsgröße (Basiswert von 1), keine Rangfolge aktuell
 angezeigter Zahlen bei negativen oder reziproken Werten.
+

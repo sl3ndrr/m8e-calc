@@ -53,6 +53,9 @@ import {
 } from './model';
 import { useConvertStore } from './preferences';
 import './ConvertMode.css';
+import { shortcutMatches, isInputTarget, shortcutHint } from '../../app/shortcuts';
+import { CopyLinkButton } from '../../app/CopyLinkButton';
+import { readModeLink } from '../../app/permalinks';
 
 function AnimatedNumber({
   value,
@@ -139,7 +142,7 @@ export default function ConvertMode() {
   const [state, dispatch] = useReducer(
     convertReducer,
     undefined,
-    initialConvertState,
+    () => ({ ...initialConvertState(), ...(readModeLink('convert') ?? {}) }),
   );
   const [search, setSearch] = useState('');
   const [query, setQuery] = useState('');
@@ -230,7 +233,7 @@ export default function ConvertMode() {
         return;
       const target = event.target instanceof HTMLElement ? event.target : null;
       if (target?.closest('.shell-history, .shell-personalization')) return;
-      if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 's') {
+      if (shortcutMatches('convert.swap', event) && !isInputTarget(event.target)) {
         event.preventDefault();
         dispatch({ type: 'swap' });
         return;
@@ -242,10 +245,10 @@ export default function ConvertMode() {
         target?.closest('input, textarea, select, [contenteditable="true"]')
       )
         return;
-      if (event.key === '/') {
+      if (shortcutMatches('convert.quick', event)) {
         event.preventDefault();
         quick.current?.querySelector('input')?.focus();
-      } else if (/^\d$/.test(event.key)) {
+      } else if (shortcutMatches('convert.digits', event)) {
         event.preventDefault();
         fromField.current?.querySelector('input')?.focus();
         dispatch({
@@ -341,6 +344,7 @@ export default function ConvertMode() {
       aria-label={t('convert.title', locale)}
     >
       <header className="convert-heading">
+        <CopyLinkButton mode="convert" data={state} />
         <div>
           <p className="shell-eyebrow">{t('convert.eyebrow', locale)}</p>
           <h1>{t('convert.title', locale)}</h1>
@@ -501,6 +505,7 @@ export default function ConvertMode() {
             <Fab
               icon="swap_horiz"
               aria-label={t('convert.swap', locale)}
+              title={`${t('convert.swap', locale)} · ${shortcutHint('convert.swap')}`}
               className="convert-swap"
               isDisabled={!!state.error}
               onPress={() => dispatch({ type: 'swap' })}
@@ -664,3 +669,4 @@ export default function ConvertMode() {
     </section>
   );
 }
+

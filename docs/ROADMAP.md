@@ -15,8 +15,8 @@ Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet akzeptiert und integrie
 - [ ] 11 Umrechner — AP10-Anbindung, lokalisierte Felder, Kartenraster, Schnelleingabe, persistente Paare und AP4-Ruheverlauf (PR `feat/convert-mode`; Vertrag in `CONVERT_MODE.md`, Abnahme vor Merge).
 - [ ] 12 Graph-Engine — Float64-Compiler, Parameter, adaptive explizite/parametrische/polare Kurven, Analysis und Viewport (PR `feat/graph-engine`; Vertrag in `GRAPH.md`, Abnahme vor Merge). Implizite Marching-Squares-Kurven folgen separat.
 - [ ] 13 Graphen-Modus — 2D-Plotter und Interaktion auf AP12, Canvas/SVG-Adapter und Worker-Anbindung; keine Darstellung in AP12.
-- [ ] 14 Komfort — Konstanten, Variablen/eigene Funktionen, Command Palette, Permalinks und zusätzliche UI-Skalierungswahl; Verlauf mit Suche/Pins/Export sowie de/en und proportionale Desktop-Skalierung sind in AP4 vorgezogen.
-- [ ] 15 Hardening — PWA/Offline, Datenschutz, Performance, Accessibility und Browserrobustheit.
+- [ ] 14 Komfort — Command Palette, zentrale Tastenkürzel, versionierte Permalinks, UI-Größe/Präsentation und vorgezogenes PWA/Offline (PR `feat/comfort`; Vertrag und Kürzel in `COMFORT.md`, Abnahme vor Merge); Verlauf mit Suche/Pins/Export sowie de/en und proportionale Desktop-Skalierung sind in AP4 vorgezogen.
+- [ ] 15 Hardening — weitere PWA-/Installations-/Browserabnahme, Datenschutz, Performance und Accessibility; Offline-Fundament in AP14 vorgezogen.
 - [ ] 16 Release — Dokumentation, Abnahme und Veröffentlichung.
 - [ ] 17 Währungen (optional) — erst nach Klärung einer datenschutzkonformen Datenstrategie ohne externe Laufzeitrequests.
 
@@ -32,3 +32,4 @@ AP11 implementiert den Umrechner auf AP10; Verhalten, Persistenz und Testvertrag
 AP13: Graphen-UI mit Canvas 2D/HiDPI, lokalem Sampling-Worker, Parameterslidern,
 Trace/Analysis, Tabellen/PNG und AP4-Plot-Satz-Verlauf. Vertrag: [GRAPH_MODE.md](GRAPH_MODE.md).
 Implizite Kurven (#17), Touch-Pinch und physische GPU-/Screenreader-Abnahme bleiben Folgearbeit.
+

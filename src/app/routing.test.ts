@@ -4,6 +4,7 @@ import { modes, parseHash } from './routing';
 describe('hash routing', () => {
   it.each(modes)('resolves %s', (mode) => {
     expect(parseHash(`#/${mode}`)).toBe(mode);
+    expect(parseHash(`#/${mode}?v=1&s=invalid`)).toBe(mode);
   });
   it('falls back to simple for arbitrary unknown hashes', () => {
     fc.assert(
@@ -23,3 +24,4 @@ it('resumes only an empty hash and keeps unknown links deterministic', () => {
   expect(parseHash('', 'graph')).toBe('graph');
   expect(parseHash('#/unknown', 'graph')).toBe('simple');
 });
+

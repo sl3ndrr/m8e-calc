@@ -21,6 +21,12 @@ function memoryStorage(initial: string | null = null) {
   };
 }
 describe('settings', () => {
+  it('validates UI size and migrates the v2 presentation defaults', () => {
+    expect(normalizeSettings({ uiSize: 200 }).uiSize).toBe(150);
+    expect(normalizeSettings({ uiSize: 0 }).uiSize).toBe(80);
+    expect(normalizeSettings({ uiSize: NaN }).uiSize).toBe(100);
+    expect(migrateSettings({ themeMode: 'dark' }, 2)).toMatchObject({ themeMode: 'dark', uiSize: 100, presentationHistory: false });
+  });
   it('uses system by default and respects the reduced-motion preference', () => {
     expect(defaultSettings().themeMode).toBe('system');
     expect(defaultSettings(true).motionLevel).toBe('reduced');
@@ -52,7 +58,7 @@ describe('settings', () => {
       motionLevel: 'off',
     });
     const payload = JSON.parse(storage.getItem() ?? '{}');
-    expect(payload.version).toBe(2);
+    expect(payload.version).toBe(3);
     expect(payload.state.updateSettings).toBeUndefined();
     expect(createSettingsStore(storage).getState()).toMatchObject(
       payload.state,
@@ -137,3 +143,4 @@ it('migrates v1 appearance without losing it and validates v2 preferences', () =
     historyLimit: 10,
   });
 });
+

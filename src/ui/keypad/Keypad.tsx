@@ -7,6 +7,7 @@ export interface KeypadKeyProps {
   id: string;
   children: ReactNode;
   label: string;
+  shortcut?: string;
   colorRole?: KeyRole;
   pressed?: boolean;
   active?: boolean;
@@ -17,6 +18,7 @@ export function KeypadKey({
   id,
   children,
   label,
+  shortcut,
   colorRole = 'digit',
   pressed,
   active,
@@ -35,6 +37,7 @@ export function KeypadKey({
         variant="tonal"
         className="keypad-key"
         aria-label={label}
+        title={shortcut ? `${label} · ${shortcut}` : label}
         isDisabled={disabled}
         onPress={onPress}
       >
@@ -56,3 +59,4 @@ export function Keypad({
     </div>
   );
 }
+

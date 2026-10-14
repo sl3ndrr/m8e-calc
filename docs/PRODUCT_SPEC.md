@@ -19,7 +19,7 @@ In jedem Modus kann der Berechnungsverlauf ein- und ausgeblendet werden. Moduswe
 
 ## Personalisierung
 
-Ein 3-Wege-Schalter bietet **Hell / System / Dunkel**. Die mittlere Position folgt der Systemeinstellung einschließlich späterer Änderungen. Die Akzentfarbe ist frei wählbar; abgeleitete Farbtokens müssen lesbare Kontraste sichern. Die Oberfläche wird auf Deutsch und Englisch angeboten, Auto erkennt Englisch aus `navigator.language`, sonst gilt Deutsch als Fallback. UI-Skalierung ist als Komfortfunktion geplant.
+Ein 3-Wege-Schalter bietet **Hell / System / Dunkel**. Die mittlere Position folgt der Systemeinstellung einschließlich späterer Änderungen. Die Akzentfarbe ist frei wählbar; abgeleitete Farbtokens müssen lesbare Kontraste sichern. Die Oberfläche wird auf Deutsch und Englisch angeboten, Auto erkennt Englisch aus `navigator.language`, sonst gilt Deutsch als Fallback. UI-Größe (80–150 %), Präsentation, Command Palette, Permalinks und Offline-Nutzung sind in AP14 umgesetzt; Details in `COMFORT.md`.
 
 ## Geplante Zusatzfeatures
 
@@ -44,3 +44,4 @@ Qualitätssicherung: ESLint Flat Config (typescript-eslint, react-hooks, jsx-a11
 AP1 liefert Projektstruktur, Toolchain, Hash-Routing zu einer gemeinsamen Platzhalterseite, minimale zentrale CSS-Tokens, i18n-Grundlage, Zustand-Grundlage, Tests, CI, Pages-Workflow und Projektgedächtnis. Es entsteht **keine Rechenfunktion**. Theming und Design-System folgen in AP2/AP3, die vollständige Shell und der Verlauf in AP4.
 
 Akzeptanz: `npm run check` lokal und in CI grün, Chromium-Smoke lädt den Produktionsbuild unter `/m8e-calc/`, Doku aktuell. Nach Merge und erfolgreichem Pages-Deployment ist die Platzhalterseite am Pages-Pfad erreichbar.
+

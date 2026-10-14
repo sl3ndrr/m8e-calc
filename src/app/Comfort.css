@@ -1,0 +1,92 @@
+.command-palette {
+  width: min(48rem, 100%);
+}
+.palette-input {
+  width: 100%;
+  padding: 1rem;
+  font: inherit;
+  color: var(--md-sys-color-on-surface);
+  background: var(--md-sys-color-surface-container-highest);
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: var(--md-sys-shape-medium);
+}
+.palette-input:focus-visible {
+  outline: 3px solid var(--md-sys-color-primary);
+  outline-offset: 3px;
+}
+.palette-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 45dvh;
+  overflow: auto;
+}
+.palette-results li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--md-sys-shape-medium);
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.palette-results li[aria-selected='true'] {
+  color: var(--md-sys-color-on-primary-container);
+  background: var(--md-sys-color-primary-container);
+}
+.palette-results small {
+  font-family: 'Roboto Mono', monospace;
+}
+.palette-count {
+  margin: 0;
+  color: var(--md-sys-color-on-surface-variant);
+}
+.shortcut-dialog {
+  width: min(64rem, 100%);
+}
+.shortcut-table {
+  border-collapse: collapse;
+  text-align: left;
+}
+.shortcut-table th,
+.shortcut-table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+.presentation-exit {
+  position: fixed;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 30;
+  background: var(--md-sys-color-surface-container-high);
+  border-radius: var(--md-sys-shape-full);
+}
+.app-shell[data-presentation] {
+  grid-template-areas: 'stage history';
+  grid-template-columns: minmax(0, 1fr) calc(var(--history-width) * var(--dock-progress));
+  padding: 0.5rem;
+}
+.app-shell[data-presentation] :is(.shell-rail, .shell-toolbar, .simple-heading, .simple-memory-keys, .simple-keyboard-hint, .scientific-heading, .scientific-tools, .scientific-mode-controls, .scientific-actions, .scientific-result-card > .ui-button-group, .scientific-result-card > .ui-slider, .scientific-result-card > .ui-switch, .convert-heading, .convert-quick, .convert-categories, .convert-all, .convert-format, .convert-pairs, .convert-keyboard-hint, .graph-heading, .graph-options, .graph-export, .graph-layout > .ui-side-sheet-docked) {
+  display: none;
+}
+.app-shell[data-presentation] .mode-stage {
+  padding: 1rem;
+}
+.app-shell[data-presentation] .simple-calculator {
+  width: min(100%, 90rem);
+}
+.app-shell[data-presentation] .calculator-value {
+  font-size: clamp(4rem, 10vw, 14rem) !important;
+}
+.app-shell[data-presentation] :is(.scientific-columns, .convert-layout, .graph-layout) {
+  grid-template-columns: minmax(0, 1fr);
+}
+.app-shell[data-presentation] .scientific-math {
+  font-size: clamp(2rem, 4vw, 6rem);
+}
+.app-shell[data-presentation] .convert-result {
+  font-size: clamp(4rem, 8vw, 12rem);
+}
+@media (max-width: 600px) {
+  .shortcut-table { font-size: 0.8rem; }
+}

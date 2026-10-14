@@ -12,6 +12,12 @@ Graph-Tests laufen ebenfalls im Engine-Node-Projekt. `npm run test:graph:bench`
 misst typische Kurven bei 2560×1440 (Ziel <4 ms, Regression <25 ms).
 Implizite Marching-Squares-Kurven sind als Folge-Issue dokumentiert; AP13 nutzt die Engine mit lokalem Sampling-Worker.
 
+AP14 liefert gemeinsame Komfortfunktionen in `src/app`: Palette, zentrale
+Kürzel-Registry, bounded versionierte Permalinks, UI-Größe/Präsentation und
+PWA-Build-Adapter ohne zusätzliche App-Abhängigkeit. Vertrag und Tastenkürzel:
+`docs/COMFORT.md`. Settings-Version 3 migriert 0–2; Offline-Precache umfasst alle
+lazy Chunks, Fonts und Worker. Domänen bleiben browserfrei.
+
 ## Arbeitsumgebung und Befehle
 
 Node 24 LTS (`nvm use`), npm und das eingecheckte `package-lock.json` verwenden. Installation: `npm ci`.
@@ -66,3 +72,4 @@ TypeScript: `strict` und `noUncheckedIndexedAccess` bleiben aktiv. Explizite Typ
 ## CI und GitHub Pages
 
 `ci.yml` prüft PRs und Pushes auf `main`: `npm ci`, lint, typecheck, test, build und Playwright-Smoke. `pages.yml` prüft auf `main` ebenfalls den Build einschließlich Checks/Smoke, lädt ausschließlich `dist/` hoch und deployt über GitHub Pages. Deployment nutzt `pages: write`, `id-token: write`, die Umgebung `github-pages` und eine Concurrency-Gruppe. In Repository Settings → Pages muss **GitHub Actions** als Quelle eingestellt sein. Hostingpfad: `/m8e-calc/`. Im PR nicht mergen; Deployment wird erst durch den Merge ausgelöst.
+

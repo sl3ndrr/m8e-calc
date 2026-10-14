@@ -6,7 +6,7 @@ import {
 } from '../styles/buildScheme';
 export const SETTINGS_KEY = 'm8e-calc.settings';
 export const THEME_CACHE_KEY = 'm8e-calc.theme-cache';
-export const SETTINGS_VERSION = 2;
+export const SETTINGS_VERSION = 3;
 export const themeModes = ['light', 'system', 'dark'] as const;
 export type ThemeMode = (typeof themeModes)[number];
 export const motionLevels = ['full', 'reduced', 'off'] as const;
@@ -21,6 +21,8 @@ export interface Settings {
   decimalSeparator: 'auto' | 'comma' | 'point';
   grouping: boolean;
   historyLimit: number;
+  uiSize: number;
+  presentationHistory: boolean;
 }
 export function defaultSettings(reducedMotion = false): Settings {
   return {
@@ -33,6 +35,8 @@ export function defaultSettings(reducedMotion = false): Settings {
     decimalSeparator: 'auto',
     grouping: true,
     historyLimit: 500,
+    uiSize: 100,
+    presentationHistory: false,
   };
 }
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -45,6 +49,8 @@ export function normalizeSettings(
   const fallback = defaultSettings(reducedMotion);
   if (!isRecord(value)) return fallback;
   return {
+    uiSize: typeof value.uiSize === 'number' && Number.isFinite(value.uiSize) ? Math.max(80, Math.min(150, Math.round(value.uiSize))) : fallback.uiSize,
+    presentationHistory: typeof value.presentationHistory === 'boolean' ? value.presentationHistory : false,
     language:
       value.language === 'de' || value.language === 'en'
         ? value.language
@@ -92,7 +98,7 @@ export function migrateSettings(
       reducedMotion,
     );
   return normalizeSettings(
-    version === 1 || version === SETTINGS_VERSION ? value : null,
+    version === 1 || version === 2 || version === SETTINGS_VERSION ? value : null,
     reducedMotion,
   );
 }
@@ -108,3 +114,4 @@ export function nextThemeMode(mode: ThemeMode, key: string): ThemeMode {
   const delta = key === 'ArrowRight' || key === 'ArrowDown' ? 1 : -1;
   return themeModes[(themeModes.indexOf(mode) + delta + 3) % 3] ?? 'system';
 }
+
