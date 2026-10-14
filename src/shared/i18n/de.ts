@@ -1,4 +1,7 @@
 export const de = {
+  'error.appTitle': 'Die App konnte nicht geladen werden',
+  'error.appHint':
+    'Bitte lade die App neu. Dein gespeicherter Verlauf bleibt erhalten.',
   'error.modeTitle': 'Dieser Modus konnte nicht geladen werden',
   'error.modeHint':
     'Bitte setze den Modus zurück oder wechsle zu einem anderen Modus. Gespeicherter Verlauf bleibt erhalten.',

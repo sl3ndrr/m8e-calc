@@ -1,5 +1,7 @@
 import type { Dictionary } from '../i18n';
 export const en: Dictionary = {
+  'error.appTitle': 'The app could not be loaded',
+  'error.appHint': 'Please reload the app. Your saved history is kept.',
   'error.modeTitle': 'This mode could not be loaded',
   'error.modeHint':
     'Please reset this mode or switch to another mode. Saved history is preserved.',

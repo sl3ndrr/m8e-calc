@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './app/App';
+import { AppErrorBoundary } from './app/AppErrorBoundary';
 import './styles/base.css';
 import { initializeTheme } from './app/theme';
 import { installGlobalErrorHandlers } from './app/globalErrors';
@@ -17,7 +18,9 @@ if (!root) throw new Error('Missing root element');
 const mount = () =>
   createRoot(root).render(
     <StrictMode>
-      <App />
+      <AppErrorBoundary>
+        <App />
+      </AppErrorBoundary>
     </StrictMode>,
   );
 void Promise.all([

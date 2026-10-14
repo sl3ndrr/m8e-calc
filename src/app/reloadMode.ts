@@ -12,12 +12,48 @@ export async function refreshModeChunk(
   origin: string,
   request: typeof fetch = fetch,
 ): Promise<void> {
+  const names = [
+    chunks[mode],
+    ...(mode === 'scientific' ? ['ExpressionEditor-', 'MathDisplay-'] : []),
+    ...(mode === 'graph' ? ['ExpressionEditor-'] : []),
+  ];
+  await refreshChunks(names, resources, origin, request);
+}
+export async function refreshAppChunks(
+  resources: readonly { name: string }[],
+  origin: string,
+  request: typeof fetch = fetch,
+): Promise<void> {
+  await refreshChunks(
+    [
+      ...Object.values(chunks),
+      'ExpressionEditor-',
+      'MathDisplay-',
+      'SettingsDialog-',
+      'HistorySheet-',
+      'CommandPalette-',
+      'AccentPanel-',
+      'DesignLab-',
+    ],
+    resources,
+    origin,
+    request,
+  );
+}
+async function refreshChunks(
+  names: readonly string[],
+  resources: readonly { name: string }[],
+  origin: string,
+  request: typeof fetch,
+): Promise<void> {
   const urls = resources
     .map((resource) => new URL(resource.name, origin))
     .filter(
       (url) =>
         url.origin === origin &&
-        url.pathname.split('/').at(-1)?.startsWith(chunks[mode]) &&
+        names.some((name) =>
+          url.pathname.split('/').at(-1)?.startsWith(name),
+        ) &&
         url.pathname.endsWith('.js'),
     );
   await Promise.all(

@@ -186,3 +186,11 @@ Vor dem ersten React-Paint werden die drei bereits vorgeladenen lokalen Fonts
 abgewartet; ein Fontfehler fällt auf die Systemschrift zurück. Die Editor-
 Ladefläche reserviert die spätere Höhe. `localePlugin.ts` begrenzt ausschließlich
 Upstream-Widget-Wörterbücher auf die beiden unterstützten Sprachen de/en.
+
+Eine äußere `AppErrorBoundary` hält Fehler gemeinsamer Dialoge und der Shell
+abfangbar; sie zeigt eine lokalisierte Fehlerseite und Snackbar, fokussiert den
+Reset und lädt nach Cache-Refresh neu. `loadModeModule` kennzeichnet auch
+fehlgeschlagene nested Editor-/Formelimporte als `ModeLoadError`; ein bloßes
+Remount kann die von React.lazy und dem Browser gecachte Ablehnung nicht lösen.
+Der Cache-Refresh umfasst die betroffenen Editor-/Formel- bzw. Shell-Chunks
+und bleibt auf die eigene Origin begrenzt.

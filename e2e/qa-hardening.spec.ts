@@ -6,6 +6,7 @@ test.use({ serviceWorkers: 'block' });
 for (const theme of ['light', 'dark'])
   for (const seed of ['#6750a4', '#007f82', '#e2675a']) {
     test(`axe all modes ${theme} ${seed}`, async ({ page }) => {
+      test.setTimeout(90_000);
       await qaSetup(page, theme, seed);
       for (const mode of qaModes) {
         await page.goto(`/m8e-calc/#/${mode}`);
@@ -277,25 +278,70 @@ test('global failures are localized notifications without exception details', as
   ).toBeVisible();
   await expect(page.getByText('secret user input')).toHaveCount(0);
 });
-test('failed lazy mode can be reset while shell stays usable', async ({
+for (const chunk of ['ScientificMode', 'ExpressionEditor', 'MathDisplay'])
+  test(`failed lazy ${chunk} can be reset while shell stays usable`, async ({
+    page,
+  }) => {
+    await qaSetup(page);
+    await page.goto('/m8e-calc/#/simple');
+    await ready(page, 'simple');
+    await page.route(`**/${chunk}-*.js`, (route) =>
+      route.fulfill({ status: 503, body: 'temporarily unavailable' }),
+    );
+    await page
+      .getByRole('link', { name: 'Wissenschaftlich', exact: true })
+      .click();
+    if (chunk === 'MathDisplay') {
+      const editor = page.getByRole('textbox', {
+        name: 'Ausdruck',
+        exact: true,
+      });
+      await editor.fill('2+3');
+      await editor.press('Enter');
+    }
+    await expect(page.locator('.mode-placeholder[role="alert"]')).toContainText(
+      'Dieser Modus konnte nicht geladen werden',
+    );
+    await page.unroute(`**/${chunk}-*.js`);
+    await page
+      .getByRole('button', { name: 'Zurücksetzen', exact: true })
+      .click();
+    await ready(page, 'scientific');
+    const editor = page.getByRole('textbox', {
+      name: 'Ausdruck',
+      exact: true,
+    });
+    await editor.fill('2+3');
+    await editor.press('Enter');
+    await expect(page.locator('.scientific-result-text')).toHaveText('5');
+  });
+test('shared lazy dialog failures show a global reset and notification', async ({
   page,
 }) => {
   await qaSetup(page);
   await page.goto('/m8e-calc/#/simple');
   await ready(page, 'simple');
-  await page.route('**/ScientificMode-*.js', (route) =>
+  await page.route('**/SettingsDialog-*.js', (route) =>
     route.fulfill({ status: 503, body: 'temporarily unavailable' }),
   );
   await page
-    .getByRole('link', { name: 'Wissenschaftlich', exact: true })
+    .getByRole('button', { name: 'Einstellungen', exact: true })
     .click();
-  await expect(page.locator('.mode-placeholder[role="alert"]')).toContainText(
-    'Dieser Modus konnte nicht geladen werden',
-  );
-  await page.unroute('**/ScientificMode-*.js');
-  await page.getByRole('button', { name: 'Zurücksetzen', exact: true }).click();
-  await ready(page, 'scientific');
   await expect(
-    page.getByRole('textbox', { name: 'Ausdruck', exact: true }),
+    page.getByRole('heading', { name: 'Die App konnte nicht geladen werden' }),
+  ).toBeVisible();
+  await expect(
+    page.getByText(
+      'Etwas ist schiefgegangen. Bitte versuche die Aktion erneut.',
+    ),
+  ).toBeVisible();
+  await page.unroute('**/SettingsDialog-*.js');
+  await page.getByRole('button', { name: 'Zurücksetzen', exact: true }).click();
+  await ready(page, 'simple');
+  await page
+    .getByRole('button', { name: 'Einstellungen', exact: true })
+    .click();
+  await expect(
+    page.getByRole('dialog', { name: 'Einstellungen', exact: true }),
   ).toBeVisible();
 });

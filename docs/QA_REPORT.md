@@ -54,8 +54,8 @@ Hash-Moduswechsel während des Warm-up werden gesondert protokolliert (zuletzt
 
 | Prüfung                    | Vorher                                                    | Nachher                                                                                        |
 | -------------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| Gesamtcheck                | 50 Dateien, 1.978 Tests; grün                             | 54 Dateien, 1.987 Tests; lokaler Gesamtcheck grün                                              |
-| Initiales JavaScript       | 313.108 Byte gzip                                         | 197.249 Byte gzip (−37,0%; Budget bestanden)                                                   |
+| Gesamtcheck                | 50 Dateien, 1.978 Tests; grün                             | 55 Dateien, 1.990 Tests; Wiederholungsprüfung nach Wiederherstellung läuft                     |
+| Initiales JavaScript       | 313.108 Byte gzip                                         | letzter veröffentlichter Stand: 197.249 Byte gzip; neuer Stand wird gemessen                   |
 | CodeMirror / KaTeX / Graph | eigene Chunks; schwere Shell-Imports trotzdem eager       | alle drei außerhalb des initialen Importgraphen                                                |
 | Textkontrast-Minimum       | 4,577:1                                                   | 4,577:1                                                                                        |
 | UI-Kontrast-Minimum        | 2,920:1; 64 Outline-Unterschreitungen                     | 3,035:1; 0 Fehler bei 36.480 Prüfungen                                                         |
@@ -94,6 +94,9 @@ Vorher/Nachher: Median aus drei Läufen je Modus. Nachher aus [QA-Lauf 385710746
 | QA-10 | P2        | Keine Browser-/Screenshot-/Lighthouse-/Ressourcen-Gates. Reproduzierbare Projekte und Messskripte ergänzt. Kritische lokale Fonts sind bereits gesubsettet/preloaded; Font-Readiness und reservierte Editorhöhe verhindern späte Größenänderung. Platz des asynchron angebotenen PWA-Installationsbuttons wird reserviert.     |
 | QA-11 | P2        | KaTeX-Auditbefund. Auf 0.18.10 aktualisiert; vollständiges Audit einschließlich Entwicklungsabhängigkeiten als Gate.                                                                                                                                                                                                           |
 | QA-12 | P3        | Ungenutzter Modus-Platzhalter und zugehörige CSS-Regeln entfernt; unnötiges `@types/katex` nach Umstellung auf KaTeX mit eigenen Typen entfernt; verbleibende direkte Dependencies haben Laufzeit-, Test- oder Font-Generierungsverwendungen.                                                                                  |
+
+| QA-13 | P1 | Fehlgeschlagene nested Editor-/Formelimporte blieben trotz Remount abgewiesen. `ModeLoadError` auch für diese Imports; Cache-Refresh und Reload beim Reset. Gezielte 503-Prüfungen für Modus, Editor und Formelrenderer. |
+| QA-14 | P1 | Gemeinsame Dialogfehler lagen außerhalb der Modusgrenzen. Äußere App-Fehlergrenze mit freundlicher Seite, fokussiertem Reset, globaler Snackbar und lokalem Cache-Refresh. Gezielte Settings-503-Prüfung. |
 
 Defekter JSON-/Theme-Cache, unbekannte zukünftige Versionen, verweigerter Storage
 und Quota-Fehler werden in jedem Modus geprüft. Bestehende Migrationstests bleiben

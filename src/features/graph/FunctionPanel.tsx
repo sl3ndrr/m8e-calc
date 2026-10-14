@@ -17,7 +17,10 @@ import {
   type PlotAction,
 } from './model';
 import type { AnalysisKind } from './analysisAdapter';
-const Editor = lazy(() => import('../scientific/ExpressionEditor'));
+import { loadModeModule } from '../../app/ModeErrorBoundary';
+const Editor = lazy(() =>
+  loadModeModule(import('../scientific/ExpressionEditor')),
+);
 interface Props {
   rows: readonly ParsedRow[];
   colors: readonly string[];

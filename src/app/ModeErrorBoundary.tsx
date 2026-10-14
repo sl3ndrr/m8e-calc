@@ -7,6 +7,11 @@ interface Props {
   onReset: (reload: boolean) => void;
 }
 export class ModeLoadError extends Error {}
+export function loadModeModule<T>(loading: Promise<T>): Promise<T> {
+  return loading.catch(() => {
+    throw new ModeLoadError('Mode load failed');
+  });
+}
 /** A failing lazy import or render must leave the shell and other modes usable. */
 export class ModeErrorBoundary extends Component<
   Props,

@@ -1,7 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import { ModeErrorBoundary } from './ModeErrorBoundary';
+import {
+  ModeErrorBoundary,
+  ModeLoadError,
+  loadModeModule,
+} from './ModeErrorBoundary';
 import { supportedEasing } from './browserMotion';
 import { installGlobalErrorHandlers } from './globalErrors';
 import { snackbarQueue } from '../ui/snackbarQueue';
@@ -40,4 +44,27 @@ it('coalesces global failures, localizes them and removes both handlers', () => 
   stop();
   window.dispatchEvent(new Event('error'));
   expect(snackbarQueue.visibleToasts).toHaveLength(0);
+});
+it('uses a reload reset for rejected nested mode modules', async () => {
+  const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+  let failure: unknown;
+  try {
+    await loadModeModule(Promise.reject(Error('private import')));
+  } catch (error) {
+    failure = error;
+  }
+  expect(failure).toBeInstanceOf(ModeLoadError);
+  function Broken(): never {
+    throw failure;
+  }
+  const reset = vi.fn();
+  render(
+    <ModeErrorBoundary locale="de" onReset={reset}>
+      <Broken />
+    </ModeErrorBoundary>,
+  );
+  await userEvent.setup().keyboard('{Enter}');
+  expect(reset).toHaveBeenCalledWith(true);
+  expect(screen.queryByText('private import')).toBeNull();
+  consoleError.mockRestore();
 });

@@ -55,8 +55,11 @@ import './ScientificMode.css';
 import { CopyLinkButton } from '../../app/CopyLinkButton';
 import { readModeLink, validateScientificLink } from '../../app/permalinks';
 import { useScientificInsertion } from '../../app/scientificInsertion';
-const ExpressionEditor = lazy(() => import('./ExpressionEditor'));
-const MathDisplay = lazy(() => import('./MathDisplay'));
+import { loadModeModule } from '../../app/ModeErrorBoundary';
+const ExpressionEditor = lazy(() =>
+  loadModeModule(import('./ExpressionEditor')),
+);
+const MathDisplay = lazy(() => loadModeModule(import('./MathDisplay')));
 export default function ScientificMode() {
   const wide = useMediaQuery('(min-width: 1920px)');
   const locale = useAppStore((s) => s.locale);
