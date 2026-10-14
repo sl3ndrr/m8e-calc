@@ -4,7 +4,7 @@ import type { FormatOptions } from '../engine/types.ts';
 export type UnitLocale = 'de' | 'en';
 export type UnitSystem = 'si' | 'imperial' | 'us' | 'other';
 export interface DynamicRateProvider {
-  /** Future AP17 adapter: supply an already acquired rate; no IO in this domain. */
+  /** Supply an already acquired rate; no IO in this domain. */
   readonly id: string;
   readonly rateToBase: (unitId: string) => Decimal;
 }

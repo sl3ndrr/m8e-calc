@@ -1,4 +1,26 @@
 export const de = {
+  'currency.online': 'Online-Kurse laden',
+  'currency.category': 'Währung',
+  'currency.privacy':
+    'Standardmäßig aus. Nur nach Zustimmung lädt der Umrechner EZB-Referenzkurse über Frankfurter (api.frankfurter.dev). Dabei erhält der Dienst deine IP-Adresse und technische Verbindungsdaten. Beträge, Berechnungen und Verlauf bleiben auf deinem Gerät. Kurse und Abrufzeit werden lokal gespeichert; du kannst die Funktion jederzeit abschalten.',
+  'currency.refresh': 'Kurse aktualisieren',
+  'currency.loading': 'Währungskurse werden geladen',
+  'currency.source': 'Quelle: Europäische Zentralbank (EZB) über Frankfurter',
+  'currency.date': 'Stand: {date}',
+  'currency.stale': 'veraltet',
+  'currency.fallback':
+    'Offline-Fallback: Der letzte gespeicherte Stand wird verwendet.',
+  'currency.unavailable':
+    'Noch keine Kurse verfügbar. Online laden oder später erneut versuchen.',
+  'currency.disclaimer': 'Keine Anlageberatung, Kurse unverbindlich',
+  'currency.error.network':
+    'Die Kurse konnten wegen eines Netzwerkfehlers nicht geladen werden. Ein gespeicherter Stand bleibt verfügbar.',
+  'currency.error.api':
+    'Die Kurs-API liefert keine gültigen Kurse. Ein gespeicherter Stand bleibt verfügbar.',
+  'currency.error.timeout':
+    'Zeitüberschreitung beim Laden der Kurse. Bitte später erneut versuchen.',
+  'currency.error.offline':
+    'Du bist offline. Falls vorhanden, wird der letzte gespeicherte Kursstand verwendet.',
   'error.appTitle': 'Die App konnte nicht geladen werden',
   'error.appHint':
     'Bitte lade die App neu. Dein gespeicherter Verlauf bleibt erhalten.',

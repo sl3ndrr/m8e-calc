@@ -26,7 +26,8 @@ export function cspPlugin(): Plugin {
           "style-src 'self' 'unsafe-inline'",
           "img-src 'self' data: blob:",
           "font-src 'self'",
-          "connect-src 'self'",
+          // Sole external runtime exception: opted-in ECB reference rates.
+          "connect-src 'self' https://api.frankfurter.dev/v2/providers/ecb/rates",
           "worker-src 'self'",
           "manifest-src 'self'",
           "base-uri 'none'",

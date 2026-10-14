@@ -25,7 +25,7 @@ export function importSettings(content: string): Settings {
     parsed === null ||
     !('version' in parsed) ||
     typeof parsed.version !== 'number' ||
-    ![0, 1, 2, SETTINGS_VERSION].includes(parsed.version) ||
+    ![0, 1, 2, 3, SETTINGS_VERSION].includes(parsed.version) ||
     !('settings' in parsed) ||
     typeof parsed.settings !== 'object' ||
     parsed.settings === null ||
@@ -41,5 +41,5 @@ export function importSettings(content: string): Settings {
   }
   if (!Object.keys(parsed.settings).length)
     throw new TypeError('Empty settings file');
-  return settings;
+  return { ...settings, onlineRates: false };
 }

@@ -21,6 +21,21 @@ function memoryStorage(initial: string | null = null) {
   };
 }
 describe('settings', () => {
+  it('requires explicit consent and migrates older settings without consent', () => {
+    expect(defaultSettings().onlineRates).toBe(false);
+    expect(normalizeSettings({ onlineRates: 'true' }).onlineRates).toBe(false);
+    expect(normalizeSettings({ onlineRates: true }).onlineRates).toBe(true);
+    for (const version of [0, 1, 2, 3, 999])
+      expect(migrateSettings({ onlineRates: true }, version).onlineRates).toBe(
+        false,
+      );
+    const storage = memoryStorage();
+    const store = createSettingsStore(storage);
+    store.getState().updateSettings({ onlineRates: true });
+    expect(createSettingsStore(storage).getState().onlineRates).toBe(true);
+    store.getState().resetSettings();
+    expect(store.getState().onlineRates).toBe(false);
+  });
   it('validates UI size and migrates the v2 presentation defaults', () => {
     expect(normalizeSettings({ uiSize: 200 }).uiSize).toBe(150);
     expect(normalizeSettings({ uiSize: 0 }).uiSize).toBe(80);
@@ -62,7 +77,7 @@ describe('settings', () => {
       motionLevel: 'off',
     });
     const payload = JSON.parse(storage.getItem() ?? '{}');
-    expect(payload.version).toBe(3);
+    expect(payload.version).toBe(4);
     expect(payload.state.updateSettings).toBeUndefined();
     expect(createSettingsStore(storage).getState()).toMatchObject(
       payload.state,

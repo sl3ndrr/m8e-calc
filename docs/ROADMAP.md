@@ -18,7 +18,7 @@ Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet integriert (Merge auf `
 - [x] 14 Komfort — Command Palette, zentrale Tastenkürzel, versionierte Permalinks, UI-Größe/Präsentation und vorgezogenes PWA/Offline (PR `feat/comfort`; Vertrag und Kürzel in `COMFORT.md`, integriert); Verlauf mit Suche/Pins/Export sowie de/en und proportionale Desktop-Skalierung sind in AP4 vorgezogen.
 - [x] 15 Hardening — weitere PWA-/Installations-/Browserabnahme, Datenschutz, Performance und Accessibility; Offline-Fundament in AP14 vorgezogen.
 - [ ] 16 Release — Dokumentation, Bildskript, Version 1.0.0, Changelog und Lizenzvorschlag in `feat/release` vorbereitet. Review, MIT-Bestätigung, finale Checks, Pages-Abnahme und Veröffentlichung stehen aus; siehe [RELEASE.md](RELEASE.md).
-- [ ] 17 Währungen (optional) — erst nach Klärung einer datenschutzkonformen Datenstrategie ohne externe Laufzeitrequests.
+- [ ] 17 Währungen (optional) — `feat/currency`: explizites Opt-in, EZB/Frankfurter-v2-Provider, Cache und Offline-Fallback. Abnahme über PR/CI; Details in `UNITS.md`.
 
 AP3: Komponentenbibliothek in `src/ui`, Zustandsmatrix im Design-Lab, Tastatur-/axe-Tests und reproduzierbare Galerie-Screenshots; Konventionen in `docs/COMPONENTS.md`. AP4 verwendet diese Bausteine für die Shell.
 
@@ -39,4 +39,6 @@ PR #20 ist gemergt; automatisierte Nachweise stehen im QA-Bericht. Die manuelle 
 
 ## Integrationsnachweise
 
-AP1–AP15 sind über die gemergten PRs #1, #3, #5–#10, #13–#16 und #18–#20 auf `main` integriert. AP17 ist nicht umgesetzt. Die früheren Abnahmevorbehalte in den Paketbeschreibungen sind durch diesen Integrationsstand ersetzt; offene Qualitätsgrenzen bleiben im [QA-Bericht](QA_REPORT.md).
+AP1–AP15 sind über die gemergten PRs #1, #3, #5–#10, #13–#16 und #18–#20 auf `main` integriert. AP17 ist in `feat/currency` vorbereitet, noch nicht gemergt. Die früheren Abnahmevorbehalte in den Paketbeschreibungen sind durch diesen Integrationsstand ersetzt; offene Qualitätsgrenzen bleiben im [QA-Bericht](QA_REPORT.md).
+
+AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und Permalinks.

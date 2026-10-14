@@ -51,6 +51,9 @@ import {
 } from './model';
 import { useConvertStore } from './preferences';
 import './ConvertMode.css';
+import { CurrencyPanel } from './currency/CurrencyPanel';
+import { currencyCategory } from './currency/catalog';
+import { useCurrencyRates } from './currency/useCurrencyRates';
 import {
   shortcutMatches,
   isInputTarget,
@@ -137,6 +140,7 @@ const categorySymbols: Record<string, string> = {
   data: '01',
   'data-rate': '01/s',
   charge: '±',
+  currency: '¤',
 };
 const signature = (state: ConvertState): string =>
   `${pairKey(state)}:${state.value}`;
@@ -145,10 +149,14 @@ export default function ConvertMode() {
     ...initialConvertState(),
     ...(readModeLink('convert', restorePayload) ?? {}),
   }));
+  const [selectedCurrency, setSelectedCurrency] = useState(false);
   const [search, setSearch] = useState('');
   const [query, setQuery] = useState('');
   const [queryError, setQueryError] = useState<ConvertState['error']>(null);
   const locale = useAppStore((s) => s.locale);
+  const onlineRates = useSettingsStore((s) => s.onlineRates);
+  const currencyActive = onlineRates && selectedCurrency;
+  const rates = useCurrencyRates(onlineRates, locale);
   const decimalSeparator = useSettingsStore((s) => s.decimalSeparator);
   const grouping = useSettingsStore((s) => s.grouping);
   const preferences = useConvertStore();
@@ -159,6 +167,19 @@ export default function ConvertMode() {
   const sent = useRef('');
   const category = categoryFor(state.categoryId);
   const categories = filteredCategories(search, locale);
+  const currency = useMemo(() => currencyCategory(), []);
+  const visibleCategories =
+    onlineRates &&
+    currency.names[locale]
+      .toLocaleLowerCase(locale)
+      .includes(search.trim().toLocaleLowerCase(locale))
+      ? [...categories, currency]
+      : categories;
+  const visibleCategory = currencyActive ? currency : category;
+  function selectCategory(id: string): void {
+    setSelectedCurrency(id === 'currency');
+    if (id !== 'currency') dispatch({ type: 'category', id });
+  }
   const formatLocale = numberLocale(locale, { decimalSeparator, grouping });
   const options = {
     digits: preferences.digits,
@@ -185,7 +206,12 @@ export default function ConvertMode() {
   }, []);
   const { add } = useModeHistory('convert', restore);
   useEffect(() => {
-    if (!state.revision || state.error || sent.current === signature(state))
+    if (
+      currencyActive ||
+      !state.revision ||
+      state.error ||
+      sent.current === signature(state)
+    )
       return;
     const timer = window.setTimeout(() => {
       const latest = useHistoryStore
@@ -212,6 +238,7 @@ export default function ConvertMode() {
     // Formatting preferences must not reset the quiet period or create history.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
+    currencyActive,
     state.value,
     state.fromId,
     state.toId,
@@ -224,6 +251,7 @@ export default function ConvertMode() {
   useEffect(() => {
     function keydown(event: KeyboardEvent): void {
       if (
+        currencyActive ||
         event.isComposing ||
         !root.current ||
         root.current.closest('[inert]') ||
@@ -266,7 +294,7 @@ export default function ConvertMode() {
     }
     window.addEventListener('keydown', keydown);
     return () => window.removeEventListener('keydown', keydown);
-  }, [formatLocale, grouping]);
+  }, [currencyActive, formatLocale, grouping]);
 
   function applyQuery(): void {
     const next = convertReducer(state, {
@@ -348,7 +376,7 @@ export default function ConvertMode() {
       aria-label={t('convert.title', locale)}
     >
       <header className="convert-heading">
-        <CopyLinkButton mode="convert" data={state} />
+        {!currencyActive && <CopyLinkButton mode="convert" data={state} />}
         <div>
           <p className="shell-eyebrow">{t('convert.eyebrow', locale)}</p>
           <h1>{t('convert.title', locale)}</h1>
@@ -361,6 +389,7 @@ export default function ConvertMode() {
         className="convert-quick"
         onSubmit={(event) => {
           event.preventDefault();
+          setSelectedCurrency(false);
           applyQuery();
         }}
       >
@@ -425,23 +454,23 @@ export default function ConvertMode() {
                 buttons.length,
                 columns,
               );
-              const next = categories[nextIndex];
+              const next = visibleCategories[nextIndex];
               if (next) {
-                dispatch({ type: 'category', id: next.id });
+                selectCategory(next.id);
                 buttons[nextIndex]?.focus();
               }
             }}
           >
-            {categories.map((c) => (
+            {visibleCategories.map((c) => (
               <Card
                 key={c.id}
                 className="convert-category"
-                data-active={c.id === category.id || undefined}
+                data-active={c.id === visibleCategory.id || undefined}
               >
                 <Button
                   variant="text"
-                  isSelected={c.id === category.id}
-                  onPress={() => dispatch({ type: 'category', id: c.id })}
+                  isSelected={c.id === visibleCategory.id}
+                  onPress={() => selectCategory(c.id)}
                 >
                   <span aria-hidden="true" className="convert-category-icon">
                     {categorySymbols[c.id] ?? '±'}
@@ -451,224 +480,247 @@ export default function ConvertMode() {
               </Card>
             ))}
           </div>
-          {!categories.length && (
+          {!visibleCategories.length && (
             <p role="status">{t('history.noResults', locale)}</p>
           )}
         </aside>
-        <div className="convert-main" key={category.id}>
-          <div className="convert-category-heading">
-            <h2>{category.names[locale]}</h2>
-            <Button
-              variant="text"
-              isSelected={favorite}
-              onPress={() => preferences.toggleFavorite(state)}
-              aria-label={t(
-                favorite ? 'convert.unfavorite' : 'convert.favorite',
-                locale,
-              )}
-            >
-              <Icon name="push_pin" filled={favorite} />
-              {t('convert.pair', locale)}
-            </Button>
-          </div>
-          <div className="convert-fields">
-            <Card className="convert-field">
-              <div ref={fromField}>
-                <TextField
-                  label={t('convert.from', locale)}
-                  inputMode="decimal"
-                  value={fromText}
-                  onChange={(text) =>
-                    dispatch({
-                      type: 'edit',
-                      side: 'from',
-                      text,
-                      locale: formatLocale,
-                      grouping,
-                    })
-                  }
-                  isInvalid={!!state.error && state.draft?.side !== 'to'}
-                  errorMessage={
-                    state.error && state.draft?.side !== 'to'
-                      ? t(`convert.error.${state.error}`, locale)
-                      : undefined
-                  }
+        {currencyActive ? (
+          <CurrencyPanel rates={rates} locale={locale} />
+        ) : (
+          <>
+            <div className="convert-main" key={category.id}>
+              <div className="convert-category-heading">
+                <h2>{category.names[locale]}</h2>
+                <Button
+                  variant="text"
+                  isSelected={favorite}
+                  onPress={() => preferences.toggleFavorite(state)}
+                  aria-label={t(
+                    favorite ? 'convert.unfavorite' : 'convert.favorite',
+                    locale,
+                  )}
+                >
+                  <Icon name="push_pin" filled={favorite} />
+                  {t('convert.pair', locale)}
+                </Button>
+              </div>
+              <div className="convert-fields">
+                <Card className="convert-field">
+                  <div ref={fromField}>
+                    <TextField
+                      label={t('convert.from', locale)}
+                      inputMode="decimal"
+                      value={fromText}
+                      onChange={(text) =>
+                        dispatch({
+                          type: 'edit',
+                          side: 'from',
+                          text,
+                          locale: formatLocale,
+                          grouping,
+                        })
+                      }
+                      isInvalid={!!state.error && state.draft?.side !== 'to'}
+                      errorMessage={
+                        state.error && state.draft?.side !== 'to'
+                          ? t(`convert.error.${state.error}`, locale)
+                          : undefined
+                      }
+                    />
+                  </div>
+                  <Select
+                    searchable
+                    label={t('convert.fromUnit', locale)}
+                    options={pickerOptions}
+                    selectedKey={state.fromId}
+                    onSelectionChange={(key) => {
+                      if (key)
+                        dispatch({
+                          type: 'unit',
+                          side: 'from',
+                          id: String(key),
+                        });
+                    }}
+                  />
+                </Card>
+                <Fab
+                  icon="swap_horiz"
+                  aria-label={t('convert.swap', locale)}
+                  title={`${t('convert.swap', locale)} · ${shortcutHint('convert.swap')}`}
+                  className="convert-swap"
+                  isDisabled={!!state.error}
+                  onPress={() => dispatch({ type: 'swap' })}
+                  style={{ rotate: `${state.swaps * 180}deg` }}
+                />
+                <Card className="convert-field convert-target">
+                  <TextField
+                    label={t('convert.to', locale)}
+                    inputMode="decimal"
+                    value={toText}
+                    onChange={(text) =>
+                      dispatch({
+                        type: 'edit',
+                        side: 'to',
+                        text,
+                        locale: formatLocale,
+                        grouping,
+                      })
+                    }
+                    isInvalid={!!state.error && state.draft?.side === 'to'}
+                    errorMessage={
+                      state.error && state.draft?.side === 'to'
+                        ? t(`convert.error.${state.error}`, locale)
+                        : undefined
+                    }
+                  />
+                  <Select
+                    searchable
+                    label={t('convert.toUnit', locale)}
+                    options={pickerOptions}
+                    selectedKey={state.toId}
+                    onSelectionChange={(key) => {
+                      if (key)
+                        dispatch({ type: 'unit', side: 'to', id: String(key) });
+                    }}
+                  />
+                </Card>
+              </div>
+              <div className="convert-live">
+                {!state.error && values[state.toId] && (
+                  <>
+                    <AnimatedNumber
+                      value={values[state.toId] ?? '0'}
+                      unitId={state.toId}
+                      options={options}
+                    />
+                    <span>{unitFor(state.toId).symbol}</span>
+                    <Button
+                      variant="text"
+                      aria-label={t('convert.copyResult', locale)}
+                      onPress={() => {
+                        void copy(
+                          quantity(
+                            values[state.toId] ?? '0',
+                            state.toId,
+                            options,
+                          ),
+                        );
+                      }}
+                    >
+                      <Icon name="content_copy" />
+                    </Button>
+                  </>
+                )}
+              </div>
+              <div className="convert-format">
+                <Slider
+                  label={t('convert.precision', locale)}
+                  minValue={1}
+                  maxValue={50}
+                  step={1}
+                  value={preferences.digits}
+                  onChange={(digits) => preferences.update({ digits })}
+                />
+                <Select
+                  label={t('convert.notation', locale)}
+                  selectedKey={preferences.notation}
+                  onSelectionChange={(key) => {
+                    if (key === 'auto' || key === 'sci' || key === 'eng')
+                      preferences.update({ notation: key });
+                  }}
+                  options={(['auto', 'sci', 'eng'] as const).map((id) => ({
+                    id,
+                    label: t(`convert.notation.${id}`, locale),
+                  }))}
                 />
               </div>
-              <Select
-                searchable
-                label={t('convert.fromUnit', locale)}
-                options={pickerOptions}
-                selectedKey={state.fromId}
-                onSelectionChange={(key) => {
-                  if (key)
-                    dispatch({ type: 'unit', side: 'from', id: String(key) });
-                }}
-              />
-            </Card>
-            <Fab
-              icon="swap_horiz"
-              aria-label={t('convert.swap', locale)}
-              title={`${t('convert.swap', locale)} · ${shortcutHint('convert.swap')}`}
-              className="convert-swap"
-              isDisabled={!!state.error}
-              onPress={() => dispatch({ type: 'swap' })}
-              style={{ rotate: `${state.swaps * 180}deg` }}
-            />
-            <Card className="convert-field convert-target">
-              <TextField
-                label={t('convert.to', locale)}
-                inputMode="decimal"
-                value={toText}
-                onChange={(text) =>
-                  dispatch({
-                    type: 'edit',
-                    side: 'to',
-                    text,
-                    locale: formatLocale,
-                    grouping,
-                  })
-                }
-                isInvalid={!!state.error && state.draft?.side === 'to'}
-                errorMessage={
-                  state.error && state.draft?.side === 'to'
-                    ? t(`convert.error.${state.error}`, locale)
-                    : undefined
-                }
-              />
-              <Select
-                searchable
-                label={t('convert.toUnit', locale)}
-                options={pickerOptions}
-                selectedKey={state.toId}
-                onSelectionChange={(key) => {
-                  if (key)
-                    dispatch({ type: 'unit', side: 'to', id: String(key) });
-                }}
-              />
-            </Card>
-          </div>
-          <div className="convert-live">
-            {!state.error && values[state.toId] && (
-              <>
-                <AnimatedNumber
-                  value={values[state.toId] ?? '0'}
-                  unitId={state.toId}
-                  options={options}
-                />
-                <span>{unitFor(state.toId).symbol}</span>
-                <Button
-                  variant="text"
-                  aria-label={t('convert.copyResult', locale)}
-                  onPress={() => {
-                    void copy(
-                      quantity(values[state.toId] ?? '0', state.toId, options),
-                    );
-                  }}
+              {['length', 'time'].includes(category.id) && (
+                <Checkbox
+                  isSelected={preferences.compound}
+                  onChange={(compound) => preferences.update({ compound })}
                 >
-                  <Icon name="content_copy" />
-                </Button>
-              </>
-            )}
-          </div>
-          <div className="convert-format">
-            <Slider
-              label={t('convert.precision', locale)}
-              minValue={1}
-              maxValue={50}
-              step={1}
-              value={preferences.digits}
-              onChange={(digits) => preferences.update({ digits })}
-            />
-            <Select
-              label={t('convert.notation', locale)}
-              selectedKey={preferences.notation}
-              onSelectionChange={(key) => {
-                if (key === 'auto' || key === 'sci' || key === 'eng')
-                  preferences.update({ notation: key });
-              }}
-              options={(['auto', 'sci', 'eng'] as const).map((id) => ({
-                id,
-                label: t(`convert.notation.${id}`, locale),
-              }))}
-            />
-          </div>
-          {['length', 'time'].includes(category.id) && (
-            <Checkbox
-              isSelected={preferences.compound}
-              onChange={(compound) => preferences.update({ compound })}
+                  {t('convert.compound', locale)}
+                </Checkbox>
+              )}
+              {compound && (
+                <output className="convert-compound">{compound}</output>
+              )}
+              {yearNote && (
+                <p className="convert-note">{t('convert.yearNote', locale)}</p>
+              )}
+              {machNote && (
+                <p className="convert-note">{t('convert.machNote', locale)}</p>
+              )}
+              {pairList(preferences.favorites, 'convert.favorites')}
+              {pairList(preferences.recent, 'convert.recent')}
+              <p className="convert-keyboard-hint">
+                {t('convert.keyboardHint', locale)}
+              </p>
+            </div>
+            <section
+              className="convert-all"
+              aria-label={t('convert.all', locale)}
             >
-              {t('convert.compound', locale)}
-            </Checkbox>
-          )}
-          {compound && <output className="convert-compound">{compound}</output>}
-          {yearNote && (
-            <p className="convert-note">{t('convert.yearNote', locale)}</p>
-          )}
-          {machNote && (
-            <p className="convert-note">{t('convert.machNote', locale)}</p>
-          )}
-          {pairList(preferences.favorites, 'convert.favorites')}
-          {pairList(preferences.recent, 'convert.recent')}
-          <p className="convert-keyboard-hint">
-            {t('convert.keyboardHint', locale)}
-          </p>
-        </div>
-        <section className="convert-all" aria-label={t('convert.all', locale)}>
-          <div className="convert-all-heading">
-            <h2>{t('convert.all', locale)}</h2>
-            <Select
-              label={t('convert.sort', locale)}
-              selectedKey={preferences.sort}
-              options={(['system', 'size'] as const).map((id) => ({
-                id,
-                label: t(`convert.sort.${id}`, locale),
-              }))}
-              onSelectionChange={(key) => {
-                if (key === 'system' || key === 'size')
-                  preferences.update({ sort: key });
-              }}
-            />
-          </div>
-          <div className="convert-unit-grid">
-            {units.map((unit) => (
-              <Card
-                key={unit.id}
-                className="convert-unit-card"
-                data-active={unit.id === state.toId || undefined}
-              >
-                <Button
-                  variant="text"
-                  isDisabled={!!state.error}
-                  aria-label={t('convert.copyUnit', locale, {
-                    unit: unit.names[locale],
-                  })}
-                  onPress={() => {
-                    const value = values[unit.id];
-                    if (value !== undefined)
-                      void copy(quantity(value, unit.id, options));
+              <div className="convert-all-heading">
+                <h2>{t('convert.all', locale)}</h2>
+                <Select
+                  label={t('convert.sort', locale)}
+                  selectedKey={preferences.sort}
+                  options={(['system', 'size'] as const).map((id) => ({
+                    id,
+                    label: t(`convert.sort.${id}`, locale),
+                  }))}
+                  onSelectionChange={(key) => {
+                    if (key === 'system' || key === 'size')
+                      preferences.update({ sort: key });
                   }}
-                >
-                  <span className="convert-unit-name">
-                    {unit.names[locale]}
-                  </span>
-                  <strong className="expression">
-                    {values[unit.id] !== undefined
-                      ? numericText(values[unit.id] ?? '0', unit.id, options)
-                      : '—'}
-                  </strong>
-                  <span className="convert-unit-symbol">
-                    {unit.symbol}
-                    <Icon name="content_copy" />
-                  </span>
-                  <span className="convert-unit-system">
-                    {t(`convert.system.${unit.system}`, locale)}
-                  </span>
-                </Button>
-              </Card>
-            ))}
-          </div>
-        </section>
+                />
+              </div>
+              <div className="convert-unit-grid">
+                {units.map((unit) => (
+                  <Card
+                    key={unit.id}
+                    className="convert-unit-card"
+                    data-active={unit.id === state.toId || undefined}
+                  >
+                    <Button
+                      variant="text"
+                      isDisabled={!!state.error}
+                      aria-label={t('convert.copyUnit', locale, {
+                        unit: unit.names[locale],
+                      })}
+                      onPress={() => {
+                        const value = values[unit.id];
+                        if (value !== undefined)
+                          void copy(quantity(value, unit.id, options));
+                      }}
+                    >
+                      <span className="convert-unit-name">
+                        {unit.names[locale]}
+                      </span>
+                      <strong className="expression">
+                        {values[unit.id] !== undefined
+                          ? numericText(
+                              values[unit.id] ?? '0',
+                              unit.id,
+                              options,
+                            )
+                          : '—'}
+                      </strong>
+                      <span className="convert-unit-symbol">
+                        {unit.symbol}
+                        <Icon name="content_copy" />
+                      </span>
+                      <span className="convert-unit-system">
+                        {t(`convert.system.${unit.system}`, locale)}
+                      </span>
+                    </Button>
+                  </Card>
+                ))}
+              </div>
+            </section>
+          </>
+        )}
       </div>
     </section>
   );

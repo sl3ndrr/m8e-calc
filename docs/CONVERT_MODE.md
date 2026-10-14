@@ -71,7 +71,7 @@ Einheitensuche, Verlauf/Restore/Persistenz, Reduced Motion und Axe.
 
 ## Offen / Folge-Issues
 
-Keine neuen Kategorien oder dynamischen Kurse (AP17). Browserabnahme außerhalb
+AP17 ergänzt die separate optionale Währungskategorie über explizite DynamicRateProvider; Details in `UNITS.md`. Browserabnahme außerhalb
 Chromium folgt der Roadmap. Globale UI-Skalierung ist in AP14 umgesetzt. Die Sortierung nach
 Größe bezeichnet Definitionsgröße (Basiswert von 1), keine Rangfolge aktuell
 angezeigter Zahlen bei negativen oder reziproken Werten.

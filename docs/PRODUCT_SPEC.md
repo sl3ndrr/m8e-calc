@@ -32,11 +32,11 @@ Ein 3-Wege-Schalter bietet **Hell / System / Dunkel**. Die mittlere Position fol
 - PWA und Offline-Nutzung.
 - UI-Skalierung, Deutsch und Englisch.
 
-Noch offen: Währungen optional in AP17; Datenquelle, Aktualisierung und Offline-Verhalten müssen vorab mit der Regel „keine externen Requests zur Laufzeit“ vereinbar festgelegt werden.
+AP17 ergänzt optionale Währungen: standardmäßig deaktiviert, explizite Zustimmung für EZB-Referenzkurse über Frankfurter. Dies ist die einzige Ausnahme für externe Laufzeitrequests. Quelle, Cache, Aktualität und Offline-Verhalten: `UNITS.md`.
 
 ## Technische Leitplanken
 
-Vite, React 19, TypeScript mit `strict` und `noUncheckedIndexedAccess`, npm und aktuelle Node-LTS (AP1: 24). Zustand für App-State. CSS-Dateien und Custom Properties ohne Tailwind oder UI-Framework. Domänen für Rechnen, Einheiten und Graphen sind reines TypeScript ohne React/DOM. Alle Assets werden lokal ausgeliefert; Fonts bei Verwendung selbst hosten. Keine externen Requests zur Laufzeit.
+Vite, React 19, TypeScript mit `strict` und `noUncheckedIndexedAccess`, npm und aktuelle Node-LTS (AP1: 24). Zustand für App-State. CSS-Dateien und Custom Properties ohne Tailwind oder UI-Framework. Domänen für Rechnen, Einheiten und Graphen sind reines TypeScript ohne React/DOM. Alle Assets werden lokal ausgeliefert; Fonts bei Verwendung selbst hosten. Keine externen Requests zur Laufzeit außer explizit aktivierten EZB-Währungskursen (AP17).
 
 Qualitätssicherung: ESLint Flat Config (typescript-eslint, react-hooks, jsx-a11y), Prettier, Vitest, Testing Library, fast-check und Playwright mit Chromium. PR-CI und Pages-Deployment sind Teil des technischen Fundaments.
 

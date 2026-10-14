@@ -13,7 +13,8 @@ export function bootstrapTheme(defaults: {
     );
     if (
       saved &&
-      (saved.version === 3 ||
+      (saved.version === 4 ||
+        saved.version === 3 ||
         saved.version === 2 ||
         saved.version === 1 ||
         saved.version === 0) &&

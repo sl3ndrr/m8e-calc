@@ -1,5 +1,25 @@
 import type { Dictionary } from '../i18n';
 export const en: Dictionary = {
+  'currency.online': 'Load online rates',
+  'currency.category': 'Currency',
+  'currency.privacy':
+    'Off by default. Only with your consent does the converter fetch ECB reference rates via Frankfurter (api.frankfurter.dev). The service receives your IP address and technical connection data. Amounts, calculations and history stay on your device. Rates and fetch time are stored locally; you can turn this feature off at any time.',
+  'currency.refresh': 'Refresh rates',
+  'currency.loading': 'Loading currency rates',
+  'currency.source': 'Source: European Central Bank (ECB) via Frankfurter',
+  'currency.date': 'As of: {date}',
+  'currency.stale': 'outdated',
+  'currency.fallback': 'Offline fallback: Using the last saved rates.',
+  'currency.unavailable':
+    'No rates available yet. Load online or try again later.',
+  'currency.disclaimer': 'Not investment advice; rates are indicative',
+  'currency.error.network':
+    'Rates could not be loaded due to a network error. Saved rates remain available.',
+  'currency.error.api':
+    'The rate API did not return valid rates. Saved rates remain available.',
+  'currency.error.timeout': 'Loading rates timed out. Please try again later.',
+  'currency.error.offline':
+    'You are offline. The last saved rates will be used if available.',
   'error.appTitle': 'The app could not be loaded',
   'error.appHint': 'Please reload the app. Your saved history is kept.',
   'error.modeTitle': 'This mode could not be loaded',
