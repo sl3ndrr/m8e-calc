@@ -32,6 +32,7 @@ Node 24 LTS (`nvm use`), npm und das eingecheckte `package-lock.json` verwenden.
 | `npm run test`                | Vitest, Testing Library und Property-Tests                             |
 | `npm run test:engine:bench`   | Parse + Eval typischer Ausdrücke; nach Warm-up jeweils unter 1 ms      |
 | `npm run test:e2e`            | Playwright mit Chromium gegen den vorher erstellten Build              |
+| `npm run screenshots`         | Release-Bilder in `docs/img/` aus dem Build erzeugen (eigener Preview) |
 | `npm run screenshots:gallery` | Galerie und Overlays in Hell/Dunkel aufnehmen (Preview vorher starten) |
 | `npm run check`               | lint + typecheck + test + build + Engine-Benchmark                     |
 
@@ -90,3 +91,7 @@ Fehlgeschlagene Editor-/Formelimporte benötigen ebenfalls Cache-Refresh und Rel
 ein Remount allein löst gecachte Importablehnungen nicht.
 Zentraler CSP-Adapter: `scripts/cspPlugin.ts`; Hashes müssen den finalen Inline-Code abdecken.
 Die vollständige Rollenmatrix prüft Text auf Surface-Ebenen; funktionale Outline-Ränder werden auf 3:1 korrigiert. Native Animationen auf dem Startpfad verwenden dieselben zentralen Spring-Tokens und räumen beim Unmount auf.
+
+## AP16 · Release-Vorbereitung
+
+`npm run screenshots` erzeugt die README-Bilder (2560×1440, hell/dunkel) und Social Preview (1280×640) aus dem Produktionsbuild. Anleitung: `docs/RELEASE.md`. Version 1.0.0 und Release Notes sind vorbereitet, nicht veröffentlicht. MIT in LICENSE ist ein Vorschlag und muss vor Veröffentlichung vom Eigentümer bestätigt werden. Keine automatischen Tags, Releases oder Merges.

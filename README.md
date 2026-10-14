@@ -1,29 +1,117 @@
 # m8e-calc
 
-Desktop-Browser-Taschenrechner mit vier geplanten Modi, Material 3 Expressive und GitHub Pages. Dieses Fundament enthält nur eine Platzhalterseite, noch keine Rechenfunktionen.
+Ein Taschenrechner für den Desktop-Browser: vom schnellen Dreisatz bis zu wissenschaftlichen Ausdrücken, Einheiten und interaktiven Funktionsgraphen. m8e-calc rechnet lokal, benötigt kein Konto und bietet eine deutsche und englische Oberfläche.
+
+**[Jetzt im Browser öffnen](https://sl3ndrr.github.io/m8e-calc/)** · [Dokumentation](docs/ARCHITECTURE.md) · [Änderungen](CHANGELOG.md)
+
+## Vier Modi
+
+| Modus | Funktionen |
+| --- | --- |
+| **Einfach** | Grundrechenarten, Prozent, Vorzeichen, Speicher und Tastaturbedienung für alltägliche Rechnungen. |
+| **Wissenschaftlich** | Ausdruckseditor mit Vorschlägen, DEG/RAD/GRAD, komplexe Zahlen, Konstanten, Variablen und eigene Funktionen; Summen, Integrale und Ableitungen. Informatik-Panel mit BigInt-Wörtern, Bitraster, Zahlbasen, IEEE-754 und Unicode. |
+| **Umrechner** | 286 Einheiten in 32 Kategorien, Suche, Favoritenpaare, beidseitige Eingabe und Schnelleingaben wie `5 km in mi` oder `3 ft 4 in`. |
+| **Graphen** | Explizite, parametrische und polare 2D-Kurven, Parameterslider, Pan/Zoom, Trace, Nullstellen, Extrema, Schnittpunkte, Tangenten, Integrale, Wertetabellen und PNG-Export. |
+
+Alle Modi teilen Verlauf mit Suche, Pins und JSON-Export, Befehlspalette, Permalinks und Einstellungen. Hell/System/Dunkel, Akzentfarbe, UI-Größe und Präsentationsmodus passen die Arbeitsfläche an. Nach dem ersten vollständigen Laden ist die App offline nutzbar; unterstützte Browser bieten eine PWA-Installation an.
+
+Numerische Analysis ist näherungsweise. Genauigkeitsgrenzen stehen in [ENGINE.md](docs/ENGINE.md) und [GRAPH.md](docs/GRAPH.md). Implizite Kurven und Währungskurse sind noch nicht enthalten.
+
+## Screenshots
+
+Aktuelle App-Aufnahmen mit deutschen Beispielrechnungen, jeweils **2560 × 1440**, mit `npm run screenshots` erzeugt. Weitere Modi: [Bildverzeichnis](docs/img).
+
+| Hell | Dunkel |
+| --- | --- |
+| ![Einfacher Rechner im hellen Design](docs/img/simple-light.png) | ![Einfacher Rechner im dunklen Design](docs/img/simple-dark.png) |
+| ![Wissenschaftlicher Rechner im hellen Design](docs/img/scientific-light.png) | ![Wissenschaftlicher Rechner im dunklen Design](docs/img/scientific-dark.png) |
+| ![Umrechner im hellen Design](docs/img/convert-light.png) | ![Umrechner im dunklen Design](docs/img/convert-dark.png) |
+| ![Graphen im hellen Design](docs/img/graph-light.png) | ![Graphen im dunklen Design](docs/img/graph-dark.png) |
+
+## Tastenkürzel
+
+Globale Rechnerkürzel gelten außerhalb von Eingabefeldern und Dialogen; die Palette ist auch im Editor erreichbar. Die vollständigen Fokusregeln und Kürzel stehen in [COMFORT.md](docs/COMFORT.md).
+
+| Taste | Aktion / Bereich |
+| --- | --- |
+| Strg+K / Cmd+K | Befehlspalette, alle Modi |
+| `?` | Kürzelübersicht |
+| Alt+1 / Alt+2 / Alt+3 / Alt+4 | Einfach / Wissenschaftlich / Umrechner / Graphen |
+| Strg+H | Verlauf ein-/ausblenden |
+| Strg+, | Einstellungen |
+| Strg+Umschalt+P | Präsentation ein-/ausschalten |
+| Ziffern, `+`, `-`, `*`, `/`, `.` oder `,` | Einfach: Eingabe |
+| Enter / `=` | Einfach: auswerten |
+| Rücktaste / Entf / Esc / `%` | Einfach: letzte Ziffer / CE / C / Prozent |
+| Enter / ↑ / ↓ / Esc | Ausdruckseditor: auswerten / Verlauf / leeren |
+| Strg+Leertaste / Tab | Wissenschaftlicher Editor: Vorschläge / Vorschlag übernehmen |
+| `/` / Strg+Umschalt+S | Umrechner: Schnelleingabe / Einheiten tauschen |
+| `+` oder `=` / `-` | Graph-Canvas: vergrößern / verkleinern |
+| Pfeiltasten / Esc / Umschalt+F10 | Graph-Canvas: Trace bewegen / schließen / Aktionen |
+
+## Lokal entwickeln
+
+Voraussetzungen: **Node.js 24 LTS**, npm und Git. Das Lockfile ist verbindlich.
 
 ```sh
+git clone https://github.com/sl3ndrr/m8e-calc.git
+cd m8e-calc
 nvm use
 npm ci
 npm run dev
 ```
 
-Die App lädt unter `/m8e-calc/`, mit Routen `#/simple`, `#/scientific`, `#/convert`, `#/graph`. `VITE_BASE_PATH=/anderer-pfad/ npm run build` überschreibt den Base-Pfad.
+Die ausgegebene lokale URL verwendet standardmäßig den Pfad `/m8e-calc/`. Ohne nvm Node 24 auf anderem Weg installieren. Für einen anderen Hostingpfad `VITE_BASE_PATH` beim Build setzen (führender und abschließender Slash).
+
+| Befehl | Zweck |
+| --- | --- |
+| `npm run check` | Lint, Format, Typen, Unit-/Komponententests, Build und Engine-/Graph-Benchmarks |
+| `npm run build` | Produktionsbuild in `dist/` |
+| `npm run preview` | Produktionsbuild lokal ausliefern |
+| `npm run test` | Vitest mit Testing Library und Property-Tests |
+| `npm run test:e2e` | Playwright (vorher Build und Browser installieren) |
+| `npm run screenshots` | Acht Release-Screenshots und Social Preview aus dem Produktionsbuild erzeugen |
+| `npm run screenshots:gallery` | Komponenten-Galerie aufnehmen; Preview vorher starten |
+| `npm run tokens` | Material-Farbtokens regenerieren |
 
 ```sh
-npm run check
 npx playwright install chromium
-npm run test:e2e
+npm run build
+npm run screenshots
+npm run test:e2e -- --project=chromium --project=chromium-graph-performance
 ```
 
-E2E benötigt einen vorherigen Build (`npm run check` enthält ihn). Für Linux ggf. `npx playwright install --with-deps chromium` verwenden. `npm run lint` prüft auch Formatierung; `npx prettier --write .` formatiert.
+Linux-CI benötigt gegebenenfalls `npx playwright install --with-deps chromium`. Der Screenshot-Befehl startet und beendet seinen eigenen lokalen Preview-Server. Ausgabe: `docs/img/`, einschließlich `social-preview.png` (1280 × 640). Details: [Release-Anleitung](docs/RELEASE.md). Weitere Browser- und Qualitätsprüfungen: [QA_REPORT.md](docs/QA_REPORT.md).
 
-Projektregeln und Befehle: [AGENTS.md](AGENTS.md). Produkt: [PRODUCT_SPEC](docs/PRODUCT_SPEC.md). Schichten und Datenfluss: [ARCHITECTURE](docs/ARCHITECTURE.md). Paketfolge: [ROADMAP](docs/ROADMAP.md).
+## Architektur
 
-## GitHub Pages
+React orchestriert die Oberfläche; Berechnungen bleiben in browserfreien TypeScript-Domänen. Eingabe → UI-Reducer/Adapter → Domäne → Ergebnis → Store/Ansicht. Die vier Modi werden bei Bedarf geladen; Hash-Routing funktioniert auf statischem Hosting ohne Server-Rewrites.
 
-In Settings → Pages **GitHub Actions** als Quelle auswählen. Nach Merge auf main baut, prüft und veröffentlicht `pages.yml` den Inhalt von `dist/` unter <https://sl3ndrr.github.io/m8e-calc/>. `ci.yml` prüft PRs und main einschließlich Chromium-Smoke am Base-Pfad. Die erste öffentliche Bereitstellung kann erst nach Merge geprüft werden.
+| Verzeichnis | Verantwortung |
+| --- | --- |
+| `src/app` | Bootstrap, Shell, Routing, Kürzel, Palette und Browseranbindung |
+| `src/features` | Oberflächen und Adapter der vier Modi |
+| `src/engine`, `src/units`, `src/graph` | Rechenkern, Einheiten und Float64-Graph-Engine ohne React/DOM |
+| `src/ui`, `src/styles` | Zugängliche Komponenten, lokale Fonts und zentrale Design-Tokens |
+| `src/shared` | Zustand, Persistenz und typisierte de/en-Texte |
+| `e2e`, `scripts` | Browserprüfungen, Qualitätschecks und Asset-Erzeugung |
 
-## Theming und Design-Lab
+Einstieg: [ARCHITECTURE.md](docs/ARCHITECTURE.md), [Produkt](docs/PRODUCT_SPEC.md), [Design](docs/DESIGN.md), [Komponenten](docs/COMPONENTS.md), [Roadmap](docs/ROADMAP.md). Fachverträge: [Engine](docs/ENGINE.md), [Einheiten](docs/UNITS.md), [Graphen](docs/GRAPH.md). Bedienung: [Wissenschaftlich](docs/SCIENTIFIC_MODE.md), [Umrechner](docs/CONVERT_MODE.md), [Graphen](docs/GRAPH_MODE.md), [Komfort](docs/COMFORT.md). Für Beiträge zuerst [AGENTS.md](AGENTS.md) lesen.
 
-`#/design` zeigt Material-3-Farbrollen, Typografie, Formen und alle Springs. Hell/System/Dunkel und Akzentfarbe sind persistent; alle Fonts werden lokal ausgeliefert. Details, Token-Regeneration, Motion-Abweichung und Testumfang: [docs/DESIGN.md](docs/DESIGN.md). Rechner-Modi bleiben Platzhalter.
+## Datenschutz
+
+Keine Tracker, Analytics, CDNs oder externen Rechenservices. Die App sendet keine externen Requests zur Laufzeit; Code, Fonts und andere Assets kommen vom selben Hosting-Ursprung. Das erstmalige Laden und Updates erfordern Requests an diesen Host. Entwicklung und CI laden Pakete separat herunter.
+
+Einstellungen, Verlauf, Definitionen und Favoriten bleiben im lokalen Browserspeicher. Offline-Dateien liegen im Service-Worker-Cache. Browserdaten lassen sich über die Website-Einstellungen des Browsers löschen. Ein kopierter Permalink enthält den ausdrücklich geteilten Moduszustand im URL-Hash, jedoch keinen gesamten Verlauf und kein gespeichertes Environment. Wer einen Link oder Export weitergibt, teilt dessen Inhalt selbst.
+
+AP17 (Währungen) ist nicht umgesetzt: Es werden keine Kurse abgefragt. Eine künftige Datenstrategie muss vorab geklärt werden.
+
+## Tech-Stack und Credits
+
+React 19, TypeScript, Vite, Zustand und CSS Custom Properties bilden die App. Das Design orientiert sich an **Material 3 Expressive**. Danke an die Projekte hinter [material-color-utilities](https://github.com/material-foundation/material-color-utilities), [decimal.js](https://github.com/MikeMcl/decimal.js), [CodeMirror](https://codemirror.net/), [KaTeX](https://katex.org/), [react-aria-components](https://react-spectrum.adobe.com/react-aria/) und [motion](https://motion.dev/). Lokal ausgelieferte Schriften: Roboto Flex, Roboto Mono und Material Symbols. Tests: Vitest, Testing Library, fast-check, Playwright und axe.
+
+Die zugehörigen Bibliotheken und Fonts behalten ihre eigenen Lizenzen. MIT ist für m8e-calc als Projektlizenz vorgeschlagen; der Eigentümer muss den [LICENSE](LICENSE)-Entwurf vor Veröffentlichung bestätigen.
+
+## English
+
+m8e-calc is a private, local-first desktop browser calculator with four modes: simple, scientific (including programmer tools), unit conversion and interactive 2D graphs. It supports German and English, light/dark themes, history, shareable links and offline use. No account, trackers or external runtime services are required. [Try the live app](https://sl3ndrr.github.io/m8e-calc/). To develop locally, use Node 24, run `npm ci` and `npm run dev`; validate with `npm run check`. The proposed MIT license awaits the repository owner's confirmation.
