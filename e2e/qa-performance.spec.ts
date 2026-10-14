@@ -95,6 +95,13 @@ test('editor interaction latency, layout shift and resources across 20 mode cycl
   await page.keyboard.type('sin(30)+sqrt(9)', { delay: 30 });
   await editor.press('Enter');
   await expect(page.locator('.scientific-result-text')).toHaveText('3,5');
+  const editorMetrics = await page.evaluate(() => {
+    const m = Reflect.get(window, 'qaMetrics') as {
+      events: number[];
+      cls: number;
+    };
+    return { events: [...m.events], cls: m.cls };
+  });
   // Warm code paths (including the graph editor) before the steady-state sample.
   async function cycleModes() {
     for (const mode of ['scientific', 'graph', 'convert', 'simple']) {
@@ -142,10 +149,11 @@ test('editor interaction latency, layout shift and resources across 20 mode cycl
   for (let cycle = 0; cycle < 20; cycle++) await cycleModes();
   await expect.poll(async () => (await sample()).frames).toBe(0);
   const after = await sample();
-  const latency = Math.max(0, ...before.events);
+  const latency = Math.max(0, ...editorMetrics.events);
   const result = {
     before,
     after,
+    editorMetrics,
     editorInteractionMaxMs: latency,
     eventTimingThresholdMs: 16,
     cycles: 20,
@@ -162,7 +170,8 @@ test('editor interaction latency, layout shift and resources across 20 mode cycl
     contentType: 'application/json',
   });
   expect(latency).toBeLessThanOrEqual(200);
-  expect(after.cls).toBe(0);
+  expect(editorMetrics.cls).toBe(0);
+  expect(after.cls - before.cls).toBe(0);
   expect(after.observers).toBeLessThanOrEqual(before.observers);
   expect(after.jsEventListeners - before.jsEventListeners).toBeLessThanOrEqual(
     5,

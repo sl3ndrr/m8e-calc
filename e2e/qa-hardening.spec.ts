@@ -107,7 +107,7 @@ test('keyboard-only core flows and modal/sheet focus restoration', async ({
   await page.keyboard.type('5 km in mi');
   await page.keyboard.press('Enter');
   await expect(page.locator('.convert-result')).toContainText('3,106856');
-  await tabTo(page, settings);
+  await tabTo(page, settings, true);
   await page.keyboard.press('Alt+4');
   await ready(page, 'graph');
   const add = page.getByRole('button', { name: 'Hinzufügen', exact: true });

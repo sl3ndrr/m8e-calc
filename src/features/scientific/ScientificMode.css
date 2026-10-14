@@ -358,28 +358,45 @@
   padding: 1.25rem;
 }
 
-/* A docked history narrows the workspace even on a wide viewport. */
-@container (max-width: 80rem) {
-  .scientific-columns {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
-  }
-  .scientific-tools {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .scientific-tabs {
-    display: block;
-  }
-  .scientific-tools:not([data-tab='keypad']) .scientific-keypad-wrap,
-  .scientific-tools:not([data-tab='constants']):not([data-tab='variables'])
-    .scientific-reference-column,
-  .scientific-tools:not([data-tab='constants']) .scientific-constants,
-  .scientific-tools:not([data-tab='variables']) .scientific-variables,
-  .scientific-tools:not([data-tab='computerScience']) .scientific-ap9 {
-    display: none;
-  }
-}
-@container (max-width: 45rem) {
-  .scientific-columns {
-    grid-template-columns: minmax(0, 1fr);
+/* Keep the full three-column workspace at WQHD/4K; compact only the short desktop. */
+@media (min-width: 1920px) and (max-height: 1200px) {
+  @container (max-width: 80rem) {
+    .scientific-tools {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .scientific-columns {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+    .scientific-reference-column {
+      display: none;
+    }
+    .scientific-tabs {
+      display: block;
+    }
+    .scientific-tools[data-tab='constants'] .scientific-reference-column,
+    .scientific-tools[data-tab='variables'] .scientific-reference-column {
+      display: grid;
+    }
+    .scientific-tools:not([data-tab='constants']) .scientific-constants,
+    .scientific-tools:not([data-tab='variables']) .scientific-variables,
+    .scientific-tools:not([data-tab='keypad']) .scientific-keypad-wrap {
+      display: none;
+    }
+    .scientific-keypad-panel {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+    .scientific-panel-heading,
+    .scientific-memory-actions {
+      grid-column: 1 / -1;
+    }
+    .scientific-keypad-panel > .keypad {
+      grid-row: 3;
+    }
+    .scientific-keypad-panel > .keypad:first-of-type {
+      grid-column: 1;
+    }
+    .scientific-keypad-panel > .keypad:last-of-type {
+      grid-column: 2;
+    }
   }
 }

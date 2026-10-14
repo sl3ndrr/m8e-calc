@@ -98,7 +98,29 @@ for (const [width, height] of [
             );
           }),
         )
-        .toBe(true);
+        .toBe(true)
+        .catch(async (error) => {
+          console.log(
+            'QA_OVERFLOW',
+            await page.evaluate(() =>
+              Array.from(
+                document.querySelectorAll(
+                  '.app-shell,.mode-stage-frame,.mode-stage,.shell-rail,.shell-toolbar,.shell-history .ui-side-sheet-docked',
+                ),
+              ).map((element) => {
+                const e = element as HTMLElement;
+                return {
+                  className: e.className,
+                  mode: e.dataset.mode,
+                  client: [e.clientWidth, e.clientHeight],
+                  scroll: [e.scrollWidth, e.scrollHeight],
+                  rect: e.getBoundingClientRect().toJSON(),
+                };
+              }),
+            ),
+          );
+          throw error;
+        });
     }
     await page.screenshot({ path: `test-results/app-shell-${width}.png` });
   });

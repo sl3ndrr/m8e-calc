@@ -11,6 +11,7 @@ import { t } from '../shared/i18n';
 import { LoadingIndicator } from '../ui/LoadingIndicator';
 import { useMediaQuery } from '../ui/useMediaQuery';
 import { getMode } from './modeRegistry';
+import { refreshModeChunk } from './reloadMode';
 function ModePanel({
   mode,
   direction,
@@ -48,9 +49,14 @@ function ModePanel({
       <ModeErrorBoundary
         key={attempt}
         locale={locale}
-        onReset={(reload) => {
+        onReset={async (reload) => {
           window.history.replaceState(null, '', `#/${mode}`);
           if (reload) {
+            await refreshModeChunk(
+              mode,
+              performance.getEntriesByType('resource'),
+              window.location.origin,
+            );
             window.location.reload();
             return;
           }

@@ -1,8 +1,8 @@
 import { defineConfig } from 'vitest/config';
 import { localePlugin } from './scripts/localePlugin.ts';
-import { cspPlugin } from './scripts/cspPlugin';
+import { cspPlugin } from './scripts/cspPlugin.ts';
 import react from '@vitejs/plugin-react';
-import { pwaPlugin } from './scripts/pwaPlugin';
+import { pwaPlugin } from './scripts/pwaPlugin.ts';
 import { buildScheme } from './src/styles/buildScheme.ts';
 import { bootstrapTheme } from './src/app/themeBootstrap.ts';
 

@@ -57,7 +57,10 @@ jobs:
           PHASE: ${{ matrix.phase }}
         run: |
           if [ "$PHASE" = before ]; then cd .qa-baseline; fi
-          npx --yes --package @lhci/cli@0.15.1 lhci autorun
+          status=0
+          npx --yes --package @lhci/cli@0.15.1 lhci autorun || status=$?
+          node scripts/qa-lighthouse.mjs || status=1
+          exit "$status"
       - uses: actions/upload-artifact@v7
         if: always()
         with:
