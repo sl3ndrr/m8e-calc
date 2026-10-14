@@ -15,6 +15,11 @@ test('4K six-curve pan render budget and idle rendering', async ({ page }) => {
     await page.getByRole('button', { name: 'Hinzufügen', exact: true }).click();
     await page.locator('.graph-editor [role="textbox"]').last().fill(input);
   }
+  // Move only the benchmark surface out of the shell's containment/clipping.
+  // The mounted controller and native event handlers remain the production ones.
+  await page
+    .locator('.graph-canvas-wrap')
+    .evaluate((element) => document.body.appendChild(element));
   await page.addStyleTag({
     content:
       '.graph-canvas-wrap { position: fixed; inset: 0; width: 3840px; height: 2160px; z-index: 100; border: none; }',
@@ -25,42 +30,56 @@ test('4K six-curve pan render budget and idle rendering', async ({ page }) => {
   await page.waitForTimeout(800);
   const box = await canvas.boundingBox();
   if (!box) throw Error('Missing canvas');
+  expect(box).toMatchObject({ x: 0, y: 0, width: 3840, height: 2160 });
   await page.mouse.move(box.x + box.width * 0.5, box.y + box.height * 0.5);
   await page.mouse.down();
-  const framesPromise = page.evaluate(async () => {
-    const intervals: number[] = [];
-    let last = performance.now();
-    for (let i = 0; i < 120; i++) {
-      const now = await new Promise<number>((resolve) =>
-        requestAnimationFrame(resolve),
-      );
-      intervals.push(now - last);
-      last = now;
-    }
-    return intervals;
-  });
-  for (let i = 0; i < 120; i++) {
-    await page.mouse.move(
-      box.x + box.width * 0.5 + Math.sin(i / 15) * 250,
-      box.y + box.height * 0.5 + Math.cos(i / 15) * 100,
-    );
-    await page.waitForTimeout(16);
-  }
+  const intervals = await canvas.evaluate(
+    async (element: HTMLCanvasElement) => {
+      const intervals: number[] = [];
+      let last = performance.now();
+      const box = element.getBoundingClientRect();
+      // Native mouse-down establishes capture; rAF-paced moves isolate rendering
+      // from protocol round trips and trace screenshot encoding at 4K.
+      for (let i = 0; i < 120; i++) {
+        const now = await new Promise<number>((resolve) =>
+          requestAnimationFrame(resolve),
+        );
+        intervals.push(now - last);
+        last = now;
+        element.dispatchEvent(
+          new PointerEvent('pointermove', {
+            pointerId: 1,
+            pointerType: 'mouse',
+            buttons: 1,
+            clientX: box.x + box.width * 0.5 + Math.sin(i / 15) * 250,
+            clientY: box.y + box.height * 0.5 + Math.cos(i / 15) * 100,
+            bubbles: true,
+          }),
+        );
+      }
+      return intervals;
+    },
+  );
   await page.mouse.up();
-  const intervals = await framesPromise;
   const metrics = JSON.parse(
     (await canvas.getAttribute('data-graph-metrics')) ?? '{}',
   ) as { frames: number; renderMs: number[]; samplingMs: number };
   const sorted = metrics.renderMs.slice().sort((a, b) => a - b),
     p95 = sorted[Math.floor(sorted.length * 0.95)] ?? Infinity;
+  const rafAverageMs = intervals.reduce((a, b) => a + b, 0) / intervals.length;
   const report = {
     viewport: { width: 3840, height: 2160 },
     canvas: { width: box.width, height: box.height },
     curves: 6,
     renderP95Ms: p95,
-    rafAverageMs: intervals.reduce((a, b) => a + b, 0) / intervals.length,
+    rafAverageMs,
+    observedRafFps: 1000 / rafAverageMs,
+    targetFps: 60,
+    frameBudgetMs: 1000 / 60,
     samplingWorkerMs: metrics.samplingMs,
-    note: 'Headless Chromium CPU measurements; refresh rate and GPU vary on physical displays.',
+    method:
+      'Native pointer-down, rAF-paced pointer moves, trace disabled; real mouse and wheel covered by functional E2E.',
+    note: 'Headless Chromium measurements; refresh rate and GPU vary on physical displays.',
   };
   await writeFile(
     'test-results/graph-performance.json',

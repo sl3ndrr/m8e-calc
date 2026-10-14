@@ -1,10 +1,4 @@
-import {
-  render,
-  screen,
-  fireEvent,
-  act,
-  waitFor,
-} from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { afterEach, it, expect, vi } from 'vitest';
 import GraphMode from './GraphMode';
 import { useHistoryStore } from '../../shared/historyStore';
@@ -61,7 +55,6 @@ it('saves complete plot sets only after three seconds of quiet and restores thei
       bounds: initialPlot().bounds,
     }),
   );
-  vi.useRealTimers();
   const plot = {
     ...initialPlot(),
     rows: [
@@ -83,11 +76,24 @@ it('saves complete plot sets only after three seconds of quiet and restores thei
       payload: plotPayload(plot),
     });
   });
-  await waitFor(() =>
-    expect(screen.getByRole('textbox', { name: 'Funktion 1' })).toHaveValue(
-      'a*x',
-    ),
+  expect(screen.getByRole('textbox', { name: 'Funktion 1' })).toHaveValue(
+    'a*x',
   );
   expect(screen.getByRole('slider', { name: 'a' })).toHaveValue('2');
   expect(screen.getByRole('checkbox', { name: 'π-Ticks' })).toBeChecked();
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Parameter a abspielen' }),
+  );
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Aktionen für Funktion 1' }),
+  );
+  fireEvent.click(screen.getByRole('menuitem', { name: 'Löschen' }));
+  expect(screen.queryByRole('slider', { name: 'a' })).not.toBeInTheDocument();
+  act(() => vi.advanceTimersByTime(3000));
+  expect(
+    useHistoryStore
+      .getState()
+      .entries.filter((e) => e.mode === 'graph')
+      .map((e) => e.payload),
+  ).toEqual(expect.arrayContaining([expect.objectContaining({ rows: [] })]));
 });

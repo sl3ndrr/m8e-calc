@@ -90,6 +90,24 @@ export default function GraphMode() {
   }, []);
   const change = useCallback(
     (action: PlotAction) => {
+      if (
+        action.type === 'delete' ||
+        (action.type === 'update' && action.patch.input !== undefined)
+      ) {
+        setPlaying((active) => {
+          if (!active) return null;
+          const split = active.lastIndexOf(':'),
+            id = active.slice(0, split),
+            name = active.slice(split + 1);
+          if (action.id !== id) return active;
+          if (action.type === 'delete') return null;
+          const row = latest.current.rows.find((r) => r.id === id);
+          return row &&
+            parseRow({ ...row, ...action.patch }).names.includes(name)
+            ? active
+            : null;
+        });
+      }
       if (action.type !== 'view' && action.type !== 'options') clearAnalysis();
       dispatch(action);
     },
@@ -382,9 +400,10 @@ export default function GraphMode() {
                       yMax: marker.y + dy,
                     });
                   }}
-                  onRemove={() =>
-                    setMarkers((old) => old.filter((m) => m.id !== marker.id))
-                  }
+                  onRemove={() => {
+                    setMarkers((old) => old.filter((m) => m.id !== marker.id));
+                    if (marker.label === 'tangent') setAuxiliary(null);
+                  }}
                   removeLabel={t('graph.removeMarker', locale)}
                 >
                   {t(`graph.analysis.${marker.label as AnalysisKind}`, locale)}{' '}

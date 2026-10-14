@@ -100,7 +100,10 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
     const candidate = canvas.current;
     if (!candidate) return;
     const element: HTMLCanvasElement = candidate;
-    const canvasContext = element.getContext('2d');
+    const canvasContext = element.getContext('2d', {
+      alpha: false,
+      desynchronized: true,
+    });
     if (!canvasContext) return;
     const ctx: CanvasRenderingContext2D = canvasContext;
     let current = latest.current,

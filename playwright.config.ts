@@ -18,7 +18,7 @@ export default defineConfig({
       testMatch: '**/graph-performance.spec.ts',
       dependencies: ['chromium'],
       workers: 1,
-      use: { locale: 'de-DE', ...devices['Desktop Chrome'] },
+      use: { locale: 'de-DE', ...devices['Desktop Chrome'], trace: 'off' },
     },
   ],
   webServer: {

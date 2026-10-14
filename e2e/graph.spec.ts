@@ -158,3 +158,49 @@ test('HiDPI canvas and reduced motion keep keyboard zoom usable', async ({
     .toBeLessThan(before.xMax - before.xMin);
   await context.close();
 });
+
+test('canvas reloads theme and accent tokens; PNG copies to the clipboard', async ({
+  page,
+  context,
+}) => {
+  await page.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' });
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await page.goto('/m8e-calc/#/graph');
+  await addFunction(page, 'sin(x)');
+  const canvas = page.locator('canvas.graph-canvas');
+  await expect(canvas).toHaveAttribute('data-curve-count', '1');
+  const pixel = () =>
+    canvas.evaluate((element: HTMLCanvasElement) =>
+      Array.from(
+        element.getContext('2d')?.getImageData(0, 0, 1, 1).data ?? [],
+      ).join(),
+    );
+  const light = await pixel();
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await expect.poll(pixel).not.toBe(light);
+  const color = await page
+    .locator('.graph-color-dot')
+    .evaluate((element) => getComputedStyle(element).backgroundColor);
+  await page.getByRole('button', { name: 'Akzentfarbe anpassen' }).click();
+  await page
+    .getByRole('dialog', { name: 'Deine Farbwelt' })
+    .getByRole('button', { name: 'Koralle', exact: true })
+    .click();
+  await page.keyboard.press('Escape');
+  await expect
+    .poll(() =>
+      page
+        .locator('.graph-color-dot')
+        .evaluate((element) => getComputedStyle(element).backgroundColor),
+    )
+    .not.toBe(color);
+  await page.getByRole('button', { name: 'PNG kopieren' }).click();
+  await expect
+    .poll(async () =>
+      page.evaluate(async () => {
+        const items = await navigator.clipboard.read();
+        return items.some((item) => item.types.includes('image/png'));
+      }),
+    )
+    .toBe(true);
+});

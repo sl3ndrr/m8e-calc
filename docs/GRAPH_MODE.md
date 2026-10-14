@@ -66,7 +66,11 @@ werden lokal angezeigt; keine externen Laufzeitrequests.
   PNG-Download und gespeicherter Plot-Satz.
 - `e2e/graph-visual.spec.ts`: 2560×1440 und 3840×2160, Hell/Dunkel, Iris/Teal;
   acht Bilder in `test-results/graph-screenshots` als PR-CI-Artefakt.
-- 4K/6-Kurven-Lastlauf zeichnet Render-p95, rAF-Mittel und Workerzeit in
+- `e2e/graph-performance.spec.ts` läuft nach den funktionalen Chromium-Tests
+  allein mit einem Worker und ohne Trace-Screenshots. Die native Maus setzt
+  Pointer Capture; rAF-getaktete Pointer-Moves vermeiden Protokoll-/Screenshot-Last.
+  Funktionale E2E verwendet reale Maus-/Radaktionen.
+  Der 4K/6-Kurven-Lastlauf zeichnet Render-p95, rAF-Mittel, beobachtete fps und Workerzeit in
   `test-results/graph-performance.json` auf; Budget <16,67 ms pro Canvas-Render.
   Dies ist eine Headless-Chromium-Messung. Ein physischer 60-Hz-/4K-Monitor und
   dessen GPU müssen separat abgenommen werden; CPU-Budget allein garantiert
