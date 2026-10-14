@@ -31,20 +31,23 @@ for (const file of documents) {
     }
   }
 }
-for (const url of process.argv.includes('--external')
-  ? [...external].sort()
-  : []) {
+const checkExternal = process.argv.includes('--external');
+for (const url of checkExternal ? [...external].sort() : []) {
   try {
     const response = await fetch(url, { signal: AbortSignal.timeout(30000) });
     console.log(`${response.status} ${url} -> ${response.url}`);
     await response.body?.cancel();
-    // ISO blocks automated CI clients; the official catalogue was independently
-    // verified on 2026-10-14. Do not silently accept other blocked URLs.
+    // These exact catalogue URLs were independently verified on 2026-10-14.
+    // Their hosts block the CI client; do not accept other URLs or statuses.
     const reviewedBlock =
-      url === 'https://www.iso.org/standard/7472.html' &&
-      response.status === 403;
+      [
+        'https://www.iso.org/standard/7472.html',
+        'https://www.hhs.gov/guidance/document/guidance-industry-guidelines-determining-metric-equivalents-household-measures',
+      ].includes(url) && response.status === 403;
     if (reviewedBlock)
-      console.log('REVIEWED: ISO catalogue exists; CI bot receives 403.');
+      console.log(
+        `REVIEWED: catalogue independently verified; CI bot receives 403: ${url}`,
+      );
     if (!response.ok && !reviewedBlock)
       failures.push(`HTTP ${response.status}: ${url}`);
   } catch (error) {
@@ -53,5 +56,5 @@ for (const url of process.argv.includes('--external')
 }
 if (failures.length) throw new Error(failures.join('\n'));
 console.log(
-  `Checked ${documents.length} documents, npm commands, local links and ${external.size} external URLs.`,
+  `Checked ${documents.length} documents, npm commands, local links and ${checkExternal ? external.size : 0} external URLs (${external.size} identified).`,
 );

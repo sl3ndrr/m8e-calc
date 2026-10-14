@@ -26,8 +26,7 @@ Ausgaben in `docs/img/`:
 
 Die Bilder vor dem Commit visuell prüfen. Sie sind Dokumentationsbilder;
 die unabhängigen visuellen QA-Referenzen unter `e2e/` werden nicht ersetzt.
-Historische AP-Screenshots unter `docs/screenshots/` bleiben Belege ihrer
-jeweiligen damaligen Prüfstände. Aktuelle Produktansichten stehen im README.
+Aktuelle Produktansichten stehen im README sowie den Architektur-/Modus-Dokumenten. Die verlinkten Komfortaufnahmen unter `docs/screenshots/` stammen aus Hardening-CI `38593558518` auf dem seither unveränderten Produktcode; unverlinkte ältere AP-Bilder bleiben historische Belege.
 Die CI erzeugt Release-Bilder als separates Artefakt zur Reproduktion.
 
 ## Vor Veröffentlichung
@@ -50,4 +49,4 @@ bereits erfolgte Veröffentlichung. AP16 bleibt bis zur Abnahme offen.
 
 `node scripts/check-release-docs.mjs` prüft lokale Markdown-Verweise und alle dokumentierten `npm run`-Befehle gegen package.json. Mit `--external` werden zusätzlich externe Markdown-Links per GET geprüft (30 s Timeout je URL, Redirect-Ziel im Log). Die Release-Assets-CI führt diese externe Prüfung aus. Ein HTTP-200 allein beweist nicht, dass ein weitergeleitetes Dokument noch denselben Inhalt hat; Quellenänderungen werden zusätzlich redaktionell geprüft.
 
-Beim Linkabgleich am 14.10.2026 wurden der verschobene NIST-Handbook-Link, die IAU-2015-PDF und die NASA-SP-367-Weiterleitung ersetzt. Die FDA-Quelle verweist jetzt auf den offiziellen HHS-Katalogeintrag, weil FDA den CI-Client auf eine Missbrauchserkennungsseite umleitete. Der ISO-2533-Katalogeintrag wurde unabhängig über die offizielle ISO-Seite bestätigt; dort erhält der CI-Client HTTP 403. Nur diese exakt dokumentierte URL/Status-Kombination ist im Prüfer als manuell verifiziert markiert, nicht als erfolgreicher HTTP-Test. Die Live-URL lieferte HTTP 200; das ersetzt keine vollständige manuelle Pages-Abnahme.
+Beim Linkabgleich am 14.10.2026 wurden der verschobene NIST-Handbook-Link, die IAU-2015-PDF und die NASA-SP-367-Weiterleitung ersetzt. Die FDA-Quelle verweist jetzt auf den offiziellen HHS-Katalogeintrag, weil FDA den CI-Client auf eine Missbrauchserkennungsseite umleitete. Der ISO-2533-Katalogeintrag wurde unabhängig über die offizielle ISO-Seite bestätigt; dort erhält der CI-Client HTTP 403. Auch der HHS-Katalogeintrag wurde unabhängig auf der offiziellen Seite bestätigt und beantwortet den CI-Client mit HTTP 403. Nur diese beiden exakt dokumentierten URL/Status-Kombinationen sind im Prüfer als manuell verifiziert markiert, nicht als erfolgreiche HTTP-Tests. Die Live-URL lieferte HTTP 200; das ersetzt keine vollständige manuelle Pages-Abnahme.

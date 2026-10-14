@@ -72,7 +72,7 @@ Wöchentliche Dependabot-Updates werden getrennt für npm und GitHub Actions gru
 
 ## AP4-Verifikation
 
-Die Shell-Browserprüfungen warten auf den aktiven Modus, vollständige Opacity und die Zielbreite des angedockten Panels. Neben Dokument- und Container-Überläufen werden Panel-Grenzen im Viewport geprüft. Reproduzierbare Referenzaufnahmen: [Full HD](screenshots/app-shell-1920.png), [QHD](screenshots/app-shell-2560.png), [4K](screenshots/app-shell-3840.png) und [Ultrawide](screenshots/app-shell-3440.png). `e2e/app-shell.spec.ts` erzeugt sie erneut; CI bewahrt zusätzliche Browser-/Galerie-Artefakte auf.
+Die Shell-Browserprüfungen warten auf den aktiven Modus, vollständige Opacity und die Zielbreite des angedockten Panels. Neben Dokument- und Container-Überläufen werden Panel-Grenzen im Viewport geprüft. Aktuelle Shell-/Modusansichten bei 2560×1440: [Hell](img/simple-light.png) und [Dunkel](img/simple-dark.png), reproduzierbar mit `npm run screenshots`. `e2e/app-shell.spec.ts` prüft zusätzlich Full HD, 4K und Ultrawide; CI bewahrt die jeweiligen Browser-/Galerie-Artefakte auf.
 
 Die axe-Prüfung des Einstellungsdialogs wartet auf das Ende seiner Einblendung
 (`data-entering` entfernt) und prüft anschließend den vollständigen Textkontrast.
@@ -106,10 +106,8 @@ Verlauf unverändert. Tastaturbefehle ruhen in Formularen, Overlays und inerten
 Modusflächen. Browserprüfungen erzeugen vier Ansichten in `test-results`:
 1920×1080 und 3840×2160, jeweils Hell/Dunkel.
 
-Geprüfte Referenzaufnahmen: [Full HD Hell](screenshots/simple-light-1920.png),
-[Full HD Dunkel](screenshots/simple-dark-1920.png),
-[4K Hell](screenshots/simple-light-3840.png) und
-[4K Dunkel](screenshots/simple-dark-3840.png). Der AP6-Reducer hat 102 Unit-Fälle;
+Aktuelle Referenzaufnahmen bei 2560×1440: [Hell](img/simple-light.png) und
+[Dunkel](img/simple-dark.png), erzeugt mit `npm run screenshots`. Der AP6-Reducer hat 102 Unit-Fälle;
 die Gesamtprüfung umfasst 800 Unit-/Komponententests und 44 Chromium-E2E.
 
 ## AP8 · Wissenschaftlicher Modus
