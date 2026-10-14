@@ -154,6 +154,11 @@ export interface FunctionContext {
 export interface FunctionDefinition {
   readonly name: string;
   readonly arity: Arity;
+  /** Optional real Float64 implementation for graph compilation. */
+  readonly floatImpl?: (
+    args: readonly number[],
+    context: { readonly angleMode: AngleMode },
+  ) => number;
   readonly impl: (
     args: readonly Value[],
     context: FunctionContext,

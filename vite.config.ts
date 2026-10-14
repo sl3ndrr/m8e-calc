@@ -32,14 +32,22 @@ export default defineConfig({
           environment: 'jsdom',
           setupFiles: ['./src/test/setup.ts'],
           include: ['src/**/*.test.{ts,tsx}'],
-          exclude: ['src/engine/**/*.test.ts', 'src/units/**/*.test.ts'],
+          exclude: [
+            'src/engine/**/*.test.ts',
+            'src/units/**/*.test.ts',
+            'src/graph/**/*.test.ts',
+          ],
         },
       },
       {
         test: {
           name: 'engine',
           environment: 'node',
-          include: ['src/engine/**/*.test.ts', 'src/units/**/*.test.ts'],
+          include: [
+            'src/engine/**/*.test.ts',
+            'src/units/**/*.test.ts',
+            'src/graph/**/*.test.ts',
+          ],
         },
       },
     ],

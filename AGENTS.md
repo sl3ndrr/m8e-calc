@@ -4,6 +4,14 @@
 
 m8e-calc ist ein datenschutzfreundlicher Desktop-Browser-Taschenrechner. Die verbindliche Produktvision steht in `docs/PRODUCT_SPEC.md`, die Schichten in `docs/ARCHITECTURE.md`, die Paketfolge in `docs/ROADMAP.md`. AP1 legt die Toolchain an; AP2 liefert Theming und Design-Tokens gemäß `docs/DESIGN.md`. AP4 liefert die App-Hülle mit Registry, persistentem Verlauf, Einstellungen und i18n. AP5 liefert den reinen Rechenkern in `src/engine`; Vertrag und konservative Entscheidungen stehen in `docs/ENGINE.md`. AP6 liefert den Einfach-Modus in `src/features/simple` mit reinem Reducer, Engine-Anbindung und wiederverwendbaren Keypad-Bausteinen in `src/ui/keypad`. AP8 liefert den Wissenschaftlich-Modus mit lazy CodeMirror/KaTeX, persistenten Definitionen und AP4-Verlauf. AP9 ergänzt das Informatik-Panel in `src/features/scientific/programmer` mit BigInt-Kern in `src/engine/programmer`, opt-in Bitparser, IEEE-754 und Unicode. Details stehen in `docs/SCIENTIFIC_MODE.md`. AP10 liefert die reine Einheiten-Engine in `src/units`; Datenmodell, API, Quellen und Erweiterung stehen in `docs/UNITS.md`. Einheiten-Tests laufen im Engine-Node-Projekt. AP11 liefert den Umrechner in `src/features/convert` auf AP10 mit lokalisierten Eingaben, Einheitenraster, Paar-Persistenz und AP4-Ruheverlauf; Details in `docs/CONVERT_MODE.md`. Graphen bleiben bis zu ihrem UI-Paket Leerzustände.
 
+AP12 ergänzt `src/graph` mit Float64-Closure-Compiler, freien Parametern,
+explizitem/parametrischem/polarem Sampling, numerischer Analysis und Viewport.
+Vertrag und Toleranzen: `docs/GRAPH.md`. Registry-Einträge dürfen optional
+`floatImpl` anbieten; der Graph-Compiler verwendet niemals Decimal pro Sample.
+Graph-Tests laufen ebenfalls im Engine-Node-Projekt. `npm run test:graph:bench`
+misst typische Kurven bei 2560×1440 (Ziel <4 ms, Regression <25 ms).
+Implizite Marching-Squares-Kurven sind als Folge-Issue dokumentiert; AP13 liefert UI.
+
 ## Arbeitsumgebung und Befehle
 
 Node 24 LTS (`nvm use`), npm und das eingecheckte `package-lock.json` verwenden. Installation: `npm ci`.

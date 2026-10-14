@@ -14,10 +14,11 @@
     "typecheck": "tsc -b --pretty false",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "check": "npm run lint && npm run typecheck && npm run test && npm run build && npm run test:engine:bench",
+    "check": "npm run lint && npm run typecheck && npm run test && npm run build && npm run test:engine:bench && npm run test:graph:bench",
     "tokens": "node scripts/generate-tokens.mjs",
     "screenshots:gallery": "node scripts/gallery-screenshots.mjs",
-    "test:engine:bench": "node scripts/engine-benchmark.mjs"
+    "test:engine:bench": "node scripts/engine-benchmark.mjs",
+    "test:graph:bench": "node scripts/graph-benchmark.mjs"
   },
   "dependencies": {
     "@material/material-color-utilities": "^0.3.0",
