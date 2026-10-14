@@ -191,8 +191,7 @@ export function App() {
           '[role="dialog"], [role="menu"], [role="listbox"]',
         )
       ) {
-        if (item.id !== 'palette' || settingsOpen || helpOpen)
-          return;
+        if (item.id !== 'palette' || settingsOpen || helpOpen) return;
       }
       event.preventDefault();
       event.stopPropagation();
