@@ -9,15 +9,14 @@ import {
   SchemeNeutral,
 } from '@material/material-color-utilities';
 
-export const schemeVariants = [
-  'tonalSpot',
-  'expressive',
-  'vibrant',
-  'neutral',
-] as const;
-export type SchemeVariant = (typeof schemeVariants)[number];
-export const contrasts = ['standard', 'medium', 'high'] as const;
-export type ContrastLevel = (typeof contrasts)[number];
+import { graphContrast } from './graphPalette.ts';
+export {
+  schemeVariants,
+  contrasts,
+  type SchemeVariant,
+  type ContrastLevel,
+} from './colorSettings.ts';
+import type { SchemeVariant, ContrastLevel } from './colorSettings.ts';
 export const colorRoles = [
   'background',
   'onBackground',
@@ -94,10 +93,39 @@ export function buildScheme(
     isDark,
     { standard: 0, medium: 0.5, high: 1 }[contrast],
   );
-  return Object.fromEntries(
+  const result: ColorScheme = Object.fromEntries(
     colorRoles.map((role) => [
       roleProperty(role),
       hexFromArgb(MaterialDynamicColors[role].getArgb(scheme)),
     ]),
   );
+  const backgrounds = [
+    'surface',
+    'surfaceDim',
+    'surfaceBright',
+    'surfaceVariant',
+    'surfaceContainerLowest',
+    'surfaceContainerLow',
+    'surfaceContainer',
+    'surfaceContainerHigh',
+    'surfaceContainerHighest',
+  ];
+  const outline = Hct.fromInt(
+    argbFromHex(result[roleProperty('outline')] ?? seedHex),
+  );
+  let tone = outline.tone;
+  let color = hexFromArgb(outline.toInt());
+  for (
+    let i = 0;
+    i < 100 &&
+    backgrounds.some(
+      (bg) => graphContrast(color, result[roleProperty(bg)] ?? '') < 3,
+    );
+    i++
+  ) {
+    tone = Math.max(0, Math.min(100, tone + (isDark ? 1 : -1)));
+    color = hexFromArgb(Hct.from(outline.hue, outline.chroma, tone).toInt());
+  }
+  result[roleProperty('outline')] = color;
+  return result;
 }

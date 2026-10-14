@@ -1,7 +1,7 @@
 :root {
   /* Full HD is 16px. Height caps scaling on ultrawide monitors; side panels absorb width. */
   font-size: calc(
-    clamp(12px, min(0.833333vw, 1.481481vh), 32px) * var(--ui-size, 1)
+    clamp(1rem, min(0.833333vw, 1.481481vh), 2rem) * var(--ui-size, 1)
   );
 }
 .app-shell {
@@ -96,6 +96,7 @@
   min-height: 0;
 }
 .shell-toolbar {
+  flex: 0 0 auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -188,28 +189,6 @@
   color: var(--md-sys-color-on-surface-variant);
   font-size: 1.125rem;
   margin: 0.5rem 0 2rem;
-}
-.mode-orbit {
-  display: grid;
-  place-items: center;
-  width: 7rem;
-  height: 7rem;
-  margin-bottom: 2rem;
-  border-radius: var(--md-sys-shape-extra-extra-large);
-  background: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
-  rotate: -8deg;
-}
-.mode-orbit .ui-icon {
-  font-size: 3rem;
-  rotate: 8deg;
-}
-.mode-coming {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 1.5rem;
-  font-size: 0.875rem;
 }
 .shell-history {
   grid-area: history;
@@ -380,9 +359,6 @@
   .mode-placeholder h1 {
     font-size: 2rem;
   }
-  .mode-coming {
-    padding: 0.75rem;
-  }
 }
 @media (max-width: 1279px) {
   .app-shell {
@@ -437,9 +413,6 @@
 .app-shell .ui-icon {
   font-size: 1.5rem;
 }
-.mode-orbit .ui-icon {
-  font-size: 3rem;
-}
 .shell-personalization .ui-segment {
   min-height: max(48px, 3rem);
 }
@@ -453,4 +426,12 @@
 }
 .settings-dialog .ui-button {
   min-height: max(48px, 3rem);
+}
+
+/* The mode heading already labels the workspace. Give docked controls one row. */
+.app-shell[data-history-open] .shell-toolbar > div:first-child {
+  display: none;
+}
+.app-shell[data-history-open] .shell-controls {
+  margin-left: auto;
 }

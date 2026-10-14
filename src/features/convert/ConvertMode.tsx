@@ -6,20 +6,18 @@ import {
   useRef,
   useState,
 } from 'react';
-import {
-  Button,
-  Card,
-  Checkbox,
-  Fab,
-  Icon,
-  Select,
-  Slider,
-  TextField,
-  VisuallyHidden,
-  snackbarQueue,
-  useSpring,
-  type SelectOption,
-} from '../../ui';
+import { Button } from '../../ui/Button';
+import { Card } from '../../ui/Card';
+import { Checkbox } from '../../ui/Checkbox';
+import { Fab } from '../../ui/Fab';
+import { Icon } from '../../ui/Icon';
+import { Select } from '../../ui/Select';
+import { Slider } from '../../ui/Slider';
+import { TextField } from '../../ui/TextField';
+import { VisuallyHidden } from '../../ui/VisuallyHidden';
+import { snackbarQueue } from '../../ui/snackbarQueue';
+import { useSpring } from '../../ui/useSpring';
+import type { SelectOption } from '../../ui/Select';
 import { t } from '../../shared/i18n';
 import { useAppStore } from '../../shared/store';
 import { useSettingsStore } from '../../shared/settingsStore';
@@ -145,7 +143,7 @@ const signature = (state: ConvertState): string =>
 export default function ConvertMode() {
   const [state, dispatch] = useReducer(convertReducer, undefined, () => ({
     ...initialConvertState(),
-    ...(readModeLink('convert') ?? {}),
+    ...(readModeLink('convert', restorePayload) ?? {}),
   }));
   const [search, setSearch] = useState('');
   const [query, setQuery] = useState('');

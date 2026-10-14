@@ -1,14 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import fc from 'fast-check';
-import {
-  decodePermalink,
-  encodePermalink,
-  simpleLink,
-  validateModeLink,
-  type Permalink,
-} from './permalinks';
+import { decodePermalink, encodePermalink, type Permalink } from './permalinks';
 import { initialSimpleState, simpleReducer } from '../features/simple/model';
 import { initialPlot, newRow } from '../features/graph/model';
+import { simpleLink, validateSimpleLink } from './simpleLinks';
+import { restorePayload } from '../features/convert/model';
+import { restorePlot } from '../features/graph/model';
 import { compressLink, decompressLink } from '../shared/linkCodec';
 describe('versioned permalinks', () => {
   it('roundtrips all four modes, including graph parameters and viewport', () => {
@@ -105,13 +102,13 @@ describe('versioned permalinks', () => {
   );
   it('validates every mode and bounds decompression', () => {
     expect(
-      validateModeLink('simple', {
+      validateSimpleLink({
         version: 1,
         entry: { value: 'Infinity', expression: '0' },
       }),
     ).toBeNull();
     expect(
-      validateModeLink('convert', {
+      restorePayload({
         categoryId: 'length',
         fromId: 'km',
         toId: 'kg',
@@ -119,7 +116,7 @@ describe('versioned permalinks', () => {
       }),
     ).toBeNull();
     expect(
-      validateModeLink('graph', {
+      restorePlot({
         ...initialPlot(),
         bounds: { xMin: 5, xMax: 0, yMin: 0, yMax: 1 },
       }),

@@ -1,4 +1,13 @@
 export const de = {
+  'error.appTitle': 'Die App konnte nicht geladen werden',
+  'error.appHint':
+    'Bitte lade die App neu. Dein gespeicherter Verlauf bleibt erhalten.',
+  'error.modeTitle': 'Dieser Modus konnte nicht geladen werden',
+  'error.modeHint':
+    'Bitte setze den Modus zurück oder wechsle zu einem anderen Modus. Gespeicherter Verlauf bleibt erhalten.',
+  'error.reset': 'Zurücksetzen',
+  'error.global': 'Etwas ist schiefgegangen. Bitte versuche die Aktion erneut.',
+
   'comfort.palette': 'Befehlspalette',
   'comfort.search': 'Modus, Aktion, Konstante oder Umrechnung suchen',
   'comfort.paletteHint':
@@ -436,7 +445,7 @@ export const de = {
   'scientific.keypad': 'Tastenfeld',
   'scientific.functions': 'Wissenschaftliche Funktionen',
   'scientific.numbers': 'Zahlen und Operatoren',
-  'scientific.second': 'Zweitbelegung umschalten',
+  'scientific.second': '2nd – Zweite Funktionen umschalten',
   'scientific.insertFunction': '{name} einfügen: {description}',
   'scientific.insert': '{text} einfügen',
   'scientific.constants': 'Konstanten',
@@ -452,8 +461,8 @@ export const de = {
   'scientific.edit': '{name} bearbeiten',
   'scientific.delete': '{name} löschen',
   'scientific.definitionSaved': 'Funktion gespeichert',
-  'scientific.store': 'Ergebnis in Variable speichern',
-  'scientific.recall': 'Variable abrufen',
+  'scientific.store': 'STO → Ergebnis in Variable speichern',
+  'scientific.recall': 'RCL – Variable abrufen',
   'scientific.storeName': 'Variablenname für STO',
   'scientific.storeHint':
     'Name eingeben und STO drücken. RCL öffnet die Variablen.',

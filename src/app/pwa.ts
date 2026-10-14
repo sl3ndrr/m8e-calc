@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { snackbarQueue } from '../ui';
+import { snackbarQueue } from '../ui/snackbarQueue';
 import { t } from '../shared/i18n';
 interface InstallPrompt extends Event {
   prompt(): Promise<void>;
@@ -13,6 +13,15 @@ export function usePwa(): { canInstall: boolean; install: () => void } {
       reload = false,
       disposed = false,
       notified = false;
+    const cleanups: (() => void)[] = [];
+    function watchWorker(worker: ServiceWorker | null): void {
+      if (!worker) return;
+      const changed = () => {
+        if (!disposed && worker.state === 'installed') updateAvailable();
+      };
+      worker.addEventListener('statechange', changed);
+      cleanups.push(() => worker.removeEventListener('statechange', changed));
+    }
     function updateAvailable(): void {
       if (
         notified ||
@@ -58,18 +67,17 @@ export function usePwa(): { canInstall: boolean; install: () => void } {
         if (disposed) return;
         registration = reg;
         updateAvailable();
-        reg.addEventListener('updatefound', () => {
-          const worker = reg.installing;
-          worker?.addEventListener('statechange', () => {
-            if (!disposed && worker.state === 'installed') updateAvailable();
-          });
-        });
+        const found = () => watchWorker(reg.installing);
+        reg.addEventListener('updatefound', found);
+        cleanups.push(() => reg.removeEventListener('updatefound', found));
+        watchWorker(reg.installing);
       })
       .catch(() => {
         /* Unsupported/denied offline storage leaves the app usable online. */
       });
     return () => {
       disposed = true;
+      cleanups.forEach((cleanup) => cleanup());
       window.clearInterval(timer);
       navigator.serviceWorker.removeEventListener(
         'controllerchange',

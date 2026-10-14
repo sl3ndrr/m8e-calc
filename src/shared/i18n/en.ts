@@ -1,5 +1,13 @@
 import type { Dictionary } from '../i18n';
 export const en: Dictionary = {
+  'error.appTitle': 'The app could not be loaded',
+  'error.appHint': 'Please reload the app. Your saved history is kept.',
+  'error.modeTitle': 'This mode could not be loaded',
+  'error.modeHint':
+    'Please reset this mode or switch to another mode. Saved history is preserved.',
+  'error.reset': 'Reset',
+  'error.global': 'Something went wrong. Please try the action again.',
+
   'comfort.palette': 'Command palette',
   'comfort.search': 'Search modes, actions, constants or conversions',
   'comfort.paletteHint': '↑ ↓ select · Enter run · Esc close · e.g. 5 km in mi',
@@ -429,7 +437,7 @@ export const en: Dictionary = {
   'scientific.keypad': 'Keypad',
   'scientific.functions': 'Scientific functions',
   'scientific.numbers': 'Numbers and operators',
-  'scientific.second': 'Toggle second functions',
+  'scientific.second': '2nd – Toggle second functions',
   'scientific.insertFunction': 'Insert {name}: {description}',
   'scientific.insert': 'Insert {text}',
   'scientific.constants': 'Constants',
@@ -444,8 +452,8 @@ export const en: Dictionary = {
   'scientific.edit': 'Edit {name}',
   'scientific.delete': 'Delete {name}',
   'scientific.definitionSaved': 'Function saved',
-  'scientific.store': 'Store result in variable',
-  'scientific.recall': 'Recall variable',
+  'scientific.store': 'STO → Store result in variable',
+  'scientific.recall': 'RCL – Recall variable',
   'scientific.storeName': 'Variable name for STO',
   'scientific.storeHint': 'Enter a name and press STO. RCL opens variables.',
   'scientific.storeInvalid': 'Enter a valid, non-reserved variable name.',

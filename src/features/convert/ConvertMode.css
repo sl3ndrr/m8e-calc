@@ -353,3 +353,28 @@
     font-size: 2rem;
   }
 }
+
+@media (max-height: 800px) {
+  @container (min-width: 48rem) and (max-width: 85rem) {
+    .mode-stage:has(.convert-mode) {
+      height: auto;
+      min-height: 100%;
+      overflow: visible;
+    }
+    .convert-mode {
+      height: auto;
+    }
+    .convert-layout {
+      grid-template-rows: auto auto;
+    }
+    .convert-main {
+      overflow: visible;
+    }
+    .convert-category-grid {
+      max-height: 36rem;
+    }
+    .convert-unit-grid {
+      max-height: 20rem;
+    }
+  }
+}

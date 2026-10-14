@@ -32,3 +32,7 @@ AP11 implementiert den Umrechner auf AP10; Verhalten, Persistenz und Testvertrag
 AP13: Graphen-UI mit Canvas 2D/HiDPI, lokalem Sampling-Worker, Parameterslidern,
 Trace/Analysis, Tabellen/PNG und AP4-Plot-Satz-Verlauf. Vertrag: [GRAPH_MODE.md](GRAPH_MODE.md).
 Implizite Kurven (#17), Touch-Pinch und physische GPU-/Screenreader-Abnahme bleiben Folgearbeit.
+
+AP15: Hardening-Durchgang in `feat/hardening` / PR #20. Befund, Messverfahren,
+Vorher-/Nachher-Werte und offene Produktionsabnahme: [QA_REPORT.md](QA_REPORT.md).
+Kein Abnahmehaken vor Review, Merge und manueller Pages-Prüfung.

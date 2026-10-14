@@ -1,4 +1,4 @@
-import { Dialog } from '../ui';
+import { Dialog } from '../ui/Dialog';
 import { t } from '../shared/i18n';
 import { useAppStore } from '../shared/store';
 import { shortcuts } from './shortcuts';

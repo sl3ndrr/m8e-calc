@@ -10,8 +10,31 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      testIgnore: '**/graph-performance.spec.ts',
+      testIgnore: [
+        '**/graph-performance.spec.ts',
+        '**/qa-visual.spec.ts',
+        '**/qa-performance.spec.ts',
+      ],
       use: { locale: 'de-DE', ...devices['Desktop Chrome'] },
+    },
+    ...(['firefox', 'webkit'] as const).map((name) => ({
+      name,
+      testMatch: '**/qa-hardening.spec.ts',
+      use: {
+        ...devices[name === 'firefox' ? 'Desktop Firefox' : 'Desktop Safari'],
+        locale: 'de-DE',
+      },
+    })),
+    {
+      name: 'qa-visual',
+      testMatch: '**/qa-visual.spec.ts',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'qa-performance',
+      testMatch: '**/qa-performance.spec.ts',
+      workers: 1,
+      use: { ...devices['Desktop Chrome'], trace: 'off' },
     },
     {
       name: 'chromium-graph-performance',

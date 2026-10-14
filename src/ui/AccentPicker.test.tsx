@@ -17,7 +17,7 @@ it('updates seeds and customization, with color reset preserving appearance and 
     screen.getByRole('button', { name: 'Akzentfarbe anpassen' }),
   );
   fireEvent.click(
-    screen.getByRole('button', { name: 'Koralle', hidden: true }),
+    await screen.findByRole('button', { name: 'Koralle', hidden: true }),
   );
   expect(useSettingsStore.getState().accent).toBe('#e2675a');
   await user.click(screen.getByRole('button', { name: /Schema-Variante/ }));

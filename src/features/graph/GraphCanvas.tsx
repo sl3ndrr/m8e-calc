@@ -1,4 +1,5 @@
 import { shortcutMatches } from '../../app/shortcuts';
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex -- The custom plot application handles Arrow keys; its application region needs a native Tab stop. */
 import {
   useEffect,
   useImperativeHandle,
@@ -13,7 +14,8 @@ import {
   type Point,
 } from '../../graph';
 import { useSettingsStore } from '../../shared/settingsStore';
-import { useMediaQuery } from '../../ui';
+import { useMediaQuery } from '../../ui/useMediaQuery';
+import { VisuallyHidden } from '../../ui/VisuallyHidden';
 import { graphPalette } from '../../styles/graphPalette';
 import { springs } from '../../styles/motion';
 import { t, type Locale } from '../../shared/i18n';
@@ -710,7 +712,8 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
     element.addEventListener('wheel', wheel, { passive: false });
     element.addEventListener('dblclick', double);
     element.addEventListener('contextmenu', context);
-    element.addEventListener('keydown', key);
+    const focusTarget = element.parentElement ?? element;
+    focusTarget.addEventListener('keydown', key);
     const leave = () => {
       if (!pointer) updateTrace(null);
     };
@@ -737,7 +740,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       element.removeEventListener('wheel', wheel);
       element.removeEventListener('dblclick', double);
       element.removeEventListener('contextmenu', context);
-      element.removeEventListener('keydown', key);
+      focusTarget.removeEventListener('keydown', key);
       element.removeEventListener('pointerleave', leave);
     };
     // The controller owns browser state; configure updates all live inputs below.
@@ -747,11 +750,17 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
     controller.current?.configure(props, animate);
   }, [props, animate, accent, theme, variant, contrast]);
   return (
-    <div className="graph-canvas-wrap">
+    <div
+      className="graph-canvas-wrap"
+      role="application"
+      tabIndex={0}
+      aria-label={t('graph.canvas', props.locale)}
+      aria-describedby="graph-canvas-help"
+    >
       <canvas
         ref={canvas}
         className="graph-canvas"
-        tabIndex={0}
+        tabIndex={-1}
         aria-label={t('graph.canvas', props.locale)}
         aria-describedby="graph-canvas-help"
       />
@@ -761,8 +770,15 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
           props.locale,
         )}
       </p>
+      <VisuallyHidden>
+        <output aria-live="polite" aria-atomic="true">
+          {trace
+            ? `x = ${Number(trace.point.x.toPrecision(8))} · f(x) = ${Number(trace.point.y.toPrecision(8))}`
+            : ''}
+        </output>
+      </VisuallyHidden>
       {trace && (
-        <output className="graph-trace" aria-live="polite">
+        <output className="graph-trace" aria-hidden="true">
           x = {Number(trace.point.x.toPrecision(8))} · f(x) ={' '}
           {Number(trace.point.y.toPrecision(8))}
         </output>

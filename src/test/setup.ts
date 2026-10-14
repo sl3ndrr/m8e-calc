@@ -28,3 +28,13 @@ Object.defineProperty(navigator, 'language', {
   configurable: true,
   value: 'de-DE',
 });
+
+// jsdom has no layout engine. CodeMirror must see empty ranges rather than missing APIs.
+Object.defineProperty(Range.prototype, 'getClientRects', {
+  configurable: true,
+  value: () => ({ length: 0, item: () => null }),
+});
+Object.defineProperty(Range.prototype, 'getBoundingClientRect', {
+  configurable: true,
+  value: () => new DOMRect(),
+});

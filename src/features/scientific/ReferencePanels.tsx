@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Button, SegmentedControl, TextField } from '../../ui';
+import { Button } from '../../ui/Button';
+import { SegmentedControl } from '../../ui/SegmentedControl';
+import { TextField } from '../../ui/TextField';
 import { constantRegistry, type Environment } from '../../engine';
 import { t, type Locale } from '../../shared/i18n';
 import { constantMatches, definitionSource } from './model';
@@ -43,7 +45,7 @@ export function ConstantsPanel({
             <Button
               variant="text"
               className="scientific-constant-insert"
-              aria-label={t('scientific.insert', locale, { text: c.id })}
+              title={t('scientific.insert', locale, { text: c.id })}
               onPress={() => insert(c.id)}
             >
               <span className="scientific-constant-symbol">{c.symbol}</span>
@@ -57,9 +59,7 @@ export function ConstantsPanel({
             </Button>
             <Button
               variant="text"
-              aria-label={t('scientific.copyConstant', locale, {
-                name: c.name[locale],
-              })}
+              aria-label={`${t('scientific.copyText', locale)}: ${c.name[locale]}`}
               onPress={() => copy(c.value)}
             >
               {t('scientific.copyText', locale)}

@@ -350,3 +350,16 @@
     gap: 0.5rem;
   }
 }
+
+.scientific-editor:not(.graph-editor) {
+  min-height: 4.75rem;
+}
+.scientific-editor-placeholder {
+  padding: 1.25rem;
+}
+
+@media (min-width: 1920px) and (max-height: 1200px) {
+  .app-shell[data-history-open] .scientific-heading {
+    margin-bottom: 0.5rem;
+  }
+}

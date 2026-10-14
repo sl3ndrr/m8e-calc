@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
-import { animate } from 'motion';
+import { animateElement } from '../animateElement';
 import { Button } from '../Button';
 import { useSpring } from '../useSpring';
 import { useMediaQuery } from '../useMediaQuery';
 import { useSettingsStore } from '../../shared/settingsStore';
-import { springs } from '../../styles/motion';
+
 import './CalculatorDisplay.css';
 function Character({ value }: { value: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -14,15 +14,15 @@ function Character({ value }: { value: string }) {
     const node = ref.current;
     if (!node || level === 'off') return;
     const spatial = level === 'full' && !reduced;
-    const token = springs[spatial ? 'spatial-fast' : 'effects-fast'];
-    const animation = animate(
+    const animation = animateElement(
       node,
-      spatial ? { y: ['55%', '0%'], opacity: [0, 1] } : { opacity: [0, 1] },
-      {
-        type: 'spring',
-        stiffness: token.stiffness,
-        damping: 2 * token.damping * Math.sqrt(token.stiffness),
-      },
+      spatial
+        ? [
+            { transform: 'translateY(55%)', opacity: 0 },
+            { transform: 'translateY(0)', opacity: 1 },
+          ]
+        : [{ opacity: 0 }, { opacity: 1 }],
+      spatial ? 'spatial-fast' : 'effects-fast',
     );
     return () => {
       animation.stop();

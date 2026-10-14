@@ -172,7 +172,7 @@ test('invalid links, input shortcut suppression, help, scaling and presentation'
   await expect(
     page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }),
   ).toHaveAttribute('aria-expanded', before ?? 'false');
-  await page.getByRole('button', { name: '?', exact: true }).focus();
+  await page.getByRole('button', { name: 'Tastenkürzel', exact: true }).focus();
   await page.keyboard.press('?');
   await expect(
     page.getByRole('dialog', { name: 'Tastenkürzel' }),
