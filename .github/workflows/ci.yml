@@ -35,3 +35,13 @@ jobs:
             test-results/
             docs/screenshots/components-*.png
           retention-days: 7
+
+      - name: Temporary offline verification runtime
+        if: always()
+        run: tar -czf /tmp/graph-runtime.tgz node_modules
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: graph-offline-runtime
+          path: /tmp/graph-runtime.tgz
+          retention-days: 1

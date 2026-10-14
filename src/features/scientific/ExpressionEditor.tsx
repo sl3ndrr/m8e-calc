@@ -50,6 +50,10 @@ interface Props {
   onChange: (value: string) => void;
   onEvaluate: () => void;
   onBrowse: (direction: -1 | 1) => void;
+  label?: string;
+  describedBy?: string;
+  isInvalid?: boolean;
+  compact?: boolean;
 }
 const externalChange = Annotation.define<boolean>();
 const language = StreamLanguage.define({
@@ -175,6 +179,10 @@ export default function ExpressionEditor({
   onChange,
   onEvaluate,
   onBrowse,
+  label,
+  describedBy,
+  isInvalid = false,
+  compact = false,
 }: Props) {
   const host = useRef<HTMLDivElement>(null),
     view = useRef<EditorView | null>(null);
@@ -350,5 +358,13 @@ export default function ExpressionEditor({
       ),
     );
   }, [error, locale, value]);
-  return <div ref={host} className="scientific-editor" />;
+  useEffect(() => {
+    const editor = view.current;
+    if (!editor) return;
+    if (label) editor.contentDOM.setAttribute('aria-label', label);
+    if (describedBy) editor.contentDOM.setAttribute('aria-describedby', describedBy);
+    if (isInvalid) editor.contentDOM.setAttribute('aria-invalid', 'true');
+  }, [label, describedBy, isInvalid, locale, error, value]);
+  return <div ref={host} className={compact ? 'scientific-editor graph-editor' : 'scientific-editor'} />;
 }
+

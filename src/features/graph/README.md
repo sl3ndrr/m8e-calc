@@ -1,3 +1,4 @@
-# features/graph
+# Graphen · AP13
 
-Reserviert für das zuständige Folgepaket; im Fundament noch keine Implementierung.
+Canvas, lokaler Sampling-Worker, Funktionsliste und Plot-Satz-Verlauf auf AP12.
+Details: [GRAPH_MODE.md](../../../docs/GRAPH_MODE.md).
