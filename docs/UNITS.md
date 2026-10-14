@@ -204,7 +204,7 @@ ohne DOM und UI-Testsetup.
 
 - Aktueller Endpunkt: `https://api.frankfurter.dev/v2/providers/ecb/rates?base=EUR`.
   [Frankfurter v2](https://frankfurter.dev/) und die
-  [OpenAPI](https://github.com/lineofflight/frankfurter/blob/main/lib/public/v2/openapi.json)
+  [OpenAPI](https://api.frankfurter.dev/v2/openapi.json)
   dokumentieren ein Array `{ date, base, quote, rate }`. Der allgemeine
   `/v2/rates`-Endpunkt mischt Quellen; deshalb wird ausschließlich der explizite
   EZB-Provider genutzt. v1 ist veraltet. Kein API-Key erforderlich.
@@ -217,7 +217,11 @@ ohne DOM und UI-Testsetup.
   blockiert; auch der alternative Web-Lesezugang konnte den API-Host nicht
   erreichen. Das ist **kein nachgewiesener Ausfall von Frankfurter**. Die
   Header-Prüfung auf der öffentlichen Instanz war vor der Umsetzung deshalb
-  nicht möglich. `node scripts/check-currency-source.mjs` prüft HTTP-Status,
+  nicht möglich. Die nachfolgende [CI-Liveprobe](https://github.com/sl3ndrr/m8e-calc/actions/runs/38603291035/job/115987658993)
+  war am **14.10.2026 um 17:03:01 UTC erfolgreich**: HTTP 200,
+  `Access-Control-Allow-Origin: *`, 30 Währungen einschließlich EUR,
+  einheitliches Kursdatum `2026-10-14`. Damit ist die Quelle auch live als
+  verfügbar und CORS-kompatibel geprüft. `node scripts/check-currency-source.mjs` prüft HTTP-Status,
   tatsächliche CORS-Header und Antwortschema separat in CI; das Ergebnis wird
   im PR festgehalten. Mock-Tests sind kein Beleg für Live-Verfügbarkeit.
 - Die [aktuelle EZB-Tabelle](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html)
@@ -261,7 +265,9 @@ fremde Origins; Kurse gelangen nicht in den PWA-Assetcache.
 fetchedAt, rates }`; Kurse sind Dezimalstrings in Einheiten je EUR. `date` ist
 das Kursdatum, `fetchedAt` der UTC-Abrufzeitpunkt als Epoch-Millisekunden.
 Automatisch wird höchstens alle vier Stunden aktualisiert, auch nach Fehlern;
-frischer Cache vermeidet Requests beim Remount/Reload. Ein Button aktualisiert
+frischer Cache vermeidet Requests beim Remount/Reload. Der letzte Request-Versuch
+wird zusätzlich in `m8e-calc.currency-rates.last-attempt` gespeichert; dadurch
+bleibt die automatische Fehler-Drosselung auch nach Reload wirksam. Ein Button aktualisiert
 explizit. Gleichzeitige Ladeversuche teilen denselben Request. Es gibt keine
 automatischen Wiederholungen pro Fehler und keine Requests im Hintergrund,
 wenn der Umrechner nicht aktiv ist.

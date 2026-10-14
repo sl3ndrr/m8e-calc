@@ -6,6 +6,7 @@ import {
   parseRateCache,
   isStale,
   RATE_CACHE_KEY,
+  RATE_ATTEMPT_KEY,
   RATE_URL,
   REFRESH_INTERVAL,
   STALE_INTERVAL,
@@ -22,14 +23,15 @@ const rows = currencyCodes
   }));
 const response = () => new Response(JSON.stringify(rows));
 function setup(initial: string | null = null) {
-  let raw = initial;
+  const saved = new Map<string, string>();
+  if (initial !== null) saved.set(RATE_CACHE_KEY, initial);
   let enabled = true;
   let online = true;
   let time = now;
   const storage = {
-    getItem: vi.fn(() => raw),
-    setItem: vi.fn((_key: string, value: string) => {
-      raw = value;
+    getItem: vi.fn((key: string) => saved.get(key) ?? null),
+    setItem: vi.fn((key: string, value: string) => {
+      saved.set(key, value);
     }),
   };
   const request = vi
@@ -139,7 +141,9 @@ describe('currency cache and requests', () => {
         fallback: true,
       });
       expect(s.request).toHaveBeenCalledTimes(1);
-      expect(s.storage.setItem).not.toHaveBeenCalled();
+      expect(
+        s.storage.setItem.mock.calls.some(([key]) => key === RATE_CACHE_KEY),
+      ).toBe(false);
     },
   );
   it('aborts a timeout and keeps the cache', async () => {
@@ -178,13 +182,32 @@ describe('currency cache and requests', () => {
     s.client.disable();
     resolve?.(response());
     await load;
-    expect(s.storage.setItem).not.toHaveBeenCalled();
+    expect(
+      s.storage.setItem.mock.calls.some(([key]) => key === RATE_CACHE_KEY),
+    ).toBe(false);
     expect(s.client.getSnapshot()).toEqual({
       cache: null,
       loading: false,
       error: null,
       fallback: false,
     });
+  });
+  it('persists the automatic retry limit across reloads after a failure', async () => {
+    const s = setup();
+    s.request.mockRejectedValue(new TypeError('network'));
+    await s.client.load();
+    expect(s.storage.getItem(RATE_ATTEMPT_KEY)).toBe(String(now));
+    const reloaded = new CurrencyRateClient({
+      consent: () => true,
+      storage: () => s.storage,
+      request: s.request,
+      online: () => true,
+      now: () => now,
+    });
+    await reloaded.load();
+    expect(s.request).toHaveBeenCalledTimes(1);
+    await reloaded.load(true);
+    expect(s.request).toHaveBeenCalledTimes(2);
   });
   it('survives corrupt, denied and full storage', async () => {
     const s = setup('{broken');

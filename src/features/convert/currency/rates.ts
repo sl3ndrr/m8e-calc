@@ -1,6 +1,7 @@
 import { currencyCodes, createCurrencyProvider } from '../../../units/currency';
 
 export const RATE_CACHE_KEY = 'm8e-calc.currency-rates';
+export const RATE_ATTEMPT_KEY = `${RATE_CACHE_KEY}.last-attempt`;
 export const REFRESH_INTERVAL = 4 * 60 * 60 * 1000;
 export const STALE_INTERVAL = 48 * 60 * 60 * 1000;
 export const REQUEST_TIMEOUT = 10_000;
@@ -150,6 +151,14 @@ export class CurrencyRateClient {
         /* Denied or corrupt optional storage. */
       }
     }
+    try {
+      const raw = this.dependencies.storage().getItem(RATE_ATTEMPT_KEY);
+      const attempt = raw === null ? NaN : Number(raw);
+      if (Number.isFinite(attempt) && attempt >= 0 && attempt <= now)
+        this.lastAttempt = Math.max(this.lastAttempt, attempt);
+    } catch {
+      /* Optional persistence; the in-memory throttle still applies. */
+    }
     if (!this.dependencies.online()) {
       this.lastAttempt = now;
       this.publish({ error: 'offline', fallback: !!this.state.cache });
@@ -163,6 +172,11 @@ export class CurrencyRateClient {
     )
       return Promise.resolve();
     this.lastAttempt = now;
+    try {
+      this.dependencies.storage().setItem(RATE_ATTEMPT_KEY, String(now));
+    } catch {
+      /* Optional persistence. */
+    }
     const controller = new AbortController();
     this.controller = controller;
     this.publish({ loading: true, error: null });

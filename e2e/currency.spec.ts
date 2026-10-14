@@ -20,7 +20,10 @@ async function toggleConsent(page: Page): Promise<void> {
     .getByRole('button', { name: t('shell.settings'), exact: true })
     .click();
   const dialog = page.getByRole('dialog', { name: t('shell.settings') });
-  await dialog.getByRole('switch', { name: t('currency.online') }).click();
+  const control = dialog.getByRole('switch', { name: t('currency.online') });
+  const wasEnabled = await control.isChecked();
+  await dialog.getByText(t('currency.online'), { exact: true }).click();
+  await expect(control).toBeChecked({ checked: !wasEnabled });
   await dialog
     .getByRole('button', { name: t('ui.close'), exact: true })
     .click();
@@ -57,9 +60,10 @@ test('opt-in off: no external requests, no currency category, including stored c
     {
       key: RATE_CACHE_KEY,
       date: today,
-      rates: Object.fromEntries(
-        rows.map((row) => [row.quote, String(row.rate)]),
-      ),
+      rates: {
+        EUR: '1',
+        ...Object.fromEntries(rows.map((row) => [row.quote, String(row.rate)])),
+      },
     },
   );
   await page.route(`${RATE_ENDPOINT}**`, (route) => route.abort());
@@ -179,7 +183,12 @@ test('loading, API errors and offline stale fallback remain usable', async ({
     },
   );
   await toggleConsent(page);
-  await page.goto('/m8e-calc/#/simple');
+  await page.evaluate(() => {
+    window.location.hash = '#/simple';
+  });
+  await expect(
+    page.getByRole('heading', { name: t('simple.title') }),
+  ).toBeVisible();
   await context.setOffline(true);
   await toggleConsent(page);
   await page.evaluate(() => {
