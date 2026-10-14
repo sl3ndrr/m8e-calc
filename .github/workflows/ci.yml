@@ -19,12 +19,6 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check
-      - name: Formatting diagnostics
-        if: failure()
-        run: |
-          mkdir -p test-results
-          npx prettier --write .
-          git diff --binary > test-results/format.patch
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
       - name: Gallery screenshots

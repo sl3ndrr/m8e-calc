@@ -85,6 +85,8 @@
     .scientific-tools,
     .scientific-mode-controls,
     .scientific-actions,
+    .scientific-help,
+    .scientific-preview,
     .scientific-result-card > .ui-button-group,
     .scientific-result-card > .ui-slider,
     .scientific-result-card > .ui-switch,
@@ -115,8 +117,8 @@
   :is(.scientific-columns, .convert-layout, .graph-layout) {
   grid-template-columns: minmax(0, 1fr);
 }
-.app-shell[data-presentation] .scientific-math {
-  font-size: clamp(2rem, 4vw, 6rem);
+.app-shell[data-presentation] .scientific-math .katex {
+  font-size: clamp(2rem, 6vw, 10rem);
 }
 .app-shell[data-presentation] .convert-result {
   font-size: clamp(4rem, 8vw, 12rem);

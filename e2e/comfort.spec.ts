@@ -27,6 +27,13 @@ test('palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview
     name: 'Modus, Aktion, Konstante oder Umrechnung suchen',
   });
   await expect(input).toBeFocused();
+  await input.press('Control+k');
+  await expect(
+    page.getByRole('dialog', { name: 'Befehlspalette' }),
+  ).toBeHidden();
+  await expect(trigger).toBeFocused();
+  await trigger.press('Control+k');
+  await expect(input).toBeFocused();
   await input.fill('wsch');
   await expect(page.getByRole('option')).toContainText('Wissenschaftlich');
   await input.press('Enter');
@@ -193,6 +200,14 @@ test('invalid links, input shortcut suppression, help, scaling and presentation'
   );
   await expect(page.locator('.shell-rail')).toBeHidden();
   await expect(page.locator('.shell-toolbar')).toBeHidden();
+  await expect
+    .poll(() =>
+      page
+        .locator('.scientific-result-card .katex')
+        .last()
+        .evaluate((node) => parseFloat(getComputedStyle(node).fontSize)),
+    )
+    .toBeGreaterThan(60);
   await page.screenshot({
     path: 'docs/screenshots/comfort-presentation.png',
     fullPage: true,

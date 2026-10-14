@@ -4,7 +4,10 @@ export const en: Dictionary = {
   'comfort.search': 'Search modes, actions, constants or conversions',
   'comfort.paletteHint': '↑ ↓ select · Enter run · Esc close · e.g. 5 km in mi',
   'comfort.results': 'Search results',
-  'comfort.resultCount': '{count} results',
+  'comfort.resultCount': {
+    one: '{count} result',
+    other: '{count} results',
+  },
   'comfort.shortcuts': 'Keyboard shortcuts',
   'comfort.shortcutHint':
     'Global shortcuts pause in input fields. Ctrl/Cmd+K opens the palette there; editor shortcuts are explicitly enabled.',

@@ -4,7 +4,10 @@ export const de = {
   'comfort.paletteHint':
     '↑ ↓ auswählen · Enter ausführen · Esc schließen · z. B. 5 km in mi',
   'comfort.results': 'Suchergebnisse',
-  'comfort.resultCount': '{count} Ergebnisse',
+  'comfort.resultCount': {
+    one: '{count} Ergebnis',
+    other: '{count} Ergebnisse',
+  },
   'comfort.shortcuts': 'Tastenkürzel',
   'comfort.shortcutHint':
     'Globale Kürzel ruhen in Eingabefeldern. Strg/Cmd+K öffnet dort die Palette; Editor-Kürzel sind ausdrücklich vorgesehen.',

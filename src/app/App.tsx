@@ -175,16 +175,23 @@ export function App() {
         return;
       const item = findGlobalShortcut(event, isInputTarget(event.target));
       if (!item) return;
+      if (paletteOpen) {
+        if (item.id === 'palette') {
+          event.preventDefault();
+          event.stopPropagation();
+          setPaletteOpen(false);
+        }
+        return;
+      }
       // Existing modal/menu scopes own all keys except the explicitly global palette opener.
       if (
         settingsOpen ||
         helpOpen ||
-        paletteOpen ||
         document.querySelector(
           '[role="dialog"], [role="menu"], [role="listbox"]',
         )
       ) {
-        if (item.id !== 'palette' || settingsOpen || helpOpen || paletteOpen)
+        if (item.id !== 'palette' || settingsOpen || helpOpen)
           return;
       }
       event.preventDefault();

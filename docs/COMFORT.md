@@ -11,7 +11,7 @@ Konstanten/Funktionen werden an der Auswahl des wissenschaftlichen Editors
 eingefügt; aus anderen Modi öffnet die Palette dafür Wissenschaftlich.
 
 Der Dialog enthält eine ARIA-Combobox mit `aria-activedescendant` und Listbox.
-Pfeile wählen mit Wraparound, Enter führt aus, Escape schließt. React Aria hält
+Pfeile wählen mit Wraparound, Enter führt aus, Escape oder erneutes Strg/Cmd+K schließt. React Aria hält
 den Fokus im Modal und stellt den Ausgangsfokus wieder her; Einfügeaktionen
 fokussieren anschließend den Editor. Animation und reduzierte Bewegung verwenden
 die bestehenden Dialog-/Motion-Tokens.
@@ -110,5 +110,9 @@ Unit: Fuzzy-Suche, Query-Auswertung, Kürzelkonflikte/Input-Scope, Settings-Migr
 Permalink-Roundtrips, Unicode-Kompression und Fuzzing. E2E: Palette/Fokus/ARIA/axe,
 Roundtrip jedes Modus, ungültige Links, Skalierung/Präsentation und vier Modi mit
 Playwright-Offline-Emulation nach ausschließlich dem ersten Einfach-Laden.
-Screenshots: `comfort-palette.png`, `comfort-presentation.png` im CI-Artefakt.
+Screenshots: [Palette](screenshots/comfort-palette.png), [Präsentation](screenshots/comfort-presentation.png); E2E erzeugt sie erneut im CI-Artefakt.
 Weitere Browser und physische Betriebssystem-Installation bleiben AP15-Abnahme.
+
+Stand der vollständigen Verifikation: 1.978 Unit-/Komponententests und 81
+Chromium-E2E bestanden. Die Bildschirmprüfung hat die KaTeX-Schrift für die
+Präsentation zusätzlich vergrößert; die E2E prüft ihre tatsächliche CSS-Größe.
