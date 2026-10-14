@@ -29,4 +29,3 @@ for name, package in [('roboto-flex', '@fontsource-variable/roboto-flex'), ('rob
     shutil.copyfile(root / f'node_modules/{package}/LICENSE', out / f'{name}-LICENSE.txt')
 print({p.name: p.stat().st_size for p in out.glob('*.woff2')})
 
-

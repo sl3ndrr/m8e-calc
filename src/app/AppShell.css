@@ -427,3 +427,11 @@
 .settings-dialog .ui-button {
   min-height: max(48px, 3rem);
 }
+
+/* The mode heading already labels the workspace. Give docked controls one row. */
+.app-shell[data-history-open] .shell-toolbar > div:first-child {
+  display: none;
+}
+.app-shell[data-history-open] .shell-controls {
+  margin-left: auto;
+}

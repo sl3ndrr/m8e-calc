@@ -752,6 +752,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       <canvas
         ref={canvas}
         className="graph-canvas"
+        role="application"
         tabIndex={0}
         aria-label={t('graph.canvas', props.locale)}
         aria-describedby="graph-canvas-help"

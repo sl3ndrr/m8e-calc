@@ -119,7 +119,7 @@ test('keyboard-only core flows and modal/sheet focus restoration', async ({
   await page.keyboard.press('Enter');
   const canvas = page.locator('canvas.graph-canvas');
   await expect(canvas).toHaveAttribute('data-curve-count', '1');
-  await tabTo(page, canvas);
+  await tabTo(page, canvas, true);
   await page.keyboard.press('ArrowRight');
   await expect(page.locator('.graph-trace')).toBeVisible();
   await page.keyboard.press('Escape');
@@ -132,6 +132,36 @@ for (const mode of qaModes)
     await page.setViewportSize({ width: 960, height: 540 });
     await page.goto(`/m8e-calc/#/${mode}`);
     await ready(page, mode);
+    if (mode === 'simple') {
+      await page.keyboard.type('12+3=');
+      await expect(page.locator('.calculator-announcement')).toHaveText('15');
+    } else if (mode === 'scientific') {
+      const editor = page.getByRole('textbox', {
+        name: 'Ausdruck',
+        exact: true,
+      });
+      await editor.fill('2+3');
+      await editor.press('Enter');
+      await expect(page.locator('.scientific-result-text')).toHaveText('5');
+    } else if (mode === 'convert') {
+      const quick = page.getByRole('textbox', {
+        name: 'Schnelleingabe',
+        exact: true,
+      });
+      await quick.fill('5 km in mi');
+      await quick.press('Enter');
+      await expect(page.locator('.convert-result')).toContainText('3,106856');
+    } else {
+      await page
+        .getByRole('button', { name: 'Hinzufügen', exact: true })
+        .click();
+      await page.locator('.graph-editor [role="textbox"]').fill('x^2');
+      await expect(page.locator('canvas.graph-canvas')).toHaveAttribute(
+        'data-curve-count',
+        '1',
+      );
+    }
+
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
@@ -146,7 +176,7 @@ for (const mode of qaModes)
       name: 'Einstellungen',
       exact: true,
     });
-    await tabTo(page, settings);
+    await tabTo(page, settings, true);
     await page.keyboard.press('Enter');
     await expect(
       page.getByRole('dialog', { name: 'Einstellungen', exact: true }),

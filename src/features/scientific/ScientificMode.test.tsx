@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, expect, it, vi } from 'vitest';
 import ScientificMode from './ScientificMode';
@@ -35,6 +35,7 @@ vi.mock('./MathDisplay', () => ({
   ),
 }));
 afterEach(() => {
+  vi.useRealTimers();
   useScientificStore.getState().commit(createEnvironment());
   useHistoryStore.getState().resetHistory();
   useAppStore.setState({ locale: 'de' });
@@ -62,14 +63,21 @@ it('debounces previews, hides invalid previews and exposes errors', async () => 
   const user = userEvent.setup();
   render(<ScientificMode />);
   const editor = await screen.findByRole('textbox', { name: 'Ausdruck' });
+  vi.useFakeTimers();
   fireEvent.change(editor, { target: { value: 'sin(30°)' } });
-  await waitFor(() =>
-    expect(screen.getByLabelText('Live-Vorschau')).toHaveTextContent('0,5'),
-  );
+  await act(async () => {
+    vi.advanceTimersByTime(249);
+  });
+  expect(screen.getByLabelText('Live-Vorschau')).toBeEmptyDOMElement();
+  await act(async () => {
+    vi.advanceTimersByTime(1);
+  });
+  expect(screen.getByLabelText('Live-Vorschau')).toHaveTextContent('0,5');
   expect(useHistoryStore.getState().entries).toHaveLength(0);
   expect(useScientificStore.getState().environment.history).toHaveLength(0);
   fireEvent.change(editor, { target: { value: '1/0' } });
   expect(screen.getByLabelText('Live-Vorschau')).toBeEmptyDOMElement();
+  vi.useRealTimers();
   await user.click(screen.getByRole('button', { name: 'Auswerten' }));
   expect(screen.getByRole('alert')).toHaveTextContent('Durch null');
 });
