@@ -45,3 +45,9 @@ Die CI erzeugt Release-Bilder als separates Artefakt zur Reproduktion.
 
 Die Versionsnummer 1.0.0 bezeichnet die vorbereitete Version und allein keine
 bereits erfolgte Veröffentlichung. AP16 bleibt bis zur Abnahme offen.
+
+## Dokumentation prüfen
+
+`node scripts/check-release-docs.mjs` prüft lokale Markdown-Verweise und alle dokumentierten `npm run`-Befehle gegen package.json. Mit `--external` werden zusätzlich externe Markdown-Links per GET geprüft (30 s Timeout je URL, Redirect-Ziel im Log). Die Release-Assets-CI führt diese externe Prüfung aus. Ein HTTP-200 allein beweist nicht, dass ein weitergeleitetes Dokument noch denselben Inhalt hat; Quellenänderungen werden zusätzlich redaktionell geprüft.
+
+Beim Linkabgleich am 14.10.2026 wurden der verschobene NIST-Handbook-Link, die IAU-2015-PDF und die NASA-SP-367-Weiterleitung ersetzt. Die FDA-Quelle verweist jetzt auf den offiziellen HHS-Katalogeintrag, weil FDA den CI-Client auf eine Missbrauchserkennungsseite umleitete. Der ISO-2533-Katalogeintrag wurde unabhängig über die offizielle ISO-Seite bestätigt; dort erhält der CI-Client HTTP 403. Nur diese exakt dokumentierte URL/Status-Kombination ist im Prüfer als manuell verifiziert markiert, nicht als erfolgreicher HTTP-Test. Die Live-URL lieferte HTTP 200; das ersetzt keine vollständige manuelle Pages-Abnahme.

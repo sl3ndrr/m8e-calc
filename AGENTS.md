@@ -34,7 +34,7 @@ Node 24 LTS (`nvm use`), npm und das eingecheckte `package-lock.json` verwenden.
 | `npm run test:e2e`            | Playwright mit Chromium gegen den vorher erstellten Build              |
 | `npm run screenshots`         | Release-Bilder in `docs/img/` aus dem Build erzeugen (eigener Preview) |
 | `npm run screenshots:gallery` | Galerie und Overlays in Hell/Dunkel aufnehmen (Preview vorher starten) |
-| `npm run check`               | lint + typecheck + test + build + Engine-Benchmark                     |
+| `npm run check`               | lint + typecheck + test + build + Engine-/Graph-Benchmarks             |
 
 Einmalig für E2E: `npx playwright install chromium` (Linux-CI: `--with-deps`). Vor E2E `npm run build` ausführen. Formatieren: `npx prettier --write .`. `VITE_BASE_PATH` überschreibt den Standard `/m8e-calc/`; als absoluter Pfad mit führendem und abschließendem Slash setzen. Der Pages-Smoke prüft bewusst den Standardpfad.
 

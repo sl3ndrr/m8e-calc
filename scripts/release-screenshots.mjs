@@ -79,7 +79,9 @@ try {
         await editor.fill('sin(30)');
         await editor.press('Enter');
         await expect(page.locator('.scientific-result-text')).toHaveText('0,5');
-        await expect(page.locator('.scientific-result-card .katex')).toHaveCount(2);
+        await expect(
+          page.locator('.scientific-result-card .katex'),
+        ).toHaveCount(2);
       }
       if (mode === 'convert') {
         const editor = page.getByRole('textbox', {
