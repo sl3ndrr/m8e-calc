@@ -351,11 +351,14 @@ export function App() {
                   {t('comfort.presentation', locale)} ·{' '}
                   {shortcutHint('presentation')}
                 </Tooltip>
-                {pwa.canInstall && (
-                  <Button variant="text" onPress={pwa.install}>
-                    {t('comfort.install', locale)}
-                  </Button>
-                )}
+                <Button
+                  variant="text"
+                  onPress={pwa.install}
+                  style={{ visibility: pwa.canInstall ? 'visible' : 'hidden' }}
+                  aria-hidden={!pwa.canInstall || undefined}
+                >
+                  {t('comfort.install', locale)}
+                </Button>
                 <IconButton
                   icon="settings"
                   variant="text"

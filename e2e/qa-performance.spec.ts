@@ -95,13 +95,26 @@ test('editor interaction latency, layout shift and resources across 20 mode cycl
   await page.keyboard.type('sin(30)+sqrt(9)', { delay: 30 });
   await editor.press('Enter');
   await expect(page.locator('.scientific-result-text')).toHaveText('3,5');
-  // Warm all chunks before comparing memory; lazy module caches legitimately remain resident.
-  for (const mode of ['graph', 'convert', 'simple']) {
-    await page.evaluate((mode) => {
-      window.location.hash = '#/' + mode;
-    }, mode);
-    await ready(page, mode);
+  // Warm code paths (including the graph editor) before the steady-state sample.
+  async function cycleModes() {
+    for (const mode of ['scientific', 'graph', 'convert', 'simple']) {
+      await page.evaluate((mode) => {
+        window.location.hash = '#/' + mode;
+      }, mode);
+      await ready(page, mode);
+      if (mode === 'graph') {
+        await page
+          .getByRole('button', { name: 'Hinzufügen', exact: true })
+          .click();
+        await page.locator('.graph-editor [role="textbox"]').fill('sin(x)');
+        await expect(page.locator('canvas.graph-canvas')).toHaveAttribute(
+          'data-curve-count',
+          '1',
+        );
+      }
+    }
   }
+  for (let cycle = 0; cycle < 5; cycle++) await cycleModes();
   const cdp = await context.newCDPSession(page);
   await cdp.send('HeapProfiler.enable');
   async function sample() {
@@ -126,23 +139,7 @@ test('editor interaction latency, layout shift and resources across 20 mode cycl
   }
   const before = await sample();
   // Hash navigation keeps the same document so cleanup is actually exercised.
-  for (let cycle = 0; cycle < 20; cycle++)
-    for (const mode of ['scientific', 'graph', 'convert', 'simple']) {
-      await page.evaluate((mode) => {
-        window.location.hash = '#/' + mode;
-      }, mode);
-      await ready(page, mode);
-      if (mode === 'graph') {
-        await page
-          .getByRole('button', { name: 'Hinzufügen', exact: true })
-          .click();
-        await page.locator('.graph-editor [role="textbox"]').fill('sin(x)');
-        await expect(page.locator('canvas.graph-canvas')).toHaveAttribute(
-          'data-curve-count',
-          '1',
-        );
-      }
-    }
+  for (let cycle = 0; cycle < 20; cycle++) await cycleModes();
   await expect.poll(async () => (await sample()).frames).toBe(0);
   const after = await sample();
   const latency = Math.max(0, ...before.events);

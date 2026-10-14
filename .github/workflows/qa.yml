@@ -20,20 +20,6 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - name: Package local verification dependencies
-        if: matrix.phase == 'after'
-        run: tar -czf /tmp/qa-deps.tgz node_modules
-      - name: Format patch for review
-        if: matrix.phase == 'after'
-        run: |
-          npm run tokens
-          npx prettier --write . > /tmp/qa-format.log
-          git diff --binary > /tmp/format.patch
-          cat /tmp/qa-format.log
-          echo 'QA_FORMAT_PATCH_START'
-          base64 -w0 /tmp/format.patch
-          echo
-          echo 'QA_FORMAT_PATCH_END'
       - name: Prepare pinned baseline
         if: matrix.phase == 'before'
         run: |
@@ -60,8 +46,10 @@ jobs:
         run: |
           if [ "$PHASE" = before ]; then cd .qa-baseline; fi
           mkdir -p test-results/qa
-          npm audit --json > test-results/qa/audit.json || true
+          status=0
+          npm audit --json > test-results/qa/audit.json || status=$?
           cat test-results/qa/audit.json
+          if [ "$PHASE" = after ]; then exit "$status"; fi
       - name: Lighthouse CI
         if: always()
         continue-on-error: ${{ matrix.phase == 'before' }}
@@ -79,8 +67,6 @@ jobs:
             .lighthouseci/
             .qa-baseline/test-results/
             .qa-baseline/.lighthouseci/
-            /tmp/format.patch
-            /tmp/qa-deps.tgz
           retention-days: 14
   browsers:
     runs-on: ubuntu-latest
@@ -121,24 +107,3 @@ jobs:
             test-results/
             e2e/qa-visual.spec.ts-snapshots/
           retention-days: 14
-  local-verification-tools:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version-file: .nvmrc
-          cache: npm
-      - run: npm ci
-      - run: npm install katex@^0.18.2
-      - run: npx playwright install chromium
-      - run: |
-          tar -czf /tmp/qa-updated-deps.tgz node_modules package.json package-lock.json
-          tar -czf /tmp/qa-chromium.tgz -C "$HOME/.cache" ms-playwright
-      - uses: actions/upload-artifact@v7
-        with:
-          name: qa-local-tools
-          path: |
-            /tmp/qa-updated-deps.tgz
-            /tmp/qa-chromium.tgz
-          retention-days: 1

@@ -49,7 +49,15 @@ it('retargets JS springs synchronously with motion off', () => {
   expect(result.current).toBe(100);
 });
 it('keeps scalar springs bounded and releases their last frame on unmount', () => {
-  vi.spyOn(window, 'matchMedia').mockImplementation(query => ({matches:false,media:query,addEventListener:vi.fn(),removeEventListener:vi.fn()}) as unknown as MediaQueryList);
+  vi.spyOn(window, 'matchMedia').mockImplementation(
+    (query) =>
+      ({
+        matches: false,
+        media: query,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+      }) as unknown as MediaQueryList,
+  );
   useSettingsStore.setState({ motionLevel: 'full' });
   const pending = new Map<number, FrameRequestCallback>();
   let sequence = 0;

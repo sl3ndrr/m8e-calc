@@ -36,10 +36,10 @@ export async function ready(page: Page, mode: string) {
   );
 }
 /** Reach a control using actual Tab events, checking the visible focus target. */
-export async function tabTo(page: Page, target: Locator) {
+export async function tabTo(page: Page, target: Locator, backwards = false) {
   for (let i = 0; i < 180; i++) {
     if (await target.evaluate((el) => document.activeElement === el)) return;
-    await page.keyboard.press('Tab');
+    await page.keyboard.press(backwards ? 'Shift+Tab' : 'Tab');
   }
   await expect(target).toBeFocused();
 }

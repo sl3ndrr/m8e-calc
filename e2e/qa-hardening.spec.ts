@@ -100,7 +100,7 @@ test('keyboard-only core flows and modal/sheet focus restoration', async ({
   await page.keyboard.press('Escape');
   await expect(editor).toBeFocused();
   // Alt shortcuts deliberately rest in inputs. Tab back to a shell control before switching.
-  await tabTo(page, settings);
+  await tabTo(page, settings, true);
   await page.keyboard.press('Alt+3');
   await ready(page, 'convert');
   await page.keyboard.press('/');
@@ -249,7 +249,9 @@ test('failed lazy mode can be reset while shell stays usable', async ({
   await qaSetup(page);
   await page.goto('/m8e-calc/#/simple');
   await ready(page, 'simple');
-  await page.route('**/ScientificMode-*.js', (route) => route.abort());
+  await page.route('**/ScientificMode-*.js', (route) =>
+    route.fulfill({ status: 503, body: 'temporarily unavailable' }),
+  );
   await page
     .getByRole('link', { name: 'Wissenschaftlich', exact: true })
     .click();
