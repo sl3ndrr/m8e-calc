@@ -10,7 +10,15 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
+      testIgnore: '**/graph-performance.spec.ts',
       use: { locale: 'de-DE', ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'chromium-graph-performance',
+      testMatch: '**/graph-performance.spec.ts',
+      dependencies: ['chromium'],
+      workers: 1,
+      use: { locale: 'de-DE', ...devices['Desktop Chrome'], trace: 'off' },
     },
   ],
   webServer: {
