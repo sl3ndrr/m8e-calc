@@ -362,9 +362,16 @@ export default function ExpressionEditor({
     const editor = view.current;
     if (!editor) return;
     if (label) editor.contentDOM.setAttribute('aria-label', label);
-    if (describedBy) editor.contentDOM.setAttribute('aria-describedby', describedBy);
+    if (describedBy)
+      editor.contentDOM.setAttribute('aria-describedby', describedBy);
     if (isInvalid) editor.contentDOM.setAttribute('aria-invalid', 'true');
   }, [label, describedBy, isInvalid, locale, error, value]);
-  return <div ref={host} className={compact ? 'scientific-editor graph-editor' : 'scientific-editor'} />;
+  return (
+    <div
+      ref={host}
+      className={
+        compact ? 'scientific-editor graph-editor' : 'scientific-editor'
+      }
+    />
+  );
 }
-
