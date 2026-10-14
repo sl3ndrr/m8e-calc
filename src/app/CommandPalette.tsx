@@ -1,4 +1,4 @@
-import { useId, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Dialog } from '../ui';
 import { t } from '../shared/i18n';
 import { useAppStore } from '../shared/store';
@@ -17,7 +17,12 @@ export function CommandPalette({
     [active, setActive] = useState(0);
   const results = useMemo(() => searchPalette(query, locale), [query, locale]);
   const id = useId(),
-    list = useRef<HTMLUListElement>(null);
+    list = useRef<HTMLUListElement>(null),
+    input = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => input.current?.focus());
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
   const selected = Math.min(active, Math.max(0, results.length - 1));
   function choose(command: PaletteCommand): void {
     onClose();
@@ -36,6 +41,7 @@ export function CommandPalette({
     >
       <label htmlFor={`${id}-input`}>{t('comfort.search', locale)}</label>
       <input
+        ref={input}
         id={`${id}-input`}
         className="palette-input"
         role="combobox"

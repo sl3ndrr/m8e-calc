@@ -297,10 +297,12 @@ export function App() {
                   trigger={
                     <Button
                       variant="text"
+                      className="comfort-control"
                       onPress={() => setPaletteOpen(true)}
+                      aria-label={t('comfort.palette', locale)}
                       aria-keyshortcuts="Control+K Meta+K"
                     >
-                      {t('comfort.palette', locale)}
+                      <span aria-hidden="true">⌘</span>
                     </Button>
                   }
                 >
@@ -319,9 +321,11 @@ export function App() {
                   trigger={
                     <Button
                       variant="text"
+                      className="comfort-control"
                       onPress={() => setPresentation(true)}
+                      aria-label={t('comfort.presentation', locale)}
                     >
-                      {t('comfort.presentation', locale)}
+                      <span aria-hidden="true">⛶</span>
                     </Button>
                   }
                 >

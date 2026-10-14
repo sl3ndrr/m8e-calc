@@ -75,7 +75,7 @@ test('simple permalink restores the editable pending expression', async ({
   const url = await copiedLink(page);
   await page.goto(url);
   await expect(page.locator('.calculator-expression')).toHaveText(expression);
-  await page.keyboard.press('Enter');
+  await page.getByRole('button', { name: 'Ergebnis berechnen' }).click();
   await expect(page.locator('.calculator-announcement')).toHaveText('15');
 });
 test('scientific permalink restores expression and angle without executing a definition', async ({
@@ -84,7 +84,8 @@ test('scientific permalink restores expression and angle without executing a def
   await page.goto('/m8e-calc/#/scientific?e=sin(30)');
   const editor = page.getByRole('textbox', { name: 'Ausdruck', exact: true });
   await expect(editor).toHaveText('sin(30)');
-  await page.getByRole('radio', { name: 'RAD', exact: true }).click();
+  await page.getByRole('radio', { name: 'DEG', exact: true }).focus();
+  await page.keyboard.press('ArrowRight');
   const url = await copiedLink(page);
   await page.goto(url);
   await expect(editor).toHaveText('sin(30)');
@@ -170,6 +171,7 @@ test('invalid links, input shortcut suppression, help, scaling and presentation'
     page.getByRole('dialog', { name: 'Tastenkürzel' }),
   ).toBeVisible();
   await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog', { name: 'Tastenkürzel' })).toBeHidden();
   await page
     .getByRole('button', { name: 'Einstellungen', exact: true })
     .click();
@@ -178,6 +180,7 @@ test('invalid links, input shortcut suppression, help, scaling and presentation'
   await size.press('End');
   await expect(size).toHaveValue('150');
   await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog', { name: 'Einstellungen' })).toBeHidden();
   await page
     .getByRole('button', { name: 'Präsentationsmodus', exact: true })
     .focus();

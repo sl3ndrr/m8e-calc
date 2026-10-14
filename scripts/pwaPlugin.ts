@@ -95,7 +95,7 @@ self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET' || url.origin !== self.location.origin || !url.pathname.startsWith(${JSON.stringify(base)})) return;
   event.respondWith((async () => {
     const cache = await caches.open(CACHE);
-    const cached = await cache.match(event.request, { ignoreSearch: true });
+    const cached = await cache.match(event.request, { ignoreSearch: true, ignoreVary: true });
     if (cached) return cached;
     if (event.request.mode === 'navigate') return await cache.match(${JSON.stringify(base + 'index.html')}) || fetch(event.request);
     return fetch(event.request);
