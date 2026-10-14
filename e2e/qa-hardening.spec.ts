@@ -119,7 +119,11 @@ test('keyboard-only core flows and modal/sheet focus restoration', async ({
   await page.keyboard.press('Enter');
   const canvas = page.locator('canvas.graph-canvas');
   await expect(canvas).toHaveAttribute('data-curve-count', '1');
-  await tabTo(page, canvas, true);
+  await tabTo(
+    page,
+    page.getByRole('application', { name: 'Interaktive Zeichenfläche' }),
+    true,
+  );
   await page.keyboard.press('ArrowRight');
   await expect(page.locator('.graph-trace')).toBeVisible();
   await page.keyboard.press('Escape');

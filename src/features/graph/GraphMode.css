@@ -64,7 +64,8 @@
   cursor: crosshair;
   outline-offset: -4px;
 }
-.graph-canvas:focus-visible {
+.graph-canvas:focus-visible,
+.graph-canvas-wrap:focus-visible {
   outline: 3px solid var(--md-sys-color-primary);
 }
 .graph-canvas-help {
