@@ -58,6 +58,7 @@ export function decodePermalink(hash: string): Permalink | null {
     const [route, query = ''] = hash.slice(2).split('?');
     if (!isModeId(route)) return null;
     const params = new URLSearchParams(query);
+    if (params.has('v') && params.get('v') !== '1') return null;
     let value: unknown;
     if (params.has('s')) {
       if (params.get('v') !== '1') return null;

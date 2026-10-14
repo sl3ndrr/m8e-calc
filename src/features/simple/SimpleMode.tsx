@@ -25,7 +25,7 @@ import {
 } from './format';
 import { keyCommand } from './keyboard';
 import './SimpleMode.css';
-import { shortcutHint } from '../../app/shortcuts';
+import { isInputTarget, shortcutHint } from '../../app/shortcuts';
 import { CopyLinkButton } from '../../app/CopyLinkButton';
 import { initialLinkedSimple, simpleLink } from '../../app/permalinks';
 interface KeyDefinition {
@@ -290,11 +290,10 @@ export default function SimpleMode() {
         )
       )
         return false;
+      if (isInputTarget(target)) return false;
       return !(
         target instanceof HTMLElement &&
-        target.closest(
-          'input, textarea, select, [contenteditable="true"], .shell-history, .shell-personalization',
-        )
+        target.closest('.shell-history, .shell-personalization')
       );
     }
     function down(event: KeyboardEvent): void {

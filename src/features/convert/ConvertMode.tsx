@@ -248,7 +248,7 @@ export default function ConvertMode() {
         event.ctrlKey ||
         event.metaKey ||
         event.altKey ||
-        target?.closest('input, textarea, select, [contenteditable="true"]')
+        isInputTarget(event.target)
       )
         return;
       if (shortcutMatches('convert.quick', event)) {
