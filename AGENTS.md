@@ -84,6 +84,9 @@ bezeichnen. Baselines nach visueller Prüfung einchecken, nicht bei jedem Lauf e
 
 Permalink-Umschläge importieren keine Domänen zur Laufzeit. `readModeLink` erhält
 den Restore-Validator des aktiven Features. Registry-Komponenten bleiben stabil;
-Modusfehler werden lokal abgefangen und können zurückgesetzt werden. Zentraler
-CSP-Adapter: `scripts/cspPlugin.ts`; Hashes müssen den finalen Inline-Code abdecken.
+Modusfehler werden lokal abgefangen und können zurückgesetzt werden.
+Eine äußere App-Fehlergrenze schützt gemeinsame Shell-/Dialogkomponenten.
+Fehlgeschlagene Editor-/Formelimporte benötigen ebenfalls Cache-Refresh und Reload;
+ein Remount allein löst gecachte Importablehnungen nicht.
+Zentraler CSP-Adapter: `scripts/cspPlugin.ts`; Hashes müssen den finalen Inline-Code abdecken.
 Die vollständige Rollenmatrix prüft Text auf Surface-Ebenen; funktionale Outline-Ränder werden auf 3:1 korrigiert. Native Animationen auf dem Startpfad verwenden dieselben zentralen Spring-Tokens und räumen beim Unmount auf.

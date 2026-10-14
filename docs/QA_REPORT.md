@@ -14,7 +14,7 @@ Browser-Traces stehen als Actions-Artefakte bereit (14 Tage Aufbewahrung).
 Lighthouse: je drei Desktop-Läufe pro Modus, 1920×1080, jeweils Performance,
 Accessibility, Best Practices und CLS. Zielwerte gelten für den Median je Modus;
 Einzellauf-Minima werden ebenfalls ausgewiesen. Ein kalter Einfach-Lauf erreichte
-zuletzt nur 73 (TBT 664 ms); die übrigen zwei Einfach-Läufe 100. Das bleibt
+in einem früheren Hardening-Lauf nur 73 (TBT 664 ms); die übrigen zwei Einfach-Läufe 100. Das bleibt
 ein dokumentiertes P2-Risiko, auch wenn das Median-Gate bestanden ist. Der zusätzliche Reporter prüft
 jeden Hash-Modus separat, da LHCI Hash-URLs sonst zusammenfasst.
 JS: Summe der gzip-9-Größen des Entry, seiner statischen Imports und des
@@ -52,29 +52,29 @@ Hash-Moduswechsel während des Warm-up werden gesondert protokolliert (zuletzt
 
 ## Vorher / Nachher
 
-| Prüfung                    | Vorher                                                    | Nachher                                                                                        |
-| -------------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| Gesamtcheck                | 50 Dateien, 1.978 Tests; grün                             | 55 Dateien, 1.990 Tests; Wiederholungsprüfung nach Wiederherstellung läuft                     |
-| Initiales JavaScript       | 313.108 Byte gzip                                         | letzter veröffentlichter Stand: 197.249 Byte gzip; neuer Stand wird gemessen                   |
-| CodeMirror / KaTeX / Graph | eigene Chunks; schwere Shell-Imports trotzdem eager       | alle drei außerhalb des initialen Importgraphen                                                |
-| Textkontrast-Minimum       | 4,577:1                                                   | 4,577:1                                                                                        |
-| UI-Kontrast-Minimum        | 2,920:1; 64 Outline-Unterschreitungen                     | 3,035:1; 0 Fehler bei 36.480 Prüfungen                                                         |
-| axe-Matrix                 | keine vollständige Matrix                                 | letzter abgeschlossener Lauf: 0 Verstöße in drei Browsern, 30 Ansichten pro Browser            |
-| npm audit                  | 1 niedrig: KaTeX, GHSA-238p-pmpm-9mq7                     | KaTeX 0.18.10; 0 Schwachstellen im vollständigen Audit                                         |
-| Browser                    | 81 bestehende Chromium-Tests; kein Firefox/WebKit-Projekt | letzter Lauf: 131 bestanden / 4 offene Befunde; Korrekturen im erneuten Lauf                   |
-| Screenshot-Regression      | Aufnahmen ohne Referenzvergleich                          | 24 deterministische Referenzen visuell geprüft und im unabhängigen CI-Vergleich bestanden      |
-| Ressourcen nach 20 Zyklen  | nicht systematisch erhoben                                | Listener/DOM/Observer/rAF jeweils +0; Heap nach vollständig warmem Graph-Editor +678.584 Byte  |
-| Editor-Interaktion         | nicht erhoben                                             | 128 ms Event Timing; Editor-CLS 0; keine CLS-Zunahme nach Warm-up                              |
-| CSP                        | fehlt                                                     | Meta-CSP; Normalbetrieb ohne Verletzungen, injiziertes Script in allen drei Browsern blockiert |
+| Prüfung                    | Vorher                                                    | Nachher                                                                                                                         |
+| -------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Gesamtcheck                | 50 Dateien, 1.978 Tests; grün                             | 55 Dateien, 1.990 Tests; vollständiger CI-Gesamtcheck grün                                                                      |
+| Initiales JavaScript       | 313.108 Byte gzip                                         | 197.632 Byte gzip (−36,9%; Budget bestanden)                                                                                    |
+| CodeMirror / KaTeX / Graph | eigene Chunks; schwere Shell-Imports trotzdem eager       | alle drei außerhalb des initialen Importgraphen                                                                                 |
+| Textkontrast-Minimum       | 4,577:1                                                   | 4,577:1                                                                                                                         |
+| UI-Kontrast-Minimum        | 2,920:1; 64 Outline-Unterschreitungen                     | 3,035:1; 0 Fehler bei 36.480 Prüfungen                                                                                          |
+| axe-Matrix                 | keine vollständige Matrix                                 | 0 Verstöße in Chromium, Firefox und WebKit; jeweils 30 Ansichten                                                                |
+| npm audit                  | 1 niedrig: KaTeX, GHSA-238p-pmpm-9mq7                     | KaTeX 0.18.10; 0 Schwachstellen im vollständigen Audit                                                                          |
+| Browser                    | 81 bestehende Chromium-Tests; kein Firefox/WebKit-Projekt | 144 QA-Prüfungen grün (102 Chromium inkl. Ressourcen, 21 Firefox, 21 WebKit); reguläre CI: 102 Chromium inkl. Graph-Performance |
+| Screenshot-Regression      | Aufnahmen ohne Referenzvergleich                          | 24 deterministische Referenzen visuell geprüft und im unabhängigen CI-Vergleich bestanden                                       |
+| Ressourcen nach 20 Zyklen  | nicht systematisch erhoben                                | Listener/DOM/Observer/rAF jeweils +0; Heap nach vollständig warmem Graph-Editor +613.564 Byte                                   |
+| Editor-Interaktion         | nicht erhoben                                             | 104 ms Event Timing; Editor-CLS 0; keine CLS-Zunahme nach Warm-up                                                               |
+| CSP                        | fehlt                                                     | Meta-CSP; Normalbetrieb ohne Verletzungen, injiziertes Script in allen drei Browsern blockiert                                  |
 
 ### Lighthouse
 
-Vorher/Nachher: Median aus drei Läufen je Modus. Nachher aus [QA-Lauf 38571074622](https://github.com/sl3ndrr/m8e-calc/actions/runs/38571074622), Code-Stand `19cf4046`. Accessibility/Best Practices sind in jedem Einzellauf 100; CLS in allen zwölf Läufen exakt 0.
+Vorher/Nachher: Median aus drei Läufen je Modus im selben [QA-Lauf 38591852830](https://github.com/sl3ndrr/m8e-calc/actions/runs/38591852830). Nachher-Code: `a10564bbc3fed161308b28fae69bef5f809cec29`. Accessibility/Best Practices sind in jedem Einzellauf 100; CLS in allen zwölf Läufen exakt 0.
 
 | Modus            | Vorher P / A / BP | Vorher CLS | Nachher P / A / BP | Minimum P (Einzellauf) | Nachher CLS |
 | ---------------- | ----------------- | ---------- | ------------------ | ---------------------- | ----------- |
-| Einfach          | 99 / 100 / 100    | 0,001674   | 100 / 100 / 100    | 73                     | 0           |
-| Wissenschaftlich | 98 / 96 / 100     | 0,002459   | 98 / 100 / 100     | 98                     | 0           |
+| Einfach          | 99 / 100 / 100    | 0,001674   | 100 / 100 / 100    | 99                     | 0           |
+| Wissenschaftlich | 96 / 96 / 100     | 0,002459   | 98 / 100 / 100     | 98                     | 0           |
 | Umrechner        | 99 / 100 / 100    | 0,001674   | 99 / 100 / 100     | 99                     | 0           |
 | Graphen          | 99 / 100 / 100    | 0,001674   | 99 / 100 / 100     | 99                     | 0           |
 
@@ -94,9 +94,8 @@ Vorher/Nachher: Median aus drei Läufen je Modus. Nachher aus [QA-Lauf 385710746
 | QA-10 | P2        | Keine Browser-/Screenshot-/Lighthouse-/Ressourcen-Gates. Reproduzierbare Projekte und Messskripte ergänzt. Kritische lokale Fonts sind bereits gesubsettet/preloaded; Font-Readiness und reservierte Editorhöhe verhindern späte Größenänderung. Platz des asynchron angebotenen PWA-Installationsbuttons wird reserviert.     |
 | QA-11 | P2        | KaTeX-Auditbefund. Auf 0.18.10 aktualisiert; vollständiges Audit einschließlich Entwicklungsabhängigkeiten als Gate.                                                                                                                                                                                                           |
 | QA-12 | P3        | Ungenutzter Modus-Platzhalter und zugehörige CSS-Regeln entfernt; unnötiges `@types/katex` nach Umstellung auf KaTeX mit eigenen Typen entfernt; verbleibende direkte Dependencies haben Laufzeit-, Test- oder Font-Generierungsverwendungen.                                                                                  |
-
-| QA-13 | P1 | Fehlgeschlagene nested Editor-/Formelimporte blieben trotz Remount abgewiesen. `ModeLoadError` auch für diese Imports; Cache-Refresh und Reload beim Reset. Gezielte 503-Prüfungen für Modus, Editor und Formelrenderer. |
-| QA-14 | P1 | Gemeinsame Dialogfehler lagen außerhalb der Modusgrenzen. Äußere App-Fehlergrenze mit freundlicher Seite, fokussiertem Reset, globaler Snackbar und lokalem Cache-Refresh. Gezielte Settings-503-Prüfung. |
+| QA-13 | P1        | Fehlgeschlagene verschachtelte Editor-/Formelimporte blieben trotz Remount abgewiesen. `ModeLoadError` auch für diese Imports; Cache-Refresh und Reload beim Reset. Gezielte 503-Prüfungen für Modus, Editor und Formelrenderer.                                                                                               |
+| QA-14 | P1        | Gemeinsame Dialogfehler lagen außerhalb der Modusgrenzen. Äußere App-Fehlergrenze mit freundlicher Seite, fokussiertem Reset, globaler Snackbar und lokalem Cache-Refresh. Gezielte Settings-503-Prüfung.                                                                                                                      |
 
 Defekter JSON-/Theme-Cache, unbekannte zukünftige Versionen, verweigerter Storage
 und Quota-Fehler werden in jedem Modus geprüft. Bestehende Migrationstests bleiben
@@ -108,16 +107,16 @@ Property-Tests laufen im Gesamtcheck weiter.
 
 | Priorität | Status / Risiko                                                                                                                                                                                                                                                                                                                          |
 | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| P1        | Der endgültige Browser-/Lighthouse-/Screenshot-Lauf muss abgeschlossen sein; ausstehende Messwerte sind keine Freigabe.                                                                                                                                                                                                                  |
 | P1        | **Nach Merge** die tatsächliche [Pages-Seite](https://sl3ndrr.github.io/m8e-calc/) manuell durchspielen. AGENTS.md erlaubt keinen automatischen Merge. Ein Merge-Trigger für genau PR #20 startet die beauftragte Pages-Abnahme und Anlage tatsächlicher Folge-Issues. Keine hypothetischen Issues oder vorgezogene Produktionsfreigabe. |
 | P2        | Physischer Screenreader, echter Browser-Menüzoom bis 200%, 4K/GPU und langfristige Nutzung werden durch Headless-Checks nicht vollständig nachgewiesen.                                                                                                                                                                                  |
 | P2        | CSP benötigt `style-src 'unsafe-inline'` für CodeMirror, React Aria und DOM-Animationen. Script-Regeln bleiben strikt. Meta-CSP kann `frame-ancestors` nicht durchsetzen; Pages stellt hier keine frei konfigurierbaren Header bereit.                                                                                                   |
 | P2        | Event Timing und Heap-Schwellen sind Laborindikatoren; reale INP-Verteilung und sehr lange Sitzungen bleiben gesondert zu beobachten.                                                                                                                                                                                                    |
-| P3        | Das Startbudget hat nur rund 2,7 kB Reserve. CI muss bei jeder Änderung die vollständige statische Importmenge kontrollieren.                                                                                                                                                                                                            |
+| P3        | Das Startbudget hat nur rund 2,4 kB Reserve. CI muss bei jeder Änderung die vollständige statische Importmenge kontrollieren.                                                                                                                                                                                                            |
 
-Ein kalter Lighthouse-Einzellauf des Einfach-Modus lag bei Performance 73
+Ein früherer kalter Lighthouse-Einzellauf des Einfach-Modus lag bei Performance 73
 (TBT 664 ms), die beiden anderen bei 100. Median-Gate und alle anderen Modi sind
-grün; der einzelne lange Starttask ist im Rohbericht erhalten und bei der
+grün; der finale Einfach-Minimalwert beträgt 99. Der frühere lange Starttask ist
+im Rohbericht erhalten und bei der
 Pages-Abnahme erneut zu prüfen. Die PWA precacht weiterhin alle Modi/Fonts/Worker
 für Offline-Nutzung im Hintergrund. Dieses zusätzliche Transferbudget gehört
 nicht zum ausgewiesenen statischen JS-Startgraphen.
@@ -126,6 +125,29 @@ Nach dem Merge: Deploy-SHA notieren, vier Kernabläufe und Fehlerpfade, Palette,
 Verlauf/Undo/Export, Dialogfokus, Hell/Dunkel/Seeds, Reload/Offline und Assetpfade
 in allen drei Browsern manuell prüfen. Tatsächliche Abweichungen als Issues mit
 Priorität, Browser/Version, Deploy-SHA, Schritten, Erwartung und Screenshot erfassen.
+
+## Prüfnachweise
+
+Der [CI-Lauf 38591852662](https://github.com/sl3ndrr/m8e-calc/actions/runs/38591852662)
+führt `npm ci` und `npm run check` mit unveränderten Testlimits aus.
+Der [QA-Lauf 38591852830](https://github.com/sl3ndrr/m8e-calc/actions/runs/38591852830)
+enthält den fixierten Vorher-Stand, Nachher-Messungen, Browser- und Screenshotprüfungen.
+Beide Läufe sind vollständig grün: 55 Unit-/Komponententestdateien, 1.990 Tests,
+102 reguläre Chromium-E2E, 144 QA-Browserprüfungen und 24 Screenshot-Vergleiche.
+Die 102 regulären und 102 QA-Chromium-Prüfungen überschneiden sich; sie sind
+nicht als 204 unterschiedliche Tests zu zählen.
+
+Ressourcenartefakt: nach fünf Warm-up-Zyklen und 20 gemessenen Zyklen
+Heap 12.635.168 → 13.248.732 Byte, DOM-Nodes 415 → 415, Listener 299 → 299,
+aktive rAF/Observer jeweils 0 → 0. Event-Timing-Maximum im Editor 104 ms;
+Initial-/Editor-/Steady-state-CLS jeweils 0. Rohartefakte im QA-Lauf:
+`qa-before`, `qa-after`, `qa-browsers` (`qa/runtime.json`) und `qa-visual`.
+
+Bei der lokalen Wiederherstellung wurden Dependencies aus einem älteren
+CI-Artefakt verwendet (KaTeX 0.16.47 statt Lockfile 0.18.10); dieser lokale Lauf
+ersetzt keinen Release-Check. Drei wissenschaftliche UI-Tests überschritten dort
+das 5-s-Limit und bestanden isoliert mit 15 s. Maßgeblich ist der erfolgreiche
+CI-Gesamtcheck nach sauberem `npm ci` mit unveränderten Standardlimits.
 
 ## Reproduktion
 
