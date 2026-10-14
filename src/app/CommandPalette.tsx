@@ -1,5 +1,5 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
-import { Dialog } from '../ui';
+import { Dialog } from '../ui/Dialog';
 import { t } from '../shared/i18n';
 import { useAppStore } from '../shared/store';
 import { searchPalette, type PaletteCommand } from './paletteModel';

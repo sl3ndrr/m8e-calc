@@ -1,7 +1,7 @@
 :root {
   /* Full HD is 16px. Height caps scaling on ultrawide monitors; side panels absorb width. */
   font-size: calc(
-    clamp(12px, min(0.833333vw, 1.481481vh), 32px) * var(--ui-size, 1)
+    clamp(1rem, min(0.833333vw, 1.481481vh), 2rem) * var(--ui-size, 1)
   );
 }
 .app-shell {

@@ -7,15 +7,13 @@ import {
   useState,
   type CSSProperties,
 } from 'react';
-import {
-  Button,
-  Checkbox,
-  Chip,
-  Dialog,
-  Select,
-  TextField,
-  snackbarQueue,
-} from '../../ui';
+import { Button } from '../../ui/Button';
+import { Checkbox } from '../../ui/Checkbox';
+import { Chip } from '../../ui/Chip';
+import { Dialog } from '../../ui/Dialog';
+import { Select } from '../../ui/Select';
+import { TextField } from '../../ui/TextField';
+import { snackbarQueue } from '../../ui/snackbarQueue';
 import type { Bounds } from '../../graph';
 import { t, formatNumber } from '../../shared/i18n';
 import { useAppStore } from '../../shared/store';
@@ -392,58 +390,66 @@ export default function GraphMode() {
             </div>
           )}
           <div aria-live="polite" aria-atomic="true">
-          {(markers.length > 0 || integral) && (
-            <div
-              className="graph-results"
-              aria-label={t('graph.results', locale)}
-            >
-              {markers.map((marker) => (
-                <Chip
-                  key={marker.id}
-                  kind="input"
-                  onPress={() => {
-                    const v = canvas.current?.viewport();
-                    if (!v) return;
-                    const b = v.bounds,
-                      dx = (b.xMax - b.xMin) / 2,
-                      dy = (b.yMax - b.yMin) / 2;
-                    canvas.current?.preset({
-                      xMin: marker.x - dx,
-                      xMax: marker.x + dx,
-                      yMin: marker.y - dy,
-                      yMax: marker.y + dy,
-                    });
-                  }}
-                  onRemove={() => {
-                    setMarkers((old) => old.filter((m) => m.id !== marker.id));
-                    if (marker.label === 'tangent') setAuxiliary(null);
-                  }}
-                  removeLabel={t('graph.removeMarker', locale)}
-                >
-                  {t(`graph.analysis.${marker.label as AnalysisKind}`, locale)}{' '}
-                  · ({formatNumber(marker.x, locale)},{' '}
-                  {formatNumber(marker.y, locale)})
-                  {!marker.confidence ? ' ≈' : ''}
-                </Chip>
-              ))}
-              {integral && (
-                <output>
-                  ∫ ={' '}
-                  {Number.isFinite(integral.value)
-                    ? formatNumber(integral.value, locale)
-                    : '—'}{' '}
-                  ·{' '}
-                  {t(
-                    integral.confidence ? 'graph.estimate' : 'graph.uncertain',
-                    locale,
-                  )}
-                  {Number.isFinite(integral.errorEstimate)
-                    ? ` ± ${formatNumber(integral.errorEstimate, locale)}`
-                    : ''}
-                </output>
-              )}
-            </div>
-          )}
+            {(markers.length > 0 || integral) && (
+              <div
+                className="graph-results"
+                role="region"
+                aria-label={t('graph.results', locale)}
+              >
+                {markers.map((marker) => (
+                  <Chip
+                    key={marker.id}
+                    kind="input"
+                    onPress={() => {
+                      const v = canvas.current?.viewport();
+                      if (!v) return;
+                      const b = v.bounds,
+                        dx = (b.xMax - b.xMin) / 2,
+                        dy = (b.yMax - b.yMin) / 2;
+                      canvas.current?.preset({
+                        xMin: marker.x - dx,
+                        xMax: marker.x + dx,
+                        yMin: marker.y - dy,
+                        yMax: marker.y + dy,
+                      });
+                    }}
+                    onRemove={() => {
+                      setMarkers((old) =>
+                        old.filter((m) => m.id !== marker.id),
+                      );
+                      if (marker.label === 'tangent') setAuxiliary(null);
+                    }}
+                    removeLabel={t('graph.removeMarker', locale)}
+                  >
+                    {t(
+                      `graph.analysis.${marker.label as AnalysisKind}`,
+                      locale,
+                    )}{' '}
+                    · ({formatNumber(marker.x, locale)},{' '}
+                    {formatNumber(marker.y, locale)})
+                    {!marker.confidence ? ' ≈' : ''}
+                  </Chip>
+                ))}
+                {integral && (
+                  <output>
+                    ∫ ={' '}
+                    {Number.isFinite(integral.value)
+                      ? formatNumber(integral.value, locale)
+                      : '—'}{' '}
+                    ·{' '}
+                    {t(
+                      integral.confidence
+                        ? 'graph.estimate'
+                        : 'graph.uncertain',
+                      locale,
+                    )}
+                    {Number.isFinite(integral.errorEstimate)
+                      ? ` ± ${formatNumber(integral.errorEstimate, locale)}`
+                      : ''}
+                  </output>
+                )}
+              </div>
+            )}
           </div>
           <div className="graph-export">
             <Button
@@ -605,4 +611,3 @@ export default function GraphMode() {
     </section>
   );
 }
-

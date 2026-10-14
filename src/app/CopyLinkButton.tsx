@@ -1,4 +1,5 @@
-import { Button, snackbarQueue } from '../ui';
+import { Button } from '../ui/Button';
+import { snackbarQueue } from '../ui/snackbarQueue';
 import { t } from '../shared/i18n';
 import type { ModeId } from '../shared/modes';
 import { encodePermalink, type ModeLinks } from './permalinks';

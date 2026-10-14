@@ -36,4 +36,3 @@ jobs:
             docs/screenshots/components-*.png
             docs/screenshots/comfort-*.png
           retention-days: 7
-

@@ -1,20 +1,18 @@
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
-import { animate } from 'motion';
-import {
-  CalculatorDisplay,
-  Keypad,
-  KeypadKey,
-  snackbarQueue,
-  useMediaQuery,
-  type KeyRole,
-} from '../../ui';
+import { animateElement } from '../../ui/animateElement';
+import { CalculatorDisplay } from '../../ui/keypad/CalculatorDisplay';
+import { Keypad } from '../../ui/keypad/Keypad';
+import { KeypadKey } from '../../ui/keypad/Keypad';
+import { snackbarQueue } from '../../ui/snackbarQueue';
+import { useMediaQuery } from '../../ui/useMediaQuery';
+import type { KeyRole } from '../../ui/keypad/Keypad';
 import { t, type MessageKey } from '../../shared/i18n';
 import { useAppStore } from '../../shared/store';
 import { useSettingsStore } from '../../shared/settingsStore';
 import { useHistoryStore } from '../../shared/historyStore';
 import { useModeHistory } from '../../shared/useModeHistory';
 import type { HistoryEntry } from '../../shared/history';
-import { springs } from '../../styles/motion';
+
 import { simpleReducer, type SimpleAction } from './model';
 import {
   displayExpression,
@@ -246,10 +244,6 @@ export default function SimpleMode() {
       : null;
     const from = node.getBoundingClientRect();
     const to = destination?.getBoundingClientRect();
-    const token =
-      springs[
-        level === 'full' && !reduced ? 'spatial-default' : 'effects-fast'
-      ];
     const ghost = node.cloneNode(true) as HTMLElement;
     ghost.setAttribute('aria-hidden', 'true');
     ghost.classList.add('simple-history-flight');
@@ -259,23 +253,21 @@ export default function SimpleMode() {
       width: `${from.width}px`,
     });
     document.body.append(ghost);
-    const animation = animate(
+    const spatial = level === 'full' && !reduced;
+    const animation = animateElement(
       ghost,
-      level === 'full' && !reduced
-        ? {
-            x: [0, to ? to.left - from.left : 24],
-            y: [0, to ? to.top - from.top : -24],
-            scale: [1, 0.85],
-            opacity: [1, 0],
-          }
-        : { opacity: [1, 0] },
-      {
-        type: 'spring',
-        stiffness: token.stiffness,
-        damping: 2 * token.damping * Math.sqrt(token.stiffness),
-      },
+      spatial
+        ? [
+            { transform: 'translate(0,0) scale(1)', opacity: 1 },
+            {
+              transform: `translate(${to ? to.left - from.left : 24}px,${to ? to.top - from.top : -24}px) scale(0.85)`,
+              opacity: 0,
+            },
+          ]
+        : [{ opacity: 1 }, { opacity: 0 }],
+      spatial ? 'spatial-default' : 'effects-fast',
     );
-    void animation.then(() => ghost.remove());
+    void animation.finished.then(() => ghost.remove());
     return () => {
       animation.stop();
       ghost.remove();
@@ -459,4 +451,3 @@ export default function SimpleMode() {
     </section>
   );
 }
-

@@ -13,7 +13,8 @@ import {
   type Point,
 } from '../../graph';
 import { useSettingsStore } from '../../shared/settingsStore';
-import { useMediaQuery } from '../../ui';
+import { useMediaQuery } from '../../ui/useMediaQuery';
+import { VisuallyHidden } from '../../ui/VisuallyHidden';
 import { graphPalette } from '../../styles/graphPalette';
 import { springs } from '../../styles/motion';
 import { t, type Locale } from '../../shared/i18n';
@@ -761,8 +762,15 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
           props.locale,
         )}
       </p>
+      <VisuallyHidden>
+        <output aria-live="polite" aria-atomic="true">
+          {trace
+            ? `x = ${Number(trace.point.x.toPrecision(8))} · f(x) = ${Number(trace.point.y.toPrecision(8))}`
+            : ''}
+        </output>
+      </VisuallyHidden>
       {trace && (
-        <output className="graph-trace" aria-live="polite">
+        <output className="graph-trace" aria-hidden="true">
           x = {Number(trace.point.x.toPrecision(8))} · f(x) ={' '}
           {Number(trace.point.y.toPrecision(8))}
         </output>

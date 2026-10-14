@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Button, Keypad, KeypadKey } from '../../ui';
+import { Button } from '../../ui/Button';
+import { Keypad } from '../../ui/keypad/Keypad';
+import { KeypadKey } from '../../ui/keypad/Keypad';
 import { t, type Locale } from '../../shared/i18n';
 import { functionRegistry } from '../../engine';
 import type { Insertion } from './editorModel';

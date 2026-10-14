@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { snackbarQueue } from '../ui';
+import { snackbarQueue } from '../ui/snackbarQueue';
 import { t } from '../shared/i18n';
 interface InstallPrompt extends Event {
   prompt(): Promise<void>;
@@ -100,4 +100,3 @@ export function usePwa(): { canInstall: boolean; install: () => void } {
     },
   };
 }
-

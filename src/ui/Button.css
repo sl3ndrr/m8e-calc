@@ -35,14 +35,14 @@
 }
 .ui-button[data-variant='elevated'] {
   background: var(--md-sys-color-surface-container-low);
-  color: var(--md-sys-color-primary-text);
+  color: var(--md-sys-color-primary);
   box-shadow: 0 2px 5px
     color-mix(in srgb, var(--md-sys-color-shadow) 20%, transparent);
 }
 .ui-button[data-variant='outlined'],
 .ui-button[data-variant='text'] {
   background: transparent;
-  color: var(--md-sys-color-primary-text);
+  color: var(--md-sys-color-primary);
 }
 .ui-button[data-variant='outlined'] {
   border-color: var(--md-sys-color-outline);
@@ -99,4 +99,3 @@
     transform: none;
   }
 }
-

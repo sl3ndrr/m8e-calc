@@ -17,15 +17,21 @@ export interface ModeLinks {
 export type Permalink = {
   [M in ModeId]: { mode: M; data: ModeLinks[M] };
 }[ModeId];
-export function validateScientificLink(value: unknown): ModeLinks['scientific'] | null {
+export function validateScientificLink(
+  value: unknown,
+): ModeLinks['scientific'] | null {
   if (!value || typeof value !== 'object') return null;
   const p = value as Record<string, unknown>;
-  return typeof p.expression === 'string' && p.expression.length <= 10000 &&
+  return typeof p.expression === 'string' &&
+    p.expression.length <= 10000 &&
     (p.angleMode === 'deg' || p.angleMode === 'rad' || p.angleMode === 'grad')
-    ? { expression: p.expression, angleMode: p.angleMode } : null;
+    ? { expression: p.expression, angleMode: p.angleMode }
+    : null;
 }
 /** Invalid links are data, never exceptions. Unknown versions are not interpreted. */
-export function decodePermalink(hash: string): { mode: ModeId; data: unknown } | null {
+export function decodePermalink(
+  hash: string,
+): { mode: ModeId; data: unknown } | null {
   try {
     if (hash.length > 33000 || !hash.startsWith('#/')) return null;
     const [route, query = ''] = hash.slice(2).split('?');
@@ -57,7 +63,8 @@ export function encodePermalink<M extends ModeId>(
   return `#/${mode}?v=1&s=${encoded}`;
 }
 export function readModeLink<M extends ModeId>(
-  mode: M, validate: (value: unknown) => ModeLinks[M] | null,
+  mode: M,
+  validate: (value: unknown) => ModeLinks[M] | null,
 ): ModeLinks[M] | null {
   const link = decodePermalink(window.location.hash);
   return link?.mode === mode ? validate(link.data) : null;

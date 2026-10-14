@@ -141,3 +141,48 @@ Settings-Version 3 ergänzt UI-Größe und optionale Präsentationshistorie. Die
 Root-Schrift multipliziert die vorhandene AP4-Fluidskalierung. Der Vite-Adapter
 erzeugt einen inhaltsversionierten vollständigen Offline-Precache. Vertrag und
 aktuelle Kürzeltabelle: [COMFORT.md](COMFORT.md).
+
+## AP15 · Qualitätsgrenzen
+
+Die Registry hält stabile Lazy-Komponenten. `ModeErrorBoundary` umschließt jeden
+Modus innerhalb der Shell; ein Reset remountet nur den Modus. Fehlgeschlagene
+Chunk-Downloads werden als `ModeLoadError` unterschieden und nach Reset mit einer
+bereinigten Route neu geladen, da Browser abgewiesene Modulimporte cachen können.
+Globale `error`-/`unhandledrejection`-Ereignisse liefern eine zusammengefasste,
+lokalisierte Snackbar ohne Exception-/Eingabetext. Listener sind abmeldbar.
+
+Die Palette lädt erst beim Öffnen. Der Permalink-Umschlag kennt nur Codec, Modus
+und Typen; fachliche Restore-Validatoren verbleiben in den lazy geladenen Modi.
+`readModeLink` verlangt den jeweiligen Validator vor jeder Zustandsübernahme.
+Der Encoder akzeptiert typisierte Zustände und begrenzt die kodierte Größe;
+Eingangsdaten werden ausschließlich nach fachlicher Validierung verwendet.
+
+Der CSP-Buildadapter hasht Inline-Skripte nach Vites HTML-Transformationen und
+setzt die Meta-Policy vor allen Assets. Skripte erlauben weder `unsafe-inline`
+noch `unsafe-eval`; Verbindungen, Fonts, Worker und Manifest bleiben lokal.
+Dynamische Styles benötigen `style-src 'unsafe-inline'` für CodeMirror,
+React Aria und Motion; diese explizite Grenze steht auch im QA-Bericht.
+Meta-CSP kann insbesondere `frame-ancestors` nicht ersetzen.
+
+Die vollständige Kontrastmatrix belegt die vorhandenen Textrollen. Der funktionale
+Outline-Rand erhält >=3:1 gegen sämtliche Surface-Ebenen.
+Die Root-Schrift sinkt nicht unter die browserseitige Standardschriftgröße;
+Full HD bleibt 16 px und 4K 32 px bei Standardpräferenzen. So verkleinert
+Viewport-Skalierung den Text beim Zoomen nicht wieder.
+
+Reproduzierbare Befehle und tatsächliche Messwerte stehen in [QA_REPORT.md](QA_REPORT.md).
+Die QA-CI trennt den fixierten Vorher-Stand, Nachher-Messungen, funktionale
+Browserprüfungen und die deterministischen Screenshot-Referenzen. Plattformgebundene
+Clipboard-/CDP-Tests bleiben zusätzlich im vollständigen Chromium-Bestand;
+die browserübergreifende QA prüft dieselben Kernabläufe ohne CDP/Clipboard-Rechte.
+
+Der Startpfad verwendet native DOM-Animationen und einen kleinen retargetbaren
+Skalar-Spring. Ein Moduswechsel mountet den neuen Modus direkt und animiert dessen
+Eintritt; alte Worker/Listener werden sofort abgebaut. Die lazy Modi behalten ihre
+komplexen Motion-Animationen. Die Akzent-Popover-Inhalte sowie Verlauf und Settings
+laden erst bei Bedarf. Beide vom Bootstrap geprüften Paletten werden bis zu einer
+Farbänderung wiederverwendet; Material Color Utilities bleiben dadurch lazy.
+Vor dem ersten React-Paint werden die drei bereits vorgeladenen lokalen Fonts
+abgewartet; ein Fontfehler fällt auf die Systemschrift zurück. Die Editor-
+Ladefläche reserviert die spätere Höhe. `localePlugin.ts` begrenzt ausschließlich
+Upstream-Widget-Wörterbücher auf die beiden unterstützten Sprachen de/en.

@@ -60,7 +60,7 @@ Datenfluss: Benutzereingabe → reine UI-Funktion/Reducer → Domäne → Ergebn
 
 1. **Datenschutz:** Keine externen Requests zur Laufzeit. Assets lokal ausliefern, Fonts selbst hosten; bis dahin Systemfonts. Keine CDNs, Analytics oder entfernten Rechenservices. Entwicklungs- und CI-Paketdownloads sind davon getrennt.
 2. **i18n:** Alle UI-Texte einschließlich Titel, ARIA-Beschriftungen und Fehlermeldungen über i18n-Schlüssel, niemals hartkodiert. `de` ist Fallback, Auto erkennt `navigator.language`; `en` vollständig pflegen. `MessageKey` wird aus `src/shared/i18n/de.ts` abgeleitet, neue Texte in beiden Dictionaries ergänzen. Technische Fehler für Entwickler dürfen außerhalb sichtbarer UI stehen.
-3. **Tokens:** Keine Farbwerte in Komponenten oder Feature-CSS; Farben ausschließlich über `--md-sys-color-*`. Formen und Bewegung ausschließlich über Shape- und Motion-Tokens (`--md-sys-shape-*`, `--md-sys-motion-*`). Tokenwerte zentral in `src/styles`. `prefers-reduced-motion` respektieren. AP2 liefert zentrale Farbrollen, Typografie, Shape- und Spring-Tokens; `npm run tokens` regeneriert `src/styles/tokens.css`. Neue Icons erfordern Font-Subsetting gemäß `docs/DESIGN.md`; AP3 liefert die Komponenten; AP4 nutzt die Registry in `src/app/modeRegistry.ts`, `useModeHistory(mode, onRestore)` und versionierten Verlauf (maximal 500); öffentliche API und Beispiele stehen in `docs/COMPONENTS.md`. Neue Modus-UI verwendet die Bausteine aus `src/ui/index.ts`.
+3. **Tokens:** Keine Farbwerte in Komponenten oder Feature-CSS; Farben ausschließlich über `--md-sys-color-*`. Formen und Bewegung ausschließlich über Shape- und Motion-Tokens (`--md-sys-shape-*`, `--md-sys-motion-*`). Tokenwerte zentral in `src/styles`. `prefers-reduced-motion` respektieren. AP2 liefert zentrale Farbrollen, Typografie, Shape- und Spring-Tokens; `npm run tokens` regeneriert `src/styles/tokens.css`. Neue Icons erfordern Font-Subsetting gemäß `docs/DESIGN.md`; AP3 liefert die Komponenten; AP4 nutzt die Registry in `src/app/modeRegistry.ts`, `useModeHistory(mode, onRestore)` und versionierten Verlauf (maximal 500); öffentliche API und Beispiele stehen in `docs/COMPONENTS.md`. Neue Modus-UI verwendet die Bausteine aus `src/ui`; direkte öffentliche Komponentenimporte erhalten Lazy-Grenzen, `index.ts` bleibt für Galerie und Kompatibilität verfügbar.
 4. **Tests und Logik:** Jede Logik bekommt Tests. UI-Logik als reine Funktionen/Reducer, getrennt von Komponenten. Komponenten orchestrieren Rendering und Browseradapter. Vitest für Logik, Testing Library für UI-Verhalten, fast-check für sinnvolle Eigenschaften, Playwright für Integration im Browser. Keine Rechenengine als Nebenaufgabe hinzufügen.
 5. **Barrierefreiheit:** Vollständige Tastaturbedienung, sichtbarer Fokus, semantisches HTML und geeignete ARIA-Beschriftungen; Text- und Fokuskontrast prüfen. Animationen dürfen Bedienung nicht blockieren.
 6. **Scope-Disziplin:** Nur das beauftragte Paket umsetzen. Restpunkte als Liste **„Offen / Folge-Issues“** in die PR-Beschreibung aufnehmen. Folgepakete in der Roadmap dokumentieren.
@@ -72,3 +72,18 @@ TypeScript: `strict` und `noUncheckedIndexedAccess` bleiben aktiv. Explizite Typ
 ## CI und GitHub Pages
 
 `ci.yml` prüft PRs und Pushes auf `main`: `npm ci`, lint, typecheck, test, build und Playwright-Smoke. `pages.yml` prüft auf `main` ebenfalls den Build einschließlich Checks/Smoke, lädt ausschließlich `dist/` hoch und deployt über GitHub Pages. Deployment nutzt `pages: write`, `id-token: write`, die Umgebung `github-pages` und eine Concurrency-Gruppe. In Repository Settings → Pages muss **GitHub Actions** als Quelle eingestellt sein. Hostingpfad: `/m8e-calc/`. Im PR nicht mergen; Deployment wird erst durch den Merge ausgelöst.
+
+## AP15 · Hardening
+
+`docs/QA_REPORT.md` dokumentiert Befund, Vorher-/Nachher-Messungen und offene Risiken.
+`qa.yml` ergänzt die bestehende CI um eine festgehaltene Baseline, vollständige
+Seed-/Rollen-Kontraste, initiales JS (<200000 Bytes gzip inklusive Einfach-Modus),
+Lighthouse CI (>=95), Chromium/Firefox/WebKit-Kernabläufe, Event Timing/CLS/Cleanup
+und 24 Screenshot-Regressionen. Nur tatsächlich abgeschlossene Läufe als bestanden
+bezeichnen. Baselines nach visueller Prüfung einchecken, nicht bei jedem Lauf ersetzen.
+
+Permalink-Umschläge importieren keine Domänen zur Laufzeit. `readModeLink` erhält
+den Restore-Validator des aktiven Features. Registry-Komponenten bleiben stabil;
+Modusfehler werden lokal abgefangen und können zurückgesetzt werden. Zentraler
+CSP-Adapter: `scripts/cspPlugin.ts`; Hashes müssen den finalen Inline-Code abdecken.
+Die vollständige Rollenmatrix prüft Text auf Surface-Ebenen; funktionale Outline-Ränder werden auf 3:1 korrigiert. Native Animationen auf dem Startpfad verwenden dieselben zentralen Spring-Tokens und räumen beim Unmount auf.

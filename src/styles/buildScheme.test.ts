@@ -40,13 +40,24 @@ const pairs = [
   ),
 ];
 describe('buildScheme', () => {
+  it.each(seeds.slice(0, 3))('snapshots complete schemes for %s', (seed) => {
+    const result = Object.fromEntries(
+      schemeVariants.flatMap((variant) =>
+        [false, true].map((dark) => [
+          `${variant}-${dark ? 'dark' : 'light'}`,
+          buildScheme(seed, variant, dark),
+        ]),
+      ),
+    );
+    expect(result).toMatchSnapshot();
+  });
   it('provides all 49 roles and WCAG AA text contrast at every supported level', () => {
     for (const seed of seeds)
       for (const variant of schemeVariants)
         for (const dark of [false, true])
           for (const contrast of contrasts) {
             const scheme = buildScheme(seed, variant, dark, contrast);
-            expect(Object.keys(scheme)).toHaveLength(colorRoles.length + 4);
+            expect(Object.keys(scheme)).toHaveLength(colorRoles.length);
             for (const [on, background] of pairs) {
               const fg = scheme[roleProperty(on ?? '')];
               const bg = scheme[roleProperty(background ?? '')];
@@ -68,4 +79,3 @@ describe('buildScheme', () => {
       expect(() => buildScheme(invalid)).toThrow(TypeError);
   });
 });
-

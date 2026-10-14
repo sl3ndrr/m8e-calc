@@ -33,7 +33,7 @@ button {
   cursor: pointer;
 }
 a {
-  color: var(--md-sys-color-primary-text);
+  color: var(--md-sys-color-primary);
   text-decoration: none;
 }
 :where(button, a, input, select):focus-visible {
@@ -155,4 +155,3 @@ input[type='range'] {
     line-height: var(--md-sys-typescale-display-small-line-height);
   }
 }
-

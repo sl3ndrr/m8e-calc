@@ -1,12 +1,20 @@
-import { validateRestore, initialSimpleState, simpleReducer, type SimpleState } from '../features/simple/model';
+import {
+  validateRestore,
+  initialSimpleState,
+  simpleReducer,
+  type SimpleState,
+} from '../features/simple/model';
 import { readModeLink, type SimpleLink } from './permalinks';
 export function validateSimpleLink(value: unknown): SimpleLink | null {
   if (!value || typeof value !== 'object') return null;
   const p = value as Record<string, unknown>;
   const restored = validateRestore(p);
-  return restored && typeof p.expression === 'string' && p.expression.length <= 4000 &&
+  return restored &&
+    typeof p.expression === 'string' &&
+    p.expression.length <= 4000 &&
     (p.phase === 'entry' || p.phase === 'operator' || p.phase === 'result')
-    ? { ...restored, expression: p.expression, phase: p.phase } : null;
+    ? { ...restored, expression: p.expression, phase: p.phase }
+    : null;
 }
 export function simpleLink(state: SimpleState): SimpleLink {
   return {
@@ -29,4 +37,3 @@ export function initialLinkedSimple(): SimpleState {
       }
     : initial;
 }
-

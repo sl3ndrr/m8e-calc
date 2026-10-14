@@ -51,7 +51,7 @@
 .calculator-error {
   margin: 0;
   font-size: 1.125rem;
-  color: var(--md-sys-color-error-text);
+  color: var(--md-sys-color-error);
 }
 .calculator-display[data-error] .calculator-result {
   color: var(--md-sys-color-on-surface-variant);
@@ -62,4 +62,3 @@
     font-size: min(12cqi, 1em);
   }
 }
-

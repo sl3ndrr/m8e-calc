@@ -3,7 +3,7 @@ import {
   schemeVariants,
   type ContrastLevel,
   type SchemeVariant,
-} from '../styles/buildScheme';
+} from '../styles/colorSettings';
 export const SETTINGS_KEY = 'm8e-calc.settings';
 export const THEME_CACHE_KEY = 'm8e-calc.theme-cache';
 export const SETTINGS_VERSION = 3;

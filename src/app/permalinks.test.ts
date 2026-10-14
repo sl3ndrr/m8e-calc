@@ -1,10 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import fc from 'fast-check';
-import {
-  decodePermalink,
-  encodePermalink,
-  type Permalink,
-} from './permalinks';
+import { decodePermalink, encodePermalink, type Permalink } from './permalinks';
 import { initialSimpleState, simpleReducer } from '../features/simple/model';
 import { initialPlot, newRow } from '../features/graph/model';
 import { simpleLink, validateSimpleLink } from './simpleLinks';
@@ -129,4 +125,3 @@ describe('versioned permalinks', () => {
     expect(() => compressLink('x'.repeat(65537))).toThrow();
   });
 });
-

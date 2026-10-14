@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitest/config';
+import { localePlugin } from './scripts/localePlugin.ts';
 import { cspPlugin } from './scripts/cspPlugin';
 import react from '@vitejs/plugin-react';
 import { pwaPlugin } from './scripts/pwaPlugin';
@@ -10,6 +11,7 @@ export default defineConfig({
   build: { manifest: true },
   plugins: [
     react(),
+    localePlugin(),
     pwaPlugin(),
     cspPlugin(),
     {
@@ -58,4 +60,3 @@ export default defineConfig({
     ],
   },
 });
-

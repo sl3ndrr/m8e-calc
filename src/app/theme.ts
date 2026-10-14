@@ -1,7 +1,7 @@
 import { supportedEasing } from './browserMotion';
 import { useSyncExternalStore } from 'react';
 import { flushSync } from 'react-dom';
-import { buildScheme, type ColorScheme } from '../styles/buildScheme';
+import type { ColorScheme } from '../styles/buildScheme';
 import { motionProperties, springs, springToLinear } from '../styles/motion';
 import { useSettingsStore } from '../shared/settingsStore';
 import {
@@ -32,35 +32,53 @@ export function effectiveMotion(): MotionLevel {
       ? 'reduced'
       : level;
 }
-let lastFingerprint = '';
-let palettes: { light: ColorScheme; dark: ColorScheme };
+const initial =
+  typeof window === 'undefined'
+    ? undefined
+    : (Reflect.get(window, 'm8eThemeBootstrap') as
+        | { fingerprint: string; light: ColorScheme; dark: ColorScheme }
+        | undefined);
+let lastFingerprint = initial?.fingerprint ?? '';
+let palettes: { light: ColorScheme; dark: ColorScheme } | undefined = initial;
+let pendingFingerprint = '';
 export function applyTheme(): void {
   const settings = useSettingsStore.getState();
   const fingerprint = themeFingerprint(settings);
-  if (lastFingerprint !== fingerprint) {
-    palettes = {
-      light: buildScheme(
-        settings.accent,
-        settings.schemeVariant,
-        false,
-        settings.contrast,
-      ),
-      dark: buildScheme(
-        settings.accent,
-        settings.schemeVariant,
-        true,
-        settings.contrast,
-      ),
-    };
-    lastFingerprint = fingerprint;
-    try {
-      localStorage.setItem(
-        THEME_CACHE_KEY,
-        JSON.stringify({ version: 1, fingerprint, ...palettes }),
-      );
-    } catch {
-      /* Persistence is optional. */
-    }
+  if (lastFingerprint !== fingerprint && pendingFingerprint !== fingerprint) {
+    pendingFingerprint = fingerprint;
+    void import('../styles/buildScheme')
+      .then(({ buildScheme }) => {
+        const current = useSettingsStore.getState();
+        if (themeFingerprint(current) !== fingerprint) return;
+        palettes = {
+          light: buildScheme(
+            current.accent,
+            current.schemeVariant,
+            false,
+            current.contrast,
+          ),
+          dark: buildScheme(
+            current.accent,
+            current.schemeVariant,
+            true,
+            current.contrast,
+          ),
+        };
+        lastFingerprint = fingerprint;
+        pendingFingerprint = '';
+        try {
+          localStorage.setItem(
+            THEME_CACHE_KEY,
+            JSON.stringify({ version: 1, fingerprint, ...palettes }),
+          );
+        } catch {
+          /* Optional persistence. */
+        }
+        applyTheme();
+      })
+      .catch(() => {
+        pendingFingerprint = '';
+      });
   }
   const dark = resolveDark(
     settings.themeMode,
@@ -68,11 +86,12 @@ export function applyTheme(): void {
   );
   const root = document.documentElement;
   for (const [name, value] of Object.entries(
-    dark ? palettes.dark : palettes.light,
+    (dark ? palettes?.dark : palettes?.light) ?? {},
   ))
     root.style.setProperty(name, value);
   root.style.colorScheme = dark ? 'dark' : 'light';
   root.dataset.theme = dark ? 'dark' : 'light';
+  root.dataset.themePalette = lastFingerprint;
   root.dataset.themeMode = settings.themeMode;
   root.dataset.motion = effectiveMotion();
   if (root.dataset.motion !== 'full') {
@@ -88,7 +107,10 @@ export function applyTheme(): void {
 }
 export function initializeTheme(): () => void {
   Object.entries(motionProperties).forEach(([name, value]) =>
-    document.documentElement.style.setProperty(name, name.endsWith('-easing') ? supportedEasing(value) : value),
+    document.documentElement.style.setProperty(
+      name,
+      name.endsWith('-easing') ? supportedEasing(value) : value,
+    ),
   );
   applyTheme();
   const unsubscribe = useSettingsStore.subscribe(applyTheme);
@@ -153,7 +175,11 @@ export function changeTheme(mode: ThemeMode, origin: HTMLElement): void {
               `circle(${radius}px at ${x}px ${y}px)`,
             ],
           },
-          { duration, easing: supportedEasing(easing), pseudoElement: '::view-transition-new(root)' },
+          {
+            duration,
+            easing: supportedEasing(easing),
+            pseudoElement: '::view-transition-new(root)',
+          },
         );
         stopTransition = () => {
           animation.cancel();
@@ -204,4 +230,3 @@ export function changeTheme(mode: ThemeMode, origin: HTMLElement): void {
     void fade.finished.catch(() => {}).finally(finish);
   }
 }
-

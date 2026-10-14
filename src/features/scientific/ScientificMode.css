@@ -101,7 +101,7 @@
 .scientific-result-text {
   font-family: 'Roboto Mono', monospace;
   font-size: 1.5rem;
-  color: var(--md-sys-color-primary-text);
+  color: var(--md-sys-color-primary);
   overflow-wrap: anywhere;
 }
 .scientific-result-card {
@@ -235,7 +235,7 @@
 }
 .scientific-constant-symbol {
   font-size: 1.25rem;
-  color: var(--md-sys-color-primary-text);
+  color: var(--md-sys-color-primary);
 }
 .scientific-constant-insert strong,
 .scientific-constant-insert small {
@@ -351,3 +351,9 @@
   }
 }
 
+.scientific-editor:not(.graph-editor) {
+  min-height: 4.75rem;
+}
+.scientific-editor-placeholder {
+  padding: 1.25rem;
+}

@@ -65,6 +65,20 @@ export function bootstrapTheme(defaults: {
         String((candidate as Record<string, unknown>)[key]),
       ),
     );
+  const complete = (value: unknown): value is ColorScheme =>
+    !!value &&
+    typeof value === 'object' &&
+    Object.keys(fallback).every((key) =>
+      /^#[\da-f]{6}$/i.test(String((value as Record<string, unknown>)[key])),
+    );
+  const bothCached = valid && complete(cache.light) && complete(cache.dark);
+  Reflect.set(
+    window,
+    'm8eThemeBootstrap',
+    bothCached
+      ? { fingerprint: cache.fingerprint, light: cache.light, dark: cache.dark }
+      : { fingerprint: '#6750a4:tonalSpot:standard', ...defaults },
+  );
   const colors = valid ? (candidate as ColorScheme) : fallback;
   for (const key of Object.keys(fallback) as (keyof ColorScheme)[])
     root.style.setProperty(key, colors[key] ?? fallback[key] ?? '');

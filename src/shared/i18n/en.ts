@@ -1,7 +1,8 @@
 import type { Dictionary } from '../i18n';
 export const en: Dictionary = {
   'error.modeTitle': 'This mode could not be loaded',
-  'error.modeHint': 'Please reset this mode or switch to another mode. Your history is preserved.',
+  'error.modeHint':
+    'Please reset this mode or switch to another mode. Saved history is preserved.',
   'error.reset': 'Reset',
   'error.global': 'Something went wrong. Please try the action again.',
 
@@ -434,7 +435,7 @@ export const en: Dictionary = {
   'scientific.keypad': 'Keypad',
   'scientific.functions': 'Scientific functions',
   'scientific.numbers': 'Numbers and operators',
-  'scientific.second': 'Toggle second functions',
+  'scientific.second': '2nd – Toggle second functions',
   'scientific.insertFunction': 'Insert {name}: {description}',
   'scientific.insert': 'Insert {text}',
   'scientific.constants': 'Constants',
@@ -449,8 +450,8 @@ export const en: Dictionary = {
   'scientific.edit': 'Edit {name}',
   'scientific.delete': 'Delete {name}',
   'scientific.definitionSaved': 'Function saved',
-  'scientific.store': 'Store result in variable',
-  'scientific.recall': 'Recall variable',
+  'scientific.store': 'STO → Store result in variable',
+  'scientific.recall': 'RCL – Recall variable',
   'scientific.storeName': 'Variable name for STO',
   'scientific.storeHint': 'Enter a name and press STO. RCL opens variables.',
   'scientific.storeInvalid': 'Enter a valid, non-reserved variable name.',
@@ -560,4 +561,3 @@ export const en: Dictionary = {
   'graph.emptyHint': 'Choose an example on the right or add a function.',
   'graph.reorder': 'Reorder function {n}; keyboard actions in menu',
 };
-

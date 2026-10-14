@@ -1,6 +1,7 @@
 export const de = {
   'error.modeTitle': 'Dieser Modus konnte nicht geladen werden',
-  'error.modeHint': 'Bitte setze den Modus zurück oder wechsle zu einem anderen Modus. Dein Verlauf bleibt erhalten.',
+  'error.modeHint':
+    'Bitte setze den Modus zurück oder wechsle zu einem anderen Modus. Gespeicherter Verlauf bleibt erhalten.',
   'error.reset': 'Zurücksetzen',
   'error.global': 'Etwas ist schiefgegangen. Bitte versuche die Aktion erneut.',
 
@@ -441,7 +442,7 @@ export const de = {
   'scientific.keypad': 'Tastenfeld',
   'scientific.functions': 'Wissenschaftliche Funktionen',
   'scientific.numbers': 'Zahlen und Operatoren',
-  'scientific.second': 'Zweitbelegung umschalten',
+  'scientific.second': '2nd – Zweite Funktionen umschalten',
   'scientific.insertFunction': '{name} einfügen: {description}',
   'scientific.insert': '{text} einfügen',
   'scientific.constants': 'Konstanten',
@@ -457,8 +458,8 @@ export const de = {
   'scientific.edit': '{name} bearbeiten',
   'scientific.delete': '{name} löschen',
   'scientific.definitionSaved': 'Funktion gespeichert',
-  'scientific.store': 'Ergebnis in Variable speichern',
-  'scientific.recall': 'Variable abrufen',
+  'scientific.store': 'STO → Ergebnis in Variable speichern',
+  'scientific.recall': 'RCL – Variable abrufen',
   'scientific.storeName': 'Variablenname für STO',
   'scientific.storeHint':
     'Name eingeben und STO drücken. RCL öffnet die Variablen.',
@@ -575,4 +576,3 @@ export const de = {
   'graph.emptyHint': 'Wähle rechts ein Beispiel oder füge eine Funktion hinzu.',
   'graph.reorder': 'Funktion {n} verschieben; Pfeilaktionen im Menü',
 } as const;
-

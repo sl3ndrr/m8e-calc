@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { animate } from 'motion';
-import {
-  Button,
-  Icon,
-  IconButton,
-  SideSheet,
-  TextField,
-  snackbarQueue,
-  useMediaQuery,
-} from '../ui';
+import { Button } from '../ui/Button';
+import { Icon } from '../ui/Icon';
+import { IconButton } from '../ui/IconButton';
+import { SideSheet } from '../ui/SideSheet';
+import { TextField } from '../ui/TextField';
+import { snackbarQueue } from '../ui/snackbarQueue';
+import { useMediaQuery } from '../ui/useMediaQuery';
 import { springs } from '../styles/motion';
 import { useSettingsStore } from '../shared/settingsStore';
 import { useAppStore } from '../shared/store';

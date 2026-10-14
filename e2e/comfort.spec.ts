@@ -276,4 +276,3 @@ test('PWA installability and all four modes offline after only the first load', 
   await expect(page.locator('.graph-trace')).toBeVisible();
   expect(errors).toEqual([]);
 });
-

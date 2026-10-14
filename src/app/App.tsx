@@ -13,25 +13,31 @@ import { useHistoryStore } from '../shared/historyStore';
 import { useSettingsStore } from '../shared/settingsStore';
 import { parseHash } from './routing';
 import { modeRegistry } from './modeRegistry';
-import {
-  AccentPicker,
-  Button,
-  Icon,
-  IconButton,
-  LoadingIndicator,
-  NavigationRail,
-  Snackbar,
-  snackbarQueue,
-  ThemeSwitch,
-  Tooltip,
-  useMediaQuery,
-  useSpring,
-} from '../ui';
+import { AccentPicker } from '../ui/AccentPicker';
+import { Button } from '../ui/Button';
+import { Icon } from '../ui/Icon';
+import { IconButton } from '../ui/IconButton';
+import { LoadingIndicator } from '../ui/LoadingIndicator';
+import { NavigationRail } from '../ui/NavigationRail';
+import { Snackbar } from '../ui/Snackbar';
+import { snackbarQueue } from '../ui/snackbarQueue';
+import { ThemeSwitch } from '../ui/ThemeSwitch';
+import { Tooltip } from '../ui/Tooltip';
+import { useMediaQuery } from '../ui/useMediaQuery';
+import { useSpring } from '../ui/useSpring';
 import { ModeStage } from './ModeStage';
-import { HistorySheet } from './HistorySheet';
-import { SettingsDialog } from './SettingsDialog';
+const HistorySheet = lazy(() =>
+  import('./HistorySheet').then((m) => ({ default: m.HistorySheet })),
+);
+
+const SettingsDialog = lazy(() =>
+  import('./SettingsDialog').then((m) => ({ default: m.SettingsDialog })),
+);
 import './AppShell.css';
-const CommandPalette = lazy(() => import('./CommandPalette').then(m => ({ default: m.CommandPalette })));
+import './Comfort.css';
+const CommandPalette = lazy(() =>
+  import('./CommandPalette').then((m) => ({ default: m.CommandPalette })),
+);
 import { ShortcutDialog } from './ShortcutDialog';
 import { findGlobalShortcut, isInputTarget, shortcutHint } from './shortcuts';
 import type { PaletteCommand } from './paletteModel';
@@ -154,7 +160,8 @@ export function App() {
           });
         break;
       case 'conversion': {
-        const { convertReducer, initialConvertState } = await import('../features/convert/model');
+        const { convertReducer, initialConvertState } =
+          await import('../features/convert/model');
         const state = convertReducer(initialConvertState(), {
           type: 'query',
           text: item.value ?? '',
@@ -318,7 +325,11 @@ export function App() {
                 </Tooltip>
                 <Tooltip
                   trigger={
-                    <Button variant="text" aria-label={t('comfort.shortcuts', locale)} onPress={() => setHelpOpen(true)}>
+                    <Button
+                      variant="text"
+                      aria-label={t('comfort.shortcuts', locale)}
+                      onPress={() => setHelpOpen(true)}
+                    >
                       ?
                     </Button>
                   }
@@ -366,7 +377,9 @@ export function App() {
                   <span className="history-toggle-label">
                     {t('history.title', locale)}
                   </span>
-                  <span className="history-badge">{count}</span>
+                  <span className="history-badge" aria-hidden="true">
+                    {count}
+                  </span>
                 </Button>
               </div>
             </header>
@@ -378,13 +391,21 @@ export function App() {
             data-docked={docked || undefined}
             data-visible={visible || undefined}
           >
-            <HistorySheet
-              key={`${mode}-${docked}`}
-              mode={mode}
-              visible={visible}
-              docked={docked}
-              onClose={() => useHistoryStore.getState().setVisible(mode, false)}
-            />
+            {visible && (
+              <Suspense
+                fallback={<LoadingIndicator label={t('ui.loading', locale)} />}
+              >
+                <HistorySheet
+                  key={`${mode}-${docked}`}
+                  mode={mode}
+                  visible={visible}
+                  docked={docked}
+                  onClose={() =>
+                    useHistoryStore.getState().setVisible(mode, false)
+                  }
+                />
+              </Suspense>
+            )}
           </div>
         </div>
       )}
@@ -397,15 +418,28 @@ export function App() {
         </div>
       )}
       {paletteOpen && (
-        <Suspense fallback={<LoadingIndicator label={t('ui.loading', locale)} />}><CommandPalette
-          onClose={() => setPaletteOpen(false)}
-          onCommand={(item) => { void command(item).catch(() => snackbarQueue.add({ message: t('error.global', locale) })); }}
-        /></Suspense>
+        <Suspense
+          fallback={<LoadingIndicator label={t('ui.loading', locale)} />}
+        >
+          <CommandPalette
+            onClose={() => setPaletteOpen(false)}
+            onCommand={(item) => {
+              void command(item).catch(() =>
+                snackbarQueue.add({ message: t('error.global', locale) }),
+              );
+            }}
+          />
+        </Suspense>
       )}
       {helpOpen && <ShortcutDialog onClose={() => setHelpOpen(false)} />}
-      <SettingsDialog isOpen={settingsOpen} onOpenChange={setSettingsOpen} />
+      {settingsOpen && (
+        <Suspense
+          fallback={<LoadingIndicator label={t('ui.loading', locale)} />}
+        >
+          <SettingsDialog isOpen onOpenChange={setSettingsOpen} />
+        </Suspense>
+      )}
       {route !== 'design' && notifications}
     </I18nProvider>
   );
 }
-

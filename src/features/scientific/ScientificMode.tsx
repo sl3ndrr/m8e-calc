@@ -6,18 +6,16 @@ import {
   useRef,
   useState,
 } from 'react';
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  SegmentedControl,
-  Slider,
-  Switch,
-  TextField,
-  snackbarQueue,
-  useMediaQuery,
-  VisuallyHidden,
-} from '../../ui';
+import { Button } from '../../ui/Button';
+import { ButtonGroup } from '../../ui/ButtonGroup';
+import { Card } from '../../ui/Card';
+import { SegmentedControl } from '../../ui/SegmentedControl';
+import { Slider } from '../../ui/Slider';
+import { Switch } from '../../ui/Switch';
+import { TextField } from '../../ui/TextField';
+import { snackbarQueue } from '../../ui/snackbarQueue';
+import { useMediaQuery } from '../../ui/useMediaQuery';
+import { VisuallyHidden } from '../../ui/VisuallyHidden';
 import {
   type AngleMode,
   type ComplexMode,
@@ -68,12 +66,14 @@ export default function ScientificMode() {
     commit = useScientificStore((s) => s.commit),
     remove = useScientificStore((s) => s.remove);
   const [expression, setExpression] = useState(
-      () => readModeLink('scientific', validateScientificLink)?.expression ?? '',
+      () =>
+        readModeLink('scientific', validateScientificLink)?.expression ?? '',
     ),
     [error, setError] = useState<EngineError | null>(null),
     [calculation, setCalculation] = useState<Calculation | null>(null);
   const [angleMode, setAngleMode] = useState<AngleMode>(
-      () => readModeLink('scientific', validateScientificLink)?.angleMode ?? 'deg',
+      () =>
+        readModeLink('scientific', validateScientificLink)?.angleMode ?? 'deg',
     ),
     [complex, setComplex] = useState<ComplexMode>('off');
   const [notation, setNotation] =
@@ -327,7 +327,13 @@ export default function ScientificMode() {
                 />
               </div>
             </div>
-            <Suspense fallback={<p>{t('ui.loading', locale)}</p>}>
+            <Suspense
+              fallback={
+                <div className="scientific-editor scientific-editor-placeholder">
+                  {t('ui.loading', locale)}
+                </div>
+              }
+            >
               <ExpressionEditor
                 ref={editor}
                 value={expression}
@@ -353,6 +359,7 @@ export default function ScientificMode() {
             )}
             <div
               className="scientific-preview"
+              role="status"
               aria-label={t('scientific.preview', locale)}
             >
               {liveText && (
@@ -382,6 +389,15 @@ export default function ScientificMode() {
             aria-label={t('scientific.result', locale)}
           >
             <h2>{t('scientific.result', locale)}</h2>
+            <VisuallyHidden>
+              <output
+                className="scientific-result-text"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                {displayed?.text ?? ''}
+              </output>
+            </VisuallyHidden>
             {calculation ? (
               <>
                 {math(
@@ -389,17 +405,7 @@ export default function ScientificMode() {
                   t('scientific.expression', locale),
                 )}
                 {displayed ? (
-                  <>
-                    <VisuallyHidden>
-                      <output
-                        className="scientific-result-text"
-                        aria-live="polite"
-                      >
-                        {displayed.text}
-                      </output>
-                    </VisuallyHidden>
-                    {math(displayed.latex, t('scientific.result', locale))}
-                  </>
+                  <>{math(displayed.latex, t('scientific.result', locale))}</>
                 ) : (
                   <p role="status">{t('scientific.definitionSaved', locale)}</p>
                 )}
@@ -553,4 +559,3 @@ export default function ScientificMode() {
     </section>
   );
 }
-

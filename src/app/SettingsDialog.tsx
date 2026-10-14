@@ -1,13 +1,11 @@
 import { useRef, useState } from 'react';
-import {
-  Button,
-  Dialog,
-  Select,
-  Switch,
-  Slider,
-  TextField,
-  snackbarQueue,
-} from '../ui';
+import { Button } from '../ui/Button';
+import { Dialog } from '../ui/Dialog';
+import { Select } from '../ui/Select';
+import { Switch } from '../ui/Switch';
+import { Slider } from '../ui/Slider';
+import { TextField } from '../ui/TextField';
+import { snackbarQueue } from '../ui/snackbarQueue';
 import { useSettingsStore } from '../shared/settingsStore';
 import { useAppStore } from '../shared/store';
 import { useHistoryStore } from '../shared/historyStore';

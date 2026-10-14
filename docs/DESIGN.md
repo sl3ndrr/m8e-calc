@@ -103,3 +103,20 @@ Die Implementierung und Konventionen der wiederverwendbaren Bausteine stehen in 
 Die Settings nutzen jetzt Version 2 (Version 0/1 wird migriert) und ergänzen Sprache, Zahlenformat und Verlaufslimit. Der frühe Theme-Bootstrap akzeptiert alle drei bekannten Versionen. Die Shell skaliert die root-Schrift von 12 bis 32 px, mit Full HD als 16-px-Referenz und Höhenbegrenzung für Ultrawide. Shape-Tokens verwenden jetzt rem, genauso wie die Typografie. NavigationRail kann die Aktivpille mit `scaled` in rem-Schritten animieren; die Galerie behält ihre bisherigen px-Slots.
 
 Das lokale Material-Symbol-Subset enthält die zwölf zusätzlichen Shell-Glyphen (Rechnermodi, Verlauf, Einstellungen, Navigation und Verlaufsaktionen), insgesamt zwanzig. `scripts/subset-fonts.py` bleibt die Quelle. Die vier Modus-Chunks zeigen ausschließlich Leerzustände; die Verlaufs-API, Shell und Einstellungen stehen in `ARCHITECTURE.md`.
+
+## AP15 · Kontrast und Browser-Fallbacks
+
+Die vollständige Matrix bestätigt die vorhandenen M3-Textrollen auf sämtlichen
+Surface-Ebenen (Minimum 4,57:1 am Ausgangsstand). Funktionale Outline-Ränder
+verfehlen das UI-Ziel in dunklen Standard-Paletten knapp und werden nun auf
+
+> =3:1 abgesichert. `scripts/qa-contrast.mjs` prüft sämtliche 16 Seeds × vier
+> Varianten × drei Kontraststufen × zwei Themen mit WCAG-sRGB-Luminanz, einschließlich
+> Fixed-/Container-/Inverse-Paaren. Paletten-Snapshots bleiben als Zusatzkontrolle
+> erhalten. Native Animationen auf dem Startpfad verwenden die gleichen zentralen
+> Spring-Tokens und unterstützen Abbruch sowie Reduced/Off.
+
+`browserMotion.ts` erkennt die Unterstützung eines Easing-Werts vor Übergabe an
+WAAPI und verwendet sonst `ease-out`. Der vorhandene View-Transitions-Fallback
+und das `@supports (corner-shape: squircle)` bleiben bestehen. Reduced/Off gilt in
+allen Pfaden. Browserzoom erhält mindestens die konfigurierte Standardschrift.

@@ -53,9 +53,8 @@
 }
 .ui-text-field .react-aria-FieldError {
   font-size: var(--md-sys-typescale-body-small-size);
-  color: var(--md-sys-color-error-text);
+  color: var(--md-sys-color-error);
 }
 .ui-text-field[data-disabled] .ui-text-input {
   opacity: 0.38;
 }
-
