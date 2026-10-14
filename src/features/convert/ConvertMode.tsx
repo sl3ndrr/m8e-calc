@@ -53,7 +53,11 @@ import {
 } from './model';
 import { useConvertStore } from './preferences';
 import './ConvertMode.css';
-import { shortcutMatches, isInputTarget, shortcutHint } from '../../app/shortcuts';
+import {
+  shortcutMatches,
+  isInputTarget,
+  shortcutHint,
+} from '../../app/shortcuts';
 import { CopyLinkButton } from '../../app/CopyLinkButton';
 import { readModeLink } from '../../app/permalinks';
 
@@ -139,11 +143,10 @@ const categorySymbols: Record<string, string> = {
 const signature = (state: ConvertState): string =>
   `${pairKey(state)}:${state.value}`;
 export default function ConvertMode() {
-  const [state, dispatch] = useReducer(
-    convertReducer,
-    undefined,
-    () => ({ ...initialConvertState(), ...(readModeLink('convert') ?? {}) }),
-  );
+  const [state, dispatch] = useReducer(convertReducer, undefined, () => ({
+    ...initialConvertState(),
+    ...(readModeLink('convert') ?? {}),
+  }));
   const [search, setSearch] = useState('');
   const [query, setQuery] = useState('');
   const [queryError, setQueryError] = useState<ConvertState['error']>(null);
@@ -233,7 +236,10 @@ export default function ConvertMode() {
         return;
       const target = event.target instanceof HTMLElement ? event.target : null;
       if (target?.closest('.shell-history, .shell-personalization')) return;
-      if (shortcutMatches('convert.swap', event) && !isInputTarget(event.target)) {
+      if (
+        shortcutMatches('convert.swap', event) &&
+        !isInputTarget(event.target)
+      ) {
         event.preventDefault();
         dispatch({ type: 'swap' });
         return;
@@ -669,4 +675,3 @@ export default function ConvertMode() {
     </section>
   );
 }
-

@@ -770,4 +770,3 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
     </div>
   );
 }
-

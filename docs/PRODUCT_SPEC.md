@@ -44,4 +44,3 @@ Qualitätssicherung: ESLint Flat Config (typescript-eslint, react-hooks, jsx-a11
 AP1 liefert Projektstruktur, Toolchain, Hash-Routing zu einer gemeinsamen Platzhalterseite, minimale zentrale CSS-Tokens, i18n-Grundlage, Zustand-Grundlage, Tests, CI, Pages-Workflow und Projektgedächtnis. Es entsteht **keine Rechenfunktion**. Theming und Design-System folgen in AP2/AP3, die vollständige Shell und der Verlauf in AP4.
 
 Akzeptanz: `npm run check` lokal und in CI grün, Chromium-Smoke lädt den Produktionsbuild unter `/m8e-calc/`, Doku aktuell. Nach Merge und erfolgreichem Pages-Deployment ist die Platzhalterseite am Pages-Pfad erreichbar.
-

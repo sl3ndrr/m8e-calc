@@ -7,4 +7,3 @@ export function parseHash(hash: string, lastMode: ModeId = 'simple'): AppRoute {
   const candidate = hash.replace(/^#\//, '').split('?')[0];
   return candidate === 'design' || isModeId(candidate) ? candidate : 'simple';
 }
-

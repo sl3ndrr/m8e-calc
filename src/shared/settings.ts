@@ -49,8 +49,14 @@ export function normalizeSettings(
   const fallback = defaultSettings(reducedMotion);
   if (!isRecord(value)) return fallback;
   return {
-    uiSize: typeof value.uiSize === 'number' && Number.isFinite(value.uiSize) ? Math.max(80, Math.min(150, Math.round(value.uiSize))) : fallback.uiSize,
-    presentationHistory: typeof value.presentationHistory === 'boolean' ? value.presentationHistory : false,
+    uiSize:
+      typeof value.uiSize === 'number' && Number.isFinite(value.uiSize)
+        ? Math.max(80, Math.min(150, Math.round(value.uiSize)))
+        : fallback.uiSize,
+    presentationHistory:
+      typeof value.presentationHistory === 'boolean'
+        ? value.presentationHistory
+        : false,
     language:
       value.language === 'de' || value.language === 'en'
         ? value.language
@@ -98,7 +104,9 @@ export function migrateSettings(
       reducedMotion,
     );
   return normalizeSettings(
-    version === 1 || version === 2 || version === SETTINGS_VERSION ? value : null,
+    version === 1 || version === 2 || version === SETTINGS_VERSION
+      ? value
+      : null,
     reducedMotion,
   );
 }
@@ -114,4 +122,3 @@ export function nextThemeMode(mode: ThemeMode, key: string): ThemeMode {
   const delta = key === 'ArrowRight' || key === 'ArrowDown' ? 1 : -1;
   return themeModes[(themeModes.indexOf(mode) + delta + 3) % 3] ?? 'system';
 }
-

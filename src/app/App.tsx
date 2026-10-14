@@ -92,40 +92,100 @@ export function App() {
     useHistoryStore.getState().setLimit(limit);
   }, [limit]);
   useEffect(() => {
-    document.documentElement.style.setProperty('--ui-size', String(uiSize / 100));
+    document.documentElement.style.setProperty(
+      '--ui-size',
+      String(uiSize / 100),
+    );
   }, [uiSize]);
   function command(item: PaletteCommand): void {
     switch (item.action) {
-      case 'mode': if (isModeId(item.value)) window.location.hash = `#/${item.value}`; break;
-      case 'settings': setSettingsOpen(true); break;
-      case 'shortcuts': setHelpOpen(true); break;
-      case 'history': toggleHistory(); break;
-      case 'presentation': setPresentation((value) => !value); break;
+      case 'mode':
+        if (isModeId(item.value)) window.location.hash = `#/${item.value}`;
+        break;
+      case 'settings':
+        setSettingsOpen(true);
+        break;
+      case 'shortcuts':
+        setHelpOpen(true);
+        break;
+      case 'history':
+        toggleHistory();
+        break;
+      case 'presentation':
+        setPresentation((value) => !value);
+        break;
       case 'theme': {
         const settings = useSettingsStore.getState();
-        settings.updateSettings({ themeMode: settings.themeMode === 'light' ? 'system' : settings.themeMode === 'system' ? 'dark' : 'light' });
+        settings.updateSettings({
+          themeMode:
+            settings.themeMode === 'light'
+              ? 'system'
+              : settings.themeMode === 'system'
+                ? 'dark'
+                : 'light',
+        });
         break;
       }
-      case 'accent': if (item.value) useSettingsStore.getState().updateSettings({ accent: item.value }); break;
-      case 'export': downloadFile(exportHistory(useHistoryStore.getState().entries.filter((entry) => entry.mode === mode), 'json'), `m8e-calc-${mode}.json`, 'application/json'); break;
+      case 'accent':
+        if (item.value)
+          useSettingsStore.getState().updateSettings({ accent: item.value });
+        break;
+      case 'export':
+        downloadFile(
+          exportHistory(
+            useHistoryStore
+              .getState()
+              .entries.filter((entry) => entry.mode === mode),
+            'json',
+          ),
+          `m8e-calc-${mode}.json`,
+          'application/json',
+        );
+        break;
       case 'insert':
-        if (item.value && !(mode === 'scientific' && insertScientific(item.value))) window.location.hash = encodePermalink('scientific', { expression: item.value ?? '', angleMode: 'deg' });
+        if (
+          item.value &&
+          !(mode === 'scientific' && insertScientific(item.value))
+        )
+          window.location.hash = encodePermalink('scientific', {
+            expression: item.value ?? '',
+            angleMode: 'deg',
+          });
         break;
       case 'conversion': {
-        const state = convertReducer(initialConvertState(), { type: 'query', text: item.value ?? '', locale });
-        if (!state.error) window.location.hash = encodePermalink('convert', state);
+        const state = convertReducer(initialConvertState(), {
+          type: 'query',
+          text: item.value ?? '',
+          locale,
+        });
+        if (!state.error)
+          window.location.hash = encodePermalink('convert', state);
         break;
       }
     }
   }
   useEffect(() => {
     function shortcut(event: KeyboardEvent): void {
-      if (event.defaultPrevented || event.isComposing || event.repeat || route === 'design') return;
+      if (
+        event.defaultPrevented ||
+        event.isComposing ||
+        event.repeat ||
+        route === 'design'
+      )
+        return;
       const item = findGlobalShortcut(event, isInputTarget(event.target));
       if (!item) return;
       // Existing modal/menu scopes own all keys except the explicitly global palette opener.
-      if (settingsOpen || helpOpen || paletteOpen || document.querySelector('[role="dialog"], [role="menu"], [role="listbox"]')) {
-        if (item.id !== 'palette' || settingsOpen || helpOpen || paletteOpen) return;
+      if (
+        settingsOpen ||
+        helpOpen ||
+        paletteOpen ||
+        document.querySelector(
+          '[role="dialog"], [role="menu"], [role="listbox"]',
+        )
+      ) {
+        if (item.id !== 'palette' || settingsOpen || helpOpen || paletteOpen)
+          return;
       }
       event.preventDefault();
       if (item.id === 'palette') setPaletteOpen(true);
@@ -133,7 +193,8 @@ export function App() {
       else if (item.id === 'history') toggleHistory();
       else if (item.id === 'presentation') setPresentation((value) => !value);
       else if (item.id === 'settings') setSettingsOpen(true);
-      else if (item.id.startsWith('mode.')) window.location.hash = `#/${item.id.slice(5)}`;
+      else if (item.id.startsWith('mode.'))
+        window.location.hash = `#/${item.id.slice(5)}`;
     }
     window.addEventListener('keydown', shortcut);
     return () => window.removeEventListener('keydown', shortcut);
@@ -231,10 +292,46 @@ export function App() {
               </div>
               <div className="shell-controls">
                 {personalization}
-                <Tooltip trigger={<Button variant="text" onPress={() => setPaletteOpen(true)} aria-keyshortcuts="Control+K Meta+K">{t('comfort.palette', locale)}</Button>}>{t('comfort.palette', locale)} · {shortcutHint('palette')}</Tooltip>
-                <Tooltip trigger={<Button variant="text" onPress={() => setHelpOpen(true)}>?</Button>}>{t('comfort.shortcuts', locale)} · {shortcutHint('help')}</Tooltip>
-                <Tooltip trigger={<Button variant="text" onPress={() => setPresentation(true)}>{t('comfort.presentation', locale)}</Button>}>{t('comfort.presentation', locale)} · {shortcutHint('presentation')}</Tooltip>
-                {pwa.canInstall && <Button variant="text" onPress={pwa.install}>{t('comfort.install', locale)}</Button>}
+                <Tooltip
+                  trigger={
+                    <Button
+                      variant="text"
+                      onPress={() => setPaletteOpen(true)}
+                      aria-keyshortcuts="Control+K Meta+K"
+                    >
+                      {t('comfort.palette', locale)}
+                    </Button>
+                  }
+                >
+                  {t('comfort.palette', locale)} · {shortcutHint('palette')}
+                </Tooltip>
+                <Tooltip
+                  trigger={
+                    <Button variant="text" onPress={() => setHelpOpen(true)}>
+                      ?
+                    </Button>
+                  }
+                >
+                  {t('comfort.shortcuts', locale)} · {shortcutHint('help')}
+                </Tooltip>
+                <Tooltip
+                  trigger={
+                    <Button
+                      variant="text"
+                      onPress={() => setPresentation(true)}
+                    >
+                      {t('comfort.presentation', locale)}
+                    </Button>
+                  }
+                >
+                  {t('comfort.presentation', locale)} ·{' '}
+                  {shortcutHint('presentation')}
+                </Tooltip>
+                {pwa.canInstall && (
+                  <Button variant="text" onPress={pwa.install}>
+                    {t('comfort.install', locale)}
+                  </Button>
+                )}
                 <IconButton
                   icon="settings"
                   variant="text"
@@ -278,12 +375,23 @@ export function App() {
           </div>
         </div>
       )}
-      {presentation && <div className="presentation-exit"><Button variant="text" onPress={() => setPresentation(false)}>{t('comfort.exitPresentation', locale)} · {shortcutHint('presentation')}</Button></div>}
-      {paletteOpen && <CommandPalette onClose={() => setPaletteOpen(false)} onCommand={command} />}
+      {presentation && (
+        <div className="presentation-exit">
+          <Button variant="text" onPress={() => setPresentation(false)}>
+            {t('comfort.exitPresentation', locale)} ·{' '}
+            {shortcutHint('presentation')}
+          </Button>
+        </div>
+      )}
+      {paletteOpen && (
+        <CommandPalette
+          onClose={() => setPaletteOpen(false)}
+          onCommand={command}
+        />
+      )}
       {helpOpen && <ShortcutDialog onClose={() => setHelpOpen(false)} />}
       <SettingsDialog isOpen={settingsOpen} onOpenChange={setSettingsOpen} />
       {route !== 'design' && notifications}
     </I18nProvider>
   );
 }
-

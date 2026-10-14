@@ -1,11 +1,13 @@
 export const de = {
   'comfort.palette': 'Befehlspalette',
   'comfort.search': 'Modus, Aktion, Konstante oder Umrechnung suchen',
-  'comfort.paletteHint': '↑ ↓ auswählen · Enter ausführen · Esc schließen · z. B. 5 km in mi',
+  'comfort.paletteHint':
+    '↑ ↓ auswählen · Enter ausführen · Esc schließen · z. B. 5 km in mi',
   'comfort.results': 'Suchergebnisse',
   'comfort.resultCount': '{count} Ergebnisse',
   'comfort.shortcuts': 'Tastenkürzel',
-  'comfort.shortcutHint': 'Globale Kürzel ruhen in Eingabefeldern. Strg/Cmd+K öffnet dort die Palette; Editor-Kürzel sind ausdrücklich vorgesehen.',
+  'comfort.shortcutHint':
+    'Globale Kürzel ruhen in Eingabefeldern. Strg/Cmd+K öffnet dort die Palette; Editor-Kürzel sind ausdrücklich vorgesehen.',
   'comfort.action': 'Aktion',
   'comfort.keys': 'Tasten',
   'comfort.scope': 'Geltungsbereich',
@@ -22,7 +24,8 @@ export const de = {
   'comfort.uiSize': 'UI-Größe',
   'comfort.copyLink': 'Link kopieren',
   'comfort.linkCopied': 'Link kopiert',
-  'comfort.linkError': 'Link konnte nicht kopiert werden. Zustand ungültig, zu groß oder Zwischenablage nicht verfügbar.',
+  'comfort.linkError':
+    'Link konnte nicht kopiert werden. Zustand ungültig, zu groß oder Zwischenablage nicht verfügbar.',
   'comfort.digits': 'Ziffer eingeben',
   'comfort.operators': 'Grundrechenart',
   'comfort.browse': 'Verlauf im Editor durchblättern',
@@ -564,4 +567,3 @@ export const de = {
   'graph.emptyHint': 'Wähle rechts ein Beispiel oder füge eine Funktion hinzu.',
   'graph.reorder': 'Funktion {n} verschieben; Pfeilaktionen im Menü',
 } as const;
-

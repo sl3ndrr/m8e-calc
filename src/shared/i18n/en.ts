@@ -6,7 +6,8 @@ export const en: Dictionary = {
   'comfort.results': 'Search results',
   'comfort.resultCount': '{count} results',
   'comfort.shortcuts': 'Keyboard shortcuts',
-  'comfort.shortcutHint': 'Global shortcuts pause in input fields. Ctrl/Cmd+K opens the palette there; editor shortcuts are explicitly enabled.',
+  'comfort.shortcutHint':
+    'Global shortcuts pause in input fields. Ctrl/Cmd+K opens the palette there; editor shortcuts are explicitly enabled.',
   'comfort.action': 'Action',
   'comfort.keys': 'Keys',
   'comfort.scope': 'Scope',
@@ -23,7 +24,8 @@ export const en: Dictionary = {
   'comfort.uiSize': 'UI size',
   'comfort.copyLink': 'Copy link',
   'comfort.linkCopied': 'Link copied',
-  'comfort.linkError': 'Could not copy link. State invalid, too large or clipboard unavailable.',
+  'comfort.linkError':
+    'Could not copy link. State invalid, too large or clipboard unavailable.',
   'comfort.digits': 'Enter digit',
   'comfort.operators': 'Arithmetic operator',
   'comfort.browse': 'Browse editor history',
@@ -550,4 +552,3 @@ export const en: Dictionary = {
   'graph.emptyHint': 'Choose an example on the right or add a function.',
   'graph.reorder': 'Reorder function {n}; keyboard actions in menu',
 };
-

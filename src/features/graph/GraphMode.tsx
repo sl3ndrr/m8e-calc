@@ -42,7 +42,11 @@ import './GraphMode.css';
 import { CopyLinkButton } from '../../app/CopyLinkButton';
 import { readModeLink } from '../../app/permalinks';
 export default function GraphMode() {
-  const [state, dispatch] = useReducer(plotReducer, undefined, () => readModeLink('graph') ?? initialPlot());
+  const [state, dispatch] = useReducer(
+    plotReducer,
+    undefined,
+    () => readModeLink('graph') ?? initialPlot(),
+  );
   const [palette, setPalette] = useState<string[]>([]),
     [markers, setMarkers] = useState<Marker[]>([]),
     [shade, setShade] = useState<IntegralShade | null>(null),
@@ -275,7 +279,13 @@ export default function GraphMode() {
       aria-label={t('graph.title', locale)}
     >
       <header className="graph-heading">
-        <CopyLinkButton mode="graph" data={() => ({ ...state, bounds: canvas.current?.viewport()?.bounds ?? state.bounds })} />
+        <CopyLinkButton
+          mode="graph"
+          data={() => ({
+            ...state,
+            bounds: canvas.current?.viewport()?.bounds ?? state.bounds,
+          })}
+        />
         <div>
           <p className="shell-eyebrow">{t('graph.eyebrow', locale)}</p>
           <h1>{t('graph.title', locale)}</h1>
@@ -593,4 +603,3 @@ export default function GraphMode() {
     </section>
   );
 }
-

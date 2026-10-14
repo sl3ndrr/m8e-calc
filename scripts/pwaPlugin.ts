@@ -10,26 +10,71 @@ export function pwaPlugin(): Plugin {
     name: 'm8e-offline',
     apply: 'build',
     enforce: 'post',
-    configResolved(config) { base = config.base; publicDir = config.publicDir; },
+    configResolved(config) {
+      base = config.base;
+      publicDir = config.publicDir;
+    },
     generateBundle(_options, bundle) {
       const manifest = {
-        id: base, name: 'm8e-calc', short_name: 'm8e-calc', lang: 'de',
-        start_url: base, scope: base, display: 'standalone',
-        background_color: '#16181d', theme_color: '#16181d',
+        id: base,
+        name: 'm8e-calc',
+        short_name: 'm8e-calc',
+        lang: 'de',
+        start_url: base,
+        scope: base,
+        display: 'standalone',
+        background_color: '#16181d',
+        theme_color: '#16181d',
         icons: [
-          { src: `${base}icons/app.svg`, sizes: 'any', type: 'image/svg+xml', purpose: 'any' },
-          { src: `${base}icons/app-192.png`, sizes: '192x192', type: 'image/png', purpose: 'any' },
-          { src: `${base}icons/app-512.png`, sizes: '512x512', type: 'image/png', purpose: 'any' },
-          { src: `${base}icons/app-maskable-512.png`, sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+          {
+            src: `${base}icons/app.svg`,
+            sizes: 'any',
+            type: 'image/svg+xml',
+            purpose: 'any',
+          },
+          {
+            src: `${base}icons/app-192.png`,
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'any',
+          },
+          {
+            src: `${base}icons/app-512.png`,
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any',
+          },
+          {
+            src: `${base}icons/app-maskable-512.png`,
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
         ],
       };
       const manifestText = JSON.stringify(manifest);
-      this.emitFile({ type: 'asset', fileName: 'manifest.webmanifest', source: manifestText });
-      const files = [...new Set(['index.html', 'manifest.webmanifest', 'icons/app.svg', 'icons/app-192.png', 'icons/app-512.png', 'icons/app-maskable-512.png', ...Object.keys(bundle)])].filter((f) => !f.endsWith('.map'));
+      this.emitFile({
+        type: 'asset',
+        fileName: 'manifest.webmanifest',
+        source: manifestText,
+      });
+      const files = [
+        ...new Set([
+          'index.html',
+          'manifest.webmanifest',
+          'icons/app.svg',
+          'icons/app-192.png',
+          'icons/app-512.png',
+          'icons/app-maskable-512.png',
+          ...Object.keys(bundle),
+        ]),
+      ].filter((f) => !f.endsWith('.map'));
       const hash = createHash('sha256');
       hash.update(manifestText);
-      for (const file of files.filter((f) => f.startsWith('icons/'))) hash.update(readFileSync(join(publicDir, file)));
-      for (const file of Object.values(bundle)) hash.update(file.type === 'chunk' ? file.code : file.source);
+      for (const file of files.filter((f) => f.startsWith('icons/')))
+        hash.update(readFileSync(join(publicDir, file)));
+      for (const file of Object.values(bundle))
+        hash.update(file.type === 'chunk' ? file.code : file.source);
       const version = hash.digest('hex').slice(0, 16);
       const prefix = `m8e-calc:${base}:`;
       const source = `

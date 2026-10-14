@@ -67,10 +67,14 @@ export default function ScientificMode() {
   const environment = useScientificStore((s) => s.environment),
     commit = useScientificStore((s) => s.commit),
     remove = useScientificStore((s) => s.remove);
-  const [expression, setExpression] = useState(() => readModeLink('scientific')?.expression ?? ''),
+  const [expression, setExpression] = useState(
+      () => readModeLink('scientific')?.expression ?? '',
+    ),
     [error, setError] = useState<EngineError | null>(null),
     [calculation, setCalculation] = useState<Calculation | null>(null);
-  const [angleMode, setAngleMode] = useState<AngleMode>(() => readModeLink('scientific')?.angleMode ?? 'deg'),
+  const [angleMode, setAngleMode] = useState<AngleMode>(
+      () => readModeLink('scientific')?.angleMode ?? 'deg',
+    ),
     [complex, setComplex] = useState<ComplexMode>('off');
   const [notation, setNotation] =
       useState<NonNullable<ValueFormatOptions['notation']>>('auto'),
@@ -549,4 +553,3 @@ export default function ScientificMode() {
     </section>
   );
 }
-

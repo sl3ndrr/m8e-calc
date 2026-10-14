@@ -255,7 +255,10 @@ export default function ExpressionEditor({
           ),
           Prec.high(
             keymap.of([
-              { key: shortcutHint('scientific.complete'), run: acceptCompletion },
+              {
+                key: shortcutHint('scientific.complete'),
+                run: acceptCompletion,
+              },
               {
                 key: shortcutHint('scientific.evaluate'),
                 run: () => {
@@ -376,4 +379,3 @@ export default function ExpressionEditor({
     />
   );
 }
-

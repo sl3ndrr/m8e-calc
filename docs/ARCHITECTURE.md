@@ -130,7 +130,6 @@ getrennt. Suchauflösung meldet mehrdeutige Symbole; Formatierung nutzt die Engi
 Dynamische Kurse sind nur als AP17-Typ vorgesehen. Datenmodell, Quellen und
 Erweiterung: [UNITS.md](UNITS.md). Tests laufen im Engine-Node-Projekt ohne DOM.
 
-
 ## AP14 · Komfort und Offline
 
 Gemeinsame Palette, Shortcut-Dispatch, Permalink-Validierung und PWA-Browseradapter

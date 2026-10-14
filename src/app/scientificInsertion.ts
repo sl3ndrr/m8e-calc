@@ -7,10 +7,14 @@ export function insertScientific(text: string): boolean {
 }
 export function useScientificInsertion(callback: (text: string) => void): void {
   const latest = useRef(callback);
-  useEffect(() => { latest.current = callback; });
+  useEffect(() => {
+    latest.current = callback;
+  });
   useEffect(() => {
     const handler = (text: string) => latest.current(text);
     insertion = handler;
-    return () => { if (insertion === handler) insertion = null; };
+    return () => {
+      if (insertion === handler) insertion = null;
+    };
   }, []);
 }

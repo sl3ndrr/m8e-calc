@@ -43,4 +43,3 @@ export function importSettings(content: string): Settings {
     throw new TypeError('Empty settings file');
   return settings;
 }
-

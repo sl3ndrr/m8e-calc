@@ -46,7 +46,13 @@ function ModePanel({ mode, direction }: { mode: ModeId; direction: number }) {
     </motion.div>
   );
 }
-export function ModeStage({ mode, routeKey = mode }: { mode: ModeId; routeKey?: string }) {
+export function ModeStage({
+  mode,
+  routeKey = mode,
+}: {
+  mode: ModeId;
+  routeKey?: string;
+}) {
   const [transition, setTransition] = useState({ mode, direction: 1 });
   if (transition.mode !== mode)
     setTransition({
@@ -64,4 +70,3 @@ export function ModeStage({ mode, routeKey = mode }: { mode: ModeId; routeKey?: 
     </div>
   );
 }
-

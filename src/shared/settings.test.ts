@@ -25,7 +25,11 @@ describe('settings', () => {
     expect(normalizeSettings({ uiSize: 200 }).uiSize).toBe(150);
     expect(normalizeSettings({ uiSize: 0 }).uiSize).toBe(80);
     expect(normalizeSettings({ uiSize: NaN }).uiSize).toBe(100);
-    expect(migrateSettings({ themeMode: 'dark' }, 2)).toMatchObject({ themeMode: 'dark', uiSize: 100, presentationHistory: false });
+    expect(migrateSettings({ themeMode: 'dark' }, 2)).toMatchObject({
+      themeMode: 'dark',
+      uiSize: 100,
+      presentationHistory: false,
+    });
   });
   it('uses system by default and respects the reduced-motion preference', () => {
     expect(defaultSettings().themeMode).toBe('system');
@@ -143,4 +147,3 @@ it('migrates v1 appearance without losing it and validates v2 preferences', () =
     historyLimit: 10,
   });
 });
-

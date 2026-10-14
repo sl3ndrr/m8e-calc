@@ -27,23 +27,23 @@ Strg/Cmd+K sind die dokumentierten Ausnahmen. Native Textbearbeitung bleibt
 beim Editor. Die folgende Tabelle beschreibt die Registry; ihre Konsistenz
 wird durch Unit-Tests abgesichert.
 
-| Kürzel | Aktion | Bereich / Eingabefokus |
-| --- | --- | --- |
-| Strg+K / Cmd+K | Befehlspalette | Alle Modi, auch Editor |
-| ? | Übersicht | Alle Modi, außerhalb Eingabefeldern |
-| Strg+H | Verlauf ein/aus | Alle Modi, außerhalb Eingabefeldern |
-| Strg+Umschalt+P | Präsentation ein/aus | Alle Modi, außerhalb Eingabefeldern |
-| Strg+, | Einstellungen | Alle Modi, außerhalb Eingabefeldern |
-| Alt+1 / 2 / 3 / 4 | Einfach / Wissenschaftlich / Umrechner / Graphen | Außerhalb Eingabefeldern |
-| 0–9, + − * /, . oder , | Zahl / Operator | Einfach, außerhalb Eingabefeldern |
-| Enter oder = | Auswerten | Einfach, außerhalb Eingabefeldern |
-| Rücktaste / Entf / Esc / % | Löschen / CE / C / Prozent | Einfach, außerhalb Eingabefeldern |
-| / | Schnelleingabe fokussieren | Umrechner, außerhalb Eingabefeldern |
-| 0–9 | Von-Feld fokussieren und beginnen | Umrechner, außerhalb Eingabefeldern |
-| Strg+Umschalt+S | Einheiten tauschen | Umrechner, außerhalb Eingabefeldern |
-| Enter / ↑ ↓ / Esc / Tab | Auswerten / Verlauf / Leeren / Vervollständigung | Wissenschaftlicher oder Graph-Editor, ausdrücklich innerhalb Editor |
-| + oder = / − | Zoom | Graph-Canvas |
-| Pfeile / Esc / Umschalt+F10 | Trace / Trace schließen / Aktionen | Graph-Canvas |
+| Kürzel                      | Aktion                                           | Bereich / Eingabefokus                                              |
+| --------------------------- | ------------------------------------------------ | ------------------------------------------------------------------- |
+| Strg+K / Cmd+K              | Befehlspalette                                   | Alle Modi, auch Editor                                              |
+| ?                           | Übersicht                                        | Alle Modi, außerhalb Eingabefeldern                                 |
+| Strg+H                      | Verlauf ein/aus                                  | Alle Modi, außerhalb Eingabefeldern                                 |
+| Strg+Umschalt+P             | Präsentation ein/aus                             | Alle Modi, außerhalb Eingabefeldern                                 |
+| Strg+,                      | Einstellungen                                    | Alle Modi, außerhalb Eingabefeldern                                 |
+| Alt+1 / 2 / 3 / 4           | Einfach / Wissenschaftlich / Umrechner / Graphen | Außerhalb Eingabefeldern                                            |
+| 0–9, + − * /, . oder ,      | Zahl / Operator                                  | Einfach, außerhalb Eingabefeldern                                   |
+| Enter oder =                | Auswerten                                        | Einfach, außerhalb Eingabefeldern                                   |
+| Rücktaste / Entf / Esc / %  | Löschen / CE / C / Prozent                       | Einfach, außerhalb Eingabefeldern                                   |
+| /                           | Schnelleingabe fokussieren                       | Umrechner, außerhalb Eingabefeldern                                 |
+| 0–9                         | Von-Feld fokussieren und beginnen                | Umrechner, außerhalb Eingabefeldern                                 |
+| Strg+Umschalt+S             | Einheiten tauschen                               | Umrechner, außerhalb Eingabefeldern                                 |
+| Enter / ↑ ↓ / Esc / Tab     | Auswerten / Verlauf / Leeren / Vervollständigung | Wissenschaftlicher oder Graph-Editor, ausdrücklich innerhalb Editor |
+| + oder = / −                | Zoom                                             | Graph-Canvas                                                        |
+| Pfeile / Esc / Umschalt+F10 | Trace / Trace schließen / Aktionen               | Graph-Canvas                                                        |
 
 ## Permalinks
 
@@ -56,12 +56,12 @@ modusspezifische Längen-/Schema-/Zahl-/Viewport-Prüfungen folgen danach.
 Oversize-/Clipboard-Fehler zeigen eine verständliche Snackbar. Fuzzing umfasst
 beliebige Hashes, beschädigte Codes und zufällige JSON-Payloads.
 
-| Modus | Übertragener Zustand |
-| --- | --- |
-| Einfach | Exakte Eingabe, Akkumulator, Operator, Eingabephase und Ausdruck |
-| Wissenschaftlich | Ausdruck und DEG/RAD/GRAD |
-| Umrechner | Kategorie, Quell-/Zieleinheit und exakter Decimal-String |
-| Graphen | Alle Zeilen mit Parametern/Farben/Sichtbarkeit, aktuelle Canvas-Ansicht und Anzeigeoptionen |
+| Modus            | Übertragener Zustand                                                                        |
+| ---------------- | ------------------------------------------------------------------------------------------- |
+| Einfach          | Exakte Eingabe, Akkumulator, Operator, Eingabephase und Ausdruck                            |
+| Wissenschaftlich | Ausdruck und DEG/RAD/GRAD                                                                   |
+| Umrechner        | Kategorie, Quell-/Zieleinheit und exakter Decimal-String                                    |
+| Graphen          | Alle Zeilen mit Parametern/Farben/Sichtbarkeit, aktuelle Canvas-Ansicht und Anzeigeoptionen |
 
 Keine gespeicherten Definitionen werden beim Laden ausgeführt. Es werden weder
 Environment noch Verlauf übertragen. Ein Hashwechsel stellt auch im selben

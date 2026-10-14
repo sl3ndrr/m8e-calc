@@ -1,7 +1,9 @@
 import { expect, test, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 async function copiedLink(page: Page): Promise<string> {
-  await page.getByRole('button', { name: 'Link kopieren', exact: true }).click();
+  await page
+    .getByRole('button', { name: 'Link kopieren', exact: true })
+    .click();
   const url = await page.evaluate(() => navigator.clipboard.readText());
   expect(url).toContain('/m8e-calc/#/');
   expect(url).toContain('?v=1&s=');
@@ -11,17 +13,26 @@ test.beforeEach(async ({ page, context }) => {
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.setViewportSize({ width: 1920, height: 1080 });
 });
-test('palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview', async ({ page }) => {
+test('palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview', async ({
+  page,
+}) => {
   await page.goto('/m8e-calc/#/simple');
-  const trigger = page.getByRole('button', { name: 'Befehlspalette', exact: true });
+  const trigger = page.getByRole('button', {
+    name: 'Befehlspalette',
+    exact: true,
+  });
   await trigger.focus();
   await page.keyboard.press('Control+k');
-  const input = page.getByRole('combobox', { name: 'Modus, Aktion, Konstante oder Umrechnung suchen' });
+  const input = page.getByRole('combobox', {
+    name: 'Modus, Aktion, Konstante oder Umrechnung suchen',
+  });
   await expect(input).toBeFocused();
   await input.fill('wsch');
   await expect(page.getByRole('option')).toContainText('Wissenschaftlich');
   await input.press('Enter');
-  await expect(page.locator('.mode-stage[data-mode="scientific"]')).toBeVisible();
+  await expect(
+    page.locator('.mode-stage[data-mode="scientific"]'),
+  ).toBeVisible();
   const editor = page.getByRole('textbox', { name: 'Ausdruck', exact: true });
   await editor.focus();
   await page.keyboard.press('Control+k');
@@ -36,8 +47,17 @@ test('palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview
   await input.press('ArrowDown');
   await input.press('ArrowUp');
   await expect(input).toHaveAttribute('aria-activedescendant', /-0$/);
-  await page.screenshot({ path: 'docs/screenshots/comfort-palette.png', fullPage: true });
-  await expect.poll(async () => (await new AxeBuilder({ page }).include('.command-palette').analyze()).violations).toEqual([]);
+  await page.screenshot({
+    path: 'docs/screenshots/comfort-palette.png',
+    fullPage: true,
+  });
+  await expect
+    .poll(
+      async () =>
+        (await new AxeBuilder({ page }).include('.command-palette').analyze())
+          .violations,
+    )
+    .toEqual([]);
   await input.press('Escape');
   await expect(editor).toBeFocused();
   await editor.press('Control+k');
@@ -45,7 +65,9 @@ test('palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview
   await input.press('Enter');
   await expect(page.locator('.convert-result')).toContainText('3,106855961');
 });
-test('simple permalink restores the editable pending expression', async ({ page }) => {
+test('simple permalink restores the editable pending expression', async ({
+  page,
+}) => {
   await page.goto('/m8e-calc/#/simple');
   await page.locator('.simple-calculator').waitFor();
   await page.keyboard.type('12+3');
@@ -56,7 +78,9 @@ test('simple permalink restores the editable pending expression', async ({ page 
   await page.keyboard.press('Enter');
   await expect(page.locator('.calculator-announcement')).toHaveText('15');
 });
-test('scientific permalink restores expression and angle without executing a definition', async ({ page }) => {
+test('scientific permalink restores expression and angle without executing a definition', async ({
+  page,
+}) => {
   await page.goto('/m8e-calc/#/scientific?e=sin(30)');
   const editor = page.getByRole('textbox', { name: 'Ausdruck', exact: true });
   await expect(editor).toHaveText('sin(30)');
@@ -64,21 +88,33 @@ test('scientific permalink restores expression and angle without executing a def
   const url = await copiedLink(page);
   await page.goto(url);
   await expect(editor).toHaveText('sin(30)');
-  await expect(page.getByRole('radio', { name: 'RAD', exact: true })).toBeChecked();
+  await expect(
+    page.getByRole('radio', { name: 'RAD', exact: true }),
+  ).toBeChecked();
   await editor.press('Enter');
   await expect(page.locator('.scientific-result-text')).toContainText('-0,988');
 });
-test('converter permalink restores category, pair and precise value', async ({ page }) => {
+test('converter permalink restores category, pair and precise value', async ({
+  page,
+}) => {
   await page.goto('/m8e-calc/#/convert');
-  await page.getByRole('textbox', { name: 'Schnelleingabe', exact: true }).fill('72 °F in °C');
+  await page
+    .getByRole('textbox', { name: 'Schnelleingabe', exact: true })
+    .fill('72 °F in °C');
   await page.getByRole('button', { name: 'Übernehmen', exact: true }).click();
   const url = await copiedLink(page);
   await page.goto(url);
-  await expect(page.getByRole('textbox', { name: 'Von', exact: true })).toHaveValue('72');
-  await expect(page.locator('.convert-category-heading')).toContainText('Temperatur');
+  await expect(
+    page.getByRole('textbox', { name: 'Von', exact: true }),
+  ).toHaveValue('72');
+  await expect(page.locator('.convert-category-heading')).toContainText(
+    'Temperatur',
+  );
   await expect(page.locator('.convert-result')).toContainText('22,222');
 });
-test('graph permalink restores functions, parameter and viewport', async ({ page }) => {
+test('graph permalink restores functions, parameter and viewport', async ({
+  page,
+}) => {
   await page.goto('/m8e-calc/#/graph');
   await page.getByRole('button', { name: 'Hinzufügen', exact: true }).click();
   const editor = page.locator('.graph-editor [role="textbox"]').first();
@@ -89,9 +125,19 @@ test('graph permalink restores functions, parameter and viewport', async ({ page
   await expect(slider).toHaveValue('1.1');
   await page.getByRole('button', { name: 'Vergrößern', exact: true }).click();
   const canvas = page.locator('canvas.graph-canvas');
-  await expect.poll(async () => JSON.parse(await canvas.getAttribute('data-bounds') ?? '{}').xMax).toBeLessThan(10);
+  await expect
+    .poll(
+      async () =>
+        JSON.parse((await canvas.getAttribute('data-bounds')) ?? '{}').xMax,
+    )
+    .toBeLessThan(10);
   // Copy after the viewport spring reaches its target.
-  await expect.poll(async () => JSON.parse(await canvas.getAttribute('data-bounds') ?? '{}').xMax).toBeCloseTo(10 / 1.3, 5);
+  await expect
+    .poll(
+      async () =>
+        JSON.parse((await canvas.getAttribute('data-bounds')) ?? '{}').xMax,
+    )
+    .toBeCloseTo(10 / 1.3, 5);
   const bounds = await canvas.getAttribute('data-bounds');
   const url = await copiedLink(page);
   await page.goto(url);
@@ -99,50 +145,85 @@ test('graph permalink restores functions, parameter and viewport', async ({ page
   await expect(slider).toHaveValue('1.1');
   await expect(canvas).toHaveAttribute('data-bounds', bounds ?? '');
 });
-test('invalid links, input shortcut suppression, help, scaling and presentation', async ({ page }) => {
+test('invalid links, input shortcut suppression, help, scaling and presentation', async ({
+  page,
+}) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/m8e-calc/#/scientific?v=1&s=invalid');
   const editor = page.getByRole('textbox', { name: 'Ausdruck', exact: true });
   await expect(editor).toHaveText('');
   await editor.focus();
-  const before = await page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }).getAttribute('aria-expanded');
+  const before = await page
+    .getByRole('button', { name: 'Verlauf ein-/ausblenden' })
+    .getAttribute('aria-expanded');
   await editor.press('Control+h');
-  await expect(page.getByRole('button', { name: 'Verlauf ein-/ausblenden' })).toHaveAttribute('aria-expanded', before ?? 'false');
+  await expect(
+    page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }),
+  ).toHaveAttribute('aria-expanded', before ?? 'false');
   await page.getByRole('button', { name: '?', exact: true }).focus();
   await page.keyboard.press('?');
-  await expect(page.getByRole('dialog', { name: 'Tastenkürzel' })).toBeVisible();
+  await expect(
+    page.getByRole('dialog', { name: 'Tastenkürzel' }),
+  ).toBeVisible();
   await page.keyboard.press('Escape');
-  await page.getByRole('button', { name: 'Einstellungen', exact: true }).click();
+  await page
+    .getByRole('button', { name: 'Einstellungen', exact: true })
+    .click();
   const size = page.getByRole('slider', { name: 'UI-Größe', exact: true });
   await size.focus();
   await size.press('End');
   await expect(size).toHaveValue('150');
   await page.keyboard.press('Escape');
-  await page.getByRole('button', { name: 'Präsentationsmodus', exact: true }).focus();
+  await page
+    .getByRole('button', { name: 'Präsentationsmodus', exact: true })
+    .focus();
   await page.keyboard.press('Control+Shift+p');
-  await expect(page.locator('.app-shell')).toHaveAttribute('data-presentation', 'true');
+  await expect(page.locator('.app-shell')).toHaveAttribute(
+    'data-presentation',
+    'true',
+  );
   await expect(page.locator('.shell-rail')).toBeHidden();
   await expect(page.locator('.shell-toolbar')).toBeHidden();
-  await page.screenshot({ path: 'docs/screenshots/comfort-presentation.png', fullPage: true });
+  await page.screenshot({
+    path: 'docs/screenshots/comfort-presentation.png',
+    fullPage: true,
+  });
   await page.getByRole('button', { name: /Präsentation beenden/ }).click();
   await expect(page.locator('.shell-rail')).toBeVisible();
   expect(errors).toEqual([]);
 });
-test('PWA installability and all four modes offline after only the first load', async ({ page, context }) => {
+test('PWA installability and all four modes offline after only the first load', async ({
+  page,
+  context,
+}) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/m8e-calc/#/simple');
   await page.evaluate(() => navigator.serviceWorker.ready.then(() => true));
   await page.waitForFunction(() => !!navigator.serviceWorker.controller);
   const session = await context.newCDPSession(page);
-  await expect.poll(async () => (await session.send('Page.getInstallabilityErrors')).installabilityErrors).toEqual([]);
+  await expect
+    .poll(
+      async () =>
+        (await session.send('Page.getInstallabilityErrors'))
+          .installabilityErrors,
+    )
+    .toEqual([]);
   const manifest = await page.evaluate(async () => {
-    const href = document.querySelector<HTMLLinkElement>('link[rel="manifest"]')?.href;
+    const href = document.querySelector<HTMLLinkElement>(
+      'link[rel="manifest"]',
+    )?.href;
     return href ? (await fetch(href)).json() : null;
   });
-  expect(manifest).toMatchObject({ start_url: '/m8e-calc/', scope: '/m8e-calc/', display: 'standalone' });
-  expect(manifest.icons.some((i: { purpose: string }) => i.purpose === 'maskable')).toBe(true);
+  expect(manifest).toMatchObject({
+    start_url: '/m8e-calc/',
+    scope: '/m8e-calc/',
+    display: 'standalone',
+  });
+  expect(
+    manifest.icons.some((i: { purpose: string }) => i.purpose === 'maskable'),
+  ).toBe(true);
   await context.setOffline(true);
   await page.reload();
   await page.locator('.simple-calculator').waitFor();
@@ -154,13 +235,18 @@ test('PWA installability and all four modes offline after only the first load', 
   await editor.press('Enter');
   await expect(page.locator('.scientific-result-text')).toHaveText('0,5');
   await page.goto('/m8e-calc/#/convert');
-  await page.getByRole('textbox', { name: 'Schnelleingabe', exact: true }).fill('5 km in mi');
+  await page
+    .getByRole('textbox', { name: 'Schnelleingabe', exact: true })
+    .fill('5 km in mi');
   await page.getByRole('button', { name: 'Übernehmen', exact: true }).click();
   await expect(page.locator('.convert-result')).toContainText('3,106855961');
   await page.goto('/m8e-calc/#/graph');
   await page.getByRole('button', { name: 'Hinzufügen', exact: true }).click();
   await page.locator('.graph-editor [role="textbox"]').first().fill('sin(x)');
-  await expect(page.locator('canvas.graph-canvas')).toHaveAttribute('data-curve-count', '1');
+  await expect(page.locator('canvas.graph-canvas')).toHaveAttribute(
+    'data-curve-count',
+    '1',
+  );
   await expect(page.locator('.graph-error')).toHaveCount(0);
   await page.locator('canvas.graph-canvas').focus();
   await page.keyboard.press('ArrowRight');
