@@ -221,6 +221,14 @@ test('currency UI accessibility and review screenshots', async ({ page }) => {
     (await new AxeBuilder({ page }).include('.currency-panel').analyze())
       .violations,
   ).toEqual([]);
+  const lastCurrency = page
+    .locator('.currency-panel .convert-unit-card')
+    .last();
+  await lastCurrency.scrollIntoViewIfNeeded();
+  await expect(lastCurrency).toBeInViewport();
+  await page.locator('.currency-panel').evaluate((node) => {
+    node.scrollTop = 0;
+  });
   await page.screenshot({
     path: 'test-results/currency-light.png',
     fullPage: true,

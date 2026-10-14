@@ -4,6 +4,7 @@ import { createCurrencyProvider } from '../../../units/currency';
 import { t, type Locale } from '../../../shared/i18n';
 import { useSettingsStore } from '../../../shared/settingsStore';
 import { Button } from '../../../ui/Button';
+import { Fab } from '../../../ui/Fab';
 import { Card } from '../../../ui/Card';
 import { Select } from '../../../ui/Select';
 import { TextField } from '../../../ui/TextField';
@@ -136,8 +137,9 @@ export function CurrencyPanel({
             }}
           />
         </Card>
-        <Button
-          variant="tonal"
+        <Fab
+          icon="swap_horiz"
+          className="convert-swap"
           isDisabled={!result}
           aria-label={t('convert.swap', locale)}
           onPress={() => {
@@ -148,9 +150,7 @@ export function CurrencyPanel({
             setFrom(to);
             setTo(from);
           }}
-        >
-          {t('convert.swap', locale)}
-        </Button>
+        />
         <Card className="convert-field convert-target">
           <Select
             searchable
