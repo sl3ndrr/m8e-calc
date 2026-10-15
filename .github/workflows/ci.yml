@@ -27,6 +27,12 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      - run: tar -czf /tmp/ap21-dependencies.tgz node_modules
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ap21-local-test-dependencies
+          path: /tmp/ap21-dependencies.tgz
+          retention-days: 1
       - run: npm run check
       - run: npx playwright install --with-deps chromium
       - run: npx playwright test --project=chromium --project=chromium-graph-performance

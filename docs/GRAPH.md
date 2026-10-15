@@ -129,8 +129,44 @@ liefern neue Instanzen; factor>1 vergrößert. Die Sperre erhält gleich große
 Welteinheiten pro Pixel und erweitert beim Aktivieren die kleinere Weltspannweite.
 Bounds und pixelSize können mit toJSON übertragen werden.
 
-`fitToCurves` tastet im bestehenden x-/t-Bereich ab, verwendet robuste 5/95-%-
-Quantile gegen Pol-Ausreißer und 10% Rand; keine automatische globale Kurvensuche.
+### AP21 · Fit-Vertrag
+
+Ein Fit ist eine deterministische lokale Rahmung, keine globale Kurvensuche.
+`Viewport` hält die validierte gewünschte Ansicht und eine davon getrennte
+Abtastbasis. Explizite Kurven verwenden die x-Grenzen dieser Basis (257 Proben);
+vertikale Kurven deren y-Grenzen, parametrische/polare Kurven ihren deklarierten
+Parameterbereich. Das Fit-Ergebnis einschließlich Aspektaufweitung ersetzt diese
+Basis **nicht**. Zehn oder mehr Fits bei unverändertem fachlichen Zustand müssen
+an jeder Grenze innerhalb von 0,25 CSS-Pixeln bleiben (üblicherweise identisch).
+
+Pan/Zoom setzen die Basis auf die bewusst gewählte Zielansicht. Reset, Presets
+und Restore setzen sie auf den geladenen Bereich. Resize und Aspektwechsel
+passen die gewünschte Ansicht an und erhalten die Basis; reine Layoutänderungen
+sind keine zusätzliche fachliche Kurvensuche. Kurven-, Parameter- und
+Sichtbarkeitsänderungen werden beim nächsten Fit auf derselben bewusst gewählten
+Basis neu berechnet. Während einer Fit-Animation wird ein geändertes Kurvenset
+gegen diese Basis neu gerahmt; ein altes Fit-Ziel darf nicht nachlaufen.
+
+Nur sichtbare gültige Kurven gelangen vom Adapter in den Fit. Robuste 5/95-%-
+Grenzen werden pro Kurve bestimmt und dann vereinigt, damit kleine Kurvensets
+oder vertikale Geraden zwischen vielen anderen Proben nicht verschwinden.
+Explizite x-Intervalle und vertikale y-Intervalle bleiben vollständig erhalten;
+10 % Rand ergänzt die abhängigen bzw. parametrischen Grenzen. Nichtendliche
+Proben werden verworfen. Konstante/flache Bereiche erhalten eine zur Basis und
+Float64-Präzision passende Mindestspanne, ohne absolute Weltkoordinaten-Grenze.
+Aspektsperre bleibt gleiche Welteinheiten pro Pixel und erweitert die kleinere
+Spannweite. Auch nach dieser Erweiterung müssen Grenzen, Spannweiten,
+Pixelauflösung und Aspektverhältnis darstellbar sein. Unbrauchbare Fits erhalten
+die letzte gültige Ansicht; der UI-Adapter erklärt dies lokalisiert.
+
+Der Browseradapter trennt Ziel-Viewport und momentane animierte Ansicht.
+Mehrfachklicks verwenden stets das Ziel mit seiner Abtastbasis und ersetzen
+laufende Übergänge. Neue Nutzeraktionen verwerfen alte Übergänge und deren
+verzögerte Zustandsmeldungen. Jeder Zwischenstand wird vor Übernahme validiert;
+bei numerisch ungeeigneter Interpolation wird das validierte Ziel direkt gesetzt.
+Polstellen-/Ausreißererkennung bleibt eine begrenzte numerische Heuristik:
+schmale Merkmale zwischen den 257 Proben und globale Extrema sind nicht garantiert.
+
 `ticks(axis, { spacing?, pi? })` verwendet 1–2–5×10^n-Schritte, Zielabstand 80 px,
 endliche begrenzte Ticklisten, lesbare Dezimal-/Exponentialbeschriftungen und
 optional rationale Vielfache von π (π/2, π, 3π/2, …), ohne Minusnull.
