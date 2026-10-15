@@ -438,7 +438,7 @@ test('AP21 history and permalink retain the fit basis and copy the desired anima
   await page.getByRole('button', { name: 'Anpassen', exact: true }).click();
   const expected = await targetBounds(page);
   await page
-    .getByRole('button', { name: 'Link kopieren', exact: true })
+    .getByRole('button', { name: 'Link teilen', exact: true })
     .click();
   const link = await page.evaluate(() => navigator.clipboard.readText());
   await expect

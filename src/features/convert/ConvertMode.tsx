@@ -373,16 +373,8 @@ export default function ConvertMode() {
     <section
       ref={root}
       className="convert-mode"
-      aria-label={t('convert.title', locale)}
+      aria-label={t('mode.convert', locale)}
     >
-      <header className="convert-heading">
-        {!currencyActive && <CopyLinkButton mode="convert" data={state} />}
-        <div>
-          <p className="shell-eyebrow">{t('convert.eyebrow', locale)}</p>
-          <h1>{t('convert.title', locale)}</h1>
-        </div>
-        <p>{t('convert.subtitle', locale)}</p>
-      </header>
       <form
         ref={quick}
         aria-label={t('convert.quick', locale)}
@@ -407,6 +399,7 @@ export default function ConvertMode() {
           }
         />
         <Button type="submit">{t('convert.apply', locale)}</Button>
+        {!currencyActive && <CopyLinkButton mode="convert" data={state} />}
       </form>
       <div className="convert-layout">
         <aside

@@ -53,7 +53,7 @@ export const en: Dictionary = {
   'comfort.exitPresentation': 'Exit presentation',
   'comfort.presentationHistory': 'Show history in presentation',
   'comfort.uiSize': 'UI size',
-  'comfort.copyLink': 'Copy link',
+  'comfort.shareLink': 'Share link',
   'comfort.linkCopied': 'Link copied',
   'comfort.linkError':
     'Could not copy link. State invalid, too large or clipboard unavailable.',
@@ -69,8 +69,6 @@ export const en: Dictionary = {
   'comfort.install': 'Install app',
   'comfort.offlineReady': 'All modes are available offline',
   'convert.title': 'Unit converter',
-  'convert.eyebrow': 'UNITS · LIVE',
-  'convert.subtitle': 'One value. Every unit. Precisely connected.',
   'convert.quick': 'Quick entry',
   'convert.quickHint': '5 km in mi · 72 °F -> °C · / to focus, Enter to apply',
   'convert.apply': 'Apply',
@@ -339,7 +337,6 @@ export const en: Dictionary = {
   'language.label': 'Language',
   'language.de': 'German',
   'language.en': 'English',
-  'shell.eyebrow': 'YOUR SPACE FOR CLEAR THINKING',
   'shell.ready': 'Ready for your ideas.',
   'shell.hint':
     'Choose your mode. A space for calculating, converting and exploring is taking shape here.',
@@ -392,7 +389,6 @@ export const en: Dictionary = {
   'settings.resetDone': 'All data reset.',
   'settings.cancel': 'Cancel',
   'history.count': { one: '{count} entry', other: '{count} entries' },
-  'simple.title': 'Everyday calculations.',
   'simple.copy': 'Copy result',
   'simple.result': 'Result',
   'simple.expression': 'Expression',
@@ -429,8 +425,6 @@ export const en: Dictionary = {
   'simple.error.overflow':
     'The number exceeds the calculation range. Press C to start again.',
   'simple.error.invalid': 'Enter a valid number with at most 16 digits.',
-  'scientific.title': 'Scientific workspace.',
-  'scientific.subtitle': 'From idea to result.',
   'scientific.expression': 'Expression',
   'scientific.hint':
     'Enter evaluates · ↑/↓ history · Esc clears · Ctrl+Space suggestions · Tab accepts · Decimal point, commas separate arguments',
@@ -503,7 +497,6 @@ export const en: Dictionary = {
   'scientific.error.E_RESERVED_NAME': 'This name is reserved.',
   'scientific.error.E_ENVIRONMENT': 'Invalid saved definitions.',
   'graph.title': 'Graphs',
-  'graph.eyebrow': 'EXPLORE FUNCTIONS',
   'graph.canvas': 'Interactive graph canvas',
   'graph.functions': 'Functions',
   'graph.function': 'Function',

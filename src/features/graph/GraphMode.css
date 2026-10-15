@@ -17,11 +17,6 @@
 .graph-heading {
   justify-content: space-between;
 }
-.graph-heading h1 {
-  margin: 0;
-  font-size: 2rem;
-  letter-spacing: -0.04em;
-}
 .graph-options {
   gap: 1.25rem;
   font-size: 0.8rem;

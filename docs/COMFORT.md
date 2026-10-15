@@ -47,7 +47,7 @@ wird durch Unit-Tests abgesichert.
 
 ## Permalinks
 
-Jeder Modus enthält „Link kopieren“. Schema: `#/<mode>?v=1&s=<base64url-LZW>`.
+Die vier Modi bieten die Icon-Aktion „Link teilen“ (außer aktiven Währungen). Schema: `#/<mode>?v=1&s=<base64url-LZW>`.
 LZW komprimiert UTF-8-JSON in 16-Bit-Codes, ohne zusätzliche Laufzeitbibliothek.
 Eine lesbare wissenschaftliche Eingabe wie `#/scientific?e=sin(30)&a=deg` wird
 ebenfalls akzeptiert. Versionen werden vor der Dekodierung geprüft. Grenzen:
@@ -116,3 +116,28 @@ Weitere Browser und physische Betriebssystem-Installation bleiben AP15-Abnahme.
 Stand der vollständigen Verifikation: 1.978 Unit-/Komponententests und 81
 Chromium-E2E bestanden. Die Bildschirmprüfung hat die KaTeX-Schrift für die
 Präsentation zusätzlich vergrößert; die E2E prüft ihre tatsächliche CSS-Größe.
+
+## AP18 · Ruhige Modusköpfe und Teilen
+
+Der aktive Modus steht einmal oben links als Hauptüberschrift im Shellkopf,
+auch bei offenem Verlauf und kleinen Breiten. Die Hauptregion ist darüber
+benannt; Feature-Regionen tragen den lokalisierten Modusnamen. Präsentation
+ersetzt den ausgeblendeten Shelltitel durch eine visuell versteckte H1.
+Funktionale Feld-, Abschnitts- und Dialogbeschriftungen bleiben erhalten.
+
+„Link teilen“ / „Share link“ ist eine sekundäre Icon-Aktion mit Tooltip und
+mindestens 48×48 px Bedienfläche am rechten Rand der jeweiligen Werkzeugzeile.
+Einfach verwendet die bestehende Speicherstatuszeile, Wissenschaftlich und
+Graphen ihre kompakten Werkzeugzeilen, der Umrechner die Schnelleingabezeile.
+Die Aktion kopiert weiterhin den bestehenden Permalink; Erfolg und Fehler
+erscheinen lokalisiert in der Snackbar. Es gibt keinen Sharingdienst.
+Währungen bieten weiterhin keinen Permalink an. Graphlinks lesen weiterhin
+den aktuellen Canvas-Viewport und erhalten AP21s `fitBasis`.
+
+Gezielte Regressionen: `src/app/CopyLinkButton.test.tsx`,
+`e2e/ap18-ui.spec.ts`, `e2e/comfort.spec.ts`, `e2e/currency.spec.ts` und
+`e2e/graph.spec.ts`. Echte Bildaufnahmen gegen einen Produktions-Preview:
+`AP18_PHASE=after node scripts/ap18-screenshots.mjs`; vor AP18 mit demselben
+Skript und `AP18_PHASE=before`. Ansichten: 1280×800, 1920×1080, 3440×1440,
+Hell/Dunkel, UI-Größen 80/100/150 % und tatsächlicher Chromium-Tabzoom 200 %.
+Bilder und Geometriemessungen entstehen in `test-results/ap18/`.

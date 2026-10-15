@@ -1,0 +1,9 @@
+.mode-share {
+  margin-inline-start: auto;
+  flex: 0 0 auto;
+}
+.mode-share .ui-icon-button {
+  min-width: 48px;
+  min-height: 48px;
+  color: var(--md-sys-color-on-surface-variant);
+}

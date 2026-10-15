@@ -104,15 +104,10 @@
   gap: 1rem;
   padding: 0.5rem 0.75rem;
 }
-.shell-eyebrow {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--md-sys-color-on-surface-variant);
-  margin: 0 0 0.5rem;
-}
-.shell-toolbar > div:first-child > span {
+.shell-mode-title {
+  margin: 0;
   font-size: 1.25rem;
+  line-height: 1.5;
   font-weight: 600;
 }
 .shell-controls,
@@ -372,9 +367,6 @@
   .shell-toolbar {
     gap: 0.5rem;
   }
-  .shell-toolbar > div:first-child {
-    display: none;
-  }
   .shell-controls {
     flex: 1;
     justify-content: flex-end;
@@ -428,10 +420,6 @@
   min-height: max(48px, 3rem);
 }
 
-/* The mode heading already labels the workspace. Give docked controls one row. */
-.app-shell[data-history-open] .shell-toolbar > div:first-child {
-  display: none;
-}
 .app-shell[data-history-open] .shell-controls {
   margin-left: auto;
 }

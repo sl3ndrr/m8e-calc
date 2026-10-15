@@ -15,23 +15,12 @@
   padding: 2rem;
   place-items: start stretch;
 }
-.convert-heading,
 .convert-category-heading,
 .convert-all-heading {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-}
-.convert-heading h1 {
-  font-size: 2.5rem;
-  line-height: 1.1;
-  letter-spacing: -0.04em;
-}
-.convert-heading > p {
-  max-width: 30ch;
-  color: var(--md-sys-color-on-surface-variant);
-  font-size: 0.9rem;
 }
 .convert-quick {
   flex-shrink: 0;
@@ -41,6 +30,10 @@
   gap: 1rem;
   margin: 1rem 0 2rem;
 }
+.convert-quick:has(.mode-share) {
+  grid-template-columns: minmax(0, 1fr) auto auto;
+}
+.convert-quick > .mode-share,
 .convert-quick > .ui-button {
   margin-top: 1.75rem;
 }
@@ -331,14 +324,12 @@
   .convert-all {
     grid-column: auto;
   }
-  .convert-heading > p {
-    display: none;
-  }
 }
 @container (max-width: 28rem) {
   .convert-fields,
   .convert-format,
-  .convert-quick {
+  .convert-quick,
+  .convert-quick:has(.mode-share) {
     grid-template-columns: minmax(0, 1fr);
   }
   .convert-swap {
@@ -348,6 +339,10 @@
   .convert-quick > .ui-button {
     margin: 0;
     justify-self: start;
+  }
+  .convert-quick > .mode-share {
+    margin: 0;
+    justify-self: end;
   }
   .convert-result {
     font-size: 2rem;

@@ -19,7 +19,7 @@ test('loads the production build under the Pages base path without external requ
   });
   await page.goto('/m8e-calc/');
   await expect(
-    page.getByRole('heading', { name: t('simple.title') }),
+    page.getByRole('heading', { name: t('mode.simple') }),
   ).toBeVisible();
   for (const mode of modes) {
     await page.goto(`/m8e-calc/#/${mode}`);

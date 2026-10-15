@@ -267,14 +267,9 @@ export default function ScientificMode() {
   return (
     <section
       className="scientific-workspace"
-      aria-label={t('scientific.title', locale)}
+      aria-label={t('mode.scientific', locale)}
     >
       <header className="scientific-heading">
-        <CopyLinkButton mode="scientific" data={{ expression, angleMode }} />
-        <div>
-          <p>{t('scientific.subtitle', locale)}</p>
-          <h1>{t('scientific.title', locale)}</h1>
-        </div>
         {wide && (
           <Button
             variant="text"
@@ -289,6 +284,7 @@ export default function ScientificMode() {
         <span className="scientific-badge">
           {t('scientific.math', locale)} · {t('scientific.physics', locale)}
         </span>
+        <CopyLinkButton mode="scientific" data={{ expression, angleMode }} />
       </header>
       <div className="scientific-columns">
         <div className="scientific-main-column">

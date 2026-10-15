@@ -1,0 +1,58 @@
+name: AP18 evidence
+on:
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: ap18-evidence-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  evidence:
+    if: github.head_ref == 'feat/ap18-ui-cleanup'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Regenerate local icon subset and normalize formatting
+        run: |
+          python -m pip install fonttools brotli
+          python scripts/subset-fonts.py
+          npx prettier --write .
+          git diff > ap18-generated.patch
+          base64 -w0 src/styles/fonts/material-symbols-rounded.woff2 > ap18-symbols.base64.txt
+      - name: Full check
+        run: npm run check
+      - run: npx playwright install --with-deps chromium
+      - name: Chromium regressions
+        run: npx playwright test --project=chromium
+      - name: Actual before and after captures
+        if: always()
+        run: |
+          git fetch --depth=1 origin bdc75289d3f6f9ffca8b2f01b204cf32effe3f0a
+          git worktree add .qa-ap18-before bdc75289d3f6f9ffca8b2f01b204cf32effe3f0a
+          ln -s ../node_modules .qa-ap18-before/node_modules
+          (cd .qa-ap18-before && npm run build)
+          (cd .qa-ap18-before && npm run preview -- --host 127.0.0.1 --port 4174 --strictPort) > before-preview.log 2>&1 &
+          npm run preview -- --host 127.0.0.1 --port 4173 --strictPort > after-preview.log 2>&1 &
+          for attempt in $(seq 1 30); do curl -sf http://127.0.0.1:4174/m8e-calc/ > /dev/null && break; sleep 1; done
+          AP18_PHASE=before AP18_BASE_URL=http://127.0.0.1:4174/m8e-calc/ node scripts/ap18-screenshots.mjs
+          AP18_PHASE=after node scripts/ap18-screenshots.mjs
+      - name: Propose visual references for review
+        if: always()
+        run: npx playwright test --project=qa-visual --update-snapshots
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap18-evidence
+          path: |
+            ap18-generated.patch
+            ap18-symbols.base64.txt
+            test-results/
+            e2e/qa-visual.spec.ts-snapshots/
+            before-preview.log
+            after-preview.log
+          retention-days: 14

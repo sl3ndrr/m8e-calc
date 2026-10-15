@@ -20,6 +20,7 @@ export type IconName =
   | 'menu'
   | 'menu_open'
   | 'push_pin'
+  | 'share'
   | 'content_copy'
   | 'delete';
 export interface IconProps extends Omit<

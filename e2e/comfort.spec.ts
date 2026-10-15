@@ -2,7 +2,7 @@ import { expect, test, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 async function copiedLink(page: Page): Promise<string> {
   await page
-    .getByRole('button', { name: 'Link kopieren', exact: true })
+    .getByRole('button', { name: 'Link teilen', exact: true })
     .click();
   const url = await page.evaluate(() => navigator.clipboard.readText());
   expect(url).toContain('/m8e-calc/#/');

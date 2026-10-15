@@ -7,3 +7,7 @@ test-results/
 
 .lighthouseci/
 .qa-baseline/
+.qa-ap18-before/
+ap18-generated.patch
+ap18-symbols.base64.txt
+*-preview.log
