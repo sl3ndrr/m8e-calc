@@ -78,6 +78,10 @@ async function capture(
       });
       await e.fill('5 km in mi');
       await e.press('Enter');
+      await page
+        .getByRole('region', { name: 'Zuletzt genutzt', exact: true })
+        .getByRole('button', { name: 'Länge: km nach mi laden', exact: true })
+        .waitFor();
     }
     if (mode === 'graph') {
       await page

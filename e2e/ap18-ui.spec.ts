@@ -19,6 +19,14 @@ for (const locale of ['de', 'en'] as const)
         reducedMotion: 'reduce',
       });
       await page.addInitScript((language) => {
+        window.addEventListener('error', (event) => {
+          document.documentElement.dataset.ap18Runtime = `${event.message}; ${String(event.error?.stack ?? event.error)}`;
+        });
+        window.addEventListener('unhandledrejection', (event) => {
+          document.documentElement.dataset.ap18Runtime = String(
+            event.reason?.stack ?? event.reason,
+          );
+        });
         localStorage.setItem(
           'm8e-calc.settings',
           JSON.stringify({
@@ -60,6 +68,12 @@ for (const locale of ['de', 'en'] as const)
       await expect(page.getByRole('tooltip')).toHaveText(
         t('comfort.shareLink', locale),
       );
+      expect(
+        await page.evaluate(
+          () => document.documentElement.dataset.ap18Runtime ?? '',
+        ),
+        'browser error during keyboard traversal',
+      ).toBe('');
       const size = await share.boundingBox();
       expect(size?.width).toBeGreaterThanOrEqual(48);
       expect(size?.height).toBeGreaterThanOrEqual(48);

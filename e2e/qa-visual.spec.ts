@@ -39,6 +39,16 @@ for (const [width, height] of [
           await expect(page.locator('.convert-result')).toContainText(
             '3,106856',
           );
+          // The converter commits quiet history and recent pairs after its debounce.
+          await expect(page.locator('.history-badge')).toHaveText('1');
+          await expect(
+            page
+              .getByRole('region', { name: 'Zuletzt genutzt', exact: true })
+              .getByRole('button', {
+                name: 'Länge: km nach mi laden',
+                exact: true,
+              }),
+          ).toBeVisible();
         }
         if (mode === 'graph') {
           await page

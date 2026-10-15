@@ -4,7 +4,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: ap18-evidence-v2-${{ github.ref }}
+  group: ap18-evidence-v3-${{ github.ref }}
   cancel-in-progress: false
 jobs:
   evidence:
@@ -81,9 +81,18 @@ jobs:
       - run: npm run build
       - run: npx playwright install --with-deps chromium
       - run: npx playwright test --project=chromium e2e/ap18-ui.spec.ts --workers=1
+      - name: Preserve sharing diagnostics
+        if: always()
+        run: cp -R test-results ap18-sharing-errors
+      - name: Propose steady converter snapshots
+        if: always()
+        run: npx playwright test --project=qa-visual --grep convert --update-snapshots --workers=2
       - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: ap18-sharing
-          path: test-results/
+          path: |
+            test-results/
+            ap18-sharing-errors/
+            e2e/qa-visual.spec.ts-snapshots/convert-*.png
           retention-days: 14
