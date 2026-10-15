@@ -9,6 +9,10 @@ for (const locale of ['de', 'en'] as const)
       page,
       context,
     }) => {
+      const pageErrors: string[] = [];
+      page.on('pageerror', (error) =>
+        pageErrors.push(error.stack ?? error.message),
+      );
       await page.setViewportSize({ width: 1920, height: 1080 });
       await page.emulateMedia({
         colorScheme: 'light',
@@ -49,6 +53,10 @@ for (const locale of ['de', 'en'] as const)
         .toBe(true);
       await tabTo(page, share);
       await expect(share).toBeFocused();
+      expect(
+        pageErrors,
+        'keyboard traversal must not raise a runtime error',
+      ).toEqual([]);
       await expect(page.getByRole('tooltip')).toHaveText(
         t('comfort.shareLink', locale),
       );
