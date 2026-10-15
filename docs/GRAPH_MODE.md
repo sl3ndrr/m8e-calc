@@ -36,6 +36,31 @@ wird der nächstliegende Parameter numerisch verfeinert. Kontextmenü per Rechts
 oder Shift+F10 am Trace; dieselben Analyseaktionen sind im Zeilenmenü verfügbar.
 Drag-Reihenfolge hat mit Nach oben/unten eine Tastaturalternative.
 
+### AP21 · Ziel, Abtastbasis und Übergang
+
+Der Controller hält den gewünschten Viewport getrennt von der animierten Ansicht.
+Anpassen verwendet ausschließlich das Ziel mit seiner stabilen `fitBasis`, niemals
+einen Animationszwischenstand. Wiederholte Klicks mit identischem Kurvenset,
+Basis, Pixelgröße und Sperre verwenden das zwischengespeicherte Ergebnis; eine
+Animation wird dadurch nicht neu gestartet. Kurven-/Parameterwechsel während
+einer Fit-Bewegung ersetzen deren Ziel. Reset, Presets, Restore und Navigation
+verwerfen alte Übergänge und verzögerte Zustandsmeldungen. Die skalare Feder
+verwendet weiterhin Motion-Tokens, bleibt monoton in [0,1] und interpoliert
+Mittelpunkte sowie logarithmische Spannweiten. Numerisch ungeeignete
+Zwischenstände springen auf das bereits validierte Ziel.
+
+Verlauf und Links speichern die gewünschte Ansicht samt optionaler `fitBasis`;
+Links kopieren auch während Bewegung das Ziel. Alte Version-1-Plot-Sätze ohne
+Basis verwenden ihren geladenen Bereich. Restore erhält einen eigenen
+Änderungszähler, damit auch eine Wiederherstellung identischer Bounds laufende
+Ziele zuverlässig ersetzt. Viewport-Rejektionen werden am erzeugenden Adapter
+abgefangen und über de/en-Snackbar erklärt. Es gibt keine absolute ±1e6-Grenze.
+
+`data-graph-metrics` enthält zusätzlich Anzahl und Dauer echter Fit-Berechnungen.
+Die E2E-Regression prüft zwölf Klicks bei aktivierter Bewegung und verlangt nur
+eine Berechnung. Pole/Quantile und Float64-Präzision folgen GRAPH.md; diese
+Rahmung ist keine globale Extrema- oder Polstellensuche.
+
 ## Farben und Auswertung
 
 Canvas-Farben lesen Surface, Outline, Outline Variant und On Surface Variant aus

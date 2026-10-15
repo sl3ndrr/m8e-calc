@@ -38,15 +38,27 @@ export function interpolateViewport(
   const mix = (a: number, b: number) => a * (1 - progress) + b * progress;
   const a = from.bounds,
     b = to.bounds;
+  const cx = mix(
+    a.xMin + (a.xMax - a.xMin) / 2,
+    b.xMin + (b.xMax - b.xMin) / 2,
+  );
+  const cy = mix(
+    a.yMin + (a.yMax - a.yMin) / 2,
+    b.yMin + (b.yMax - b.yMin) / 2,
+  );
+  const sx =
+    Math.exp(mix(Math.log(a.xMax - a.xMin), Math.log(b.xMax - b.xMin))) / 2;
+  const sy =
+    Math.exp(mix(Math.log(a.yMax - a.yMin), Math.log(b.yMax - b.yMin))) / 2;
   return (
     tryViewport(
       () =>
         new Viewport(
           {
-            xMin: mix(a.xMin, b.xMin),
-            xMax: mix(a.xMax, b.xMax),
-            yMin: mix(a.yMin, b.yMin),
-            yMax: mix(a.yMax, b.yMax),
+            xMin: cx - sx,
+            xMax: cx + sx,
+            yMin: cy - sy,
+            yMax: cy + sy,
           },
           to.pixelSize,
           { lockAspect: to.lockAspect, fitBasis: to.fitBasis },

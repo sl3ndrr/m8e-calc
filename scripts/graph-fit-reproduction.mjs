@@ -44,7 +44,7 @@ try {
   await page.locator('.graph-editor [role="textbox"]').fill('x^2');
   await page
     .getByRole('checkbox', { name: 'Seitenverhältnis sperren' })
-    .check();
+    .press('Space');
   await page.waitForTimeout(2000);
   const read = async () =>
     JSON.parse(

@@ -127,18 +127,15 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       width: Math.max(1, element.clientWidth),
       height: Math.max(1, element.clientHeight),
     };
+    const restoredViewport = tryViewport(
+      () =>
+        new Viewport(current.bounds, initialSize, {
+          lockAspect: current.lockAspect,
+          fitBasis: current.fitBasis,
+        }),
+    );
     let viewport =
-      tryViewport(
-        () =>
-          new Viewport(
-            current.bounds,
-            {
-              width: Math.max(1, element.clientWidth),
-              height: Math.max(1, element.clientHeight),
-            },
-            { lockAspect: current.lockAspect, fitBasis: current.fitBasis },
-          ),
-      ) ??
+      restoredViewport ??
       new Viewport(defaultBounds, initialSize, {
         lockAspect: current.lockAspect,
       });
@@ -182,7 +179,13 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
     let sampleSignature = '',
       fontSize = 14,
       colorUntil = 0;
-    const metrics = { frames: 0, renderMs: [] as number[], samplingMs: 0 };
+    const metrics = {
+      frames: 0,
+      renderMs: [] as number[],
+      samplingMs: 0,
+      fitComputations: 0,
+      fitMs: 0,
+    };
     const readColors = (schedule = true) => {
       const css = getComputedStyle(document.documentElement),
         token = (name: string) =>
@@ -304,7 +307,13 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
     }
     function resample(): void {
       window.clearTimeout(sampleTimer);
-      sampleTimer = window.setTimeout(() => requestSamples(), moving ? 90 : 0);
+      sampleTimer = window.setTimeout(
+        () => {
+          sampleTimer = 0;
+          requestSamples();
+        },
+        moving ? 90 : 0,
+      );
     }
     function setView(next: Viewport, spring: boolean): void {
       if (
@@ -345,8 +354,14 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         target.pixelSize,
         target.lockAspect,
       ]);
+      const start = performance.now();
+      const cached = fitCache?.key === key;
       const next =
-        fitCache?.key === key ? fitCache.view : target.fitToCurves(curves);
+        cached && fitCache ? fitCache.view : target.fitToCurves(curves);
+      if (!cached) {
+        metrics.fitComputations++;
+        metrics.fitMs = performance.now() - start;
+      }
       if (next === target && fitCache?.key !== key) {
         if (fitting && moving) setView(viewport, false);
         fitting = false;
@@ -783,6 +798,10 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
     window.addEventListener('resize', resize);
     readColors();
     resize();
+    if (!restoredViewport) {
+      current.onViewError();
+      announce();
+    }
     requestSamples();
     invalidate();
     return () => {

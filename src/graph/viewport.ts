@@ -227,10 +227,13 @@ export class Viewport {
           }),
           scale = angleScale(curve.angleMode ?? 'rad');
         [from, to] = curve.range;
-        point = (t) => ({
-          x: f(t) * Math.cos(t * scale),
-          y: f(t) * Math.sin(t * scale),
-        });
+        point = (t) => {
+          const radius = f(t);
+          return {
+            x: radius * Math.cos(t * scale),
+            y: radius * Math.sin(t * scale),
+          };
+        };
       } else if (curve.kind === 'vertical') {
         const x = compile(curve.expression, { ...options, variables: [] })();
         if (Number.isFinite(x)) {

@@ -193,6 +193,14 @@ export function drawGraph(
       end = v.worldToScreen({ x: b.xMax, y: b.yMin });
     const sx = (end.x - start.x) / base.pixelSize.width,
       sy = (end.y - start.y) / base.pixelSize.height;
+    // A cached path can be from a vastly different scale. Wait for fresh samples
+    // rather than passing nonfinite transforms or line widths to Canvas.
+    if (
+      ![start.x, start.y, sx, sy].every(Number.isFinite) ||
+      sx <= 0 ||
+      sy <= 0
+    )
+      continue;
     const progress = options.animate
       ? Math.min(
           1,
@@ -204,7 +212,8 @@ export function drawGraph(
     ctx.translate(start.x, start.y);
     ctx.scale(sx, sy);
     ctx.strokeStyle = c.curves[row.color] ?? c.axis;
-    ctx.lineWidth = Math.max(2.5, options.fontSize / 6) / Math.sqrt(sx * sy);
+    ctx.lineWidth =
+      Math.max(2.5, options.fontSize / 6) / (Math.sqrt(sx) * Math.sqrt(sy));
     ctx.lineJoin = 'round';
     ctx.lineCap = 'round';
     if (progress < 1) {

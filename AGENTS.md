@@ -18,6 +18,12 @@ PWA-Build-Adapter ohne zusätzliche App-Abhängigkeit. Vertrag und Tastenkürzel
 `docs/COMFORT.md`. Settings-Version 4 migriert 0–3; Offline-Precache umfasst alle
 lazy Chunks, Fonts und Worker. Domänen bleiben browserfrei.
 
+AP21 trennt die stabile Fit-Abtastbasis vom gewünschten Viewport und von der
+animierten Canvas-Ansicht. `fitBasis` ist im Plot-Satz optional (Version 1 bleibt
+rückwärtskompatibel) und wird mit Verlauf/Permalink erhalten. Pan/Zoom setzen
+sie neu; Resize/Aspektsperre erhalten sie. Fit-Vertrag und numerische Grenzen:
+`docs/GRAPH.md`; Browseradapter und Messung: `docs/GRAPH_MODE.md`.
+
 ## Arbeitsumgebung und Befehle
 
 Node 24 LTS (`nvm use`), npm und das eingecheckte `package-lock.json` verwenden. Installation: `npm ci`.

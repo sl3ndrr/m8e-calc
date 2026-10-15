@@ -248,7 +248,7 @@ test('AP21 parabola fit is stable across 12 fits, rapid animated clicks and new 
   await addFunction(page, 'x^2');
   await page
     .getByRole('checkbox', { name: 'Seitenverhältnis sperren' })
-    .check();
+    .press('Space');
   await settled(page);
   const fit = page.getByRole('button', { name: 'Anpassen', exact: true });
   await fit.click();
@@ -263,6 +263,13 @@ test('AP21 parabola fit is stable across 12 fits, rapid animated clicks and new 
   }
   await expectSameView(page, expected);
   expect(expected.xMax).toBeLessThan(200);
+  expect(
+    JSON.parse(
+      (await page
+        .locator('canvas.graph-canvas')
+        .getAttribute('data-graph-metrics')) ?? '{}',
+    ).fitComputations,
+  ).toBe(1);
   const canvas = page.locator('canvas.graph-canvas');
   const box = await canvas.boundingBox();
   if (!box) throw Error('Canvas unavailable');
@@ -308,7 +315,7 @@ test('AP21 replaces obsolete fit goals on curve/parameter changes, presets, rese
   await addFunction(page, 'a*x^2');
   await page
     .getByRole('checkbox', { name: 'Seitenverhältnis sperren' })
-    .check();
+    .press('Space');
   await settled(page);
   const fit = page.getByRole('button', { name: 'Anpassen', exact: true });
   await fit.click();
@@ -319,6 +326,9 @@ test('AP21 replaces obsolete fit goals on curve/parameter changes, presets, rese
   await expect
     .poll(async () => (await targetBounds(page)).yMax)
     .toBeGreaterThan(before.yMax);
+  await settled(page);
+  await page.locator('.graph-editor [role="textbox"]').fill('exp(x)');
+  await fit.click();
   await page.locator('.graph-editor [role="textbox"]').fill('sin(x)');
   await expect
     .poll(async () => (await targetBounds(page)).yMax)
@@ -344,7 +354,7 @@ test('AP21 replaces obsolete fit goals on curve/parameter changes, presets, rese
   ).toBe(basis);
   await page
     .getByRole('checkbox', { name: 'Seitenverhältnis sperren' })
-    .uncheck();
+    .press('Space');
   await fit.click();
   const expected = await targetBounds(page);
   for (let i = 0; i < 10; i++) await fit.click();
@@ -360,6 +370,7 @@ test('AP21 empty/hidden/invalid fits retain view; extreme constants remain usabl
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/m8e-calc/#/graph');
   const fit = page.getByRole('button', { name: 'Anpassen', exact: true });
+  await settled(page);
   const original = await bounds(page);
   await fit.click();
   await expectSameView(page, original);
@@ -412,7 +423,7 @@ test('AP21 history and permalink retain the fit basis and copy the desired anima
   await addFunction(page, 'x^2');
   await page
     .getByRole('checkbox', { name: 'Seitenverhältnis sperren' })
-    .check();
+    .press('Space');
   await settled(page);
   await page.getByRole('button', { name: 'Anpassen', exact: true }).click();
   const expected = await targetBounds(page);
