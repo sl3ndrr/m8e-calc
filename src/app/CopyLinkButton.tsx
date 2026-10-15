@@ -31,6 +31,8 @@ export function CopyLinkButton<M extends ModeId>({
   return (
     <div className="mode-share">
       <Tooltip
+        placement="bottom end"
+        UNSTABLE_portalContainer={document.body}
         trigger={
           <IconButton
             type="button"

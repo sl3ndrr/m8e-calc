@@ -74,6 +74,13 @@ for (const locale of ['de', 'en'] as const)
         ),
         'browser error during keyboard traversal',
       ).toBe('');
+      await expect
+        .poll(() =>
+          page
+            .locator('.mode-stage-frame')
+            .evaluate((el) => el.scrollWidth <= el.clientWidth + 1),
+        )
+        .toBe(true);
       const size = await share.boundingBox();
       expect(size?.width).toBeGreaterThanOrEqual(48);
       expect(size?.height).toBeGreaterThanOrEqual(48);

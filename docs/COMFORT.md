@@ -152,3 +152,9 @@ Die 24 Referenzbilder für 1920/2560/3840 px in Hell/Dunkel wurden nach Sichtpr�
 liegen in [screenshots/ap18](screenshots/ap18/). Ausgangspunkt: `bdc7528` (aktueller
 `main`, einschließlich AP21), nicht nur der ältere Befund `f48afe1`.
 Aktuelle Laufnachweise und die vollständige Bildmatrix: [PR #25](https://github.com/sl3ndrr/m8e-calc/pull/25).
+
+Der Teilen-Tooltip ist am rechten Buttonrand ausgerichtet und liegt außerhalb
+der scrollenden Modusbühne. Sein Öffnen darf deren Scrollbreite nicht verändern
+oder einen ResizeObserver-Fehler erzeugen; die de/en-Tastaturregression prüft dies.
+Umrechner-Referenzen warten auf den abgeschlossenen Ruheverlauf und das zuletzt
+genutzte Paar, damit Timer keinen wechselnden Screenshotzustand erzeugen.

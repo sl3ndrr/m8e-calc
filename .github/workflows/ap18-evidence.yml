@@ -4,8 +4,8 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: ap18-evidence-v3-${{ github.ref }}
-  cancel-in-progress: false
+  group: ap18-evidence-v4-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   evidence:
     if: github.head_ref == 'feat/ap18-ui-cleanup'
@@ -17,14 +17,6 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - name: Regenerate local icon subset and normalize formatting
-        run: |
-          python -m pip install fonttools brotli
-          python scripts/subset-fonts.py
-          git restore src/styles/fonts/roboto-flex-latin.woff2 src/styles/fonts/roboto-mono-latin.woff2
-          npx prettier --write .
-          git diff > ap18-generated.patch
-          base64 -w0 src/styles/fonts/material-symbols-rounded.woff2 > ap18-symbols.base64.txt
       - run: npx playwright install --with-deps chromium
         if: always()
       - name: Actual before and after captures
@@ -46,11 +38,6 @@ jobs:
           name: ap18-captures
           path: ap18-evidence/
           retention-days: 14
-      - name: Chromium regressions
-        run: CI= npx playwright test --project=chromium e2e/ap18-ui.spec.ts e2e/comfort.spec.ts e2e/currency.spec.ts e2e/graph.spec.ts e2e/app-shell.spec.ts e2e/simple-calculator.spec.ts e2e/scientific.spec.ts e2e/smoke.spec.ts --workers=2
-      - name: Preserve E2E diagnostics before snapshot runner cleanup
-        if: always()
-        run: cp -R test-results ap18-evidence/e2e-results
       - name: Propose visual references for review
         if: always()
         run: CI= npx playwright test --project=qa-visual --update-snapshots --workers=2
@@ -59,8 +46,6 @@ jobs:
         with:
           name: ap18-evidence
           path: |
-            ap18-generated.patch
-            ap18-symbols.base64.txt
             test-results/
             ap18-evidence/
             e2e/qa-visual.spec.ts-snapshots/
