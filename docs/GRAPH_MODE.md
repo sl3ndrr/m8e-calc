@@ -56,6 +56,11 @@ Basis verwenden ihren geladenen Bereich. Restore erhält einen eigenen
 Ziele zuverlässig ersetzt. Viewport-Rejektionen werden am erzeugenden Adapter
 abgefangen und über de/en-Snackbar erklärt. Es gibt keine absolute ±1e6-Grenze.
 
+Der vergrößerte Samplingbereich wird mit seiner tatsächlichen 1,7-fachen
+Pixelgröße validiert. Scheitert Overscan an Überlauf oder Pixelpräzision,
+bleibt das Sampling beim gültigen sichtbaren Bereich. Eine Regression verwendet
+x≈1e16, Spannweite 1128 und 127 Pixel Breite direkt an dieser Präzisionsgrenze.
+
 `data-graph-metrics` enthält zusätzlich Anzahl und Dauer echter Fit-Berechnungen.
 Die E2E-Regression prüft zwölf Klicks bei aktivierter Bewegung und verlangt nur
 eine Berechnung. Pole/Quantile und Float64-Präzision folgen GRAPH.md; diese

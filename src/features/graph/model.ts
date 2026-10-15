@@ -252,6 +252,29 @@ export function curveEvaluator(curve: Curve): (u: number) => Point {
     ? (u) => ({ x: f(), y: u })
     : (u) => ({ x: u, y: f(u) });
 }
+/** Validate bounds with the pixel size actually sent to the sampler/cache. */
+export function samplingViewport(viewport: Viewport): Viewport {
+  const b = viewport.bounds;
+  const dx = (b.xMax - b.xMin) * 0.35;
+  const dy = (b.yMax - b.yMin) * 0.35;
+  return (
+    tryViewport(
+      () =>
+        new Viewport(
+          {
+            xMin: b.xMin - dx,
+            xMax: b.xMax + dx,
+            yMin: b.yMin - dy,
+            yMax: b.yMax + dy,
+          },
+          {
+            width: viewport.pixelSize.width * 1.7,
+            height: viewport.pixelSize.height * 1.7,
+          },
+        ),
+    ) ?? viewport
+  );
+}
 export interface Trace {
   id: string;
   point: Point;

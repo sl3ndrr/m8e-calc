@@ -21,6 +21,7 @@ import { springs } from '../../styles/motion';
 import { t, type Locale } from '../../shared/i18n';
 import {
   curveEvaluator,
+  samplingViewport,
   nearestTrace,
   defaultBounds,
   type ParsedRow,
@@ -225,38 +226,9 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       return current.rows.filter((r) => r.curve && r.row.visible);
     }
     function requestSamples(exact = false): void {
-      const v = viewport,
-        b = v.bounds,
-        dx = (b.xMax - b.xMin) * 0.35,
-        dy = (b.yMax - b.yMin) * 0.35;
-      const overscan = tryViewport(
-        () =>
-          new Viewport(
-            {
-              xMin: b.xMin - dx,
-              xMax: b.xMax + dx,
-              yMin: b.yMin - dy,
-              yMax: b.yMax + dy,
-            },
-            v.pixelSize,
-          ),
-      );
-      const bounds =
-        exact || !overscan
-          ? b
-          : {
-              xMin: b.xMin - dx,
-              xMax: b.xMax + dx,
-              yMin: b.yMin - dy,
-              yMax: b.yMax + dy,
-            };
-      const size =
-        exact || !overscan
-          ? v.pixelSize
-          : {
-              width: v.pixelSize.width * 1.7,
-              height: v.pixelSize.height * 1.7,
-            };
+      const sampledView = exact ? viewport : samplingViewport(viewport);
+      const bounds = sampledView.bounds;
+      const size = sampledView.pixelSize;
       const curves = visibleRows().flatMap((r) =>
         r.curve
           ? [

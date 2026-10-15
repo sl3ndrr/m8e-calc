@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { Viewport } from '../../graph';
 import {
   initialPlot,
+  samplingViewport,
   newRow,
   parseRow,
   plotReducer,
@@ -168,4 +169,36 @@ it('AP21 persists the fit basis, supports old plot sets and rejects corrupt view
       bounds: { xMin: 1e16, xMax: 1e16 + 2, yMin: -1, yMax: 1 },
     }),
   ).toBeNull();
+});
+
+it('AP21 validates overscan at its real pixel size and falls back without losing the valid view', () => {
+  const precise = new Viewport(
+    {
+      xMin: 1e16,
+      xMax: 1e16 + 1128,
+      yMin: -1,
+      yMax: 1,
+    },
+    { width: 127, height: 900 },
+  );
+  const huge = new Viewport(
+    { xMin: -8e307, xMax: 8e307, yMin: -1, yMax: 1 },
+    { width: 1600, height: 900 },
+  );
+  for (const v of [precise, huge]) {
+    expect(samplingViewport(v)).toBe(v);
+    expect(
+      () =>
+        new Viewport(samplingViewport(v).bounds, samplingViewport(v).pixelSize),
+    ).not.toThrow();
+  }
+  const regular = new Viewport(initialPlot().bounds, {
+    width: 1600,
+    height: 900,
+  });
+  const expanded = samplingViewport(regular);
+  expect(expanded.pixelSize).toEqual({ width: 2720, height: 1530 });
+  expect(expanded.bounds.xMin).toBe(-17);
+  expect(expanded.bounds.xMax).toBe(17);
+  expect(() => new Viewport(expanded.bounds, expanded.pixelSize)).not.toThrow();
 });
