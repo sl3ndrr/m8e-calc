@@ -1,6 +1,10 @@
 import { performance } from 'node:perf_hooks';
 import os from 'node:os';
-import { parseCurveInput, sampleCurveDetailed } from '../src/graph/index.ts';
+import {
+  parseCurveInput,
+  sampleCurveDetailed,
+  Viewport,
+} from '../src/graph/index.ts';
 
 const bounds = { xMin: -5, xMax: 5, yMin: -5, yMax: 5 };
 const pixelSize = { width: 2560, height: 1440 };
@@ -27,10 +31,17 @@ const results = curves.map(({ source, curve }) => {
     start = performance.now();
   for (let i = 0; i < iterations; i++)
     sampleCurveDetailed(curve, bounds, pixelSize);
+  const sampleMean = (performance.now() - start) / iterations;
   const sample = sampleCurveDetailed(curve, bounds, pixelSize);
+  const viewport = new Viewport(bounds, pixelSize, { lockAspect: true });
+  for (let i = 0; i < 50; i++) viewport.fitToCurves([curve]);
+  const fitStart = performance.now();
+  for (let i = 0; i < iterations; i++) viewport.fitToCurves([curve]);
+  const fitMean = (performance.now() - fitStart) / iterations;
   return {
     source,
-    meanMilliseconds: (performance.now() - start) / iterations,
+    meanMilliseconds: sampleMean,
+    fitMeanMilliseconds: fitMean,
     evaluations: sample.evaluations,
     segments: sample.segments.length,
   };
@@ -49,5 +60,10 @@ console.log(
     2,
   ),
 );
-if (results.some((result) => result.meanMilliseconds >= 25))
+if (
+  results.some(
+    (result) =>
+      result.meanMilliseconds >= 25 || result.fitMeanMilliseconds >= 25,
+  )
+)
   process.exitCode = 1;

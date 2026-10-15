@@ -204,3 +204,270 @@ test('canvas reloads theme and accent tokens; PNG copies to the clipboard', asyn
     )
     .toBe(true);
 });
+
+async function settled(page: Page): Promise<void> {
+  await expect
+    .poll(() =>
+      page
+        .locator('canvas.graph-canvas')
+        .evaluate(
+          (element: HTMLCanvasElement) =>
+            element.dataset.moving === 'false' &&
+            element.dataset.bounds === element.dataset.targetBounds,
+        ),
+    )
+    .toBe(true);
+}
+
+async function targetBounds(page: Page) {
+  return JSON.parse(
+    (await page
+      .locator('canvas.graph-canvas')
+      .getAttribute('data-target-bounds')) ?? '{}',
+  ) as Awaited<ReturnType<typeof bounds>>;
+}
+async function expectSameView(
+  page: Page,
+  expected: Awaited<ReturnType<typeof bounds>>,
+): Promise<void> {
+  await settled(page);
+  const actual = await bounds(page);
+  const box = await page.locator('canvas.graph-canvas').boundingBox();
+  if (!box) throw Error('Canvas unavailable');
+  for (const key of ['xMin', 'xMax', 'yMin', 'yMax'] as const) {
+    const x = key.startsWith('x');
+    const unit = x
+      ? (expected.xMax - expected.xMin) / box.width
+      : (expected.yMax - expected.yMin) / box.height;
+    expect(Math.abs(actual[key] - expected[key]) / unit).toBeLessThanOrEqual(
+      0.25,
+    );
+    expect(Number.isFinite(actual[key])).toBe(true);
+  }
+}
+
+test('AP21 parabola fit is stable across 12 fits, rapid animated clicks and new navigation', async ({
+  page,
+}, testInfo) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.setViewportSize({ width: 1600, height: 900 });
+  await page.goto('/m8e-calc/#/graph');
+  await addFunction(page, 'x^2');
+  await page
+    .getByRole('checkbox', { name: 'Seitenverhältnis sperren' })
+    .press('Space');
+  await settled(page);
+  const fit = page.getByRole('button', { name: 'Anpassen', exact: true });
+  await fit.click();
+  await expect(page.locator('canvas.graph-canvas')).toHaveAttribute(
+    'data-moving',
+    'true',
+  );
+  const expected = await targetBounds(page);
+  for (let i = 0; i < 12; i++) {
+    await fit.click();
+    expect(await targetBounds(page)).toEqual(expected);
+  }
+  await expectSameView(page, expected);
+  expect(expected.xMax).toBeLessThan(200);
+  expect(
+    JSON.parse(
+      (await page
+        .locator('canvas.graph-canvas')
+        .getAttribute('data-graph-metrics')) ?? '{}',
+    ).fitComputations,
+  ).toBe(1);
+  const canvas = page.locator('canvas.graph-canvas');
+  const box = await canvas.boundingBox();
+  if (!box) throw Error('Canvas unavailable');
+  const b = await bounds(page);
+  expect(
+    (b.xMax - b.xMin) / box.width / ((b.yMax - b.yMin) / box.height),
+  ).toBeCloseTo(1, 8);
+  await page.screenshot({ path: 'test-results/ap21-fit-stable.png' });
+  await testInfo.attach('AP21 twelve fits with aspect lock', {
+    path: 'test-results/ap21-fit-stable.png',
+    contentType: 'image/png',
+  });
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(
+    box.x + box.width / 2 + 70,
+    box.y + box.height / 2 + 30,
+    { steps: 6 },
+  );
+  await page.mouse.up();
+  await settled(page);
+  await page.mouse.wheel(0, -250);
+  await settled(page);
+  const basis = await targetBounds(page);
+  await fit.click();
+  const afterNavigation = await targetBounds(page);
+  expect(afterNavigation).not.toEqual(expected);
+  const storedBasis = JSON.parse(
+    (await canvas.getAttribute('data-fit-basis')) ?? '{}',
+  ) as typeof basis;
+  for (const key of ['xMin', 'xMax', 'yMin', 'yMax'] as const)
+    expect(storedBasis[key]).toBeCloseTo(basis[key], 9);
+  for (let i = 0; i < 10; i++) await fit.click();
+  await expectSameView(page, afterNavigation);
+  expect(errors).toEqual([]);
+});
+
+test('AP21 replaces obsolete fit goals on curve/parameter changes, presets, reset and resize', async ({
+  page,
+}) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.setViewportSize({ width: 1600, height: 900 });
+  await page.goto('/m8e-calc/#/graph');
+  await addFunction(page, 'a*x^2');
+  await page
+    .getByRole('checkbox', { name: 'Seitenverhältnis sperren' })
+    .press('Space');
+  await settled(page);
+  const fit = page.getByRole('button', { name: 'Anpassen', exact: true });
+  await fit.click();
+  const before = await targetBounds(page);
+  await page
+    .getByRole('slider', { name: 'a', exact: true })
+    .press('ArrowRight');
+  await expect
+    .poll(async () => (await targetBounds(page)).yMax)
+    .toBeGreaterThan(before.yMax);
+  await settled(page);
+  await page.locator('.graph-editor [role="textbox"]').fill('exp(x)');
+  await fit.click();
+  await page.locator('.graph-editor [role="textbox"]').fill('sin(x)');
+  await expect
+    .poll(async () => (await targetBounds(page)).yMax)
+    .toBeLessThan(10);
+  await settled(page);
+  await fit.click();
+  await page.getByRole('button', { name: '1:1', exact: true }).click();
+  await settled(page);
+  const reset = await bounds(page);
+  expect(reset.yMin).toBeLessThanOrEqual(-6);
+  expect(reset.yMax).toBeGreaterThanOrEqual(6);
+  await page.getByRole('button', { name: 'Ansicht' }).click();
+  await page.getByRole('option', { name: 'Einheitskreis' }).click();
+  await settled(page);
+  await fit.click();
+  const basis = await page
+    .locator('canvas.graph-canvas')
+    .getAttribute('data-fit-basis');
+  await page.setViewportSize({ width: 1100, height: 1000 });
+  await settled(page);
+  expect(
+    await page.locator('canvas.graph-canvas').getAttribute('data-fit-basis'),
+  ).toBe(basis);
+  await page
+    .getByRole('checkbox', { name: 'Seitenverhältnis sperren' })
+    .press('Space');
+  await fit.click();
+  const expected = await targetBounds(page);
+  for (let i = 0; i < 10; i++) await fit.click();
+  await expectSameView(page, expected);
+  expect(errors).toEqual([]);
+});
+
+test('AP21 empty/hidden/invalid fits retain view; extreme constants remain usable', async ({
+  page,
+}) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/m8e-calc/#/graph');
+  const fit = page.getByRole('button', { name: 'Anpassen', exact: true });
+  await settled(page);
+  const original = await bounds(page);
+  await fit.click();
+  await expectSameView(page, original);
+  await addFunction(page, 'sin(');
+  await fit.click();
+  await expectSameView(page, original);
+  const editor = page.locator('.graph-editor [role="textbox"]');
+  await editor.fill('x^2');
+  await page
+    .getByRole('button', { name: 'Sichtbarkeit von Funktion 1' })
+    .click();
+  await fit.click();
+  await expectSameView(page, original);
+  await page
+    .getByRole('button', { name: 'Sichtbarkeit von Funktion 1' })
+    .click();
+  for (const source of ['sqrt(-1)', '1.79e308', '1e-323']) {
+    await editor.fill(source);
+    await fit.click();
+    await expectSameView(page, original);
+  }
+  for (const source of [
+    '1e200',
+    '1e-200',
+    '0',
+    'x=2',
+    '(cos(t),sin(t))',
+    'r=1+cos(theta)',
+  ]) {
+    await editor.fill(source);
+    await fit.click();
+    await settled(page);
+    const expected = await bounds(page);
+    expect(Object.values(expected).every(Number.isFinite)).toBe(true);
+    expect(expected.xMax).toBeGreaterThan(expected.xMin);
+    expect(expected.yMax).toBeGreaterThan(expected.yMin);
+    await fit.click();
+    await expectSameView(page, expected);
+  }
+  expect(errors).toEqual([]);
+});
+
+test('AP21 history and permalink retain the fit basis and copy the desired animated goal', async ({
+  page,
+  context,
+}) => {
+  test.setTimeout(45000);
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await page.goto('/m8e-calc/#/graph');
+  await addFunction(page, 'x^2');
+  await page
+    .getByRole('checkbox', { name: 'Seitenverhältnis sperren' })
+    .press('Space');
+  await settled(page);
+  await page.getByRole('button', { name: 'Anpassen', exact: true }).click();
+  const expected = await targetBounds(page);
+  await page
+    .getByRole('button', { name: 'Link kopieren', exact: true })
+    .click();
+  const link = await page.evaluate(() => navigator.clipboard.readText());
+  await expect
+    .poll(
+      () =>
+        page.evaluate(() => {
+          const entries =
+            JSON.parse(localStorage.getItem('m8e-calc.history') ?? '{}').state
+              ?.entries ?? [];
+          return entries.some(
+            (e: { mode: string; payload: { fitBasis?: unknown } }) =>
+              e.mode === 'graph' && e.payload.fitBasis,
+          );
+        }),
+      { timeout: 8000 },
+    )
+    .toBe(true);
+  await page.getByRole('button', { name: '1:1', exact: true }).click();
+  await page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }).click();
+  await page
+    .getByRole('button', { name: 'Wiederherstellen: x^2', exact: true })
+    .first()
+    .click();
+  await expectSameView(page, expected);
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', { name: 'Anpassen', exact: true }).click();
+  await expectSameView(page, expected);
+  await page.goto(link);
+  await page.reload();
+  await page.getByRole('button', { name: 'Anpassen', exact: true }).click();
+  await expectSameView(page, expected);
+});

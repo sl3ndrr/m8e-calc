@@ -129,11 +129,85 @@ liefern neue Instanzen; factor>1 vergrößert. Die Sperre erhält gleich große
 Welteinheiten pro Pixel und erweitert beim Aktivieren die kleinere Weltspannweite.
 Bounds und pixelSize können mit toJSON übertragen werden.
 
-`fitToCurves` tastet im bestehenden x-/t-Bereich ab, verwendet robuste 5/95-%-
-Quantile gegen Pol-Ausreißer und 10% Rand; keine automatische globale Kurvensuche.
+### AP21 · Fit-Vertrag
+
+Ein Fit ist eine deterministische lokale Rahmung, keine globale Kurvensuche.
+`Viewport` hält die validierte gewünschte Ansicht und eine davon getrennte
+Abtastbasis. Explizite Kurven verwenden die x-Grenzen dieser Basis (257 Proben);
+vertikale Kurven deren y-Grenzen, parametrische/polare Kurven ihren deklarierten
+Parameterbereich. Das Fit-Ergebnis einschließlich Aspektaufweitung ersetzt diese
+Basis **nicht**. Zehn oder mehr Fits bei unverändertem fachlichen Zustand müssen
+an jeder Grenze innerhalb von 0,25 CSS-Pixeln bleiben (üblicherweise identisch).
+
+Pan/Zoom setzen die Basis auf die bewusst gewählte Zielansicht. Reset, Presets
+und Restore setzen sie auf den geladenen Bereich. Resize und Aspektwechsel
+passen die gewünschte Ansicht an und erhalten die Basis; reine Layoutänderungen
+sind keine zusätzliche fachliche Kurvensuche. Kurven-, Parameter- und
+Sichtbarkeitsänderungen werden beim nächsten Fit auf derselben bewusst gewählten
+Basis neu berechnet. Während einer Fit-Animation wird ein geändertes Kurvenset
+gegen diese Basis neu gerahmt; ein altes Fit-Ziel darf nicht nachlaufen.
+
+Nur sichtbare gültige Kurven gelangen vom Adapter in den Fit. Robuste 5/95-%-
+Grenzen werden pro Kurve bestimmt und dann vereinigt, damit kleine Kurvensets
+oder vertikale Geraden zwischen vielen anderen Proben nicht verschwinden.
+Explizite x-Intervalle und vertikale y-Intervalle bleiben vollständig erhalten;
+10 % Rand ergänzt die abhängigen bzw. parametrischen Grenzen. Nichtendliche
+Proben werden verworfen. Konstante/flache Bereiche erhalten eine zur Basis und
+Float64-Präzision passende Mindestspanne, ohne absolute Weltkoordinaten-Grenze.
+Aspektsperre bleibt gleiche Welteinheiten pro Pixel und erweitert die kleinere
+Spannweite. Auch nach dieser Erweiterung müssen Grenzen, Spannweiten,
+Pixelauflösung und Aspektverhältnis darstellbar sein. Unbrauchbare Fits erhalten
+die letzte gültige Ansicht; der UI-Adapter erklärt dies lokalisiert.
+
+Der Browseradapter trennt Ziel-Viewport und momentane animierte Ansicht.
+Mehrfachklicks verwenden stets das Ziel mit seiner Abtastbasis und ersetzen
+laufende Übergänge. Neue Nutzeraktionen verwerfen alte Übergänge und deren
+verzögerte Zustandsmeldungen. Jeder Zwischenstand wird vor Übernahme validiert;
+bei numerisch ungeeigneter Interpolation wird das validierte Ziel direkt gesetzt.
+Der Präzisionswächter verlangt `EPSILON * max(|min|,|max|) / unitsPerPixel
+<= 0,25` auf beiden Achsen, auch für die Basis. Die Aspektprüfung verlangt
+relative Abweichung der Welteinheiten/Pixel <= 1e-10. Bereits gesperrte Bereiche
+werden innerhalb von 8 Float64-Epsilon nicht erneut aufgeweitet. Flache Bereiche
+erhalten mindestens `4 * max(width,height) * EPSILON * max(|lo|,|hi|)` Rand;
+konstante Werte 10 % ihres Betrags, exakt null 10 % der entsprechenden Basisspanne.
+Dies sind relative Präzisions-/Darstellungsregeln, keine Koordinatenobergrenze.
+
+Polstellen-/Ausreißererkennung bleibt eine begrenzte numerische Heuristik:
+schmale Merkmale zwischen den 257 Proben und globale Extrema sind nicht garantiert.
+
 `ticks(axis, { spacing?, pi? })` verwendet 1–2–5×10^n-Schritte, Zielabstand 80 px,
 endliche begrenzte Ticklisten, lesbare Dezimal-/Exponentialbeschriftungen und
 optional rationale Vielfache von π (π/2, π, 3π/2, …), ohne Minusnull.
+
+### AP21 · Reproduktion und Messgrenzen
+
+[graph-fit-validation.json](graph-fit-validation.json) enthält die Nachrechnung
+mit dem echten main-Domänencode (`f48afe1e…`) und die Browserreproduktion.
+1600×900 Canvas, y=x², Sperre an: main erreicht nach vier Fits x≈±1,6889264e16;
+AP21 bleibt nach zwölf Fits bei x≈±96,6667, mit identischer Abtastbasis und ohne
+Pixelabweichung. Unit-/Property-Tests prüfen außerdem Pan/Zoom, Resize, Sperre
+an/aus, persistierte Basis, alle Kurventypen, Polstellen, leere/ungültige Sets und
+extreme Skalen. Die Seed-Property verwendet 80 Fälle, Breiten 100…4000 und
+Skalen 10^-200…10^200.
+
+Browser-Reproduktion ohne Deployment: einen separaten Checkout von main
+`f48afe1e0bdb5baf42eb1ec194883ecdc1c41e87` mit `npm ci && npm run build`
+vorbereiten, dann vom AP21-Checkout
+`node scripts/graph-fit-reproduction.mjs /pfad/zum/main-checkout` ausführen.
+Das Skript erzeugt Chromium-Bilder und JSON unter `test-results/ap21-baseline`;
+Chromium muss installiert sein. Die Browserfenstergröße ist 1600×900, die Canvas-
+Größe folgt dem Produktionslayout. Der alte UI-Adapter verwirft Spannen >1e12
+stillschweigend: vier abgewartete Fits endeten bei x≈±4,1663e8; zwölf schnelle
+Klicks bei x≈±1,9490e10. Es gab keine pageerrors; die Zeitabhängigkeit blieb sichtbar.
+Die neue Regression in `e2e/graph.spec.ts` prüft Ziel/Basis, 0,25-Pixel-Stabilität,
+Filter, Restore, Reset, Presets und Resize im Produktionsbuild.
+[UI-Nachweis nach zwölf Fits](screenshots/ap21-fit-stable.png).
+
+`test:graph:bench` misst zusätzlich den Fit (50 Warm-up-, 200 Messiterationen;
+Regression <25 ms/Kurve). Die konkreten Node-Messwerte stehen in der JSON-Datei.
+UI-Mehrfachklicks nutzen den Cache. Mikrobenchmarks sowie CI-Headless-Chromium
+messen keine physische Monitor-/GPU-Latenz. Schmale Merkmale und pathologische
+Ausdrücke bleiben an die dokumentierten Compiler-/Samplebudgets gebunden.
 
 ## Verifikation / Offen / Folge-Issues
 
