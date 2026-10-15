@@ -98,11 +98,21 @@ async function capture(
       .getByRole('link', { name: labels[modes.indexOf(mode)], exact: true })
       .focus();
     await page.mouse.move(0, 0);
+    await page.locator('.mode-stage-frame').evaluate((el) => el.scrollTo(0, 0));
     await page.waitForTimeout(150);
     const layout = await page.evaluate(() => {
       const heading = document.querySelector('#active-mode-title');
       const share = document.querySelector('.mode-share button');
       const main = document.querySelector('.shell-main');
+      const shareRect = share?.getBoundingClientRect();
+      const shareVisible =
+        !!shareRect &&
+        !!share?.contains(
+          document.elementFromPoint(
+            shareRect.x + shareRect.width / 2,
+            shareRect.y + shareRect.height / 2,
+          ),
+        );
       const toolbar = share?.closest(
         '.simple-heading, .scientific-heading, .convert-quick, .graph-heading',
       );
@@ -128,10 +138,15 @@ async function capture(
         main: bounds(main),
         toolbar: bounds(toolbar),
         mainOverflow: main.scrollWidth > main.clientWidth + 1,
+        shareVisible,
       };
     });
     if (phase === 'after') {
       assert(layout.heading?.width > 0, 'visible Shell heading');
+      assert(
+        layout.shareVisible,
+        `share target clipped: ${JSON.stringify(layout)}`,
+      );
       assert(
         layout.rootWidth <= layout.innerWidth + 1,
         `document overflow: ${JSON.stringify(layout)}`,
@@ -160,11 +175,23 @@ async function capture(
       );
     }
     const name = `${mode}-${width}x${height}-${theme}-ui${size}-zoom${zoom}`;
-    await page.screenshot({
-      path: `${out}/${name}.png`,
-      fullPage: true,
-      animations: 'disabled',
-    });
+    if (zoom === 1) {
+      await page.screenshot({
+        path: `${out}/${name}.png`,
+        fullPage: true,
+        animations: 'disabled',
+      });
+    } else {
+      // Playwright's full-page clip uses CSS pixels; Chrome tab zoom needs the native viewport capture.
+      const session = await context.newCDPSession(page);
+      const { data } = await session.send('Page.captureScreenshot', {
+        format: 'png',
+        captureBeyondViewport: false,
+        fromSurface: true,
+      });
+      await writeFile(`${out}/${name}.png`, Buffer.from(data, 'base64'));
+      await session.detach();
+    }
     results.push({ name, ...layout });
   }
   await page.close();

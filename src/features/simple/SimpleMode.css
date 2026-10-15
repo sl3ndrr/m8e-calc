@@ -60,3 +60,24 @@
     min-height: max(48px, 3.75rem);
   }
 }
+
+/* Keep the complete keypad in view on short desktop windows. */
+@media (max-height: 900px) {
+  .mode-stage[data-mode='simple'] {
+    padding: 1rem 1.5rem;
+  }
+  .simple-calculator .keypad {
+    grid-template-rows: repeat(5, minmax(max(48px, 3.25rem), 1fr));
+    gap: 0.5rem;
+  }
+  .simple-calculator .keypad-key {
+    min-height: max(48px, 3.25rem);
+    padding: 0.375rem;
+  }
+  .simple-memory-keys {
+    margin-block: 0 0.5rem;
+  }
+  .simple-keyboard-hint {
+    margin-top: 0.5rem;
+  }
+}
