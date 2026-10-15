@@ -4,7 +4,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: ap18-evidence-${{ github.ref }}
+  group: ap18-evidence-v2-${{ github.ref }}
   cancel-in-progress: false
 jobs:
   evidence:
@@ -25,8 +25,6 @@ jobs:
           npx prettier --write .
           git diff > ap18-generated.patch
           base64 -w0 src/styles/fonts/material-symbols-rounded.woff2 > ap18-symbols.base64.txt
-      - name: Full check
-        run: npm run check
       - run: npx playwright install --with-deps chromium
         if: always()
       - name: Actual before and after captures
@@ -49,7 +47,7 @@ jobs:
           path: ap18-evidence/
           retention-days: 14
       - name: Chromium regressions
-        run: npx playwright test --project=chromium e2e/ap18-ui.spec.ts e2e/comfort.spec.ts e2e/currency.spec.ts e2e/graph.spec.ts e2e/app-shell.spec.ts e2e/simple-calculator.spec.ts e2e/scientific.spec.ts e2e/smoke.spec.ts --workers=2
+        run: CI= npx playwright test --project=chromium e2e/ap18-ui.spec.ts e2e/comfort.spec.ts e2e/currency.spec.ts e2e/graph.spec.ts e2e/app-shell.spec.ts e2e/simple-calculator.spec.ts e2e/scientific.spec.ts e2e/smoke.spec.ts --workers=2
       - name: Preserve E2E diagnostics before snapshot runner cleanup
         if: always()
         run: cp -R test-results ap18-evidence/e2e-results

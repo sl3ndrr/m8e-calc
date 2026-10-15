@@ -1,4 +1,4 @@
-/* global document, window, innerWidth, innerHeight, chrome */
+/* global document, window, innerWidth, innerHeight, chrome, getComputedStyle */
 // Real browser captures. Run against a production preview, not a mocked page.
 import { chromium } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';
@@ -104,6 +104,10 @@ async function capture(
       const heading = document.querySelector('#active-mode-title');
       const share = document.querySelector('.mode-share button');
       const main = document.querySelector('.shell-main');
+      const stage = document.querySelector('.mode-stage');
+      const stageClipped =
+        stage.scrollHeight > stage.clientHeight + 1 &&
+        getComputedStyle(stage).overflowY === 'hidden';
       const shareRect = share?.getBoundingClientRect();
       const shareVisible =
         !!shareRect &&
@@ -134,15 +138,28 @@ async function capture(
         innerHeight,
         rootWidth: document.documentElement.scrollWidth,
         heading: bounds(heading),
+        calculator: bounds(document.querySelector('.simple-calculator')),
+        frame: bounds(document.querySelector('.mode-stage-frame')),
         share: bounds(share),
         main: bounds(main),
         toolbar: bounds(toolbar),
         mainOverflow: main.scrollWidth > main.clientWidth + 1,
         shareVisible,
+        stageClipped,
       };
     });
     if (phase === 'after') {
       assert(layout.heading?.width > 0, 'visible Shell heading');
+      if (mode === 'simple' && width === 1280 && size === 100 && zoom === 1) {
+        assert(
+          layout.calculator.bottom <= layout.frame.bottom + 1,
+          `keypad below workspace: ${JSON.stringify(layout)}`,
+        );
+      }
+      assert(
+        !layout.stageClipped,
+        `workspace content clipped: ${JSON.stringify(layout)}`,
+      );
       assert(
         layout.shareVisible,
         `share target clipped: ${JSON.stringify(layout)}`,

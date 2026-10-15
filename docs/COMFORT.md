@@ -141,3 +141,14 @@ Gezielte Regressionen: `src/app/CopyLinkButton.test.tsx`,
 Skript und `AP18_PHASE=before`. Ansichten: 1280×800, 1920×1080, 3440×1440,
 Hell/Dunkel, UI-Größen 80/100/150 % und tatsächlicher Chromium-Tabzoom 200 %.
 Bilder und Geometriemessungen entstehen in `ap18-evidence/`.
+
+Kurze Fenster verwenden im Einfach-Modus kompaktere Tasten und Abstände bei
+weiterhin mindestens 48 px Bedienfläche. Der Graphen-Arbeitsbereich lässt sich
+bei kleinen, niedrigen Fenstern vollständig scrollen, statt Werkzeuge außerhalb
+der sichtbaren Fläche abzuschneiden. Rechen- und Viewport-Logik bleiben unverändert.
+
+Die 24 Referenzbilder für 1920/2560/3840 px in Hell/Dunkel wurden nach Sichtprüfung
+übernommen. Dauerhafte Vorher-/Nachher-Belege für alle vier Modi bei 1920×1080
+liegen in [screenshots/ap18](screenshots/ap18/). Ausgangspunkt: `bdc7528` (aktueller
+`main`, einschließlich AP21), nicht nur der ältere Befund `f48afe1`.
+Aktuelle Laufnachweise und die vollständige Bildmatrix: [PR #25](https://github.com/sl3ndrr/m8e-calc/pull/25).

@@ -311,3 +311,17 @@
     padding: 1rem;
   }
 }
+
+/* At high zoom, let the workspace scroll instead of clipping plot controls. */
+@media (max-height: 900px) and (max-width: 1280px) {
+  .mode-stage:has(.graph-mode) {
+    height: auto;
+    overflow: visible;
+  }
+  .graph-mode {
+    height: auto;
+  }
+  .graph-canvas-wrap {
+    min-height: max(14rem, 40vh);
+  }
+}
