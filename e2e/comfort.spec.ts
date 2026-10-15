@@ -108,6 +108,10 @@ test('converter permalink restores category, pair and precise value', async ({
     .getByRole('textbox', { name: 'Schnelleingabe', exact: true })
     .fill('72 °F in °C');
   await page.getByRole('button', { name: 'Übernehmen', exact: true }).click();
+  // Sharing is in the quick-entry form, but must not submit a pending query.
+  await page
+    .getByRole('textbox', { name: 'Schnelleingabe', exact: true })
+    .fill('5 km in mi');
   const url = await copiedLink(page);
   await page.goto(url);
   await expect(

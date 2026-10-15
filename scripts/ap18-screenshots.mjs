@@ -1,4 +1,4 @@
-/* global localStorage, document, window, innerWidth, innerHeight, chrome */
+/* global document, window, innerWidth, innerHeight, chrome */
 // Real browser captures. Run against a production preview, not a mocked page.
 import { chromium } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';

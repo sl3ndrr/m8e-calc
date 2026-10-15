@@ -33,6 +33,7 @@ export function CopyLinkButton<M extends ModeId>({
       <Tooltip
         trigger={
           <IconButton
+            type="button"
             icon="share"
             variant="text"
             aria-label={t('comfort.shareLink')}
