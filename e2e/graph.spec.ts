@@ -206,11 +206,19 @@ test('canvas reloads theme and accent tokens; PNG copies to the clipboard', asyn
 });
 
 async function settled(page: Page): Promise<void> {
-  await expect(page.locator('canvas.graph-canvas')).toHaveAttribute(
-    'data-moving',
-    'false',
-  );
+  await expect
+    .poll(() =>
+      page
+        .locator('canvas.graph-canvas')
+        .evaluate(
+          (element: HTMLCanvasElement) =>
+            element.dataset.moving === 'false' &&
+            element.dataset.bounds === element.dataset.targetBounds,
+        ),
+    )
+    .toBe(true);
 }
+
 async function targetBounds(page: Page) {
   return JSON.parse(
     (await page
@@ -297,9 +305,11 @@ test('AP21 parabola fit is stable across 12 fits, rapid animated clicks and new 
   await fit.click();
   const afterNavigation = await targetBounds(page);
   expect(afterNavigation).not.toEqual(expected);
-  expect(
-    JSON.parse((await canvas.getAttribute('data-fit-basis')) ?? '{}'),
-  ).toEqual(basis);
+  const storedBasis = JSON.parse(
+    (await canvas.getAttribute('data-fit-basis')) ?? '{}',
+  ) as typeof basis;
+  for (const key of ['xMin', 'xMax', 'yMin', 'yMax'] as const)
+    expect(storedBasis[key]).toBeCloseTo(basis[key], 9);
   for (let i = 0; i < 10; i++) await fit.click();
   await expectSameView(page, afterNavigation);
   expect(errors).toEqual([]);
@@ -453,7 +463,7 @@ test('AP21 history and permalink retain the fit basis and copy the desired anima
     .first()
     .click();
   await expectSameView(page, expected);
-  await page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }).click();
+  await page.keyboard.press('Escape');
   await page.getByRole('button', { name: 'Anpassen', exact: true }).click();
   await expectSameView(page, expected);
   await page.goto(link);

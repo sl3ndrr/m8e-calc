@@ -17,10 +17,11 @@ import type {
 function aspect(bounds: Bounds, size: PixelSize): Bounds {
   const centerX = bounds.xMin + (bounds.xMax - bounds.xMin) / 2,
     centerY = bounds.yMin + (bounds.yMax - bounds.yMin) / 2;
-  const unit = Math.max(
-    (bounds.xMax - bounds.xMin) / size.width,
-    (bounds.yMax - bounds.yMin) / size.height,
-  );
+  const ux = (bounds.xMax - bounds.xMin) / size.width;
+  const uy = (bounds.yMax - bounds.yMin) / size.height;
+  const unit = Math.max(ux, uy);
+  // Already locked ranges must survive construction/restore without roundoff drift.
+  if (Math.abs(ux - uy) <= unit * Number.EPSILON * 8) return { ...bounds };
   return {
     xMin: centerX - (unit * size.width) / 2,
     xMax: centerX + (unit * size.width) / 2,
@@ -71,8 +72,8 @@ export class Viewport {
       if (Math.abs(ux - uy) / Math.max(ux, uy) > 1e-10)
         throw new RangeError('Insufficient aspect precision');
     }
-    const basis = options.fitBasis ?? bounds;
-    validateBounds(basis);
+    const basis = options.fitBasis === undefined ? bounds : options.fitBasis;
+    validateViewport(basis, pixelSize);
     this.fitBasis = Object.freeze({ ...basis });
     this.bounds = Object.freeze(adjusted);
     this.pixelSize = Object.freeze({ ...pixelSize });
@@ -194,6 +195,8 @@ export class Viewport {
   fitToCurves(curves: readonly Curve[]): Viewport {
     const boxes: Bounds[] = [];
     const basis = this.fitBasis;
+    const precisionPadding =
+      Math.max(this.pixelSize.width, this.pixelSize.height) * 4;
     function limits(values: number[], fallback: number): [number, number] {
       values.sort((a, b) => a - b);
       const lo = values[Math.floor((values.length - 1) * 0.05)] ?? NaN;
@@ -203,7 +206,9 @@ export class Viewport {
         span > 0
           ? Math.max(
               span * 0.1,
-              Math.max(Math.abs(lo), Math.abs(hi)) * Number.EPSILON * 4096,
+              Math.max(Math.abs(lo), Math.abs(hi)) *
+                Number.EPSILON *
+                precisionPadding,
             )
           : (Math.abs(lo) || fallback) * 0.1;
       return [lo - padding, hi + padding];

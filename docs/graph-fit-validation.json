@@ -1,0 +1,232 @@
+{
+  "baselineCommit": "f48afe1e0bdb5baf42eb1ec194883ecdc1c41e87",
+  "pixelSize": {
+    "width": 1600,
+    "height": 900
+  },
+  "curve": "x^2",
+  "lockAspect": true,
+  "baselineDomainXMax": [
+    109.9851851851852, 11693.516261545501, 132180378.47372812, 16889264038342740
+  ],
+  "baselineBrowser": {
+    "viewport": {
+      "width": 1600,
+      "height": 900
+    },
+    "before": {
+      "xMin": -11.515099957464908,
+      "xMax": 11.515099957464908,
+      "yMin": -6,
+      "yMax": 6
+    },
+    "settled": [
+      {
+        "xMin": -138.37293611927004,
+        "xMax": 138.37293611927004,
+        "yMin": -11.725298899026832,
+        "yMax": 132.47451174654225
+      },
+      {
+        "xMin": -19981.03793674458,
+        "xMax": 19981.03793674458,
+        "yMin": -1693.13197140794,
+        "yMax": 19129.306055758065
+      },
+      {
+        "xMin": -416631229.7339364,
+        "xMax": 416631229.7339364,
+        "yMin": -35304054.65335217,
+        "yMax": 398871486.61636615
+      },
+      {
+        "xMin": -416631229.7339364,
+        "xMax": 416631229.7339364,
+        "yMin": -35304054.65335217,
+        "yMax": 398871486.61636615
+      }
+    ],
+    "rapid": {
+      "xMin": -19490434581.597836,
+      "xMax": 19490434581.597836,
+      "yMin": -1651559745.354988,
+      "yMax": 18659615654.173607
+    },
+    "errors": [],
+    "note": "main silently rejects spans >1e12 in the adapter; the domain itself reaches about ±1.69e16 at fit four. Rapid clicks sample animated intermediate views.",
+    "ciRun": "https://github.com/sl3ndrr/m8e-calc/actions/runs/38764792682"
+  },
+  "propertyTests": {
+    "seed": 21021,
+    "runs": 80,
+    "decimalExponents": [-200, 200],
+    "widths": [100, 4000]
+  },
+  "benchmark": {
+    "node": "v24.19.0",
+    "pixelSize": {
+      "width": 2560,
+      "height": 1440
+    },
+    "targetMilliseconds": 4,
+    "regressionLimitMilliseconds": 25,
+    "results": [
+      {
+        "source": "sin(x)",
+        "meanMilliseconds": 0.15605501500000002,
+        "fitMeanMilliseconds": 0.05483957000000004,
+        "evaluations": 1281,
+        "segments": 1
+      },
+      {
+        "source": "1/x",
+        "meanMilliseconds": 0.2952914100000001,
+        "fitMeanMilliseconds": 0.021029660000000092,
+        "evaluations": 2817,
+        "segments": 2
+      },
+      {
+        "source": "tan(x)",
+        "meanMilliseconds": 0.9451360649999998,
+        "fitMeanMilliseconds": 0.04727553,
+        "evaluations": 6921,
+        "segments": 5
+      },
+      {
+        "source": "abs(x)",
+        "meanMilliseconds": 0.1328146750000002,
+        "fitMeanMilliseconds": 0.042465184999999794,
+        "evaluations": 1281,
+        "segments": 1
+      },
+      {
+        "source": "x^x",
+        "meanMilliseconds": 0.1867416750000001,
+        "fitMeanMilliseconds": 0.020738075000000435,
+        "evaluations": 2427,
+        "segments": 1
+      },
+      {
+        "source": "sqrt(x)",
+        "meanMilliseconds": 0.11730742500000019,
+        "fitMeanMilliseconds": 0.015553365000000098,
+        "evaluations": 1437,
+        "segments": 1
+      },
+      {
+        "source": "ln(x)",
+        "meanMilliseconds": 0.1644895650000001,
+        "fitMeanMilliseconds": 0.01784281999999962,
+        "evaluations": 1953,
+        "segments": 1
+      },
+      {
+        "source": "(cos(t),sin(t))",
+        "meanMilliseconds": 0.24223583000000018,
+        "fitMeanMilliseconds": 0.05512284499999964,
+        "evaluations": 1281,
+        "segments": 1
+      },
+      {
+        "source": "r=1+cos(theta)",
+        "meanMilliseconds": 0.19799946999999973,
+        "fitMeanMilliseconds": 0.05915396499999986,
+        "evaluations": 1281,
+        "segments": 1
+      },
+      {
+        "source": "(sin(3*t),sin(2*t))",
+        "meanMilliseconds": 0.2515170499999999,
+        "fitMeanMilliseconds": 0.07649743,
+        "evaluations": 1281,
+        "segments": 1
+      }
+    ]
+  },
+  "limits": [
+    "257 uniform samples per curve; no global extrema guarantee.",
+    "5/95 percentiles per curve can omit narrow unsampled features.",
+    "Endpoint rounding <=0.25 CSS pixels; aspect relative error <=1e-10.",
+    "Browser acceptance uses CI Chromium; physical GPU/refresh rate is not measured."
+  ],
+  "ap21DomainFits": [
+    {
+      "xMin": -96.66666666666667,
+      "xMax": 96.66666666666667,
+      "yMin": -8.8427734375,
+      "yMax": 99.9072265625
+    },
+    {
+      "xMin": -96.66666666666667,
+      "xMax": 96.66666666666667,
+      "yMin": -8.8427734375,
+      "yMax": 99.9072265625
+    },
+    {
+      "xMin": -96.66666666666667,
+      "xMax": 96.66666666666667,
+      "yMin": -8.8427734375,
+      "yMax": 99.9072265625
+    },
+    {
+      "xMin": -96.66666666666667,
+      "xMax": 96.66666666666667,
+      "yMin": -8.8427734375,
+      "yMax": 99.9072265625
+    },
+    {
+      "xMin": -96.66666666666667,
+      "xMax": 96.66666666666667,
+      "yMin": -8.8427734375,
+      "yMax": 99.9072265625
+    },
+    {
+      "xMin": -96.66666666666667,
+      "xMax": 96.66666666666667,
+      "yMin": -8.8427734375,
+      "yMax": 99.9072265625
+    },
+    {
+      "xMin": -96.66666666666667,
+      "xMax": 96.66666666666667,
+      "yMin": -8.8427734375,
+      "yMax": 99.9072265625
+    },
+    {
+      "xMin": -96.66666666666667,
+      "xMax": 96.66666666666667,
+      "yMin": -8.8427734375,
+      "yMax": 99.9072265625
+    },
+    {
+      "xMin": -96.66666666666667,
+      "xMax": 96.66666666666667,
+      "yMin": -8.8427734375,
+      "yMax": 99.9072265625
+    },
+    {
+      "xMin": -96.66666666666667,
+      "xMax": 96.66666666666667,
+      "yMin": -8.8427734375,
+      "yMax": 99.9072265625
+    },
+    {
+      "xMin": -96.66666666666667,
+      "xMax": 96.66666666666667,
+      "yMin": -8.8427734375,
+      "yMax": 99.9072265625
+    },
+    {
+      "xMin": -96.66666666666667,
+      "xMax": 96.66666666666667,
+      "yMin": -8.8427734375,
+      "yMax": 99.9072265625
+    }
+  ],
+  "fitBasis": {
+    "xMin": -10,
+    "xMax": 10,
+    "yMin": -6,
+    "yMax": 6
+  }
+}

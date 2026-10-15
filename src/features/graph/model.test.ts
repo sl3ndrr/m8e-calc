@@ -149,6 +149,13 @@ it('AP21 persists the fit basis, supports old plot sets and rejects corrupt view
   });
   expect(restorePlot(plotPayload(plot))?.fitBasis).toEqual(v.fitBasis);
   expect(restorePlot(plotPayload(base))).toEqual(base);
+  expect(restorePlot({ ...plot, fitBasis: null })).toBeNull();
+  expect(
+    restorePlot({
+      ...plot,
+      fitBasis: { xMin: 1e16, xMax: 1e16 + 2, yMin: -1, yMax: 1 },
+    }),
+  ).toBeNull();
   expect(
     restorePlot({ ...plot, fitBasis: { ...v.fitBasis, xMax: Infinity } }),
   ).toBeNull();

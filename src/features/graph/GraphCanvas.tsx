@@ -330,6 +330,9 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       progress = 0;
       velocity = 0;
       moving = spring && animation;
+      element.dataset.targetBounds = JSON.stringify(target.bounds);
+      element.dataset.fitBasis = JSON.stringify(target.fitBasis);
+      element.dataset.moving = String(moving);
       if (!moving) {
         viewport = next;
         announce();

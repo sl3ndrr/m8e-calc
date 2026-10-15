@@ -4,7 +4,7 @@ import { spawn } from 'node:child_process';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 const checkout = resolve(process.argv[2] ?? '.');
-const output = resolve('test-results/ap21-baseline');
+const output = resolve(process.argv[3] ?? 'test-results/ap21-baseline');
 await mkdir(output, { recursive: true });
 const server = spawn(
   'npm',
