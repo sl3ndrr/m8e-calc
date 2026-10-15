@@ -3,28 +3,31 @@ import AxeBuilder from '@axe-core/playwright';
 import { ready, qaModes, tabTo } from './qa-setup';
 import { t } from '../src/shared/i18n';
 
-for (const locale of ['de', 'en'] as const) {
-  test(`mode headings, sharing tooltip, keyboard and clipboard feedback (${locale})`, async ({
-    page,
-    context,
-  }) => {
-    await page.setViewportSize({ width: 1920, height: 1080 });
-    await page.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' });
-    await page.addInitScript((language) => {
-      localStorage.setItem(
-        'm8e-calc.settings',
-        JSON.stringify({
-          version: 4,
-          state: {
-            language,
-            themeMode: 'light',
-            motionLevel: 'off',
-          },
-        }),
-      );
-    }, locale);
-    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
-    for (const mode of qaModes) {
+for (const locale of ['de', 'en'] as const)
+  for (const mode of qaModes) {
+    test(`mode headings, sharing tooltip, keyboard and clipboard feedback (${locale}, ${mode})`, async ({
+      page,
+      context,
+    }) => {
+      await page.setViewportSize({ width: 1920, height: 1080 });
+      await page.emulateMedia({
+        colorScheme: 'light',
+        reducedMotion: 'reduce',
+      });
+      await page.addInitScript((language) => {
+        localStorage.setItem(
+          'm8e-calc.settings',
+          JSON.stringify({
+            version: 4,
+            state: {
+              language,
+              themeMode: 'light',
+              motionLevel: 'off',
+            },
+          }),
+        );
+      }, locale);
+      await context.grantPermissions(['clipboard-read', 'clipboard-write']);
       await page.goto(`/m8e-calc/#/${mode}`);
       await ready(page, mode);
       const name = t(`mode.${mode}`, locale);
@@ -40,6 +43,10 @@ for (const locale of ['de', 'en'] as const) {
         name: t('comfort.shareLink', locale),
         exact: true,
       });
+      await page.bringToFront();
+      await expect
+        .poll(() => page.evaluate(() => document.hasFocus()))
+        .toBe(true);
       await tabTo(page, share);
       await expect(share).toBeFocused();
       await expect(page.getByRole('tooltip')).toHaveText(
@@ -97,6 +104,5 @@ for (const locale of ['de', 'en'] as const) {
           name: new RegExp(t('comfort.exitPresentation', locale)),
         })
         .click();
-    }
-  });
-}
+    });
+  }

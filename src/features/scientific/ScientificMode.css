@@ -310,15 +310,6 @@
     animation: none;
   }
 }
-@media (max-width: 700px) {
-  .scientific-heading {
-    flex-wrap: wrap;
-  }
-  .scientific-heading h1 {
-    font-size: 1.5rem;
-  }
-}
-
 .scientific-math .katex-display {
   margin: 0.5rem 0;
 }

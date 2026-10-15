@@ -7,6 +7,8 @@ test.beforeEach(async ({ page }) => {
   await expect(
     page.getByRole('heading', { name: t('convert.title') }),
   ).toBeVisible();
+  // The Shell heading precedes the lazy feature and its keyboard listeners.
+  await page.locator('.convert-mode').waitFor();
 });
 test('conversion, target editing, paste, swap and keyboard shortcuts', async ({
   page,

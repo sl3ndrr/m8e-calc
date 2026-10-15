@@ -50,6 +50,9 @@ jobs:
           retention-days: 14
       - name: Chromium regressions
         run: npx playwright test --project=chromium e2e/ap18-ui.spec.ts e2e/comfort.spec.ts e2e/currency.spec.ts e2e/graph.spec.ts e2e/app-shell.spec.ts e2e/simple-calculator.spec.ts e2e/scientific.spec.ts e2e/smoke.spec.ts --workers=2
+      - name: Preserve E2E diagnostics before snapshot runner cleanup
+        if: always()
+        run: cp -R test-results ap18-evidence/e2e-results
       - name: Propose visual references for review
         if: always()
         run: CI= npx playwright test --project=qa-visual --update-snapshots --workers=2

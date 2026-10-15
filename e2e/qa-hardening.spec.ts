@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { t } from '../src/shared/i18n';
 import { qaSetup, ready, qaModes, tabTo } from './qa-setup';
 // Network-failure injection must reach the network rather than an offline cache.
 test.use({ serviceWorkers: 'block' });
@@ -228,7 +229,16 @@ for (const storage of ['broken', 'future', 'quota', 'denied'] as const)
     for (const mode of qaModes) {
       await page.goto(`/m8e-calc/#/${mode}`);
       await ready(page, mode);
-      await expect(page.locator(`[data-mode="${mode}"] h1`)).toBeVisible();
+      await expect(
+        page.getByRole('heading', {
+          level: 1,
+          name: t(`mode.${mode}`),
+          exact: true,
+        }),
+      ).toBeVisible();
+      await expect(
+        page.getByRole('region', { name: t(`mode.${mode}`), exact: true }),
+      ).toBeVisible();
     }
     expect(errors).toEqual([]);
   });
