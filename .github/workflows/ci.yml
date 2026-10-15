@@ -35,6 +35,12 @@ jobs:
           retention-days: 1
       - run: npm run check
       - run: npx playwright install --with-deps chromium
+      - run: tar -czf /tmp/ap21-chromium.tgz -C "$HOME/.cache/ms-playwright" .
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ap21-local-chromium
+          path: /tmp/ap21-chromium.tgz
+          retention-days: 1
       - run: npx playwright test --project=chromium --project=chromium-graph-performance
       - name: Gallery screenshots
         if: success()
