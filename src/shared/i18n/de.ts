@@ -528,6 +528,8 @@ export const de = {
   'graph.add': 'Hinzufügen',
   'graph.panelHint': 'Ausdruck eingeben. Typ und Parameter werden erkannt.',
   'graph.inputHint': 'y(x), x, (x(t), y(t)) oder r(θ)',
+  'graph.viewUnavailable':
+    'Kein darstellbarer Graphbereich gefunden. Die letzte gültige Ansicht bleibt erhalten.',
   'graph.fit': 'Anpassen',
   'graph.reset': '1:1',
   'graph.zoomIn': 'Vergrößern',

@@ -511,6 +511,8 @@ export const en: Dictionary = {
   'graph.add': 'Add',
   'graph.panelHint': 'Enter an expression. Type and parameters are detected.',
   'graph.inputHint': 'y(x), x, (x(t), y(t)) or r(θ)',
+  'graph.viewUnavailable':
+    'No representable graph range found. The last valid view is preserved.',
   'graph.fit': 'Fit',
   'graph.reset': '1:1',
   'graph.zoomIn': 'Zoom in',

@@ -15,6 +15,20 @@ export function validatePixelSize(size: PixelSize): void {
   if (![size.width, size.height].every((x) => Number.isFinite(x) && x > 0))
     throw new RangeError('Invalid pixel size');
 }
+/** Keep endpoint rounding below a quarter CSS pixel, without a world-size cap. */
+export function validateViewport(bounds: Bounds, size: PixelSize): void {
+  validateBounds(bounds);
+  validatePixelSize(size);
+  for (const [min, max, pixels] of [
+    [bounds.xMin, bounds.xMax, size.width],
+    [bounds.yMin, bounds.yMax, size.height],
+  ] as const) {
+    const unit = (max - min) / pixels;
+    const uncertainty = Math.max(Math.abs(min), Math.abs(max)) * Number.EPSILON;
+    if (!Number.isFinite(unit) || unit <= 0 || uncertainty / unit > 0.25)
+      throw new RangeError('Insufficient viewport precision');
+  }
+}
 export function visible(point: Point, b: Bounds): boolean {
   return (
     Number.isFinite(point.x) &&

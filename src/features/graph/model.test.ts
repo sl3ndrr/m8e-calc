@@ -131,3 +131,34 @@ describe('plot model and AP12 parser integration', () => {
     ).toBeCloseTo(2 / 3, 8);
   });
 });
+
+it('AP21 persists the fit basis, supports old plot sets and rejects corrupt viewport state', () => {
+  const base = initialPlot();
+  const v = new Viewport(
+    base.bounds,
+    { width: 1600, height: 900 },
+    { lockAspect: true },
+  );
+  const c = parseRow(newRow('a', 'x^2')).curve;
+  if (!c) throw Error('Missing curve');
+  const fitted = v.fitToCurves([c]);
+  const plot = plotReducer(base, {
+    type: 'view',
+    bounds: fitted.bounds,
+    fitBasis: fitted.fitBasis,
+  });
+  expect(restorePlot(plotPayload(plot))?.fitBasis).toEqual(v.fitBasis);
+  expect(restorePlot(plotPayload(base))).toEqual(base);
+  expect(
+    restorePlot({ ...plot, fitBasis: { ...v.fitBasis, xMax: Infinity } }),
+  ).toBeNull();
+  expect(
+    plotReducer(plot, { type: 'view', bounds: { ...plot.bounds, xMax: NaN } }),
+  ).toBe(plot);
+  expect(
+    restorePlot({
+      ...plot,
+      bounds: { xMin: 1e16, xMax: 1e16 + 2, yMin: -1, yMax: 1 },
+    }),
+  ).toBeNull();
+});

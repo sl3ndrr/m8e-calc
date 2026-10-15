@@ -27,20 +27,15 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - run: tar -czf /tmp/ap21-dependencies.tgz node_modules
-      - uses: actions/upload-artifact@v7
-        with:
-          name: ap21-local-test-dependencies
-          path: /tmp/ap21-dependencies.tgz
-          retention-days: 1
       - run: npm run check
       - run: npx playwright install --with-deps chromium
-      - run: tar -czf /tmp/ap21-chromium.tgz -C "$HOME/.cache/ms-playwright" .
-      - uses: actions/upload-artifact@v7
-        with:
-          name: ap21-local-chromium
-          path: /tmp/ap21-chromium.tgz
-          retention-days: 1
+      - name: Reproduce AP21 baseline without deployment
+        run: |
+          git fetch --depth=1 origin f48afe1e0bdb5baf42eb1ec194883ecdc1c41e87
+          git worktree add /tmp/ap21-baseline FETCH_HEAD
+          ln -s "$PWD/node_modules" /tmp/ap21-baseline/node_modules
+          (cd /tmp/ap21-baseline && npm run build)
+          node scripts/graph-fit-reproduction.mjs /tmp/ap21-baseline
       - run: npx playwright test --project=chromium --project=chromium-graph-performance
       - name: Gallery screenshots
         if: success()

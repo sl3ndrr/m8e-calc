@@ -8,6 +8,7 @@ import {
   type GraphError,
   type Point,
 } from '../../graph';
+import { tryViewport } from './viewportTransition';
 import type { JsonValue } from '../../shared/history';
 export interface Parameter {
   value: number;
@@ -26,6 +27,7 @@ export interface PlotSet {
   version: 1;
   rows: PlotRow[];
   bounds: Bounds;
+  fitBasis?: Bounds;
   lockAspect: boolean;
   pi: boolean;
   fine: boolean;
@@ -117,7 +119,7 @@ export type PlotAction =
   | { type: 'update'; id: string; patch: Partial<PlotRow> }
   | { type: 'delete'; id: string }
   | { type: 'reorder'; id: string; to: number }
-  | { type: 'view'; bounds: Bounds }
+  | { type: 'view'; bounds: Bounds; fitBasis?: Bounds }
   | {
       type: 'options';
       patch: Partial<Pick<PlotSet, 'lockAspect' | 'fine' | 'pi'>>;
@@ -143,8 +145,20 @@ export function plotReducer(state: PlotSet, action: PlotAction): PlotSet {
       rows.splice(Math.max(0, Math.min(rows.length, action.to)), 0, row);
       return { ...state, rows };
     }
-    case 'view':
-      return { ...state, bounds: action.bounds };
+    case 'view': {
+      if (
+        !tryViewport(
+          () =>
+            new Viewport(
+              action.bounds,
+              { width: 1, height: 1 },
+              { fitBasis: action.fitBasis },
+            ),
+        )
+      )
+        return state;
+      return { ...state, bounds: action.bounds, fitBasis: action.fitBasis };
+    }
     case 'options':
       return { ...state, ...action.patch };
     case 'restore':
@@ -167,7 +181,11 @@ export function restorePlot(value: unknown): PlotSet | null {
       typeof p.lockAspect !== 'boolean'
     )
       return null;
-    new Viewport(p.bounds, { width: 100, height: 100 });
+    new Viewport(
+      p.bounds,
+      { width: 100, height: 100 },
+      { fitBasis: p.fitBasis },
+    );
     const ids = new Set<string>();
     for (const r of p.rows) {
       if (

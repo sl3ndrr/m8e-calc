@@ -35,6 +35,11 @@ import {
   type Marker,
 } from './renderer';
 import type { SampleRequest, SampleResponse } from './workerProtocol';
+import {
+  advanceTransition,
+  interpolateViewport,
+  tryViewport,
+} from './viewportTransition';
 export interface CanvasHandle {
   fit: () => void;
   reset: () => void;
@@ -42,11 +47,15 @@ export interface CanvasHandle {
   preset: (bounds: Bounds) => void;
   export: (transparent: boolean) => Promise<Blob>;
   viewport: () => Viewport | null;
+  desiredViewport: () => Viewport | null;
 }
 interface Props {
   ref?: Ref<CanvasHandle>;
   rows: readonly ParsedRow[];
   bounds: Bounds;
+  fitBasis?: Bounds;
+  restoreToken: number;
+  onViewError: () => void;
   lockAspect: boolean;
   fine: boolean;
   pi: boolean;
@@ -54,7 +63,7 @@ interface Props {
   markers: readonly Marker[];
   shade: IntegralShade | null;
   integralCurveId: string | null;
-  onView: (bounds: Bounds) => void;
+  onView: (bounds: Bounds, fitBasis: Bounds) => void;
   onIntegral: (from: number, to: number) => void;
   onTrace: (trace: Trace | null) => void;
   onContext: (trace: Trace) => void;
@@ -68,6 +77,7 @@ interface Controller {
   preset: (bounds: Bounds) => void;
   export: (transparent: boolean) => Promise<Blob>;
   viewport: () => Viewport;
+  desiredViewport: () => Viewport;
 }
 export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
   const canvas = useRef<HTMLCanvasElement>(null),
@@ -92,6 +102,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       zoom: (f) => controller.current?.zoom(f),
       preset: (b) => controller.current?.preset(b),
       viewport: () => controller.current?.viewport() ?? null,
+      desiredViewport: () => controller.current?.desiredViewport() ?? null,
       export: async (transparent) => {
         if (!controller.current) throw new Error('Canvas unavailable');
         return controller.current.export(transparent);
@@ -112,16 +123,31 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
     let current = latest.current,
       animation = animate,
       disposed = false;
-    let viewport = new Viewport(
-      current.bounds,
-      {
-        width: Math.max(1, element.clientWidth),
-        height: Math.max(1, element.clientHeight),
-      },
-      { lockAspect: current.lockAspect },
-    );
+    const initialSize = {
+      width: Math.max(1, element.clientWidth),
+      height: Math.max(1, element.clientHeight),
+    };
+    let viewport =
+      tryViewport(
+        () =>
+          new Viewport(
+            current.bounds,
+            {
+              width: Math.max(1, element.clientWidth),
+              height: Math.max(1, element.clientHeight),
+            },
+            { lockAspect: current.lockAspect, fitBasis: current.fitBasis },
+          ),
+      ) ??
+      new Viewport(defaultBounds, initialSize, {
+        lockAspect: current.lockAspect,
+      });
     let target = viewport,
-      velocities = [0, 0, 0, 0],
+      animationFrom = viewport,
+      progress = 0,
+      velocity = 0,
+      fitting = false,
+      fitCache: { key: string; view: Viewport } | null = null,
       frame = 0,
       dirty = true,
       lastTime = 0,
@@ -186,7 +212,11 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
     }
     function announce(): void {
       window.clearTimeout(viewTimer);
-      viewTimer = window.setTimeout(() => current.onView(viewport.bounds), 120);
+      const accepted = target;
+      viewTimer = window.setTimeout(() => {
+        if (target === accepted && !moving)
+          current.onView(accepted.bounds, accepted.fitBasis);
+      }, 120);
     }
     function visibleRows() {
       return current.rows.filter((r) => r.curve && r.row.visible);
@@ -196,17 +226,34 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         b = v.bounds,
         dx = (b.xMax - b.xMin) * 0.35,
         dy = (b.yMax - b.yMin) * 0.35;
-      const bounds = exact
-        ? b
-        : {
-            xMin: b.xMin - dx,
-            xMax: b.xMax + dx,
-            yMin: b.yMin - dy,
-            yMax: b.yMax + dy,
-          };
-      const size = exact
-        ? v.pixelSize
-        : { width: v.pixelSize.width * 1.7, height: v.pixelSize.height * 1.7 };
+      const overscan = tryViewport(
+        () =>
+          new Viewport(
+            {
+              xMin: b.xMin - dx,
+              xMax: b.xMax + dx,
+              yMin: b.yMin - dy,
+              yMax: b.yMax + dy,
+            },
+            v.pixelSize,
+          ),
+      );
+      const bounds =
+        exact || !overscan
+          ? b
+          : {
+              xMin: b.xMin - dx,
+              xMax: b.xMax + dx,
+              yMin: b.yMin - dy,
+              yMax: b.yMax + dy,
+            };
+      const size =
+        exact || !overscan
+          ? v.pixelSize
+          : {
+              width: v.pixelSize.width * 1.7,
+              height: v.pixelSize.height * 1.7,
+            };
       const curves = visibleRows().flatMap((r) =>
         r.curve
           ? [
@@ -259,35 +306,56 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       window.clearTimeout(sampleTimer);
       sampleTimer = window.setTimeout(() => requestSamples(), moving ? 90 : 0);
     }
-    const stateOf = (v: Viewport) => {
-      const b = v.bounds;
-      return [
-        (b.xMax + b.xMin) / 2,
-        (b.yMax + b.yMin) / 2,
-        Math.log(b.xMax - b.xMin),
-        Math.log(b.yMax - b.yMin),
-      ];
-    };
     function setView(next: Viewport, spring: boolean): void {
-      const b = next.bounds,
-        span = b.xMax - b.xMin;
       if (
-        !Object.values(b).every(Number.isFinite) ||
-        span < 1e-10 ||
-        span > 1e12 ||
-        b.yMax - b.yMin < 1e-10 ||
-        b.yMax - b.yMin > 1e12
+        JSON.stringify(next.toJSON()) === JSON.stringify(target.toJSON()) &&
+        spring &&
+        animation
       )
         return;
+      window.clearTimeout(viewTimer);
+      window.clearTimeout(sampleTimer);
+      sampleTimer = 0;
       target = next;
+      animationFrom = viewport;
+      progress = 0;
+      velocity = 0;
       moving = spring && animation;
       if (!moving) {
         viewport = next;
-        velocities = [0, 0, 0, 0];
         announce();
         resample();
       }
       invalidate();
+    }
+    function changeView(create: () => Viewport, spring: boolean): void {
+      const next = tryViewport(create);
+      if (!next) {
+        current.onViewError();
+        return;
+      }
+      fitting = false;
+      setView(next, spring);
+    }
+    function fit(): void {
+      const curves = visibleRows().flatMap((r) => (r.curve ? [r.curve] : []));
+      const key = JSON.stringify([
+        curves,
+        target.fitBasis,
+        target.pixelSize,
+        target.lockAspect,
+      ]);
+      const next =
+        fitCache?.key === key ? fitCache.view : target.fitToCurves(curves);
+      if (next === target && fitCache?.key !== key) {
+        if (fitting && moving) setView(viewport, false);
+        fitting = false;
+        current.onViewError();
+        return;
+      }
+      fitCache = { key, view: next };
+      fitting = true;
+      setView(next, true);
     }
     function render(time: number): void {
       frame = 0;
@@ -298,41 +366,18 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         dirty = true;
       }
       if (moving) {
-        const values = stateOf(viewport),
-          goal = stateOf(target),
-          dt = Math.min(0.032, (time - lastTime) / 1000 || 0.016),
-          spring = springs['spatial-default'],
-          damping = 2 * spring.damping * Math.sqrt(spring.stiffness);
-        let remaining = 0;
-        for (let i = 0; i < 4; i++) {
-          let value = values[i] ?? 0,
-            velocity = velocities[i] ?? 0;
-          const g = goal[i] ?? 0;
-          for (let n = 0; n < 4; n++) {
-            velocity +=
-              (((g - value) * spring.stiffness - velocity * damping) * dt) / 4;
-            value += (velocity * dt) / 4;
-          }
-          values[i] = value;
-          velocities[i] = velocity;
-          remaining = Math.max(
-            remaining,
-            Math.abs(g - value) / Math.max(1, Math.abs(g)),
-            Math.abs(velocity) / Math.max(1, Math.abs(g)),
-          );
-        }
-        const [cx = 0, cy = 0, lx = 0, ly = 0] = values,
-          sx = Math.exp(lx) / 2,
-          sy = Math.exp(ly) / 2;
-        viewport = new Viewport(
-          { xMin: cx - sx, xMax: cx + sx, yMin: cy - sy, yMax: cy + sy },
-          viewport.pixelSize,
-          { lockAspect: current.lockAspect },
+        const next = advanceTransition(
+          progress,
+          velocity,
+          (time - lastTime) / 1000 || 0.016,
+          springs['spatial-default'],
         );
-        if (remaining < 0.0001) {
+        progress = next.progress;
+        velocity = next.velocity;
+        viewport = interpolateViewport(animationFrom, target, progress);
+        if (next.done || viewport === target) {
           moving = false;
           viewport = target;
-          velocities = [0, 0, 0, 0];
           announce();
           requestSamples();
         } else if (!sampleTimer) {
@@ -390,6 +435,9 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         metrics.renderMs.push(performance.now() - start);
         if (metrics.renderMs.length > 600) metrics.renderMs.shift();
         element.dataset.bounds = JSON.stringify(viewport.bounds);
+        element.dataset.targetBounds = JSON.stringify(target.bounds);
+        element.dataset.fitBasis = JSON.stringify(target.fitBasis);
+        element.dataset.moving = String(moving);
         element.dataset.graphMetrics = JSON.stringify(metrics);
         element.dataset.truncated = String(
           [...paths.values()].some((p) => p.truncated),
@@ -416,7 +464,8 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       element.setPointerCapture(event.pointerId);
       moving = false;
       target = viewport;
-      velocities = [0, 0, 0, 0];
+      fitting = false;
+      window.clearTimeout(viewTimer);
       const point = local(event),
         from = current.integralCurveId ? viewport.screenToWorld(point).x : null;
       pointer = {
@@ -439,7 +488,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         if (pointer.from !== null) {
           selection = [pointer.from, viewport.screenToWorld(point).x];
           invalidate();
-        } else setView(viewport.pan(dx, dy), false);
+        } else changeView(() => viewport.pan(dx, dy), false);
         pointer = {
           ...pointer,
           point,
@@ -461,7 +510,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         current.onIntegral(p.from, to);
         invalidate();
       } else if (animation && event.timeStamp - p.time < 100)
-        setView(viewport.pan(p.vx * 180, p.vy * 180), true);
+        changeView(() => viewport.pan(p.vx * 180, p.vy * 180), true);
       else {
         announce();
         requestSamples();
@@ -481,16 +530,17 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
           : event.deltaMode === 2
             ? viewport.pixelSize.height
             : 1);
-      setView(
-        target.zoom(
-          Math.exp(-Math.max(-300, Math.min(300, delta)) * 0.002),
-          local(event),
-        ),
+      changeView(
+        () =>
+          target.zoom(
+            Math.exp(-Math.max(-300, Math.min(300, delta)) * 0.002),
+            local(event),
+          ),
         true,
       );
     }
     function double(event: MouseEvent): void {
-      setView(viewport.zoom(2, local(event)), true);
+      changeView(() => target.zoom(2, local(event)), true);
     }
     function context(event: MouseEvent): void {
       const next = nearestTrace(current.rows, viewport, local(event));
@@ -541,18 +591,24 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         current = next;
         animation = canAnimate;
         if (!animation && moving) setView(target, false);
-        if (next.lockAspect !== old.lockAspect)
-          setView(viewport.withAspectLock(next.lockAspect), true);
+        const restored = next.restoreToken !== old.restoreToken;
         if (
-          JSON.stringify(next.bounds) !== JSON.stringify(old.bounds) &&
-          JSON.stringify(next.bounds) !== JSON.stringify(viewport.bounds)
-        )
-          setView(
-            new Viewport(next.bounds, viewport.pixelSize, {
-              lockAspect: next.lockAspect,
-            }),
+          restored ||
+          (JSON.stringify(next.bounds) !== JSON.stringify(old.bounds) &&
+            JSON.stringify(next.bounds) !== JSON.stringify(target.bounds))
+        ) {
+          changeView(
+            () =>
+              new Viewport(next.bounds, viewport.pixelSize, {
+                lockAspect: next.lockAspect,
+                fitBasis: next.fitBasis,
+              }),
             true,
           );
+        } else if (next.lockAspect !== old.lockAspect) {
+          changeView(() => target.withAspectLock(next.lockAspect), true);
+        }
+        if (!restored && next.rows !== old.rows && fitting && moving) fit();
         if (next.rows !== old.rows) {
           paths = new Map(
             [...paths].filter(([id]) =>
@@ -565,43 +621,40 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         readColors();
         invalidate();
       },
-      fit() {
-        setView(
-          viewport.fitToCurves(
-            visibleRows().flatMap((r) => (r.curve ? [r.curve] : [])),
-          ),
-          true,
-        );
-      },
+      fit,
       reset() {
-        setView(
-          new Viewport(defaultBounds, viewport.pixelSize, {
-            lockAspect: current.lockAspect,
-          }),
+        changeView(
+          () =>
+            new Viewport(defaultBounds, viewport.pixelSize, {
+              lockAspect: current.lockAspect,
+            }),
           true,
         );
       },
       preset(bounds) {
-        setView(
-          new Viewport(bounds, viewport.pixelSize, {
-            lockAspect: current.lockAspect,
-          }),
+        changeView(
+          () =>
+            new Viewport(bounds, viewport.pixelSize, {
+              lockAspect: current.lockAspect,
+            }),
           true,
         );
       },
       zoom(factor, point) {
-        setView(
-          target.zoom(
-            factor,
-            point ?? {
-              x: viewport.pixelSize.width / 2,
-              y: viewport.pixelSize.height / 2,
-            },
-          ),
+        changeView(
+          () =>
+            target.zoom(
+              factor,
+              point ?? {
+                x: viewport.pixelSize.width / 2,
+                y: viewport.pixelSize.height / 2,
+              },
+            ),
           true,
         );
       },
       viewport: () => viewport,
+      desiredViewport: () => target,
       async export(transparent) {
         const output = document.createElement('canvas'),
           dpr = window.devicePixelRatio || 1;
@@ -682,8 +735,17 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       const r = element.getBoundingClientRect();
       if (!r.width || !r.height) return;
       const size = { width: r.width, height: r.height };
-      viewport = viewport.resize(size);
-      target = target.resize(size);
+      if (
+        size.width === target.pixelSize.width &&
+        size.height === target.pixelSize.height
+      )
+        return;
+      const next = tryViewport(() => target.resize(size));
+      if (!next) {
+        current.onViewError();
+        return;
+      }
+      setView(next, false);
       ratio = 0;
       requestSamples();
       invalidate();

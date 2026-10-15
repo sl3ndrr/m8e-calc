@@ -45,6 +45,7 @@ export default function GraphMode() {
     undefined,
     () => readModeLink('graph', restorePlot) ?? initialPlot(),
   );
+  const [restoreToken, setRestoreToken] = useState(0);
   const [palette, setPalette] = useState<string[]>([]),
     [markers, setMarkers] = useState<Marker[]>([]),
     [shade, setShade] = useState<IntegralShade | null>(null),
@@ -125,6 +126,7 @@ export default function GraphMode() {
       setPlaying(null);
       setContext(null);
       clearAnalysis();
+      setRestoreToken((token) => token + 1);
       dispatch({ type: 'restore', plot });
     },
     [clearAnalysis],
@@ -182,7 +184,8 @@ export default function GraphMode() {
     [],
   );
   const onView = useCallback(
-    (bounds: Bounds) => dispatch({ type: 'view', bounds }),
+    (bounds: Bounds, fitBasis: Bounds) =>
+      dispatch({ type: 'view', bounds, fitBasis }),
     [],
   );
   const onTrace = useCallback((trace: Trace | null) => {
@@ -281,7 +284,9 @@ export default function GraphMode() {
           mode="graph"
           data={() => ({
             ...state,
-            bounds: canvas.current?.viewport()?.bounds ?? state.bounds,
+            bounds: canvas.current?.desiredViewport()?.bounds ?? state.bounds,
+            fitBasis:
+              canvas.current?.desiredViewport()?.fitBasis ?? state.fitBasis,
           })}
         />
         <div>
@@ -367,6 +372,11 @@ export default function GraphMode() {
             ref={canvas}
             rows={plotted}
             bounds={state.bounds}
+            fitBasis={state.fitBasis}
+            restoreToken={restoreToken}
+            onViewError={() =>
+              snackbarQueue.add({ message: t('graph.viewUnavailable', locale) })
+            }
             lockAspect={state.lockAspect}
             pi={state.pi}
             fine={state.fine}

@@ -545,3 +545,167 @@ describe('termination, fuzzing and performance', () => {
     }
   }, 15000);
 });
+
+describe('AP21 stable local fit', () => {
+  const size = { width: 1600, height: 900 };
+  const initial = { xMin: -10, xMax: 10, yMin: -6, yMax: 6 };
+  function stable(v: Viewport, curves: readonly Curve[]): Viewport {
+    const first = v.fitToCurves(curves);
+    let next = first;
+    for (let i = 0; i < 12; i++) {
+      next = next.fitToCurves(curves);
+      for (const key of ['xMin', 'xMax', 'yMin', 'yMax'] as const) {
+        const axis = key.startsWith('x') ? 'x' : 'y';
+        const span =
+          axis === 'x'
+            ? first.bounds.xMax - first.bounds.xMin
+            : first.bounds.yMax - first.bounds.yMin;
+        const pixels =
+          axis === 'x' ? first.pixelSize.width : first.pixelSize.height;
+        expect(
+          (Math.abs(next.bounds[key] - first.bounds[key]) / span) * pixels,
+        ).toBeLessThanOrEqual(0.25);
+      }
+      expect(Object.values(next.bounds).every(Number.isFinite)).toBe(true);
+      expect(next.bounds.xMax).toBeGreaterThan(next.bounds.xMin);
+      expect(next.bounds.yMax).toBeGreaterThan(next.bounds.yMin);
+      if (next.lockAspect) {
+        expect(
+          (next.bounds.xMax - next.bounds.xMin) /
+            next.pixelSize.width /
+            ((next.bounds.yMax - next.bounds.yMin) / next.pixelSize.height),
+        ).toBeCloseTo(1, 10);
+      }
+    }
+    return next;
+  }
+  it.each([true, false])(
+    'parabola stays fixed through repeated fits and explicit new navigation (lock=%s)',
+    (lockAspect) => {
+      const c = [curve('x^2')];
+      const v = new Viewport(initial, size, { lockAspect });
+      const fitted = stable(v, c);
+      expect(fitted.bounds.xMax).toBeLessThan(200);
+      expect(fitted.fitBasis).toEqual(initial);
+      const moved = fitted.pan(120, -40).zoom(3, { x: 600, y: 400 });
+      for (const key of ['xMin', 'xMax', 'yMin', 'yMax'] as const)
+        expect(moved.fitBasis[key]).toBeCloseTo(moved.bounds[key], 10);
+      expect(stable(moved, c).fitBasis).toEqual(moved.fitBasis);
+      expect(
+        stable(
+          fitted
+            .resize({ width: 900, height: 1600 })
+            .withAspectLock(!lockAspect),
+          c,
+        ).fitBasis,
+      ).toEqual(initial);
+      const json = fitted.toJSON();
+      expect(stable(new Viewport(json.bounds, size, json), c).bounds).toEqual(
+        fitted.bounds,
+      );
+    },
+  );
+  it.each([
+    'sin(x)',
+    'tan(x)',
+    '1/x',
+    'exp(x)',
+    '0',
+    'x=2',
+    '(cos(t),sin(t))',
+    'r=1+cos(theta)',
+    '1e200',
+    '1e-200',
+    '1e-200*x',
+    '1e200+1e190*x',
+  ])('handles %s at both aspect settings', (source) => {
+    for (const lockAspect of [false, true]) {
+      const v = new Viewport(initial, size, { lockAspect });
+      const result = stable(v, [curve(source)]);
+      expect(result).not.toBe(v);
+      expect(result.ticks('x').length).toBeGreaterThan(0);
+      expect(result.ticks('y').length).toBeGreaterThan(0);
+    }
+  });
+  it('unions per-curve ranges and ignores nonfinite samples, independent of row ordering', () => {
+    const v = new Viewport(initial, size);
+    const cs = [
+      curve('sin(x)'),
+      curve('1e5*sin(x)'),
+      curve('x=1e6'),
+      curve('1/(x-0.01)'),
+      curve('sqrt(-1)'),
+    ];
+    const result = stable(v, cs);
+    expect(result.bounds.xMax).toBeGreaterThan(1e6);
+    expect(result.bounds.yMin).toBeLessThan(-90000);
+    expect(result.bounds.yMax).toBeGreaterThan(90000);
+    expect(v.fitToCurves(cs.slice().reverse()).bounds).toEqual(result.bounds);
+    expect(v.fitToCurves([curve('1/x')]).bounds.yMax).toBeLessThan(30);
+  });
+  it('retains a valid view for empty, invalid, overflow and unrepresentable candidates', () => {
+    const v = new Viewport(initial, size, { lockAspect: true });
+    for (const cs of [
+      [],
+      [curve('sqrt(-1)')],
+      [curve('1.79e308')],
+      [curve('1e-323')],
+    ]) {
+      expect(v.fitToCurves(cs)).toBe(v);
+    }
+    const polar = curve('r=1');
+    if (polar.kind !== 'polar') throw Error('polar');
+    expect(v.fitToCurves([{ ...polar, range: [NaN, Infinity] }])).toBe(v);
+    expect(
+      () =>
+        new Viewport({ xMin: -1e308, xMax: 1e308, yMin: -1, yMax: 1 }, size),
+    ).toThrow(RangeError);
+    expect(
+      () =>
+        new Viewport({ xMin: 1e16, xMax: 1e16 + 2, yMin: -1, yMax: 1 }, size),
+    ).toThrow(RangeError);
+    expect(
+      () =>
+        new Viewport({ xMin: -1e-323, xMax: 1e-323, yMin: -1, yMax: 1 }, size),
+    ).toThrow(RangeError);
+    expect(
+      () =>
+        new Viewport({ xMin: -1, xMax: 1, yMin: -7e307, yMax: 7e307 }, size, {
+          lockAspect: true,
+        }),
+    ).toThrow(RangeError);
+  });
+  it('seeded scale and navigation properties preserve deterministic fits', () => {
+    fc.assert(
+      fc.property(
+        fc.integer({ min: -200, max: 200 }),
+        fc.integer({ min: 100, max: 4000 }),
+        fc.boolean(),
+        fc.integer({ min: -300, max: 300 }),
+        (power, width, lockAspect, dx) => {
+          const scale = 10 ** power;
+          const v = new Viewport(
+            {
+              xMin: -5 * scale,
+              xMax: 5 * scale,
+              yMin: -5 * scale,
+              yMax: 5 * scale,
+            },
+            { width, height: 900 },
+            { lockAspect },
+          )
+            .pan(dx, 10)
+            .zoom(1.4, { x: width / 2, y: 450 });
+          const cs = [curve('a*x', { params: { a: 1.5 } })];
+          const fitted = stable(v, cs);
+          expect(fitted).not.toBe(v);
+          const p = fitted.screenToWorld({ x: width * 0.25, y: 300 });
+          const screen = fitted.worldToScreen(p);
+          expect(Math.abs(screen.x - width * 0.25)).toBeLessThan(0.25);
+          expect(Math.abs(screen.y - 300)).toBeLessThan(0.25);
+        },
+      ),
+      { seed: 21021, numRuns: 80 },
+    );
+  });
+});

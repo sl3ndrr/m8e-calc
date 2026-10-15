@@ -1,4 +1,8 @@
-import { validateBounds, validatePixelSize } from './geometry.ts';
+import {
+  validateBounds,
+  validatePixelSize,
+  validateViewport,
+} from './geometry.ts';
 import { compile } from './compile.ts';
 import { angleScale } from '../engine/floatFunctions.ts';
 import type {
@@ -48,10 +52,11 @@ export class Viewport {
   readonly bounds: Bounds;
   readonly pixelSize: PixelSize;
   readonly lockAspect: boolean;
+  readonly fitBasis: Bounds;
   constructor(
     bounds: Bounds,
     pixelSize: PixelSize,
-    options: { readonly lockAspect?: boolean } = {},
+    options: { readonly lockAspect?: boolean; readonly fitBasis?: Bounds } = {},
   ) {
     validateBounds(bounds);
     validatePixelSize(pixelSize);
@@ -59,7 +64,16 @@ export class Viewport {
     const adjusted = this.lockAspect
       ? aspect(bounds, pixelSize)
       : { ...bounds };
-    validateBounds(adjusted);
+    validateViewport(adjusted, pixelSize);
+    if (this.lockAspect) {
+      const ux = (adjusted.xMax - adjusted.xMin) / pixelSize.width;
+      const uy = (adjusted.yMax - adjusted.yMin) / pixelSize.height;
+      if (Math.abs(ux - uy) / Math.max(ux, uy) > 1e-10)
+        throw new RangeError('Insufficient aspect precision');
+    }
+    const basis = options.fitBasis ?? bounds;
+    validateBounds(basis);
+    this.fitBasis = Object.freeze({ ...basis });
     this.bounds = Object.freeze(adjusted);
     this.pixelSize = Object.freeze({ ...pixelSize });
     Object.freeze(this);
@@ -115,14 +129,26 @@ export class Viewport {
     );
   }
   resize(size: PixelSize): Viewport {
-    return new Viewport(this.bounds, size, { lockAspect: this.lockAspect });
+    return new Viewport(this.bounds, size, {
+      lockAspect: this.lockAspect,
+      fitBasis: this.fitBasis,
+    });
   }
   withAspectLock(lockAspect: boolean): Viewport {
-    return new Viewport(this.bounds, this.pixelSize, { lockAspect });
+    return new Viewport(this.bounds, this.pixelSize, {
+      lockAspect,
+      fitBasis: this.fitBasis,
+    });
   }
-  toJSON(): { bounds: Bounds; pixelSize: PixelSize; lockAspect: boolean } {
+  toJSON(): {
+    bounds: Bounds;
+    fitBasis: Bounds;
+    pixelSize: PixelSize;
+    lockAspect: boolean;
+  } {
     return {
       bounds: { ...this.bounds },
+      fitBasis: { ...this.fitBasis },
       pixelSize: { ...this.pixelSize },
       lockAspect: this.lockAspect,
     };
@@ -166,12 +192,28 @@ export class Viewport {
     return ticks;
   }
   fitToCurves(curves: readonly Curve[]): Viewport {
-    const xs: number[] = [],
-      ys: number[] = [];
+    const boxes: Bounds[] = [];
+    const basis = this.fitBasis;
+    function limits(values: number[], fallback: number): [number, number] {
+      values.sort((a, b) => a - b);
+      const lo = values[Math.floor((values.length - 1) * 0.05)] ?? NaN;
+      const hi = values[Math.ceil((values.length - 1) * 0.95)] ?? NaN;
+      const span = hi - lo;
+      const padding =
+        span > 0
+          ? Math.max(
+              span * 0.1,
+              Math.max(Math.abs(lo), Math.abs(hi)) * Number.EPSILON * 4096,
+            )
+          : (Math.abs(lo) || fallback) * 0.1;
+      return [lo - padding, hi + padding];
+    }
     for (const curve of curves) {
       const options = { params: curve.params, angleMode: curve.angleMode };
-      let from = this.bounds.xMin,
-        to = this.bounds.xMax,
+      const xs: number[] = [],
+        ys: number[] = [];
+      let from = basis.xMin,
+        to = basis.xMax,
         point: (t: number) => Point;
       if (curve.kind === 'parametric') {
         const x = compile(curve.x, { ...options, variables: ['t'] }),
@@ -192,8 +234,8 @@ export class Viewport {
       } else if (curve.kind === 'vertical') {
         const x = compile(curve.expression, { ...options, variables: [] })();
         if (Number.isFinite(x)) {
-          xs.push(x);
-          ys.push(this.bounds.yMin, this.bounds.yMax);
+          const [xMin, xMax] = limits([x], basis.xMax - basis.xMin);
+          boxes.push({ xMin, xMax, yMin: basis.yMin, yMax: basis.yMax });
         }
         continue;
       } else {
@@ -206,28 +248,37 @@ export class Viewport {
         from >= to ||
         !Number.isFinite(to - from)
       )
-        throw new RangeError('Invalid curve range');
+        continue;
       for (let i = 0; i <= 256; i++) {
-        const p = point(from + ((to - from) * i) / 256);
+        const p = point(from + (to - from) * (i / 256));
         if (Number.isFinite(p.x) && Number.isFinite(p.y)) {
           xs.push(p.x);
           ys.push(p.y);
         }
       }
+      if (!xs.length) continue;
+      const [xMin, xMax] =
+        curve.kind === 'explicit'
+          ? [basis.xMin, basis.xMax]
+          : limits(xs, basis.xMax - basis.xMin);
+      const [yMin, yMax] = limits(ys, basis.yMax - basis.yMin);
+      boxes.push({ xMin, xMax, yMin, yMax });
     }
-    if (!xs.length || !ys.length) return this;
-    function limits(values: number[]): [number, number] {
-      values.sort((a, b) => a - b);
-      const lo = values[Math.floor((values.length - 1) * 0.05)] ?? 0,
-        hi = values[Math.ceil((values.length - 1) * 0.95)] ?? 0;
-      const padding = Math.max(hi - lo, Math.abs(lo) * 0.1, 1) * 0.1;
-      return [lo - padding, hi + padding];
+    if (!boxes.length) return this;
+    const candidate = {
+      xMin: Math.min(...boxes.map((b) => b.xMin)),
+      xMax: Math.max(...boxes.map((b) => b.xMax)),
+      yMin: Math.min(...boxes.map((b) => b.yMin)),
+      yMax: Math.max(...boxes.map((b) => b.yMax)),
+    };
+    try {
+      return new Viewport(candidate, this.pixelSize, {
+        lockAspect: this.lockAspect,
+        fitBasis: basis,
+      });
+    } catch (error) {
+      if (!(error instanceof RangeError)) throw error;
+      return this;
     }
-    const [xMin, xMax] = limits(xs),
-      [yMin, yMax] = limits(ys);
-    if (![xMin, xMax, yMin, yMax].every(Number.isFinite)) return this;
-    return new Viewport({ xMin, xMax, yMin, yMax }, this.pixelSize, {
-      lockAspect: this.lockAspect,
-    });
   }
 }
