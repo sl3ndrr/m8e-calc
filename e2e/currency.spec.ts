@@ -98,7 +98,9 @@ test('opt-in on: exactly one request, local conversion and cache; manual refresh
   await page.goto('/m8e-calc/#/convert');
   await toggleConsent(page);
   await openCurrency(page);
-  await expect(page.getByRole('button', { name: t('comfort.shareLink'), exact: true })).toHaveCount(0);
+  await expect(
+    page.getByRole('button', { name: t('comfort.shareLink'), exact: true }),
+  ).toHaveCount(0);
   await expect(page.locator('.currency-date')).toContainText('Stand:');
   await page
     .getByRole('textbox', { name: t('convert.from'), exact: true })
@@ -127,7 +129,9 @@ test('opt-in on: exactly one request, local conversion and cache; manual refresh
   expect(requests).toBe(1);
   await page.reload();
   await openCurrency(page);
-  await expect(page.getByRole('button', { name: t('comfort.shareLink'), exact: true })).toHaveCount(0);
+  await expect(
+    page.getByRole('button', { name: t('comfort.shareLink'), exact: true }),
+  ).toHaveCount(0);
   await expect(page.locator('.currency-date')).toContainText('Stand:');
   expect(requests).toBe(1);
   await page.getByRole('button', { name: t('currency.refresh') }).click();
@@ -154,7 +158,9 @@ test('loading, API errors and offline stale fallback remain usable', async ({
   await page.goto('/m8e-calc/#/convert');
   await toggleConsent(page);
   await openCurrency(page);
-  await expect(page.getByRole('button', { name: t('comfort.shareLink'), exact: true })).toHaveCount(0);
+  await expect(
+    page.getByRole('button', { name: t('comfort.shareLink'), exact: true }),
+  ).toHaveCount(0);
   await expect(
     page.getByRole('progressbar', { name: t('currency.loading') }),
   ).toBeVisible();
@@ -198,7 +204,9 @@ test('loading, API errors and offline stale fallback remain usable', async ({
     window.location.hash = '#/convert';
   });
   await openCurrency(page);
-  await expect(page.getByRole('button', { name: t('comfort.shareLink'), exact: true })).toHaveCount(0);
+  await expect(
+    page.getByRole('button', { name: t('comfort.shareLink'), exact: true }),
+  ).toHaveCount(0);
   await expect(page.locator('.currency-date')).toContainText('2020');
   await expect(
     page.getByText(t('currency.stale'), { exact: true }),
@@ -218,7 +226,9 @@ test('currency UI accessibility and review screenshots', async ({ page }) => {
   await page.goto('/m8e-calc/#/convert');
   await toggleConsent(page);
   await openCurrency(page);
-  await expect(page.getByRole('button', { name: t('comfort.shareLink'), exact: true })).toHaveCount(0);
+  await expect(
+    page.getByRole('button', { name: t('comfort.shareLink'), exact: true }),
+  ).toHaveCount(0);
   await expect(page.locator('.currency-date')).toContainText('Stand:');
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.setViewportSize({ width: 1920, height: 1080 });
@@ -247,7 +257,9 @@ test('currency UI accessibility and review screenshots', async ({ page }) => {
   });
   await page.reload();
   await openCurrency(page);
-  await expect(page.getByRole('button', { name: t('comfort.shareLink'), exact: true })).toHaveCount(0);
+  await expect(
+    page.getByRole('button', { name: t('comfort.shareLink'), exact: true }),
+  ).toHaveCount(0);
   await page.screenshot({
     path: 'test-results/currency-dark.png',
     fullPage: true,

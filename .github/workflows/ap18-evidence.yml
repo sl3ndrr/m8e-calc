@@ -27,11 +27,13 @@ jobs:
       - name: Full check
         run: npm run check
       - run: npx playwright install --with-deps chromium
+        if: always()
       - name: Chromium regressions
         run: npx playwright test --project=chromium
       - name: Actual before and after captures
         if: always()
         run: |
+          npm run build
           git fetch --depth=1 origin bdc75289d3f6f9ffca8b2f01b204cf32effe3f0a
           git worktree add .qa-ap18-before bdc75289d3f6f9ffca8b2f01b204cf32effe3f0a
           ln -s ../node_modules .qa-ap18-before/node_modules

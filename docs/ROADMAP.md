@@ -44,6 +44,6 @@ AP1–AP15 sind über die gemergten PRs #1, #3, #5–#10, #13–#16 und #18–#2
 AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und Permalinks.
 
 - [ ] 18 UI-Bereinigung und dezentes Teilen — `feat/ap18-ui-cleanup`: eine
-  Modus-H1, kompakte Werkzeugzeilen und zugängliche Teilen-Aktion. Vertrag und
-  Bildreproduktion in `COMFORT.md`; Merge steht aus. Ziffernanimation, Checkboxen
-  und Designlab-Auslieferung bleiben getrennte Pakete; Graph-Fit bleibt AP21.
+      Modus-H1, kompakte Werkzeugzeilen und zugängliche Teilen-Aktion. Vertrag und
+      Bildreproduktion in `COMFORT.md`; Merge steht aus. Ziffernanimation, Checkboxen
+      und Designlab-Auslieferung bleiben getrennte Pakete; Graph-Fit bleibt AP21.
