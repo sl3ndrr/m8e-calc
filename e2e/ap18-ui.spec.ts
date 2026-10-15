@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { qaSetup, ready, qaModes, tabTo } from './qa-setup';
+import { ready, qaModes, tabTo } from './qa-setup';
 import { t } from '../src/shared/i18n';
 
 for (const locale of ['de', 'en'] as const) {
@@ -8,14 +8,19 @@ for (const locale of ['de', 'en'] as const) {
     page,
     context,
   }) => {
-    await qaSetup(page);
+    await page.setViewportSize({ width: 1920, height: 1080 });
+    await page.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' });
     await page.addInitScript((language) => {
-      const saved = JSON.parse(
-        localStorage.getItem('m8e-calc.settings') ?? '{}',
-      );
       localStorage.setItem(
         'm8e-calc.settings',
-        JSON.stringify({ ...saved, state: { ...saved.state, language } }),
+        JSON.stringify({
+          version: 4,
+          state: {
+            language,
+            themeMode: 'light',
+            motionLevel: 'off',
+          },
+        }),
       );
     }, locale);
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
