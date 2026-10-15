@@ -45,7 +45,7 @@ jobs:
           AP18_PHASE=after node scripts/ap18-screenshots.mjs
       - name: Propose visual references for review
         if: always()
-        run: npx playwright test --project=qa-visual --update-snapshots
+        run: CI= npx playwright test --project=qa-visual --update-snapshots --workers=2
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -54,6 +54,7 @@ jobs:
             ap18-generated.patch
             ap18-symbols.base64.txt
             test-results/
+            ap18-evidence/
             e2e/qa-visual.spec.ts-snapshots/
             before-preview.log
             after-preview.log

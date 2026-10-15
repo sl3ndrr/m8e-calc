@@ -6,7 +6,7 @@ import { resolve } from 'node:path';
 import assert from 'node:assert/strict';
 const phase = process.env.AP18_PHASE ?? 'after';
 const base = process.env.AP18_BASE_URL ?? 'http://127.0.0.1:4173/m8e-calc/';
-const out = `test-results/ap18/${phase}`;
+const out = `ap18-evidence/${phase}`;
 await mkdir(out, { recursive: true });
 const modes = ['simple', 'scientific', 'convert', 'graph'];
 const labels = ['Einfach', 'Wissenschaftlich', 'Umrechner', 'Graphen'];

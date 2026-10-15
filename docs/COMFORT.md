@@ -140,4 +140,4 @@ Gezielte Regressionen: `src/app/CopyLinkButton.test.tsx`,
 `AP18_PHASE=after node scripts/ap18-screenshots.mjs`; vor AP18 mit demselben
 Skript und `AP18_PHASE=before`. Ansichten: 1280×800, 1920×1080, 3440×1440,
 Hell/Dunkel, UI-Größen 80/100/150 % und tatsächlicher Chromium-Tabzoom 200 %.
-Bilder und Geometriemessungen entstehen in `test-results/ap18/`.
+Bilder und Geometriemessungen entstehen in `ap18-evidence/`.
