@@ -52,6 +52,7 @@ for (const [width, height, zoom, uiSize, theme, language] of [
     browser,
   }, info) => {
     const context = await browser.newContext({
+      baseURL: info.project.use.baseURL,
       viewport: {
         width: Math.round(width / zoom),
         height: Math.round(height / zoom),
@@ -83,6 +84,7 @@ for (const [width, height, zoom, uiSize, theme, language] of [
     await ready(page);
     const viewport = page.locator('.calculator-viewport');
     const heightBefore = await viewport.evaluate((n) => n.clientHeight);
+    test.slow();
     const measurements = [];
     for (const sequence of [
       '0',
@@ -129,6 +131,19 @@ for (const [width, height, zoom, uiSize, theme, language] of [
               c.bottom <= box.bottom + 0.6,
           ),
           wraps: new Set(cells.map((c) => Math.round(c.top))).size > 1,
+          measured: node
+            .querySelector('.calculator-measure')
+            ?.getBoundingClientRect().width,
+          advanceSum: Array.from(
+            ink.querySelectorAll('.calculator-character'),
+          ).reduce(
+            (sum, c) =>
+              sum +
+              c.getBoundingClientRect().width +
+              parseFloat(getComputedStyle(c).marginLeft) +
+              parseFloat(getComputedStyle(c).marginRight),
+            0,
+          ),
         };
       });
       expect(metrics.fontSize).toBeGreaterThanOrEqual(24);
@@ -327,16 +342,7 @@ for (const [motion, reduced] of [
     await settle(viewport);
     for (const mode of ['simple', 'scientific']) {
       await page.goto(`/m8e-calc/#/${mode}`);
-      const button = page.locator(
-        `[data-key="${mode === 'simple' ? '+' : 'add'}"] button`,
-      );
-      // Scientific ids are the inserted symbols; select by role if necessary.
-      const target =
-        mode === 'simple'
-          ? button
-          : page
-              .locator('.scientific-keypad-panel [data-role="operator"] button')
-              .first();
+      const target = page.locator(`[data-key="+"] button`);
       await expect(target).toBeVisible();
       const rest = (await frames(target, 1))[0];
       await target.hover();
@@ -359,23 +365,35 @@ for (const [motion, reduced] of [
   });
 }
 
-test('copy text and accessible numeric output retain localized exact content', async ({
-  page,
-  context,
-}) => {
-  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
-  await page.goto('/m8e-calc/#/simple');
-  await ready(page);
-  await page.keyboard.type('1/3=');
-  const output = page.locator('.calculator-announcement');
-  await expect(output).toHaveText('0,333333333333333');
-  await expect(output).toHaveAttribute('aria-live', 'polite');
-  await expect(output).toHaveAttribute('aria-atomic', 'true');
-  await page.locator('.calculator-result').click();
-  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
-    await output.textContent(),
-  );
-});
+for (const language of ['de', 'en'] as const) {
+  test(`copy and accessible numeric output retain exact ${language} content`, async ({
+    page,
+    context,
+  }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    await page.addInitScript(
+      (language) =>
+        localStorage.setItem(
+          'm8e-calc.settings',
+          JSON.stringify({ version: 4, state: { language } }),
+        ),
+      language,
+    );
+    await page.goto('/m8e-calc/#/simple');
+    await ready(page);
+    await page.keyboard.type('1/3=');
+    const output = page.locator('.calculator-announcement');
+    await expect(output).toHaveText(
+      language === 'de' ? '0,333333333333333' : '0.333333333333333',
+    );
+    await expect(output).toHaveAttribute('aria-live', 'polite');
+    await expect(output).toHaveAttribute('aria-atomic', 'true');
+    await page.locator('.calculator-result').click();
+    expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
+      await output.textContent(),
+    );
+  });
+}
 
 test('switching Full to OS Reduced and Off cancels an in-flight digit', async ({
   page,

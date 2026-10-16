@@ -2,7 +2,7 @@
 import { chromium } from '@playwright/test';
 import { spawn } from 'node:child_process';
 import { mkdir, writeFile } from 'node:fs/promises';
-const output = 'test-results/ap19-baseline';
+const output = 'ap19-evidence/baseline';
 await mkdir(output, { recursive: true });
 const server = spawn(
   'node',

@@ -40,16 +40,17 @@ jobs:
           npm run tokens
           git diff --exit-code src/styles/tokens.css
       - run: npm run check
-      - run: npx playwright test e2e/calculator-rendering.spec.ts e2e/simple-calculator.spec.ts e2e/scientific.spec.ts --project=chromium --trace=on --workers=2
+      - run: npx playwright test e2e/calculator-rendering.spec.ts e2e/simple-calculator.spec.ts e2e/scientific.spec.ts --project=chromium --trace=on --workers=2 --output=test-results/ap19
       - name: Propose simple visual references for review
         if: always()
-        run: npx playwright test --project=qa-visual --grep '^simple ' --update-snapshots --workers=2
+        run: npx playwright test --project=qa-visual --grep 'simple ' --update-snapshots --workers=2 --output=test-results/ap19-visual
       - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: ap19-rendering
           path: |
             test-results/
+            ap19-evidence/
             dist/
             e2e/qa-visual.spec.ts-snapshots/simple-*.png
           retention-days: 14

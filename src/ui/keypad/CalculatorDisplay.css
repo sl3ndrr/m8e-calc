@@ -7,6 +7,7 @@
   min-height: 1.75rem;
   font-size: 1.125rem;
   color: var(--md-sys-color-on-surface-variant);
+  overflow-wrap: anywhere;
 }
 .calculator-display .calculator-result {
   display: flex;
@@ -48,6 +49,7 @@
   letter-spacing: 0;
 }
 .calculator-measure {
+  display: inline-flex;
   position: absolute;
   visibility: hidden;
   white-space: pre;

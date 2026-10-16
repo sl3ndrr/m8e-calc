@@ -109,7 +109,11 @@ export function CalculatorDisplay({
       >
         <span ref={viewport} className="calculator-viewport">
           <span ref={measure} className="calculator-measure" aria-hidden="true">
-            {value}
+            {Array.from(value).map((character, index) => (
+              <span className="calculator-character" key={index}>
+                <span>{character}</span>
+              </span>
+            ))}
           </span>
           <span ref={number} className="calculator-value">
             {Array.from(value).map((character, index) => (
