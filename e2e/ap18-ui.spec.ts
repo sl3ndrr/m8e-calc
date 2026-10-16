@@ -4,6 +4,9 @@ import AxeBuilder from '@axe-core/playwright';
 import { ready, qaModes, tabTo } from './qa-setup';
 import { t } from '../src/shared/i18n';
 
+// PWA updates have their own lifecycle suite; keep clipboard toasts isolated.
+test.use({ serviceWorkers: 'block' });
+
 for (const locale of ['de', 'en'] as const)
   for (const mode of qaModes) {
     test(`mode headings, sharing tooltip, keyboard and clipboard feedback (${locale}, ${mode})`, async ({
