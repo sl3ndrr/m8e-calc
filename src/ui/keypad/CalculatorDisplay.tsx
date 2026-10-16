@@ -92,10 +92,7 @@ export function CalculatorDisplay({
     };
   }, [value]);
   return (
-    <div
-      className="calculator-display"
-      data-error={!!error || undefined}
-    >
+    <div className="calculator-display" data-error={!!error || undefined}>
       <div
         className="calculator-expression expression"
         role="group"

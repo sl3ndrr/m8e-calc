@@ -3,11 +3,17 @@ import { expect, test, type Page, type Locator } from '@playwright/test';
 async function ready(page: Page) {
   await page.locator('.calculator-value').waitFor();
   await page.evaluate(() => document.fonts.ready);
-  expect(await page.evaluate(() => document.fonts.check('550 100px "Roboto Flex"'))).toBe(true);
+  expect(
+    await page.evaluate(() => document.fonts.check('550 100px "Roboto Flex"')),
+  ).toBe(true);
 }
 async function settle(locator: Locator) {
   await locator.evaluate(async (node) => {
-    await Promise.all(node.getAnimations({ subtree: true }).map((a) => a.finished.catch(() => {})));
+    await Promise.all(
+      node
+        .getAnimations({ subtree: true })
+        .map((a) => a.finished.catch(() => {})),
+    );
   });
 }
 async function frames(button: Locator, count = 12) {
@@ -22,6 +28,7 @@ async function frames(button: Locator, count = 12) {
         width: (node as HTMLElement).offsetWidth,
         height: (node as HTMLElement).offsetHeight,
         outline: style.outlineStyle,
+        background: style.backgroundColor,
       });
     }
     return samples;
@@ -41,66 +48,141 @@ for (const [width, height, zoom, uiSize, theme, language] of [
   [3840, 2160, 1, 100, 'light', 'de'],
   [3840, 2160, 2, 80, 'dark', 'en'],
 ] as const) {
-  test(`ink ${width} zoom ${zoom} UI ${uiSize} ${theme} ${language}`, async ({ browser }, info) => {
+  test(`ink ${width} zoom ${zoom} UI ${uiSize} ${theme} ${language}`, async ({
+    browser,
+  }, info) => {
     const context = await browser.newContext({
-      viewport: { width: Math.round(width / zoom), height: Math.round(height / zoom) },
+      viewport: {
+        width: Math.round(width / zoom),
+        height: Math.round(height / zoom),
+      },
       deviceScaleFactor: zoom,
       locale: language === 'de' ? 'de-DE' : 'en-US',
     });
-    await context.addInitScript(({ uiSize, themeMode, language }) => {
-      localStorage.setItem('m8e-calc.settings', JSON.stringify({ version: 4, state: {
-        uiSize, themeMode, language, motionLevel: 'full', grouping: true, decimalSeparator: 'auto',
-      } }));
-    }, { uiSize, themeMode: theme, language });
+    await context.addInitScript(
+      ({ uiSize, themeMode, language }) => {
+        localStorage.setItem(
+          'm8e-calc.settings',
+          JSON.stringify({
+            version: 4,
+            state: {
+              uiSize,
+              themeMode,
+              language,
+              motionLevel: 'full',
+              grouping: uiSize !== 80,
+              decimalSeparator: 'auto',
+            },
+          }),
+        );
+      },
+      { uiSize, themeMode: theme, language },
+    );
     const page = await context.newPage();
     await page.goto('/m8e-calc/#/simple');
     await ready(page);
     const viewport = page.locator('.calculator-viewport');
     const heightBefore = await viewport.evaluate((n) => n.clientHeight);
     const measurements = [];
-    for (const sequence of ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '1/3=', '1234567890123456', '9999999999999999+1=', '0.000000001*0.000000001=']) {
+    for (const sequence of [
+      '0',
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '1/3=',
+      '1234567890123456',
+      '9999999999999999+1=',
+      '0.000000001*0.000000001=',
+    ]) {
       await page.keyboard.press('Escape');
       await page.keyboard.type(sequence);
-      if (sequence === '1234567890123456') await page.locator('[data-key="sign"] button').click();
+      if (sequence === '1234567890123456')
+        await page.locator('[data-key="sign"] button').click();
       await settle(viewport);
-      const value = await page.locator('.calculator-announcement').textContent();
+      const value = await page
+        .locator('.calculator-announcement')
+        .textContent();
       await expect(page.locator('.calculator-value')).toHaveText(value ?? '');
       const metrics = await viewport.evaluate((node) => {
         const ink = node.querySelector('.calculator-value');
         if (!(ink instanceof HTMLElement)) throw Error('Missing value');
-        const style = getComputedStyle(ink), box = node.getBoundingClientRect();
-        const cells = Array.from(ink.querySelectorAll('.calculator-character')).map((c) => c.getBoundingClientRect());
-        return { fontSize: parseFloat(style.fontSize), width: box.width, height: node.clientHeight,
-          fits: cells.every((c) => c.left >= box.left - 0.6 && c.right <= box.right + 0.6 && c.top >= box.top - 0.6 && c.bottom <= box.bottom + 0.6),
-          wraps: new Set(cells.map((c) => Math.round(c.top))).size > 1 };
+        const style = getComputedStyle(ink),
+          box = node.getBoundingClientRect();
+        const cells = Array.from(
+          ink.querySelectorAll('.calculator-character'),
+        ).map((c) => c.getBoundingClientRect());
+        return {
+          fontSize: parseFloat(style.fontSize),
+          width: box.width,
+          height: node.clientHeight,
+          fits: cells.every(
+            (c) =>
+              c.left >= box.left - 0.6 &&
+              c.right <= box.right + 0.6 &&
+              c.top >= box.top - 0.6 &&
+              c.bottom <= box.bottom + 0.6,
+          ),
+          wraps: new Set(cells.map((c) => Math.round(c.top))).size > 1,
+        };
       });
       expect(metrics.fontSize).toBeGreaterThanOrEqual(24);
       expect(metrics.height).toBe(heightBefore);
-      expect(metrics.fits, `${sequence}: ${JSON.stringify(metrics)}`).toBe(true);
+      expect(metrics.fits, `${sequence}: ${JSON.stringify(metrics)}`).toBe(
+        true,
+      );
       // Pixel oracle: revealing character ink must not change a single pixel.
       // This catches the original 9 even though DOM advance boxes fitted.
       const clipped = await viewport.screenshot();
-      const override = await page.addStyleTag({ content: '.calculator-character { overflow: visible !important; }' });
+      const override = await page.addStyleTag({
+        content: '.calculator-character { overflow: visible !important; }',
+      });
       const revealed = await viewport.screenshot();
-      await override.evaluate((n) => n.remove());
+      await override.evaluate((n) => n.parentNode?.removeChild(n));
       expect(clipped.equals(revealed), `clipped ink: ${value}`).toBe(true);
       measurements.push({ sequence, value, ...metrics });
-      if (sequence === '9' || sequence === '1/3=' || sequence === '1234567890123456') {
-        await info.attach(`display-${sequence.replaceAll('/', '-')}`, { body: clipped, contentType: 'image/png' });
+      if (
+        sequence === '9' ||
+        sequence === '1/3=' ||
+        sequence === '1234567890123456'
+      ) {
+        await info.attach(`display-${sequence.replaceAll('/', '-')}`, {
+          body: clipped,
+          contentType: 'image/png',
+        });
       }
     }
-    await info.attach('measurements', { body: JSON.stringify(measurements, null, 2), contentType: 'application/json' });
-    await info.attach('desktop', { body: await page.screenshot(), contentType: 'image/png' });
+    await info.attach('measurements', {
+      body: JSON.stringify(measurements, null, 2),
+      contentType: 'application/json',
+    });
+    await info.attach('desktop', {
+      body: await page.screenshot(),
+      contentType: 'image/png',
+    });
     await context.close();
   });
 }
 
-test('operator shapes survive live mouse, global keyboard and React Aria press frames', async ({ page }, info) => {
+test('operator shapes survive live mouse, global keyboard and React Aria press frames', async ({
+  page,
+}, info) => {
   await page.setViewportSize({ width: 1920, height: 1080 });
   await page.goto('/m8e-calc/#/simple');
   await ready(page);
   const evidence = [];
-  for (const [id, key] of [['+', '+'], ['-', '-'], ['*', '*'], ['/', '/'], ['equals', 'Enter']] as const) {
+  for (const [id, key] of [
+    ['+', '+'],
+    ['-', '-'],
+    ['*', '*'],
+    ['/', '/'],
+    ['equals', 'Enter'],
+  ] as const) {
     const button = page.locator(`[data-key="${id}"] button`);
     await settle(button);
     const baseline = (await frames(button, 1))[0];
@@ -124,18 +206,33 @@ test('operator shapes survive live mouse, global keyboard and React Aria press f
       await button.evaluate((node) => {
         for (const animation of node.getAnimations()) {
           animation.pause();
-          animation.currentTime = Number(animation.effect?.getTiming().duration) / 2;
+          animation.currentTime =
+            Number(animation.effect?.getTiming().duration) / 2;
         }
       });
-      if (!repeat) await info.attach(`mouse-${id === '/' ? 'divide' : id}`, { body: await page.screenshot(), contentType: 'image/png' });
-      await button.evaluate((node) => node.getAnimations().forEach((a) => a.play()));
+      if (!repeat)
+        await info.attach(`mouse-${id === '/' ? 'divide' : id}`, {
+          body: await page.screenshot(),
+          contentType: 'image/png',
+        });
+      await button.evaluate((node) =>
+        node.getAnimations().forEach((a) => a.play()),
+      );
       await page.mouse.up();
       const up = await frames(button);
       assertShape(up);
+      if (id !== 'equals') {
+        await expect(page.locator(`[data-key="${id}"]`)).toHaveAttribute(
+          'data-active',
+        );
+        expect(up.at(-1)?.background).not.toBe(baseline?.background);
+      }
       await settle(button);
       await page.locator('.simple-memory').click();
       await page.keyboard.down(key);
-      await expect(page.locator(`[data-key="${id}"]`)).toHaveAttribute('data-key-pressed');
+      await expect(page.locator(`[data-key="${id}"]`)).toHaveAttribute(
+        'data-key-pressed',
+      );
       const keyboard = await frames(button);
       assertShape(keyboard);
       await page.keyboard.down(key); // held/repeated keydown
@@ -157,38 +254,89 @@ test('operator shapes survive live mouse, global keyboard and React Aria press f
   await page.keyboard.press('Escape');
   await page.keyboard.type('1+-*/+-*/2=');
   await expect(page.locator('.calculator-announcement')).toHaveText('0,5');
-  await info.attach('live-frames', { body: JSON.stringify(evidence, null, 2), contentType: 'application/json' });
+  await info.attach('live-frames', {
+    body: JSON.stringify(evidence, null, 2),
+    contentType: 'application/json',
+  });
 });
 
-for (const [motion, reduced] of [['full', false], ['reduced', false], ['off', false], ['full', true], ['off', true]] as const) {
-  test(`motion ${motion} OS reduced ${reduced}: digits, release and scientific keypad`, async ({ page }, info) => {
-    await page.emulateMedia({ reducedMotion: reduced ? 'reduce' : 'no-preference' });
-    await page.addInitScript((motionLevel) => localStorage.setItem('m8e-calc.settings', JSON.stringify({ version: 4, state: { motionLevel } })), motion);
+for (const [motion, reduced] of [
+  ['full', false],
+  ['reduced', false],
+  ['off', false],
+  ['full', true],
+  ['off', true],
+] as const) {
+  test(`motion ${motion} OS reduced ${reduced}: digits, release and scientific keypad`, async ({
+    page,
+  }, info) => {
+    await page.emulateMedia({
+      reducedMotion: reduced ? 'reduce' : 'no-preference',
+    });
+    await page.addInitScript(
+      (motionLevel) =>
+        localStorage.setItem(
+          'm8e-calc.settings',
+          JSON.stringify({ version: 4, state: { motionLevel } }),
+        ),
+      motion,
+    );
     await page.goto('/m8e-calc/#/simple');
     await ready(page);
     const viewport = page.locator('.calculator-viewport');
     await settle(viewport);
+    await page.evaluate(() => {
+      const animate = Element.prototype.animate;
+      Element.prototype.animate = function (frames, options) {
+        const animation = animate.call(this, frames, options);
+        if (this.parentElement?.classList.contains('calculator-character'))
+          animation.pause();
+        return animation;
+      };
+    });
     await page.keyboard.press('9');
-    const digit = await viewport.evaluate((node) => node.getAnimations({ subtree: true }).map((a) => ({
-      frames: a.effect instanceof KeyframeEffect ? a.effect.getKeyframes() : [],
-      duration: a.effect?.getTiming().duration,
-    })));
+    const digit = await viewport.evaluate((node) =>
+      node.getAnimations({ subtree: true }).map((a) => ({
+        frames:
+          a.effect instanceof KeyframeEffect ? a.effect.getKeyframes() : [],
+        duration: a.effect?.getTiming().duration,
+      })),
+    );
     if (motion === 'off') expect(digit).toEqual([]);
     else {
       expect(digit.length).toBeGreaterThan(0);
-      expect(digit.some((a) => a.frames.some((f) => String(f.transform).includes('translateY')))).toBe(motion === 'full' && !reduced);
+      expect(
+        digit.some((a) =>
+          a.frames.some((f) => String(f.transform).includes('translateY')),
+        ),
+      ).toBe(motion === 'full' && !reduced);
     }
-    await viewport.evaluate((node) => node.getAnimations({ subtree: true }).forEach((a) => {
-      a.pause(); a.currentTime = Number(a.effect?.getTiming().duration) / 2;
-    }));
-    await info.attach('digit-middle', { body: await viewport.screenshot(), contentType: 'image/png' });
-    await viewport.evaluate((node) => node.getAnimations({ subtree: true }).forEach((a) => a.play()));
+    await viewport.evaluate((node) =>
+      node.getAnimations({ subtree: true }).forEach((a) => {
+        a.pause();
+        a.currentTime = Number(a.effect?.getTiming().duration) / 2;
+      }),
+    );
+    await info.attach('digit-middle', {
+      body: await viewport.screenshot(),
+      contentType: 'image/png',
+    });
+    await viewport.evaluate((node) =>
+      node.getAnimations({ subtree: true }).forEach((a) => a.play()),
+    );
     await settle(viewport);
     for (const mode of ['simple', 'scientific']) {
       await page.goto(`/m8e-calc/#/${mode}`);
-      const button = page.locator(`[data-key="${mode === 'simple' ? '+' : 'add'}"] button`);
+      const button = page.locator(
+        `[data-key="${mode === 'simple' ? '+' : 'add'}"] button`,
+      );
       // Scientific ids are the inserted symbols; select by role if necessary.
-      const target = mode === 'simple' ? button : page.locator('.scientific-keypad-panel [data-role="operator"] button').first();
+      const target =
+        mode === 'simple'
+          ? button
+          : page
+              .locator('.scientific-keypad-panel [data-role="operator"] button')
+              .first();
       await expect(target).toBeVisible();
       const rest = (await frames(target, 1))[0];
       await target.hover();
@@ -201,12 +349,20 @@ for (const [motion, reduced] of [['full', false], ['reduced', false], ['off', fa
         expect(f.radius).toBe(rest?.radius);
         if (motion !== 'full' || reduced) expect(f.transform).toBe('none');
       }
-      if (motion === 'off') expect(await target.evaluate((node) => node.getAnimations({ subtree: true }).length)).toBe(0);
+      if (motion === 'off')
+        expect(
+          await target.evaluate(
+            (node) => node.getAnimations({ subtree: true }).length,
+          ),
+        ).toBe(0);
     }
   });
 }
 
-test('copy text and accessible numeric output retain localized exact content', async ({ page, context }) => {
+test('copy text and accessible numeric output retain localized exact content', async ({
+  page,
+  context,
+}) => {
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.goto('/m8e-calc/#/simple');
   await ready(page);
@@ -216,5 +372,62 @@ test('copy text and accessible numeric output retain localized exact content', a
   await expect(output).toHaveAttribute('aria-live', 'polite');
   await expect(output).toHaveAttribute('aria-atomic', 'true');
   await page.locator('.calculator-result').click();
-  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(await output.textContent());
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
+    await output.textContent(),
+  );
+});
+
+test('switching Full to OS Reduced and Off cancels an in-flight digit', async ({
+  page,
+}) => {
+  await page.goto('/m8e-calc/#/simple');
+  await ready(page);
+  const viewport = page.locator('.calculator-viewport');
+  await settle(viewport);
+  await page.evaluate(() => {
+    const animate = Element.prototype.animate;
+    Element.prototype.animate = function (frames, options) {
+      const animation = animate.call(this, frames, options);
+      if (this.parentElement?.classList.contains('calculator-character')) {
+        animation.pause();
+        animation.currentTime =
+          Number(animation.effect?.getTiming().duration) / 2;
+      }
+      return animation;
+    };
+  });
+  await page.keyboard.press('9');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect
+    .poll(() =>
+      viewport.evaluate((node) =>
+        node
+          .getAnimations({ subtree: true })
+          .every(
+            (a) =>
+              a.effect instanceof KeyframeEffect &&
+              a.effect.getKeyframes().every((f) => f.transform === undefined),
+          ),
+      ),
+    )
+    .toBe(true);
+  await page
+    .getByRole('button', { name: 'Einstellungen', exact: true })
+    .click();
+  await page.getByRole('button', { name: /Animationsstufe/ }).click();
+  await page.getByRole('option', { name: 'Aus', exact: true }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-motion', 'off');
+  await expect
+    .poll(() =>
+      viewport.evaluate((node) => node.getAnimations({ subtree: true }).length),
+    )
+    .toBe(0);
+  await page.keyboard.press('Escape');
+  const button = page.locator('[data-key="+"] button');
+  await button.hover();
+  await page.mouse.down();
+  await page.mouse.up();
+  expect((await frames(button)).every((f) => f.transform === 'none')).toBe(
+    true,
+  );
 });

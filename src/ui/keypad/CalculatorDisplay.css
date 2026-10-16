@@ -7,7 +7,6 @@
   min-height: 1.75rem;
   font-size: 1.125rem;
   color: var(--md-sys-color-on-surface-variant);
-  overflow-wrap: anywhere;
 }
 .calculator-display .calculator-result {
   display: flex;
@@ -55,20 +54,20 @@
   width: max-content;
 }
 .calculator-value {
-  display: block;
-  text-align: right;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   width: 100%;
   padding-inline: calc(var(--calculator-ink-gutter) * 1em);
   /* At the reading floor, wrap complete characters rather than hide digits.
      The fixed viewport holds all supported formatted values without reflow. */
-  overflow-wrap: anywhere;
 }
 .calculator-character {
-  display: inline-block;
+  display: inline-flex;
+  flex: none;
   overflow: clip;
   padding: 0.05em calc(var(--calculator-ink-gutter) * 1em);
   margin-inline: calc(var(--calculator-ink-gutter) * -1em);
-  vertical-align: middle;
 }
 .calculator-character > span {
   display: inline-block;

@@ -8,6 +8,9 @@ on:
       - 'e2e/calculator-rendering.spec.ts'
       - 'scripts/ap19-baseline.mjs'
       - '.github/workflows/ap19.yml'
+concurrency:
+  group: ap19-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
@@ -22,13 +25,6 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium
-      - name: Package offline local validation runtime
-        run: tar -czf /tmp/ap19-runtime.tgz node_modules -C "$HOME" .cache/ms-playwright
-      - uses: actions/upload-artifact@v7
-        with:
-          name: ap19-local-runtime
-          path: /tmp/ap19-runtime.tgz
-          retention-days: 1
       - name: Pinned main production baseline (local fonts)
         run: |
           git fetch --depth=1 origin d5709aca97a0d4d72317aac32de4213dcf063b8b
@@ -38,12 +34,11 @@ jobs:
           npm run build
           cd ..
           node scripts/ap19-baseline.mjs
-      - name: Format and token reproducibility
+          git worktree remove --force .qa-ap19-before
+      - name: Verify generated tokens
         run: |
           npm run tokens
-          npx prettier --write src/ui/keypad src/ui/Button.css src/styles/motion.ts e2e/calculator-rendering.spec.ts scripts/ap19-baseline.mjs .github/workflows/ap19.yml docs/AP19.md
-          git diff > /tmp/ap19-format.patch
-          cp /tmp/ap19-format.patch ap19-format.patch
+          git diff --exit-code src/styles/tokens.css
       - run: npm run check
       - run: npx playwright test e2e/calculator-rendering.spec.ts e2e/simple-calculator.spec.ts e2e/scientific.spec.ts --project=chromium --trace=on --workers=2
       - name: Propose simple visual references for review
@@ -54,7 +49,6 @@ jobs:
         with:
           name: ap19-rendering
           path: |
-            ap19-format.patch
             test-results/
             dist/
             e2e/qa-visual.spec.ts-snapshots/simple-*.png
