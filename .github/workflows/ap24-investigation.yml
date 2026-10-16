@@ -15,21 +15,6 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 24.21.0
-      - name: Probe material color migration without changing baselines
-        continue-on-error: true
-        run: |
-          cp package.json /tmp/ap24-package.json
-          cp package-lock.json /tmp/ap24-package-lock.json
-          npm install --package-lock-only @material/material-color-utilities@0.4.0
-          npm ci
-          npx vitest run src/styles/buildScheme.test.ts
-          npm run typecheck
-      - name: Restore selected maintenance versions
-        if: always()
-        run: |
-          cp /tmp/ap24-package.json package.json
-          cp /tmp/ap24-package-lock.json package-lock.json
-          rm -rf node_modules
       - name: Generate lockfile with bundled npm
         run: |
           node --version
@@ -45,6 +30,17 @@ jobs:
         run: npm ci
       - name: Inspect full dependency tree
         run: npm ls --all
+      - name: Keep domain browser bans after globals migration
+        run: |
+          node --input-type=module <<'NODE'
+          import {ESLint} from 'eslint';
+          const linter = new ESLint();
+          for (const name of ['window', 'document', 'AudioWorkletProcessor', 'registerProcessor']) {
+            const [result] = await linter.lintText(name + ';', {filePath: 'src/engine/ap24-domain-probe.ts'});
+            if (!result.messages.some(message => message.ruleId === 'no-restricted-globals')) throw Error('Missing domain ban: ' + name);
+          }
+          console.log('AP24 domain browser/audioWorklet bans passed');
+          NODE
       - name: Format maintenance changes for review
         run: |
           npx prettier --write package.json eslint.config.js .github/workflows/ap24-investigation.yml
