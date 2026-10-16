@@ -242,19 +242,33 @@
 }
 .graph-table-section {
   min-height: 0;
-  max-height: 30%;
+  max-height: 45%;
+  flex-shrink: 0;
   font-size: 0.75rem;
   display: flex;
   flex-direction: column;
 }
 .graph-table-section > div:first-child {
   display: flex;
+  flex-wrap: wrap;
+  align-items: start;
   gap: 0.5rem;
+}
+.graph-table-section form {
+  display: flex;
+  align-items: start;
+  gap: 0.5rem;
+}
+.graph-table-section form > .ui-button {
+  margin-top: 1.4rem;
 }
 .graph-table-section p {
   margin: 0.5rem 0;
 }
 .graph-table-scroll {
+  flex: 1;
+  min-height: 8rem;
+  max-height: 14rem;
   overflow: auto;
 }
 .graph-table-section table {

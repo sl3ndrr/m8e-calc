@@ -562,9 +562,22 @@ export const en: Dictionary = {
   'graph.removeMarker': 'Remove marker',
   'graph.estimate': 'numerical estimate',
   'graph.uncertain': 'uncertain',
+  'graph.invalidStep':
+    'Enter a positive finite step. The last confirmed value remains active until Apply or Enter.',
+  'graph.rounding': 'Rounding',
+  'graph.roundingAuto': 'Auto',
+  'graph.roundingDigits': '{digits} decimal places',
+  'graph.roundingHint':
+    'Auto: up to 12 significant digits, scientific notation when needed. Only the display is rounded.',
+  'graph.roundingFixedHint':
+    'Rounded display: at most the selected decimal places for the parameter, x and y. Small values may appear as 0; calculation values are unchanged.',
+  'graph.tablePrecision':
+    'Table stopped: At these values the step is numerically too small to advance.',
+  'graph.tableTruncated':
+    'Table limited to the first 500 rows. Change the range or step to see further values.',
   'graph.table': 'Value table',
   'graph.tableLimit':
-    'Up to 500 rows; for parametric and polar curves u is the curve parameter.',
+    'Up to 500 rows; columns show the independent variable (x, y, t or θ) and x/y coordinates.',
   'graph.parameter': 'u',
   'graph.background': 'PNG background',
   'graph.themeBackground': 'Current theme',

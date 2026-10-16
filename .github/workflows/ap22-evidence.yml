@@ -1,0 +1,29 @@
+name: AP22 graph values evidence
+on:
+  pull_request:
+    paths:
+      - 'src/features/graph/**'
+      - 'src/shared/i18n/**'
+      - 'e2e/graph-values.spec.ts'
+      - '.github/workflows/ap22-evidence.yml'
+permissions:
+  contents: read
+jobs:
+  graph-values:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test e2e/graph.spec.ts e2e/graph-values.spec.ts --project=chromium
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap22-graph-values
+          path: test-results/
+          retention-days: 7

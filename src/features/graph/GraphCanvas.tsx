@@ -1,3 +1,4 @@
+import { traceText } from './numbers';
 import { shortcutMatches } from '../../app/shortcuts';
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex -- The custom plot application handles Arrow keys; its application region needs a native Tab stop. */
 import {
@@ -89,6 +90,13 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
     theme = useSettingsStore((s) => s.themeMode),
     variant = useSettingsStore((s) => s.schemeVariant),
     contrast = useSettingsStore((s) => s.contrast);
+  const preferences = useSettingsStore((s) => s);
+  const traceKind = props.rows.find((row) => row.row.id === trace?.id)?.curve
+    ?.kind;
+  const coordinates =
+    trace && traceKind
+      ? traceText(trace, traceKind, props.locale, preferences)
+      : '';
   const reduced = useMediaQuery('(prefers-reduced-motion: reduce)');
   const animate = level === 'full' && !reduced;
   const latest = useRef(props);
@@ -828,15 +836,12 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       </p>
       <VisuallyHidden>
         <output aria-live="polite" aria-atomic="true">
-          {trace
-            ? `x = ${Number(trace.point.x.toPrecision(8))} · f(x) = ${Number(trace.point.y.toPrecision(8))}`
-            : ''}
+          {coordinates}
         </output>
       </VisuallyHidden>
       {trace && (
         <output className="graph-trace" aria-hidden="true">
-          x = {Number(trace.point.x.toPrecision(8))} · f(x) ={' '}
-          {Number(trace.point.y.toPrecision(8))}
+          {coordinates}
         </output>
       )}
     </div>

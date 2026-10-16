@@ -14,8 +14,8 @@ import { Dialog } from '../../ui/Dialog';
 import { Select } from '../../ui/Select';
 import { TextField } from '../../ui/TextField';
 import { snackbarQueue } from '../../ui/snackbarQueue';
-import type { Bounds } from '../../graph';
-import { t, formatNumber } from '../../shared/i18n';
+import { parseCurveInput, type Bounds } from '../../graph';
+import { t } from '../../shared/i18n';
 import { useAppStore } from '../../shared/store';
 import { useModeHistory } from '../../shared/useModeHistory';
 import type { HistoryEntry } from '../../shared/history';
@@ -28,13 +28,19 @@ import {
   advanceParameter,
   plotPayload,
   restorePlot,
-  tableValues,
   type PlotAction,
   type Trace,
 } from './model';
 import { analyze, type AnalysisKind } from './analysisAdapter';
 import type { IntegralShade, Marker } from './renderer';
 import GraphCanvas, { type CanvasHandle } from './GraphCanvas';
+import ValueTable from './ValueTable';
+import {
+  formatGraphNumber,
+  parseGraphNumber,
+  type GraphRounding,
+} from './numbers';
+import { useSettingsStore } from '../../shared/settingsStore';
 import FunctionPanel from './FunctionPanel';
 import './GraphMode.css';
 import { CopyLinkButton } from '../../app/CopyLinkButton';
@@ -58,6 +64,8 @@ export default function GraphMode() {
     [table, setTable] = useState(false),
     [tableId, setTableId] = useState<string | null>(null),
     [step, setStep] = useState('1'),
+    [tableStep, setTableStep] = useState(1),
+    [rounding, setRounding] = useState<GraphRounding>('auto'),
     [background, setBackground] = useState('theme'),
     [exporting, setExporting] = useState(false),
     [context, setContext] = useState<Trace | null>(null),
@@ -67,6 +75,9 @@ export default function GraphMode() {
     lastTrace = useRef<Trace | null>(null),
     latest = useRef(state),
     sent = useRef(JSON.stringify(initialPlot()));
+  const preferences = useSettingsStore((s) => s);
+  const parsedStep = parseGraphNumber(step, locale, preferences);
+  const invalidStep = parsedStep === null || parsedStep <= 0;
   const parsed = useMemo(() => state.rows.map(parseRow), [state.rows]);
   const plotted = useMemo(
     () =>
@@ -263,9 +274,22 @@ export default function GraphMode() {
   const selected =
     parsed.find((r) => r.row.id === tableId && r.curve) ??
     parsed.find((r) => r.curve);
-  const tableRows = selected?.curve
-    ? tableValues(selected.curve, state.bounds, Number(step))
-    : [];
+  const selectedInput = selected?.row.input;
+  const selectedValues = JSON.stringify(
+    Object.fromEntries(
+      Object.entries(selected?.row.params ?? {}).map(([name, p]) => [
+        name,
+        p.value,
+      ]),
+    ),
+  );
+  const tableCurve = useMemo(() => {
+    if (selectedInput === undefined) return null;
+    const result = parseCurveInput(selectedInput, {
+      params: JSON.parse(selectedValues) as Record<string, number>,
+    });
+    return result.ok ? result.value : null;
+  }, [selectedInput, selectedValues]);
   return (
     <section
       className="graph-mode"
@@ -431,8 +455,8 @@ export default function GraphMode() {
                       `graph.analysis.${marker.label as AnalysisKind}`,
                       locale,
                     )}{' '}
-                    · ({formatNumber(marker.x, locale)},{' '}
-                    {formatNumber(marker.y, locale)})
+                    · ({formatGraphNumber(marker.x, locale, preferences)},{' '}
+                    {formatGraphNumber(marker.y, locale, preferences)})
                     {!marker.confidence ? ' ≈' : ''}
                   </Chip>
                 ))}
@@ -440,7 +464,7 @@ export default function GraphMode() {
                   <output>
                     ∫ ={' '}
                     {Number.isFinite(integral.value)
-                      ? formatNumber(integral.value, locale)
+                      ? formatGraphNumber(integral.value, locale, preferences)
                       : '—'}{' '}
                     ·{' '}
                     {t(
@@ -450,7 +474,7 @@ export default function GraphMode() {
                       locale,
                     )}
                     {Number.isFinite(integral.errorEstimate)
-                      ? ` ± ${formatNumber(integral.errorEstimate, locale)}`
+                      ? ` ± ${formatGraphNumber(integral.errorEstimate, locale, preferences)}`
                       : ''}
                   </output>
                 )}
@@ -510,45 +534,61 @@ export default function GraphMode() {
                   selectedKey={selected?.row.id ?? null}
                   onSelectionChange={(key) => setTableId(String(key))}
                 />
-                <TextField
-                  label={t('graph.step', locale)}
-                  value={step}
-                  onChange={setStep}
-                  isInvalid={
-                    !Number.isFinite(Number(step)) || Number(step) <= 0
+                <form
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    if (parsedStep !== null && parsedStep > 0)
+                      setTableStep(parsedStep);
+                  }}
+                >
+                  <TextField
+                    label={t('graph.step', locale)}
+                    value={step}
+                    onChange={setStep}
+                    isInvalid={invalidStep}
+                    validationBehavior="aria"
+                    errorMessage={t('graph.invalidStep', locale)}
+                  />
+                  <Button
+                    type="submit"
+                    size="sm"
+                    variant="text"
+                    isDisabled={invalidStep}
+                  >
+                    {t('graph.apply', locale)}
+                  </Button>
+                </form>
+                <Select
+                  label={t('graph.rounding', locale)}
+                  selectedKey={String(rounding)}
+                  onSelectionChange={(key) =>
+                    setRounding(key === 'auto' ? 'auto' : Number(key))
                   }
-                  errorMessage={t('graph.invalidRange', locale)}
+                  options={[
+                    { id: 'auto', label: t('graph.roundingAuto', locale) },
+                    ...Array.from({ length: 13 }, (_, digits) => ({
+                      id: String(digits),
+                      label: t('graph.roundingDigits', locale, { digits }),
+                    })),
+                  ]}
                 />
               </div>
-              <p>{t('graph.tableLimit', locale)}</p>
-              <div className="graph-table-scroll">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>{t('graph.parameter', locale)}</th>
-                      <th>x</th>
-                      <th>y</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {tableRows.map(({ u, point }) => (
-                      <tr key={u}>
-                        <td>{formatNumber(u, locale)}</td>
-                        <td>
-                          {Number.isFinite(point.x)
-                            ? formatNumber(point.x, locale)
-                            : '—'}
-                        </td>
-                        <td>
-                          {Number.isFinite(point.y)
-                            ? formatNumber(point.y, locale)
-                            : '—'}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <p>
+                {t(
+                  rounding === 'auto'
+                    ? 'graph.roundingHint'
+                    : 'graph.roundingFixedHint',
+                  locale,
+                )}
+              </p>
+              <ValueTable
+                curve={tableCurve}
+                bounds={state.bounds}
+                step={tableStep}
+                rounding={rounding}
+                locale={locale}
+                preferences={preferences}
+              />
             </section>
           )}
         </div>

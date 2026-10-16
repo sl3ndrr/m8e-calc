@@ -132,3 +132,12 @@ Checkbox-Markierungen haben einen lokalen Größenvertrag; das generische
 Iconsystem bleibt unverändert. ThemeSwitch behält drei Hauptsymbole und den
 zugänglichen Live-Systemstatus. Reproduzierbare Zustands-/Zoom-/Motionprüfungen
 und Nachweisstatus stehen in [docs/AP20.md](docs/AP20.md).
+
+## AP22 · Graphzahlen
+
+`src/features/graph/numbers.ts` formatiert gezielt Float64-Graphwerte und adaptiert
+`parseLocalizedNumber` für einzelne numerische Felder. Keine pauschale Änderung
+an Rechnerformaten oder Formelausdrücken. Rundung ist reiner Anzeigezustand;
+Plot-Version 1, Settings und Permalinks bleiben unverändert. `ValueTable` trennt
+Berechnungsmemo von Formatierung und wird nur geöffnet eingebunden. Vertrag,
+Bestätigung und Arbeitsgrenzen stehen in `docs/GRAPH_MODE.md`.

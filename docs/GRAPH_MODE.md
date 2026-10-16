@@ -123,3 +123,47 @@ CI-Toleranz um das 60-Hz-Ziel. Dies ersetzt keine physische Monitor-/GPU-Abnahme
 Die ersten Messungen mit Trace-Screenshots waren durch Aufnahme-/Protokolllast
 verfälscht; nur der ungetracete Lastlauf ist der dokumentierte Vergleichswert.
 Messdatei: [graph-performance.json](graph-performance.json).
+
+## AP22 · Zahlenanzeige und Wertetabelle
+
+`numbers.ts` ist der gezielte Graph-Adapter für Float64-Anzeige und einzelne
+numerische Felder. Auto verwendet höchstens zwölf signifikante Stellen ohne
+angehängte Nullen; Beträge unter 1e-6 oder ab 1e12 erscheinen wissenschaftlich.
+Eine endliche von null verschiedene Zahl wird in Auto nie zu 0. Die Auswahl
+0…12 begrenzt ausschließlich Nachkommastellen für u/x/y; sie darf ausdrücklich
+auf 0 runden. Der sichtbare Hinweis kennzeichnet diese gerundete Anzeige.
+Minusnull wird als 0 angezeigt, nichtendliche/undefinierte Werte als —.
+Diese Darstellung verspricht keine exakte oder zusätzliche numerische Genauigkeit.
+
+Die Auswahl bleibt beim Schließen/Öffnen der Tabelle erhalten und ist lokaler
+Sitzungszustand der Graphenansicht. Keine neue Settings-, Plot-, Link- oder
+Verlaufsversion. Rechenwerte, Sampling, Analysis und Schrittweiten bleiben
+unverändert. Trace und Analysekoordinaten verwenden denselben Auto-Formatierer;
+Trace nennt x/y und bei parametrischen/polaren Kurven zusätzlich t/θ.
+Dezimaltrennzeichen-Override und Gruppierung gelten auch dort.
+
+Tabellenschritt und Parametergrenzen/-schritt sind Entwürfe bis Anwenden bzw.
+Enter. `parseLocalizedNumber` liest genau ein Zahlenfeld mit den bestehenden
+Locale-/Gruppierungseinstellungen, inklusive ASCII-e/E-Exponent und äußerem
+Whitespace. Leere Felder, unvollständige Exponenten, NaN/Infinity, fehlerhafte
+Gruppierung und Float64-Über-/Unterlauf werden nicht übernommen. Null oder
+negative Schrittweiten sind fachlich ungültig; Grenzen dürfen null/negativ sein.
+Ausdrücke und deren Funktions-/Paarkommas werden nicht normalisiert.
+
+`ValueTable` wird ausschließlich bei geöffneter Tabelle eingebunden. Ihr
+Berechnungsmemo hängt nur von Kurve inklusive Parametern, Bounds und bestätigter
+Schrittweite ab; Locale, Rundung und andere Anzeigeoptionen formatieren nur neu.
+`tableResult` bewahrt höchstens 500 aufsteigende Parameterwerte, einschließlich
+Definitionslücken. Ein nicht fortschreitender Float64-Schritt stoppt mit sichtbarer
+Erklärung vor einem doppelten Wert/Key. Ein begrenzter Bereich erklärt die ersten
+500 Zeilen sichtbar. Die bisherigen Plot-Verträge und `tableValues` bleiben kompatibel.
+
+Nachweise: `numbers.test.ts`, `table.test.ts`, `ValueTable.test.tsx`,
+`tableVisibility.test.tsx` sowie `e2e/graph-values.spec.ts` und die vorhandenen
+Graph-/History-Tests. Tatsächliche Laufresultate werden im PR verlinkt.
+
+Browserbilder mit expliziter Anzeigerundung und sichtbaren Tabellenzeilen:
+[Deutsch](screenshots/ap22-de.png) · [English](screenshots/ap22-en.png).
+Die AP22-Evidence-Action prüft `npm run check` und die gezielten Graph-E2E;
+die reguläre CI prüft zusätzlich den vollständigen Chromium-Smoke samt
+Graph-Performance. Screenshots und tatsächliche Laufnachweise sind im PR verlinkt.
