@@ -41,6 +41,7 @@ it('refreshes shared application chunks without requesting foreign origins', asy
   await refreshAppChunks(
     [
       { name: 'https://calc.example/assets/SettingsDialog-a.js' },
+      { name: 'https://calc.example/assets/ShortcutDialog-a.js' },
       { name: 'https://calc.example/assets/ExpressionEditor-a.js' },
       { name: 'https://other.example/assets/SettingsDialog-a.js' },
       { name: 'https://calc.example/assets/unrelated-a.js' },
@@ -48,9 +49,13 @@ it('refreshes shared application chunks without requesting foreign origins', asy
     'https://calc.example',
     request,
   );
-  expect(request).toHaveBeenCalledTimes(2);
+  expect(request).toHaveBeenCalledTimes(3);
   expect(request).toHaveBeenCalledWith(
     'https://calc.example/assets/SettingsDialog-a.js',
+    { cache: 'reload' },
+  );
+  expect(request).toHaveBeenCalledWith(
+    'https://calc.example/assets/ShortcutDialog-a.js',
     { cache: 'reload' },
   );
 });

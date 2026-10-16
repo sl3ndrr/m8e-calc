@@ -1,0 +1,69 @@
+name: AP23 internal lab evidence
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: ap23-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  evidence:
+    if: github.head_ref == 'feat/ap23-internal-design-lab'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Measure normal build and assert boundary
+        run: |
+          node scripts/check-build-target.mjs dist normal
+          node scripts/ap23-measure.mjs dist test-results/ap23/size-normal.json
+          cp dist/.vite/manifest.json test-results/ap23/manifest-normal.json
+          cp dist/sw.js test-results/ap23/sw-normal.js
+      - name: Build gallery separately without changing normal output
+        run: |
+          sha256sum dist/index.html dist/sw.js > /tmp/ap23-normal.sha256
+          npm run build:gallery
+          sha256sum -c /tmp/ap23-normal.sha256
+          if node scripts/check-build-target.mjs dist-gallery normal > /tmp/ap23-reject.log 2>&1; then
+            echo "Gallery incorrectly accepted as Pages input"
+            exit 1
+          fi
+          echo "Gallery rejected as normal Pages input"
+          node scripts/ap23-measure.mjs dist-gallery test-results/ap23/size-gallery.json
+          cp dist-gallery/.vite/manifest.json test-results/ap23/manifest-gallery.json
+          cp dist-gallery/sw.js test-results/ap23/sw-gallery.js
+      - name: Measure pinned current-main baseline
+        run: |
+          git fetch --depth=1 origin 940d147ed3ec103887775c18e99f4155a84bab38
+          git worktree add .ap23-before FETCH_HEAD
+          cp scripts/ap23-measure.mjs .ap23-before/scripts/
+          cd .ap23-before
+          npm ci
+          npm run build
+          node scripts/ap23-measure.mjs dist ../test-results/ap23/size-before.json
+          cp dist/.vite/manifest.json ../test-results/ap23/manifest-before.json
+          cp dist/sw.js ../test-results/ap23/sw-before.js
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test e2e/smoke.spec.ts e2e/app-shell.spec.ts e2e/comfort.spec.ts --project=chromium --workers=2 --output=test-results/ap23-app
+      - run: npm run test:e2e:gallery -- --workers=2 --output=test-results/ap23-gallery
+        if: ${{ !cancelled() }}
+      - name: Development lab smoke with complete component matrix
+        if: ${{ !cancelled() }}
+        run: GALLERY_DEV=1 npm run test:e2e:gallery -- --grep 'gallery contains every' --workers=1 --output=test-results/ap23-dev
+      - name: Produce screenshot candidates for manual review (never commit automatically)
+        if: ${{ !cancelled() }}
+        run: npx playwright test --project=qa-visual --update-snapshots=all --workers=2 --output=test-results/ap23-visual
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap23-evidence
+          path: |
+            test-results/
+            e2e/qa-visual.spec.ts-snapshots/
+          retention-days: 14

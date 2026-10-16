@@ -249,6 +249,17 @@ test('PWA installability and all four modes offline after only the first load', 
   expect(
     manifest.icons.some((i: { purpose: string }) => i.purpose === 'maskable'),
   ).toBe(true);
+  const cachedUrls = await page.evaluate(async () => {
+    const urls: string[] = [];
+    for (const name of await caches.keys()) {
+      const cache = await caches.open(name);
+      urls.push(...(await cache.keys()).map((request) => request.url));
+    }
+    return urls;
+  });
+  expect(
+    cachedUrls.some((url) => /DesignLab|ComponentGallery|MotionDemo/.test(url)),
+  ).toBe(false);
   await context.setOffline(true);
   await page.reload();
   await page.locator('.simple-calculator').waitFor();
@@ -276,5 +287,8 @@ test('PWA installability and all four modes offline after only the first load', 
   await page.locator('canvas.graph-canvas').focus();
   await page.keyboard.press('ArrowRight');
   await expect(page.locator('.graph-trace')).toBeVisible();
+  await page.goto('/m8e-calc/#/design?v=1&s=old');
+  await expect(page.locator('.simple-calculator')).toBeVisible();
+  await expect(page.locator('a[href="#/design"]')).toHaveCount(0);
   expect(errors).toEqual([]);
 });

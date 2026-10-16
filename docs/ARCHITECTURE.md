@@ -28,7 +28,7 @@ alle bestehenden UI- und Chromium-Prüfungen bleiben im Gesamtcheck.
 
 ## Datenfluss
 
-AP4 bindet den URL-Hash über `useSyncExternalStore` an die Shell. Die Registry (`src/app/modeRegistry.ts`) enthält pro Modus `id`, lokale Icon-Glyphe, `labelKey`, `React.lazy`-Komponente und transienten `historyAdapter`. Jeder Feature-Einstieg bildet einen eigenen Build-Chunk. `#/design` bleibt als lazy geladenes technisches Lab verfügbar. Leere URLs setzen den im App-Store gemerkten Modus fort (Standard `simple`); explizit unbekannte Routen wählen `simple`.
+AP4 bindet den URL-Hash über `useSyncExternalStore` an die Shell. Die Registry (`src/app/modeRegistry.ts`) enthält pro Modus `id`, lokale Icon-Glyphe, `labelKey`, `React.lazy`-Komponente und transienten `historyAdapter`. Jeder Feature-Einstieg bildet einen eigenen Build-Chunk. `#/design` ist ausschließlich in Entwicklung und im expliziten Galerie-Testbuild verfügbar. Im normalen Build fällt die Route auf Einfach zurück; der Lab-Import wird beim Bauen entfernt. Leere URLs setzen den im App-Store gemerkten Modus fort (Standard `simple`); explizit unbekannte Routen wählen `simple`.
 
 Die Shell nutzt Grid-Bereiche Rail/Bühne/Verlauf. Ab 1600 px ist die Rail standardmäßig aufgeklappt. Die root-Schrift skaliert mit `clamp(1rem, min(0.833333vw, 1.481481vh), 2rem)`: 16 px bei Full HD, 32 px bei 4K. Die Höhenbegrenzung hält Ultrawide-Elemente kompakt; zusätzliche Breite steht den Seitenbereichen zur Verfügung. Shapes und Typografie verwenden rem-Tokens. Die Bühne begrenzt ihren Inhalt und stellt einen Inline-Size-Container für modusinterne Container Queries bereit. Unter 1280 px bleiben die Bedienelemente erreichbar.
 
@@ -202,3 +202,10 @@ liegt dieselbe H1 visuell versteckt außerhalb der ausgeblendeten Shell-Toolbar.
 Feature-Regionen verwenden lokalisierte Modusnamen, funktionale Überschriften
 bleiben in ihren Features. `CopyLinkButton` nutzt IconButton/Tooltip und behält
 seinen bestehenden Daten-/Callback-Vertrag sowie Snackbar-Rückmeldungen.
+
+## AP23 · Buildgrenze
+
+Normaler Build: `dist/`; interner Galerie-Testbuild: `dist-gallery/`.
+Compile-Schalter, Modul-/Precache-Prüfung, getrennte Playwright-Ziele und
+Messverfahren stehen in [AP23.md](AP23.md). Pages validiert unmittelbar vor
+dem Upload das normale Buildziel und lädt ausschließlich `dist/` hoch.

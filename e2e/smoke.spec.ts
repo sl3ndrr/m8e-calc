@@ -27,6 +27,12 @@ test('loads the production build under the Pages base path without external requ
       page.getByRole('link', { name: t(`mode.${mode}`) }),
     ).toHaveAttribute('aria-current', 'page');
   }
+  await expect(page.locator('a[href="#/design"]')).toHaveCount(0);
+  await page.goto('/m8e-calc/#/design');
+  await expect(
+    page.getByRole('heading', { name: t('mode.simple') }),
+  ).toBeVisible();
+  await expect(page.locator('.design-lab')).toHaveCount(0);
   await page.goto('/m8e-calc/#/unknown');
   await expect(
     page.getByRole('link', { name: t('mode.simple') }),
@@ -42,4 +48,24 @@ test('loads the production build under the Pages base path without external requ
   });
   expect(external).toEqual([]);
   expect(errors).toEqual([]);
+});
+
+test('normal build retains theme and accent controls without exposing the lab', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/m8e-calc/#/simple');
+  const dark = page.getByRole('radio', { name: 'Dunkel', exact: true });
+  await dark.locator('..').locator('..').click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  await page.getByRole('button', { name: 'Akzentfarbe anpassen' }).click();
+  const picker = page.getByRole('dialog', { name: 'Deine Farbwelt' });
+  await picker.getByRole('button', { name: 'Koralle', exact: true }).click();
+  await expect(picker.getByLabel('Eigene Farbe')).toHaveValue('#e2675a');
+  await page.keyboard.press('Escape');
+  await page.reload();
+  await expect(dark).toBeChecked();
+  await page.getByRole('button', { name: 'Akzentfarbe anpassen' }).click();
+  await expect(picker.getByLabel('Eigene Farbe')).toHaveValue('#e2675a');
+  await expect(page.locator('a[href="#/design"]')).toHaveCount(0);
 });

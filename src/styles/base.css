@@ -1,7 +1,6 @@
 @import './fonts.css';
 @import './tokens.css';
 @import './theming.css';
-@import './designLab.css';
 :root {
   font-family: 'Roboto Flex', sans-serif;
   font-optical-sizing: auto;
@@ -45,30 +44,6 @@ a {
   margin: 0 auto;
   padding: clamp(1.25rem, 4vw, 4rem);
 }
-.brand {
-  font-size: var(--md-sys-typescale-title-large-size);
-  font-variation-settings: var(--md-sys-typescale-title-large-emphasized-axes);
-  margin-block: 0 1.5rem;
-}
-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-block: 1.5rem;
-}
-nav a {
-  padding: 0.85rem 1.25rem;
-  border-radius: var(--md-sys-shape-full);
-  font-size: var(--md-sys-typescale-label-large-size);
-  font-weight: var(--md-sys-typescale-label-large-weight);
-}
-nav a:hover {
-  background: var(--md-sys-color-surface-container-high);
-}
-nav a[aria-current='page'] {
-  background: var(--md-sys-color-secondary-container);
-  color: var(--md-sys-color-on-secondary-container);
-}
 .placeholder > section {
   padding: clamp(1.5rem, 4vw, 4rem);
   border-radius: var(--md-sys-shape-container);
@@ -95,24 +70,10 @@ p {
 section p {
   max-width: 65ch;
 }
-select {
-  min-height: 44px;
-  padding: 0.5rem 2rem 0.5rem 0.8rem;
-  border: 1px solid var(--md-sys-color-outline);
-  border-radius: var(--md-sys-shape-small);
-  background: var(--md-sys-color-surface-container-high);
-  color: var(--md-sys-color-on-surface);
-}
 input[type='range'] {
   accent-color: var(--md-sys-color-primary);
   min-height: 44px;
   width: 100%;
-}
-.field {
-  display: grid;
-  gap: 0.4rem;
-  font-size: var(--md-sys-typescale-label-large-size);
-  font-weight: var(--md-sys-typescale-label-large-weight);
 }
 .icon-button {
   display: inline-flex;

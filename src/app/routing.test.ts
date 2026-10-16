@@ -13,7 +13,7 @@ describe('hash routing', () => {
           .string()
           .filter((hash) => !modes.some((mode) => hash === `#/${mode}`)),
         (hash) => {
-          expect(parseHash(hash)).toBe('simple');
+          expect(parseHash(hash, 'simple', false)).toBe('simple');
         },
       ),
     );
@@ -23,4 +23,11 @@ describe('hash routing', () => {
 it('resumes only an empty hash and keeps unknown links deterministic', () => {
   expect(parseHash('', 'graph')).toBe('graph');
   expect(parseHash('#/unknown', 'graph')).toBe('simple');
+});
+
+it('gates design including old direct links and query strings at the build boundary', () => {
+  for (const hash of ['#/design', '#/design?v=1&s=old']) {
+    expect(parseHash(hash, 'graph', false)).toBe('simple');
+    expect(parseHash(hash, 'graph', true)).toBe('design');
+  }
 });

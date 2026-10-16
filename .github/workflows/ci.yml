@@ -29,12 +29,14 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npx playwright install --with-deps chromium
-      - run: npx playwright test --project=chromium --project=chromium-graph-performance
+      - run: npx playwright test --project=chromium --project=chromium-graph-performance --output=test-results/app
+      - run: npm run build:gallery
+      - run: npm run test:e2e:gallery -- --output=test-results/gallery
       - name: Gallery screenshots
         if: success()
         run: |
-          npm run preview -- --host 127.0.0.1 --port 4173 --strictPort > /tmp/m8e-preview.log 2>&1 &
-          for attempt in $(seq 1 30); do curl -sf http://127.0.0.1:4173/m8e-calc/ > /dev/null && break; sleep 1; done
+          npm run preview:gallery -- --host 127.0.0.1 --port 4174 --strictPort > /tmp/m8e-preview.log 2>&1 &
+          for attempt in $(seq 1 30); do curl -sf http://127.0.0.1:4174/m8e-calc/ > /dev/null && break; sleep 1; done
           npm run screenshots:gallery
       - uses: actions/upload-artifact@v7
         if: always()

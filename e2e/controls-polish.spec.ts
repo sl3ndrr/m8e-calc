@@ -90,6 +90,23 @@ for (const motion of ['full', 'reduced', 'off'] as const) {
       '[data-component="Checkbox"] [data-state="default"] .ui-checkbox',
     );
     const mark = label.locator('.ui-checkbox-check');
+    if (motion === 'full') {
+      // Freeze the real transition at its start, before a later browser RPC can
+      // miss the short token duration on a busy runner.
+      await mark.evaluate((element) => {
+        const capture = (event: Event) => {
+          if (!(event instanceof TransitionEvent)) return;
+          if (event.propertyName !== 'opacity') return;
+          element.removeEventListener('transitionrun', capture);
+          for (const animation of element.getAnimations()) {
+            animation.pause();
+            animation.currentTime =
+              Number(animation.effect?.getTiming().duration) / 4;
+          }
+        };
+        element.addEventListener('transitionrun', capture);
+      });
+    }
     await label.click();
     const animations = await mark.evaluate((e) => e.getAnimations().length);
     expect(animations > 0).toBe(motion === 'full');
