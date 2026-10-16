@@ -24,11 +24,6 @@ test('native browser zoom 100/125/150/200 preserves complete result ink', async 
       `--load-extension=${extension}`,
     ],
   });
-  await context.tracing.start({
-    screenshots: true,
-    snapshots: true,
-    sources: true,
-  });
   try {
     const worker =
       context.serviceWorkers()[0] ??
@@ -143,9 +138,6 @@ test('native browser zoom 100/125/150/200 preserves complete result ink', async 
       contentType: 'application/json',
     });
   } finally {
-    await context.tracing.stop({
-      path: info.outputPath('native-zoom-trace.zip'),
-    });
     await context.close();
     await rm(profile, { recursive: true, force: true });
   }
