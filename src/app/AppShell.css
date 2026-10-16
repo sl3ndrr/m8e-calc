@@ -150,7 +150,7 @@
 .mode-stage-frame {
   position: relative;
   isolation: isolate;
-  flex: 1 0 auto;
+  flex: 1 0 0%;
   /* A wrapped toolbar must not collapse the calculator at large UI/zoom. */
   min-height: min(24rem, 60dvh);
   overflow: auto;
