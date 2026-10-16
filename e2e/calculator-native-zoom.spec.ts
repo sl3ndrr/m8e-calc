@@ -41,6 +41,7 @@ test('native browser zoom 100/125/150/200 preserves complete result ink', async 
       width: innerWidth,
       dpr: devicePixelRatio,
     }));
+    const cdp = await context.newCDPSession(page);
     const measurements = [];
     for (const zoom of [1, 1.25, 1.5, 2]) {
       const actual = await controller.evaluate(
@@ -72,6 +73,37 @@ test('native browser zoom 100/125/150/200 preserves complete result ink', async 
         -1,
       );
       const viewport = page.locator('.calculator-viewport');
+      const layout = await cdp.send('Page.getLayoutMetrics');
+      const dipScale =
+        layout.layoutViewport.clientWidth /
+        layout.cssLayoutViewport.clientWidth;
+      expect(dipScale).toBeCloseTo(zoom);
+      const capture = async () => {
+        await viewport.scrollIntoViewIfNeeded();
+        const rect = await viewport.evaluate((node) => {
+          const r = node.getBoundingClientRect();
+          return {
+            x: r.left + scrollX,
+            y: r.top + scrollY,
+            width: r.width,
+            height: r.height,
+          };
+        });
+        // CDP clips use DIP; native browser zoom changes CSS-to-DIP mapping.
+        // Locator screenshots otherwise crop the wrong part of the page.
+        const result = await cdp.send('Page.captureScreenshot', {
+          format: 'png',
+          captureBeyondViewport: true,
+          clip: {
+            x: rect.x * dipScale,
+            y: rect.y * dipScale,
+            width: rect.width * dipScale,
+            height: rect.height * dipScale,
+            scale: 1,
+          },
+        });
+        return Buffer.from(result.data, 'base64');
+      };
       for (const sequence of [
         '9',
         '7',
@@ -116,12 +148,49 @@ test('native browser zoom 100/125/150/200 preserves complete result ink', async 
           metrics.fits,
           JSON.stringify({ zoom, sequence, ...metrics }),
         ).toBe(true);
-        const clipped = await viewport.screenshot();
+        const clipped = await capture();
+        const inkPixels = await page.evaluate(async (png) => {
+          const bytes = Uint8Array.from(atob(png), (c) => c.charCodeAt(0));
+          const bitmap = await createImageBitmap(
+            new Blob([bytes], { type: 'image/png' }),
+          );
+          const canvas = document.createElement('canvas');
+          canvas.width = bitmap.width;
+          canvas.height = bitmap.height;
+          const ctx = canvas.getContext('2d');
+          const ink = document.querySelector('.calculator-value');
+          if (!ctx || !ink) throw Error('Missing screenshot decoder or result');
+          ctx.drawImage(bitmap, 0, 0);
+          const pixels = ctx.getImageData(
+            0,
+            0,
+            canvas.width,
+            canvas.height,
+          ).data;
+          const [red = 0, green = 0, blue = 0] = (
+            getComputedStyle(ink).color.match(/\d+/g) ?? []
+          ).map(Number);
+          let count = 0;
+          for (let i = 0; i < pixels.length; i += 4) {
+            if (
+              Math.abs((pixels[i] ?? 0) - red) < 8 &&
+              Math.abs((pixels[i + 1] ?? 0) - green) < 8 &&
+              Math.abs((pixels[i + 2] ?? 0) - blue) < 8
+            )
+              count++;
+          }
+          bitmap.close();
+          return count;
+        }, clipped.toString('base64'));
+        expect(
+          inkPixels,
+          `blank native zoom capture at ${zoom}`,
+        ).toBeGreaterThan(50);
         const override = await page.addStyleTag({
           content: '.calculator-character { overflow: visible !important; }',
         });
         expect(
-          clipped.equals(await viewport.screenshot()),
+          clipped.equals(await capture()),
           `ink at ${zoom}: ${sequence}`,
         ).toBe(true);
         await override.evaluate((node) => node.parentNode?.removeChild(node));
@@ -130,7 +199,7 @@ test('native browser zoom 100/125/150/200 preserves complete result ink', async 
             body: clipped,
             contentType: 'image/png',
           });
-        measurements.push({ zoom, sequence, ...metrics });
+        measurements.push({ zoom, sequence, dipScale, inkPixels, ...metrics });
       }
     }
     await info.attach('native-zoom-metrics', {
