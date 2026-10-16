@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import { animateElement } from '../animateElement';
 import { Button } from '../Button';
-import { displayFontSize } from './displayFit';
+import { fitMeasuredDisplay } from './displayFit';
 import { useMediaQuery } from '../useMediaQuery';
 import { useSettingsStore } from '../../shared/settingsStore';
 
@@ -65,19 +65,28 @@ export function CalculatorDisplay({
     let disposed = false;
     const fit = () => {
       if (disposed) return;
+      probe.style.fontSize = '';
       const style = getComputedStyle(probe);
       const maximum = parseFloat(style.fontSize);
       const minimum = Math.max(
         24,
         1.5 * parseFloat(getComputedStyle(document.documentElement).fontSize),
       );
-      ink.style.fontSize = `${displayFontSize(
+      const gutter = parseFloat(
+        style.getPropertyValue('--calculator-ink-gutter'),
+      );
+      const size = fitMeasuredDisplay(
         box.clientWidth,
-        probe.getBoundingClientRect().width,
         maximum,
         minimum,
-        parseFloat(style.getPropertyValue('--calculator-ink-gutter')),
-      )}px`;
+        gutter,
+        (size) => {
+          probe.style.fontSize = `${size}px`;
+          return probe.getBoundingClientRect().width;
+        },
+      );
+      ink.style.fontSize = `${size}px`;
+      probe.style.fontSize = '';
     };
     fit();
     const observer = new ResizeObserver(fit);

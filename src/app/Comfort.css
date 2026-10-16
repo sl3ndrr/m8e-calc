@@ -109,8 +109,8 @@
 .app-shell[data-presentation] .simple-calculator {
   width: min(100%, 90rem);
 }
-.app-shell[data-presentation] .calculator-value {
-  font-size: clamp(4rem, 10vw, 14rem) !important;
+.app-shell[data-presentation] .calculator-display {
+  --calculator-font-maximum: clamp(4rem, 10vw, 14rem);
 }
 .app-shell[data-presentation]
   :is(.scientific-columns, .convert-layout, .graph-layout) {

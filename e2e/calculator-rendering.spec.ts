@@ -105,7 +105,7 @@ for (const [width, height, zoom, uiSize, theme, language] of [
       await page.keyboard.press('Escape');
       await page.keyboard.type(sequence);
       if (sequence === '1234567890123456')
-        await page.locator('[data-key="sign"] button').click();
+        await page.locator('[data-key="sign"] button').press('Space');
       await settle(viewport);
       const value = await page
         .locator('.calculator-announcement')
@@ -448,4 +448,49 @@ test('switching Full to OS Reduced and Off cancels an in-flight digit', async ({
   expect((await frames(button)).every((f) => f.transform === 'none')).toBe(
     true,
   );
+});
+
+test('presentation uses the same bounded fit instead of overriding its font size', async ({
+  page,
+}, info) => {
+  await page.setViewportSize({ width: 1920, height: 1080 });
+  await page.goto('/m8e-calc/#/simple');
+  await ready(page);
+  await page.keyboard.press('Control+Shift+p');
+  await expect(page.locator('.app-shell')).toHaveAttribute(
+    'data-presentation',
+    'true',
+  );
+  const viewport = page.locator('.calculator-viewport');
+  for (const sequence of ['9', '1/3=', '1234567890123456']) {
+    await page.keyboard.press('Escape');
+    await page.keyboard.type(sequence);
+    await settle(viewport);
+    const clipped = await viewport.screenshot();
+    const override = await page.addStyleTag({
+      content: '.calculator-character { overflow: visible !important; }',
+    });
+    expect(clipped.equals(await viewport.screenshot())).toBe(true);
+    await override.evaluate((n) => n.parentNode?.removeChild(n));
+    expect(
+      await viewport.evaluate((node) => {
+        const box = node.getBoundingClientRect();
+        return Array.from(
+          node.querySelectorAll('.calculator-value .calculator-character'),
+        ).every((c) => {
+          const r = c.getBoundingClientRect();
+          return (
+            r.left >= box.left - 0.6 &&
+            r.right <= box.right + 0.6 &&
+            r.top >= box.top - 0.6 &&
+            r.bottom <= box.bottom + 0.6
+          );
+        });
+      }),
+    ).toBe(true);
+  }
+  await info.attach('presentation', {
+    body: await page.screenshot(),
+    contentType: 'image/png',
+  });
 });

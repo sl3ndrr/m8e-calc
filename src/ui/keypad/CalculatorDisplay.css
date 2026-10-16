@@ -34,13 +34,13 @@
   align-items: center;
   width: 100%;
   min-width: 0;
-  height: 8.75rem;
+  height: calc(var(--calculator-font-maximum, 7rem) * 1.25);
   overflow: clip;
 }
 .calculator-value,
 .calculator-measure {
   line-height: 1.15;
-  font-size: 7rem;
+  font-size: var(--calculator-font-maximum, 7rem);
   font-weight: 550;
   font-variant-numeric: tabular-nums;
   font-kerning: none;

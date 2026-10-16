@@ -104,7 +104,7 @@ Operator. Features legen Reihenfolge und Raster ausschließlich per CSS fest.
 
 `CalculatorDisplay({ value, expression, copyLabel, resultLabel, expressionLabel,
 error, onCopy })` zeigt eine Ausdruckszeile, animierte Zeichen mit tabellarischen
-Ziffern, weich verkleinerte Schrift und ein Live-Output. Alle lokalisierten Texte
+Ziffern, an gemessene Breite angepasste Schrift und ein Live-Output. Alle lokalisierten Texte
 und die formatierte Zahl kommen vom Aufrufer; der Baustein kennt keine Engine.
 AP8 kann dieselben Exporte aus `src/ui` verwenden.
 
