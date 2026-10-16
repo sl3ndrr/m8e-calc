@@ -6,6 +6,7 @@ on:
       - 'src/ui/Button.css'
       - 'src/styles/motion.ts'
       - 'e2e/calculator-*.spec.ts'
+      - 'e2e/calculatorCapture.ts'
       - 'e2e/fixtures/ap19-zoom/**'
       - 'scripts/ap19-baseline.mjs'
       - '.github/workflows/ap19.yml'

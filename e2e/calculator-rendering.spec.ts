@@ -1,4 +1,8 @@
 import { expect, test, type Page, type Locator } from '@playwright/test';
+import {
+  captureCalculatorValue,
+  calculatorInkPixels,
+} from './calculatorCapture';
 
 async function ready(page: Page) {
   await page.locator('.calculator-value').waitFor();
@@ -35,9 +39,8 @@ async function frames(button: Locator, count = 12) {
   }, count);
 }
 
-// Browser-zoom-equivalent layout viewport and DPR. Physical/browser UI zoom
-// remains a manual platform check; CSS zoom and disabled-animation pictures
-// are deliberately not used as substitutes for the moving-frame assertions.
+// Viewport/DPR matrix supplements the real tab zoom in calculator-native-zoom.
+// CSS zoom and disabled-animation pictures do not replace moving-frame checks.
 for (const [width, height, zoom, uiSize, theme, language] of [
   [1920, 1080, 1, 80, 'light', 'de'],
   [1920, 1080, 1.25, 100, 'dark', 'en'],
@@ -83,6 +86,7 @@ for (const [width, height, zoom, uiSize, theme, language] of [
     await page.goto('/m8e-calc/#/simple');
     await ready(page);
     const viewport = page.locator('.calculator-viewport');
+    const cdp = await context.newCDPSession(page);
     const heightBefore = await viewport.evaluate((n) => n.clientHeight);
     test.slow();
     const measurements = [];
@@ -153,14 +157,18 @@ for (const [width, height, zoom, uiSize, theme, language] of [
       );
       // Pixel oracle: revealing character ink must not change a single pixel.
       // This catches the original 9 even though DOM advance boxes fitted.
-      const clipped = await viewport.screenshot();
+      const clipped = await captureCalculatorValue(viewport, cdp);
+      const inkPixels = await calculatorInkPixels(page, clipped);
+      expect(inkPixels, `blank result capture: ${sequence}`).toBeGreaterThan(
+        50,
+      );
       const override = await page.addStyleTag({
         content: '.calculator-character { overflow: visible !important; }',
       });
-      const revealed = await viewport.screenshot();
+      const revealed = await captureCalculatorValue(viewport, cdp);
       await override.evaluate((n) => n.parentNode?.removeChild(n));
       expect(clipped.equals(revealed), `clipped ink: ${value}`).toBe(true);
-      measurements.push({ sequence, value, ...metrics });
+      measurements.push({ sequence, value, inkPixels, ...metrics });
       if (
         sequence === '9' ||
         sequence === '1/3=' ||
