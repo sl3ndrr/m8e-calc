@@ -1,12 +1,12 @@
 name: AP24 dependency investigation
 on:
-  push:
-    branches: [feat/ap24-dependency-maintenance]
-    paths: [.github/workflows/ap24-investigation.yml]
+  pull_request:
+    branches: [main]
 permissions:
   contents: read
 jobs:
   metadata:
+    if: github.head_ref == 'feat/ap24-dependency-maintenance'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
