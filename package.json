@@ -29,7 +29,7 @@
     "motion": "^12.23.24",
     "@fontsource-variable/roboto-flex": "^5.2.8",
     "@fontsource-variable/roboto-mono": "^5.2.7",
-    "material-symbols": "^0.39.3",
+    "material-symbols": "^0.48.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "zustand": "^5.0.8",
@@ -42,7 +42,7 @@
     "@codemirror/commands": "^6.8.1",
     "@codemirror/lint": "^6.8.5",
     "@lezer/highlight": "^1.2.1",
-    "katex": "^0.18.10"
+    "katex": "^0.19.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",

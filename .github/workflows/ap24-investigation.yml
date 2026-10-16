@@ -15,6 +15,21 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 24.21.0
+      - name: Probe material color migration without changing baselines
+        continue-on-error: true
+        run: |
+          cp package.json /tmp/ap24-package.json
+          cp package-lock.json /tmp/ap24-package-lock.json
+          npm install --package-lock-only @material/material-color-utilities@0.4.0
+          npm ci
+          npx vitest run src/styles/buildScheme.test.ts
+          npm run typecheck
+      - name: Restore selected maintenance versions
+        if: always()
+        run: |
+          cp /tmp/ap24-package.json package.json
+          cp /tmp/ap24-package-lock.json package-lock.json
+          rm -rf node_modules
       - name: Generate lockfile with bundled npm
         run: |
           node --version
