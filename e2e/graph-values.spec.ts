@@ -71,6 +71,9 @@ for (const language of ['de', 'en'] as const) {
     await step.press('Enter');
     await expect(table.locator('tbody tr')).toHaveCount(500);
     await expect(table.getByRole('status')).toContainText('500');
+    await expect(table.locator('tbody tr').first()).toBeVisible();
+    const tableBox = await table.locator('.graph-table-scroll').boundingBox();
+    expect(tableBox?.height).toBeGreaterThanOrEqual(100);
     await page.screenshot({
       path: `test-results/ap22-${language}.png`,
       fullPage: true,
@@ -121,17 +124,42 @@ for (const [language, decimalSeparator, grouping, input, expected] of [
   ['en', 'comma', true, '0,1', '1.234,5'],
   ['de', 'point', false, '0.1', '1234.5'],
 ] as const) {
-  test(`AP22 explicit separator ${decimalSeparator} and grouping ${grouping}`, async ({ page }) => {
-    await page.addInitScript(({ language, decimalSeparator, grouping }) => {
-      localStorage.setItem('m8e-calc.settings', JSON.stringify({ version: 4, state: { language, decimalSeparator, grouping, motionLevel: 'off' } }));
-    }, { language, decimalSeparator, grouping });
+  test(`AP22 explicit separator ${decimalSeparator} and grouping ${grouping}`, async ({
+    page,
+  }) => {
+    await page.addInitScript(
+      ({ language, decimalSeparator, grouping }) => {
+        localStorage.setItem(
+          'm8e-calc.settings',
+          JSON.stringify({
+            version: 4,
+            state: { language, decimalSeparator, grouping, motionLevel: 'off' },
+          }),
+        );
+      },
+      { language, decimalSeparator, grouping },
+    );
     await page.goto('/m8e-calc/#/graph');
-    await page.getByRole('button', { name: language === 'de' ? 'Hinzufügen' : 'Add', exact: true }).click();
+    await page
+      .getByRole('button', {
+        name: language === 'de' ? 'Hinzufügen' : 'Add',
+        exact: true,
+      })
+      .click();
     await page.locator('.graph-editor [role="textbox"]').fill('1234.5');
-    await page.getByRole('button', { name: language === 'de' ? 'Wertetabelle' : 'Value table', exact: true }).click();
+    await page
+      .getByRole('button', {
+        name: language === 'de' ? 'Wertetabelle' : 'Value table',
+        exact: true,
+      })
+      .click();
     const table = page.locator('.graph-table-section');
-    await expect(table.locator('tbody tr').first().locator('td').last()).toHaveText(expected);
-    const step = table.getByRole('textbox', { name: language === 'de' ? 'Schrittweite' : 'Step size' });
+    await expect(
+      table.locator('tbody tr').first().locator('td').last(),
+    ).toHaveText(expected);
+    const step = table.getByRole('textbox', {
+      name: language === 'de' ? 'Schrittweite' : 'Step size',
+    });
     await step.fill(input);
     await step.press('Enter');
     await expect(table.locator('tbody tr')).toHaveCount(201);

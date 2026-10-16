@@ -580,7 +580,8 @@ export const de = {
   'graph.removeMarker': 'Marker entfernen',
   'graph.estimate': 'numerische Schätzung',
   'graph.uncertain': 'nicht verlässlich',
-  'graph.invalidStep': 'Eine positive endliche Schrittweite eingeben. Der zuletzt bestätigte Wert bleibt bis Anwenden oder Enter aktiv.',
+  'graph.invalidStep':
+    'Eine positive endliche Schrittweite eingeben. Der zuletzt bestätigte Wert bleibt bis Anwenden oder Enter aktiv.',
   'graph.rounding': 'Rundung',
   'graph.roundingAuto': 'Auto',
   'graph.roundingDigits': '{digits} Nachkommastellen',

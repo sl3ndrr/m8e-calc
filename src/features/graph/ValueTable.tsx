@@ -40,16 +40,9 @@ export default function ValueTable({
     formatGraphNumber(value, locale, preferences, rounding);
   return (
     <>
-      {result.stopped && (
-        <p role="status">
-          {t(
-            result.stopped === 'precision'
-              ? 'graph.tablePrecision'
-              : 'graph.tableTruncated',
-            locale,
-          )}
-        </p>
-      )}
+      <p role={result.stopped ? 'status' : undefined}>
+        {t(result.stopped === 'precision' ? 'graph.tablePrecision' : result.stopped === 'limit' ? 'graph.tableTruncated' : 'graph.tableLimit', locale)}
+      </p>
       <div className="graph-table-scroll">
         <table>
           <thead>

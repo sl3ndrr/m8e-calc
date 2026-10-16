@@ -14,7 +14,7 @@ import { Dialog } from '../../ui/Dialog';
 import { Select } from '../../ui/Select';
 import { TextField } from '../../ui/TextField';
 import { snackbarQueue } from '../../ui/snackbarQueue';
-import type { Bounds } from '../../graph';
+import { parseCurveInput, type Bounds } from '../../graph';
 import { t } from '../../shared/i18n';
 import { useAppStore } from '../../shared/store';
 import { useModeHistory } from '../../shared/useModeHistory';
@@ -275,17 +275,14 @@ export default function GraphMode() {
     parsed.find((r) => r.row.id === tableId && r.curve) ??
     parsed.find((r) => r.curve);
   const selectedInput = selected?.row.input;
-  const selectedParams = selected?.row.params;
-  const tableCurve = useMemo(
-    () =>
-      selectedInput !== undefined && selectedParams
-        ? parseRow({
-            ...newRow('table', selectedInput),
-            params: selectedParams,
-          }).curve
-        : null,
-    [selectedInput, selectedParams],
-  );
+  const selectedValues = JSON.stringify(Object.fromEntries(
+    Object.entries(selected?.row.params ?? {}).map(([name, p]) => [name, p.value]),
+  ));
+  const tableCurve = useMemo(() => {
+    if (selectedInput === undefined) return null;
+    const result = parseCurveInput(selectedInput, { params: JSON.parse(selectedValues) as Record<string, number> });
+    return result.ok ? result.value : null;
+  }, [selectedInput, selectedValues]);
   return (
     <section
       className="graph-mode"
@@ -577,7 +574,6 @@ export default function GraphMode() {
                   locale,
                 )}
               </p>
-              <p>{t('graph.tableLimit', locale)}</p>
               <ValueTable
                 curve={tableCurve}
                 bounds={state.bounds}

@@ -26,6 +26,9 @@ it('formats again without evaluating when rounding, language or separators chang
   expect(screen.getAllByText('0,33').length).toBeGreaterThan(0);
   rerender(<ValueTable {...props} locale="en" rounding={6} />);
   expect(screen.getAllByText('0.333333').length).toBeGreaterThan(0);
+  rerender(<ValueTable {...props} locale="en" preferences={{ decimalSeparator: 'comma', grouping: false }} rounding={6} />);
+  expect(screen.getAllByText('0,333333').length).toBeGreaterThan(0);
+  rerender(<ValueTable {...props} bounds={{ ...defaultBounds, yMin: -12 }} rounding={2} />);
   expect(vi.mocked(tableResult).mock.calls.length).toBe(count);
   rerender(<ValueTable {...props} step={2} rounding={2} />);
   expect(vi.mocked(tableResult).mock.calls.length).toBe(count + 1);

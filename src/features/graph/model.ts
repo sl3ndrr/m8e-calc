@@ -377,6 +377,7 @@ export function tableResult(
     if (previous && u <= previous.u) return { rows, stopped: 'precision' };
     if (i === 500) return { rows, stopped: 'limit' };
     rows.push({ u, point: evaluate(u) });
+    if (u === to) return { rows, stopped: null };
   }
   return { rows, stopped: null };
 }

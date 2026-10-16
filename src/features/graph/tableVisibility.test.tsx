@@ -33,7 +33,9 @@ it('does no closed-table work; updates an open table only after valid step confi
   fireEvent.click(screen.getByRole('button', { name: 'Wertetabelle' }));
   const calls = vi.mocked(tableResult).mock.calls.length;
   expect(calls).toBeGreaterThan(0);
-  const step = within(screen.getByRole('region', { name: 'Wertetabelle' })).getByRole('textbox', { name: 'Schrittweite' });
+  const step = within(
+    screen.getByRole('region', { name: 'Wertetabelle' }),
+  ).getByRole('textbox', { name: 'Schrittweite' });
   fireEvent.change(step, { target: { value: '0,1' } });
   expect(vi.mocked(tableResult).mock.calls.length).toBe(calls);
   const form = step.closest('form');
@@ -41,6 +43,8 @@ it('does no closed-table work; updates an open table only after valid step confi
   fireEvent.submit(form);
   expect(vi.mocked(tableResult).mock.lastCall?.[2]).toBe(0.1);
   const confirmed = vi.mocked(tableResult).mock.calls.length;
+  fireEvent.click(screen.getByRole('button', { name: 'Sichtbarkeit von Funktion 1' }));
+  expect(vi.mocked(tableResult).mock.calls.length).toBe(confirmed);
   for (const value of ['', ' ', '0', '-1', '1e', 'Infinity', '12.34,5']) {
     fireEvent.change(step, { target: { value } });
     fireEvent.submit(form);

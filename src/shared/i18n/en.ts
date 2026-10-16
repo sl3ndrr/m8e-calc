@@ -562,7 +562,8 @@ export const en: Dictionary = {
   'graph.removeMarker': 'Remove marker',
   'graph.estimate': 'numerical estimate',
   'graph.uncertain': 'uncertain',
-  'graph.invalidStep': 'Enter a positive finite step. The last confirmed value remains active until Apply or Enter.',
+  'graph.invalidStep':
+    'Enter a positive finite step. The last confirmed value remains active until Apply or Enter.',
   'graph.rounding': 'Rounding',
   'graph.roundingAuto': 'Auto',
   'graph.roundingDigits': '{digits} decimal places',
