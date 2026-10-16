@@ -91,8 +91,12 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
     variant = useSettingsStore((s) => s.schemeVariant),
     contrast = useSettingsStore((s) => s.contrast);
   const preferences = useSettingsStore((s) => s);
-  const traceKind = props.rows.find((row) => row.row.id === trace?.id)?.curve?.kind;
-  const coordinates = trace && traceKind ? traceText(trace, traceKind, props.locale, preferences) : '';
+  const traceKind = props.rows.find((row) => row.row.id === trace?.id)?.curve
+    ?.kind;
+  const coordinates =
+    trace && traceKind
+      ? traceText(trace, traceKind, props.locale, preferences)
+      : '';
   const reduced = useMediaQuery('(prefers-reduced-motion: reduce)');
   const animate = level === 'full' && !reduced;
   const latest = useRef(props);
@@ -843,4 +847,3 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
     </div>
   );
 }
-

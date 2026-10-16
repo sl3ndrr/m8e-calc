@@ -583,10 +583,14 @@ export const de = {
   'graph.rounding': 'Rundung',
   'graph.roundingAuto': 'Auto',
   'graph.roundingDigits': '{digits} Nachkommastellen',
-  'graph.roundingHint': 'Auto: bis zu 12 signifikante Stellen, bei Bedarf wissenschaftlich. Nur die Anzeige wird gerundet.',
-  'graph.roundingFixedHint': 'Gerundete Anzeige: höchstens die gewählten Nachkommastellen für Parameter, x und y. Kleine Werte können als 0 erscheinen; Rechenwerte bleiben unverändert.',
-  'graph.tablePrecision': 'Tabelle gestoppt: Die Schrittweite ist bei diesen Werten numerisch zu klein, um fortzuschreiten.',
-  'graph.tableTruncated': 'Tabelle auf die ersten 500 Zeilen begrenzt. Für weitere Werte den Bereich oder die Schrittweite ändern.',
+  'graph.roundingHint':
+    'Auto: bis zu 12 signifikante Stellen, bei Bedarf wissenschaftlich. Nur die Anzeige wird gerundet.',
+  'graph.roundingFixedHint':
+    'Gerundete Anzeige: höchstens die gewählten Nachkommastellen für Parameter, x und y. Kleine Werte können als 0 erscheinen; Rechenwerte bleiben unverändert.',
+  'graph.tablePrecision':
+    'Tabelle gestoppt: Die Schrittweite ist bei diesen Werten numerisch zu klein, um fortzuschreiten.',
+  'graph.tableTruncated':
+    'Tabelle auf die ersten 500 Zeilen begrenzt. Für weitere Werte den Bereich oder die Schrittweite ändern.',
   'graph.table': 'Wertetabelle',
   'graph.tableLimit':
     'Bis zu 500 Zeilen; bei parametrischen und polaren Kurven ist u der Kurvenparameter.',
@@ -603,4 +607,3 @@ export const de = {
   'graph.emptyHint': 'Wähle rechts ein Beispiel oder füge eine Funktion hinzu.',
   'graph.reorder': 'Funktion {n} verschieben; Pfeilaktionen im Menü',
 } as const;
-

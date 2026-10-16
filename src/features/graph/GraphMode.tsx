@@ -35,7 +35,11 @@ import { analyze, type AnalysisKind } from './analysisAdapter';
 import type { IntegralShade, Marker } from './renderer';
 import GraphCanvas, { type CanvasHandle } from './GraphCanvas';
 import ValueTable from './ValueTable';
-import { formatGraphNumber, parseGraphNumber, type GraphRounding } from './numbers';
+import {
+  formatGraphNumber,
+  parseGraphNumber,
+  type GraphRounding,
+} from './numbers';
 import { useSettingsStore } from '../../shared/settingsStore';
 import FunctionPanel from './FunctionPanel';
 import './GraphMode.css';
@@ -270,8 +274,12 @@ export default function GraphMode() {
   const selected =
     parsed.find((r) => r.row.id === tableId && r.curve) ??
     parsed.find((r) => r.curve);
-  const selectedRow = selected?.row;
-  const tableCurve = useMemo(() => selectedRow ? parseRow(selectedRow).curve : null, [selectedRow]);
+  const selectedInput = selected?.row.input;
+  const selectedParams = selected?.row.params;
+  const tableCurve = useMemo(
+    () => selectedInput !== undefined && selectedParams ? parseRow({ ...newRow('table', selectedInput), params: selectedParams }).curve : null,
+    [selectedInput, selectedParams],
+  );
   return (
     <section
       className="graph-mode"
@@ -516,22 +524,62 @@ export default function GraphMode() {
                   selectedKey={selected?.row.id ?? null}
                   onSelectionChange={(key) => setTableId(String(key))}
                 />
-                <form onSubmit={(event) => {
-                  event.preventDefault();
-                  if (parsedStep !== null && parsedStep > 0) setTableStep(parsedStep);
-                }}>
-                  <TextField label={t('graph.step', locale)} value={step} onChange={setStep}
-                    isInvalid={invalidStep} validationBehavior="aria"
-                    errorMessage={t('graph.invalidRange', locale)} />
-                  <Button type="submit" size="sm" variant="text" isDisabled={invalidStep}>{t('graph.apply', locale)}</Button>
+                <form
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    if (parsedStep !== null && parsedStep > 0)
+                      setTableStep(parsedStep);
+                  }}
+                >
+                  <TextField
+                    label={t('graph.step', locale)}
+                    value={step}
+                    onChange={setStep}
+                    isInvalid={invalidStep}
+                    validationBehavior="aria"
+                    errorMessage={t('graph.invalidRange', locale)}
+                  />
+                  <Button
+                    type="submit"
+                    size="sm"
+                    variant="text"
+                    isDisabled={invalidStep}
+                  >
+                    {t('graph.apply', locale)}
+                  </Button>
                 </form>
-                <Select label={t('graph.rounding', locale)} selectedKey={String(rounding)}
-                  onSelectionChange={(key) => setRounding(key === 'auto' ? 'auto' : Number(key))}
-                  options={[{ id: 'auto', label: t('graph.roundingAuto', locale) }, ...Array.from({length: 13}, (_, digits) => ({ id: String(digits), label: t('graph.roundingDigits', locale, { digits }) }))]} />
+                <Select
+                  label={t('graph.rounding', locale)}
+                  selectedKey={String(rounding)}
+                  onSelectionChange={(key) =>
+                    setRounding(key === 'auto' ? 'auto' : Number(key))
+                  }
+                  options={[
+                    { id: 'auto', label: t('graph.roundingAuto', locale) },
+                    ...Array.from({ length: 13 }, (_, digits) => ({
+                      id: String(digits),
+                      label: t('graph.roundingDigits', locale, { digits }),
+                    })),
+                  ]}
+                />
               </div>
-              <p>{t(rounding === 'auto' ? 'graph.roundingHint' : 'graph.roundingFixedHint', locale)}</p>
+              <p>
+                {t(
+                  rounding === 'auto'
+                    ? 'graph.roundingHint'
+                    : 'graph.roundingFixedHint',
+                  locale,
+                )}
+              </p>
               <p>{t('graph.tableLimit', locale)}</p>
-              <ValueTable curve={tableCurve} bounds={state.bounds} step={tableStep} rounding={rounding} locale={locale} preferences={preferences} />
+              <ValueTable
+                curve={tableCurve}
+                bounds={state.bounds}
+                step={tableStep}
+                rounding={rounding}
+                locale={locale}
+                preferences={preferences}
+              />
             </section>
           )}
         </div>
@@ -600,4 +648,3 @@ export default function GraphMode() {
     </section>
   );
 }
-

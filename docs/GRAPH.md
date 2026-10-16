@@ -223,7 +223,6 @@ Strategie, Kreisen/Hyperbeln/Kreuzungen und isolierten Komponenten. Akzeptanz:
 keine Risse bei adaptiven Zellgrößen, dokumentierte Pixelgenauigkeit und eigenes
 2D-Arbeits-/Performancebudget. AP13 übernimmt Canvas/SVG und Worker-Anbindung.
 
-
 ## AP22 · Grenze zur Anzeige
 
 Die Graph-Domäne bleibt Float64 und erhält keine Rundungspräferenz. Der

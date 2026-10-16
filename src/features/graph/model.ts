@@ -351,15 +351,24 @@ export function tableValues(
   if (!Number.isFinite(step) || step <= 0) return [];
   return tableResult(curve, bounds, step).rows;
 }
-export function tableResult(curve: Curve, bounds: Bounds, step: number): {
+export function tableResult(
+  curve: Curve,
+  bounds: Bounds,
+  step: number,
+): {
   rows: { u: number; point: Point }[];
   stopped: 'limit' | 'precision' | null;
 } {
   const rows: { u: number; point: Point }[] = [];
   if (!Number.isFinite(step) || step <= 0) return { rows, stopped: null };
-  const [from, to] = curve.kind === 'parametric' || curve.kind === 'polar'
-    ? curve.range : curve.kind === 'vertical' ? [bounds.yMin, bounds.yMax] : [bounds.xMin, bounds.xMax];
-  if (!Number.isFinite(from) || !Number.isFinite(to) || from > to) return { rows, stopped: null };
+  const [from, to] =
+    curve.kind === 'parametric' || curve.kind === 'polar'
+      ? curve.range
+      : curve.kind === 'vertical'
+        ? [bounds.yMin, bounds.yMax]
+        : [bounds.xMin, bounds.xMax];
+  if (!Number.isFinite(from) || !Number.isFinite(to) || from > to)
+    return { rows, stopped: null };
   const evaluate = curveEvaluator(curve);
   for (let i = 0; i <= 500; i++) {
     const u = from + i * step;

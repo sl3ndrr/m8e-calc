@@ -91,12 +91,15 @@ function ParameterControl({
             const min = parseGraphNumber(draft.min, locale, preferences),
               max = parseGraphNumber(draft.max, locale, preferences),
               step = parseGraphNumber(draft.step, locale, preferences);
-            const next = min === null || max === null || step === null ? null : normalizeParameter({
-              ...p,
-              min,
-              max,
-              step,
-            });
+            const next =
+              min === null || max === null || step === null
+                ? null
+                : normalizeParameter({
+                    ...p,
+                    min,
+                    max,
+                    step,
+                  });
             setInvalid(!next);
             if (next) update(next);
           }}
@@ -376,4 +379,3 @@ export default function FunctionPanel(props: Props) {
     </SideSheet>
   );
 }
-

@@ -56,7 +56,6 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       zentriert und dezent animiert; ThemeSwitch ohne Zusatzindikator.
       Tests und UI-Nachweise in [AP20.md](AP20.md); Integration erst nach Merge.
 
-
 - [ ] 22 Graphzahlen und Wertetabelle — `feat/ap22-graph-values`: wählbare
       Anzeigerundung, lokalisierte Zahlenfelder/Koordinaten und bedarfsgerechte
       Tabellenberechnung auf integriertem AP21. Vertrag und Testnachweise in

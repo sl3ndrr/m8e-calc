@@ -1,29 +1,63 @@
 import { test, expect } from '@playwright/test';
 for (const language of ['de', 'en'] as const) {
-  test(`AP22 keyboard table rounding, committed localized steps and trace (${language})`, async ({ page }) => {
+  test(`AP22 keyboard table rounding, committed localized steps and trace (${language})`, async ({
+    page,
+  }) => {
     await page.addInitScript((language) => {
-      localStorage.setItem('m8e-calc.settings', JSON.stringify({ version: 4, state: { language, grouping: true, decimalSeparator: 'auto', motionLevel: 'off' } }));
+      localStorage.setItem(
+        'm8e-calc.settings',
+        JSON.stringify({
+          version: 4,
+          state: {
+            language,
+            grouping: true,
+            decimalSeparator: 'auto',
+            motionLevel: 'off',
+          },
+        }),
+      );
     }, language);
     await page.setViewportSize({ width: 1920, height: 1080 });
     await page.goto('/m8e-calc/#/graph');
-    await page.getByRole('button', { name: language === 'de' ? 'Hinzufügen' : 'Add', exact: true }).click();
+    await page
+      .getByRole('button', {
+        name: language === 'de' ? 'Hinzufügen' : 'Add',
+        exact: true,
+      })
+      .click();
     await page.locator('.graph-editor [role="textbox"]').fill('1e-13');
     const canvas = page.getByRole('application');
     await canvas.focus();
     await canvas.press('ArrowRight');
     await expect(page.locator('.graph-trace')).toContainText('y = 1E-13');
     await expect(page.locator('.graph-trace')).not.toContainText('f(x)');
-    const toggle = page.getByRole('button', { name: language === 'de' ? 'Wertetabelle' : 'Value table', exact: true });
+    const toggle = page.getByRole('button', {
+      name: language === 'de' ? 'Wertetabelle' : 'Value table',
+      exact: true,
+    });
     await toggle.focus();
     await toggle.press('Enter');
     const table = page.locator('.graph-table-section');
     await expect(table.locator('tbody tr').first()).toContainText('1E-13');
-    const rounding = table.getByRole('button', { name: language === 'de' ? /Rundung/ : /Rounding/ });
+    const rounding = table.getByRole('button', {
+      name: language === 'de' ? /Rundung/ : /Rounding/,
+    });
     await rounding.click();
-    await page.getByRole('option', { name: language === 'de' ? '2 Nachkommastellen' : '2 decimal places', exact: true }).click();
-    await expect(table.locator('tbody tr').first().locator('td').last()).toHaveText('0');
-    await expect(table).toContainText(language === 'de' ? 'Gerundete Anzeige' : 'Rounded display');
-    const step = table.getByRole('textbox', { name: language === 'de' ? 'Schrittweite' : 'Step size' });
+    await page
+      .getByRole('option', {
+        name: language === 'de' ? '2 Nachkommastellen' : '2 decimal places',
+        exact: true,
+      })
+      .click();
+    await expect(
+      table.locator('tbody tr').first().locator('td').last(),
+    ).toHaveText('0');
+    await expect(table).toContainText(
+      language === 'de' ? 'Gerundete Anzeige' : 'Rounded display',
+    );
+    const step = table.getByRole('textbox', {
+      name: language === 'de' ? 'Schrittweite' : 'Step size',
+    });
     const previous = await table.locator('tbody tr').count();
     await step.fill(language === 'de' ? '0,1' : '0.1');
     await expect(table.locator('tbody tr')).toHaveCount(previous);
@@ -37,14 +71,19 @@ for (const language of ['de', 'en'] as const) {
     await step.press('Enter');
     await expect(table.locator('tbody tr')).toHaveCount(500);
     await expect(table.getByRole('status')).toContainText('500');
-    await page.screenshot({ path: `test-results/ap22-${language}.png`, fullPage: true });
+    await page.screenshot({
+      path: `test-results/ap22-${language}.png`,
+      fullPage: true,
+    });
     await toggle.click();
     await toggle.click();
     await expect(rounding).toContainText('2');
   });
 }
 
-test('AP22 parameters apply localized ranges atomically; trace names all curve types', async ({ page }) => {
+test('AP22 parameters apply localized ranges atomically; trace names all curve types', async ({
+  page,
+}) => {
   await page.goto('/m8e-calc/#/graph');
   await page.getByRole('button', { name: 'Hinzufügen', exact: true }).click();
   const editor = page.locator('.graph-editor [role="textbox"]');
@@ -61,7 +100,11 @@ test('AP22 parameters apply localized ranges atomically; trace names all curve t
   await range.getByRole('textbox', { name: 'Schrittweite' }).fill('0,1');
   await range.getByRole('button', { name: 'Anwenden' }).click();
   await expect(slider).toHaveAttribute('min', '-2');
-  for (const [input, parameter] of [['x=3', null], ['(t,t^2)', 't ='], ['r=1', 'θ =']] as const) {
+  for (const [input, parameter] of [
+    ['x=3', null],
+    ['(t,t^2)', 't ='],
+    ['r=1', 'θ ='],
+  ] as const) {
     await editor.fill(input);
     const canvas = page.getByRole('application');
     await canvas.focus();

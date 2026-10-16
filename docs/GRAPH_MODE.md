@@ -124,7 +124,6 @@ Die ersten Messungen mit Trace-Screenshots waren durch Aufnahme-/Protokolllast
 verfälscht; nur der ungetracete Lastlauf ist der dokumentierte Vergleichswert.
 Messdatei: [graph-performance.json](graph-performance.json).
 
-
 ## AP22 · Zahlenanzeige und Wertetabelle
 
 `numbers.ts` ist der gezielte Graph-Adapter für Float64-Anzeige und einzelne

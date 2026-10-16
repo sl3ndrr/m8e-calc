@@ -7,7 +7,23 @@ vi.mock('./model', async (original) => {
   return { ...actual, tableResult: vi.fn(actual.tableResult) };
 });
 vi.mock('./GraphCanvas', () => ({ default: () => <div /> }));
-vi.mock('../scientific/ExpressionEditor', () => ({ default: ({ value, label, onChange }: { value: string; label: string; onChange: (s: string) => void }) => <input aria-label={label} value={value} onChange={(e) => onChange(e.target.value)} /> }));
+vi.mock('../scientific/ExpressionEditor', () => ({
+  default: ({
+    value,
+    label,
+    onChange,
+  }: {
+    value: string;
+    label: string;
+    onChange: (s: string) => void;
+  }) => (
+    <input
+      aria-label={label}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+    />
+  ),
+}));
 it('does no closed-table work; updates an open table only after valid step confirmation or parameter changes', async () => {
   render(<GraphMode />);
   fireEvent.click(screen.getByRole('button', { name: 'Hinzufügen' }));
@@ -31,10 +47,12 @@ it('does no closed-table work; updates an open table only after valid step confi
   }
   expect(vi.mocked(tableResult).mock.calls.length).toBe(confirmed);
   expect(step).toHaveAttribute('aria-invalid', 'true');
-  fireEvent.change(screen.getByRole('slider', { name: 'a', exact: true }), { target: { value: '2' } });
+  fireEvent.keyDown(screen.getByRole('slider', { name: 'a' }), { key: 'ArrowRight' });
   expect(vi.mocked(tableResult).mock.calls.length).toBeGreaterThan(confirmed);
   fireEvent.click(screen.getByRole('button', { name: 'Wertetabelle' }));
   const closed = vi.mocked(tableResult).mock.calls.length;
-  await act(async () => fireEvent.change(editor, { target: { value: 'a*x+2' } }));
+  await act(async () =>
+    fireEvent.change(editor, { target: { value: 'a*x+2' } }),
+  );
   expect(vi.mocked(tableResult).mock.calls.length).toBe(closed);
 });

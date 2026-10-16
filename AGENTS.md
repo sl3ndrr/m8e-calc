@@ -133,7 +133,6 @@ Iconsystem bleibt unverändert. ThemeSwitch behält drei Hauptsymbole und den
 zugänglichen Live-Systemstatus. Reproduzierbare Zustands-/Zoom-/Motionprüfungen
 und Nachweisstatus stehen in [docs/AP20.md](docs/AP20.md).
 
-
 ## AP22 · Graphzahlen
 
 `src/features/graph/numbers.ts` formatiert gezielt Float64-Graphwerte und adaptiert
