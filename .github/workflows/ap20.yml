@@ -18,21 +18,16 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - name: Format prepared changes
-        run: |
-          npx prettier --write src/ui/Checkbox.* src/ui/ThemeSwitch.* src/ui/components.test.tsx e2e/controls-*.spec.ts docs/AP20.md docs/ROADMAP.md docs/DESIGN.md docs/COMPONENTS.md AGENTS.md .github/workflows/ap20.yml
-          git diff
-          mkdir -p ap20-evidence
-          git diff > ap20-evidence/format.patch
       - run: npm run check
       - run: npx playwright install --with-deps chromium
       - run: npx playwright test e2e/controls-polish.spec.ts e2e/controls-native-zoom.spec.ts e2e/theming.spec.ts e2e/components.spec.ts e2e/graph.spec.ts --project=chromium --workers=2
+      - name: Propose graph references for visual review
+        run: npx playwright test --project=qa-visual --grep 'graph ' --update-snapshots --workers=2
       - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: ap20-controls
           path: |
             test-results/
-            ap20-evidence/
-            node_modules/prettier/
+            e2e/qa-visual.spec.ts-snapshots/graph-*.png
           retention-days: 14

@@ -1,6 +1,40 @@
-import { chromium, expect, test } from '@playwright/test';
+import {
+  chromium,
+  expect,
+  test,
+  type CDPSession,
+  type Locator,
+} from '@playwright/test';
 import { resolve } from 'node:path';
-import { rm } from 'node:fs/promises';
+import { rm, writeFile } from 'node:fs/promises';
+
+async function captureControl(control: Locator, cdp: CDPSession, path: string) {
+  await control.scrollIntoViewIfNeeded();
+  const rect = await control.evaluate((node) => {
+    const r = node.getBoundingClientRect();
+    return {
+      x: r.x + scrollX,
+      y: r.y + scrollY,
+      width: r.width,
+      height: r.height,
+    };
+  });
+  const layout = await cdp.send('Page.getLayoutMetrics');
+  const scale =
+    layout.layoutViewport.clientWidth / layout.cssLayoutViewport.clientWidth;
+  const result = await cdp.send('Page.captureScreenshot', {
+    format: 'png',
+    captureBeyondViewport: true,
+    clip: {
+      x: rect.x * scale,
+      y: rect.y * scale,
+      width: rect.width * scale,
+      height: rect.height * scale,
+      scale: 1,
+    },
+  });
+  await writeFile(path, Buffer.from(result.data, 'base64'));
+}
 
 // A throwaway Chromium profile and local-only extension drive the browser's
 // real tab zoom. No CSS zoom, pinch zoom or device-metrics emulation is used.
@@ -8,7 +42,7 @@ test('checkbox centers at native browser zoom 100/125/150/200', async ({
   browserName,
 }, info) => {
   expect(browserName).toBe('chromium');
-  test.slow();
+  test.setTimeout(180_000);
   const profile = info.outputPath('zoom-profile');
   const extension = resolve('e2e/fixtures/ap19-zoom');
   const context = await chromium.launchPersistentContext(profile, {
@@ -79,7 +113,10 @@ test('checkbox centers at native browser zoom 100/125/150/200', async ({
         layout.cssLayoutViewport.clientWidth;
       expect(dipScale).toBeCloseTo(zoom);
       for (const theme of ['light', 'dark'] as const) {
-        await page.emulateMedia({ colorScheme: theme, reducedMotion: 'reduce' });
+        await page.emulateMedia({
+          colorScheme: theme,
+          reducedMotion: 'reduce',
+        });
         for (const uiSize of [80, 100, 150]) {
           await page.evaluate((uiSize) => {
             const raw = localStorage.getItem('m8e-calc.settings');
@@ -93,44 +130,73 @@ test('checkbox centers at native browser zoom 100/125/150/200', async ({
           await page.evaluate(() => document.fonts.ready);
           const row = page.locator('[data-component="Checkbox"]');
           await row.scrollIntoViewIfNeeded();
-          const marks = await page.locator('.ui-checkbox-box').evaluateAll((boxes) => boxes.flatMap((box) => {
-            const b = box.getBoundingClientRect();
-            return Array.from(box.children, (mark) => {
-              const r = mark.getBoundingClientRect();
-              return { dx: r.x + r.width / 2 - b.x - b.width / 2,
-                dy: r.y + r.height / 2 - b.y - b.height / 2 };
-            });
-          }));
+          const marks = await page
+            .locator('.ui-checkbox-box')
+            .evaluateAll((boxes) =>
+              boxes.flatMap((box) => {
+                const b = box.getBoundingClientRect();
+                return Array.from(box.children, (mark) => {
+                  const r = mark.getBoundingClientRect();
+                  return {
+                    dx: r.x + r.width / 2 - b.x - b.width / 2,
+                    dy: r.y + r.height / 2 - b.y - b.height / 2,
+                  };
+                });
+              }),
+            );
           for (const mark of marks) {
             expect(Math.abs(mark.dx)).toBeLessThan(0.6);
             expect(Math.abs(mark.dy)).toBeLessThan(0.6);
           }
-          await row.screenshot({ path: info.outputPath(`checkbox-${theme}-${zoom}-${uiSize}.png`) });
+          await captureControl(
+            row,
+            cdp,
+            info.outputPath(`checkbox-${theme}-${zoom}-${uiSize}.png`),
+          );
           await page.goto(`${baseURL}/m8e-calc/#/graph`);
           const options = page.locator('.graph-options');
+          await expect(options.getByRole('checkbox')).toHaveCount(3);
           for (const label of await options.locator('.ui-checkbox').all()) {
             const input = label.getByRole('checkbox');
             if (!(await input.isChecked())) await label.click();
             await expect(input).toBeChecked();
           }
-          const graphMarks = await options.locator('.ui-checkbox-check').evaluateAll((items) => items.map((mark) => {
-            const r = mark.getBoundingClientRect();
-            const b = mark.parentElement?.getBoundingClientRect();
-            if (!b) throw Error('Missing checkbox box');
-            return { dx: r.x + r.width / 2 - b.x - b.width / 2,
-              dy: r.y + r.height / 2 - b.y - b.height / 2 };
-          }));
+          const graphMarks = await options
+            .locator('.ui-checkbox-check')
+            .evaluateAll((items) =>
+              items.map((mark) => {
+                const r = mark.getBoundingClientRect();
+                const b = mark.parentElement?.getBoundingClientRect();
+                if (!b) throw Error('Missing checkbox box');
+                return {
+                  dx: r.x + r.width / 2 - b.x - b.width / 2,
+                  dy: r.y + r.height / 2 - b.y - b.height / 2,
+                };
+              }),
+            );
           for (const mark of graphMarks) {
             expect(Math.abs(mark.dx)).toBeLessThan(0.6);
             expect(Math.abs(mark.dy)).toBeLessThan(0.6);
           }
-          await options.screenshot({ path: info.outputPath(`graph-${theme}-${zoom}-${uiSize}.png`) });
-          measurements.push({ zoom, theme, uiSize, dipScale, marks, graphMarks });
+          await captureControl(
+            options,
+            cdp,
+            info.outputPath(`graph-${theme}-${zoom}-${uiSize}.png`),
+          );
+          measurements.push({
+            zoom,
+            theme,
+            uiSize,
+            dipScale,
+            marks,
+            graphMarks,
+          });
         }
       }
     }
     await info.attach('native-zoom-metrics', {
-      body: JSON.stringify(measurements, null, 2), contentType: 'application/json',
+      body: JSON.stringify(measurements, null, 2),
+      contentType: 'application/json',
     });
   } finally {
     await context.close();

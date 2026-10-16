@@ -66,7 +66,7 @@
 /* Keep both marks mounted so selection and deselection can interpolate. */
 @media (prefers-reduced-motion: no-preference) {
   :root[data-motion='full'] :is(.ui-checkbox-check, .ui-checkbox-dash) {
-    transform: scale(0.8);
+    transform: scale(var(--md-sys-motion-press-scale));
     transition:
       opacity var(--md-sys-motion-effects-fast-duration)
         var(--md-sys-motion-effects-fast-easing),

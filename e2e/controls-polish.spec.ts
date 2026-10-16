@@ -50,6 +50,22 @@ for (const theme of ['light', 'dark'] as const) {
         expect(mark.fits).toBe(true);
       }
     }
+    await label.hover();
+    await label.screenshot({ path: info.outputPath(`hover-${theme}.png`) });
+    await input.focus();
+    await page.keyboard.down('Space');
+    await expect(label).toHaveAttribute('data-pressed');
+    await label.screenshot({ path: info.outputPath(`pressed-${theme}.png`) });
+    await page.keyboard.up('Space');
+    await expect(input).toBeChecked();
+    await expect(label).toHaveAttribute('data-focus-visible');
+    await label.screenshot({
+      path: info.outputPath(`focus-selected-${theme}.png`),
+    });
+    const invalid = row.locator('[data-state="error"] .ui-checkbox');
+    await invalid.click();
+    await expect(invalid.getByRole('checkbox')).toBeChecked();
+    await expect(invalid).toHaveAttribute('data-invalid');
     await row.screenshot({ path: info.outputPath(`checkbox-${theme}.png`) });
     await mixed.screenshot({ path: info.outputPath(`mixed-${theme}.png`) });
     const themeSwitch = page.locator('.theme-switch');
@@ -75,26 +91,29 @@ for (const motion of ['full', 'reduced', 'off'] as const) {
     );
     const mark = label.locator('.ui-checkbox-check');
     await label.click();
-    const animations = await mark.evaluate((e) =>
-      e.getAnimations().length,
-    );
+    const animations = await mark.evaluate((e) => e.getAnimations().length);
     expect(animations > 0).toBe(motion === 'full');
     if (motion === 'full') {
       const middle = await mark.evaluate((e) => {
         for (const animation of e.getAnimations()) {
           animation.pause();
           const duration = Number(animation.effect?.getTiming().duration);
-          animation.currentTime = duration / 2;
+          animation.currentTime = duration / 4;
         }
         const style = getComputedStyle(e);
         return { opacity: Number(style.opacity), transform: style.transform };
       });
       expect(middle.opacity).toBeGreaterThan(0);
       expect(middle.opacity).toBeLessThan(1);
-      await label.screenshot({ path: info.outputPath('selection-full-middle.png'), animations: 'allow' });
+      await label.screenshot({
+        path: info.outputPath('selection-full-middle.png'),
+        animations: 'allow',
+      });
       await mark.evaluate((e) => e.getAnimations().forEach((a) => a.finish()));
     }
-    await label.screenshot({ path: info.outputPath(`selection-${motion}-selected.png`) });
+    await label.screenshot({
+      path: info.outputPath(`selection-${motion}-selected.png`),
+    });
     await expect(mark).toHaveCSS('opacity', '1');
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await label.click();
