@@ -41,7 +41,14 @@ export default function ValueTable({
   return (
     <>
       <p role={result.stopped ? 'status' : undefined}>
-        {t(result.stopped === 'precision' ? 'graph.tablePrecision' : result.stopped === 'limit' ? 'graph.tableTruncated' : 'graph.tableLimit', locale)}
+        {t(
+          result.stopped === 'precision'
+            ? 'graph.tablePrecision'
+            : result.stopped === 'limit'
+              ? 'graph.tableTruncated'
+              : 'graph.tableLimit',
+          locale,
+        )}
       </p>
       <div className="graph-table-scroll">
         <table>

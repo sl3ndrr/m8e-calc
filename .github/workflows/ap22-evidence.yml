@@ -18,12 +18,6 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - name: Bootstrap formatting evidence
-        run: |
-          npx prettier --write .
-          echo AP22_PATCH_START
-          git diff --no-color
-          echo AP22_PATCH_END
       - run: npm run check
       - run: npx playwright install --with-deps chromium
       - run: npx playwright test e2e/graph.spec.ts e2e/graph-values.spec.ts --project=chromium

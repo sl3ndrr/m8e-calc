@@ -43,7 +43,9 @@ it('does no closed-table work; updates an open table only after valid step confi
   fireEvent.submit(form);
   expect(vi.mocked(tableResult).mock.lastCall?.[2]).toBe(0.1);
   const confirmed = vi.mocked(tableResult).mock.calls.length;
-  fireEvent.click(screen.getByRole('button', { name: 'Sichtbarkeit von Funktion 1' }));
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Sichtbarkeit von Funktion 1' }),
+  );
   expect(vi.mocked(tableResult).mock.calls.length).toBe(confirmed);
   for (const value of ['', ' ', '0', '-1', '1e', 'Infinity', '12.34,5']) {
     fireEvent.change(step, { target: { value } });

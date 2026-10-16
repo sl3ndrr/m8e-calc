@@ -275,12 +275,19 @@ export default function GraphMode() {
     parsed.find((r) => r.row.id === tableId && r.curve) ??
     parsed.find((r) => r.curve);
   const selectedInput = selected?.row.input;
-  const selectedValues = JSON.stringify(Object.fromEntries(
-    Object.entries(selected?.row.params ?? {}).map(([name, p]) => [name, p.value]),
-  ));
+  const selectedValues = JSON.stringify(
+    Object.fromEntries(
+      Object.entries(selected?.row.params ?? {}).map(([name, p]) => [
+        name,
+        p.value,
+      ]),
+    ),
+  );
   const tableCurve = useMemo(() => {
     if (selectedInput === undefined) return null;
-    const result = parseCurveInput(selectedInput, { params: JSON.parse(selectedValues) as Record<string, number> });
+    const result = parseCurveInput(selectedInput, {
+      params: JSON.parse(selectedValues) as Record<string, number>,
+    });
     return result.ok ? result.value : null;
   }, [selectedInput, selectedValues]);
   return (

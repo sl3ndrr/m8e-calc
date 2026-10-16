@@ -161,3 +161,9 @@ Erklärung vor einem doppelten Wert/Key. Ein begrenzter Bereich erklärt die ers
 Nachweise: `numbers.test.ts`, `table.test.ts`, `ValueTable.test.tsx`,
 `tableVisibility.test.tsx` sowie `e2e/graph-values.spec.ts` und die vorhandenen
 Graph-/History-Tests. Tatsächliche Laufresultate werden im PR verlinkt.
+
+Browserbilder mit expliziter Anzeigerundung und sichtbaren Tabellenzeilen:
+[Deutsch](screenshots/ap22-de.png) · [English](screenshots/ap22-en.png).
+Die AP22-Evidence-Action prüft `npm run check` und die gezielten Graph-E2E;
+die reguläre CI prüft zusätzlich den vollständigen Chromium-Smoke samt
+Graph-Performance. Screenshots und tatsächliche Laufnachweise sind im PR verlinkt.
