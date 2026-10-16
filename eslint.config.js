@@ -4,6 +4,9 @@ import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 
+// globals 17 separates AudioWorklet names from browser; keep domain bans complete.
+const browserGlobals = { ...globals.browser, ...globals.audioWorklet };
+
 export default tseslint.config(
   {
     ignores: [
@@ -33,7 +36,7 @@ export default tseslint.config(
     files: ['src/{engine,units,graph}/**/*.ts'],
     languageOptions: {
       globals: Object.fromEntries(
-        Object.keys(globals.browser).map((name) => [name, 'off']),
+        Object.keys(browserGlobals).map((name) => [name, 'off']),
       ),
     },
     rules: {
@@ -61,7 +64,7 @@ export default tseslint.config(
           ],
         },
       ],
-      'no-restricted-globals': ['error', ...Object.keys(globals.browser)],
+      'no-restricted-globals': ['error', ...Object.keys(browserGlobals)],
       'no-restricted-syntax': [
         'error',
         {

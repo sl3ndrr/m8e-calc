@@ -66,3 +66,10 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       normalen Build, internes Lab nur in Entwicklung/ausdrücklichem Galerie-Build,
       getrennte Testziele und Pages-Schutz. Nachweise in [AP23.md](AP23.md);
       Integration erst nach Merge. AP18 und AP20 sind in der Ausgangsbasis enthalten.
+
+- [ ] 24 Dependency-Wartung — `feat/ap24-dependency-maintenance` / PR #30:
+      kompatible Updates aus #12, Vitest-4-Patch und getrennte Dependabot-Gruppen.
+      Paketmatrix, Node-/Peer-Verträge, Prüfnachweise und Folgeaufgaben
+      (ESLint 10, Motion 14, jsdom 30, Vitest 5, Node-Typen 26) in
+      [AP24.md](AP24.md). #12 bleibt bis zur Integration bzw. ausdrücklich
+      autorisierten Zurückstellung offen; kein automatischer Merge/Release.

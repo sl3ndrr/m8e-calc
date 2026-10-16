@@ -156,3 +156,15 @@ separat aus. Normale E2E, PWA, Bundle und Releasebilder prüfen weiter `dist/`.
 Der Compile-Schalter ist keine Anwenderoption. Neue Demoimporte bleiben hinter
 dieser Grenze; gemeinsam benötigte UI-Komponenten erhalten direkte Imports.
 Nachweise, Messdefinitionen und Reproduktion: [docs/AP23.md](docs/AP23.md).
+
+## AP24 · Dependency-Wartung
+
+Paketmatrix und Verfahren: [docs/AP24.md](docs/AP24.md). Node 24 und die passende
+24er-Typenlinie beibehalten. ESLint und `@eslint/js` gemeinsam auf der mit allen
+Plugins kompatiblen Linie halten; keine Peer-Overrides oder Abschaltung von
+Accessibility-Regeln. Dependabot gruppiert Patch/Minor nach Toolchain und
+Runtime; visuell sensible Pakete und unabhängige Majors erhalten eigene PRs.
+Security-Updates bleiben aktiv. Neue Lockfiles regulär mit Node 24/npm erzeugen,
+anschließend frisches `npm ci`, `check` und die betroffenen CI-/QA-Gates ausführen.
+Fontquellen-Updates regenerieren die eingecheckten Subsets nicht automatisch;
+Font-Regeneration und visuelle Referenzänderungen erfordern gezieltes Review.
