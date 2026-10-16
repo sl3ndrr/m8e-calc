@@ -1,3 +1,4 @@
+import { writeFile } from 'node:fs/promises';
 import { allowClipboard } from './clipboard';
 import { expect, test, type Page, type Locator } from '@playwright/test';
 import {
@@ -240,7 +241,9 @@ for (const [id, key] of [
       });
       if (!repeat)
         await info.attach(`mouse-${id === '/' ? 'divide' : id}`, {
-          body: await page.screenshot(),
+          body: await page.screenshot({
+            path: info.outputPath(`press-${id === '/' ? 'divide' : id}.png`),
+          }),
           contentType: 'image/png',
         });
       await button.evaluate((node) =>
@@ -282,8 +285,10 @@ for (const [id, key] of [
     await page.keyboard.press('Escape');
     await page.keyboard.type('1+-*/+-*/2=');
     await expect(page.locator('.calculator-announcement')).toHaveText('0,5');
+    const framePath = info.outputPath('live-frames.json');
+    await writeFile(framePath, JSON.stringify(evidence, null, 2));
     await info.attach('live-frames', {
-      body: JSON.stringify(evidence, null, 2),
+      path: framePath,
       contentType: 'application/json',
     });
   });

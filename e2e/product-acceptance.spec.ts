@@ -104,7 +104,12 @@ for (const [width, height, language, theme, accent, motionLevel] of [
       await info.attach(
         `${mode}-${width}-${language}-${theme}-${motionLevel}`,
         {
-          body: await page.screenshot({ animations: 'allow' }),
+          body: await page.screenshot({
+            path: info.outputPath(
+              `${mode}-${width}-${language}-${theme}-${motionLevel}.png`,
+            ),
+            animations: 'allow',
+          }),
           contentType: 'image/png',
         },
       );

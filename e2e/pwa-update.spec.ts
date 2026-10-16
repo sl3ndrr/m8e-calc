@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { createServer } from 'node:http';
-import { readFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { resolve, extname } from 'node:path';
 import { qaModes, ready } from './qa-setup';
 
@@ -93,7 +93,9 @@ for (const initialMode of qaModes) {
       ).toBeVisible();
       await expect(action).toBeVisible();
       await info.attach('update-offer', {
-        body: await page.screenshot(),
+        body: await page.screenshot({
+          path: info.outputPath('update-offer.png'),
+        }),
         contentType: 'image/png',
       });
       await Promise.all([page.waitForEvent('load'), action.click()]);
@@ -158,14 +160,21 @@ for (const initialMode of qaModes) {
           );
         }
         await info.attach(`offline-${mode}`, {
-          body: await page.screenshot(),
+          body: await page.screenshot({
+            path: info.outputPath(`offline-${mode}.png`),
+          }),
           contentType: 'image/png',
         });
       }
       expect(errors).toEqual([]);
       expect(external).toEqual([]);
+      const revisions = info.outputPath('cache-revisions.json');
+      await writeFile(
+        revisions,
+        JSON.stringify({ oldCaches, currentCaches, urls }, null, 2),
+      );
       await info.attach('cache-revisions', {
-        body: JSON.stringify({ oldCaches, currentCaches, urls }, null, 2),
+        path: revisions,
         contentType: 'application/json',
       });
     } finally {
