@@ -88,6 +88,7 @@ test('checkbox centers at native browser zoom 100/125/150/200', async ({
             settings.state.uiSize = uiSize;
             localStorage.setItem('m8e-calc.settings', JSON.stringify(settings));
           }, uiSize);
+          await page.goto(`${baseURL}/m8e-calc/#/design`);
           await page.reload();
           await page.evaluate(() => document.fonts.ready);
           const row = page.locator('[data-component="Checkbox"]');
@@ -105,7 +106,26 @@ test('checkbox centers at native browser zoom 100/125/150/200', async ({
             expect(Math.abs(mark.dy)).toBeLessThan(0.6);
           }
           await row.screenshot({ path: info.outputPath(`checkbox-${theme}-${zoom}-${uiSize}.png`) });
-          measurements.push({ zoom, theme, uiSize, dipScale, marks });
+          await page.goto(`${baseURL}/m8e-calc/#/graph`);
+          const options = page.locator('.graph-options');
+          for (const label of await options.locator('.ui-checkbox').all()) {
+            const input = label.getByRole('checkbox');
+            if (!(await input.isChecked())) await label.click();
+            await expect(input).toBeChecked();
+          }
+          const graphMarks = await options.locator('.ui-checkbox-check').evaluateAll((items) => items.map((mark) => {
+            const r = mark.getBoundingClientRect();
+            const b = mark.parentElement?.getBoundingClientRect();
+            if (!b) throw Error('Missing checkbox box');
+            return { dx: r.x + r.width / 2 - b.x - b.width / 2,
+              dy: r.y + r.height / 2 - b.y - b.height / 2 };
+          }));
+          for (const mark of graphMarks) {
+            expect(Math.abs(mark.dx)).toBeLessThan(0.6);
+            expect(Math.abs(mark.dy)).toBeLessThan(0.6);
+          }
+          await options.screenshot({ path: info.outputPath(`graph-${theme}-${zoom}-${uiSize}.png`) });
+          measurements.push({ zoom, theme, uiSize, dipScale, marks, graphMarks });
         }
       }
     }

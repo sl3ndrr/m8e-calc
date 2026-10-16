@@ -493,7 +493,13 @@ it('checkbox preserves native mixed/disabled/invalid semantics and changes once 
   rerender(<UI.Checkbox isIndeterminate>Remember</UI.Checkbox>);
   expect(input).toBePartiallyChecked();
   rerender(
-    <UI.Checkbox isDisabled isSelected isInvalid validationBehavior="aria" onChange={change}>
+    <UI.Checkbox
+      isDisabled
+      isSelected
+      isInvalid
+      validationBehavior="aria"
+      onChange={change}
+    >
       Remember
     </UI.Checkbox>,
   );
