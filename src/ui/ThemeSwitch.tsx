@@ -47,15 +47,6 @@ export function ThemeSwitch() {
           <>
             <Icon name={symbols[item]} filled={mode === item} />
             <span className="theme-label">{t(`theme.${item}`, locale)}</span>
-            {item === 'system' && (
-              <span
-                className="system-indicator"
-                data-dark={systemDark}
-                aria-hidden="true"
-              >
-                <Icon name={systemDark ? 'dark_mode' : 'light_mode'} />
-              </span>
-            )}
             <span className="tooltip" aria-hidden="true">
               {item === 'system' ? status : t(`theme.${item}`, locale)}
             </span>

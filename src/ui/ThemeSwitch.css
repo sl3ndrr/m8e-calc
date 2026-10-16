@@ -57,15 +57,6 @@
   transform: translateX(calc(200% + 8px));
   border-radius: var(--md-sys-shape-small);
 }
-.system-indicator {
-  position: absolute;
-  bottom: 2px;
-  right: 8px;
-  opacity: 0.7;
-}
-.system-indicator .symbol {
-  font-size: 12px;
-}
 .tooltip {
   position: absolute;
   bottom: calc(100% + 8px);

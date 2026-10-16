@@ -125,3 +125,10 @@ begrenzten Animationsviewport. Rechentasten behalten ihre rollenbezogene
 Grundform auch bei Press/Active; gemeinsame Motion-/Shape-Tokens gelten auch
 im wissenschaftlichen Tastenfeld. Konzept und reproduzierbare Browsernachweise:
 [docs/AP19.md](docs/AP19.md).
+
+## AP20 · Controls-Polish
+
+Checkbox-Markierungen haben einen lokalen Größenvertrag; das generische
+Iconsystem bleibt unverändert. ThemeSwitch behält drei Hauptsymbole und den
+zugänglichen Live-Systemstatus. Reproduzierbare Zustands-/Zoom-/Motionprüfungen
+und Nachweisstatus stehen in [docs/AP20.md](docs/AP20.md).
