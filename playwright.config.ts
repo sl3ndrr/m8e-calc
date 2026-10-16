@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
+export const gallerySpecs = ['**/components.spec.ts', '**/theming.spec.ts', '**/controls-polish.spec.ts', '**/controls-native-zoom.spec.ts'];
+
 export default defineConfig({
   testDir: './e2e',
   use: {
@@ -11,6 +13,7 @@ export default defineConfig({
     {
       name: 'chromium',
       testIgnore: [
+        ...gallerySpecs,
         '**/graph-performance.spec.ts',
         '**/qa-visual.spec.ts',
         '**/qa-performance.spec.ts',
@@ -47,6 +50,6 @@ export default defineConfig({
   webServer: {
     command: 'npm run preview -- --host 127.0.0.1 --port 4173 --strictPort',
     url: 'http://127.0.0.1:4173/m8e-calc/',
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
   },
 });

@@ -1,3 +1,4 @@
+import '../styles/designLab.css';
 import type { CSSProperties } from 'react';
 import { ComponentGallery } from './ComponentGallery';
 import { useAppStore } from '../shared/store';

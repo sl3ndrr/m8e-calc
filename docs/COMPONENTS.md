@@ -71,7 +71,7 @@ AccentPicker verwendet Button/IconButton, Slider, Select und Popover/DialogTrigg
 
 ## Galerie, Screenshots und Prüfungen
 
-`#/design` enthält die vollständige Komponentenmatrix. `src/app/galleryEntries.ts` definiert je Komponente alle unterstützten Zustände. Default, Hover, Focus, Pressed, Disabled, Selected und Error werden bei interaktiven/validierenden Bausteinen angezeigt; statische Bausteine bekommen keine erfundenen Auswahl- oder Fehlerzustände. Vorschau-Klassen sind auf die Galerie beschränkt; die Komponenten selbst verwenden reale React-Aria-State-Attribute. Varianten, Größen, Formen, indeterminate, beide Feldtypen, Chip-Arten und docked/modal ergänzen die Matrix. Overlays öffnen über ihre echten Trigger.
+Das interne `#/design` (Entwicklung oder `npm run build:gallery`) enthält die vollständige Komponentenmatrix. `src/app/galleryEntries.ts` definiert je Komponente alle unterstützten Zustände. Default, Hover, Focus, Pressed, Disabled, Selected und Error werden bei interaktiven/validierenden Bausteinen angezeigt; statische Bausteine bekommen keine erfundenen Auswahl- oder Fehlerzustände. Vorschau-Klassen sind auf die Galerie beschränkt; die Komponenten selbst verwenden reale React-Aria-State-Attribute. Varianten, Größen, Formen, indeterminate, beide Feldtypen, Chip-Arten und docked/modal ergänzen die Matrix. Overlays öffnen über ihre echten Trigger.
 
 ```sh
 npm ci
@@ -79,7 +79,9 @@ npm run check
 npx playwright install --with-deps chromium
 npm run test:e2e
 # In einem separaten Terminal:
-npm run preview -- --host 127.0.0.1 --port 4173 --strictPort
+npm run build:gallery
+npm run test:e2e:gallery
+npm run preview:gallery -- --host 127.0.0.1 --port 4174 --strictPort
 npm run screenshots:gallery
 ```
 
@@ -130,3 +132,6 @@ Error/On Error; Hover, Pressed, Fokus und Disabled bleiben React-Aria-Zustände.
 ThemeSwitch zeigt genau Sonne / Auto / Mond. Der aktuelle Systemzustand bleibt
 im zugänglichen Namen und Tooltip des Auto-Segments, ohne zusätzlichen sichtbaren
 Indikator. Tests und Bildreproduktion: [AP20.md](AP20.md).
+
+Die Komponentenbibliothek bleibt erhalten; nur das Lab wird aus der normalen
+Auslieferung ausgeschlossen. Getrennte Build-/QA-Nachweise: [AP23.md](AP23.md).

@@ -22,6 +22,8 @@ jobs:
       - run: npm run check
       - run: npx playwright install --with-deps chromium
       - run: npx playwright test --project=chromium --project=chromium-graph-performance
+      # Fail closed immediately before upload, even if another step built a gallery.
+      - run: node scripts/check-build-target.mjs dist normal
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:

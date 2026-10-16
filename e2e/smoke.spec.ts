@@ -27,6 +27,10 @@ test('loads the production build under the Pages base path without external requ
       page.getByRole('link', { name: t(`mode.${mode}`) }),
     ).toHaveAttribute('aria-current', 'page');
   }
+  await expect(page.locator('a[href="#/design"]')).toHaveCount(0);
+  await page.goto('/m8e-calc/#/design');
+  await expect(page.getByRole('heading', { name: t('mode.simple') })).toBeVisible();
+  await expect(page.locator('.design-lab')).toHaveCount(0);
   await page.goto('/m8e-calc/#/unknown');
   await expect(
     page.getByRole('link', { name: t('mode.simple') }),

@@ -7,3 +7,6 @@ test-results
 
 .lighthouseci/
 .qa-baseline/
+
+dist-gallery
+.ap23-before

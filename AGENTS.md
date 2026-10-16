@@ -61,7 +61,7 @@ decimal.js-Konfiguration: 50 Stellen, Anzeige 15; Kontextstandard `rad`/`strict`
 AP7 ergänzt wissenschaftliche Registry-Einträge, AST-Binder, komplexe Werte, CODATA-2022-Konstanten und Export. Eigene Anweisungen über die immutable `execute`-API mit JSON-serialisierbarem Environment; Details, reservierte Namen und Genauigkeitsgrenzen in `docs/ENGINE.md`. Eigene vertrauenswürdige Funktionen als Registry-Einträge. Eingabelokalisierung bleibt im UI-Adapter.
 Engine-Tests laufen in einem separaten Vitest-Node-Projekt ohne UI-Testsetup.
 
-Datenfluss: Benutzereingabe → reine UI-Funktion/Reducer → Domäne → Ergebnis → Store/React → Ansicht. Keine fachlichen Seiteneffekte beim Rendern. Hash-Routen: `#/simple`, `#/scientific`, `#/convert`, `#/graph`, technisches Design-Lab `#/design`; leerer Hash setzt den zuletzt genutzten Modus fort (Standard Einfach); unbekannter Hash zeigt Einfach. Keine serverseitigen Rewrites voraussetzen.
+Datenfluss: Benutzereingabe → reine UI-Funktion/Reducer → Domäne → Ergebnis → Store/React → Ansicht. Keine fachlichen Seiteneffekte beim Rendern. Hash-Routen: `#/simple`, `#/scientific`, `#/convert`, `#/graph`, internes Design-Lab `#/design` nur in Entwicklung/Galerie; leerer Hash setzt den zuletzt genutzten Modus fort (Standard Einfach); unbekannter Hash zeigt Einfach. Keine serverseitigen Rewrites voraussetzen.
 
 ## Konventionen und verbindliche Regeln
 
@@ -141,3 +141,15 @@ an Rechnerformaten oder Formelausdrücken. Rundung ist reiner Anzeigezustand;
 Plot-Version 1, Settings und Permalinks bleiben unverändert. `ValueTable` trennt
 Berechnungsmemo von Formatierung und wird nur geöffnet eingebunden. Vertrag,
 Bestätigung und Arbeitsgrenzen stehen in `docs/GRAPH_MODE.md`.
+
+## AP23 · Internes Designlab
+
+`npm run build` erzeugt ausschließlich die Anwender-App in `dist/`.
+`npm run dev` aktiviert das interne Lab; `npm run build:gallery` ist der explizite
+Galerie-Testbuild in `dist-gallery/`, Preview mit `npm run preview:gallery` auf
+Port 4174. Niemals Galerie nach `dist/` bauen oder als Pages-Artefakt hochladen.
+`npm run test:e2e:gallery` führt die vollständigen Lab-/Theming-/Controlsprüfungen
+separat aus. Normale E2E, PWA, Bundle und Releasebilder prüfen weiter `dist/`.
+Der Compile-Schalter ist keine Anwenderoption. Neue Demoimporte bleiben hinter
+dieser Grenze; gemeinsam benötigte UI-Komponenten erhalten direkte Imports.
+Nachweise, Messdefinitionen und Reproduktion: [docs/AP23.md](docs/AP23.md).

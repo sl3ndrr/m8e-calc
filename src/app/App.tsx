@@ -49,9 +49,12 @@ import { isModeId } from '../shared/modes';
 import { downloadFile } from './fileTransfer';
 import { exportHistory } from '../shared/history';
 import { usePwa } from './pwa';
-const DesignLab = lazy(() =>
-  import('./DesignLab').then((module) => ({ default: module.DesignLab })),
-);
+// Compile-time boundary: the normal build never retains this import.
+const DesignLab = __INTERNAL_DESIGN_LAB__
+  ? lazy(() =>
+      import('./DesignLab').then((module) => ({ default: module.DesignLab })),
+    )
+  : null;
 function subscribe(listener: () => void) {
   window.addEventListener('hashchange', listener);
   return () => window.removeEventListener('hashchange', listener);
@@ -234,7 +237,7 @@ export function App() {
   );
   return (
     <I18nProvider locale={locale}>
-      {route === 'design' ? (
+      {__INTERNAL_DESIGN_LAB__ && route === 'design' && DesignLab ? (
         <main className="placeholder">
           <p className="brand">{t('app.name', locale)}</p>
           <nav aria-label={t('app.navigation', locale)}>
@@ -295,10 +298,10 @@ export function App() {
                 )}
                 onPress={() => setRailOverride(!expanded)}
               />
-              <a href="#/design" aria-label={t('mode.design', locale)}>
+              {__INTERNAL_DESIGN_LAB__ && <a href="#/design" aria-label={t('mode.design', locale)}>
                 <Icon name="palette" />
                 <span>{t('mode.design', locale)}</span>
-              </a>
+              </a>}
             </div>
           </aside>
           <main className="shell-main" aria-labelledby="active-mode-title">

@@ -61,3 +61,8 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       Tabellenberechnung auf integriertem AP21. Vertrag und Testnachweise in
       [GRAPH_MODE.md](GRAPH_MODE.md); Integration erst nach Merge.
       CSV-Export, neue Rechenfeatures und implizite Kurven bleiben Folgepakete.
+
+- [ ] 23 Internes Designlab — `feat/ap23-internal-design-lab`: vier Modi im
+      normalen Build, internes Lab nur in Entwicklung/ausdrücklichem Galerie-Build,
+      getrennte Testziele und Pages-Schutz. Nachweise in [AP23.md](AP23.md);
+      Integration erst nach Merge. AP18 und AP20 sind in der Ausgangsbasis enthalten.

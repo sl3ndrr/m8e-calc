@@ -1,6 +1,9 @@
 # Designfundament · AP2 Theming
 
-`#/design` ist das Design-Lab. Die vier Rechner-Modi bleiben Platzhalter: keine Rechenlogik, Modusinhalte oder Verlaufsfunktion. ThemeSwitch und AccentPicker sind wiederverwendbare UI-Komponenten; alle sichtbaren Texte und ARIA-Namen existieren in Deutsch und Englisch.
+`#/design` ist das interne Design-Lab für Komponentenentwicklung und Regressionen.
+Es ist bei `npm run dev` sowie im expliziten `npm run build:gallery` verfügbar;
+der normale Produktionsbuild enthält vier funktionsfähige Rechnermodi und
+Einstellungen. Buildgrenze und Testziele: [AP23.md](AP23.md).
 
 ## Farbe
 

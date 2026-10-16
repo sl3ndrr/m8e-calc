@@ -3,7 +3,7 @@ import { chromium } from 'playwright';
 import { expect } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
 const base =
-  process.env.GALLERY_URL ?? 'http://127.0.0.1:4173/m8e-calc/#/design';
+  process.env.GALLERY_URL ?? 'http://127.0.0.1:4174/m8e-calc/#/design';
 const output = process.env.GALLERY_OUTPUT ?? 'docs/screenshots';
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch();
