@@ -225,24 +225,36 @@ test('AP24 KaTeX renders accessible math with local loaded fonts', async ({
   await editor.fill('integral(x^2, x, 0, 3)');
   await editor.press('Enter');
   await expect(page.locator('.scientific-result-text')).toHaveText('9');
-  await expect(page.locator('.scientific-math .katex-html').first()).toBeVisible();
-  await expect(page.locator('.scientific-math .katex-mathml math').first()).toBeAttached();
+  await expect(
+    page.locator('.scientific-math .katex-html').first(),
+  ).toBeVisible();
+  await expect(
+    page.locator('.scientific-math .katex-mathml math').first(),
+  ).toBeAttached();
   await expect(page.locator('.scientific-math .katex-error')).toHaveCount(0);
   const fonts = await page.evaluate(async () => {
     await document.fonts.ready;
+    const katexFonts = await document.fonts.load('16px KaTeX_Main');
     return {
-      faces: Array.from(document.fonts, (font) => ({
+      faces: katexFonts.map((font) => ({
         family: font.family,
         status: font.status,
       })),
-      requests: performance.getEntriesByType('resource')
+      requests: performance
+        .getEntriesByType('resource')
         .map((entry) => entry.name)
         .filter((name) => /\.(woff2?)(?:\?|$)/.test(name)),
       localBase: location.origin + '/m8e-calc/',
     };
   });
-  expect(fonts.faces.some((font) => font.family.includes('KaTeX') && font.status === 'loaded')).toBe(true);
+  expect(
+    fonts.faces.some(
+      (font) => font.family.includes('KaTeX') && font.status === 'loaded',
+    ),
+  ).toBe(true);
   expect(fonts.requests.some((url) => url.includes('KaTeX'))).toBe(true);
-  expect(fonts.requests.every((url) => url.startsWith(fonts.localBase))).toBe(true);
+  expect(fonts.requests.every((url) => url.startsWith(fonts.localBase))).toBe(
+    true,
+  );
   expect(errors).toEqual([]);
 });
