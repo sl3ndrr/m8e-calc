@@ -6,6 +6,16 @@ Alle wesentlichen Änderungen werden hier dokumentiert. Das Format folgt
 
 ## [Unreleased]
 
+### Changed
+
+- AP17–AP24 integriert: optionale Währungen mit explizitem Opt-in, kompakte
+  Werkzeugleisten/Teilen, vollständige Ziffern, stabile Tasten und Checkboxen,
+  Systemtheme ohne Zusatzicon, stabiles Graph-Fit, lokalisierte gerundete
+  Tabellen, internes Designlab und Dependency-Wartung.
+- AP25 bereitet die belegte browserübergreifende Produktabnahme vor; aktuelle
+  Ergebnisse und offene Live-Abnahme in [AP25](docs/AP25.md). Keine neue Version,
+  kein Release oder Tag daraus abgeleitet.
+
 ## [1.0.0] – Veröffentlichung vorbereitet, noch nicht veröffentlicht
 
 ### Added

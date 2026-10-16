@@ -13,7 +13,9 @@ export async function allowClipboard(context: BrowserContext) {
     Object.defineProperty(navigator, 'clipboard', {
       configurable: true,
       value: {
-        writeText: async (value: string) => { text = value; },
+        writeText: async (value: string) => {
+          text = value;
+        },
         readText: async () => text,
       },
     });

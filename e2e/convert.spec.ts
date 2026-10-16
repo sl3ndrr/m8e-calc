@@ -12,7 +12,8 @@ test.beforeEach(async ({ page }) => {
   await page.locator('.convert-mode').waitFor();
 });
 test('conversion, target editing, paste, swap and keyboard shortcuts', async ({
-  page, browserName,
+  page,
+  browserName,
 }) => {
   test.skip(browserName !== 'chromium', 'OS paste permission is Chromium-only');
   const from = page.getByRole('textbox', {

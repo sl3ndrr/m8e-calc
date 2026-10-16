@@ -229,14 +229,14 @@ test('PWA installability and all four modes offline after only the first load', 
   await page.evaluate(() => navigator.serviceWorker.ready.then(() => true));
   await page.waitForFunction(() => !!navigator.serviceWorker.controller);
   if (context.browser()?.browserType().name() === 'chromium') {
-  const session = await context.newCDPSession(page);
-  await expect
-    .poll(
-      async () =>
-        (await session.send('Page.getInstallabilityErrors'))
-          .installabilityErrors,
-    )
-    .toEqual([]);
+    const session = await context.newCDPSession(page);
+    await expect
+      .poll(
+        async () =>
+          (await session.send('Page.getInstallabilityErrors'))
+            .installabilityErrors,
+      )
+      .toEqual([]);
   }
   const manifest = await page.evaluate(async () => {
     const href = document.querySelector<HTMLLinkElement>(

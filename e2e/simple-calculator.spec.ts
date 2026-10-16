@@ -83,7 +83,11 @@ test('keyboard toggles history and restores its expression with Tab and Enter', 
     page.getByRole('complementary', { name: 'Verlauf' }),
   ).toBeVisible();
 });
-test('Ctrl+V pastes a localized number', async ({ page, context, browserName }) => {
+test('Ctrl+V pastes a localized number', async ({
+  page,
+  context,
+  browserName,
+}) => {
   test.skip(browserName !== 'chromium', 'OS paste permission is Chromium-only');
   await allowClipboard(context);
   await page.evaluate(() => navigator.clipboard.writeText('1.234,5'));

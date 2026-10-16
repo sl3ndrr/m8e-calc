@@ -18,16 +18,18 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - name: Package local formatting tools for restricted development environment
-        run: tar -czf /tmp/ap25-format-tools.tgz node_modules/prettier
-      - uses: actions/upload-artifact@v7
-        with:
-          name: ap25-format-tools
-          path: /tmp/ap25-format-tools.tgz
-          retention-days: 1
       - run: npm run check
       - run: npx playwright install --with-deps chromium firefox webkit
-      - run: npx playwright test e2e/product-acceptance.spec.ts e2e/pwa-update.spec.ts --project=chromium --project=firefox --project=webkit --workers=2
+      - name: Record source and environment
+        env:
+          AP25_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          mkdir -p test-results/ap25
+          node --input-type=module -e 'import {writeFileSync} from "node:fs"; import {createRequire} from "node:module"; const require=createRequire(import.meta.url); writeFileSync("test-results/ap25/environment.json", JSON.stringify({sourceCommit:process.env.GITHUB_SHA,headCommit:process.env.AP25_HEAD_SHA,node:process.version,platform:process.platform,arch:process.arch,playwright:require("@playwright/test/package.json").version,runner:process.env.ImageOS,imageVersion:process.env.ImageVersion},null,2))'
+      - name: Integrated production acceptance
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: test-results/ap25/results.json
+        run: npx playwright test e2e/product-acceptance.spec.ts e2e/pwa-update.spec.ts --project=chromium --project=firefox --project=webkit --workers=2 --reporter=list,json --output=test-results/ap25/browser
       - uses: actions/upload-artifact@v7
         if: always()
         with:

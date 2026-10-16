@@ -168,3 +168,16 @@ Security-Updates bleiben aktiv. Neue Lockfiles regulär mit Node 24/npm erzeugen
 anschließend frisches `npm ci`, `check` und die betroffenen CI-/QA-Gates ausführen.
 Fontquellen-Updates regenerieren die eingecheckten Subsets nicht automatisch;
 Font-Regeneration und visuelle Referenzänderungen erfordern gezieltes Review.
+
+## AP25 · Produktabnahme
+
+Bestehende AP18–AP24-Regressionen werden in den drei Browserprojekten
+weiterverwendet; die integrierte Desktopmatrix und der echte
+Service-Worker-Lebenszyklus ergänzen sie. Der Update-Test verwendet eine explizite
+vorherige Cache-Identität desselben Produktionsworkers, keinen behaupteten alten
+Deploy. Chromium prüft die OS-Zwischenablage; Firefox/WebKit verwenden für
+Textkopierverträge einen gekennzeichneten In-Memory-Adapter. Native Paste- und
+PNG-Zwischenablage bleiben Chromium-Prüfungen.
+`build-info.json` enthält passiv CI-Commit und Buildziel; ohne `GITHUB_SHA`
+steht der Commit auf `null`. Kein App-Request und keine sichtbare Entwickler-UI.
+Abnahme mit SHA, tatsächlichen Läufen und offenen Live-Grenzen: `docs/AP25.md`.

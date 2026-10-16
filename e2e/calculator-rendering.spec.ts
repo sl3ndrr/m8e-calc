@@ -87,8 +87,10 @@ for (const [width, height, zoom, uiSize, theme, language] of [
     await page.goto('/m8e-calc/#/simple');
     await ready(page);
     const viewport = page.locator('.calculator-viewport');
-    const cdp = context.browser()?.browserType().name() === 'chromium'
-      ? await context.newCDPSession(page) : undefined;
+    const cdp =
+      context.browser()?.browserType().name() === 'chromium'
+        ? await context.newCDPSession(page)
+        : undefined;
     const heightBefore = await viewport.evaluate((n) => n.clientHeight);
     test.slow();
     const measurements = [];
