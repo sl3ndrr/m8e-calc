@@ -71,7 +71,7 @@ Die ausgegebene lokale URL verwendet standardmäßig den Pfad `/m8e-calc/`. Ohne
 | `npm run test`                | Vitest mit Testing Library und Property-Tests                                   |
 | `npm run test:e2e`            | Playwright (vorher Build und Browser installieren)                              |
 | `npm run screenshots`         | Acht Release-Screenshots und Social Preview aus dem Produktionsbuild erzeugen   |
-| `npm run screenshots:gallery` | Komponenten-Galerie aufnehmen; Preview vorher starten                           |
+| `npm run screenshots:gallery` | Komponenten-Galerie aufnehmen; separaten Galerie-Preview vorher starten                           |
 | `npm run tokens`              | Material-Farbtokens regenerieren                                                |
 
 ```sh
@@ -95,6 +95,12 @@ React orchestriert die Oberfläche; Berechnungen bleiben in browserfreien TypeSc
 | `src/ui`, `src/styles`                 | Zugängliche Komponenten, lokale Fonts und zentrale Design-Tokens |
 | `src/shared`                           | Zustand, Persistenz und typisierte de/en-Texte                   |
 | `e2e`, `scripts`                       | Browserprüfungen, Qualitätschecks und Asset-Erzeugung            |
+
+Das interne Designlab ist bei `npm run dev` unter `#/design` erreichbar.
+Für Galerie-Tests im Produktionspreview: `npm run build:gallery`, danach
+`npm run test:e2e:gallery` oder `npm run preview:gallery` (Port 4174 für das
+Galerie-Bildskript). Dieser Build liegt in `dist-gallery/`; der normale Build
+und Pages verwenden ausschließlich `dist/`. Details: [Internes Designlab](docs/AP23.md).
 
 Einstieg: [ARCHITECTURE.md](docs/ARCHITECTURE.md), [Produkt](docs/PRODUCT_SPEC.md), [Design](docs/DESIGN.md), [Komponenten](docs/COMPONENTS.md), [Roadmap](docs/ROADMAP.md). Fachverträge: [Engine](docs/ENGINE.md), [Einheiten](docs/UNITS.md), [Graphen](docs/GRAPH.md). Bedienung: [Wissenschaftlich](docs/SCIENTIFIC_MODE.md), [Umrechner](docs/CONVERT_MODE.md), [Graphen](docs/GRAPH_MODE.md), [Komfort](docs/COMFORT.md). Für Beiträge zuerst [AGENTS.md](AGENTS.md) lesen.
 

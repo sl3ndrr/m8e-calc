@@ -32,6 +32,9 @@ Node 24 LTS (`nvm use`), npm und das eingecheckte `package-lock.json` verwenden.
 | ----------------------------- | ---------------------------------------------------------------------- |
 | `npm run dev`                 | Vite-Entwicklungsserver                                                |
 | `npm run build`               | TypeScript prüfen und Produktionsbuild nach `dist/`                    |
+| `npm run build:gallery`      | Expliziter interner Galerie-Testbuild nach `dist-gallery/`             |
+| `npm run preview:gallery`    | Separaten Galerie-Testbuild lokal ausliefern                           |
+| `npm run test:e2e:gallery`   | Galerie-/Theming-/Controls-E2E auf Port 4174                            |
 | `npm run preview`             | Produktionsbuild lokal ausliefern                                      |
 | `npm run lint`                | ESLint und Prettier-Formatprüfung                                      |
 | `npm run typecheck`           | Alle TypeScript-Projekte prüfen                                        |
@@ -39,7 +42,7 @@ Node 24 LTS (`nvm use`), npm und das eingecheckte `package-lock.json` verwenden.
 | `npm run test:engine:bench`   | Parse + Eval typischer Ausdrücke; nach Warm-up jeweils unter 1 ms      |
 | `npm run test:e2e`            | Playwright mit Chromium gegen den vorher erstellten Build              |
 | `npm run screenshots`         | Release-Bilder in `docs/img/` aus dem Build erzeugen (eigener Preview) |
-| `npm run screenshots:gallery` | Galerie und Overlays in Hell/Dunkel aufnehmen (Preview vorher starten) |
+| `npm run screenshots:gallery` | Galerie und Overlays aufnehmen (Galerie-Preview auf Port 4174 starten) |
 | `npm run check`               | lint + typecheck + test + build + Engine-/Graph-Benchmarks             |
 
 Einmalig für E2E: `npx playwright install chromium` (Linux-CI: `--with-deps`). Vor E2E `npm run build` ausführen. Formatieren: `npx prettier --write .`. `VITE_BASE_PATH` überschreibt den Standard `/m8e-calc/`; als absoluter Pfad mit führendem und abschließendem Slash setzen. Der Pages-Smoke prüft bewusst den Standardpfad.

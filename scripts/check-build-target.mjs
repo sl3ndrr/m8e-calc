@@ -26,7 +26,7 @@ assert.equal(hasLab, target === 'gallery');
 if (target === 'normal') {
   assert.doesNotMatch(
     text,
-    /\.design-lab|\.component-gallery|Raum für deinen Stil|Room for your style/,
+    /\.design-lab|\.component-gallery|\.motion-demo|Raum für deinen Stil|Room for your style|Design-Lab|Design lab/,
   );
   assert.doesNotMatch(precache, /DesignLab|ComponentGallery|MotionDemo/);
 }

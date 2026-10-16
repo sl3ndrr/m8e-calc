@@ -11,6 +11,7 @@ export default defineConfig(({ command, mode }) => {
   const internalLab = command === 'serve' || mode === 'gallery';
   return {
     base: process.env.VITE_BASE_PATH ?? '/m8e-calc/',
+    preview: { port: mode === 'gallery' ? 4174 : 4173 },
     define: { __INTERNAL_DESIGN_LAB__: JSON.stringify(internalLab) },
     build: {
       manifest: true,

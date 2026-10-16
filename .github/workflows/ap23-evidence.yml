@@ -36,6 +36,11 @@ jobs:
           sha256sum dist/index.html dist/sw.js > /tmp/ap23-normal.sha256
           npm run build:gallery
           sha256sum -c /tmp/ap23-normal.sha256
+          if node scripts/check-build-target.mjs dist-gallery normal > /tmp/ap23-reject.log 2>&1; then
+            echo "Gallery incorrectly accepted as Pages input"
+            exit 1
+          fi
+          echo "Gallery rejected as normal Pages input"
           node scripts/ap23-measure.mjs dist-gallery test-results/ap23/size-gallery.json
           cp dist-gallery/.vite/manifest.json test-results/ap23/manifest-gallery.json
           cp dist-gallery/sw.js test-results/ap23/sw-gallery.js
@@ -59,7 +64,7 @@ jobs:
         run: GALLERY_DEV=1 npm run test:e2e:gallery -- --grep 'gallery contains every' --workers=1 --output=test-results/ap23-dev
       - name: Produce screenshot candidates for manual review (never commit automatically)
         if: ${{ !cancelled() }}
-        run: npx playwright test --project=qa-visual --update-snapshots --workers=2 --output=test-results/ap23-visual
+        run: npx playwright test --project=qa-visual --update-snapshots=all --workers=2 --output=test-results/ap23-visual
       - uses: actions/upload-artifact@v7
         if: always()
         with:

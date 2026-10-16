@@ -39,6 +39,10 @@
 
 ## Beispiele
 
+Die `ui.*`-Demotexte im folgenden Beispiel gehören zur internen Galerie.
+Produktaufrufer übergeben eigene fachliche i18n-Schlüssel; labexklusive Texte
+werden im normalen Build nicht ausgeliefert.
+
 ```tsx
 import { Button, TextField, Select, Snackbar, createSnackbarQueue } from '../ui';
 
@@ -78,10 +82,11 @@ npm ci
 npm run check
 npx playwright install --with-deps chromium
 npm run test:e2e
-# In einem separaten Terminal:
 npm run build:gallery
 npm run test:e2e:gallery
+# Galerie-Preview in einem eigenen Terminal:
 npm run preview:gallery -- --host 127.0.0.1 --port 4174 --strictPort
+# Aufnahmen in einem weiteren Terminal:
 npm run screenshots:gallery
 ```
 
