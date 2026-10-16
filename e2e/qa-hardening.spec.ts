@@ -313,9 +313,10 @@ for (const chunk of ['ScientificMode', 'ExpressionEditor', 'MathDisplay'])
       'Dieser Modus konnte nicht geladen werden',
     );
     await page.unroute(`**/${chunk}-*.js`);
-    await page
-      .getByRole('button', { name: 'Zurücksetzen', exact: true })
-      .click();
+    await Promise.all([
+      page.waitForEvent('load'),
+      page.getByRole('button', { name: 'Zurücksetzen', exact: true }).click(),
+    ]);
     await ready(page, 'scientific');
     const editor = page.getByRole('textbox', {
       name: 'Ausdruck',
@@ -346,7 +347,10 @@ test('shared lazy dialog failures show a global reset and notification', async (
     ),
   ).toBeVisible();
   await page.unroute('**/SettingsDialog-*.js');
-  await page.getByRole('button', { name: 'Zurücksetzen', exact: true }).click();
+  await Promise.all([
+    page.waitForEvent('load'),
+    page.getByRole('button', { name: 'Zurücksetzen', exact: true }).click(),
+  ]);
   await ready(page, 'simple');
   await page
     .getByRole('button', { name: 'Einstellungen', exact: true })

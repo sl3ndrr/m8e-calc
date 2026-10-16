@@ -215,6 +215,7 @@ test('operator shapes survive live mouse, global keyboard and React Aria press f
       await expect(button).toHaveAttribute('data-pressed');
       const down = await frames(button);
       assertShape(down);
+      expect(new Set(down.map((f) => f.transform)).size).toBeGreaterThan(1);
       expect(down.some((f) => f.transform !== 'none')).toBe(true);
       // Capture an actual CSS transition at its middle, using the browser's
       // animation clock, then resume it. Live rAF samples above are independent.
@@ -236,6 +237,7 @@ test('operator shapes survive live mouse, global keyboard and React Aria press f
       await page.mouse.up();
       const up = await frames(button);
       assertShape(up);
+      expect(new Set(up.map((f) => f.transform)).size).toBeGreaterThan(1);
       if (id !== 'equals') {
         await expect(page.locator(`[data-key="${id}"]`)).toHaveAttribute(
           'data-active',

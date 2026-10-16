@@ -5,7 +5,8 @@ on:
       - 'src/ui/keypad/**'
       - 'src/ui/Button.css'
       - 'src/styles/motion.ts'
-      - 'e2e/calculator-rendering.spec.ts'
+      - 'e2e/calculator-*.spec.ts'
+      - 'e2e/fixtures/ap19-zoom/**'
       - 'scripts/ap19-baseline.mjs'
       - '.github/workflows/ap19.yml'
 concurrency:
@@ -40,7 +41,7 @@ jobs:
           npm run tokens
           git diff --exit-code src/styles/tokens.css
       - run: npm run check
-      - run: npx playwright test e2e/calculator-rendering.spec.ts e2e/simple-calculator.spec.ts e2e/scientific.spec.ts --project=chromium --trace=on --workers=2 --output=test-results/ap19
+      - run: npx playwright test e2e/calculator-native-zoom.spec.ts e2e/calculator-rendering.spec.ts e2e/simple-calculator.spec.ts e2e/scientific.spec.ts --project=chromium --trace=on --workers=2 --output=test-results/ap19
       - name: Propose simple visual references for review
         if: always()
         run: npx playwright test --project=qa-visual --grep 'simple ' --update-snapshots --workers=2 --output=test-results/ap19-visual
