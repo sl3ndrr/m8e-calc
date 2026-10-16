@@ -1,3 +1,5 @@
+import { useSettingsStore } from '../../shared/settingsStore';
+import { graphInputText, parseGraphNumber } from './numbers';
 import { lazy, Suspense, useRef, useState, type Dispatch } from 'react';
 import { Button } from '../../ui/Button';
 import { Chip } from '../../ui/Chip';
@@ -42,10 +44,11 @@ function ParameterControl({
   name: string;
 }) {
   const p = parameter(row.row, name);
+  const preferences = useSettingsStore((s) => s);
   const [draft, setDraft] = useState({
-      min: String(p.min),
-      max: String(p.max),
-      step: String(p.step),
+      min: graphInputText(p.min, locale, preferences),
+      max: graphInputText(p.max, locale, preferences),
+      step: graphInputText(p.step, locale, preferences),
     }),
     [invalid, setInvalid] = useState(false);
   const update = (patch: Partial<Parameter>) => {
@@ -85,11 +88,14 @@ function ParameterControl({
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            const next = normalizeParameter({
+            const min = parseGraphNumber(draft.min, locale, preferences),
+              max = parseGraphNumber(draft.max, locale, preferences),
+              step = parseGraphNumber(draft.step, locale, preferences);
+            const next = min === null || max === null || step === null ? null : normalizeParameter({
               ...p,
-              min: Number(draft.min),
-              max: Number(draft.max),
-              step: Number(draft.step),
+              min,
+              max,
+              step,
             });
             setInvalid(!next);
             if (next) update(next);
@@ -104,6 +110,7 @@ function ParameterControl({
                 onChange={(value) => setDraft({ ...draft, [key]: value })}
                 isInvalid={invalid}
                 validationBehavior="aria"
+                errorMessage={t('graph.invalidRange', locale)}
               />
             ))}
           </div>
@@ -369,3 +376,4 @@ export default function FunctionPanel(props: Props) {
     </SideSheet>
   );
 }
+

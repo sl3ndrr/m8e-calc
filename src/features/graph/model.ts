@@ -349,18 +349,25 @@ export function tableValues(
   step: number,
 ): { u: number; point: Point }[] {
   if (!Number.isFinite(step) || step <= 0) return [];
-  const [from, to] =
-    curve.kind === 'parametric' || curve.kind === 'polar'
-      ? curve.range
-      : curve.kind === 'vertical'
-        ? [bounds.yMin, bounds.yMax]
-        : [bounds.xMin, bounds.xMax];
+  return tableResult(curve, bounds, step).rows;
+}
+export function tableResult(curve: Curve, bounds: Bounds, step: number): {
+  rows: { u: number; point: Point }[];
+  stopped: 'limit' | 'precision' | null;
+} {
+  const rows: { u: number; point: Point }[] = [];
+  if (!Number.isFinite(step) || step <= 0) return { rows, stopped: null };
+  const [from, to] = curve.kind === 'parametric' || curve.kind === 'polar'
+    ? curve.range : curve.kind === 'vertical' ? [bounds.yMin, bounds.yMax] : [bounds.xMin, bounds.xMax];
+  if (!Number.isFinite(from) || !Number.isFinite(to) || from > to) return { rows, stopped: null };
   const evaluate = curveEvaluator(curve);
-  return Array.from(
-    { length: Math.min(500, Math.floor((to - from) / step) + 1) },
-    (_, i) => {
-      const u = from + i * step;
-      return { u, point: evaluate(u) };
-    },
-  );
+  for (let i = 0; i <= 500; i++) {
+    const u = from + i * step;
+    if (!Number.isFinite(u) || u > to) return { rows, stopped: null };
+    const previous = rows.at(-1);
+    if (previous && u <= previous.u) return { rows, stopped: 'precision' };
+    if (i === 500) return { rows, stopped: 'limit' };
+    rows.push({ u, point: evaluate(u) });
+  }
+  return { rows, stopped: null };
 }
