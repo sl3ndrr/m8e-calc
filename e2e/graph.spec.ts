@@ -1,5 +1,9 @@
 import { allowClipboard } from './clipboard';
 import { test, expect, type Page } from '@playwright/test';
+// Feature-state checks are isolated from SW update toasts; the production
+// matrix, comfort and pwa-update suites exercise the real worker separately.
+test.use({ serviceWorkers: 'block' });
+
 async function addFunction(page: Page, input: string): Promise<void> {
   await page.getByRole('button', { name: 'Hinzufügen', exact: true }).click();
   const editor = page.locator('.graph-editor [role="textbox"]').last();
@@ -133,6 +137,7 @@ test('HiDPI canvas and reduced motion keep keyboard zoom usable', async ({
   browser,
 }) => {
   const context = await browser.newContext({
+    serviceWorkers: 'block',
     viewport: { width: 1920, height: 1080 },
     deviceScaleFactor: 2,
     reducedMotion: 'reduce',

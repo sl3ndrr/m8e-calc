@@ -1,4 +1,8 @@
 import { test, expect } from '@playwright/test';
+// Feature-state checks are isolated from SW update toasts; the production
+// matrix, comfort and pwa-update suites exercise the real worker separately.
+test.use({ serviceWorkers: 'block' });
+
 for (const language of ['de', 'en'] as const) {
   test(`AP22 keyboard table rounding, committed localized steps and trace (${language})`, async ({
     page,

@@ -1,6 +1,10 @@
 import { allowClipboard } from './clipboard';
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+// Feature-state checks are isolated from SW update toasts; the production
+// matrix, comfort and pwa-update suites exercise the real worker separately.
+test.use({ serviceWorkers: 'block' });
+
 const result = (page: import('@playwright/test').Page) =>
   page.locator('output.calculator-announcement');
 test.beforeEach(async ({ page }) => {

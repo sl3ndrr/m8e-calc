@@ -6,6 +6,10 @@ import {
   calculatorInkPixels,
 } from './calculatorCapture';
 
+// Feature-state checks are isolated from SW update toasts; the production
+// matrix, comfort and pwa-update suites exercise the real worker separately.
+test.use({ serviceWorkers: 'block' });
+
 async function ready(page: Page) {
   await page.locator('.calculator-value').waitFor();
   await page.evaluate(() => document.fonts.ready);
@@ -57,6 +61,7 @@ for (const [width, height, zoom, uiSize, theme, language] of [
     browser,
   }, info) => {
     const context = await browser.newContext({
+      serviceWorkers: 'block',
       baseURL: info.project.use.baseURL,
       viewport: {
         width: Math.round(width / zoom),
@@ -197,14 +202,14 @@ for (const [width, height, zoom, uiSize, theme, language] of [
   });
 }
 
-for (const [id, key] of [
-  ['+', '+'],
-  ['-', '-'],
-  ['*', '*'],
-  ['/', '/'],
-  ['equals', 'Enter'],
+for (const [id, key, label] of [
+  ['+', '+', 'plus'],
+  ['-', '-', 'minus'],
+  ['*', '*', 'multiply'],
+  ['/', '/', 'divide'],
+  ['equals', 'Enter', 'equals'],
 ] as const) {
-  test(`operator ${id} shapes survive live mouse, global keyboard and React Aria press frames`, async ({
+  test(`operator ${label} shapes survive live mouse, global keyboard and React Aria press frames`, async ({
     page,
   }, info) => {
     await page.setViewportSize({ width: 1920, height: 1080 });
@@ -242,7 +247,7 @@ for (const [id, key] of [
       if (!repeat)
         await info.attach(`mouse-${id === '/' ? 'divide' : id}`, {
           body: await page.screenshot({
-            path: info.outputPath(`press-${id === '/' ? 'divide' : id}.png`),
+            path: info.outputPath(`press-${label}.png`),
           }),
           contentType: 'image/png',
         });
