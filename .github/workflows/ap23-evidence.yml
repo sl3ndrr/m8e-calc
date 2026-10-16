@@ -18,12 +18,6 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - name: Prepare formatting patch for restricted local environments
-        run: |
-          npx prettier --write .
-          git diff > /tmp/ap23-format.patch
-          base64 -w0 /tmp/ap23-format.patch
-          echo
       - run: npm run build
       - name: Measure normal build and assert boundary
         run: |

@@ -32,9 +32,9 @@ Node 24 LTS (`nvm use`), npm und das eingecheckte `package-lock.json` verwenden.
 | ----------------------------- | ---------------------------------------------------------------------- |
 | `npm run dev`                 | Vite-Entwicklungsserver                                                |
 | `npm run build`               | TypeScript prüfen und Produktionsbuild nach `dist/`                    |
-| `npm run build:gallery`      | Expliziter interner Galerie-Testbuild nach `dist-gallery/`             |
-| `npm run preview:gallery`    | Separaten Galerie-Testbuild lokal ausliefern                           |
-| `npm run test:e2e:gallery`   | Galerie-/Theming-/Controls-E2E auf Port 4174                            |
+| `npm run build:gallery`       | Expliziter interner Galerie-Testbuild nach `dist-gallery/`             |
+| `npm run preview:gallery`     | Separaten Galerie-Testbuild lokal ausliefern                           |
+| `npm run test:e2e:gallery`    | Galerie-/Theming-/Controls-E2E auf Port 4174                           |
 | `npm run preview`             | Produktionsbuild lokal ausliefern                                      |
 | `npm run lint`                | ESLint und Prettier-Formatprüfung                                      |
 | `npm run typecheck`           | Alle TypeScript-Projekte prüfen                                        |

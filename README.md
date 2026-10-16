@@ -71,7 +71,7 @@ Die ausgegebene lokale URL verwendet standardmäßig den Pfad `/m8e-calc/`. Ohne
 | `npm run test`                | Vitest mit Testing Library und Property-Tests                                   |
 | `npm run test:e2e`            | Playwright (vorher Build und Browser installieren)                              |
 | `npm run screenshots`         | Acht Release-Screenshots und Social Preview aus dem Produktionsbuild erzeugen   |
-| `npm run screenshots:gallery` | Komponenten-Galerie aufnehmen; separaten Galerie-Preview vorher starten                           |
+| `npm run screenshots:gallery` | Komponenten-Galerie aufnehmen; separaten Galerie-Preview vorher starten         |
 | `npm run tokens`              | Material-Farbtokens regenerieren                                                |
 
 ```sh

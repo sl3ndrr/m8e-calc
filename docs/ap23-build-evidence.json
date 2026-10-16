@@ -719,13 +719,8 @@
         "_Button-QcYF4dPn.js": {
           "file": "assets/Button-QcYF4dPn.js",
           "name": "Button",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_i18n-Dzo2SVU6.js"
-          ],
-          "css": [
-            "assets/Button-_v2QBl66.css"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_i18n-Dzo2SVU6.js"],
+          "css": ["assets/Button-_v2QBl66.css"]
         },
         "_Button-_v2QBl66.css": {
           "file": "assets/Button-_v2QBl66.css",
@@ -743,9 +738,7 @@
             "_Button-QcYF4dPn.js",
             "_FocusScope-CjH7-P9o.js"
           ],
-          "css": [
-            "assets/ButtonGroup-BRN0uXvP.css"
-          ]
+          "css": ["assets/ButtonGroup-BRN0uXvP.css"]
         },
         "_CalculatorDisplay-B83Yc5D7.js": {
           "file": "assets/CalculatorDisplay-B83Yc5D7.js",
@@ -756,9 +749,7 @@
             "_snackbarQueue-DcLU0sb7.js",
             "index.html"
           ],
-          "css": [
-            "assets/CalculatorDisplay-IO6TzhXT.css"
-          ]
+          "css": ["assets/CalculatorDisplay-IO6TzhXT.css"]
         },
         "_CalculatorDisplay-IO6TzhXT.css": {
           "file": "assets/CalculatorDisplay-IO6TzhXT.css",
@@ -767,12 +758,8 @@
         "_Card-CpJeSsLo.js": {
           "file": "assets/Card-CpJeSsLo.js",
           "name": "Card",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js"
-          ],
-          "css": [
-            "assets/Card-DD1MZGf1.css"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js"],
+          "css": ["assets/Card-DD1MZGf1.css"]
         },
         "_Card-DD1MZGf1.css": {
           "file": "assets/Card-DD1MZGf1.css",
@@ -793,9 +780,7 @@
             "_motion-DiFBhbot.js",
             "index.html"
           ],
-          "css": [
-            "assets/Checkbox-CaWe_hBO.css"
-          ]
+          "css": ["assets/Checkbox-CaWe_hBO.css"]
         },
         "_Chip-k13pT3nx.css": {
           "file": "assets/Chip-k13pT3nx.css",
@@ -813,9 +798,7 @@
             "_motion-DiFBhbot.js",
             "index.html"
           ],
-          "css": [
-            "assets/Chip-k13pT3nx.css"
-          ]
+          "css": ["assets/Chip-k13pT3nx.css"]
         },
         "_CopyLinkButton-CzVs3g7c.css": {
           "file": "assets/CopyLinkButton-CzVs3g7c.css",
@@ -831,20 +814,13 @@
             "_motion-DiFBhbot.js",
             "index.html"
           ],
-          "css": [
-            "assets/CopyLinkButton-CzVs3g7c.css"
-          ]
+          "css": ["assets/CopyLinkButton-CzVs3g7c.css"]
         },
         "_Fab-D6VhL7bB.js": {
           "file": "assets/Fab-D6VhL7bB.js",
           "name": "Fab",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_motion-DiFBhbot.js"
-          ],
-          "css": [
-            "assets/Fab-v-GNmJcU.css"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_motion-DiFBhbot.js"],
+          "css": ["assets/Fab-v-GNmJcU.css"]
         },
         "_Fab-v-GNmJcU.css": {
           "file": "assets/Fab-v-GNmJcU.css",
@@ -853,21 +829,13 @@
         "_FocusScope-CjH7-P9o.js": {
           "file": "assets/FocusScope-CjH7-P9o.js",
           "name": "FocusScope",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_Button-QcYF4dPn.js"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-QcYF4dPn.js"]
         },
         "_Keypad-Bc9LIIA5.js": {
           "file": "assets/Keypad-Bc9LIIA5.js",
           "name": "Keypad",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_Button-QcYF4dPn.js"
-          ],
-          "css": [
-            "assets/Keypad-Cu2W_Ity.css"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-QcYF4dPn.js"],
+          "css": ["assets/Keypad-Cu2W_Ity.css"]
         },
         "_Keypad-Cu2W_Ity.css": {
           "file": "assets/Keypad-Cu2W_Ity.css",
@@ -883,9 +851,7 @@
             "_useTextField-DASDMegi.js",
             "index.html"
           ],
-          "css": [
-            "assets/Select-lU43m5HL.css"
-          ]
+          "css": ["assets/Select-lU43m5HL.css"]
         },
         "_Select-lU43m5HL.css": {
           "file": "assets/Select-lU43m5HL.css",
@@ -898,13 +864,8 @@
         "_SideSheet-UNb977ij.js": {
           "file": "assets/SideSheet-UNb977ij.js",
           "name": "SideSheet",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "index.html"
-          ],
-          "css": [
-            "assets/SideSheet-BZfUtJea.css"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "index.html"],
+          "css": ["assets/SideSheet-BZfUtJea.css"]
         },
         "_Slider-BlgtOKMi.js": {
           "file": "assets/Slider-BlgtOKMi.js",
@@ -915,9 +876,7 @@
             "_FocusScope-CjH7-P9o.js",
             "index.html"
           ],
-          "css": [
-            "assets/Slider-CmZSN9rw.css"
-          ]
+          "css": ["assets/Slider-CmZSN9rw.css"]
         },
         "_Slider-CmZSN9rw.css": {
           "file": "assets/Slider-CmZSN9rw.css",
@@ -932,9 +891,7 @@
             "_FocusScope-CjH7-P9o.js",
             "_useToggle-_zKn9PnW.js"
           ],
-          "css": [
-            "assets/Switch-Dhw6gmOR.css"
-          ]
+          "css": ["assets/Switch-Dhw6gmOR.css"]
         },
         "_Switch-Dhw6gmOR.css": {
           "file": "assets/Switch-Dhw6gmOR.css",
@@ -954,9 +911,7 @@
             "_useTextField-DASDMegi.js",
             "index.html"
           ],
-          "css": [
-            "assets/TextField-Bia33xUx.css"
-          ]
+          "css": ["assets/TextField-Bia33xUx.css"]
         },
         "_VisuallyHidden-M3fg2jtI.js": {
           "file": "assets/VisuallyHidden-M3fg2jtI.js",
@@ -990,20 +945,13 @@
         "_model-BNbBVyd2.js": {
           "file": "assets/model-BNbBVyd2.js",
           "name": "model",
-          "imports": [
-            "_engine-BCOeroFX.js"
-          ]
+          "imports": ["_engine-BCOeroFX.js"]
         },
         "_motion-DiFBhbot.js": {
           "file": "assets/motion-DiFBhbot.js",
           "name": "motion",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_Button-QcYF4dPn.js"
-          ],
-          "css": [
-            "assets/motion-Ds6JSQzR.css"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-QcYF4dPn.js"],
+          "css": ["assets/motion-Ds6JSQzR.css"]
         },
         "_motion-Ds6JSQzR.css": {
           "file": "assets/motion-Ds6JSQzR.css",
@@ -1012,9 +960,7 @@
         "_registry-6RvRXE-w.js": {
           "file": "assets/registry-6RvRXE-w.js",
           "name": "registry",
-          "imports": [
-            "_engine-BCOeroFX.js"
-          ]
+          "imports": ["_engine-BCOeroFX.js"]
         },
         "_seeds-DdxXycSJ.js": {
           "file": "assets/seeds-DdxXycSJ.js",
@@ -1023,25 +969,17 @@
         "_snackbarQueue-DcLU0sb7.js": {
           "file": "assets/snackbarQueue-DcLU0sb7.js",
           "name": "snackbarQueue",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_Button-QcYF4dPn.js"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-QcYF4dPn.js"]
         },
         "_units-CJ9QYzrt.js": {
           "file": "assets/units-CJ9QYzrt.js",
           "name": "units",
-          "imports": [
-            "_engine-BCOeroFX.js"
-          ]
+          "imports": ["_engine-BCOeroFX.js"]
         },
         "_useModeHistory-CZrZMrTS.js": {
           "file": "assets/useModeHistory-CZrZMrTS.js",
           "name": "useModeHistory",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "index.html"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "index.html"]
         },
         "_useTextField-DASDMegi.js": {
           "file": "assets/useTextField-DASDMegi.js",
@@ -1087,9 +1025,7 @@
             "src/app/DesignLab.tsx",
             "src/features/convert/model.ts"
           ],
-          "css": [
-            "assets/index-BjynDWiD.css"
-          ],
+          "css": ["assets/index-BjynDWiD.css"],
           "assets": [
             "assets/roboto-flex-latin-DlhILaPV.woff2",
             "assets/roboto-mono-latin-CZtBPCCa.woff2",
@@ -1376,9 +1312,7 @@
             "src/styles/buildScheme.ts",
             "_animate-B-Cb10UB.js"
           ],
-          "css": [
-            "assets/DesignLab-CU48BANC.css"
-          ]
+          "css": ["assets/DesignLab-CU48BANC.css"]
         },
         "src/app/HistorySheet.tsx": {
           "file": "assets/HistorySheet-DW8GFFvC.js",
@@ -1440,19 +1374,14 @@
             "src/features/convert/model.ts",
             "_CopyLinkButton-DmbNJ-pP.js"
           ],
-          "css": [
-            "assets/ConvertMode-CYiH4UTE.css"
-          ]
+          "css": ["assets/ConvertMode-CYiH4UTE.css"]
         },
         "src/features/convert/model.ts": {
           "file": "assets/model-B9aSq4dg.js",
           "name": "model",
           "src": "src/features/convert/model.ts",
           "isDynamicEntry": true,
-          "imports": [
-            "_engine-BCOeroFX.js",
-            "_units-CJ9QYzrt.js"
-          ]
+          "imports": ["_engine-BCOeroFX.js", "_units-CJ9QYzrt.js"]
         },
         "src/features/graph/GraphMode.tsx": {
           "file": "assets/GraphMode-Sqb4aUZZ.js",
@@ -1478,15 +1407,9 @@
             "_useModeHistory-CZrZMrTS.js",
             "_CopyLinkButton-DmbNJ-pP.js"
           ],
-          "dynamicImports": [
-            "src/features/scientific/ExpressionEditor.tsx"
-          ],
-          "css": [
-            "assets/GraphMode-DHeq3pLd.css"
-          ],
-          "assets": [
-            "assets/sampling.worker-kO0Vgf-W.js"
-          ]
+          "dynamicImports": ["src/features/scientific/ExpressionEditor.tsx"],
+          "css": ["assets/GraphMode-DHeq3pLd.css"],
+          "assets": ["assets/sampling.worker-kO0Vgf-W.js"]
         },
         "src/features/scientific/ExpressionEditor.tsx": {
           "file": "assets/ExpressionEditor-DqZ2BPvU.js",
@@ -1507,12 +1430,8 @@
           "name": "MathDisplay",
           "src": "src/features/scientific/MathDisplay.tsx",
           "isDynamicEntry": true,
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js"
-          ],
-          "css": [
-            "assets/MathDisplay-B5-W0PXe.css"
-          ],
+          "imports": ["_jsx-runtime-Dk72oS4N.js"],
+          "css": ["assets/MathDisplay-B5-W0PXe.css"],
           "assets": [
             "assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
             "assets/KaTeX_AMS-Regular-DMm9YOAa.woff",
@@ -1603,9 +1522,7 @@
             "src/features/scientific/ExpressionEditor.tsx",
             "src/features/scientific/MathDisplay.tsx"
           ],
-          "css": [
-            "assets/ScientificMode-DOfiavFG.css"
-          ]
+          "css": ["assets/ScientificMode-DOfiavFG.css"]
         },
         "src/features/simple/SimpleMode.tsx": {
           "file": "assets/SimpleMode-CenXe1qc.js",
@@ -1624,19 +1541,14 @@
             "_useModeHistory-CZrZMrTS.js",
             "_CopyLinkButton-DmbNJ-pP.js"
           ],
-          "css": [
-            "assets/SimpleMode-CcQwNveJ.css"
-          ]
+          "css": ["assets/SimpleMode-CcQwNveJ.css"]
         },
         "src/styles/buildScheme.ts": {
           "file": "assets/buildScheme-DK38try8.js",
           "name": "buildScheme",
           "src": "src/styles/buildScheme.ts",
           "isDynamicEntry": true,
-          "imports": [
-            "_Button-QcYF4dPn.js",
-            "_graphPalette-DTsoAoAA.js"
-          ]
+          "imports": ["_Button-QcYF4dPn.js", "_graphPalette-DTsoAoAA.js"]
         },
         "src/styles/fonts/material-symbols-rounded.woff2": {
           "file": "assets/material-symbols-rounded-17-fZmEE.woff2",
@@ -2510,13 +2422,8 @@
         "_Button-4JX1TWdp.js": {
           "file": "assets/Button-4JX1TWdp.js",
           "name": "Button",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_i18n--z4rY63j.js"
-          ],
-          "css": [
-            "assets/Button-_v2QBl66.css"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_i18n--z4rY63j.js"],
+          "css": ["assets/Button-_v2QBl66.css"]
         },
         "_Button-_v2QBl66.css": {
           "file": "assets/Button-_v2QBl66.css",
@@ -2525,12 +2432,8 @@
         "_Card-CpJeSsLo.js": {
           "file": "assets/Card-CpJeSsLo.js",
           "name": "Card",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js"
-          ],
-          "css": [
-            "assets/Card-DD1MZGf1.css"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js"],
+          "css": ["assets/Card-DD1MZGf1.css"]
         },
         "_Card-DD1MZGf1.css": {
           "file": "assets/Card-DD1MZGf1.css",
@@ -2547,9 +2450,7 @@
             "_useToggle-CRoJPMC2.js",
             "_motion-29mYUKb7.js"
           ],
-          "css": [
-            "assets/Checkbox-CaWe_hBO.css"
-          ]
+          "css": ["assets/Checkbox-CaWe_hBO.css"]
         },
         "_Checkbox-CaWe_hBO.css": {
           "file": "assets/Checkbox-CaWe_hBO.css",
@@ -2565,9 +2466,7 @@
             "_motion-29mYUKb7.js",
             "index.html"
           ],
-          "css": [
-            "assets/CopyLinkButton-CzVs3g7c.css"
-          ]
+          "css": ["assets/CopyLinkButton-CzVs3g7c.css"]
         },
         "_CopyLinkButton-CzVs3g7c.css": {
           "file": "assets/CopyLinkButton-CzVs3g7c.css",
@@ -2585,17 +2484,12 @@
             "_Button-4JX1TWdp.js",
             "index.html"
           ],
-          "css": [
-            "assets/Dialog-BgffhQ21.css"
-          ]
+          "css": ["assets/Dialog-BgffhQ21.css"]
         },
         "_FocusScope-Co-mOoco.js": {
           "file": "assets/FocusScope-Co-mOoco.js",
           "name": "FocusScope",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_Button-4JX1TWdp.js"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-4JX1TWdp.js"]
         },
         "_Keypad-Cu2W_Ity.css": {
           "file": "assets/Keypad-Cu2W_Ity.css",
@@ -2604,13 +2498,8 @@
         "_Keypad-DADYIjBv.js": {
           "file": "assets/Keypad-DADYIjBv.js",
           "name": "Keypad",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_Button-4JX1TWdp.js"
-          ],
-          "css": [
-            "assets/Keypad-Cu2W_Ity.css"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-4JX1TWdp.js"],
+          "css": ["assets/Keypad-Cu2W_Ity.css"]
         },
         "_Select-BdYioSEL.js": {
           "file": "assets/Select-BdYioSEL.js",
@@ -2623,9 +2512,7 @@
             "_useTextField-Co5X_RlZ.js",
             "index.html"
           ],
-          "css": [
-            "assets/Select-lU43m5HL.css"
-          ]
+          "css": ["assets/Select-lU43m5HL.css"]
         },
         "_Select-lU43m5HL.css": {
           "file": "assets/Select-lU43m5HL.css",
@@ -2638,13 +2525,8 @@
         "_SideSheet-DZGam47B.js": {
           "file": "assets/SideSheet-DZGam47B.js",
           "name": "SideSheet",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_Dialog-Hx-X8uE6.js"
-          ],
-          "css": [
-            "assets/SideSheet-BZfUtJea.css"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_Dialog-Hx-X8uE6.js"],
+          "css": ["assets/SideSheet-BZfUtJea.css"]
         },
         "_Slider-CmZSN9rw.css": {
           "file": "assets/Slider-CmZSN9rw.css",
@@ -2659,9 +2541,7 @@
             "_FocusScope-Co-mOoco.js",
             "_useFormValidation-DbCJemvl.js"
           ],
-          "css": [
-            "assets/Slider-CmZSN9rw.css"
-          ]
+          "css": ["assets/Slider-CmZSN9rw.css"]
         },
         "_Switch-Dhw6gmOR.css": {
           "file": "assets/Switch-Dhw6gmOR.css",
@@ -2676,9 +2556,7 @@
             "_FocusScope-Co-mOoco.js",
             "_useToggle-CRoJPMC2.js"
           ],
-          "css": [
-            "assets/Switch-Dhw6gmOR.css"
-          ]
+          "css": ["assets/Switch-Dhw6gmOR.css"]
         },
         "_TextField-Bia33xUx.css": {
           "file": "assets/TextField-Bia33xUx.css",
@@ -2694,9 +2572,7 @@
             "_useFormValidation-DbCJemvl.js",
             "_useTextField-Co5X_RlZ.js"
           ],
-          "css": [
-            "assets/TextField-Bia33xUx.css"
-          ]
+          "css": ["assets/TextField-Bia33xUx.css"]
         },
         "_VisuallyHidden-5HvwWBIp.js": {
           "file": "assets/VisuallyHidden-5HvwWBIp.js",
@@ -2730,20 +2606,13 @@
         "_model-BNbBVyd2.js": {
           "file": "assets/model-BNbBVyd2.js",
           "name": "model",
-          "imports": [
-            "_engine-BCOeroFX.js"
-          ]
+          "imports": ["_engine-BCOeroFX.js"]
         },
         "_motion-29mYUKb7.js": {
           "file": "assets/motion-29mYUKb7.js",
           "name": "motion",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_Button-4JX1TWdp.js"
-          ],
-          "css": [
-            "assets/motion-Ds6JSQzR.css"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-4JX1TWdp.js"],
+          "css": ["assets/motion-Ds6JSQzR.css"]
         },
         "_motion-Ds6JSQzR.css": {
           "file": "assets/motion-Ds6JSQzR.css",
@@ -2752,9 +2621,7 @@
         "_registry-6RvRXE-w.js": {
           "file": "assets/registry-6RvRXE-w.js",
           "name": "registry",
-          "imports": [
-            "_engine-BCOeroFX.js"
-          ]
+          "imports": ["_engine-BCOeroFX.js"]
         },
         "_seeds-DdxXycSJ.js": {
           "file": "assets/seeds-DdxXycSJ.js",
@@ -2779,9 +2646,7 @@
         "_units-CJ9QYzrt.js": {
           "file": "assets/units-CJ9QYzrt.js",
           "name": "units",
-          "imports": [
-            "_engine-BCOeroFX.js"
-          ]
+          "imports": ["_engine-BCOeroFX.js"]
         },
         "_useFormValidation-DbCJemvl.js": {
           "file": "assets/useFormValidation-DbCJemvl.js",
@@ -2795,18 +2660,12 @@
         "_useModeHistory-xpsPkA2c.js": {
           "file": "assets/useModeHistory-xpsPkA2c.js",
           "name": "useModeHistory",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_snackbarQueue-CC_AmElY.js"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_snackbarQueue-CC_AmElY.js"]
         },
         "_useSlot-FQ61V52R.js": {
           "file": "assets/useSlot-FQ61V52R.js",
           "name": "useSlot",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_Button-4JX1TWdp.js"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-4JX1TWdp.js"]
         },
         "_useSpring-DE7MeT9J.js": {
           "file": "assets/useSpring-DE7MeT9J.js",
@@ -2863,9 +2722,7 @@
             "src/app/ShortcutDialog.tsx",
             "src/features/convert/model.ts"
           ],
-          "css": [
-            "assets/index-CXbYuIGF.css"
-          ],
+          "css": ["assets/index-CXbYuIGF.css"],
           "assets": [
             "assets/roboto-flex-latin-DlhILaPV.woff2",
             "assets/roboto-mono-latin-CZtBPCCa.woff2",
@@ -3197,19 +3054,14 @@
             "src/features/convert/model.ts",
             "_CopyLinkButton-BNMrBhTO.js"
           ],
-          "css": [
-            "assets/ConvertMode-BEvrNBfo.css"
-          ]
+          "css": ["assets/ConvertMode-BEvrNBfo.css"]
         },
         "src/features/convert/model.ts": {
           "file": "assets/model-B9aSq4dg.js",
           "name": "model",
           "src": "src/features/convert/model.ts",
           "isDynamicEntry": true,
-          "imports": [
-            "_engine-BCOeroFX.js",
-            "_units-CJ9QYzrt.js"
-          ]
+          "imports": ["_engine-BCOeroFX.js", "_units-CJ9QYzrt.js"]
         },
         "src/features/graph/GraphMode.tsx": {
           "file": "assets/GraphMode-CX1RbLqY.js",
@@ -3238,15 +3090,9 @@
             "_CopyLinkButton-BNMrBhTO.js",
             "_graphPalette-DTsoAoAA.js"
           ],
-          "dynamicImports": [
-            "src/features/scientific/ExpressionEditor.tsx"
-          ],
-          "css": [
-            "assets/GraphMode-mneFZ3FY.css"
-          ],
-          "assets": [
-            "assets/sampling.worker-kO0Vgf-W.js"
-          ]
+          "dynamicImports": ["src/features/scientific/ExpressionEditor.tsx"],
+          "css": ["assets/GraphMode-mneFZ3FY.css"],
+          "assets": ["assets/sampling.worker-kO0Vgf-W.js"]
         },
         "src/features/scientific/ExpressionEditor.tsx": {
           "file": "assets/ExpressionEditor-Dr6qZlzs.js",
@@ -3267,12 +3113,8 @@
           "name": "MathDisplay",
           "src": "src/features/scientific/MathDisplay.tsx",
           "isDynamicEntry": true,
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js"
-          ],
-          "css": [
-            "assets/MathDisplay-B5-W0PXe.css"
-          ],
+          "imports": ["_jsx-runtime-Dk72oS4N.js"],
+          "css": ["assets/MathDisplay-B5-W0PXe.css"],
           "assets": [
             "assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
             "assets/KaTeX_AMS-Regular-DMm9YOAa.woff",
@@ -3364,9 +3206,7 @@
             "src/features/scientific/ExpressionEditor.tsx",
             "src/features/scientific/MathDisplay.tsx"
           ],
-          "css": [
-            "assets/ScientificMode-D1Dv3NxS.css"
-          ]
+          "css": ["assets/ScientificMode-D1Dv3NxS.css"]
         },
         "src/features/simple/SimpleMode.tsx": {
           "file": "assets/SimpleMode-DO_OMbtx.js",
@@ -3384,19 +3224,14 @@
             "_CopyLinkButton-BNMrBhTO.js",
             "_Keypad-DADYIjBv.js"
           ],
-          "css": [
-            "assets/SimpleMode-B_T70PKT.css"
-          ]
+          "css": ["assets/SimpleMode-B_T70PKT.css"]
         },
         "src/styles/buildScheme.ts": {
           "file": "assets/buildScheme-L660QHOP.js",
           "name": "buildScheme",
           "src": "src/styles/buildScheme.ts",
           "isDynamicEntry": true,
-          "imports": [
-            "_Button-4JX1TWdp.js",
-            "_graphPalette-DTsoAoAA.js"
-          ]
+          "imports": ["_Button-4JX1TWdp.js", "_graphPalette-DTsoAoAA.js"]
         },
         "src/styles/fonts/material-symbols-rounded.woff2": {
           "file": "assets/material-symbols-rounded-17-fZmEE.woff2",
@@ -4304,13 +4139,8 @@
         "_Button-Jfu6slHZ.js": {
           "file": "assets/Button-Jfu6slHZ.js",
           "name": "Button",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_i18n-DgqQa2hg.js"
-          ],
-          "css": [
-            "assets/Button-_v2QBl66.css"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_i18n-DgqQa2hg.js"],
+          "css": ["assets/Button-_v2QBl66.css"]
         },
         "_Button-_v2QBl66.css": {
           "file": "assets/Button-_v2QBl66.css",
@@ -4328,9 +4158,7 @@
             "_Button-Jfu6slHZ.js",
             "_FocusScope-2R4Rw-qt.js"
           ],
-          "css": [
-            "assets/ButtonGroup-BRN0uXvP.css"
-          ]
+          "css": ["assets/ButtonGroup-BRN0uXvP.css"]
         },
         "_CalculatorDisplay-D4dzxp5V.js": {
           "file": "assets/CalculatorDisplay-D4dzxp5V.js",
@@ -4341,9 +4169,7 @@
             "_snackbarQueue-9R5HQUGX.js",
             "index.html"
           ],
-          "css": [
-            "assets/CalculatorDisplay-IO6TzhXT.css"
-          ]
+          "css": ["assets/CalculatorDisplay-IO6TzhXT.css"]
         },
         "_CalculatorDisplay-IO6TzhXT.css": {
           "file": "assets/CalculatorDisplay-IO6TzhXT.css",
@@ -4352,12 +4178,8 @@
         "_Card-CpJeSsLo.js": {
           "file": "assets/Card-CpJeSsLo.js",
           "name": "Card",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js"
-          ],
-          "css": [
-            "assets/Card-DD1MZGf1.css"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js"],
+          "css": ["assets/Card-DD1MZGf1.css"]
         },
         "_Card-DD1MZGf1.css": {
           "file": "assets/Card-DD1MZGf1.css",
@@ -4374,9 +4196,7 @@
             "_motion-CluhrCFf.js",
             "index.html"
           ],
-          "css": [
-            "assets/Checkbox-CaWe_hBO.css"
-          ]
+          "css": ["assets/Checkbox-CaWe_hBO.css"]
         },
         "_Checkbox-CaWe_hBO.css": {
           "file": "assets/Checkbox-CaWe_hBO.css",
@@ -4394,9 +4214,7 @@
             "_motion-CluhrCFf.js",
             "index.html"
           ],
-          "css": [
-            "assets/Chip-k13pT3nx.css"
-          ]
+          "css": ["assets/Chip-k13pT3nx.css"]
         },
         "_Chip-k13pT3nx.css": {
           "file": "assets/Chip-k13pT3nx.css",
@@ -4412,9 +4230,7 @@
             "_motion-CluhrCFf.js",
             "index.html"
           ],
-          "css": [
-            "assets/CopyLinkButton-CzVs3g7c.css"
-          ]
+          "css": ["assets/CopyLinkButton-CzVs3g7c.css"]
         },
         "_CopyLinkButton-CzVs3g7c.css": {
           "file": "assets/CopyLinkButton-CzVs3g7c.css",
@@ -4432,20 +4248,13 @@
             "_Button-Jfu6slHZ.js",
             "index.html"
           ],
-          "css": [
-            "assets/Dialog-BgffhQ21.css"
-          ]
+          "css": ["assets/Dialog-BgffhQ21.css"]
         },
         "_Fab-_X_0jjk5.js": {
           "file": "assets/Fab-_X_0jjk5.js",
           "name": "Fab",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_motion-CluhrCFf.js"
-          ],
-          "css": [
-            "assets/Fab-v-GNmJcU.css"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_motion-CluhrCFf.js"],
+          "css": ["assets/Fab-v-GNmJcU.css"]
         },
         "_Fab-v-GNmJcU.css": {
           "file": "assets/Fab-v-GNmJcU.css",
@@ -4454,10 +4263,7 @@
         "_FocusScope-2R4Rw-qt.js": {
           "file": "assets/FocusScope-2R4Rw-qt.js",
           "name": "FocusScope",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_Button-Jfu6slHZ.js"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-Jfu6slHZ.js"]
         },
         "_Keypad-Cu2W_Ity.css": {
           "file": "assets/Keypad-Cu2W_Ity.css",
@@ -4466,13 +4272,8 @@
         "_Keypad-DUYMI7VE.js": {
           "file": "assets/Keypad-DUYMI7VE.js",
           "name": "Keypad",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_Button-Jfu6slHZ.js"
-          ],
-          "css": [
-            "assets/Keypad-Cu2W_Ity.css"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-Jfu6slHZ.js"],
+          "css": ["assets/Keypad-Cu2W_Ity.css"]
         },
         "_Select-CdN7rRcv.js": {
           "file": "assets/Select-CdN7rRcv.js",
@@ -4484,9 +4285,7 @@
             "_useTextField-DVRXkqDZ.js",
             "index.html"
           ],
-          "css": [
-            "assets/Select-lU43m5HL.css"
-          ]
+          "css": ["assets/Select-lU43m5HL.css"]
         },
         "_Select-lU43m5HL.css": {
           "file": "assets/Select-lU43m5HL.css",
@@ -4499,13 +4298,8 @@
         "_SideSheet-BcZGjG_p.js": {
           "file": "assets/SideSheet-BcZGjG_p.js",
           "name": "SideSheet",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_Dialog-D7OXprjJ.js"
-          ],
-          "css": [
-            "assets/SideSheet-BZfUtJea.css"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_Dialog-D7OXprjJ.js"],
+          "css": ["assets/SideSheet-BZfUtJea.css"]
         },
         "_Slider-3Nmci5RE.js": {
           "file": "assets/Slider-3Nmci5RE.js",
@@ -4516,9 +4310,7 @@
             "_FocusScope-2R4Rw-qt.js",
             "index.html"
           ],
-          "css": [
-            "assets/Slider-CmZSN9rw.css"
-          ]
+          "css": ["assets/Slider-CmZSN9rw.css"]
         },
         "_Slider-CmZSN9rw.css": {
           "file": "assets/Slider-CmZSN9rw.css",
@@ -4533,9 +4325,7 @@
             "_FocusScope-2R4Rw-qt.js",
             "_useToggle-BQt23shk.js"
           ],
-          "css": [
-            "assets/Switch-Dhw6gmOR.css"
-          ]
+          "css": ["assets/Switch-Dhw6gmOR.css"]
         },
         "_Switch-Dhw6gmOR.css": {
           "file": "assets/Switch-Dhw6gmOR.css",
@@ -4555,9 +4345,7 @@
             "_useTextField-DVRXkqDZ.js",
             "index.html"
           ],
-          "css": [
-            "assets/TextField-Bia33xUx.css"
-          ]
+          "css": ["assets/TextField-Bia33xUx.css"]
         },
         "_VisuallyHidden-CYiGLplz.js": {
           "file": "assets/VisuallyHidden-CYiGLplz.js",
@@ -4591,20 +4379,13 @@
         "_model-BNbBVyd2.js": {
           "file": "assets/model-BNbBVyd2.js",
           "name": "model",
-          "imports": [
-            "_engine-BCOeroFX.js"
-          ]
+          "imports": ["_engine-BCOeroFX.js"]
         },
         "_motion-CluhrCFf.js": {
           "file": "assets/motion-CluhrCFf.js",
           "name": "motion",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_Button-Jfu6slHZ.js"
-          ],
-          "css": [
-            "assets/motion-Ds6JSQzR.css"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-Jfu6slHZ.js"],
+          "css": ["assets/motion-Ds6JSQzR.css"]
         },
         "_motion-Ds6JSQzR.css": {
           "file": "assets/motion-Ds6JSQzR.css",
@@ -4613,9 +4394,7 @@
         "_registry-6RvRXE-w.js": {
           "file": "assets/registry-6RvRXE-w.js",
           "name": "registry",
-          "imports": [
-            "_engine-BCOeroFX.js"
-          ]
+          "imports": ["_engine-BCOeroFX.js"]
         },
         "_seeds-DdxXycSJ.js": {
           "file": "assets/seeds-DdxXycSJ.js",
@@ -4624,25 +4403,17 @@
         "_snackbarQueue-9R5HQUGX.js": {
           "file": "assets/snackbarQueue-9R5HQUGX.js",
           "name": "snackbarQueue",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "_Button-Jfu6slHZ.js"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-Jfu6slHZ.js"]
         },
         "_units-CJ9QYzrt.js": {
           "file": "assets/units-CJ9QYzrt.js",
           "name": "units",
-          "imports": [
-            "_engine-BCOeroFX.js"
-          ]
+          "imports": ["_engine-BCOeroFX.js"]
         },
         "_useModeHistory-DNUi2ht0.js": {
           "file": "assets/useModeHistory-DNUi2ht0.js",
           "name": "useModeHistory",
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js",
-            "index.html"
-          ]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "index.html"]
         },
         "_useTextField-DVRXkqDZ.js": {
           "file": "assets/useTextField-DVRXkqDZ.js",
@@ -4689,9 +4460,7 @@
             "src/app/DesignLab.tsx",
             "src/features/convert/model.ts"
           ],
-          "css": [
-            "assets/index-CXbYuIGF.css"
-          ],
+          "css": ["assets/index-CXbYuIGF.css"],
           "assets": [
             "assets/roboto-flex-latin-DlhILaPV.woff2",
             "assets/roboto-mono-latin-CZtBPCCa.woff2",
@@ -4980,9 +4749,7 @@
             "src/styles/buildScheme.ts",
             "_animate-B-Cb10UB.js"
           ],
-          "css": [
-            "assets/DesignLab-DU3dFyZG.css"
-          ]
+          "css": ["assets/DesignLab-DU3dFyZG.css"]
         },
         "src/app/HistorySheet.tsx": {
           "file": "assets/HistorySheet-OKfcf1pB.js",
@@ -5062,19 +4829,14 @@
             "src/features/convert/model.ts",
             "_CopyLinkButton-BZZ_F1af.js"
           ],
-          "css": [
-            "assets/ConvertMode-CYiH4UTE.css"
-          ]
+          "css": ["assets/ConvertMode-CYiH4UTE.css"]
         },
         "src/features/convert/model.ts": {
           "file": "assets/model-B9aSq4dg.js",
           "name": "model",
           "src": "src/features/convert/model.ts",
           "isDynamicEntry": true,
-          "imports": [
-            "_engine-BCOeroFX.js",
-            "_units-CJ9QYzrt.js"
-          ]
+          "imports": ["_engine-BCOeroFX.js", "_units-CJ9QYzrt.js"]
         },
         "src/features/graph/GraphMode.tsx": {
           "file": "assets/GraphMode-maR66cAb.js",
@@ -5101,15 +4863,9 @@
             "_useModeHistory-DNUi2ht0.js",
             "_CopyLinkButton-BZZ_F1af.js"
           ],
-          "dynamicImports": [
-            "src/features/scientific/ExpressionEditor.tsx"
-          ],
-          "css": [
-            "assets/GraphMode-DHeq3pLd.css"
-          ],
-          "assets": [
-            "assets/sampling.worker-kO0Vgf-W.js"
-          ]
+          "dynamicImports": ["src/features/scientific/ExpressionEditor.tsx"],
+          "css": ["assets/GraphMode-DHeq3pLd.css"],
+          "assets": ["assets/sampling.worker-kO0Vgf-W.js"]
         },
         "src/features/scientific/ExpressionEditor.tsx": {
           "file": "assets/ExpressionEditor-BoOl-7mS.js",
@@ -5130,12 +4886,8 @@
           "name": "MathDisplay",
           "src": "src/features/scientific/MathDisplay.tsx",
           "isDynamicEntry": true,
-          "imports": [
-            "_jsx-runtime-Dk72oS4N.js"
-          ],
-          "css": [
-            "assets/MathDisplay-B5-W0PXe.css"
-          ],
+          "imports": ["_jsx-runtime-Dk72oS4N.js"],
+          "css": ["assets/MathDisplay-B5-W0PXe.css"],
           "assets": [
             "assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
             "assets/KaTeX_AMS-Regular-DMm9YOAa.woff",
@@ -5226,9 +4978,7 @@
             "src/features/scientific/ExpressionEditor.tsx",
             "src/features/scientific/MathDisplay.tsx"
           ],
-          "css": [
-            "assets/ScientificMode-DOfiavFG.css"
-          ]
+          "css": ["assets/ScientificMode-DOfiavFG.css"]
         },
         "src/features/simple/SimpleMode.tsx": {
           "file": "assets/SimpleMode-SrkkZnw5.js",
@@ -5247,19 +4997,14 @@
             "_useModeHistory-DNUi2ht0.js",
             "_CopyLinkButton-BZZ_F1af.js"
           ],
-          "css": [
-            "assets/SimpleMode-CcQwNveJ.css"
-          ]
+          "css": ["assets/SimpleMode-CcQwNveJ.css"]
         },
         "src/styles/buildScheme.ts": {
           "file": "assets/buildScheme-D8NRAQjX.js",
           "name": "buildScheme",
           "src": "src/styles/buildScheme.ts",
           "isDynamicEntry": true,
-          "imports": [
-            "_Button-Jfu6slHZ.js",
-            "_graphPalette-DTsoAoAA.js"
-          ]
+          "imports": ["_Button-Jfu6slHZ.js", "_graphPalette-DTsoAoAA.js"]
         },
         "src/styles/fonts/material-symbols-rounded.woff2": {
           "file": "assets/material-symbols-rounded-17-fZmEE.woff2",
