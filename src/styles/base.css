@@ -70,40 +70,10 @@ p {
 section p {
   max-width: 65ch;
 }
-select {
-  min-height: 44px;
-  padding: 0.5rem 2rem 0.5rem 0.8rem;
-  border: 1px solid var(--md-sys-color-outline);
-  border-radius: var(--md-sys-shape-small);
-  background: var(--md-sys-color-surface-container-high);
-  color: var(--md-sys-color-on-surface);
-}
 input[type='range'] {
   accent-color: var(--md-sys-color-primary);
   min-height: 44px;
   width: 100%;
-}
-.field {
-  display: grid;
-  gap: 0.4rem;
-  font-size: var(--md-sys-typescale-label-large-size);
-  font-weight: var(--md-sys-typescale-label-large-weight);
-}
-.icon-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  border: 0;
-  border-radius: var(--md-sys-shape-full);
-  color: var(--md-sys-color-on-surface-variant);
-  background: var(--md-sys-color-surface-container-high);
-}
-.icon-button:hover {
-  background: var(--md-sys-color-secondary-container);
-  color: var(--md-sys-color-on-secondary-container);
 }
 :root[data-motion='off'] *,
 :root[data-motion='off'] *::before,

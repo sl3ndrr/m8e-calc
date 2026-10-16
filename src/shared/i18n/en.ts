@@ -196,9 +196,6 @@ export const en: Dictionary = {
   'ui.loading': 'Loading',
   'app.name': 'm8e-calc',
   'app.navigation': 'Calculator modes',
-  'app.foundation': 'The foundation is ready.',
-  'app.placeholder':
-    'Your desktop calculator is taking shape. Calculation features will arrive in the next packages.',
   'mode.simple': 'Simple',
   'mode.scientific': 'Scientific',
   'mode.convert': 'Converter',

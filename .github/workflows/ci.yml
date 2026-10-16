@@ -29,9 +29,9 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npx playwright install --with-deps chromium
-      - run: npx playwright test --project=chromium --project=chromium-graph-performance
+      - run: npx playwright test --project=chromium --project=chromium-graph-performance --output=test-results/app
       - run: npm run build:gallery
-      - run: npm run test:e2e:gallery
+      - run: npm run test:e2e:gallery -- --output=test-results/gallery
       - name: Gallery screenshots
         if: success()
         run: |

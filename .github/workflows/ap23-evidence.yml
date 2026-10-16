@@ -51,10 +51,15 @@ jobs:
           cp dist/.vite/manifest.json ../test-results/ap23/manifest-before.json
           cp dist/sw.js ../test-results/ap23/sw-before.js
       - run: npx playwright install --with-deps chromium
-      - run: npx playwright test --project=chromium --workers=2
-      - run: npm run test:e2e:gallery -- --workers=2
+      - run: npx playwright test e2e/smoke.spec.ts e2e/app-shell.spec.ts e2e/comfort.spec.ts --project=chromium --workers=2 --output=test-results/ap23-app
+      - run: npm run test:e2e:gallery -- --workers=2 --output=test-results/ap23-gallery
+        if: ${{ !cancelled() }}
+      - name: Development lab smoke with complete component matrix
+        if: ${{ !cancelled() }}
+        run: GALLERY_DEV=1 npm run test:e2e:gallery -- --grep 'gallery contains every' --workers=1 --output=test-results/ap23-dev
       - name: Produce screenshot candidates for manual review (never commit automatically)
-        run: npx playwright test --project=qa-visual --update-snapshots --workers=2
+        if: ${{ !cancelled() }}
+        run: npx playwright test --project=qa-visual --update-snapshots --workers=2 --output=test-results/ap23-visual
       - uses: actions/upload-artifact@v7
         if: always()
         with:

@@ -203,9 +203,6 @@ export const de = {
   'ui.loading': 'Wird geladen',
   'app.name': 'm8e-calc',
   'app.navigation': 'Rechnermodi',
-  'app.foundation': 'Das Fundament steht.',
-  'app.placeholder':
-    'Hier entsteht dein Taschenrechner für den Desktop. Die Rechenfunktionen folgen in den nächsten Paketen.',
   'mode.simple': 'Einfach',
   'mode.scientific': 'Wissenschaftlich',
   'mode.convert': 'Umrechner',

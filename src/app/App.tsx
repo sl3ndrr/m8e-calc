@@ -39,7 +39,9 @@ import '../ui/VisuallyHidden.css';
 const CommandPalette = lazy(() =>
   import('./CommandPalette').then((m) => ({ default: m.CommandPalette })),
 );
-import { ShortcutDialog } from './ShortcutDialog';
+const ShortcutDialog = lazy(() =>
+  import('./ShortcutDialog').then((m) => ({ default: m.ShortcutDialog })),
+);
 import { findGlobalShortcut, isInputTarget, shortcutHint } from './shortcuts';
 import type { PaletteCommand } from './paletteModel';
 import { insertScientific } from './scientificInsertion';
@@ -448,7 +450,13 @@ export function App() {
           />
         </Suspense>
       )}
-      {helpOpen && <ShortcutDialog onClose={() => setHelpOpen(false)} />}
+      {helpOpen && (
+        <Suspense
+          fallback={<LoadingIndicator label={t('ui.loading', locale)} />}
+        >
+          <ShortcutDialog onClose={() => setHelpOpen(false)} />
+        </Suspense>
+      )}
       {settingsOpen && (
         <Suspense
           fallback={<LoadingIndicator label={t('ui.loading', locale)} />}
