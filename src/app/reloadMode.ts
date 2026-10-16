@@ -30,6 +30,7 @@ export async function refreshAppChunks(
       'ExpressionEditor-',
       'MathDisplay-',
       'SettingsDialog-',
+      'ShortcutDialog-',
       'HistorySheet-',
       'CommandPalette-',
       'AccentPanel-',
