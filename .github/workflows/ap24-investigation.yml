@@ -15,41 +15,15 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 24.21.0
-      - name: Generate lockfile with bundled npm
+      - run: npm ci
+      - name: Format final maintenance files for review
         run: |
-          node --version
-          npm --version
-          test "$(npm --version)" = 11.19.0
-          npm install --package-lock-only
+          npx prettier --write package.json eslint.config.js .github/dependabot.yml docs/AP24.md docs/ap24-package-metadata.json docs/ROADMAP.md AGENTS.md e2e/scientific.spec.ts .github/workflows/ap24-investigation.yml
           node --input-type=module <<'NODE'
           import {readFileSync} from 'node:fs';
-          import {gzipSync} from 'node:zlib';
-          console.log('AP24_LOCK_GZIP_BASE64='+gzipSync(readFileSync('package-lock.json')).toString('base64'));
+          for(const path of ['package.json','eslint.config.js','.github/dependabot.yml','docs/AP24.md','docs/ap24-package-metadata.json','docs/ROADMAP.md','AGENTS.md','e2e/scientific.spec.ts']) console.log('AP24_FORMATTED',JSON.stringify({path,content:readFileSync(path,'utf8')}));
           NODE
-      - name: Fresh clean installation
-        run: npm ci
-      - name: Inspect full dependency tree
-        run: npm ls --all
-      - name: Keep domain browser bans after globals migration
-        run: |
-          node --input-type=module <<'NODE'
-          import {ESLint} from 'eslint';
-          const linter = new ESLint();
-          for (const name of ['window', 'document', 'AudioWorkletProcessor', 'registerProcessor']) {
-            const [result] = await linter.lintText(name + ';', {filePath: 'src/engine/ap24-domain-probe.ts'});
-            if (!result.messages.some(message => message.ruleId === 'no-restricted-globals')) throw Error('Missing domain ban: ' + name);
-          }
-          console.log('AP24 domain browser/audioWorklet bans passed');
-          NODE
-      - name: Format maintenance changes for review
-        run: |
-          npx prettier --write package.json eslint.config.js .github/workflows/ap24-investigation.yml
-          node --input-type=module <<'NODE'
-          import {readFileSync} from 'node:fs';
-          for(const path of ['package.json','eslint.config.js','.github/workflows/ap24-investigation.yml']) console.log('AP24_FORMATTED',JSON.stringify({path,content:readFileSync(path,'utf8')}));
-          NODE
-      - name: Run unchanged quality gates
-        run: npm run check
-      - name: Audit
-        if: always()
-        run: npm audit --json
+      - run: npm run check
+      - run: npm audit --json
+      - name: Confirm committed icon subsets are untouched
+        run: git diff --exit-code origin/main -- src/styles/fonts
