@@ -119,6 +119,8 @@ for (const initialMode of qaModes) {
       expect(
         urls.some((url) => /DesignLab|ComponentGallery|MotionDemo/.test(url)),
       ).toBe(false);
+      // Provenance is inspected directly, never fetched/pre-cached by the app.
+      expect(urls.some((url) => url.endsWith('/build-info.json'))).toBe(false);
       await context.setOffline(true);
       for (const mode of qaModes) {
         await page.goto(`${base}#/${mode}`);

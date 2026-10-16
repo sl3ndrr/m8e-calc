@@ -5,6 +5,8 @@ export function buildInfoPlugin(internalLab: boolean): Plugin {
   return {
     name: 'm8e-build-info',
     apply: 'build',
+    // Run after the PWA plugin so provenance stays outside its cache/request set.
+    enforce: 'post',
     generateBundle() {
       const sha = process.env.GITHUB_SHA;
       this.emitFile({

@@ -22,8 +22,8 @@ export default defineConfig(({ command, mode }) => {
       react(),
       internalLabPlugin(internalLab),
       localePlugin(),
-      buildInfoPlugin(internalLab),
       pwaPlugin(),
+      buildInfoPlugin(internalLab),
       cspPlugin(),
       {
         name: 'inline-theme-bootstrap',

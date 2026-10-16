@@ -92,7 +92,7 @@ for (const [width, height, language, theme, accent, motionLevel] of [
         name: t('comfort.shareLink', language),
         exact: true,
       });
-      // CodeMirror intentionally consumes forward Tab for indentation.
+      // Sharing precedes the editor; exercise the shorter backward keyboard path.
       await tabTo(page, share, true);
       await expect(share).toBeFocused();
       await expect(share).toBeInViewport();
