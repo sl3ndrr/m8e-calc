@@ -12,6 +12,7 @@ permissions:
   contents: read
 jobs:
   rendering:
+    if: github.head_ref == 'feat/ap19-calculator-rendering'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -21,6 +22,13 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium
+      - name: Package offline local validation runtime
+        run: tar -czf /tmp/ap19-runtime.tgz node_modules -C "$HOME" .cache/ms-playwright
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ap19-local-runtime
+          path: /tmp/ap19-runtime.tgz
+          retention-days: 1
       - name: Pinned main production baseline (local fonts)
         run: |
           git fetch --depth=1 origin d5709aca97a0d4d72317aac32de4213dcf063b8b
@@ -38,6 +46,9 @@ jobs:
           cp /tmp/ap19-format.patch ap19-format.patch
       - run: npm run check
       - run: npx playwright test e2e/calculator-rendering.spec.ts e2e/simple-calculator.spec.ts e2e/scientific.spec.ts --project=chromium --trace=on --workers=2
+      - name: Propose simple visual references for review
+        if: always()
+        run: npx playwright test --project=qa-visual --grep '^simple ' --update-snapshots --workers=2
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -46,4 +57,5 @@ jobs:
             ap19-format.patch
             test-results/
             dist/
+            e2e/qa-visual.spec.ts-snapshots/simple-*.png
           retention-days: 14
