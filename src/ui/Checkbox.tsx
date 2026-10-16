@@ -22,7 +22,9 @@ export function Checkbox({
             <Icon className="ui-checkbox-check" name="check" />
             <span className="ui-checkbox-dash" />
           </span>
-          {typeof children === 'function' ? children(state) : children}
+          <span className="ui-checkbox-label">
+            {typeof children === 'function' ? children(state) : children}
+          </span>
         </>
       )}
     </AriaCheckbox>

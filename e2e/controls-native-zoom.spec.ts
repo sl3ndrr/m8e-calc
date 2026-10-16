@@ -140,6 +140,8 @@ test('checkbox centers at native browser zoom 100/125/150/200', async ({
                   return {
                     dx: r.x + r.width / 2 - b.x - b.width / 2,
                     dy: r.y + r.height / 2 - b.y - b.height / 2,
+                    fontSize: getComputedStyle(mark).fontSize,
+                    lineHeight: getComputedStyle(mark).lineHeight,
                   };
                 });
               }),
@@ -171,10 +173,14 @@ test('checkbox centers at native browser zoom 100/125/150/200', async ({
                 return {
                   dx: r.x + r.width / 2 - b.x - b.width / 2,
                   dy: r.y + r.height / 2 - b.y - b.height / 2,
+                  fontSize: getComputedStyle(mark).fontSize,
+                  lineHeight: getComputedStyle(mark).lineHeight,
                 };
               }),
             );
           for (const mark of graphMarks) {
+            expect(mark.fontSize).toBe('20px');
+            expect(mark.lineHeight).toBe('20px');
             expect(Math.abs(mark.dx)).toBeLessThan(0.6);
             expect(Math.abs(mark.dy)).toBeLessThan(0.6);
           }
@@ -194,8 +200,10 @@ test('checkbox centers at native browser zoom 100/125/150/200', async ({
         }
       }
     }
+    const metricsPath = info.outputPath('native-zoom-metrics.json');
+    await writeFile(metricsPath, JSON.stringify(measurements, null, 2));
     await info.attach('native-zoom-metrics', {
-      body: JSON.stringify(measurements, null, 2),
+      path: metricsPath,
       contentType: 'application/json',
     });
   } finally {

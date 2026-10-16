@@ -34,7 +34,7 @@
   flex-shrink: 0;
   opacity: 0;
 }
-.ui-checkbox-check {
+.ui-checkbox .ui-checkbox-box .ui-checkbox-check {
   width: 20px;
   height: 20px;
   font-size: 20px;

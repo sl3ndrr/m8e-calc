@@ -20,9 +20,9 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npx playwright install --with-deps chromium
-      - run: npx playwright test e2e/controls-polish.spec.ts e2e/controls-native-zoom.spec.ts e2e/theming.spec.ts e2e/components.spec.ts e2e/graph.spec.ts --project=chromium --workers=2
+      - run: npx playwright test e2e/controls-polish.spec.ts e2e/controls-native-zoom.spec.ts e2e/theming.spec.ts e2e/components.spec.ts e2e/graph.spec.ts e2e/convert.spec.ts --project=chromium --workers=2
       - name: Propose graph references for visual review
-        run: npx playwright test --project=qa-visual --grep 'graph ' --update-snapshots=all --workers=2
+        run: npx playwright test --project=qa-visual --grep 'graph ' --update-snapshots=all --workers=2 --output=test-results/ap20-visual
       - uses: actions/upload-artifact@v7
         if: always()
         with:
