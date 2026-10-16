@@ -55,18 +55,19 @@
   font-weight: 650;
 }
 .keypad-cell[data-active] .keypad-key {
-  border-radius: var(--md-sys-shape-small);
   background: var(--md-sys-color-secondary);
   color: var(--md-sys-color-on-secondary);
 }
 .keypad-cell[data-key-pressed] .keypad-key,
 .keypad-cell .keypad-key[data-pressed] {
-  border-radius: var(--md-sys-shape-small);
-  transform: scale(0.96);
+  transform: scale(var(--md-sys-motion-press-scale));
 }
 .keypad-cell .keypad-key[data-disabled] {
   color: var(--md-sys-color-on-surface-variant);
   opacity: 0.55;
+}
+.keypad-cell[data-key-pressed] .ui-state-layer {
+  opacity: 0.1;
 }
 :root[data-motion='off'] .keypad-key,
 :root[data-motion='reduced'] .keypad-key {

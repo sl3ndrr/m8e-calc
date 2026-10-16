@@ -9,3 +9,11 @@ Details zu Zuständen, Verlaufspayload und Tests in `docs/ARCHITECTURE.md`.
 
 Tastatur: Ziffern, Punkt/Komma, + − * /, Enter/=, Backspace, Esc (C),
 Delete (CE) und %. Strg+V fügt eine einzelne lokalisierte Zahl ein.
+
+## AP19 · Zahlen und Tasten
+
+Zahlen verwenden gemessene Fontbreiten mit seitlicher Tintenreserve und einem
+begrenzten Animationsviewport. Rechentasten behalten ihre rollenbezogene
+Grundform auch bei Press/Active; gemeinsame Motion-/Shape-Tokens gelten auch
+im wissenschaftlichen Tastenfeld. Konzept und reproduzierbare Browsernachweise:
+[AP19.md](../../../docs/AP19.md).

@@ -245,6 +245,7 @@
   initial-value: #633b48;
 }
 :root {
+  --md-sys-motion-press-scale: 0.96;
   --md-sys-motion-spatial-fast-duration: 421ms;
   --md-sys-motion-spatial-fast-easing: linear(
     0,

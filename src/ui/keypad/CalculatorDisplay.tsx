@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { animateElement } from '../animateElement';
 import { Button } from '../Button';
-import { useSpring } from '../useSpring';
+import { displayFontSize } from './displayFit';
 import { useMediaQuery } from '../useMediaQuery';
 import { useSettingsStore } from '../../shared/settingsStore';
 
@@ -10,7 +10,7 @@ function Character({ value }: { value: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const level = useSettingsStore((s) => s.motionLevel);
   const reduced = useMediaQuery('(prefers-reduced-motion: reduce)');
-  useEffect(() => {
+  useLayoutEffect(() => {
     const node = ref.current;
     if (!node || level === 'off') return;
     const spatial = level === 'full' && !reduced;
@@ -54,14 +54,45 @@ export function CalculatorDisplay({
   error,
   onCopy,
 }: CalculatorDisplayProps) {
-  const container = useRef<HTMLDivElement>(null);
-  const size = useSpring(
-    Math.min(7, 48 / Math.max(7, value.length)),
-    'effects-default',
-  );
+  const viewport = useRef<HTMLSpanElement>(null);
+  const measure = useRef<HTMLSpanElement>(null);
+  const number = useRef<HTMLSpanElement>(null);
+  useLayoutEffect(() => {
+    const box = viewport.current;
+    const probe = measure.current;
+    const ink = number.current;
+    if (!box || !probe || !ink) return;
+    let disposed = false;
+    const fit = () => {
+      if (disposed) return;
+      const style = getComputedStyle(probe);
+      const maximum = parseFloat(style.fontSize);
+      const minimum = Math.max(
+        24,
+        1.5 * parseFloat(getComputedStyle(document.documentElement).fontSize),
+      );
+      ink.style.fontSize = `${displayFontSize(
+        box.clientWidth,
+        probe.getBoundingClientRect().width,
+        maximum,
+        minimum,
+        parseFloat(style.getPropertyValue('--calculator-ink-gutter')),
+      )}px`;
+    };
+    fit();
+    const observer = new ResizeObserver(fit);
+    observer.observe(box);
+    observer.observe(probe);
+    document.fonts?.ready.then(fit);
+    document.fonts?.addEventListener('loadingdone', fit);
+    return () => {
+      disposed = true;
+      observer.disconnect();
+      document.fonts?.removeEventListener('loadingdone', fit);
+    };
+  }, [value]);
   return (
     <div
-      ref={container}
       className="calculator-display"
       data-error={!!error || undefined}
     >
@@ -79,10 +110,15 @@ export function CalculatorDisplay({
         isDisabled={!!error}
         onPress={onCopy}
       >
-        <span className="calculator-value" style={{ fontSize: `${size}rem` }}>
-          {Array.from(value).map((character, index) => (
-            <Character key={value.length - index} value={character} />
-          ))}
+        <span ref={viewport} className="calculator-viewport">
+          <span ref={measure} className="calculator-measure" aria-hidden="true">
+            {value}
+          </span>
+          <span ref={number} className="calculator-value">
+            {Array.from(value).map((character, index) => (
+              <Character key={value.length - index} value={character} />
+            ))}
+          </span>
         </span>
       </Button>
       <output

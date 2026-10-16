@@ -11,3 +11,5 @@ test-results/
 *-preview.log
 ap18-evidence/
 ap18-sharing-errors/
+.qa-ap19-before/
+ap19-format.patch

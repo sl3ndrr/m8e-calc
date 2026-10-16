@@ -57,7 +57,9 @@ export function springToLinear(
   );
   return { duration, samples, easing: `linear(${samples.join(', ')})` };
 }
-export const motionProperties = Object.fromEntries(
+export const motionProperties = {
+  '--md-sys-motion-press-scale': '0.96',
+  ...Object.fromEntries(
   Object.entries(springs).flatMap(([name, spring]) => {
     const { duration, easing } = springToLinear(
       spring.stiffness,
@@ -70,4 +72,5 @@ export const motionProperties = Object.fromEntries(
       [`--md-sys-motion-${name}-damping`, String(spring.damping)],
     ];
   }),
-);
+),
+};

@@ -1,0 +1,49 @@
+name: AP19 rendering evidence
+on:
+  pull_request:
+    paths:
+      - 'src/ui/keypad/**'
+      - 'src/ui/Button.css'
+      - 'src/styles/motion.ts'
+      - 'e2e/calculator-rendering.spec.ts'
+      - 'scripts/ap19-baseline.mjs'
+      - '.github/workflows/ap19.yml'
+permissions:
+  contents: read
+jobs:
+  rendering:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Pinned main production baseline (local fonts)
+        run: |
+          git fetch --depth=1 origin d5709aca97a0d4d72317aac32de4213dcf063b8b
+          git worktree add .qa-ap19-before FETCH_HEAD
+          ln -s "$GITHUB_WORKSPACE/node_modules" .qa-ap19-before/node_modules
+          cd .qa-ap19-before
+          npm run build
+          cd ..
+          node scripts/ap19-baseline.mjs
+      - name: Format and token reproducibility
+        run: |
+          npm run tokens
+          npx prettier --write src/ui/keypad src/ui/Button.css src/styles/motion.ts e2e/calculator-rendering.spec.ts scripts/ap19-baseline.mjs .github/workflows/ap19.yml docs/AP19.md
+          git diff > /tmp/ap19-format.patch
+          cp /tmp/ap19-format.patch ap19-format.patch
+      - run: npm run check
+      - run: npx playwright test e2e/calculator-rendering.spec.ts e2e/simple-calculator.spec.ts e2e/scientific.spec.ts --project=chromium --trace=on --workers=2
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap19-rendering
+          path: |
+            ap19-format.patch
+            test-results/
+            dist/
+          retention-days: 14
