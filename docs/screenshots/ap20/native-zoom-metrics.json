@@ -1,0 +1,2978 @@
+[
+  {
+    "zoom": 1,
+    "theme": "light",
+    "uiSize": 80,
+    "dipScale": 1,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 1,
+    "theme": "light",
+    "uiSize": 100,
+    "dipScale": 1,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 1,
+    "theme": "light",
+    "uiSize": 150,
+    "dipScale": 1,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 1,
+    "theme": "dark",
+    "uiSize": 80,
+    "dipScale": 1,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 1,
+    "theme": "dark",
+    "uiSize": 100,
+    "dipScale": 1,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 1,
+    "theme": "dark",
+    "uiSize": 150,
+    "dipScale": 1,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 1.25,
+    "theme": "light",
+    "uiSize": 80,
+    "dipScale": 1.25,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 1.25,
+    "theme": "light",
+    "uiSize": 100,
+    "dipScale": 1.25,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 1.25,
+    "theme": "light",
+    "uiSize": 150,
+    "dipScale": 1.25,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 1.25,
+    "theme": "dark",
+    "uiSize": 80,
+    "dipScale": 1.25,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 1.25,
+    "theme": "dark",
+    "uiSize": 100,
+    "dipScale": 1.25,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 1.25,
+    "theme": "dark",
+    "uiSize": 150,
+    "dipScale": 1.25,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 1.5,
+    "theme": "light",
+    "uiSize": 80,
+    "dipScale": 1.5,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 1.5,
+    "theme": "light",
+    "uiSize": 100,
+    "dipScale": 1.5,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0.0001220703125,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 1.5,
+    "theme": "light",
+    "uiSize": 150,
+    "dipScale": 1.5,
+    "marks": [
+      {
+        "dx": 0.000003814697265625,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0.000003814697265625,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 1.5,
+    "theme": "dark",
+    "uiSize": 80,
+    "dipScale": 1.5,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 1.5,
+    "theme": "dark",
+    "uiSize": 100,
+    "dipScale": 1.5,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0.0001220703125,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 1.5,
+    "theme": "dark",
+    "uiSize": 150,
+    "dipScale": 1.5,
+    "marks": [
+      {
+        "dx": 0.000003814697265625,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0.000003814697265625,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 2,
+    "theme": "light",
+    "uiSize": 80,
+    "dipScale": 2,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 2,
+    "theme": "light",
+    "uiSize": 100,
+    "dipScale": 2,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 2,
+    "theme": "light",
+    "uiSize": 150,
+    "dipScale": 2,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 2,
+    "theme": "dark",
+    "uiSize": 80,
+    "dipScale": 2,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "12.8px",
+        "lineHeight": "12.8px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 2,
+    "theme": "dark",
+    "uiSize": 100,
+    "dipScale": 2,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "16px",
+        "lineHeight": "16px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  },
+  {
+    "zoom": 2,
+    "theme": "dark",
+    "uiSize": 150,
+    "dipScale": 2,
+    "marks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "24px",
+        "lineHeight": "24px"
+      }
+    ],
+    "graphMarks": [
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      },
+      {
+        "dx": 0,
+        "dy": 0,
+        "fontSize": "20px",
+        "lineHeight": "20px"
+      }
+    ]
+  }
+]

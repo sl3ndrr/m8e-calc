@@ -19,13 +19,12 @@ export function Checkbox({
         <>
           <StateLayer />
           <span className="ui-checkbox-box" aria-hidden="true">
-            {state.isIndeterminate ? (
-              <span className="ui-checkbox-dash" />
-            ) : state.isSelected ? (
-              <Icon name="check" />
-            ) : null}
+            <Icon className="ui-checkbox-check" name="check" />
+            <span className="ui-checkbox-dash" />
           </span>
-          {typeof children === 'function' ? children(state) : children}
+          <span className="ui-checkbox-label">
+            {typeof children === 'function' ? children(state) : children}
+          </span>
         </>
       )}
     </AriaCheckbox>

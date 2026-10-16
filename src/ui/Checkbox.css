@@ -13,6 +13,10 @@
 .ui-checkbox-box {
   display: grid;
   place-items: center;
+  box-sizing: border-box;
+  flex: 0 0 24px;
+  overflow: hidden;
+  line-height: 1;
   width: 24px;
   height: 24px;
   border: 2px solid var(--md-sys-color-outline);
@@ -22,6 +26,20 @@
   color: var(--md-sys-color-on-primary);
   background: var(--md-sys-color-primary);
   border-color: var(--md-sys-color-primary);
+}
+.ui-checkbox-check,
+.ui-checkbox-dash {
+  grid-area: 1 / 1;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  opacity: 0;
+}
+.ui-checkbox .ui-checkbox-box .ui-checkbox-check {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  line-height: 1;
+  text-align: center;
 }
 .ui-checkbox-dash {
   width: 12px;
@@ -34,4 +52,31 @@
 }
 .ui-checkbox[data-invalid] .ui-checkbox-box {
   border-color: var(--md-sys-color-error);
+}
+
+.ui-checkbox[data-selected]:not([data-indeterminate]) .ui-checkbox-check,
+.ui-checkbox[data-indeterminate] .ui-checkbox-dash {
+  opacity: 1;
+}
+.ui-checkbox[data-invalid]:where([data-selected], [data-indeterminate])
+  .ui-checkbox-box {
+  background: var(--md-sys-color-error);
+  color: var(--md-sys-color-on-error);
+}
+/* Keep both marks mounted so selection and deselection can interpolate. */
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-motion='full'] :is(.ui-checkbox-check, .ui-checkbox-dash) {
+    transform: scale(var(--md-sys-motion-press-scale));
+    transition:
+      opacity var(--md-sys-motion-effects-fast-duration)
+        var(--md-sys-motion-effects-fast-easing),
+      transform var(--md-sys-motion-effects-fast-duration)
+        var(--md-sys-motion-effects-fast-easing);
+  }
+  :root[data-motion='full']
+    .ui-checkbox[data-selected]:not([data-indeterminate])
+    .ui-checkbox-check,
+  :root[data-motion='full'] .ui-checkbox[data-indeterminate] .ui-checkbox-dash {
+    transform: scale(1);
+  }
 }

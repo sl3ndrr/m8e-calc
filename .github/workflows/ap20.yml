@@ -1,0 +1,33 @@
+name: AP20 controls evidence
+on:
+  pull_request:
+    branches: [main]
+concurrency:
+  group: ap20-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  controls:
+    if: github.head_ref == 'feat/ap20-controls-polish'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test e2e/controls-polish.spec.ts e2e/controls-native-zoom.spec.ts e2e/theming.spec.ts e2e/components.spec.ts e2e/graph.spec.ts e2e/convert.spec.ts --project=chromium --workers=2
+      - name: Compare reviewed graph references
+        run: npx playwright test --project=qa-visual --grep 'graph ' --workers=2 --output=test-results/ap20-visual
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap20-controls
+          path: |
+            test-results/
+            e2e/qa-visual.spec.ts-snapshots/graph-*.png
+          retention-days: 14

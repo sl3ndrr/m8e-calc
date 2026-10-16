@@ -135,3 +135,16 @@ begrenzten Animationsviewport. Rechentasten behalten ihre rollenbezogene
 Grundform auch bei Press/Active; gemeinsame Motion-/Shape-Tokens gelten auch
 im wissenschaftlichen Tastenfeld. Konzept und reproduzierbare Browsernachweise:
 [AP19.md](AP19.md).
+
+## AP20 · Checkbox und Theme-Schalter
+
+Die gemeinsame Checkbox definiert eine 24px-Border-Box ohne Flex-Shrink und
+zentriert Haken (20px, Zeilenhöhe 1) sowie Indeterminate-Strich im 20px-Innenraum.
+Beide dekorativen Markierungen bleiben für die kurze Effects-Fast-Überblendung
+montiert. Nur Full ohne OS-Reduktion ergänzt eine dezente Skalierung; Reduced/Off
+wechseln gemäß den globalen Motionregeln sofort. Invalid-Auswahl verwendet
+Error/On Error; Hover, Pressed, Fokus und Disabled bleiben React-Aria-Zustände.
+
+ThemeSwitch zeigt genau Sonne / Auto / Mond. Der aktuelle Systemzustand bleibt
+im zugänglichen Namen und Tooltip des Auto-Segments, ohne zusätzlichen sichtbaren
+Indikator. Tests und Bildreproduktion: [AP20.md](AP20.md).

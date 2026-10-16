@@ -51,3 +51,7 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       und Animationsnachweise in [AP19.md](AP19.md). Abnahme über PR/CI,
       Merge steht aus. Checkboxen und Designlab-Auslieferung bleiben getrennte
       Pakete; Graph-Fit bleibt AP21.
+
+- [ ] 20 Controls-Polish — `feat/ap20-controls-polish`: gemeinsame Checkbox
+      zentriert und dezent animiert; ThemeSwitch ohne Zusatzindikator.
+      Tests und UI-Nachweise in [AP20.md](AP20.md); Integration erst nach Merge.

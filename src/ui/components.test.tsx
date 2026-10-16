@@ -474,3 +474,38 @@ it('forwards StateLayer attributes without entering the accessibility tree', () 
   expect(container.firstChild).toHaveAttribute('aria-hidden', 'true');
   fireEvent.mouseOver(screen.getByTestId('layer'));
 });
+
+it('checkbox preserves native mixed/disabled/invalid semantics and changes once per activation', async () => {
+  const user = userEvent.setup();
+  const change = vi.fn();
+  const { rerender } = render(
+    <UI.Checkbox onChange={change}>Remember</UI.Checkbox>,
+  );
+  const input = screen.getByRole('checkbox', { name: 'Remember' });
+  await user.click(screen.getByText('Remember'));
+  expect(input).toBeChecked();
+  expect(change).toHaveBeenCalledExactlyOnceWith(true);
+  await user.keyboard(' ');
+  expect(input).not.toBeChecked();
+  expect(change).toHaveBeenCalledTimes(2);
+  expect(change).toHaveBeenLastCalledWith(false);
+  expect(input).toHaveFocus();
+  rerender(<UI.Checkbox isIndeterminate>Remember</UI.Checkbox>);
+  expect(input).toBePartiallyChecked();
+  rerender(
+    <UI.Checkbox
+      isDisabled
+      isSelected
+      isInvalid
+      validationBehavior="aria"
+      onChange={change}
+    >
+      Remember
+    </UI.Checkbox>,
+  );
+  expect(input).toBeDisabled();
+  expect(input).toBeChecked();
+  expect(input).toHaveAttribute('aria-invalid', 'true');
+  await user.click(screen.getByText('Remember'));
+  expect(change).toHaveBeenCalledTimes(2);
+});

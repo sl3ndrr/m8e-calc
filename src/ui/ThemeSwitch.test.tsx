@@ -25,3 +25,14 @@ it('exposes one tab stop and navigates the three radio segments by keyboard', ()
   fireEvent.keyDown(dark, { key: 'Home' });
   expect(light).toHaveFocus();
 });
+
+it('renders one primary symbol per theme, retaining the regular light sun', () => {
+  const { container } = render(<ThemeSwitch />);
+  expect(
+    Array.from(
+      container.querySelectorAll('.ui-icon'),
+      (icon) => icon.textContent,
+    ),
+  ).toEqual(['light_mode', 'brightness_auto', 'dark_mode']);
+  expect(container.querySelector('.system-indicator')).toBeNull();
+});
