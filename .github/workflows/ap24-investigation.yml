@@ -1,0 +1,28 @@
+name: AP24 dependency investigation
+on:
+  push:
+    branches: [feat/ap24-dependency-maintenance]
+    paths: [.github/workflows/ap24-investigation.yml]
+permissions:
+  contents: read
+jobs:
+  metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - name: Read current npm metadata
+        run: |
+          node --version
+          npm --version
+          node --input-type=module <<'NODE'
+          import {execFileSync} from 'node:child_process';
+          const specs = ['@material/material-color-utilities@0.4.0','motion@14.1.0','material-symbols@0.48.0','katex@0.19.0','@eslint/js@10.0.1','@testing-library/jest-dom@7.0.1','@types/node@26.6.5','eslint@10.12.0','globals@17.13.0','jsdom@30.1.2','vitest@5.0.3','eslint-plugin-jsx-a11y@latest','eslint-plugin-react-hooks@latest','typescript-eslint@latest','@types/node@24','eslint@9','@eslint/js@9','vitest@4','jsdom@27','@testing-library/jest-dom@6','globals@16','motion@12'];
+          for (const spec of specs) {
+            console.log('AP24_METADATA',spec,execFileSync('npm',['view',spec,'version','engines','peerDependencies','dependencies','dist-tags','repository','--json'],{encoding:'utf8'}));
+          }
+          NODE
