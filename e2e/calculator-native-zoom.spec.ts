@@ -15,6 +15,8 @@ test('native browser zoom 100/125/150/200 preserves complete result ink', async 
     channel: 'chromium',
     headless: true,
     viewport: null,
+    // Override the Desktop Chrome fixture's default DPR so the browser owns it.
+    deviceScaleFactor: undefined,
     locale: 'de-DE',
     args: [
       '--window-size=1920,1080',
