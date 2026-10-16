@@ -1,0 +1,59 @@
+name: AP19 rendering evidence
+on:
+  pull_request:
+    paths:
+      - 'src/ui/keypad/**'
+      - 'src/ui/Button.css'
+      - 'src/styles/motion.ts'
+      - 'e2e/calculator-*.spec.ts'
+      - 'e2e/calculatorCapture.ts'
+      - 'e2e/fixtures/ap19-zoom/**'
+      - 'scripts/ap19-baseline.mjs'
+      - '.github/workflows/ap19.yml'
+concurrency:
+  group: ap19-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  rendering:
+    if: github.head_ref == 'feat/ap19-calculator-rendering'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Pinned main production baseline (local fonts)
+        run: |
+          git fetch --depth=1 origin d5709aca97a0d4d72317aac32de4213dcf063b8b
+          git worktree add .qa-ap19-before FETCH_HEAD
+          ln -s "$GITHUB_WORKSPACE/node_modules" .qa-ap19-before/node_modules
+          cd .qa-ap19-before
+          npm run build
+          cd ..
+          node scripts/ap19-baseline.mjs
+          git worktree remove --force .qa-ap19-before
+      - name: Verify generated tokens
+        run: |
+          npm run tokens
+          git diff --exit-code src/styles/tokens.css
+      - run: npm run check
+      - run: npx playwright test e2e/calculator-native-zoom.spec.ts --project=chromium --trace=on --output=test-results/ap19-native
+      - run: npx playwright test e2e/calculator-rendering.spec.ts e2e/simple-calculator.spec.ts e2e/scientific.spec.ts --project=chromium --trace=on --workers=2 --output=test-results/ap19
+      - name: Propose simple visual references for review
+        if: always()
+        run: npx playwright test --project=qa-visual --grep 'simple ' --update-snapshots --workers=2 --output=test-results/ap19-visual
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap19-rendering
+          path: |
+            test-results/
+            ap19-evidence/
+            dist/
+            e2e/qa-visual.spec.ts-snapshots/simple-*.png
+          retention-days: 14

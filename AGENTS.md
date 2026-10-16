@@ -117,3 +117,11 @@ versteckt zugänglich. Feature-Regionen verwenden `mode.*` als Namen. Teilen
 nutzt den gemeinsamen IconButton/Tooltip-Adapter bei unverändertem
 Permalink-Vertrag; aktive Währungen bleiben ausgeschlossen. Details und
 Bildreproduktion: `docs/COMFORT.md`.
+
+## AP19 · Zahlen und Tasten
+
+Zahlen verwenden gemessene Fontbreiten mit seitlicher Tintenreserve und einem
+begrenzten Animationsviewport. Rechentasten behalten ihre rollenbezogene
+Grundform auch bei Press/Active; gemeinsame Motion-/Shape-Tokens gelten auch
+im wissenschaftlichen Tastenfeld. Konzept und reproduzierbare Browsernachweise:
+[docs/AP19.md](docs/AP19.md).

@@ -22,21 +22,54 @@
 }
 .calculator-result .ui-button-content {
   width: 100%;
+  min-width: 0;
   justify-content: flex-end;
 }
-.calculator-value {
-  display: inline-flex;
-  max-width: 100%;
+/* One bounded viewport contains motion. Each character gets an ink gutter,
+   cancelled in layout so adjacent advances retain their natural spacing. */
+.calculator-viewport {
+  --calculator-ink-gutter: 0.12;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  height: calc(var(--calculator-font-maximum, 7rem) * 1.25);
+  overflow: clip;
+}
+.calculator-value,
+.calculator-measure {
   line-height: 1.15;
+  font-size: var(--calculator-font-maximum, 7rem);
   font-weight: 550;
   font-variant-numeric: tabular-nums;
+  font-kerning: none;
+  font-optical-sizing: none;
   font-variation-settings: 'wdth' 95;
-  letter-spacing: -0.045em;
+  letter-spacing: 0;
+}
+.calculator-measure {
+  display: inline-flex;
+  position: absolute;
+  visibility: hidden;
+  white-space: pre;
+  width: max-content;
+}
+.calculator-value {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  width: 100%;
+  padding-inline: calc(var(--calculator-ink-gutter) * 1em);
+  /* At the reading floor, wrap complete characters rather than hide digits.
+     The fixed viewport holds all supported formatted values without reflow. */
 }
 .calculator-character {
   display: inline-flex;
+  flex: none;
   overflow: clip;
-  padding-block: 0.05em;
+  padding: 0.05em calc(var(--calculator-ink-gutter) * 1em);
+  margin-inline: calc(var(--calculator-ink-gutter) * -1em);
 }
 .calculator-character > span {
   display: inline-block;
@@ -55,10 +88,4 @@
 }
 .calculator-display[data-error] .calculator-result {
   color: var(--md-sys-color-on-surface-variant);
-}
-@container (max-width: 32rem) {
-  .calculator-value {
-    max-width: 100%;
-    font-size: min(12cqi, 1em);
-  }
 }

@@ -57,17 +57,20 @@ export function springToLinear(
   );
   return { duration, samples, easing: `linear(${samples.join(', ')})` };
 }
-export const motionProperties = Object.fromEntries(
-  Object.entries(springs).flatMap(([name, spring]) => {
-    const { duration, easing } = springToLinear(
-      spring.stiffness,
-      spring.damping,
-    );
-    return [
-      [`--md-sys-motion-${name}-duration`, `${duration}ms`],
-      [`--md-sys-motion-${name}-easing`, easing],
-      [`--md-sys-motion-${name}-stiffness`, String(spring.stiffness)],
-      [`--md-sys-motion-${name}-damping`, String(spring.damping)],
-    ];
-  }),
-);
+export const motionProperties: Record<string, string> = {
+  '--md-sys-motion-press-scale': '0.96',
+  ...Object.fromEntries(
+    Object.entries(springs).flatMap(([name, spring]) => {
+      const { duration, easing } = springToLinear(
+        spring.stiffness,
+        spring.damping,
+      );
+      return [
+        [`--md-sys-motion-${name}-duration`, `${duration}ms`],
+        [`--md-sys-motion-${name}-easing`, easing],
+        [`--md-sys-motion-${name}-stiffness`, String(spring.stiffness)],
+        [`--md-sys-motion-${name}-damping`, String(spring.damping)],
+      ];
+    }),
+  ),
+};

@@ -89,6 +89,7 @@
 }
 .shell-main {
   grid-area: stage;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -149,8 +150,9 @@
 .mode-stage-frame {
   position: relative;
   isolation: isolate;
-  flex: 1;
-  min-height: 0;
+  flex: 1 0 0%;
+  /* A wrapped toolbar must not collapse the calculator at large UI/zoom. */
+  min-height: min(24rem, 60dvh);
   overflow: auto;
   container-type: inline-size;
   border-radius: var(--md-sys-shape-extra-extra-large);

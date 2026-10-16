@@ -1,6 +1,6 @@
 # Roadmap
 
-Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet integriert (Merge auf `main`); manuelle Produkt-/Pages-Abnahmen sind separat dokumentiert und werden dadurch nicht als bestanden erklärt. Stand: 14.10.2026.
+Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet integriert (Merge auf `main`); manuelle Produkt-/Pages-Abnahmen sind separat dokumentiert und werden dadurch nicht als bestanden erklärt. Stand: 16.10.2026.
 
 - [x] 1 Fundament — Toolchain, Struktur, Platzhalter, CI/Pages und Projektgedächtnis.
 - [x] 2 Theming — Material 3 Expressive, Hell/System/Dunkel, Akzentwahl, Typography-/Shape-/Motion-Fundament und `#/design` (PR `feat/theming`, Details: `DESIGN.md`).
@@ -43,7 +43,11 @@ AP1–AP15 sind über die gemergten PRs #1, #3, #5–#10, #13–#16 und #18–#2
 
 AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und Permalinks.
 
-- [ ] 18 UI-Bereinigung und dezentes Teilen — `feat/ap18-ui-cleanup`: eine
-      Modus-H1, kompakte Werkzeugzeilen und zugängliche Teilen-Aktion. Vertrag und
-      Bildreproduktion in `COMFORT.md`; Merge steht aus. Ziffernanimation, Checkboxen
-      und Designlab-Auslieferung bleiben getrennte Pakete; Graph-Fit bleibt AP21.
+- [x] 18 UI-Bereinigung und dezentes Teilen — PR #25 ist auf main integriert:
+      eine Modus-H1, kompakte Werkzeugzeilen und zugängliche Teilen-Aktion.
+      Vertrag und Bildreproduktion in `COMFORT.md`.
+- [ ] 19 Vollständige Ziffernanzeige und konstante Rechentastenformen —
+      `feat/ap19-calculator-rendering`; Clip-/Breitenkonzept, Browserregression
+      und Animationsnachweise in [AP19.md](AP19.md). Abnahme über PR/CI,
+      Merge steht aus. Checkboxen und Designlab-Auslieferung bleiben getrennte
+      Pakete; Graph-Fit bleibt AP21.
