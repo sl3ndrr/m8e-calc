@@ -277,22 +277,9 @@ export default function GraphMode() {
           ]),
         ) as CSSProperties
       }
-      aria-label={t('graph.title', locale)}
+      aria-label={t('mode.graph', locale)}
     >
       <header className="graph-heading">
-        <CopyLinkButton
-          mode="graph"
-          data={() => ({
-            ...state,
-            bounds: canvas.current?.desiredViewport()?.bounds ?? state.bounds,
-            fitBasis:
-              canvas.current?.desiredViewport()?.fitBasis ?? state.fitBasis,
-          })}
-        />
-        <div>
-          <p className="shell-eyebrow">{t('graph.eyebrow', locale)}</p>
-          <h1>{t('graph.title', locale)}</h1>
-        </div>
         <div className="graph-toolbar">
           <Button
             size="sm"
@@ -325,6 +312,15 @@ export default function GraphMode() {
             −
           </Button>
         </div>
+        <CopyLinkButton
+          mode="graph"
+          data={() => ({
+            ...state,
+            bounds: canvas.current?.desiredViewport()?.bounds ?? state.bounds,
+            fitBasis:
+              canvas.current?.desiredViewport()?.fitBasis ?? state.fitBasis,
+          })}
+        />
       </header>
       <div className="graph-options">
         <Checkbox

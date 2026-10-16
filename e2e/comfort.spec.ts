@@ -1,9 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 async function copiedLink(page: Page): Promise<string> {
-  await page
-    .getByRole('button', { name: 'Link kopieren', exact: true })
-    .click();
+  await page.getByRole('button', { name: 'Link teilen', exact: true }).click();
   const url = await page.evaluate(() => navigator.clipboard.readText());
   expect(url).toContain('/m8e-calc/#/');
   expect(url).toContain('?v=1&s=');
@@ -110,6 +108,10 @@ test('converter permalink restores category, pair and precise value', async ({
     .getByRole('textbox', { name: 'Schnelleingabe', exact: true })
     .fill('72 °F in °C');
   await page.getByRole('button', { name: 'Übernehmen', exact: true }).click();
+  // Sharing is in the quick-entry form, but must not submit a pending query.
+  await page
+    .getByRole('textbox', { name: 'Schnelleingabe', exact: true })
+    .fill('5 km in mi');
   const url = await copiedLink(page);
   await page.goto(url);
   await expect(

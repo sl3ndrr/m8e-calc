@@ -42,3 +42,8 @@ PR #20 ist gemergt; automatisierte Nachweise stehen im QA-Bericht. Die manuelle 
 AP1–AP15 sind über die gemergten PRs #1, #3, #5–#10, #13–#16 und #18–#20 auf `main` integriert. AP17 ist in `feat/currency` vorbereitet, noch nicht gemergt. Die früheren Abnahmevorbehalte in den Paketbeschreibungen sind durch diesen Integrationsstand ersetzt; offene Qualitätsgrenzen bleiben im [QA-Bericht](QA_REPORT.md).
 
 AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und Permalinks.
+
+- [ ] 18 UI-Bereinigung und dezentes Teilen — `feat/ap18-ui-cleanup`: eine
+      Modus-H1, kompakte Werkzeugzeilen und zugängliche Teilen-Aktion. Vertrag und
+      Bildreproduktion in `COMFORT.md`; Merge steht aus. Ziffernanimation, Checkboxen
+      und Designlab-Auslieferung bleiben getrennte Pakete; Graph-Fit bleibt AP21.

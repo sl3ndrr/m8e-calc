@@ -17,11 +17,6 @@
 .graph-heading {
   justify-content: space-between;
 }
-.graph-heading h1 {
-  margin: 0;
-  font-size: 2rem;
-  letter-spacing: -0.04em;
-}
 .graph-options {
   gap: 1.25rem;
   font-size: 0.8rem;
@@ -314,5 +309,19 @@
     height: auto;
     overflow: visible;
     padding: 1rem;
+  }
+}
+
+/* At high zoom, let the workspace scroll instead of clipping plot controls. */
+@media (max-height: 900px) and (max-width: 1280px) {
+  .mode-stage:has(.graph-mode) {
+    height: auto;
+    overflow: visible;
+  }
+  .graph-mode {
+    height: auto;
+  }
+  .graph-canvas-wrap {
+    min-height: max(14rem, 40vh);
   }
 }

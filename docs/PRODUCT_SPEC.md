@@ -17,6 +17,11 @@ Das visuelle Ziel ist Material 3 Expressive. Ansprechendes Design, gute Handhabu
 
 In jedem Modus kann der Berechnungsverlauf ein- und ausgeblendet werden. Moduswechsel erfolgen über Hash-Routen: `#/simple`, `#/scientific`, `#/convert`, `#/graph`. Leere Hashes setzen den zuletzt genutzten Modus fort (Standard Einfach), unbekannte Hashes führen zur Ansicht Einfach.
 
+Die aktive Moduskennung ist die einzige sichtbare Hauptüberschrift oben links.
+Modusinhalte verzichten auf zusätzliche Werbe- und Modustitel. Teilen ist eine
+sekundäre Icon-Aktion in der jeweiligen kompakten Werkzeugzeile; Details und
+Permalink-Verträge stehen in `COMFORT.md` (AP18).
+
 ## Personalisierung
 
 Ein 3-Wege-Schalter bietet **Hell / System / Dunkel**. Die mittlere Position folgt der Systemeinstellung einschließlich späterer Änderungen. Die Akzentfarbe ist frei wählbar; abgeleitete Farbtokens müssen lesbare Kontraste sichern. Die Oberfläche wird auf Deutsch und Englisch angeboten, Auto erkennt Englisch aus `navigator.language`, sonst gilt Deutsch als Fallback. UI-Größe (80–150 %), Präsentation, Command Palette, Permalinks und Offline-Nutzung sind in AP14 umgesetzt; Details in `COMFORT.md`.

@@ -374,11 +374,9 @@ export default function SimpleMode() {
     <section
       ref={root}
       className="simple-calculator"
-      aria-label={t('simple.title', locale)}
+      aria-label={t('mode.simple', locale)}
     >
       <div className="simple-heading">
-        <h1>{t('simple.title', locale)}</h1>
-        <CopyLinkButton mode="simple" data={simpleLink(state)} />
         <span
           className="simple-memory"
           role="img"
@@ -392,6 +390,7 @@ export default function SimpleMode() {
         >
           {state.memory !== null ? 'M' : ''}
         </span>
+        <CopyLinkButton mode="simple" data={simpleLink(state)} />
       </div>
       <CalculatorDisplay
         value={displayed}

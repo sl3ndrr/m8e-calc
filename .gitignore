@@ -7,3 +7,7 @@ test-results/
 
 .lighthouseci/
 .qa-baseline/
+.qa-ap18-before/
+*-preview.log
+ap18-evidence/
+ap18-sharing-errors/

@@ -35,6 +35,7 @@ const SettingsDialog = lazy(() =>
 );
 import './AppShell.css';
 import './Comfort.css';
+import '../ui/VisuallyHidden.css';
 const CommandPalette = lazy(() =>
   import('./CommandPalette').then((m) => ({ default: m.CommandPalette })),
 );
@@ -300,12 +301,13 @@ export function App() {
               </a>
             </div>
           </aside>
-          <main className="shell-main">
+          <main className="shell-main" aria-labelledby="active-mode-title">
             <header className="shell-toolbar">
-              <div>
-                <p className="shell-eyebrow">{t('shell.eyebrow', locale)}</p>
-                <span>{t(`mode.${mode}`, locale)}</span>
-              </div>
+              {!presentation && (
+                <h1 id="active-mode-title" className="shell-mode-title">
+                  {t(`mode.${mode}`, locale)}
+                </h1>
+              )}
               <div className="shell-controls">
                 {personalization}
                 <Tooltip
@@ -386,6 +388,11 @@ export function App() {
                 </Button>
               </div>
             </header>
+            {presentation && (
+              <h1 id="active-mode-title" className="ui-visually-hidden">
+                {t(`mode.${mode}`, locale)}
+              </h1>
+            )}
             <ModeStage mode={mode} routeKey={`${mode}:${hash}`} />
           </main>
           <div

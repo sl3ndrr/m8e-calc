@@ -1,0 +1,83 @@
+name: AP18 evidence
+on:
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: ap18-evidence-v4-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  evidence:
+    if: github.head_ref == 'feat/ap18-ui-cleanup'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+        if: always()
+      - name: Actual before and after captures
+        if: always()
+        run: |
+          npm run build
+          git fetch --depth=1 origin bdc75289d3f6f9ffca8b2f01b204cf32effe3f0a
+          git worktree add .qa-ap18-before bdc75289d3f6f9ffca8b2f01b204cf32effe3f0a
+          ln -s ../node_modules .qa-ap18-before/node_modules
+          (cd .qa-ap18-before && npm run build)
+          (cd .qa-ap18-before && npm run preview -- --host 127.0.0.1 --port 4174 --strictPort) > before-preview.log 2>&1 &
+          npm run preview -- --host 127.0.0.1 --port 4173 --strictPort > after-preview.log 2>&1 &
+          for attempt in $(seq 1 30); do curl -sf http://127.0.0.1:4174/m8e-calc/ > /dev/null && break; sleep 1; done
+          AP18_PHASE=before AP18_BASE_URL=http://127.0.0.1:4174/m8e-calc/ node scripts/ap18-screenshots.mjs
+          AP18_PHASE=after node scripts/ap18-screenshots.mjs
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap18-captures
+          path: ap18-evidence/
+          retention-days: 14
+      - name: Propose visual references for review
+        if: always()
+        run: CI= npx playwright test --project=qa-visual --update-snapshots --workers=2
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap18-evidence
+          path: |
+            test-results/
+            ap18-evidence/
+            e2e/qa-visual.spec.ts-snapshots/
+            before-preview.log
+            after-preview.log
+          retention-days: 14
+
+  sharing:
+    if: github.head_ref == 'feat/ap18-ui-cleanup'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test --project=chromium e2e/ap18-ui.spec.ts --workers=1
+      - name: Preserve sharing diagnostics
+        if: always()
+        run: cp -R test-results ap18-sharing-errors
+      - name: Propose steady converter snapshots
+        if: always()
+        run: npx playwright test --project=qa-visual --grep convert --update-snapshots --workers=2
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap18-sharing
+          path: |
+            test-results/
+            ap18-sharing-errors/
+            e2e/qa-visual.spec.ts-snapshots/convert-*.png
+          retention-days: 14

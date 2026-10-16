@@ -120,3 +120,10 @@ verfehlen das UI-Ziel in dunklen Standard-Paletten knapp und werden nun auf
 WAAPI und verwendet sonst `ease-out`. Der vorhandene View-Transitions-Fallback
 und das `@supports (corner-shape: squircle)` bleiben bestehen. Reduced/Off gilt in
 allen Pfaden. Browserzoom erhält mindestens die konfigurierte Standardschrift.
+
+## AP18 · Teilen
+
+Das lokale Material-Symbol-Subset ergänzt `share` (21 Symbole). Quelle bleibt
+`scripts/subset-fonts.py`; IconButton und Tooltip verwenden die vorhandenen
+Fokus-, Farb- und Formtokens. Die sekundäre Aktion nutzt On Surface Variant
+und mindestens 48×48 px Bedienfläche. Keine externen Assets.

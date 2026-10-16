@@ -9,18 +9,9 @@
 .scientific-heading {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-.scientific-heading h1 {
-  font-size: 2rem;
-  letter-spacing: -0.035em;
-  margin: 0;
-}
-.scientific-heading p {
-  margin: 0 0 0.5rem;
-  color: var(--md-sys-color-on-surface-variant);
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 .scientific-badge {
   color: var(--md-sys-color-on-secondary-container);
@@ -319,15 +310,6 @@
     animation: none;
   }
 }
-@media (max-width: 700px) {
-  .scientific-heading {
-    flex-wrap: wrap;
-  }
-  .scientific-heading h1 {
-    font-size: 1.5rem;
-  }
-}
-
 .scientific-math .katex-display {
   margin: 0.5rem 0;
 }

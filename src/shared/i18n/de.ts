@@ -56,7 +56,7 @@ export const de = {
   'comfort.exitPresentation': 'Präsentation beenden',
   'comfort.presentationHistory': 'Verlauf in Präsentation anzeigen',
   'comfort.uiSize': 'UI-Größe',
-  'comfort.copyLink': 'Link kopieren',
+  'comfort.shareLink': 'Link teilen',
   'comfort.linkCopied': 'Link kopiert',
   'comfort.linkError':
     'Link konnte nicht kopiert werden. Zustand ungültig, zu groß oder Zwischenablage nicht verfügbar.',
@@ -73,8 +73,6 @@ export const de = {
   'comfort.offlineReady': 'Alle Modi sind offline verfügbar',
 
   'convert.title': 'Umrechner',
-  'convert.eyebrow': 'EINHEITEN · LIVE',
-  'convert.subtitle': 'Ein Wert. Jede Einheit. Präzise verbunden.',
   'convert.quick': 'Schnelleingabe',
   'convert.quickHint':
     '5 km in mi · 72 °F -> °C · / fokussiert, Enter übernimmt',
@@ -346,7 +344,6 @@ export const de = {
   'language.label': 'Sprache',
   'language.de': 'Deutsch',
   'language.en': 'Englisch',
-  'shell.eyebrow': 'DEIN RAUM FÜR KLARE GEDANKEN',
   'shell.ready': 'Bereit für deine Ideen.',
   'shell.hint':
     'Wähle deinen Modus. Hier entsteht Raum zum Rechnen, Umrechnen und Entdecken.',
@@ -401,7 +398,6 @@ export const de = {
   'settings.resetDone': 'Alle Daten zurückgesetzt.',
   'settings.cancel': 'Abbrechen',
   'history.count': { one: '{count} Eintrag', other: '{count} Einträge' },
-  'simple.title': 'Einfach rechnen.',
   'simple.copy': 'Ergebnis kopieren',
   'simple.result': 'Ergebnis',
   'simple.expression': 'Ausdruck',
@@ -439,8 +435,6 @@ export const de = {
     'Die Zahl überschreitet den Rechenbereich. Mit C neu beginnen.',
   'simple.error.invalid':
     'Bitte eine gültige Zahl mit höchstens 16 Ziffern eingeben.',
-  'scientific.title': 'Wissenschaftlich rechnen.',
-  'scientific.subtitle': 'Von der Idee zum Ergebnis.',
   'scientific.expression': 'Ausdruck',
   'scientific.hint':
     'Enter berechnet · ↑/↓ Verlauf · Esc leert · Strg+Leertaste Vorschläge · Tab übernimmt · Dezimalpunkt, Komma trennt Argumente',
@@ -520,7 +514,6 @@ export const de = {
   'scientific.error.E_RESERVED_NAME': 'Dieser Name ist reserviert.',
   'scientific.error.E_ENVIRONMENT': 'Ungültige gespeicherte Definitionen.',
   'graph.title': 'Graphen',
-  'graph.eyebrow': 'FUNKTIONEN ENTDECKEN',
   'graph.canvas': 'Interaktive Zeichenfläche',
   'graph.functions': 'Funktionen',
   'graph.function': 'Funktion',

@@ -19,7 +19,7 @@ options = subset.Options()
 options.layout_features = ['*']
 options.layout_closure = False
 subsetter = subset.Subsetter(options=options)
-icons = 'light_mode brightness_auto dark_mode palette close check restart_alt play_arrow calculate science swap_horiz show_chart construction history settings menu menu_open push_pin content_copy delete'.split()
+icons = 'light_mode brightness_auto dark_mode palette close check restart_alt play_arrow calculate science swap_horiz show_chart construction history settings menu menu_open push_pin content_copy delete share'.split()
 subsetter.populate(text=' '.join(icons), glyphs=[glyph for name in icons for glyph in (name, name + '.fill') if glyph in symbols.getGlyphOrder()])
 subsetter.subset(symbols)
 symbols.recalcTimestamp = False

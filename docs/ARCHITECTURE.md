@@ -194,3 +194,11 @@ Der Cache-Refresh umfasst die betroffenen Editor-/Formel- bzw. Shell-Chunks
 und bleibt auf die eigene Origin begrenzt.
 
 AP17: Settings-Version 4 migriert 0–3 ohne Netzwerkzustimmung; Import erteilt keine Zustimmung. CSP und alleiniger Request-Adapter sind in `UNITS.md` dokumentiert.
+
+## AP18 · Überschriften und Teilen
+
+`App` besitzt die einzige Modus-H1 und benennt damit `main`. Bei Präsentation
+liegt dieselbe H1 visuell versteckt außerhalb der ausgeblendeten Shell-Toolbar.
+Feature-Regionen verwenden lokalisierte Modusnamen, funktionale Überschriften
+bleiben in ihren Features. `CopyLinkButton` nutzt IconButton/Tooltip und behält
+seinen bestehenden Daten-/Callback-Vertrag sowie Snackbar-Rückmeldungen.

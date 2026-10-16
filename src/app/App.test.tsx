@@ -18,7 +18,7 @@ it('renders the calculator and lazy modes and follows hash changes', async () =>
   useSettingsStore.getState().updateSettings({ motionLevel: 'off' });
   render(<App />);
   expect(
-    await screen.findByRole('heading', { name: t('simple.title') }),
+    await screen.findByRole('heading', { name: t('mode.simple') }),
   ).toBeVisible();
   expect(screen.getByRole('link', { name: t('mode.simple') })).toHaveAttribute(
     'aria-current',
@@ -38,14 +38,14 @@ it('updates visible text and document language from settings', async () => {
   render(<App />);
   act(() => useSettingsStore.getState().updateSettings({ language: 'en' }));
   expect(
-    await screen.findByRole('heading', { name: t('simple.title', 'en') }),
+    await screen.findByRole('heading', { name: t('mode.simple', 'en') }),
   ).toBeVisible();
   expect(document.documentElement.lang).toBe('en');
 });
 it('opens history from the shortcut, retains visibility by mode and opens settings', async () => {
   const user = userEvent.setup();
   render(<App />);
-  await screen.findByRole('heading', { name: t('simple.title') });
+  await screen.findByRole('heading', { name: t('mode.simple') });
   await user.keyboard('{Control>}h{/Control}');
   expect(
     await screen.findByRole('dialog', { name: t('history.title') }),

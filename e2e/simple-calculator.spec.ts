@@ -6,8 +6,9 @@ test.beforeEach(async ({ page }) => {
   await page.setViewportSize({ width: 1920, height: 1080 });
   await page.goto('/m8e-calc/#/simple');
   await expect(
-    page.getByRole('heading', { name: 'Einfach rechnen.' }),
+    page.getByRole('heading', { name: 'Einfach', exact: true }),
   ).toBeVisible();
+  await page.locator('.simple-calculator').waitFor();
 });
 for (const [sequence, expected] of [
   ['0.1+0.2=', '0,3'],
@@ -116,8 +117,9 @@ for (const theme of ['light', 'dark'] as const)
       }, theme);
       await page.reload();
       await expect(
-        page.getByRole('heading', { name: 'Einfach rechnen.' }),
+        page.getByRole('heading', { name: 'Einfach', exact: true }),
       ).toBeVisible();
+      await page.locator('.simple-calculator').waitFor();
       await page.keyboard.type('1250+250=');
       await page.keyboard.press('Escape');
       await page.keyboard.type('100+10%=');
@@ -125,6 +127,7 @@ for (const theme of ['light', 'dark'] as const)
       await expect(
         page.getByRole('complementary', { name: 'Verlauf' }),
       ).toBeVisible();
+      await page.locator('.simple-calculator').waitFor();
       await page.evaluate(() => document.fonts.ready);
       await page.screenshot({
         path: `test-results/simple-${theme}-${width}.png`,

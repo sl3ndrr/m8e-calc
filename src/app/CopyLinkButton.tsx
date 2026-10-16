@@ -1,4 +1,6 @@
-import { Button } from '../ui/Button';
+import { IconButton } from '../ui/IconButton';
+import { Tooltip } from '../ui/Tooltip';
+import './CopyLinkButton.css';
 import { snackbarQueue } from '../ui/snackbarQueue';
 import { t } from '../shared/i18n';
 import type { ModeId } from '../shared/modes';
@@ -27,13 +29,24 @@ export function CopyLinkButton<M extends ModeId>({
     }
   }
   return (
-    <Button
-      variant="text"
-      onPress={() => {
-        void copy();
-      }}
-    >
-      {t('comfort.copyLink')}
-    </Button>
+    <div className="mode-share">
+      <Tooltip
+        placement="bottom end"
+        UNSTABLE_portalContainer={document.body}
+        trigger={
+          <IconButton
+            type="button"
+            icon="share"
+            variant="text"
+            aria-label={t('comfort.shareLink')}
+            onPress={() => {
+              void copy();
+            }}
+          />
+        }
+      >
+        {t('comfort.shareLink')}
+      </Tooltip>
+    </div>
   );
 }

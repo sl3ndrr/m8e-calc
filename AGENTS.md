@@ -109,3 +109,11 @@ erhält explizite `DynamicRateProvider`-Instanzen ohne IO. Beschaffung und Cache
 liegen in `src/features/convert/currency`. Vier Stunden automatische
 Aktualisierung, manuelle Aktualisierung, zehn Sekunden Timeout, Offline-Fallback
 und Kursdatums-Badge ab 48 Stunden. Details und Quellenprüfung: `docs/UNITS.md`.
+
+## AP18 · UI-Bereinigung
+
+Die Shell trägt die einzige Modus-H1; in Präsentation bleibt sie visuell
+versteckt zugänglich. Feature-Regionen verwenden `mode.*` als Namen. Teilen
+nutzt den gemeinsamen IconButton/Tooltip-Adapter bei unverändertem
+Permalink-Vertrag; aktive Währungen bleiben ausgeschlossen. Details und
+Bildreproduktion: `docs/COMFORT.md`.
