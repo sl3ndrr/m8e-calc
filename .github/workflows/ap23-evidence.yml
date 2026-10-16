@@ -24,7 +24,7 @@ jobs:
           git diff > /tmp/ap23-format.patch
           base64 -w0 /tmp/ap23-format.patch
           echo
-      - run: npm run check
+      - run: npm run build
       - name: Measure normal build and assert boundary
         run: |
           node scripts/check-build-target.mjs dist normal

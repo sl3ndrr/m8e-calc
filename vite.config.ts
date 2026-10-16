@@ -42,6 +42,7 @@ export default defineConfig(({ command, mode }) => {
       maxWorkers: 2,
       projects: [
         {
+          define: { __INTERNAL_DESIGN_LAB__: 'true' },
           test: {
             name: 'ui',
             environment: 'jsdom',
@@ -55,6 +56,7 @@ export default defineConfig(({ command, mode }) => {
           },
         },
         {
+          define: { __INTERNAL_DESIGN_LAB__: 'true' },
           test: {
             name: 'engine',
             environment: 'node',

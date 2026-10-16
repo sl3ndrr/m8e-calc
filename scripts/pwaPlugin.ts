@@ -2,7 +2,8 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Plugin } from 'vite';
-/** Build-time precache includes every lazy chunk, worker, font and icon. No CDN/runtime API. */
+/** Precache every emitted chunk, worker, font and icon of the selected build target.
+ * AP23 excludes the lab at its import root, never by filtering offline assets. */
 export function pwaPlugin(): Plugin {
   let base = '/m8e-calc/';
   let publicDir = 'public';
