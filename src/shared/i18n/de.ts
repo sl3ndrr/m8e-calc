@@ -1,6 +1,8 @@
 import { labDE } from './labDE';
 export const de = {
-  ...((typeof __INTERNAL_DESIGN_LAB__ !== 'undefined' && __INTERNAL_DESIGN_LAB__) ? labDE : ({} as typeof labDE)),
+  ...(typeof __INTERNAL_DESIGN_LAB__ !== 'undefined' && __INTERNAL_DESIGN_LAB__
+    ? labDE
+    : ({} as typeof labDE)),
   'currency.online': 'Online-Kurse laden',
   'currency.category': 'Währung',
   'currency.privacy':

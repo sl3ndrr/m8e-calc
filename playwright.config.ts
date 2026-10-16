@@ -1,6 +1,11 @@
 import { defineConfig, devices } from '@playwright/test';
 
-export const gallerySpecs = ['**/components.spec.ts', '**/theming.spec.ts', '**/controls-polish.spec.ts', '**/controls-native-zoom.spec.ts'];
+export const gallerySpecs = [
+  '**/components.spec.ts',
+  '**/theming.spec.ts',
+  '**/controls-polish.spec.ts',
+  '**/controls-native-zoom.spec.ts',
+];
 
 export default defineConfig({
   testDir: './e2e',

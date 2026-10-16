@@ -49,6 +49,8 @@ import { isModeId } from '../shared/modes';
 import { downloadFile } from './fileTransfer';
 import { exportHistory } from '../shared/history';
 import { usePwa } from './pwa';
+if (__INTERNAL_DESIGN_LAB__) void import('./internalLabLink.css');
+
 // Compile-time boundary: the normal build never retains this import.
 const DesignLab = __INTERNAL_DESIGN_LAB__
   ? lazy(() =>
@@ -298,10 +300,12 @@ export function App() {
                 )}
                 onPress={() => setRailOverride(!expanded)}
               />
-              {__INTERNAL_DESIGN_LAB__ && <a href="#/design" aria-label={t('mode.design', locale)}>
-                <Icon name="palette" />
-                <span>{t('mode.design', locale)}</span>
-              </a>}
+              {__INTERNAL_DESIGN_LAB__ && (
+                <a href="#/design" aria-label={t('mode.design', locale)}>
+                  <Icon name="palette" />
+                  <span>{t('mode.design', locale)}</span>
+                </a>
+              )}
             </div>
           </aside>
           <main className="shell-main" aria-labelledby="active-mode-title">

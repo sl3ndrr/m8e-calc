@@ -1,0 +1,14 @@
+.shell-rail-bottom a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0.5rem;
+}
+.shell-rail-bottom a span:last-child {
+  display: none;
+}
+.app-shell[data-expanded] .shell-rail-bottom a span:last-child {
+  display: inline;
+}

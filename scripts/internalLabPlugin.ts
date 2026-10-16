@@ -5,7 +5,8 @@ import type { Plugin } from 'vite';
 /** Fail closed if an internal entry leaks through a new import path. */
 export function internalLabPlugin(internalLab: boolean): Plugin {
   let root = '';
-  const exclusive = /(?:\/app\/(?:DesignLab|ComponentGallery|galleryEntries|ComponentGallery\.css)|\/ui\/MotionDemo|\/styles\/designLab\.css|\/i18n\/lab(?:DE|EN))\b/;
+  const exclusive =
+    /(?:\/app\/(?:DesignLab|ComponentGallery|galleryEntries|internalLabLink\.css|ComponentGallery\.css)|\/ui\/MotionDemo|\/styles\/designLab\.css|\/i18n\/lab(?:DE|EN))\b/;
   return {
     name: 'm8e-internal-lab-boundary',
     apply: 'build',
@@ -35,7 +36,10 @@ export function internalLabPlugin(internalLab: boolean): Plugin {
       });
       mkdirSync(resolve(root, 'test-results/ap23'), { recursive: true });
       writeFileSync(
-        resolve(root, `test-results/ap23/modules-${internalLab ? 'gallery' : 'normal'}.json`),
+        resolve(
+          root,
+          `test-results/ap23/modules-${internalLab ? 'gallery' : 'normal'}.json`,
+        ),
         JSON.stringify(chunks, null, 2),
       );
     },

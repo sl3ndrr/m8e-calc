@@ -1,7 +1,9 @@
 import { labEN } from './labEN';
 import type { Dictionary } from '../i18n';
 export const en: Dictionary = {
-  ...((typeof __INTERNAL_DESIGN_LAB__ !== 'undefined' && __INTERNAL_DESIGN_LAB__) ? labEN : ({} as typeof labEN)),
+  ...(typeof __INTERNAL_DESIGN_LAB__ !== 'undefined' && __INTERNAL_DESIGN_LAB__
+    ? labEN
+    : ({} as typeof labEN)),
   'currency.online': 'Load online rates',
   'currency.category': 'Currency',
   'currency.privacy':
