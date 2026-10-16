@@ -1,7 +1,7 @@
 {
   "baseline": "940d147ed3ec103887775c18e99f4155a84bab38",
-  "measuredHead": "76bd578a1f615287d72a7181a8ae5dc651393af9",
-  "workflow": "https://github.com/sl3ndrr/m8e-calc/actions/runs/38925890713",
+  "measuredHead": "b975b53775f2e7b7b444bbb4b0817029b54ce75e",
+  "workflow": "https://github.com/sl3ndrr/m8e-calc/actions/runs/38952517337",
   "method": "Start: entry + SimpleMode + static JS imports. Artifact: all files including .vite manifest. gzip: sum per-file, level 9; not observed network transfer.",
   "targets": {
     "before": {
@@ -1721,41 +1721,41 @@
     },
     "normal": {
       "initialJavaScript": {
-        "raw": 607734,
-        "gzip": 197425
+        "raw": 607752,
+        "gzip": 197413
       },
       "artifact": {
-        "raw": 3188204,
-        "gzip": 1735931
+        "raw": 3188600,
+        "gzip": 1735971
       },
       "initialChunks": [
-        "assets/index-DlGJYRuD.js",
+        "assets/index-C4Tyn_jK.js",
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-4JX1TWdp.js",
         "assets/i18n--z4rY63j.js",
         "assets/FocusScope-Co-mOoco.js",
         "assets/useFormValidation-DbCJemvl.js",
         "assets/useSlot-FQ61V52R.js",
-        "assets/snackbarQueue-CC_AmElY.js",
+        "assets/snackbarQueue-CFvumBrs.js",
         "assets/motion-29mYUKb7.js",
-        "assets/useSpring-DE7MeT9J.js",
+        "assets/useSpring-BXh5Xypw.js",
         "assets/browserMotion-CDweiHa2.js",
-        "assets/SimpleMode-DO_OMbtx.js",
+        "assets/SimpleMode-dKUu4RKF.js",
         "assets/engine-BCOeroFX.js",
-        "assets/useModeHistory-xpsPkA2c.js",
-        "assets/CopyLinkButton-BNMrBhTO.js",
+        "assets/useModeHistory-XK-2Dr9S.js",
+        "assets/CopyLinkButton-_oxyQz79.js",
         "assets/Keypad-DADYIjBv.js"
       ],
       "files": [
         {
           "file": ".vite/manifest.json",
           "raw": 31038,
-          "gzip": 3673
+          "gzip": 3669
         },
         {
-          "file": "assets/AccentPanel-CORBgFTd.js",
+          "file": "assets/AccentPanel-BeEaChhk.js",
           "raw": 3398,
-          "gzip": 1330
+          "gzip": 1331
         },
         {
           "file": "assets/Button-4JX1TWdp.js",
@@ -1788,7 +1788,7 @@
           "gzip": 611
         },
         {
-          "file": "assets/CommandPalette-BxUiM2G5.js",
+          "file": "assets/CommandPalette-DPj7A1gw.js",
           "raw": 3759,
           "gzip": 1759
         },
@@ -1798,14 +1798,9 @@
           "gzip": 1791
         },
         {
-          "file": "assets/ConvertMode-DQfY_uSg.js",
+          "file": "assets/ConvertMode-BzzlVQnr.js",
           "raw": 21418,
-          "gzip": 7438
-        },
-        {
-          "file": "assets/CopyLinkButton-BNMrBhTO.js",
-          "raw": 807,
-          "gzip": 500
+          "gzip": 7437
         },
         {
           "file": "assets/CopyLinkButton-CzVs3g7c.css",
@@ -1813,19 +1808,24 @@
           "gzip": 136
         },
         {
+          "file": "assets/CopyLinkButton-_oxyQz79.js",
+          "raw": 807,
+          "gzip": 498
+        },
+        {
+          "file": "assets/Dialog-B9EnVMEr.js",
+          "raw": 4872,
+          "gzip": 1929
+        },
+        {
           "file": "assets/Dialog-BgffhQ21.css",
           "raw": 739,
           "gzip": 422
         },
         {
-          "file": "assets/Dialog-Hx-X8uE6.js",
-          "raw": 4872,
-          "gzip": 1929
-        },
-        {
-          "file": "assets/ExpressionEditor-Dr6qZlzs.js",
+          "file": "assets/ExpressionEditor-Q0fS-tNf.js",
           "raw": 354738,
-          "gzip": 113857
+          "gzip": 113856
         },
         {
           "file": "assets/FocusScope-Co-mOoco.js",
@@ -1833,9 +1833,9 @@
           "gzip": 4374
         },
         {
-          "file": "assets/GraphMode-CX1RbLqY.js",
+          "file": "assets/GraphMode-CfYKgjdo.js",
           "raw": 66041,
-          "gzip": 23143
+          "gzip": 23137
         },
         {
           "file": "assets/GraphMode-mneFZ3FY.css",
@@ -1843,9 +1843,9 @@
           "gzip": 1590
         },
         {
-          "file": "assets/HistorySheet-J2vgtQAa.js",
+          "file": "assets/HistorySheet-DpqUPmvs.js",
           "raw": 65275,
-          "gzip": 22812
+          "gzip": 22811
         },
         {
           "file": "assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
@@ -2168,12 +2168,12 @@
           "gzip": 2346
         },
         {
-          "file": "assets/ScientificMode-mfu3vU9V.js",
+          "file": "assets/ScientificMode-IQFu1vpK.js",
           "raw": 25906,
-          "gzip": 8169
+          "gzip": 8164
         },
         {
-          "file": "assets/Select-BdYioSEL.js",
+          "file": "assets/Select-BulFdWNj.js",
           "raw": 40263,
           "gzip": 12495
         },
@@ -2183,12 +2183,12 @@
           "gzip": 634
         },
         {
-          "file": "assets/SettingsDialog-BVp1acjI.js",
+          "file": "assets/SettingsDialog-7TZCXjtq.js",
           "raw": 4652,
-          "gzip": 1641
+          "gzip": 1638
         },
         {
-          "file": "assets/ShortcutDialog-iH9hiaL6.js",
+          "file": "assets/ShortcutDialog-CMswXpfI.js",
           "raw": 1096,
           "gzip": 504
         },
@@ -2198,9 +2198,9 @@
           "gzip": 219
         },
         {
-          "file": "assets/SideSheet-DZGam47B.js",
+          "file": "assets/SideSheet-C4XeO9aR.js",
           "raw": 354,
-          "gzip": 251
+          "gzip": 250
         },
         {
           "file": "assets/SimpleMode-B_T70PKT.css",
@@ -2208,9 +2208,9 @@
           "gzip": 1096
         },
         {
-          "file": "assets/SimpleMode-DO_OMbtx.js",
+          "file": "assets/SimpleMode-dKUu4RKF.js",
           "raw": 16306,
-          "gzip": 5614
+          "gzip": 5616
         },
         {
           "file": "assets/Slider-CmZSN9rw.css",
@@ -2243,9 +2243,9 @@
           "gzip": 1027
         },
         {
-          "file": "assets/VisuallyHidden-5HvwWBIp.js",
+          "file": "assets/VisuallyHidden-BAdQr5ky.js",
           "raw": 184,
-          "gzip": 164
+          "gzip": 163
         },
         {
           "file": "assets/browserMotion-CDweiHa2.js",
@@ -2273,14 +2273,14 @@
           "gzip": 12440
         },
         {
-          "file": "assets/index-CXbYuIGF.css",
-          "raw": 64704,
-          "gzip": 10675
+          "file": "assets/index-C4Tyn_jK.js",
+          "raw": 344047,
+          "gzip": 104964
         },
         {
-          "file": "assets/index-DlGJYRuD.js",
-          "raw": 344029,
-          "gzip": 104965
+          "file": "assets/index-n1AizJ-B.css",
+          "raw": 65082,
+          "gzip": 10756
         },
         {
           "file": "assets/jsx-runtime-Dk72oS4N.js",
@@ -2338,9 +2338,9 @@
           "gzip": 218
         },
         {
-          "file": "assets/snackbarQueue-CC_AmElY.js",
+          "file": "assets/snackbarQueue-CFvumBrs.js",
           "raw": 10721,
-          "gzip": 4247
+          "gzip": 4239
         },
         {
           "file": "assets/units-CJ9QYzrt.js",
@@ -2353,9 +2353,9 @@
           "gzip": 1948
         },
         {
-          "file": "assets/useModeHistory-xpsPkA2c.js",
+          "file": "assets/useModeHistory-XK-2Dr9S.js",
           "raw": 1193,
-          "gzip": 604
+          "gzip": 602
         },
         {
           "file": "assets/useSlot-FQ61V52R.js",
@@ -2363,9 +2363,9 @@
           "gzip": 262
         },
         {
-          "file": "assets/useSpring-DE7MeT9J.js",
+          "file": "assets/useSpring-BXh5Xypw.js",
           "raw": 941,
-          "gzip": 534
+          "gzip": 533
         },
         {
           "file": "assets/useTextField-Co5X_RlZ.js",
@@ -2405,7 +2405,7 @@
         {
           "file": "index.html",
           "raw": 9579,
-          "gzip": 2558
+          "gzip": 2555
         },
         {
           "file": "manifest.webmanifest",
@@ -2415,7 +2415,7 @@
         {
           "file": "sw.js",
           "raw": 7295,
-          "gzip": 2212
+          "gzip": 2208
         }
       ],
       "manifest": {
@@ -2456,28 +2456,24 @@
           "file": "assets/Checkbox-CaWe_hBO.css",
           "src": "_Checkbox-CaWe_hBO.css"
         },
-        "_CopyLinkButton-BNMrBhTO.js": {
-          "file": "assets/CopyLinkButton-BNMrBhTO.js",
+        "_CopyLinkButton-CzVs3g7c.css": {
+          "file": "assets/CopyLinkButton-CzVs3g7c.css",
+          "src": "_CopyLinkButton-CzVs3g7c.css"
+        },
+        "_CopyLinkButton-_oxyQz79.js": {
+          "file": "assets/CopyLinkButton-_oxyQz79.js",
           "name": "CopyLinkButton",
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
-            "_snackbarQueue-CC_AmElY.js",
+            "_snackbarQueue-CFvumBrs.js",
             "_i18n--z4rY63j.js",
             "_motion-29mYUKb7.js",
             "index.html"
           ],
           "css": ["assets/CopyLinkButton-CzVs3g7c.css"]
         },
-        "_CopyLinkButton-CzVs3g7c.css": {
-          "file": "assets/CopyLinkButton-CzVs3g7c.css",
-          "src": "_CopyLinkButton-CzVs3g7c.css"
-        },
-        "_Dialog-BgffhQ21.css": {
-          "file": "assets/Dialog-BgffhQ21.css",
-          "src": "_Dialog-BgffhQ21.css"
-        },
-        "_Dialog-Hx-X8uE6.js": {
-          "file": "assets/Dialog-Hx-X8uE6.js",
+        "_Dialog-B9EnVMEr.js": {
+          "file": "assets/Dialog-B9EnVMEr.js",
           "name": "Dialog",
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
@@ -2485,6 +2481,10 @@
             "index.html"
           ],
           "css": ["assets/Dialog-BgffhQ21.css"]
+        },
+        "_Dialog-BgffhQ21.css": {
+          "file": "assets/Dialog-BgffhQ21.css",
+          "src": "_Dialog-BgffhQ21.css"
         },
         "_FocusScope-Co-mOoco.js": {
           "file": "assets/FocusScope-Co-mOoco.js",
@@ -2501,8 +2501,8 @@
           "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-4JX1TWdp.js"],
           "css": ["assets/Keypad-Cu2W_Ity.css"]
         },
-        "_Select-BdYioSEL.js": {
-          "file": "assets/Select-BdYioSEL.js",
+        "_Select-BulFdWNj.js": {
+          "file": "assets/Select-BulFdWNj.js",
           "name": "Select",
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
@@ -2522,10 +2522,10 @@
           "file": "assets/SideSheet-BZfUtJea.css",
           "src": "_SideSheet-BZfUtJea.css"
         },
-        "_SideSheet-DZGam47B.js": {
-          "file": "assets/SideSheet-DZGam47B.js",
+        "_SideSheet-C4XeO9aR.js": {
+          "file": "assets/SideSheet-C4XeO9aR.js",
           "name": "SideSheet",
-          "imports": ["_jsx-runtime-Dk72oS4N.js", "_Dialog-Hx-X8uE6.js"],
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_Dialog-B9EnVMEr.js"],
           "css": ["assets/SideSheet-BZfUtJea.css"]
         },
         "_Slider-CmZSN9rw.css": {
@@ -2574,8 +2574,8 @@
           ],
           "css": ["assets/TextField-Bia33xUx.css"]
         },
-        "_VisuallyHidden-5HvwWBIp.js": {
-          "file": "assets/VisuallyHidden-5HvwWBIp.js",
+        "_VisuallyHidden-BAdQr5ky.js": {
+          "file": "assets/VisuallyHidden-BAdQr5ky.js",
           "name": "VisuallyHidden",
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
@@ -2627,8 +2627,8 @@
           "file": "assets/seeds-DdxXycSJ.js",
           "name": "seeds"
         },
-        "_snackbarQueue-CC_AmElY.js": {
-          "file": "assets/snackbarQueue-CC_AmElY.js",
+        "_snackbarQueue-CFvumBrs.js": {
+          "file": "assets/snackbarQueue-CFvumBrs.js",
           "name": "snackbarQueue",
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
@@ -2657,23 +2657,23 @@
             "_FocusScope-Co-mOoco.js"
           ]
         },
-        "_useModeHistory-xpsPkA2c.js": {
-          "file": "assets/useModeHistory-xpsPkA2c.js",
+        "_useModeHistory-XK-2Dr9S.js": {
+          "file": "assets/useModeHistory-XK-2Dr9S.js",
           "name": "useModeHistory",
-          "imports": ["_jsx-runtime-Dk72oS4N.js", "_snackbarQueue-CC_AmElY.js"]
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_snackbarQueue-CFvumBrs.js"]
         },
         "_useSlot-FQ61V52R.js": {
           "file": "assets/useSlot-FQ61V52R.js",
           "name": "useSlot",
           "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-4JX1TWdp.js"]
         },
-        "_useSpring-DE7MeT9J.js": {
-          "file": "assets/useSpring-DE7MeT9J.js",
+        "_useSpring-BXh5Xypw.js": {
+          "file": "assets/useSpring-BXh5Xypw.js",
           "name": "useSpring",
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-4JX1TWdp.js",
-            "_snackbarQueue-CC_AmElY.js",
+            "_snackbarQueue-CFvumBrs.js",
             "_motion-29mYUKb7.js"
           ]
         },
@@ -2697,7 +2697,7 @@
           ]
         },
         "index.html": {
-          "file": "assets/index-DlGJYRuD.js",
+          "file": "assets/index-C4Tyn_jK.js",
           "name": "index",
           "src": "index.html",
           "isEntry": true,
@@ -2707,10 +2707,10 @@
             "_FocusScope-Co-mOoco.js",
             "_useFormValidation-DbCJemvl.js",
             "_useSlot-FQ61V52R.js",
-            "_snackbarQueue-CC_AmElY.js",
+            "_snackbarQueue-CFvumBrs.js",
             "_i18n--z4rY63j.js",
             "_motion-29mYUKb7.js",
-            "_useSpring-DE7MeT9J.js",
+            "_useSpring-BXh5Xypw.js",
             "_browserMotion-CDweiHa2.js"
           ],
           "dynamicImports": [
@@ -2722,7 +2722,7 @@
             "src/app/ShortcutDialog.tsx",
             "src/features/convert/model.ts"
           ],
-          "css": ["assets/index-CXbYuIGF.css"],
+          "css": ["assets/index-n1AizJ-B.css"],
           "assets": [
             "assets/roboto-flex-latin-DlhILaPV.woff2",
             "assets/roboto-mono-latin-CZtBPCCa.woff2",
@@ -2966,14 +2966,14 @@
           "src": "node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.woff2"
         },
         "src/app/CommandPalette.tsx": {
-          "file": "assets/CommandPalette-BxUiM2G5.js",
+          "file": "assets/CommandPalette-DPj7A1gw.js",
           "name": "CommandPalette",
           "src": "src/app/CommandPalette.tsx",
           "isDynamicEntry": true,
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-4JX1TWdp.js",
-            "_Dialog-Hx-X8uE6.js",
+            "_Dialog-B9EnVMEr.js",
             "_i18n--z4rY63j.js",
             "index.html",
             "_units-CJ9QYzrt.js",
@@ -2982,7 +2982,7 @@
           ]
         },
         "src/app/HistorySheet.tsx": {
-          "file": "assets/HistorySheet-J2vgtQAa.js",
+          "file": "assets/HistorySheet-DpqUPmvs.js",
           "name": "HistorySheet",
           "src": "src/app/HistorySheet.tsx",
           "isDynamicEntry": true,
@@ -2990,69 +2990,69 @@
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-4JX1TWdp.js",
             "_TextField-KJfv4B7y.js",
-            "_snackbarQueue-CC_AmElY.js",
+            "_snackbarQueue-CFvumBrs.js",
             "_i18n--z4rY63j.js",
             "_motion-29mYUKb7.js",
             "index.html",
-            "_SideSheet-DZGam47B.js",
-            "_useModeHistory-xpsPkA2c.js"
+            "_SideSheet-C4XeO9aR.js",
+            "_useModeHistory-XK-2Dr9S.js"
           ]
         },
         "src/app/SettingsDialog.tsx": {
-          "file": "assets/SettingsDialog-BVp1acjI.js",
+          "file": "assets/SettingsDialog-7TZCXjtq.js",
           "name": "SettingsDialog",
           "src": "src/app/SettingsDialog.tsx",
           "isDynamicEntry": true,
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-4JX1TWdp.js",
-            "_Select-BdYioSEL.js",
+            "_Select-BulFdWNj.js",
             "_Slider-PxjMIPpR.js",
-            "_Dialog-Hx-X8uE6.js",
+            "_Dialog-B9EnVMEr.js",
             "_Switch-DkvDgbuz.js",
             "_TextField-KJfv4B7y.js",
-            "_snackbarQueue-CC_AmElY.js",
+            "_snackbarQueue-CFvumBrs.js",
             "_i18n--z4rY63j.js",
             "index.html",
             "src/app/HistorySheet.tsx"
           ]
         },
         "src/app/ShortcutDialog.tsx": {
-          "file": "assets/ShortcutDialog-iH9hiaL6.js",
+          "file": "assets/ShortcutDialog-CMswXpfI.js",
           "name": "ShortcutDialog",
           "src": "src/app/ShortcutDialog.tsx",
           "isDynamicEntry": true,
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-4JX1TWdp.js",
-            "_Dialog-Hx-X8uE6.js",
+            "_Dialog-B9EnVMEr.js",
             "_i18n--z4rY63j.js",
             "index.html"
           ]
         },
         "src/features/convert/ConvertMode.tsx": {
-          "file": "assets/ConvertMode-DQfY_uSg.js",
+          "file": "assets/ConvertMode-BzzlVQnr.js",
           "name": "ConvertMode",
           "src": "src/features/convert/ConvertMode.tsx",
           "isDynamicEntry": true,
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-4JX1TWdp.js",
-            "_Select-BdYioSEL.js",
+            "_Select-BulFdWNj.js",
             "_Checkbox-BWanZxp7.js",
             "_Slider-PxjMIPpR.js",
             "_TextField-KJfv4B7y.js",
-            "_snackbarQueue-CC_AmElY.js",
+            "_snackbarQueue-CFvumBrs.js",
             "_i18n--z4rY63j.js",
             "_motion-29mYUKb7.js",
-            "_useSpring-DE7MeT9J.js",
+            "_useSpring-BXh5Xypw.js",
             "index.html",
             "_units-CJ9QYzrt.js",
-            "_useModeHistory-xpsPkA2c.js",
+            "_useModeHistory-XK-2Dr9S.js",
             "_Card-CpJeSsLo.js",
-            "_VisuallyHidden-5HvwWBIp.js",
+            "_VisuallyHidden-BAdQr5ky.js",
             "src/features/convert/model.ts",
-            "_CopyLinkButton-BNMrBhTO.js"
+            "_CopyLinkButton-_oxyQz79.js"
           ],
           "css": ["assets/ConvertMode-BEvrNBfo.css"]
         },
@@ -3064,7 +3064,7 @@
           "imports": ["_engine-BCOeroFX.js", "_units-CJ9QYzrt.js"]
         },
         "src/features/graph/GraphMode.tsx": {
-          "file": "assets/GraphMode-CX1RbLqY.js",
+          "file": "assets/GraphMode-CfYKgjdo.js",
           "name": "GraphMode",
           "src": "src/features/graph/GraphMode.tsx",
           "isDynamicEntry": true,
@@ -3072,22 +3072,22 @@
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-4JX1TWdp.js",
             "_FocusScope-Co-mOoco.js",
-            "_Select-BdYioSEL.js",
+            "_Select-BulFdWNj.js",
             "_useFormValidation-DbCJemvl.js",
             "_Checkbox-BWanZxp7.js",
             "_Slider-PxjMIPpR.js",
             "_useTextField-Co5X_RlZ.js",
-            "_Dialog-Hx-X8uE6.js",
+            "_Dialog-B9EnVMEr.js",
             "_TextField-KJfv4B7y.js",
-            "_snackbarQueue-CC_AmElY.js",
+            "_snackbarQueue-CFvumBrs.js",
             "_i18n--z4rY63j.js",
             "_motion-29mYUKb7.js",
             "index.html",
             "_engine-BCOeroFX.js",
-            "_SideSheet-DZGam47B.js",
-            "_useModeHistory-xpsPkA2c.js",
-            "_VisuallyHidden-5HvwWBIp.js",
-            "_CopyLinkButton-BNMrBhTO.js",
+            "_SideSheet-C4XeO9aR.js",
+            "_useModeHistory-XK-2Dr9S.js",
+            "_VisuallyHidden-BAdQr5ky.js",
+            "_CopyLinkButton-_oxyQz79.js",
             "_graphPalette-DTsoAoAA.js"
           ],
           "dynamicImports": ["src/features/scientific/ExpressionEditor.tsx"],
@@ -3095,7 +3095,7 @@
           "assets": ["assets/sampling.worker-kO0Vgf-W.js"]
         },
         "src/features/scientific/ExpressionEditor.tsx": {
-          "file": "assets/ExpressionEditor-Dr6qZlzs.js",
+          "file": "assets/ExpressionEditor-Q0fS-tNf.js",
           "name": "ExpressionEditor",
           "src": "src/features/scientific/ExpressionEditor.tsx",
           "isDynamicEntry": true,
@@ -3178,7 +3178,7 @@
           ]
         },
         "src/features/scientific/ScientificMode.tsx": {
-          "file": "assets/ScientificMode-mfu3vU9V.js",
+          "file": "assets/ScientificMode-IQFu1vpK.js",
           "name": "ScientificMode",
           "src": "src/features/scientific/ScientificMode.tsx",
           "isDynamicEntry": true,
@@ -3189,16 +3189,16 @@
             "_Slider-PxjMIPpR.js",
             "_Switch-DkvDgbuz.js",
             "_TextField-KJfv4B7y.js",
-            "_snackbarQueue-CC_AmElY.js",
+            "_snackbarQueue-CFvumBrs.js",
             "_i18n--z4rY63j.js",
             "_motion-29mYUKb7.js",
-            "_useSpring-DE7MeT9J.js",
+            "_useSpring-BXh5Xypw.js",
             "index.html",
             "_engine-BCOeroFX.js",
-            "_useModeHistory-xpsPkA2c.js",
+            "_useModeHistory-XK-2Dr9S.js",
             "_Card-CpJeSsLo.js",
-            "_VisuallyHidden-5HvwWBIp.js",
-            "_CopyLinkButton-BNMrBhTO.js",
+            "_VisuallyHidden-BAdQr5ky.js",
+            "_CopyLinkButton-_oxyQz79.js",
             "_model-BNbBVyd2.js",
             "_Keypad-DADYIjBv.js"
           ],
@@ -3209,19 +3209,19 @@
           "css": ["assets/ScientificMode-D1Dv3NxS.css"]
         },
         "src/features/simple/SimpleMode.tsx": {
-          "file": "assets/SimpleMode-DO_OMbtx.js",
+          "file": "assets/SimpleMode-dKUu4RKF.js",
           "name": "SimpleMode",
           "src": "src/features/simple/SimpleMode.tsx",
           "isDynamicEntry": true,
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-4JX1TWdp.js",
-            "_snackbarQueue-CC_AmElY.js",
+            "_snackbarQueue-CFvumBrs.js",
             "_i18n--z4rY63j.js",
             "index.html",
             "_engine-BCOeroFX.js",
-            "_useModeHistory-xpsPkA2c.js",
-            "_CopyLinkButton-BNMrBhTO.js",
+            "_useModeHistory-XK-2Dr9S.js",
+            "_CopyLinkButton-_oxyQz79.js",
             "_Keypad-DADYIjBv.js"
           ],
           "css": ["assets/SimpleMode-B_T70PKT.css"]
@@ -3246,14 +3246,14 @@
           "src": "src/styles/fonts/roboto-mono-latin.woff2"
         },
         "src/ui/AccentPanel.tsx": {
-          "file": "assets/AccentPanel-CORBgFTd.js",
+          "file": "assets/AccentPanel-BeEaChhk.js",
           "name": "AccentPanel",
           "src": "src/ui/AccentPanel.tsx",
           "isDynamicEntry": true,
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-4JX1TWdp.js",
-            "_Select-BdYioSEL.js",
+            "_Select-BulFdWNj.js",
             "_Slider-PxjMIPpR.js",
             "_i18n--z4rY63j.js",
             "_motion-29mYUKb7.js",
@@ -3271,31 +3271,31 @@
         "/m8e-calc/icons/app-192.png",
         "/m8e-calc/icons/app-512.png",
         "/m8e-calc/icons/app-maskable-512.png",
-        "/m8e-calc/assets/index-DlGJYRuD.js",
-        "/m8e-calc/assets/AccentPanel-CORBgFTd.js",
+        "/m8e-calc/assets/index-C4Tyn_jK.js",
+        "/m8e-calc/assets/AccentPanel-BeEaChhk.js",
         "/m8e-calc/assets/Button-4JX1TWdp.js",
         "/m8e-calc/assets/Card-CpJeSsLo.js",
         "/m8e-calc/assets/Checkbox-BWanZxp7.js",
-        "/m8e-calc/assets/CommandPalette-BxUiM2G5.js",
-        "/m8e-calc/assets/ConvertMode-DQfY_uSg.js",
-        "/m8e-calc/assets/CopyLinkButton-BNMrBhTO.js",
-        "/m8e-calc/assets/Dialog-Hx-X8uE6.js",
-        "/m8e-calc/assets/ExpressionEditor-Dr6qZlzs.js",
+        "/m8e-calc/assets/CommandPalette-DPj7A1gw.js",
+        "/m8e-calc/assets/ConvertMode-BzzlVQnr.js",
+        "/m8e-calc/assets/CopyLinkButton-_oxyQz79.js",
+        "/m8e-calc/assets/Dialog-B9EnVMEr.js",
+        "/m8e-calc/assets/ExpressionEditor-Q0fS-tNf.js",
         "/m8e-calc/assets/FocusScope-Co-mOoco.js",
-        "/m8e-calc/assets/GraphMode-CX1RbLqY.js",
-        "/m8e-calc/assets/HistorySheet-J2vgtQAa.js",
+        "/m8e-calc/assets/GraphMode-CfYKgjdo.js",
+        "/m8e-calc/assets/HistorySheet-DpqUPmvs.js",
         "/m8e-calc/assets/Keypad-DADYIjBv.js",
         "/m8e-calc/assets/MathDisplay-CisehEU2.js",
-        "/m8e-calc/assets/ScientificMode-mfu3vU9V.js",
-        "/m8e-calc/assets/Select-BdYioSEL.js",
-        "/m8e-calc/assets/SettingsDialog-BVp1acjI.js",
-        "/m8e-calc/assets/ShortcutDialog-iH9hiaL6.js",
-        "/m8e-calc/assets/SideSheet-DZGam47B.js",
-        "/m8e-calc/assets/SimpleMode-DO_OMbtx.js",
+        "/m8e-calc/assets/ScientificMode-IQFu1vpK.js",
+        "/m8e-calc/assets/Select-BulFdWNj.js",
+        "/m8e-calc/assets/SettingsDialog-7TZCXjtq.js",
+        "/m8e-calc/assets/ShortcutDialog-CMswXpfI.js",
+        "/m8e-calc/assets/SideSheet-C4XeO9aR.js",
+        "/m8e-calc/assets/SimpleMode-dKUu4RKF.js",
         "/m8e-calc/assets/Slider-PxjMIPpR.js",
         "/m8e-calc/assets/Switch-DkvDgbuz.js",
         "/m8e-calc/assets/TextField-KJfv4B7y.js",
-        "/m8e-calc/assets/VisuallyHidden-5HvwWBIp.js",
+        "/m8e-calc/assets/VisuallyHidden-BAdQr5ky.js",
         "/m8e-calc/assets/browserMotion-CDweiHa2.js",
         "/m8e-calc/assets/buildScheme-L660QHOP.js",
         "/m8e-calc/assets/engine-BCOeroFX.js",
@@ -3307,12 +3307,12 @@
         "/m8e-calc/assets/motion-29mYUKb7.js",
         "/m8e-calc/assets/registry-6RvRXE-w.js",
         "/m8e-calc/assets/seeds-DdxXycSJ.js",
-        "/m8e-calc/assets/snackbarQueue-CC_AmElY.js",
+        "/m8e-calc/assets/snackbarQueue-CFvumBrs.js",
         "/m8e-calc/assets/units-CJ9QYzrt.js",
         "/m8e-calc/assets/useFormValidation-DbCJemvl.js",
-        "/m8e-calc/assets/useModeHistory-xpsPkA2c.js",
+        "/m8e-calc/assets/useModeHistory-XK-2Dr9S.js",
         "/m8e-calc/assets/useSlot-FQ61V52R.js",
-        "/m8e-calc/assets/useSpring-DE7MeT9J.js",
+        "/m8e-calc/assets/useSpring-BXh5Xypw.js",
         "/m8e-calc/assets/useTextField-Co5X_RlZ.js",
         "/m8e-calc/assets/useToggle-CRoJPMC2.js",
         "/m8e-calc/assets/Button-_v2QBl66.css",
@@ -3390,7 +3390,7 @@
         "/m8e-calc/assets/Slider-CmZSN9rw.css",
         "/m8e-calc/assets/Switch-Dhw6gmOR.css",
         "/m8e-calc/assets/TextField-Bia33xUx.css",
-        "/m8e-calc/assets/index-CXbYuIGF.css",
+        "/m8e-calc/assets/index-n1AizJ-B.css",
         "/m8e-calc/assets/material-symbols-rounded-17-fZmEE.woff2",
         "/m8e-calc/assets/motion-Ds6JSQzR.css",
         "/m8e-calc/assets/roboto-flex-latin-DlhILaPV.woff2",
@@ -3401,38 +3401,38 @@
     },
     "gallery": {
       "initialJavaScript": {
-        "raw": 614438,
-        "gzip": 198102
+        "raw": 614456,
+        "gzip": 198104
       },
       "artifact": {
-        "raw": 3239236,
-        "gzip": 1750517
+        "raw": 3239254,
+        "gzip": 1750522
       },
       "initialChunks": [
-        "assets/index-C_vGXzc4.js",
+        "assets/index-ImNxOvok.js",
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-Jfu6slHZ.js",
         "assets/i18n-DgqQa2hg.js",
         "assets/FocusScope-2R4Rw-qt.js",
         "assets/snackbarQueue-9R5HQUGX.js",
         "assets/motion-CluhrCFf.js",
-        "assets/SimpleMode-SrkkZnw5.js",
+        "assets/SimpleMode-DMaQ5_Ai.js",
         "assets/engine-BCOeroFX.js",
         "assets/Keypad-DUYMI7VE.js",
-        "assets/CalculatorDisplay-D4dzxp5V.js",
-        "assets/useModeHistory-DNUi2ht0.js",
-        "assets/CopyLinkButton-BZZ_F1af.js"
+        "assets/CalculatorDisplay-AJfe-OVT.js",
+        "assets/useModeHistory-x8OrawY1.js",
+        "assets/CopyLinkButton-D70RoCyd.js"
       ],
       "files": [
         {
           "file": ".vite/manifest.json",
           "raw": 32681,
-          "gzip": 3863
+          "gzip": 3862
         },
         {
-          "file": "assets/AccentPanel-BNTGuETZ.js",
+          "file": "assets/AccentPanel-18KfGKu5.js",
           "raw": 3398,
-          "gzip": 1325
+          "gzip": 1322
         },
         {
           "file": "assets/Button-Jfu6slHZ.js",
@@ -3455,9 +3455,9 @@
           "gzip": 899
         },
         {
-          "file": "assets/CalculatorDisplay-D4dzxp5V.js",
+          "file": "assets/CalculatorDisplay-AJfe-OVT.js",
           "raw": 2804,
-          "gzip": 1228
+          "gzip": 1226
         },
         {
           "file": "assets/CalculatorDisplay-IO6TzhXT.css",
@@ -3475,19 +3475,19 @@
           "gzip": 233
         },
         {
-          "file": "assets/Checkbox-BZdQXKmg.js",
-          "raw": 4223,
-          "gzip": 1649
-        },
-        {
           "file": "assets/Checkbox-CaWe_hBO.css",
           "raw": 1903,
           "gzip": 611
         },
         {
-          "file": "assets/Chip-68hNtt2H.js",
+          "file": "assets/Checkbox-DT7fuovn.js",
+          "raw": 4223,
+          "gzip": 1647
+        },
+        {
+          "file": "assets/Chip-CFZYfapR.js",
           "raw": 3979,
-          "gzip": 1822
+          "gzip": 1820
         },
         {
           "file": "assets/Chip-k13pT3nx.css",
@@ -3495,7 +3495,7 @@
           "gzip": 374
         },
         {
-          "file": "assets/CommandPalette-BB_GUTMJ.js",
+          "file": "assets/CommandPalette-fO770KCb.js",
           "raw": 3759,
           "gzip": 1758
         },
@@ -3505,14 +3505,9 @@
           "gzip": 1742
         },
         {
-          "file": "assets/ConvertMode-D3w-EAU3.js",
+          "file": "assets/ConvertMode-D8bAYLqe.js",
           "raw": 21258,
           "gzip": 7357
-        },
-        {
-          "file": "assets/CopyLinkButton-BZZ_F1af.js",
-          "raw": 807,
-          "gzip": 499
         },
         {
           "file": "assets/CopyLinkButton-CzVs3g7c.css",
@@ -3520,14 +3515,19 @@
           "gzip": 136
         },
         {
-          "file": "assets/DesignLab-DU3dFyZG.css",
-          "raw": 8524,
-          "gzip": 1996
+          "file": "assets/CopyLinkButton-D70RoCyd.js",
+          "raw": 807,
+          "gzip": 498
         },
         {
-          "file": "assets/DesignLab-vNmXwp-7.js",
+          "file": "assets/DesignLab-D6_cpOFW.js",
           "raw": 33900,
-          "gzip": 10334
+          "gzip": 10331
+        },
+        {
+          "file": "assets/DesignLab-nsjYfGGL.css",
+          "raw": 8146,
+          "gzip": 1945
         },
         {
           "file": "assets/Dialog-BgffhQ21.css",
@@ -3535,14 +3535,14 @@
           "gzip": 422
         },
         {
-          "file": "assets/Dialog-D7OXprjJ.js",
+          "file": "assets/Dialog-Fp86BQqe.js",
           "raw": 4874,
-          "gzip": 1930
+          "gzip": 1929
         },
         {
-          "file": "assets/ExpressionEditor-BoOl-7mS.js",
+          "file": "assets/ExpressionEditor-BjRxb3r_.js",
           "raw": 354738,
-          "gzip": 113856
+          "gzip": 113857
         },
         {
           "file": "assets/Fab-_X_0jjk5.js",
@@ -3560,19 +3560,19 @@
           "gzip": 4379
         },
         {
+          "file": "assets/GraphMode-C_sXb6Vc.js",
+          "raw": 62011,
+          "gzip": 21498
+        },
+        {
           "file": "assets/GraphMode-DHeq3pLd.css",
           "raw": 5419,
           "gzip": 1427
         },
         {
-          "file": "assets/GraphMode-maR66cAb.js",
-          "raw": 62011,
-          "gzip": 21500
-        },
-        {
-          "file": "assets/HistorySheet-OKfcf1pB.js",
+          "file": "assets/HistorySheet-DICtp_DS.js",
           "raw": 4184,
-          "gzip": 1684
+          "gzip": 1683
         },
         {
           "file": "assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
@@ -3890,19 +3890,19 @@
           "gzip": 76555
         },
         {
+          "file": "assets/ScientificMode-CGa5UX9P.js",
+          "raw": 24075,
+          "gzip": 7467
+        },
+        {
           "file": "assets/ScientificMode-DOfiavFG.css",
           "raw": 10257,
           "gzip": 2208
         },
         {
-          "file": "assets/ScientificMode-DuETjKD6.js",
-          "raw": 24075,
-          "gzip": 7464
-        },
-        {
-          "file": "assets/Select-CdN7rRcv.js",
+          "file": "assets/Select-DPiMrwKs.js",
           "raw": 40296,
-          "gzip": 12498
+          "gzip": 12497
         },
         {
           "file": "assets/Select-lU43m5HL.css",
@@ -3910,14 +3910,19 @@
           "gzip": 634
         },
         {
-          "file": "assets/SettingsDialog-Bh6lslHx.js",
+          "file": "assets/SettingsDialog-CFoc_w6N.js",
           "raw": 4652,
-          "gzip": 1643
+          "gzip": 1640
         },
         {
-          "file": "assets/ShortcutDialog-BMO_mMb2.js",
+          "file": "assets/ShortcutDialog-B8jZp84d.js",
           "raw": 1096,
-          "gzip": 503
+          "gzip": 500
+        },
+        {
+          "file": "assets/SideSheet-B1DfoGCj.js",
+          "raw": 354,
+          "gzip": 250
         },
         {
           "file": "assets/SideSheet-BZfUtJea.css",
@@ -3925,24 +3930,14 @@
           "gzip": 219
         },
         {
-          "file": "assets/SideSheet-BcZGjG_p.js",
-          "raw": 354,
-          "gzip": 251
-        },
-        {
           "file": "assets/SimpleMode-CcQwNveJ.css",
           "raw": 1581,
           "gzip": 632
         },
         {
-          "file": "assets/SimpleMode-SrkkZnw5.js",
+          "file": "assets/SimpleMode-DMaQ5_Ai.js",
           "raw": 13781,
-          "gzip": 4815
-        },
-        {
-          "file": "assets/Slider-3Nmci5RE.js",
-          "raw": 13205,
-          "gzip": 4668
+          "gzip": 4813
         },
         {
           "file": "assets/Slider-CmZSN9rw.css",
@@ -3950,7 +3945,12 @@
           "gzip": 535
         },
         {
-          "file": "assets/Switch-CwYMLL2l.js",
+          "file": "assets/Slider-ti1uOqba.js",
+          "raw": 13205,
+          "gzip": 4669
+        },
+        {
+          "file": "assets/Switch-C8WJoUND.js",
           "raw": 2175,
           "gzip": 976
         },
@@ -3965,14 +3965,14 @@
           "gzip": 520
         },
         {
-          "file": "assets/TextField-Cb0lkLXw.js",
+          "file": "assets/TextField-rsENL6Ji.js",
           "raw": 2115,
-          "gzip": 1027
+          "gzip": 1024
         },
         {
-          "file": "assets/VisuallyHidden-CYiGLplz.js",
+          "file": "assets/VisuallyHidden-BMx9HL7O.js",
           "raw": 184,
-          "gzip": 165
+          "gzip": 163
         },
         {
           "file": "assets/animate-B-Cb10UB.js",
@@ -4000,14 +4000,14 @@
           "gzip": 14018
         },
         {
-          "file": "assets/index-CXbYuIGF.css",
-          "raw": 64704,
-          "gzip": 10675
+          "file": "assets/index-ImNxOvok.js",
+          "raw": 358570,
+          "gzip": 109564
         },
         {
-          "file": "assets/index-C_vGXzc4.js",
-          "raw": 358552,
-          "gzip": 109555
+          "file": "assets/index-n1AizJ-B.css",
+          "raw": 65082,
+          "gzip": 10756
         },
         {
           "file": "assets/internalLabLink-BsPKFqOY.css",
@@ -4080,19 +4080,19 @@
           "gzip": 9739
         },
         {
-          "file": "assets/useModeHistory-DNUi2ht0.js",
+          "file": "assets/useModeHistory-x8OrawY1.js",
           "raw": 1185,
-          "gzip": 600
+          "gzip": 598
         },
         {
-          "file": "assets/useTextField-DVRXkqDZ.js",
+          "file": "assets/useTextField-Dilhqcm6.js",
           "raw": 2515,
-          "gzip": 1132
+          "gzip": 1131
         },
         {
-          "file": "assets/useToggle-BQt23shk.js",
+          "file": "assets/useToggle-BQv7xigX.js",
           "raw": 2131,
-          "gzip": 958
+          "gzip": 956
         },
         {
           "file": "build-target.json",
@@ -4132,7 +4132,7 @@
         {
           "file": "sw.js",
           "raw": 7621,
-          "gzip": 2301
+          "gzip": 2300
         }
       ],
       "manifest": {
@@ -4160,8 +4160,8 @@
           ],
           "css": ["assets/ButtonGroup-BRN0uXvP.css"]
         },
-        "_CalculatorDisplay-D4dzxp5V.js": {
-          "file": "assets/CalculatorDisplay-D4dzxp5V.js",
+        "_CalculatorDisplay-AJfe-OVT.js": {
+          "file": "assets/CalculatorDisplay-AJfe-OVT.js",
           "name": "CalculatorDisplay",
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
@@ -4185,32 +4185,32 @@
           "file": "assets/Card-DD1MZGf1.css",
           "src": "_Card-DD1MZGf1.css"
         },
-        "_Checkbox-BZdQXKmg.js": {
-          "file": "assets/Checkbox-BZdQXKmg.js",
+        "_Checkbox-CaWe_hBO.css": {
+          "file": "assets/Checkbox-CaWe_hBO.css",
+          "src": "_Checkbox-CaWe_hBO.css"
+        },
+        "_Checkbox-DT7fuovn.js": {
+          "file": "assets/Checkbox-DT7fuovn.js",
           "name": "Checkbox",
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-Jfu6slHZ.js",
             "_FocusScope-2R4Rw-qt.js",
-            "_useToggle-BQt23shk.js",
+            "_useToggle-BQv7xigX.js",
             "_motion-CluhrCFf.js",
             "index.html"
           ],
           "css": ["assets/Checkbox-CaWe_hBO.css"]
         },
-        "_Checkbox-CaWe_hBO.css": {
-          "file": "assets/Checkbox-CaWe_hBO.css",
-          "src": "_Checkbox-CaWe_hBO.css"
-        },
-        "_Chip-68hNtt2H.js": {
-          "file": "assets/Chip-68hNtt2H.js",
+        "_Chip-CFZYfapR.js": {
+          "file": "assets/Chip-CFZYfapR.js",
           "name": "Chip",
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-Jfu6slHZ.js",
             "_FocusScope-2R4Rw-qt.js",
-            "_Select-CdN7rRcv.js",
-            "_useTextField-DVRXkqDZ.js",
+            "_Select-DPiMrwKs.js",
+            "_useTextField-Dilhqcm6.js",
             "_motion-CluhrCFf.js",
             "index.html"
           ],
@@ -4220,8 +4220,12 @@
           "file": "assets/Chip-k13pT3nx.css",
           "src": "_Chip-k13pT3nx.css"
         },
-        "_CopyLinkButton-BZZ_F1af.js": {
-          "file": "assets/CopyLinkButton-BZZ_F1af.js",
+        "_CopyLinkButton-CzVs3g7c.css": {
+          "file": "assets/CopyLinkButton-CzVs3g7c.css",
+          "src": "_CopyLinkButton-CzVs3g7c.css"
+        },
+        "_CopyLinkButton-D70RoCyd.js": {
+          "file": "assets/CopyLinkButton-D70RoCyd.js",
           "name": "CopyLinkButton",
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
@@ -4232,16 +4236,12 @@
           ],
           "css": ["assets/CopyLinkButton-CzVs3g7c.css"]
         },
-        "_CopyLinkButton-CzVs3g7c.css": {
-          "file": "assets/CopyLinkButton-CzVs3g7c.css",
-          "src": "_CopyLinkButton-CzVs3g7c.css"
-        },
         "_Dialog-BgffhQ21.css": {
           "file": "assets/Dialog-BgffhQ21.css",
           "src": "_Dialog-BgffhQ21.css"
         },
-        "_Dialog-D7OXprjJ.js": {
-          "file": "assets/Dialog-D7OXprjJ.js",
+        "_Dialog-Fp86BQqe.js": {
+          "file": "assets/Dialog-Fp86BQqe.js",
           "name": "Dialog",
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
@@ -4275,14 +4275,14 @@
           "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-Jfu6slHZ.js"],
           "css": ["assets/Keypad-Cu2W_Ity.css"]
         },
-        "_Select-CdN7rRcv.js": {
-          "file": "assets/Select-CdN7rRcv.js",
+        "_Select-DPiMrwKs.js": {
+          "file": "assets/Select-DPiMrwKs.js",
           "name": "Select",
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-Jfu6slHZ.js",
             "_FocusScope-2R4Rw-qt.js",
-            "_useTextField-DVRXkqDZ.js",
+            "_useTextField-Dilhqcm6.js",
             "index.html"
           ],
           "css": ["assets/Select-lU43m5HL.css"]
@@ -4291,18 +4291,22 @@
           "file": "assets/Select-lU43m5HL.css",
           "src": "_Select-lU43m5HL.css"
         },
+        "_SideSheet-B1DfoGCj.js": {
+          "file": "assets/SideSheet-B1DfoGCj.js",
+          "name": "SideSheet",
+          "imports": ["_jsx-runtime-Dk72oS4N.js", "_Dialog-Fp86BQqe.js"],
+          "css": ["assets/SideSheet-BZfUtJea.css"]
+        },
         "_SideSheet-BZfUtJea.css": {
           "file": "assets/SideSheet-BZfUtJea.css",
           "src": "_SideSheet-BZfUtJea.css"
         },
-        "_SideSheet-BcZGjG_p.js": {
-          "file": "assets/SideSheet-BcZGjG_p.js",
-          "name": "SideSheet",
-          "imports": ["_jsx-runtime-Dk72oS4N.js", "_Dialog-D7OXprjJ.js"],
-          "css": ["assets/SideSheet-BZfUtJea.css"]
+        "_Slider-CmZSN9rw.css": {
+          "file": "assets/Slider-CmZSN9rw.css",
+          "src": "_Slider-CmZSN9rw.css"
         },
-        "_Slider-3Nmci5RE.js": {
-          "file": "assets/Slider-3Nmci5RE.js",
+        "_Slider-ti1uOqba.js": {
+          "file": "assets/Slider-ti1uOqba.js",
           "name": "Slider",
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
@@ -4312,18 +4316,14 @@
           ],
           "css": ["assets/Slider-CmZSN9rw.css"]
         },
-        "_Slider-CmZSN9rw.css": {
-          "file": "assets/Slider-CmZSN9rw.css",
-          "src": "_Slider-CmZSN9rw.css"
-        },
-        "_Switch-CwYMLL2l.js": {
-          "file": "assets/Switch-CwYMLL2l.js",
+        "_Switch-C8WJoUND.js": {
+          "file": "assets/Switch-C8WJoUND.js",
           "name": "Switch",
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-Jfu6slHZ.js",
             "_FocusScope-2R4Rw-qt.js",
-            "_useToggle-BQt23shk.js"
+            "_useToggle-BQv7xigX.js"
           ],
           "css": ["assets/Switch-Dhw6gmOR.css"]
         },
@@ -4335,20 +4335,20 @@
           "file": "assets/TextField-Bia33xUx.css",
           "src": "_TextField-Bia33xUx.css"
         },
-        "_TextField-Cb0lkLXw.js": {
-          "file": "assets/TextField-Cb0lkLXw.js",
+        "_TextField-rsENL6Ji.js": {
+          "file": "assets/TextField-rsENL6Ji.js",
           "name": "TextField",
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-Jfu6slHZ.js",
             "_FocusScope-2R4Rw-qt.js",
-            "_useTextField-DVRXkqDZ.js",
+            "_useTextField-Dilhqcm6.js",
             "index.html"
           ],
           "css": ["assets/TextField-Bia33xUx.css"]
         },
-        "_VisuallyHidden-CYiGLplz.js": {
-          "file": "assets/VisuallyHidden-CYiGLplz.js",
+        "_VisuallyHidden-BMx9HL7O.js": {
+          "file": "assets/VisuallyHidden-BMx9HL7O.js",
           "name": "VisuallyHidden",
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
@@ -4410,13 +4410,13 @@
           "name": "units",
           "imports": ["_engine-BCOeroFX.js"]
         },
-        "_useModeHistory-DNUi2ht0.js": {
-          "file": "assets/useModeHistory-DNUi2ht0.js",
+        "_useModeHistory-x8OrawY1.js": {
+          "file": "assets/useModeHistory-x8OrawY1.js",
           "name": "useModeHistory",
           "imports": ["_jsx-runtime-Dk72oS4N.js", "index.html"]
         },
-        "_useTextField-DVRXkqDZ.js": {
-          "file": "assets/useTextField-DVRXkqDZ.js",
+        "_useTextField-Dilhqcm6.js": {
+          "file": "assets/useTextField-Dilhqcm6.js",
           "name": "useTextField",
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
@@ -4424,8 +4424,8 @@
             "index.html"
           ]
         },
-        "_useToggle-BQt23shk.js": {
-          "file": "assets/useToggle-BQt23shk.js",
+        "_useToggle-BQv7xigX.js": {
+          "file": "assets/useToggle-BQv7xigX.js",
           "name": "useToggle",
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
@@ -4434,7 +4434,7 @@
           ]
         },
         "index.html": {
-          "file": "assets/index-C_vGXzc4.js",
+          "file": "assets/index-ImNxOvok.js",
           "name": "index",
           "src": "index.html",
           "isEntry": true,
@@ -4460,7 +4460,7 @@
             "src/app/DesignLab.tsx",
             "src/features/convert/model.ts"
           ],
-          "css": ["assets/index-CXbYuIGF.css"],
+          "css": ["assets/index-n1AizJ-B.css"],
           "assets": [
             "assets/roboto-flex-latin-DlhILaPV.woff2",
             "assets/roboto-mono-latin-CZtBPCCa.woff2",
@@ -4704,14 +4704,14 @@
           "src": "node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.woff2"
         },
         "src/app/CommandPalette.tsx": {
-          "file": "assets/CommandPalette-BB_GUTMJ.js",
+          "file": "assets/CommandPalette-fO770KCb.js",
           "name": "CommandPalette",
           "src": "src/app/CommandPalette.tsx",
           "isDynamicEntry": true,
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-Jfu6slHZ.js",
-            "_Dialog-D7OXprjJ.js",
+            "_Dialog-Fp86BQqe.js",
             "_i18n-DgqQa2hg.js",
             "index.html",
             "_units-CJ9QYzrt.js",
@@ -4720,7 +4720,7 @@
           ]
         },
         "src/app/DesignLab.tsx": {
-          "file": "assets/DesignLab-vNmXwp-7.js",
+          "file": "assets/DesignLab-D6_cpOFW.js",
           "name": "DesignLab",
           "src": "src/app/DesignLab.tsx",
           "isDynamicEntry": true,
@@ -4728,60 +4728,60 @@
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-Jfu6slHZ.js",
             "_FocusScope-2R4Rw-qt.js",
-            "_Select-CdN7rRcv.js",
-            "_Checkbox-BZdQXKmg.js",
-            "_Slider-3Nmci5RE.js",
-            "_Dialog-D7OXprjJ.js",
-            "_Chip-68hNtt2H.js",
-            "_Switch-CwYMLL2l.js",
-            "_TextField-Cb0lkLXw.js",
+            "_Select-DPiMrwKs.js",
+            "_Checkbox-DT7fuovn.js",
+            "_Slider-ti1uOqba.js",
+            "_Dialog-Fp86BQqe.js",
+            "_Chip-CFZYfapR.js",
+            "_Switch-C8WJoUND.js",
+            "_TextField-rsENL6Ji.js",
             "_snackbarQueue-9R5HQUGX.js",
             "_ButtonGroup-BnyigjTF.js",
             "_i18n-DgqQa2hg.js",
             "_motion-CluhrCFf.js",
             "index.html",
             "_Fab-_X_0jjk5.js",
-            "_SideSheet-BcZGjG_p.js",
+            "_SideSheet-B1DfoGCj.js",
             "_Card-CpJeSsLo.js",
-            "_VisuallyHidden-CYiGLplz.js",
+            "_VisuallyHidden-BMx9HL7O.js",
             "_Keypad-DUYMI7VE.js",
-            "_CalculatorDisplay-D4dzxp5V.js",
+            "_CalculatorDisplay-AJfe-OVT.js",
             "src/styles/buildScheme.ts",
             "_animate-B-Cb10UB.js"
           ],
-          "css": ["assets/DesignLab-DU3dFyZG.css"]
+          "css": ["assets/DesignLab-nsjYfGGL.css"]
         },
         "src/app/HistorySheet.tsx": {
-          "file": "assets/HistorySheet-OKfcf1pB.js",
+          "file": "assets/HistorySheet-DICtp_DS.js",
           "name": "HistorySheet",
           "src": "src/app/HistorySheet.tsx",
           "isDynamicEntry": true,
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-Jfu6slHZ.js",
-            "_TextField-Cb0lkLXw.js",
+            "_TextField-rsENL6Ji.js",
             "_snackbarQueue-9R5HQUGX.js",
             "_i18n-DgqQa2hg.js",
             "_motion-CluhrCFf.js",
             "index.html",
-            "_SideSheet-BcZGjG_p.js",
+            "_SideSheet-B1DfoGCj.js",
             "_animate-B-Cb10UB.js",
-            "_useModeHistory-DNUi2ht0.js"
+            "_useModeHistory-x8OrawY1.js"
           ]
         },
         "src/app/SettingsDialog.tsx": {
-          "file": "assets/SettingsDialog-Bh6lslHx.js",
+          "file": "assets/SettingsDialog-CFoc_w6N.js",
           "name": "SettingsDialog",
           "src": "src/app/SettingsDialog.tsx",
           "isDynamicEntry": true,
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-Jfu6slHZ.js",
-            "_Select-CdN7rRcv.js",
-            "_Slider-3Nmci5RE.js",
-            "_Dialog-D7OXprjJ.js",
-            "_Switch-CwYMLL2l.js",
-            "_TextField-Cb0lkLXw.js",
+            "_Select-DPiMrwKs.js",
+            "_Slider-ti1uOqba.js",
+            "_Dialog-Fp86BQqe.js",
+            "_Switch-C8WJoUND.js",
+            "_TextField-rsENL6Ji.js",
             "_snackbarQueue-9R5HQUGX.js",
             "_i18n-DgqQa2hg.js",
             "index.html",
@@ -4789,14 +4789,14 @@
           ]
         },
         "src/app/ShortcutDialog.tsx": {
-          "file": "assets/ShortcutDialog-BMO_mMb2.js",
+          "file": "assets/ShortcutDialog-B8jZp84d.js",
           "name": "ShortcutDialog",
           "src": "src/app/ShortcutDialog.tsx",
           "isDynamicEntry": true,
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-Jfu6slHZ.js",
-            "_Dialog-D7OXprjJ.js",
+            "_Dialog-Fp86BQqe.js",
             "_i18n-DgqQa2hg.js",
             "index.html"
           ]
@@ -4806,17 +4806,17 @@
           "src": "src/app/internalLabLink.css"
         },
         "src/features/convert/ConvertMode.tsx": {
-          "file": "assets/ConvertMode-D3w-EAU3.js",
+          "file": "assets/ConvertMode-D8bAYLqe.js",
           "name": "ConvertMode",
           "src": "src/features/convert/ConvertMode.tsx",
           "isDynamicEntry": true,
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-Jfu6slHZ.js",
-            "_Select-CdN7rRcv.js",
-            "_Checkbox-BZdQXKmg.js",
-            "_Slider-3Nmci5RE.js",
-            "_TextField-Cb0lkLXw.js",
+            "_Select-DPiMrwKs.js",
+            "_Checkbox-DT7fuovn.js",
+            "_Slider-ti1uOqba.js",
+            "_TextField-rsENL6Ji.js",
             "_snackbarQueue-9R5HQUGX.js",
             "_i18n-DgqQa2hg.js",
             "_motion-CluhrCFf.js",
@@ -4824,10 +4824,10 @@
             "_units-CJ9QYzrt.js",
             "_Fab-_X_0jjk5.js",
             "_Card-CpJeSsLo.js",
-            "_VisuallyHidden-CYiGLplz.js",
-            "_useModeHistory-DNUi2ht0.js",
+            "_VisuallyHidden-BMx9HL7O.js",
+            "_useModeHistory-x8OrawY1.js",
             "src/features/convert/model.ts",
-            "_CopyLinkButton-BZZ_F1af.js"
+            "_CopyLinkButton-D70RoCyd.js"
           ],
           "css": ["assets/ConvertMode-CYiH4UTE.css"]
         },
@@ -4839,36 +4839,36 @@
           "imports": ["_engine-BCOeroFX.js", "_units-CJ9QYzrt.js"]
         },
         "src/features/graph/GraphMode.tsx": {
-          "file": "assets/GraphMode-maR66cAb.js",
+          "file": "assets/GraphMode-C_sXb6Vc.js",
           "name": "GraphMode",
           "src": "src/features/graph/GraphMode.tsx",
           "isDynamicEntry": true,
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-Jfu6slHZ.js",
-            "_Select-CdN7rRcv.js",
-            "_Checkbox-BZdQXKmg.js",
-            "_Slider-3Nmci5RE.js",
-            "_Dialog-D7OXprjJ.js",
-            "_Chip-68hNtt2H.js",
-            "_TextField-Cb0lkLXw.js",
+            "_Select-DPiMrwKs.js",
+            "_Checkbox-DT7fuovn.js",
+            "_Slider-ti1uOqba.js",
+            "_Dialog-Fp86BQqe.js",
+            "_Chip-CFZYfapR.js",
+            "_TextField-rsENL6Ji.js",
             "_snackbarQueue-9R5HQUGX.js",
             "_i18n-DgqQa2hg.js",
             "_motion-CluhrCFf.js",
             "index.html",
             "_engine-BCOeroFX.js",
-            "_SideSheet-BcZGjG_p.js",
-            "_VisuallyHidden-CYiGLplz.js",
+            "_SideSheet-B1DfoGCj.js",
+            "_VisuallyHidden-BMx9HL7O.js",
             "_graphPalette-DTsoAoAA.js",
-            "_useModeHistory-DNUi2ht0.js",
-            "_CopyLinkButton-BZZ_F1af.js"
+            "_useModeHistory-x8OrawY1.js",
+            "_CopyLinkButton-D70RoCyd.js"
           ],
           "dynamicImports": ["src/features/scientific/ExpressionEditor.tsx"],
           "css": ["assets/GraphMode-DHeq3pLd.css"],
           "assets": ["assets/sampling.worker-kO0Vgf-W.js"]
         },
         "src/features/scientific/ExpressionEditor.tsx": {
-          "file": "assets/ExpressionEditor-BoOl-7mS.js",
+          "file": "assets/ExpressionEditor-BjRxb3r_.js",
           "name": "ExpressionEditor",
           "src": "src/features/scientific/ExpressionEditor.tsx",
           "isDynamicEntry": true,
@@ -4951,16 +4951,16 @@
           ]
         },
         "src/features/scientific/ScientificMode.tsx": {
-          "file": "assets/ScientificMode-DuETjKD6.js",
+          "file": "assets/ScientificMode-CGa5UX9P.js",
           "name": "ScientificMode",
           "src": "src/features/scientific/ScientificMode.tsx",
           "isDynamicEntry": true,
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-Jfu6slHZ.js",
-            "_Slider-3Nmci5RE.js",
-            "_Switch-CwYMLL2l.js",
-            "_TextField-Cb0lkLXw.js",
+            "_Slider-ti1uOqba.js",
+            "_Switch-C8WJoUND.js",
+            "_TextField-rsENL6Ji.js",
             "_snackbarQueue-9R5HQUGX.js",
             "_ButtonGroup-BnyigjTF.js",
             "_i18n-DgqQa2hg.js",
@@ -4968,10 +4968,10 @@
             "index.html",
             "_engine-BCOeroFX.js",
             "_Card-CpJeSsLo.js",
-            "_VisuallyHidden-CYiGLplz.js",
+            "_VisuallyHidden-BMx9HL7O.js",
             "_Keypad-DUYMI7VE.js",
-            "_useModeHistory-DNUi2ht0.js",
-            "_CopyLinkButton-BZZ_F1af.js",
+            "_useModeHistory-x8OrawY1.js",
+            "_CopyLinkButton-D70RoCyd.js",
             "_model-BNbBVyd2.js"
           ],
           "dynamicImports": [
@@ -4981,7 +4981,7 @@
           "css": ["assets/ScientificMode-DOfiavFG.css"]
         },
         "src/features/simple/SimpleMode.tsx": {
-          "file": "assets/SimpleMode-SrkkZnw5.js",
+          "file": "assets/SimpleMode-DMaQ5_Ai.js",
           "name": "SimpleMode",
           "src": "src/features/simple/SimpleMode.tsx",
           "isDynamicEntry": true,
@@ -4993,9 +4993,9 @@
             "index.html",
             "_engine-BCOeroFX.js",
             "_Keypad-DUYMI7VE.js",
-            "_CalculatorDisplay-D4dzxp5V.js",
-            "_useModeHistory-DNUi2ht0.js",
-            "_CopyLinkButton-BZZ_F1af.js"
+            "_CalculatorDisplay-AJfe-OVT.js",
+            "_useModeHistory-x8OrawY1.js",
+            "_CopyLinkButton-D70RoCyd.js"
           ],
           "css": ["assets/SimpleMode-CcQwNveJ.css"]
         },
@@ -5019,15 +5019,15 @@
           "src": "src/styles/fonts/roboto-mono-latin.woff2"
         },
         "src/ui/AccentPanel.tsx": {
-          "file": "assets/AccentPanel-BNTGuETZ.js",
+          "file": "assets/AccentPanel-18KfGKu5.js",
           "name": "AccentPanel",
           "src": "src/ui/AccentPanel.tsx",
           "isDynamicEntry": true,
           "imports": [
             "_jsx-runtime-Dk72oS4N.js",
             "_Button-Jfu6slHZ.js",
-            "_Select-CdN7rRcv.js",
-            "_Slider-3Nmci5RE.js",
+            "_Select-DPiMrwKs.js",
+            "_Slider-ti1uOqba.js",
             "_i18n-DgqQa2hg.js",
             "_motion-CluhrCFf.js",
             "index.html",
@@ -5044,36 +5044,36 @@
         "/m8e-calc/icons/app-192.png",
         "/m8e-calc/icons/app-512.png",
         "/m8e-calc/icons/app-maskable-512.png",
-        "/m8e-calc/assets/index-C_vGXzc4.js",
-        "/m8e-calc/assets/AccentPanel-BNTGuETZ.js",
+        "/m8e-calc/assets/index-ImNxOvok.js",
+        "/m8e-calc/assets/AccentPanel-18KfGKu5.js",
         "/m8e-calc/assets/Button-Jfu6slHZ.js",
         "/m8e-calc/assets/ButtonGroup-BnyigjTF.js",
-        "/m8e-calc/assets/CalculatorDisplay-D4dzxp5V.js",
+        "/m8e-calc/assets/CalculatorDisplay-AJfe-OVT.js",
         "/m8e-calc/assets/Card-CpJeSsLo.js",
-        "/m8e-calc/assets/Checkbox-BZdQXKmg.js",
-        "/m8e-calc/assets/Chip-68hNtt2H.js",
-        "/m8e-calc/assets/CommandPalette-BB_GUTMJ.js",
-        "/m8e-calc/assets/ConvertMode-D3w-EAU3.js",
-        "/m8e-calc/assets/CopyLinkButton-BZZ_F1af.js",
-        "/m8e-calc/assets/DesignLab-vNmXwp-7.js",
-        "/m8e-calc/assets/Dialog-D7OXprjJ.js",
-        "/m8e-calc/assets/ExpressionEditor-BoOl-7mS.js",
+        "/m8e-calc/assets/Checkbox-DT7fuovn.js",
+        "/m8e-calc/assets/Chip-CFZYfapR.js",
+        "/m8e-calc/assets/CommandPalette-fO770KCb.js",
+        "/m8e-calc/assets/ConvertMode-D8bAYLqe.js",
+        "/m8e-calc/assets/CopyLinkButton-D70RoCyd.js",
+        "/m8e-calc/assets/DesignLab-D6_cpOFW.js",
+        "/m8e-calc/assets/Dialog-Fp86BQqe.js",
+        "/m8e-calc/assets/ExpressionEditor-BjRxb3r_.js",
         "/m8e-calc/assets/Fab-_X_0jjk5.js",
         "/m8e-calc/assets/FocusScope-2R4Rw-qt.js",
-        "/m8e-calc/assets/GraphMode-maR66cAb.js",
-        "/m8e-calc/assets/HistorySheet-OKfcf1pB.js",
+        "/m8e-calc/assets/GraphMode-C_sXb6Vc.js",
+        "/m8e-calc/assets/HistorySheet-DICtp_DS.js",
         "/m8e-calc/assets/Keypad-DUYMI7VE.js",
         "/m8e-calc/assets/MathDisplay-CisehEU2.js",
-        "/m8e-calc/assets/ScientificMode-DuETjKD6.js",
-        "/m8e-calc/assets/Select-CdN7rRcv.js",
-        "/m8e-calc/assets/SettingsDialog-Bh6lslHx.js",
-        "/m8e-calc/assets/ShortcutDialog-BMO_mMb2.js",
-        "/m8e-calc/assets/SideSheet-BcZGjG_p.js",
-        "/m8e-calc/assets/SimpleMode-SrkkZnw5.js",
-        "/m8e-calc/assets/Slider-3Nmci5RE.js",
-        "/m8e-calc/assets/Switch-CwYMLL2l.js",
-        "/m8e-calc/assets/TextField-Cb0lkLXw.js",
-        "/m8e-calc/assets/VisuallyHidden-CYiGLplz.js",
+        "/m8e-calc/assets/ScientificMode-CGa5UX9P.js",
+        "/m8e-calc/assets/Select-DPiMrwKs.js",
+        "/m8e-calc/assets/SettingsDialog-CFoc_w6N.js",
+        "/m8e-calc/assets/ShortcutDialog-B8jZp84d.js",
+        "/m8e-calc/assets/SideSheet-B1DfoGCj.js",
+        "/m8e-calc/assets/SimpleMode-DMaQ5_Ai.js",
+        "/m8e-calc/assets/Slider-ti1uOqba.js",
+        "/m8e-calc/assets/Switch-C8WJoUND.js",
+        "/m8e-calc/assets/TextField-rsENL6Ji.js",
+        "/m8e-calc/assets/VisuallyHidden-BMx9HL7O.js",
         "/m8e-calc/assets/animate-B-Cb10UB.js",
         "/m8e-calc/assets/buildScheme-D8NRAQjX.js",
         "/m8e-calc/assets/engine-BCOeroFX.js",
@@ -5087,9 +5087,9 @@
         "/m8e-calc/assets/seeds-DdxXycSJ.js",
         "/m8e-calc/assets/snackbarQueue-9R5HQUGX.js",
         "/m8e-calc/assets/units-CJ9QYzrt.js",
-        "/m8e-calc/assets/useModeHistory-DNUi2ht0.js",
-        "/m8e-calc/assets/useTextField-DVRXkqDZ.js",
-        "/m8e-calc/assets/useToggle-BQt23shk.js",
+        "/m8e-calc/assets/useModeHistory-x8OrawY1.js",
+        "/m8e-calc/assets/useTextField-Dilhqcm6.js",
+        "/m8e-calc/assets/useToggle-BQv7xigX.js",
         "/m8e-calc/assets/Button-_v2QBl66.css",
         "/m8e-calc/assets/ButtonGroup-BRN0uXvP.css",
         "/m8e-calc/assets/CalculatorDisplay-IO6TzhXT.css",
@@ -5098,7 +5098,7 @@
         "/m8e-calc/assets/Chip-k13pT3nx.css",
         "/m8e-calc/assets/ConvertMode-CYiH4UTE.css",
         "/m8e-calc/assets/CopyLinkButton-CzVs3g7c.css",
-        "/m8e-calc/assets/DesignLab-DU3dFyZG.css",
+        "/m8e-calc/assets/DesignLab-nsjYfGGL.css",
         "/m8e-calc/assets/Dialog-BgffhQ21.css",
         "/m8e-calc/assets/Fab-v-GNmJcU.css",
         "/m8e-calc/assets/GraphMode-DHeq3pLd.css",
@@ -5170,7 +5170,7 @@
         "/m8e-calc/assets/Slider-CmZSN9rw.css",
         "/m8e-calc/assets/Switch-Dhw6gmOR.css",
         "/m8e-calc/assets/TextField-Bia33xUx.css",
-        "/m8e-calc/assets/index-CXbYuIGF.css",
+        "/m8e-calc/assets/index-n1AizJ-B.css",
         "/m8e-calc/assets/internalLabLink-BsPKFqOY.css",
         "/m8e-calc/assets/material-symbols-rounded-17-fZmEE.woff2",
         "/m8e-calc/assets/motion-Ds6JSQzR.css",
