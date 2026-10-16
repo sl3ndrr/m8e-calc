@@ -116,3 +116,27 @@ test('AP22 parameters apply localized ranges atomically; trace names all curve t
     if (parameter) await expect(trace).toContainText(parameter);
   }
 });
+
+for (const [language, decimalSeparator, grouping, input, expected] of [
+  ['en', 'comma', true, '0,1', '1.234,5'],
+  ['de', 'point', false, '0.1', '1234.5'],
+] as const) {
+  test(`AP22 explicit separator ${decimalSeparator} and grouping ${grouping}`, async ({ page }) => {
+    await page.addInitScript(({ language, decimalSeparator, grouping }) => {
+      localStorage.setItem('m8e-calc.settings', JSON.stringify({ version: 4, state: { language, decimalSeparator, grouping, motionLevel: 'off' } }));
+    }, { language, decimalSeparator, grouping });
+    await page.goto('/m8e-calc/#/graph');
+    await page.getByRole('button', { name: language === 'de' ? 'Hinzufügen' : 'Add', exact: true }).click();
+    await page.locator('.graph-editor [role="textbox"]').fill('1234.5');
+    await page.getByRole('button', { name: language === 'de' ? 'Wertetabelle' : 'Value table', exact: true }).click();
+    const table = page.locator('.graph-table-section');
+    await expect(table.locator('tbody tr').first().locator('td').last()).toHaveText(expected);
+    const step = table.getByRole('textbox', { name: language === 'de' ? 'Schrittweite' : 'Step size' });
+    await step.fill(input);
+    await step.press('Enter');
+    await expect(table.locator('tbody tr')).toHaveCount(201);
+    await page.getByRole('application').focus();
+    await page.getByRole('application').press('ArrowRight');
+    await expect(page.locator('.graph-trace')).toContainText(`y = ${expected}`);
+  });
+}

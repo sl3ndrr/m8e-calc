@@ -249,7 +249,17 @@
 }
 .graph-table-section > div:first-child {
   display: flex;
+  flex-wrap: wrap;
+  align-items: start;
   gap: 0.5rem;
+}
+.graph-table-section form {
+  display: flex;
+  align-items: start;
+  gap: 0.5rem;
+}
+.graph-table-section form > .ui-button {
+  margin-top: 1.4rem;
 }
 .graph-table-section p {
   margin: 0.5rem 0;
@@ -325,3 +335,4 @@
     min-height: max(14rem, 40vh);
   }
 }
+

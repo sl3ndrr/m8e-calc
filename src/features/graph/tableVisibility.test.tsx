@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, act } from '@testing-library/react';
+import { fireEvent, render, screen, act, within } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
 import GraphMode from './GraphMode';
 import { tableResult } from './model';
@@ -33,7 +33,7 @@ it('does no closed-table work; updates an open table only after valid step confi
   fireEvent.click(screen.getByRole('button', { name: 'Wertetabelle' }));
   const calls = vi.mocked(tableResult).mock.calls.length;
   expect(calls).toBeGreaterThan(0);
-  const step = screen.getByRole('textbox', { name: 'Schrittweite' });
+  const step = within(screen.getByRole('region', { name: 'Wertetabelle' })).getByRole('textbox', { name: 'Schrittweite' });
   fireEvent.change(step, { target: { value: '0,1' } });
   expect(vi.mocked(tableResult).mock.calls.length).toBe(calls);
   const form = step.closest('form');
@@ -47,7 +47,9 @@ it('does no closed-table work; updates an open table only after valid step confi
   }
   expect(vi.mocked(tableResult).mock.calls.length).toBe(confirmed);
   expect(step).toHaveAttribute('aria-invalid', 'true');
-  fireEvent.keyDown(screen.getByRole('slider', { name: 'a' }), { key: 'ArrowRight' });
+  fireEvent.keyDown(screen.getByRole('slider', { name: 'a' }), {
+    key: 'ArrowRight',
+  });
   expect(vi.mocked(tableResult).mock.calls.length).toBeGreaterThan(confirmed);
   fireEvent.click(screen.getByRole('button', { name: 'Wertetabelle' }));
   const closed = vi.mocked(tableResult).mock.calls.length;

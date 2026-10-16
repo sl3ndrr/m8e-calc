@@ -277,7 +277,13 @@ export default function GraphMode() {
   const selectedInput = selected?.row.input;
   const selectedParams = selected?.row.params;
   const tableCurve = useMemo(
-    () => selectedInput !== undefined && selectedParams ? parseRow({ ...newRow('table', selectedInput), params: selectedParams }).curve : null,
+    () =>
+      selectedInput !== undefined && selectedParams
+        ? parseRow({
+            ...newRow('table', selectedInput),
+            params: selectedParams,
+          }).curve
+        : null,
     [selectedInput, selectedParams],
   );
   return (
@@ -537,7 +543,7 @@ export default function GraphMode() {
                     onChange={setStep}
                     isInvalid={invalidStep}
                     validationBehavior="aria"
-                    errorMessage={t('graph.invalidRange', locale)}
+                    errorMessage={t('graph.invalidStep', locale)}
                   />
                   <Button
                     type="submit"

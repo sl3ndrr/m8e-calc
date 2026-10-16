@@ -580,6 +580,7 @@ export const de = {
   'graph.removeMarker': 'Marker entfernen',
   'graph.estimate': 'numerische Schätzung',
   'graph.uncertain': 'nicht verlässlich',
+  'graph.invalidStep': 'Eine positive endliche Schrittweite eingeben. Der zuletzt bestätigte Wert bleibt bis Anwenden oder Enter aktiv.',
   'graph.rounding': 'Rundung',
   'graph.roundingAuto': 'Auto',
   'graph.roundingDigits': '{digits} Nachkommastellen',
@@ -593,7 +594,7 @@ export const de = {
     'Tabelle auf die ersten 500 Zeilen begrenzt. Für weitere Werte den Bereich oder die Schrittweite ändern.',
   'graph.table': 'Wertetabelle',
   'graph.tableLimit':
-    'Bis zu 500 Zeilen; bei parametrischen und polaren Kurven ist u der Kurvenparameter.',
+    'Bis zu 500 Zeilen; Spalten zeigen die unabhängige Variable (x, y, t oder θ) und x/y-Koordinaten.',
   'graph.parameter': 'u',
   'graph.background': 'PNG-Hintergrund',
   'graph.themeBackground': 'Aktuelles Thema',

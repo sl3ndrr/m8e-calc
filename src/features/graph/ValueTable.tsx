@@ -19,11 +19,21 @@ export default function ValueTable({
   preferences: NumberPreferences;
   rounding: GraphRounding;
 }) {
-  const [from, to] = curve?.kind === 'parametric' || curve?.kind === 'polar'
-    ? curve.range : curve?.kind === 'vertical' ? [bounds.yMin, bounds.yMax] : [bounds.xMin, bounds.xMax];
+  const [from, to] =
+    curve?.kind === 'parametric' || curve?.kind === 'polar'
+      ? curve.range
+      : curve?.kind === 'vertical'
+        ? [bounds.yMin, bounds.yMax]
+        : [bounds.xMin, bounds.xMax];
   const result = useMemo(
     () =>
-      curve ? tableResult(curve, { xMin: from, xMax: to, yMin: from, yMax: to }, step) : { rows: [], stopped: null },
+      curve
+        ? tableResult(
+            curve,
+            { xMin: from, xMax: to, yMin: from, yMax: to },
+            step,
+          )
+        : { rows: [], stopped: null },
     [curve, from, to, step],
   );
   const format = (value: number) =>

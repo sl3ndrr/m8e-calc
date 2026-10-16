@@ -106,7 +106,13 @@ describe('function panel', () => {
   });
   it('keeps the last parameter state until a complete localized range is confirmed', () => {
     const dispatch = vi.fn();
-    render(<FunctionPanel {...common} rows={[parseRow(newRow('a', 'a*x'))]} dispatch={dispatch} />);
+    render(
+      <FunctionPanel
+        {...common}
+        rows={[parseRow(newRow('a', 'a*x'))]}
+        dispatch={dispatch}
+      />,
+    );
     fireEvent.click(screen.getByText('Bereich und Schrittweite'));
     const min = screen.getByLabelText('Minimum'),
       max = screen.getByLabelText('Maximum'),
@@ -121,7 +127,11 @@ describe('function panel', () => {
     fireEvent.change(min, { target: { value: '-2' } });
     fireEvent.change(step, { target: { value: '0,1' } });
     fireEvent.click(screen.getByRole('button', { name: 'Anwenden' }));
-    expect(dispatch).toHaveBeenLastCalledWith({ type: 'update', id: 'a', patch: { params: { a: { value: 1, min: -2, max: 2, step: 0.1 } } } });
+    expect(dispatch).toHaveBeenLastCalledWith({
+      type: 'update',
+      id: 'a',
+      patch: { params: { a: { value: 1, min: -2, max: 2, step: 0.1 } } },
+    });
     dispatch.mockClear();
     for (const value of [' ', '0', '-1', '1e', '1.2,3']) {
       fireEvent.change(step, { target: { value } });
@@ -129,6 +139,4 @@ describe('function panel', () => {
     }
     expect(dispatch).not.toHaveBeenCalled();
   });
-
 });
-
