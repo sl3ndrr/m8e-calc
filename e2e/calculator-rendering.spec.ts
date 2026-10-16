@@ -196,20 +196,20 @@ for (const [width, height, zoom, uiSize, theme, language] of [
   });
 }
 
-test('operator shapes survive live mouse, global keyboard and React Aria press frames', async ({
-  page,
-}, info) => {
-  await page.setViewportSize({ width: 1920, height: 1080 });
-  await page.goto('/m8e-calc/#/simple');
-  await ready(page);
-  const evidence = [];
-  for (const [id, key] of [
-    ['+', '+'],
-    ['-', '-'],
-    ['*', '*'],
-    ['/', '/'],
-    ['equals', 'Enter'],
-  ] as const) {
+for (const [id, key] of [
+  ['+', '+'],
+  ['-', '-'],
+  ['*', '*'],
+  ['/', '/'],
+  ['equals', 'Enter'],
+] as const) {
+  test(`operator ${id} shapes survive live mouse, global keyboard and React Aria press frames`, async ({
+    page,
+  }, info) => {
+    await page.setViewportSize({ width: 1920, height: 1080 });
+    await page.goto('/m8e-calc/#/simple');
+    await ready(page);
+    const evidence = [];
     const button = page.locator(`[data-key="${id}"] button`);
     await settle(button);
     const baseline = (await frames(button, 1))[0];
@@ -278,16 +278,16 @@ test('operator shapes survive live mouse, global keyboard and React Aria press f
     expect(focused.every((f) => f.outline === 'solid')).toBe(true);
     await page.keyboard.up('Space');
     assertShape(await frames(button));
-  }
-  await page.locator('.simple-memory').click();
-  await page.keyboard.press('Escape');
-  await page.keyboard.type('1+-*/+-*/2=');
-  await expect(page.locator('.calculator-announcement')).toHaveText('0,5');
-  await info.attach('live-frames', {
-    body: JSON.stringify(evidence, null, 2),
-    contentType: 'application/json',
+    await page.locator('.simple-memory').click();
+    await page.keyboard.press('Escape');
+    await page.keyboard.type('1+-*/+-*/2=');
+    await expect(page.locator('.calculator-announcement')).toHaveText('0,5');
+    await info.attach('live-frames', {
+      body: JSON.stringify(evidence, null, 2),
+      contentType: 'application/json',
+    });
   });
-});
+}
 
 for (const [motion, reduced] of [
   ['full', false],

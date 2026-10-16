@@ -92,7 +92,8 @@ for (const [width, height, language, theme, accent, motionLevel] of [
         name: t('comfort.shareLink', language),
         exact: true,
       });
-      await tabTo(page, share);
+      // CodeMirror intentionally consumes forward Tab for indentation.
+      await tabTo(page, share, true);
       await expect(share).toBeFocused();
       await expect(share).toBeInViewport();
       expect(

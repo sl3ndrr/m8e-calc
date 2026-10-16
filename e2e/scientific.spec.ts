@@ -32,7 +32,7 @@ test('DEG, definitions, integral, errors, keyboard history and restore', async (
   await expect(result).toHaveText('9');
   await editor.fill('1/0');
   await editor.press('Enter');
-  await expect(page.getByRole('alert')).toContainText(
+  await expect(page.locator('.scientific-error[role="alert"]')).toContainText(
     t('scientific.error.E_DIVISION_BY_ZERO'),
   );
   await expect(editor).toHaveAttribute('aria-invalid', 'true');
