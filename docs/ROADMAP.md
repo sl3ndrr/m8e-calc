@@ -1,6 +1,6 @@
 # Roadmap
 
-Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet integriert (Merge auf `main`); manuelle Produkt-/Pages-Abnahmen sind separat dokumentiert und werden dadurch nicht als bestanden erklärt. Stand: 16.10.2026.
+Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet integriert (Merge auf `main`); manuelle Produkt-/Pages-Abnahmen sind separat dokumentiert und werden dadurch nicht als bestanden erklärt. Stand: 17.10.2026.
 
 - [x] 1 Fundament — Toolchain, Struktur, Platzhalter, CI/Pages und Projektgedächtnis.
 - [x] 2 Theming — Material 3 Expressive, Hell/System/Dunkel, Akzentwahl, Typography-/Shape-/Motion-Fundament und `#/design` (PR `feat/theming`, Details: `DESIGN.md`).
@@ -17,8 +17,8 @@ Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet integriert (Merge auf `
 - [x] 13 Graphen-Modus — 2D-Plotter und Interaktion auf AP12, Canvas/SVG-Adapter und Worker-Anbindung; keine Darstellung in AP12.
 - [x] 14 Komfort — Command Palette, zentrale Tastenkürzel, versionierte Permalinks, UI-Größe/Präsentation und vorgezogenes PWA/Offline (PR `feat/comfort`; Vertrag und Kürzel in `COMFORT.md`, integriert); Verlauf mit Suche/Pins/Export sowie de/en und proportionale Desktop-Skalierung sind in AP4 vorgezogen.
 - [x] 15 Hardening — weitere PWA-/Installations-/Browserabnahme, Datenschutz, Performance und Accessibility; Offline-Fundament in AP14 vorgezogen.
-- [ ] 16 Release — Dokumentation, Bildskript, Version 1.0.0, Changelog und Lizenzvorschlag in `feat/release` vorbereitet. Review, MIT-Bestätigung, finale Checks, Pages-Abnahme und Veröffentlichung stehen aus; siehe [RELEASE.md](RELEASE.md).
-- [ ] 17 Währungen (optional) — `feat/currency`: explizites Opt-in, EZB/Frankfurter-v2-Provider, Cache und Offline-Fallback. Abnahme über PR/CI; Details in `UNITS.md`.
+- [x] 16 Releasevorbereitung — PR #21 integriert: Dokumentation, Bildskript, Version 1.0.0, Changelog und Lizenzvorschlag. MIT-Bestätigung, Produktfreigabe, Tag und tatsächliches Release bleiben getrennt offen; siehe [RELEASE.md](RELEASE.md).
+- [x] 17 Währungen (optional) — PR #23 integriert: explizites Opt-in, EZB/Frankfurter-v2-Provider, Cache und Offline-Fallback. Details in `UNITS.md`.
 
 AP3: Komponentenbibliothek in `src/ui`, Zustandsmatrix im Design-Lab, Tastatur-/axe-Tests und reproduzierbare Galerie-Screenshots; Konventionen in `docs/COMPONENTS.md`. AP4 verwendet diese Bausteine für die Shell.
 
@@ -39,37 +39,42 @@ PR #20 ist gemergt; automatisierte Nachweise stehen im QA-Bericht. Die manuelle 
 
 ## Integrationsnachweise
 
-AP1–AP15 sind über die gemergten PRs #1, #3, #5–#10, #13–#16 und #18–#20 auf `main` integriert. AP17 ist in `feat/currency` vorbereitet, noch nicht gemergt. Die früheren Abnahmevorbehalte in den Paketbeschreibungen sind durch diesen Integrationsstand ersetzt; offene Qualitätsgrenzen bleiben im [QA-Bericht](QA_REPORT.md).
+AP1–AP15 sind über die gemergten PRs #1, #3, #5–#10, #13–#16 und #18–#20 auf `main` integriert. AP16 und AP17 sind über #21 und #23 integriert. Die früheren Abnahmevorbehalte in den Paketbeschreibungen sind durch diesen Integrationsstand ersetzt; offene Qualitätsgrenzen bleiben im [QA-Bericht](QA_REPORT.md).
 
 AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und Permalinks.
 
 - [x] 18 UI-Bereinigung und dezentes Teilen — PR #25 ist auf main integriert:
       eine Modus-H1, kompakte Werkzeugzeilen und zugängliche Teilen-Aktion.
       Vertrag und Bildreproduktion in `COMFORT.md`.
-- [ ] 19 Vollständige Ziffernanzeige und konstante Rechentastenformen —
+- [x] 19 Vollständige Ziffernanzeige und konstante Rechentastenformen —
       `feat/ap19-calculator-rendering`; Clip-/Breitenkonzept, Browserregression
-      und Animationsnachweise in [AP19.md](AP19.md). Abnahme über PR/CI,
-      Merge steht aus. Checkboxen und Designlab-Auslieferung bleiben getrennte
+      und Animationsnachweise in [AP19.md](AP19.md). PR #26 integriert; manuelle Abnahme separat. Checkboxen und Designlab-Auslieferung bleiben getrennte
       Pakete; Graph-Fit bleibt AP21.
 
 - [x] 20 Controls-Polish — PR #27 auf main integriert: gemeinsame Checkbox
       zentriert und dezent animiert; ThemeSwitch ohne Zusatzindikator.
       Tests und UI-Nachweise in [AP20.md](AP20.md).
 
-- [ ] 22 Graphzahlen und Wertetabelle — `feat/ap22-graph-values`: wählbare
+- [x] 22 Graphzahlen und Wertetabelle — `feat/ap22-graph-values`: wählbare
       Anzeigerundung, lokalisierte Zahlenfelder/Koordinaten und bedarfsgerechte
       Tabellenberechnung auf integriertem AP21. Vertrag und Testnachweise in
-      [GRAPH_MODE.md](GRAPH_MODE.md); Integration erst nach Merge.
+      [GRAPH_MODE.md](GRAPH_MODE.md); PR #28 integriert.
       CSV-Export, neue Rechenfeatures und implizite Kurven bleiben Folgepakete.
 
-- [ ] 23 Internes Designlab — `feat/ap23-internal-design-lab`: vier Modi im
+- [x] 23 Internes Designlab — `feat/ap23-internal-design-lab`: vier Modi im
       normalen Build, internes Lab nur in Entwicklung/ausdrücklichem Galerie-Build,
       getrennte Testziele und Pages-Schutz. Nachweise in [AP23.md](AP23.md);
-      Integration erst nach Merge. AP18 und AP20 sind in der Ausgangsbasis enthalten.
+      PR #29 integriert. AP18 und AP20 sind in der Ausgangsbasis enthalten.
 
-- [ ] 24 Dependency-Wartung — `feat/ap24-dependency-maintenance` / PR #30:
+- [x] 24 Dependency-Wartung — `feat/ap24-dependency-maintenance` / PR #30:
       kompatible Updates aus #12, Vitest-4-Patch und getrennte Dependabot-Gruppen.
       Paketmatrix, Node-/Peer-Verträge, Prüfnachweise und Folgeaufgaben
       (ESLint 10, Motion 14, jsdom 30, Vitest 5, Node-Typen 26) in
       [AP24.md](AP24.md). #12 bleibt bis zur Integration bzw. ausdrücklich
-      autorisierten Zurückstellung offen; kein automatischer Merge/Release.
+      autorisierten Zurückstellung offen; #30 ist integriert. Kein automatischer Merge/Release.
+
+- [x] 21 Stabiles Graph-Fit — PR #24 integriert (`bdc75289`),
+      einschließlich Aspektsperre und erhaltener Fit-Basis.
+- [ ] 25 Produktabnahme — gezielte Wiederverwendung der AP18–AP24-Regressionen,
+      Browser-/PWA-Integration und belegter Produktionsstand; [AP25.md](AP25.md).
+      Live-Abnahme und spätere Prüfung genau des AP25-Pages-Deploys bleiben separat.

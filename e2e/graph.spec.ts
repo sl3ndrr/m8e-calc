@@ -1,3 +1,4 @@
+import { allowClipboard } from './clipboard';
 import { test, expect, type Page } from '@playwright/test';
 async function addFunction(page: Page, input: string): Promise<void> {
   await page.getByRole('button', { name: 'Hinzufügen', exact: true }).click();
@@ -164,7 +165,7 @@ test('canvas reloads theme and accent tokens; PNG copies to the clipboard', asyn
   context,
 }) => {
   await page.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' });
-  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await allowClipboard(context);
   await page.goto('/m8e-calc/#/graph');
   await addFunction(page, 'sin(x)');
   const canvas = page.locator('canvas.graph-canvas');
@@ -194,6 +195,9 @@ test('canvas reloads theme and accent tokens; PNG copies to the clipboard', asyn
         .evaluate((element) => getComputedStyle(element).backgroundColor),
     )
     .not.toBe(color);
+  // Binary OS clipboard permissions are Chromium-only; theme assertions above
+  // still run in every engine.
+  if (context.browser()?.browserType().name() !== 'chromium') return;
   await page.getByRole('button', { name: 'PNG kopieren' }).click();
   await expect
     .poll(async () =>
@@ -428,7 +432,7 @@ test('AP21 history and permalink retain the fit basis and copy the desired anima
   context,
 }) => {
   test.setTimeout(45000);
-  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await allowClipboard(context);
   await page.goto('/m8e-calc/#/graph');
   await addFunction(page, 'x^2');
   await page

@@ -9,7 +9,7 @@ import {
  * Native zoom uses DIP coordinates in CDP; device emulation uses CSS DIP. */
 export async function captureCalculatorValue(
   viewport: Locator,
-  cdp: CDPSession,
+  cdp?: CDPSession,
 ): Promise<Buffer> {
   await viewport.locator('.calculator-value').scrollIntoViewIfNeeded();
   const visible = await viewport
@@ -60,6 +60,7 @@ export async function captureCalculatorValue(
       height: r.height,
     };
   });
+  if (!cdp) return viewport.screenshot({ animations: 'allow' });
   const layout = await cdp.send('Page.getLayoutMetrics');
   const scale =
     layout.layoutViewport.clientWidth / layout.cssLayoutViewport.clientWidth;

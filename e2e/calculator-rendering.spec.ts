@@ -1,3 +1,4 @@
+import { allowClipboard } from './clipboard';
 import { expect, test, type Page, type Locator } from '@playwright/test';
 import {
   captureCalculatorValue,
@@ -86,7 +87,8 @@ for (const [width, height, zoom, uiSize, theme, language] of [
     await page.goto('/m8e-calc/#/simple');
     await ready(page);
     const viewport = page.locator('.calculator-viewport');
-    const cdp = await context.newCDPSession(page);
+    const cdp = context.browser()?.browserType().name() === 'chromium'
+      ? await context.newCDPSession(page) : undefined;
     const heightBefore = await viewport.evaluate((n) => n.clientHeight);
     test.slow();
     const measurements = [];
@@ -380,7 +382,7 @@ for (const language of ['de', 'en'] as const) {
     page,
     context,
   }) => {
-    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    await allowClipboard(context);
     await page.addInitScript(
       (language) =>
         localStorage.setItem(

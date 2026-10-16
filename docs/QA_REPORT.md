@@ -1,4 +1,10 @@
-# Qualitätsbericht · AP15 Hardening
+# Qualitätsbericht
+
+Aktueller Integrations-/Abnahmestand: [AP25 · Produktabnahme](AP25.md).
+Die nachfolgenden Messwerte sind historische AP15-Nachweise, keine erneute
+Abnahme von AP18–AP24 oder des aktuellen Pages-Deploys.
+
+## AP15 Hardening
 
 Stand: 14.10.2026. PR: [#20 · feat/hardening](https://github.com/sl3ndrr/m8e-calc/pull/20).
 Ausgangsstand: `67d9c9688d1cc7169a73262b21e738ff09c8bcda`.

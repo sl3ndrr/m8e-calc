@@ -1,3 +1,4 @@
+import { allowClipboard } from './clipboard';
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { t } from '../src/shared/i18n';
@@ -11,8 +12,9 @@ test.beforeEach(async ({ page }) => {
   await page.locator('.convert-mode').waitFor();
 });
 test('conversion, target editing, paste, swap and keyboard shortcuts', async ({
-  page,
+  page, browserName,
 }) => {
+  test.skip(browserName !== 'chromium', 'OS paste permission is Chromium-only');
   const from = page.getByRole('textbox', {
     name: t('convert.from'),
     exact: true,
@@ -26,7 +28,7 @@ test('conversion, target editing, paste, swap and keyboard shortcuts', async ({
   await expect(from).toHaveValue('5');
   await to.fill('2');
   await expect(from).toHaveValue('3,218688');
-  await page.context().grantPermissions(['clipboard-read', 'clipboard-write']);
+  await allowClipboard(page.context());
   await from.focus();
   await from.press('Control+A');
   await page.evaluate(async () => navigator.clipboard.writeText('1.234,5'));
@@ -142,7 +144,7 @@ test('category grid arrows, copying, reduced motion and accessibility', async ({
   page,
   context,
 }) => {
-  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await allowClipboard(context);
   await page.emulateMedia({ reducedMotion: 'reduce' });
   const category = page.locator('.convert-category-grid button').first();
   await category.focus();

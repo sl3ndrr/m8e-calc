@@ -1,0 +1,38 @@
+name: AP25 acceptance evidence
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: ap25-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  evidence:
+    if: github.head_ref == 'feat/ap25-product-acceptance'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Package local formatting tools for restricted development environment
+        run: tar -czf /tmp/ap25-format-tools.tgz node_modules/prettier
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ap25-format-tools
+          path: /tmp/ap25-format-tools.tgz
+          retention-days: 1
+      - run: npm run check
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: npx playwright test e2e/product-acceptance.spec.ts e2e/pwa-update.spec.ts --project=chromium --project=firefox --project=webkit --workers=2
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap25-acceptance
+          path: |
+            test-results/
+            dist/build-info.json
+          retention-days: 14

@@ -27,7 +27,13 @@ export default defineConfig({
     },
     ...(['firefox', 'webkit'] as const).map((name) => ({
       name,
-      testMatch: '**/qa-hardening.spec.ts',
+      testMatch: [
+        '**/qa-hardening.spec.ts', '**/comfort.spec.ts', '**/ap18-ui.spec.ts',
+        '**/calculator-rendering.spec.ts', '**/simple-calculator.spec.ts',
+        '**/scientific.spec.ts', '**/convert.spec.ts', '**/currency.spec.ts',
+        '**/graph.spec.ts', '**/graph-values.spec.ts',
+        '**/product-acceptance.spec.ts', '**/pwa-update.spec.ts',
+      ],
       use: {
         ...devices[name === 'firefox' ? 'Desktop Firefox' : 'Desktop Safari'],
         locale: 'de-DE',

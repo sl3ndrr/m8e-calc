@@ -1,3 +1,4 @@
+import { allowClipboard } from './clipboard';
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { t } from '../src/shared/i18n';
@@ -86,7 +87,7 @@ test('formats, copies LaTeX, switches complex mode and stores/recalls variables'
   page,
   context,
 }) => {
-  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await allowClipboard(context);
   const editor = page.getByRole('textbox', {
     name: t('scientific.expression'),
   });

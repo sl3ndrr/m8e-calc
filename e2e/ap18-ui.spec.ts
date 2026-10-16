@@ -1,3 +1,4 @@
+import { allowClipboard } from './clipboard';
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { ready, qaModes, tabTo } from './qa-setup';
@@ -39,7 +40,7 @@ for (const locale of ['de', 'en'] as const)
           }),
         );
       }, locale);
-      await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+      await allowClipboard(context);
       await page.goto(`/m8e-calc/#/${mode}`);
       await ready(page, mode);
       const name = t(`mode.${mode}`, locale);
