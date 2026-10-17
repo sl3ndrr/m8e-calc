@@ -15,7 +15,13 @@ export default defineConfig({
     ...(['firefox', 'webkit'] as const).map((browserName) => ({
       name: `gallery-${browserName}`,
       testMatch: '**/controls-polish.spec.ts',
-      use: { browserName },
+      use: {
+        ...devices[
+          browserName === 'firefox' ? 'Desktop Firefox' : 'Desktop Safari'
+        ],
+        browserName,
+        locale: 'de-DE',
+      },
     })),
   ],
   webServer: {

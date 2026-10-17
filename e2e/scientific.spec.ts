@@ -73,12 +73,14 @@ test('insertion wraps a selection, 2nd flips functions, completion and single-li
   ).toBeVisible();
   await editor.fill('inte');
   await editor.press('Control+Space');
-  await expect(page.locator('.cm-tooltip-autocomplete')).toContainText(
-    'integral',
+  // CodeMirror retains the previous, disabled tooltip while a query is pending.
+  // Its text alone does not mean that Tab can accept the completion yet.
+  const completion = page.locator(
+    '.cm-tooltip-autocomplete:not(.cm-tooltip-autocomplete-disabled)',
   );
-  await expect(page.locator('.cm-tooltip-autocomplete')).toContainText(
-    'integral(expr, x, a, b)',
-  );
+  await expect(completion).toBeVisible();
+  await expect(completion).toContainText('integral');
+  await expect(completion).toContainText('integral(expr, x, a, b)');
   await editor.press('Tab');
   await expect(editor).toHaveText('integral(');
   await editor.press('Escape');
