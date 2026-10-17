@@ -1,6 +1,6 @@
 # Roadmap
 
-Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet integriert (Merge auf `main`); manuelle Produkt-/Pages-Abnahmen sind separat dokumentiert und werden dadurch nicht als bestanden erklärt. Stand: 17.10.2026.
+Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet integriert (Merge auf `main`); manuelle Produkt-/Pages-Abnahmen sind separat dokumentiert und werden dadurch nicht als bestanden erklärt. Stand: 18.10.2026.
 
 - [x] 1 Fundament — Toolchain, Struktur, Platzhalter, CI/Pages und Projektgedächtnis.
 - [x] 2 Theming — Material 3 Expressive, Hell/System/Dunkel, Akzentwahl, Typography-/Shape-/Motion-Fundament und `#/design` (PR `feat/theming`, Details: `DESIGN.md`).
@@ -86,8 +86,15 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       Referenz-/Fuzztests und eigenem 2D-Benchmark. Vertrag und Grenzen in
       [GRAPH.md](GRAPH.md), Teilumfang von [Issue #17](https://github.com/sl3ndrr/m8e-calc/issues/17).
       Kein Bestandteil der AP21-Autofitkorrektur; keine UI-Aktivierung in AP26.
-- [ ] 27 Implizite Kurven, Integration — `feat/ap27-implicit-ui`: echte AP26-API,
+- [x] 27 Implizite Kurven, Integration — `feat/ap27-implicit-ui`: echte AP26-API,
       Worker/Canvas/UI, gemeinsame Budgets und Diagnose; begrenzter AP21-Fit,
       explizite Sperren für Analysis/Trace/Table, kompatible textbasierte Links.
-      Vertrag und Nachweisstatus: [AP27.md](AP27.md). Issue #17 erst nach
-      erfolgreichem gemeinsamen AP26/AP27-Nachweis abschließend bewerten.
+      PR #42 integriert (`8eb32f1`); Vertrag und Nachweisstatus:
+      [AP27.md](AP27.md). Der separate wiederkehrende 4K-FPS-Befund ist AP28 / #43.
+
+- [ ] 28 Graphperformance stabilisieren — `feat/ap28-graph-performance`,
+      [Issue #43](https://github.com/sl3ndrr/m8e-calc/issues/43): feste Vergleichsfenster,
+      Render-/rAF-/Worker-/Kompositionsdiagnose und begrenzte Drag-Samplingfrist.
+      Grenzen von 55 FPS und 16,67 ms bleiben erhalten. Rohdaten, Regression-
+      Kontrollen und tatsächliche CI-Abnahme: [AP28.md](AP28.md). Integration
+      erst nach Review/Merge; keine vorgezogene physische GPU-Abnahme.

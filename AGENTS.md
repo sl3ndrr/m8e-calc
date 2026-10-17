@@ -205,3 +205,15 @@ synchrones 2D-Fallback. PNG übernimmt die dargestellten akzeptierten Polylinien
 Implizite Analysis/Trace/Table sind explizit gesperrt; Fit verwendet die stabile
 AP21-Basis ohne rekursive Suche. Speicherung bleibt textbasiert in Plot-Version 1
 und Link-Umschlag v=1; keine Datenmigration. Vertrag/Nachweise: [docs/AP27.md](docs/AP27.md).
+
+## AP28 · Graphperformance
+
+Drag-Sampling im Canvasadapter verwendet eine feste 90-ms-Frist, die weitere
+Moves nicht nach hinten verschieben. Jeder Move entwertet weiterhin veraltete
+Antworten; direktes Sampling räumt die Frist auf. Dirty-Rendering, AP21-Fit,
+Workerprotokoll und deterministische Domänenbudgets bleiben erhalten.
+`playwright.ap28.config.ts` prüft begrenzte Referenz-/Panfenster und absichtlich
+langsame Draw-/Main-Thread-Fälle, allein und ohne Retries. Die bestehenden
+55-FPS-/16,67-ms-Grenzen gelten weiter; Canvas-Aufrufzeit ist kein Nachweis für
+60 physische Bilder pro Sekunde. Vergleich, Rohmessungen, Runner und tatsächlich
+abgeschlossene Gates: [docs/AP28.md](docs/AP28.md).

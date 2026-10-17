@@ -4,6 +4,12 @@ Aktueller Integrations-/Abnahmestand: [AP25 · Produktabnahme](AP25.md).
 Die nachfolgenden Messwerte sind historische AP15-Nachweise, keine erneute
 Abnahme von AP18–AP24 oder des aktuellen Pages-Deploys.
 
+Der wiederkehrende 4K-Graphbefund wird separat in [AP28.md](AP28.md) untersucht:
+Canvas-Aufrufdauer, rAF, Workerlast und Software-Komposition sind getrennte
+Messgrößen. AP28 erhält die 55-FPS-/16,67-ms-Grenzen und ergänzt feste Referenzen
+mit absichtlichen Verlangsamungen; frühere grüne Läufe ersetzen den finalen
+PR-HEAD-Nachweis nicht.
+
 ## AP15 Hardening
 
 Stand: 14.10.2026. PR: [#20 · feat/hardening](https://github.com/sl3ndrr/m8e-calc/pull/20).

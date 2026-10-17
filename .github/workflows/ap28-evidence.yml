@@ -1,17 +1,24 @@
 name: AP28 graph performance evidence
 on:
-  push:
-    branches: [feat/ap28-graph-performance]
   pull_request:
     branches: [main]
+    paths:
+      - 'src/graph/**'
+      - 'src/features/graph/**'
+      - 'e2e/graph*.ts'
+      - 'e2e/ap28-diagnostic.spec.ts'
+      - 'playwright*.ts'
+      - 'package*.json'
+      - '.nvmrc'
+      - '.github/workflows/ap28-evidence.yml'
+      - 'docs/AP28.md'
 permissions:
   contents: read
 concurrency:
-  group: ap28-${{ github.head_ref || github.ref }}
+  group: ap28-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   evidence:
-    if: github.head_ref == 'feat/ap28-graph-performance' || github.ref == 'refs/heads/feat/ap28-graph-performance'
     runs-on: ubuntu-latest
     env:
       AP28_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}

@@ -149,7 +149,9 @@ async function windowMeasurement(
         longTasks: probe.longTasks.length,
       };
       const intervals: number[] = [];
+      const legacyStart = performance.now();
       let last = await new Promise<number>((r) => requestAnimationFrame(r));
+      const legacyFirstInterval = last - legacyStart;
       for (let i = 0; i < count; i++) {
         const now = await new Promise<number>((r) => requestAnimationFrame(r));
         intervals.push(now - last);
@@ -179,6 +181,11 @@ async function windowMeasurement(
         : [];
       const sorted = renderMs.slice().sort((a, b) => a - b);
       const average = intervals.reduce((a, b) => a + b, 0) / intervals.length;
+      const legacyAverage =
+        (legacyFirstInterval +
+          intervals.slice(0, -1).reduce((a, b) => a + b, 0)) /
+        intervals.length;
+      const legacySorted = after.renderMs.slice().sort((a, b) => a - b);
       return {
         intervals,
         renderMs,
@@ -186,6 +193,9 @@ async function windowMeasurement(
         renderP95Ms: sorted[Math.floor(sorted.length * 0.95)] ?? 0,
         rafAverageMs: average,
         observedRafFps: 1000 / average,
+        legacyObservedRafFps: 1000 / legacyAverage,
+        legacyRenderP95Ms:
+          legacySorted[Math.floor(legacySorted.length * 0.95)] ?? 0,
         workerPosts: probe.posts - initial.posts,
         workerReplies: probe.replies - initial.replies,
         workerMs: probe.workerMs.slice(initial.workers),
@@ -325,6 +335,8 @@ test('AP28 fixed graph references and regression controls', async ({
         expect(m.workerPosts).toBeGreaterThan(5);
         expect(m.renderP95Ms).toBeLessThan(16.67);
         expect(m.observedRafFps).toBeGreaterThanOrEqual(55);
+        expect(m.legacyObservedRafFps).toBeGreaterThanOrEqual(55);
+        expect(m.legacyRenderP95Ms).toBeLessThan(16.67);
       }
     }
   }
@@ -334,6 +346,9 @@ test('AP28 fixed graph references and regression controls', async ({
   const slowMain = runs.find((r) => r.name === 'slow-main-25ms')?.measurement;
   expect(slowRender?.renderP95Ms).toBeGreaterThan(16.67);
   expect(slowRender?.observedRafFps).toBeLessThan(55);
+  expect(slowRender?.legacyObservedRafFps).toBeLessThan(55);
+  expect(slowRender?.legacyRenderP95Ms).toBeGreaterThan(16.67);
   expect(slowMain?.observedRafFps).toBeLessThan(55);
+  expect(slowMain?.legacyObservedRafFps).toBeLessThan(55);
   expect(slowMain?.renderP95Ms).toBeLessThan(16.67);
 });
