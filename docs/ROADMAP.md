@@ -76,6 +76,18 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       [AP24.md](AP24.md). #30 ist integriert; der ersetzte Update-PR #12
       wurde am 16.10.2026 nach diesem Merge geschlossen. Kein automatischer Merge/Release.
 
-- [ ] 25 Produktabnahme — gezielte Wiederverwendung der AP18–AP24-Regressionen,
+- [x] 25 Produktabnahme — PR #40 auf main integriert (`5b1c5a9`): gezielte Wiederverwendung der AP18–AP24-Regressionen,
       Browser-/PWA-Integration und belegter Produktionsstand; [AP25.md](AP25.md).
       Live-Abnahme und spätere Prüfung genau des AP25-Pages-Deploys bleiben separat.
+
+- [ ] 26 Implizite Kurven, Domäne (optional) — `feat/ap26-implicit-domain`:
+      separater Float64-Compiler und adaptives Marching Squares mit gemeinsamen
+      Zellrändern, asymptotischem Sattel-Decider, Diagnosen, Arbeitsgrenzen,
+      Referenz-/Fuzztests und eigenem 2D-Benchmark. Vertrag und Grenzen in
+      [GRAPH.md](GRAPH.md), Teilumfang von [Issue #17](https://github.com/sl3ndrr/m8e-calc/issues/17).
+      Kein Bestandteil der AP21-Autofitkorrektur; keine UI-Aktivierung in AP26.
+- [ ] 27 Implizite Kurven, Integration — Worker, Canvas-/UI-Dispatch,
+      Plot-Satz-/Restore-Vertrag und bewusstes Verhalten von Analysis, Trace,
+      Fit und Wertetabelle auf AP26 aufbauen. Öffentliche Eingaben bleiben bis
+      dahin ausdrücklich unsupported. Issue #17 erst nach dieser Integration
+      abschließend bewerten.

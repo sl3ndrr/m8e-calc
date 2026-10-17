@@ -1,0 +1,437 @@
+{
+  "node": "v24.19.0",
+  "pixelSize": {
+    "width": 1280,
+    "height": 720
+  },
+  "criteria": {
+    "discoveryPixels": 8,
+    "tolerancePixels": 0.25
+  },
+  "budgets": {
+    "maxCells": 200000,
+    "maxEvaluations": 1000000,
+    "maxSamples": 400000,
+    "maxDepth": 10,
+    "maxSegments": 50000
+  },
+  "warmupIterations": 2,
+  "iterations": 5,
+  "targetMilliseconds": 250,
+  "regressionLimitMilliseconds": 1500,
+  "results": [
+    {
+      "source": "x^2+y^2=4",
+      "bounds": {
+        "xMin": -3,
+        "xMax": 3,
+        "yMin": -3,
+        "yMax": 3
+      },
+      "meanMilliseconds": 224.92290679999996,
+      "evaluations": 101055,
+      "segments": 1,
+      "status": "contours",
+      "limits": [],
+      "cells": 19320,
+      "leaves": 14720,
+      "cachedSamples": 59385,
+      "outputEdges": 336,
+      "deepestLevel": 2,
+      "nonFiniteEvaluations": 0,
+      "rejectedEdges": 0,
+      "unresolvedCells": 0,
+      "zeroCells": 0,
+      "saddleCells": 0,
+      "transitionCells": 0,
+      "maxEstimatedErrorPixels": 0.057802637954155515
+    },
+    {
+      "source": "x^2/4+y^2=1",
+      "bounds": {
+        "xMin": -3,
+        "xMax": 3,
+        "yMin": -3,
+        "yMax": 3
+      },
+      "meanMilliseconds": 138.45568859999995,
+      "evaluations": 94069,
+      "segments": 1,
+      "status": "contours",
+      "limits": [],
+      "cells": 19320,
+      "leaves": 14720,
+      "cachedSamples": 59385,
+      "outputEdges": 276,
+      "deepestLevel": 2,
+      "nonFiniteEvaluations": 0,
+      "rejectedEdges": 0,
+      "unresolvedCells": 0,
+      "zeroCells": 0,
+      "saddleCells": 0,
+      "transitionCells": 0,
+      "maxEstimatedErrorPixels": 0.22581091732278805
+    },
+    {
+      "source": "x*y=1",
+      "bounds": {
+        "xMin": -3,
+        "xMax": 3,
+        "yMin": -3,
+        "yMax": 3
+      },
+      "meanMilliseconds": 122.24004100000002,
+      "evaluations": 87629,
+      "segments": 2,
+      "status": "contours",
+      "limits": [],
+      "cells": 19320,
+      "leaves": 14720,
+      "cachedSamples": 59385,
+      "outputEdges": 224,
+      "deepestLevel": 2,
+      "nonFiniteEvaluations": 0,
+      "rejectedEdges": 0,
+      "unresolvedCells": 0,
+      "zeroCells": 0,
+      "saddleCells": 0,
+      "transitionCells": 0,
+      "maxEstimatedErrorPixels": 0.05025914482499345
+    },
+    {
+      "source": "(x-.123)*(y-.234)=0",
+      "bounds": {
+        "xMin": -3,
+        "xMax": 3,
+        "yMin": -3,
+        "yMax": 3
+      },
+      "meanMilliseconds": 139.6327636,
+      "evaluations": 91901,
+      "segments": 4,
+      "status": "contours",
+      "limits": [],
+      "cells": 19320,
+      "leaves": 14720,
+      "cachedSamples": 59385,
+      "outputEdges": 254,
+      "deepestLevel": 2,
+      "nonFiniteEvaluations": 0,
+      "rejectedEdges": 0,
+      "unresolvedCells": 0,
+      "zeroCells": 0,
+      "saddleCells": 1,
+      "transitionCells": 0,
+      "maxEstimatedErrorPixels": 0
+    },
+    {
+      "source": "(x-.123)*y=0",
+      "bounds": {
+        "xMin": -3,
+        "xMax": 3,
+        "yMin": -3,
+        "yMax": 3
+      },
+      "meanMilliseconds": 123.3357938000001,
+      "evaluations": 90985,
+      "segments": 4,
+      "status": "contours",
+      "limits": [],
+      "cells": 19320,
+      "leaves": 14720,
+      "cachedSamples": 59385,
+      "outputEdges": 253,
+      "deepestLevel": 2,
+      "nonFiniteEvaluations": 0,
+      "rejectedEdges": 0,
+      "unresolvedCells": 0,
+      "zeroCells": 0,
+      "saddleCells": 0,
+      "transitionCells": 0,
+      "maxEstimatedErrorPixels": 0
+    },
+    {
+      "source": "y*(x+y-.123)=0",
+      "bounds": {
+        "xMin": -3,
+        "xMax": 3,
+        "yMin": -3,
+        "yMax": 3
+      },
+      "meanMilliseconds": 136.30803560000004,
+      "evaluations": 110993,
+      "segments": 4,
+      "status": "contours",
+      "limits": [],
+      "cells": 19320,
+      "leaves": 14720,
+      "cachedSamples": 59385,
+      "outputEdges": 408,
+      "deepestLevel": 2,
+      "nonFiniteEvaluations": 0,
+      "rejectedEdges": 0,
+      "unresolvedCells": 0,
+      "zeroCells": 0,
+      "saddleCells": 0,
+      "transitionCells": 0,
+      "maxEstimatedErrorPixels": 6.967031248913688e-14
+    },
+    {
+      "source": "(x^2+y^2-1)*((x-1.7)^2+y^2-.16)=0",
+      "bounds": {
+        "xMin": -3,
+        "xMax": 3,
+        "yMin": -3,
+        "yMax": 3
+      },
+      "meanMilliseconds": 144.073409,
+      "evaluations": 92247,
+      "segments": 2,
+      "status": "contours",
+      "limits": [],
+      "cells": 19352,
+      "leaves": 14744,
+      "cachedSamples": 59505,
+      "outputEdges": 250,
+      "deepestLevel": 3,
+      "nonFiniteEvaluations": 0,
+      "rejectedEdges": 0,
+      "unresolvedCells": 0,
+      "zeroCells": 0,
+      "saddleCells": 0,
+      "transitionCells": 10,
+      "maxEstimatedErrorPixels": 0.21910716760690005
+    },
+    {
+      "source": "((x-.4)^2+(y-.43)^2-(6/720)^2)*((x-.42)^2+(y-.43)^2-(6/720)^2)=0",
+      "bounds": {
+        "xMin": 0,
+        "xMax": 1,
+        "yMin": 0,
+        "yMax": 1
+      },
+      "meanMilliseconds": 137.95914919999996,
+      "evaluations": 67527,
+      "segments": 2,
+      "status": "contours",
+      "limits": [],
+      "cells": 19392,
+      "leaves": 14774,
+      "cachedSamples": 59653,
+      "outputEdges": 45,
+      "deepestLevel": 4,
+      "nonFiniteEvaluations": 0,
+      "rejectedEdges": 0,
+      "unresolvedCells": 0,
+      "zeroCells": 0,
+      "saddleCells": 0,
+      "transitionCells": 10,
+      "maxEstimatedErrorPixels": 0.18707770818072966
+    },
+    {
+      "source": "1/(x-.123)=0",
+      "bounds": {
+        "xMin": -3,
+        "xMax": 3,
+        "yMin": -3,
+        "yMax": 3
+      },
+      "meanMilliseconds": 221.36722539999974,
+      "evaluations": 151541,
+      "segments": 0,
+      "status": "unresolved",
+      "limits": [],
+      "cells": 30728,
+      "leaves": 23276,
+      "cachedSamples": 99323,
+      "outputEdges": 0,
+      "deepestLevel": 7,
+      "nonFiniteEvaluations": 0,
+      "rejectedEdges": 5802,
+      "unresolvedCells": 2944,
+      "zeroCells": 0,
+      "saddleCells": 0,
+      "transitionCells": 0,
+      "maxEstimatedErrorPixels": 0
+    },
+    {
+      "source": "sqrt(x)+y=0",
+      "bounds": {
+        "xMin": -3,
+        "xMax": 3,
+        "yMin": -3,
+        "yMax": 3
+      },
+      "meanMilliseconds": 193.64638599999998,
+      "evaluations": 113811,
+      "segments": 1,
+      "status": "contours",
+      "limits": [],
+      "cells": 30756,
+      "leaves": 23297,
+      "cachedSamples": 99417,
+      "outputEdges": 109,
+      "deepestLevel": 7,
+      "nonFiniteEvaluations": 63844,
+      "rejectedEdges": 0,
+      "unresolvedCells": 2947,
+      "zeroCells": 0,
+      "saddleCells": 0,
+      "transitionCells": 7,
+      "maxEstimatedErrorPixels": 0.21829425649993503
+    }
+  ],
+  "baseCommit": "5b1c5a92087170b9ff33a963e47b9bf440256d77",
+  "measurement": "Local Node 24, 2026-10-17; benchmark ran directly; npm ci/check/Vitest unavailable locally because package downloads returned HTTP 403.",
+  "unchanged1d": {
+    "pixelSize": {
+      "width": 2560,
+      "height": 1440
+    },
+    "baseline": [
+      {
+        "source": "sin(x)",
+        "meanMilliseconds": 0.6139600399999995,
+        "fitMeanMilliseconds": 0.11433463999999958,
+        "evaluations": 1281,
+        "segments": 1
+      },
+      {
+        "source": "1/x",
+        "meanMilliseconds": 0.8254035750000003,
+        "fitMeanMilliseconds": 0.07294924499999979,
+        "evaluations": 2817,
+        "segments": 2
+      },
+      {
+        "source": "tan(x)",
+        "meanMilliseconds": 2.603798375,
+        "fitMeanMilliseconds": 0.1227359100000001,
+        "evaluations": 6921,
+        "segments": 5
+      },
+      {
+        "source": "abs(x)",
+        "meanMilliseconds": 0.31485443499999977,
+        "fitMeanMilliseconds": 0.10417442499999993,
+        "evaluations": 1281,
+        "segments": 1
+      },
+      {
+        "source": "x^x",
+        "meanMilliseconds": 0.5441459450000002,
+        "fitMeanMilliseconds": 0.059048649999999724,
+        "evaluations": 2427,
+        "segments": 1
+      },
+      {
+        "source": "sqrt(x)",
+        "meanMilliseconds": 0.2584686149999993,
+        "fitMeanMilliseconds": 0.03989150500000051,
+        "evaluations": 1437,
+        "segments": 1
+      },
+      {
+        "source": "ln(x)",
+        "meanMilliseconds": 0.4762211700000012,
+        "fitMeanMilliseconds": 0.04129443999999921,
+        "evaluations": 1953,
+        "segments": 1
+      },
+      {
+        "source": "(cos(t),sin(t))",
+        "meanMilliseconds": 0.5267438399999992,
+        "fitMeanMilliseconds": 0.1874224900000013,
+        "evaluations": 1281,
+        "segments": 1
+      },
+      {
+        "source": "r=1+cos(theta)",
+        "meanMilliseconds": 0.5417304650000005,
+        "fitMeanMilliseconds": 0.15482821000000058,
+        "evaluations": 1281,
+        "segments": 1
+      },
+      {
+        "source": "(sin(3*t),sin(2*t))",
+        "meanMilliseconds": 0.8401952800000003,
+        "fitMeanMilliseconds": 0.22226638000000093,
+        "evaluations": 1281,
+        "segments": 1
+      }
+    ],
+    "after": [
+      {
+        "source": "sin(x)",
+        "meanMilliseconds": 0.9178899899999999,
+        "fitMeanMilliseconds": 0.622047705,
+        "evaluations": 1281,
+        "segments": 1
+      },
+      {
+        "source": "1/x",
+        "meanMilliseconds": 1.2819127350000008,
+        "fitMeanMilliseconds": 0.04759927500000003,
+        "evaluations": 2817,
+        "segments": 2
+      },
+      {
+        "source": "tan(x)",
+        "meanMilliseconds": 1.933933424999999,
+        "fitMeanMilliseconds": 0.08329022000000123,
+        "evaluations": 6921,
+        "segments": 5
+      },
+      {
+        "source": "abs(x)",
+        "meanMilliseconds": 0.22063775500000019,
+        "fitMeanMilliseconds": 0.06080598499999951,
+        "evaluations": 1281,
+        "segments": 1
+      },
+      {
+        "source": "x^x",
+        "meanMilliseconds": 0.3097960450000005,
+        "fitMeanMilliseconds": 0.033926790000000435,
+        "evaluations": 2427,
+        "segments": 1
+      },
+      {
+        "source": "sqrt(x)",
+        "meanMilliseconds": 0.14125995500000044,
+        "fitMeanMilliseconds": 0.02585876499999813,
+        "evaluations": 1437,
+        "segments": 1
+      },
+      {
+        "source": "ln(x)",
+        "meanMilliseconds": 0.2340187549999996,
+        "fitMeanMilliseconds": 0.04811663499999895,
+        "evaluations": 1953,
+        "segments": 1
+      },
+      {
+        "source": "(cos(t),sin(t))",
+        "meanMilliseconds": 0.3351951050000002,
+        "fitMeanMilliseconds": 0.16585636999999906,
+        "evaluations": 1281,
+        "segments": 1
+      },
+      {
+        "source": "r=1+cos(theta)",
+        "meanMilliseconds": 0.3189672399999995,
+        "fitMeanMilliseconds": 0.09007178500000008,
+        "evaluations": 1281,
+        "segments": 1
+      },
+      {
+        "source": "(sin(3*t),sin(2*t))",
+        "meanMilliseconds": 0.35442379999999957,
+        "fitMeanMilliseconds": 0.1318757450000021,
+        "evaluations": 1281,
+        "segments": 1
+      }
+    ],
+    "note": "Unmodified 1D sampler/fit implementation; sequential microbenchmarks, not a statistical speedup claim."
+  }
+}
