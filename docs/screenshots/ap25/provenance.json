@@ -1,0 +1,83 @@
+{
+  "headCommit": "bb5096de9059df78a9beb309cd5fc0cc89139972",
+  "buildCommit": "cc627a1bfc1d98b1698e11cde13621cc233adfeb",
+  "environment": {
+    "sourceCommit": "cc627a1bfc1d98b1698e11cde13621cc233adfeb",
+    "headCommit": "bb5096de9059df78a9beb309cd5fc0cc89139972",
+    "node": "v24.21.0",
+    "platform": "linux",
+    "arch": "x64",
+    "playwright": "1.64.0",
+    "runner": "ubuntu24",
+    "imageVersion": "20261012.334.1"
+  },
+  "note": "Unmodified original CI screenshot bytes. Press screenshot pauses the real transition at its midpoint, then resumes; separate rAF samples prove motion. PNG pixels may differ from CSS pixels (WebKit DPR2).",
+  "images": [
+    {
+      "file": "simple-9-1280-chromium.png",
+      "runId": 38980823580,
+      "artifactId": 12080913735,
+      "sourceArtifactPath": "test-results/ap25/browser/product-acceptance-AP25-integrated-matrix-1280-de-light-full-chromium/simple-1280-de-light-full.png",
+      "sha256": "6849c67be4aed63c4f58d03a6daa062e28063550104ca408e4e126a70bf59b9f",
+      "pngPixels": [1280, 800]
+    },
+    {
+      "file": "scientific-en-1280-webkit.png",
+      "runId": 38980823580,
+      "artifactId": 12080913735,
+      "sourceArtifactPath": "test-results/ap25/browser/product-acceptance-AP25-in-99b42-matrix-1280-en-dark-reduced-webkit/scientific-1280-en-dark-reduced.png",
+      "sha256": "19800330017091245cdebdaeb5e001c8fbadc45eba1872ecf6f8141c2ceda292",
+      "pngPixels": [2560, 1600]
+    },
+    {
+      "file": "graph-dark-1920-firefox.png",
+      "runId": 38980823580,
+      "artifactId": 12080913735,
+      "sourceArtifactPath": "test-results/ap25/browser/product-acceptance-AP25-integrated-matrix-1920-de-dark-off-firefox/graph-1920-de-dark-off.png",
+      "sha256": "124a75a5e9f377fc1dbe5e011b5e76a3a956bd0a9b1c0975890df08e1b412ad1",
+      "pngPixels": [1920, 1080]
+    },
+    {
+      "file": "convert-1920-chromium.png",
+      "runId": 38980823580,
+      "artifactId": 12080913735,
+      "sourceArtifactPath": "test-results/ap25/browser/product-acceptance-AP25-integrated-matrix-1920-en-light-full-chromium/convert-1920-en-light-full.png",
+      "sha256": "df9a1173b7f4908baaf8a44728b3fb766b1fb56bb940d0682dced1640bb24358",
+      "pngPixels": [1920, 1080]
+    },
+    {
+      "file": "pwa-update-webkit.png",
+      "runId": 38980823580,
+      "artifactId": 12080913735,
+      "sourceArtifactPath": "test-results/ap25/browser/pwa-update-AP25-production-d72e3-mple-then-all-modes-offline-webkit/update-offer.png",
+      "sha256": "d2e7c6c0b78f31072bc5af2976f29f3be863d12d41b129f397a007766dbb228b",
+      "pngPixels": [2560, 1440]
+    },
+    {
+      "file": "operator-plus-pressed-chromium.png",
+      "runId": 38980823552,
+      "artifactId": 12080473862,
+      "sourceArtifactPath": "browser-results.json",
+      "attachment": "mouse-+",
+      "test": "operator plus shapes survive live mouse, global keyboard and React Aria press frames",
+      "sha256": "47a2a0c64ffd94883ddc599164717a15a96271cc9a8638e8ea213d4a1aaeba3c",
+      "pngPixels": [1920, 1080]
+    },
+    {
+      "file": "checkbox-dark-chromium.png",
+      "runId": 38980823748,
+      "artifactId": 12081541529,
+      "sourceArtifactPath": "test-results/gallery/controls-polish-checkbox-states-and-theme-symbols-dark-gallery/checkbox-dark.png",
+      "target": "gallery",
+      "sha256": "16e25fa8ad09091e4893771a6f5a5ff5de0da2349b32e83bdd7919968518d40a",
+      "pngPixels": [1178, 288]
+    }
+  ],
+  "motionEvidence": {
+    "file": "operator-plus-live-frames.json",
+    "runId": 38980823552,
+    "artifactId": 12080473862,
+    "sourceArtifactPath": "calculator-rendering-opera-004e7-and-React-Aria-press-frames-chromium/live-frames.json",
+    "note": "Numeric samples preserved; JSON whitespace formatted for repository checks."
+  }
+}

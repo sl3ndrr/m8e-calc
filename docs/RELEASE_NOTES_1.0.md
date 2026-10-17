@@ -32,8 +32,8 @@ Live-Grenzen stehen in [AP25.md](AP25.md). Der Merge der Releasevorbereitung
 #21 erteilt keine Lizenz-, Tag- oder Releasefreigabe.
 
 Numerische Analysis ist näherungsweise. Implizite Kurven (#17), Touch-Pinch,
-physischer Screenreader, echter Browser-Menüzoom und GPU-/Langzeitabnahmen
-bleiben offen. Währungen (AP17) sind nicht enthalten. Die Release-Vorbereitung
+physischer Screenreader, manuell bedienter Browser-Menüzoom und physische GPU-/Langzeitabnahmen
+bleiben offen. Optionale Währungen (AP17) sind integriert und standardmäßig deaktiviert. Die Release-Vorbereitung
 selbst ergänzt keine Produktfunktion.
 
 ## Lizenz
@@ -47,5 +47,6 @@ Bibliotheken und Fonts behalten ihre jeweiligen Lizenzen.
 The first prepared release includes simple and scientific calculation,
 programmer tools, unit conversion and interactive 2D graphs. It runs locally
 in your browser, supports German/English and offline use, and contains no
-trackers or external runtime services. This is a draft; publication and the
+trackers. Optional ECB reference rates require explicit consent; without opt-in
+there are no currency requests. This is a draft; publication and the
 proposed MIT license still require the owner's confirmation.

@@ -26,7 +26,8 @@ Ausgaben in `docs/img/`:
 
 Die Bilder vor dem Commit visuell prüfen. Sie sind Dokumentationsbilder;
 die unabhängigen visuellen QA-Referenzen unter `e2e/` werden nicht ersetzt.
-Aktuelle Produktansichten stehen im README sowie den Architektur-/Modus-Dokumenten. Die verlinkten Komfortaufnahmen unter `docs/screenshots/` stammen aus Hardening-CI `38593558518` auf dem damaligen Produktcode; unverlinkte ältere AP-Bilder bleiben historische Belege.
+Die eingecheckten README-Bilder stammen aus AP16; aktuelle AP25-Abnahmebilder
+mit geprüftem SHA stehen in [AP25.md](AP25.md). Die verlinkten Komfortaufnahmen unter `docs/screenshots/` stammen aus Hardening-CI `38593558518` auf dem damaligen Produktcode; unverlinkte ältere AP-Bilder bleiben historische Belege.
 Die CI erzeugt Release-Bilder als separates Artefakt zur Reproduktion.
 
 ## Vor Veröffentlichung

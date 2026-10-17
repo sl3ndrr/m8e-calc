@@ -111,13 +111,13 @@ Property-Tests laufen im Gesamtcheck weiter.
 
 ## Verbleibende Risiken / Folgeabnahme
 
-| Priorität | Status / Risiko                                                                                                                                                                                                                                                                                                                          |
-| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| P1        | **Nach Merge** die tatsächliche [Pages-Seite](https://sl3ndrr.github.io/m8e-calc/) manuell durchspielen. AGENTS.md erlaubt keinen automatischen Merge. Ein Merge-Trigger für genau PR #20 startet die beauftragte Pages-Abnahme und Anlage tatsächlicher Folge-Issues. Keine hypothetischen Issues oder vorgezogene Produktionsfreigabe. |
-| P2        | Physischer Screenreader, echter Browser-Menüzoom bis 200%, 4K/GPU und langfristige Nutzung werden durch Headless-Checks nicht vollständig nachgewiesen.                                                                                                                                                                                  |
-| P2        | CSP benötigt `style-src 'unsafe-inline'` für CodeMirror, React Aria und DOM-Animationen. Script-Regeln bleiben strikt. Meta-CSP kann `frame-ancestors` nicht durchsetzen; Pages stellt hier keine frei konfigurierbaren Header bereit.                                                                                                   |
-| P2        | Event Timing und Heap-Schwellen sind Laborindikatoren; reale INP-Verteilung und sehr lange Sitzungen bleiben gesondert zu beobachten.                                                                                                                                                                                                    |
-| P3        | Das Startbudget hat nur rund 2,4 kB Reserve. CI muss bei jeder Änderung die vollständige statische Importmenge kontrollieren.                                                                                                                                                                                                            |
+| Priorität | Status / Risiko                                                                                                                                                                                                                                                                             |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| P1        | AP18–AP24 sind integriert; Pages bestätigt den Deploy `de6b502…`. Die interaktive Live-Abnahme ist hier weiterhin blockiert und #22 bleibt offen. Konkrete Deploy-/Prüfnachweise und nächste Schritte: [AP25](AP25.md). Kein automatischer Merge und keine vorgezogene Produktionsfreigabe. |
+| P2        | Physischer Screenreader, echter Browser-Menüzoom bis 200%, 4K/GPU und langfristige Nutzung werden durch Headless-Checks nicht vollständig nachgewiesen.                                                                                                                                     |
+| P2        | CSP benötigt `style-src 'unsafe-inline'` für CodeMirror, React Aria und DOM-Animationen. Script-Regeln bleiben strikt. Meta-CSP kann `frame-ancestors` nicht durchsetzen; Pages stellt hier keine frei konfigurierbaren Header bereit.                                                      |
+| P2        | Event Timing und Heap-Schwellen sind Laborindikatoren; reale INP-Verteilung und sehr lange Sitzungen bleiben gesondert zu beobachten.                                                                                                                                                       |
+| P3        | Das Startbudget hat nur rund 2,4 kB Reserve. CI muss bei jeder Änderung die vollständige statische Importmenge kontrollieren.                                                                                                                                                               |
 
 Ein früherer kalter Lighthouse-Einzellauf des Einfach-Modus lag bei Performance 73
 (TBT 664 ms), die beiden anderen bei 100. Median-Gate und alle anderen Modi sind
@@ -127,7 +127,7 @@ Pages-Abnahme erneut zu prüfen. Die PWA precacht weiterhin alle Modi/Fonts/Work
 für Offline-Nutzung im Hintergrund. Dieses zusätzliche Transferbudget gehört
 nicht zum ausgewiesenen statischen JS-Startgraphen.
 
-Nach dem Merge: Deploy-SHA notieren, vier Kernabläufe und Fehlerpfade, Palette,
+Für den nächsten freigegebenen Stand nach Merge: Deploy-SHA notieren, vier Kernabläufe und Fehlerpfade, Palette,
 Verlauf/Undo/Export, Dialogfokus, Hell/Dunkel/Seeds, Reload/Offline und Assetpfade
 in allen drei Browsern manuell prüfen. Tatsächliche Abweichungen als Issues mit
 Priorität, Browser/Version, Deploy-SHA, Schritten, Erwartung und Screenshot erfassen.

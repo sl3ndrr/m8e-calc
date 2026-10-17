@@ -178,6 +178,10 @@ vorherige Cache-Identität desselben Produktionsworkers, keinen behaupteten alte
 Deploy. Chromium prüft die OS-Zwischenablage; Firefox/WebKit verwenden für
 Textkopierverträge einen gekennzeichneten In-Memory-Adapter. Native Paste- und
 PNG-Zwischenablage bleiben Chromium-Prüfungen.
+Feature-/Controls-Zustandsprüfungen blockieren den SW; integrierte Matrix,
+Comfort-Offline und PWA-Update behalten den echten Worker. Ein sichtbarer, aktiver
+CodeMirror-Vorschlag ist Voraussetzung vor Tab; erhaltener Tooltiptext allein
+belegt keine Bereitschaft. Galerieprojekte verwenden eigene Browserprofile.
 `build-info.json` enthält passiv CI-Commit und Buildziel; ohne `GITHUB_SHA`
 steht der Commit auf `null`. Kein App-Request und keine sichtbare Entwickler-UI.
 Abnahme mit SHA, tatsächlichen Läufen und offenen Live-Grenzen: `docs/AP25.md`.

@@ -18,6 +18,11 @@ Alle wesentlichen Änderungen werden hier dokumentiert. Das Format folgt
 
 ## [1.0.0] – Veröffentlichung vorbereitet, noch nicht veröffentlicht
 
+AP16-Vorbereitungsstand. Seither integrierte, noch nicht als GitHub Release
+veröffentlichte Änderungen stehen unter „Unreleased“. Ein erfolgreicher
+Pages-Deploy ist davon getrennt. Vor tatsächlichem Tag/Release diese
+Abschnitte zusammenführen und Datum/Versionsumfang ausdrücklich freigeben.
+
 ### Added
 
 - Vier Modi: Einfach, Wissenschaftlich mit Informatik-Panel, Einheitenumrechner und interaktive 2D-Graphen.

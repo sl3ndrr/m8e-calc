@@ -15,11 +15,15 @@ Ein Taschenrechner für den Desktop-Browser: vom schnellen Dreisatz bis zu wisse
 
 Alle Modi teilen Verlauf mit Suche, Pins und JSON-Export, Befehlspalette, Permalinks und Einstellungen. Hell/System/Dunkel, Akzentfarbe, UI-Größe und Präsentationsmodus passen die Arbeitsfläche an. Nach dem ersten vollständigen Laden ist die App offline nutzbar; unterstützte Browser bieten eine PWA-Installation an.
 
-Numerische Analysis ist näherungsweise. Genauigkeitsgrenzen stehen in [ENGINE.md](docs/ENGINE.md) und [GRAPH.md](docs/GRAPH.md). Implizite Kurven und Währungskurse sind noch nicht enthalten.
+Numerische Analysis ist näherungsweise. Genauigkeitsgrenzen stehen in [ENGINE.md](docs/ENGINE.md) und [GRAPH.md](docs/GRAPH.md). Implizite Kurven bleiben Folgearbeit. Optionale EZB-Währungskurse sind nach
+ausdrücklichem Opt-in verfügbar; ohne Zustimmung erfolgen keine Währungsrequests.
 
 ## Screenshots
 
-Aktuelle App-Aufnahmen mit deutschen Beispielrechnungen, jeweils **2560 × 1440**, mit `npm run screenshots` erzeugt. Weitere Modi: [Bildverzeichnis](docs/img).
+Dokumentationsaufnahmen aus der Releasevorbereitung AP16 mit deutschen
+Beispielrechnungen, jeweils **2560 × 1440**, reproduzierbar mit `npm run screenshots`.
+Aktuelle Abnahmebilder und ihr geprüfter SHA: [AP25](docs/AP25.md).
+Weitere Modi: [Bildverzeichnis](docs/img).
 
 | Hell                                                                          | Dunkel                                                                        |
 | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
@@ -106,11 +110,17 @@ Einstieg: [ARCHITECTURE.md](docs/ARCHITECTURE.md), [Produkt](docs/PRODUCT_SPEC.m
 
 ## Datenschutz
 
-Keine Tracker, Analytics, CDNs oder externen Rechenservices. Die App sendet keine externen Requests zur Laufzeit; Code, Fonts und andere Assets kommen vom selben Hosting-Ursprung. Das erstmalige Laden und Updates erfordern Requests an diesen Host. Entwicklung und CI laden Pakete separat herunter.
+Keine Tracker, Analytics, CDNs oder externen Rechenservices. Ohne Währungs-Opt-in sendet die App keine externen Requests zur Laufzeit;
+Code, Fonts und andere Assets kommen vom selben Hosting-Ursprung. Das erstmalige Laden und Updates erfordern Requests an diesen Host. Entwicklung und CI laden Pakete separat herunter.
 
 Einstellungen, Verlauf, Definitionen und Favoriten bleiben im lokalen Browserspeicher. Offline-Dateien liegen im Service-Worker-Cache. Browserdaten lassen sich über die Website-Einstellungen des Browsers löschen. Ein kopierter Permalink enthält den ausdrücklich geteilten Moduszustand im URL-Hash, jedoch keinen gesamten Verlauf und kein gespeichertes Environment. Wer einen Link oder Export weitergibt, teilt dessen Inhalt selbst.
 
-AP17 (Währungen) ist nicht umgesetzt: Es werden keine Kurse abgefragt. Eine künftige Datenstrategie muss vorab geklärt werden.
+AP17 ist integriert: Nur der explizite Schalter „Online-Kurse laden“ erlaubt
+Requests an den Frankfurter-EZB-Endpunkt. Beträge und Verlauf bleiben lokal;
+Währungsberechnungen sind derzeit von Verlauf und Permalinks ausgeschlossen;
+versionierte Snapshots bleiben Folgearbeit. Cache, Offline-Fallback und
+Zustimmungsentzug sind dokumentiert in
+[UNITS.md](docs/UNITS.md). Aktueller Integrations-/Abnahmestand: [AP25](docs/AP25.md).
 
 ## Tech-Stack und Credits
 
@@ -120,4 +130,4 @@ Die zugehörigen Bibliotheken und Fonts behalten ihre eigenen Lizenzen. MIT ist 
 
 ## English
 
-m8e-calc is a private, local-first desktop browser calculator with four modes: simple, scientific (including programmer tools), unit conversion and interactive 2D graphs. It supports German and English, light/dark themes, history, shareable links and offline use. No account, trackers or external runtime services are required. [Try the live app](https://sl3ndrr.github.io/m8e-calc/). To develop locally, use Node 24, run `npm ci` and `npm run dev`; validate with `npm run check`. The proposed MIT license awaits the repository owner's confirmation.
+m8e-calc is a private, local-first desktop browser calculator with four modes: simple, scientific (including programmer tools), unit conversion and interactive 2D graphs. It supports German and English, light/dark themes, history, shareable links and offline use. No account, trackers or external calculation services are required. Optional ECB reference rates are fetched only after explicit consent; without opt-in there are no currency requests. [Try the live app](https://sl3ndrr.github.io/m8e-calc/). To develop locally, use Node 24, run `npm ci` and `npm run dev`; validate with `npm run check`. The proposed MIT license awaits the repository owner's confirmation.

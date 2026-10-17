@@ -55,6 +55,9 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       zentriert und dezent animiert; ThemeSwitch ohne Zusatzindikator.
       Tests und UI-Nachweise in [AP20.md](AP20.md).
 
+- [x] 21 Stabiles Graph-Fit — PR #24 integriert (`bdc75289`),
+      einschließlich Aspektsperre und erhaltener Fit-Basis.
+
 - [x] 22 Graphzahlen und Wertetabelle — `feat/ap22-graph-values`: wählbare
       Anzeigerundung, lokalisierte Zahlenfelder/Koordinaten und bedarfsgerechte
       Tabellenberechnung auf integriertem AP21. Vertrag und Testnachweise in
@@ -70,11 +73,9 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       kompatible Updates aus #12, Vitest-4-Patch und getrennte Dependabot-Gruppen.
       Paketmatrix, Node-/Peer-Verträge, Prüfnachweise und Folgeaufgaben
       (ESLint 10, Motion 14, jsdom 30, Vitest 5, Node-Typen 26) in
-      [AP24.md](AP24.md). #12 bleibt bis zur Integration bzw. ausdrücklich
-      autorisierten Zurückstellung offen; #30 ist integriert. Kein automatischer Merge/Release.
+      [AP24.md](AP24.md). #30 ist integriert; der ersetzte Update-PR #12
+      wurde am 16.10.2026 nach diesem Merge geschlossen. Kein automatischer Merge/Release.
 
-- [x] 21 Stabiles Graph-Fit — PR #24 integriert (`bdc75289`),
-      einschließlich Aspektsperre und erhaltener Fit-Basis.
 - [ ] 25 Produktabnahme — gezielte Wiederverwendung der AP18–AP24-Regressionen,
       Browser-/PWA-Integration und belegter Produktionsstand; [AP25.md](AP25.md).
       Live-Abnahme und spätere Prüfung genau des AP25-Pages-Deploys bleiben separat.

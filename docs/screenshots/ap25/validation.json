@@ -1,0 +1,299 @@
+{
+  "headCommit": "bb5096de9059df78a9beb309cd5fc0cc89139972",
+  "buildCommit": "cc627a1bfc1d98b1698e11cde13621cc233adfeb",
+  "qaRun": 38980823552,
+  "ciRun": 38980823748,
+  "qaArtifacts": {
+    "measure": 12081281552,
+    "runtime": 12080468288
+  },
+  "ciArtifact": 12081541529,
+  "bundle": {
+    "total": 197421,
+    "limit": 200000,
+    "chunks": [
+      {
+        "key": "index.html",
+        "file": "assets/index-D8FUeGY6.js",
+        "gzip": 104969
+      },
+      {
+        "key": "_jsx-runtime-Dk72oS4N.js",
+        "file": "assets/jsx-runtime-Dk72oS4N.js",
+        "gzip": 3328
+      },
+      {
+        "key": "_Button-4JX1TWdp.js",
+        "file": "assets/Button-4JX1TWdp.js",
+        "gzip": 24085
+      },
+      {
+        "key": "_i18n--z4rY63j.js",
+        "file": "assets/i18n--z4rY63j.js",
+        "gzip": 12440
+      },
+      {
+        "key": "_FocusScope-Co-mOoco.js",
+        "file": "assets/FocusScope-Co-mOoco.js",
+        "gzip": 4374
+      },
+      {
+        "key": "_useFormValidation-DbCJemvl.js",
+        "file": "assets/useFormValidation-DbCJemvl.js",
+        "gzip": 1948
+      },
+      {
+        "key": "_useSlot-FQ61V52R.js",
+        "file": "assets/useSlot-FQ61V52R.js",
+        "gzip": 262
+      },
+      {
+        "key": "_snackbarQueue-CS7vmThC.js",
+        "file": "assets/snackbarQueue-CS7vmThC.js",
+        "gzip": 4238
+      },
+      {
+        "key": "_motion-29mYUKb7.js",
+        "file": "assets/motion-29mYUKb7.js",
+        "gzip": 1576
+      },
+      {
+        "key": "_useSpring-CUcvFeRZ.js",
+        "file": "assets/useSpring-CUcvFeRZ.js",
+        "gzip": 535
+      },
+      {
+        "key": "_browserMotion-CDweiHa2.js",
+        "file": "assets/browserMotion-CDweiHa2.js",
+        "gzip": 136
+      },
+      {
+        "key": "src/features/simple/SimpleMode.tsx",
+        "file": "assets/SimpleMode-ClQAYDYG.js",
+        "gzip": 5616
+      },
+      {
+        "key": "_engine-BCOeroFX.js",
+        "file": "assets/engine-BCOeroFX.js",
+        "gzip": 32451
+      },
+      {
+        "key": "_useModeHistory-C-klVeJc.js",
+        "file": "assets/useModeHistory-C-klVeJc.js",
+        "gzip": 603
+      },
+      {
+        "key": "_CopyLinkButton-CnB8MLd-.js",
+        "file": "assets/CopyLinkButton-CnB8MLd-.js",
+        "gzip": 499
+      },
+      {
+        "key": "_Keypad-DADYIjBv.js",
+        "file": "assets/Keypad-DADYIjBv.js",
+        "gzip": 361
+      }
+    ],
+    "eager": []
+  },
+  "contrast": {
+    "schemes": 384,
+    "checks": 36480,
+    "minText": 4.576982515035052,
+    "minUI": 3.03459584596363,
+    "failures": []
+  },
+  "lighthouse": [
+    {
+      "mode": "simple",
+      "runs": 3,
+      "scores": {
+        "performance": {
+          "median": 0.99,
+          "min": 0.99
+        },
+        "accessibility": {
+          "median": 1,
+          "min": 1
+        },
+        "best-practices": {
+          "median": 1,
+          "min": 1
+        }
+      },
+      "clsMax": 0
+    },
+    {
+      "mode": "scientific",
+      "runs": 3,
+      "scores": {
+        "performance": {
+          "median": 0.98,
+          "min": 0.98
+        },
+        "accessibility": {
+          "median": 1,
+          "min": 1
+        },
+        "best-practices": {
+          "median": 1,
+          "min": 1
+        }
+      },
+      "clsMax": 0
+    },
+    {
+      "mode": "convert",
+      "runs": 3,
+      "scores": {
+        "performance": {
+          "median": 0.99,
+          "min": 0.99
+        },
+        "accessibility": {
+          "median": 1,
+          "min": 1
+        },
+        "best-practices": {
+          "median": 1,
+          "min": 1
+        }
+      },
+      "clsMax": 0
+    },
+    {
+      "mode": "graph",
+      "runs": 3,
+      "scores": {
+        "performance": {
+          "median": 0.99,
+          "min": 0.99
+        },
+        "accessibility": {
+          "median": 1,
+          "min": 1
+        },
+        "best-practices": {
+          "median": 1,
+          "min": 1
+        }
+      },
+      "clsMax": 0
+    }
+  ],
+  "audit": {
+    "auditReportVersion": 2,
+    "vulnerabilities": {},
+    "metadata": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "dependencies": {
+        "prod": 45,
+        "dev": 396,
+        "optional": 27,
+        "peer": 0,
+        "peerOptional": 0,
+        "total": 440
+      }
+    }
+  },
+  "runtime": {
+    "before": {
+      "heap": 12543520,
+      "documents": 2,
+      "nodes": 417,
+      "jsEventListeners": 293,
+      "events": [
+        56, 56, 32, 32, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 48, 48, 40, 40,
+        40, 40, 48, 48, 40, 40, 48, 48, 72, 24, 40, 40, 40, 32, 32, 32, 24, 24,
+        24, 24, 24, 24, 24, 24, 24
+      ],
+      "cls": 0,
+      "frames": 0,
+      "observers": 1
+    },
+    "after": {
+      "heap": 13247324,
+      "documents": 2,
+      "nodes": 417,
+      "jsEventListeners": 293,
+      "events": [
+        56, 56, 32, 32, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 48, 48, 40, 40,
+        40, 40, 48, 48, 40, 40, 48, 48, 72, 24, 40, 40, 40, 32, 32, 32, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 16, 16, 16, 24, 16, 16, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+        24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24
+      ],
+      "cls": 0,
+      "frames": 0,
+      "observers": 1
+    },
+    "editorMetrics": {
+      "events": [
+        56, 56, 32, 32, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 48, 48, 40, 40,
+        40, 40, 48, 48, 40, 40, 48, 48
+      ],
+      "cls": 0
+    },
+    "editorInteractionMaxMs": 56,
+    "eventTimingThresholdMs": 16,
+    "cycles": 20,
+    "heapGrowthBytes": 703804,
+    "listenerGrowth": 0
+  },
+  "graphPerformance": {
+    "viewport": {
+      "width": 3840,
+      "height": 2160
+    },
+    "canvas": {
+      "width": 3840,
+      "height": 2160
+    },
+    "curves": 6,
+    "renderP95Ms": 0.5999999999767169,
+    "rafAverageMs": 16.888333333333335,
+    "observedRafFps": 59.21247409454258,
+    "targetFps": 60,
+    "frameBudgetMs": 16.666666666666668,
+    "samplingWorkerMs": 13.5,
+    "method": "Native pointer-down, rAF-paced pointer moves, trace disabled; real mouse and wheel covered by functional E2E.",
+    "note": "Headless Chromium measurements; refresh rate and GPU vary on physical displays."
+  },
+  "finalCodeVerification": {
+    "headCommit": "0f2b3b3cfe224bf35b87c22ff9ea25155559958e",
+    "buildCommit": "d8b996265dd06cecfc488fee6db483f16b9e0509",
+    "ciRun": 39011871380,
+    "ciJob": 117335935246,
+    "check": "passed; 64 files, 2086 tests, lint, types, build and benchmarks",
+    "chromiumAndGraphPerformance": 144,
+    "gallery": 37,
+    "qaRun": 39011871366,
+    "chromium": {
+      "passed": 143,
+      "skipped": 0
+    },
+    "firefox": {
+      "passed": 117,
+      "skipped": 2
+    },
+    "webkit": {
+      "passed": 117,
+      "skipped": 2
+    },
+    "visual": 24,
+    "acceptanceRun": 39011871350,
+    "acceptanceArtifact": 12093093486,
+    "acceptancePassed": 33,
+    "releaseAssetsRun": 39011871378,
+    "ap22Run": 39011871369,
+    "allCompletedGates": "success",
+    "limits": "OS clipboard on Firefox/WebKit uses an explicit memory adapter; no live Pages or physical screenreader/GPU acceptance."
+  }
+}
