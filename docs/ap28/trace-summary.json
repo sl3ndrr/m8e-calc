@@ -1,0 +1,42 @@
+{
+  "measurementCommit": "f04a42378c83c431a373e7968b7bd0204a82a288",
+  "baselineCommit": "8eb32f105b44708da751f4bd836c01592617cedd",
+  "run": 39075916124,
+  "artifact": 12117390397,
+  "traceWindowIntervals": 60,
+  "note": "Separate traced pan after untraced windows; durations are aggregated trace event wall times, not exclusive CPU accounting. No screenshot events.",
+  "before": {
+    "fpsMean": 57.91974942173311,
+    "fpsSampleStdDev": 0.7091052066705187,
+    "workerPosts": 204,
+    "workerTotalMs": 1130.8000000000757,
+    "functionCallByThread": {
+      "CrRendererMain": {
+        "count": 423,
+        "durationMs": 149.88099999999991
+      },
+      "DedicatedWorker thread": {
+        "count": 37,
+        "durationMs": 255.70599999999996
+      }
+    },
+    "screenshotEvents": 0
+  },
+  "after": {
+    "fpsMean": 59.511542790560156,
+    "fpsSampleStdDev": 0.49352557906313294,
+    "workerPosts": 55,
+    "workerTotalMs": 285.9999999999709,
+    "functionCallByThread": {
+      "CrRendererMain": {
+        "count": 311,
+        "durationMs": 75.52600000000005
+      },
+      "DedicatedWorker thread": {
+        "count": 10,
+        "durationMs": 63.47500000000001
+      }
+    },
+    "screenshotEvents": 0
+  }
+}

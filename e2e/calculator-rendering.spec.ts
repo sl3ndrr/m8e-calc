@@ -320,8 +320,13 @@ for (const [motion, reduced] of [
         ),
       motion,
     );
+    // Resolve the lazy keypad before installing the paused-digit probe. Cold
+    // mode loading is covered separately; this test measures live press frames.
+    await page.goto('/m8e-calc/#/scientific');
+    await expect(page.locator('[data-key="+"] button')).toBeVisible();
     await page.goto('/m8e-calc/#/simple');
     await ready(page);
+    await settle(page.locator('.mode-stage'));
     const viewport = page.locator('.calculator-viewport');
     await settle(viewport);
     await page.evaluate(() => {

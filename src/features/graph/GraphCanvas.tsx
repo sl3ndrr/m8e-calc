@@ -244,6 +244,8 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       return current.rows.filter((r) => r.curve && r.row.visible);
     }
     function requestSamples(exact = false): void {
+      window.clearTimeout(sampleTimer);
+      sampleTimer = 0;
       const sampledView =
         exact || visibleRows().some((r) => r.curve?.kind === 'implicit')
           ? viewport
@@ -398,13 +400,16 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       element.dataset.sampling = 'true';
       latestRequest = null;
       pending = null;
+      // Dragging updates the cached transform each frame. Keep one 90-ms
+      // sampling deadline instead of restarting it or posting every move.
+      if (pointer && sampleTimer) return;
       window.clearTimeout(sampleTimer);
       sampleTimer = window.setTimeout(
         () => {
           sampleTimer = 0;
           requestSamples();
         },
-        moving ? 90 : 0,
+        moving || pointer ? 90 : 0,
       );
     }
     function setView(next: Viewport, spring: boolean): void {
@@ -415,8 +420,10 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       )
         return;
       window.clearTimeout(viewTimer);
-      window.clearTimeout(sampleTimer);
-      sampleTimer = 0;
+      if (!pointer) {
+        window.clearTimeout(sampleTimer);
+        sampleTimer = 0;
+      }
       element.dataset.sampling = 'true';
       latestRequest = null;
       pending = null;
