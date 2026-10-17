@@ -1,0 +1,105 @@
+{
+  "source": "2e46f7387ca799c83e076f992cb7323df2c4b6ce",
+  "run": 39077873705,
+  "job": 117528683990,
+  "artifact": 12118365339,
+  "artifactSha256": "f512f275b2581655975fbad18232b64c52dd8ecca6fc52f72e7b76c47497a31f",
+  "project": "firefox",
+  "test": "AP21 replaces obsolete fit goals on curve/parameter changes, presets, reset and resize",
+  "failedAssertion": {
+    "expectedYMaxLessThan": 10,
+    "receivedYMax": 9488.25672356212
+  },
+  "snapshots": [
+    {
+      "traceTimestampMs": 104070.325,
+      "call": "ryun@955",
+      "phase": "after",
+      "moving": "true",
+      "fitComputations": 3,
+      "yMax": 906.5877241733097,
+      "targetYMax": 9488.25672356212,
+      "acceptedCurve": "exp"
+    },
+    {
+      "traceTimestampMs": 104108.447,
+      "call": "ryun@957",
+      "phase": "after",
+      "moving": "true",
+      "fitComputations": 3,
+      "yMax": 2343.842068863135,
+      "targetYMax": 9488.25672356212,
+      "acceptedCurve": "exp"
+    },
+    {
+      "traceTimestampMs": 104128.858,
+      "call": "ryun@959",
+      "phase": "before",
+      "moving": "true",
+      "fitComputations": 3,
+      "yMax": 3248.3135469779054,
+      "targetYMax": 9488.25672356212,
+      "acceptedCurve": "exp"
+    },
+    {
+      "traceTimestampMs": 104212.688,
+      "call": "ryun@959",
+      "phase": "action",
+      "moving": "true",
+      "fitComputations": 3,
+      "yMax": 7833.4876855938655,
+      "targetYMax": 9488.25672356212,
+      "acceptedCurve": "exp"
+    },
+    {
+      "traceTimestampMs": 104289.001,
+      "call": "ryun@959",
+      "phase": "after",
+      "moving": "false",
+      "fitComputations": 3,
+      "yMax": 9488.25672356212,
+      "targetYMax": 9488.25672356212,
+      "acceptedCurve": "exp"
+    },
+    {
+      "traceTimestampMs": 104342.52,
+      "call": "ryun@961",
+      "phase": "action",
+      "moving": "false",
+      "fitComputations": 3,
+      "yMax": 9488.25672356212,
+      "targetYMax": 9488.25672356212,
+      "acceptedCurve": "exp"
+    },
+    {
+      "traceTimestampMs": 104391.769,
+      "call": "ryun@961",
+      "phase": "after",
+      "moving": "false",
+      "fitComputations": 3,
+      "yMax": 9488.25672356212,
+      "targetYMax": 9488.25672356212,
+      "acceptedCurve": "exp"
+    },
+    {
+      "traceTimestampMs": 104399.368,
+      "call": "ryun@963",
+      "phase": "before",
+      "moving": "false",
+      "fitComputations": 3,
+      "yMax": 9488.25672356212,
+      "targetYMax": 9488.25672356212,
+      "acceptedCurve": "sin"
+    },
+    {
+      "traceTimestampMs": 104453.478,
+      "call": "ryun@963",
+      "phase": "after",
+      "moving": "false",
+      "fitComputations": 3,
+      "yMax": 9488.25672356212,
+      "targetYMax": 9488.25672356212,
+      "acceptedCurve": "sin"
+    }
+  ]
+}

@@ -432,5 +432,8 @@ werden als getrennte Canvas-Unterpfade gezeichnet.
 
 Worker/UI, gemeinsames Budget, kompatible textbasierte Speicherung, stabiler
 AP21-Fit und bewusst gesperrte implizite Analysis-/Trace-/Tabellenaktionen:
-[AP27.md](AP27.md). Issue #17 erhält erst nach belegter gemeinsamer Abnahme
-von AP26 und AP27 eine Schließungsverknüpfung.
+[AP27.md](AP27.md). AP27 ist über PR #42 integriert; Issue #17 ist abgeschlossen.
+AP28 / [Issue #43](https://github.com/sl3ndrr/m8e-calc/issues/43) begrenzt getrennt
+hiervon die Auftragsfrequenz während Browser-Drags. Die reinen 1D-/2D-APIs,
+Samplingauflösung, numerischen Toleranzen und gemeinsamen Arbeitsbudgets dieses
+Dokuments bleiben unverändert; Diagnose und Browsernachweise: [AP28.md](AP28.md).

@@ -18,7 +18,14 @@ AP4-Verlauf gespeichert. Parameter-Playback pausiert die Speicherung.
 Sampling läuft im lokalen Modul-Web-Worker. Es gibt höchstens einen laufenden
 und einen ersetzbaren nächsten Auftrag. Veraltete Antworten werden verworfen.
 Path2D-Pfade werden pro Antwort aufgebaut; Pan und Zoom transformieren diese
-Pfade während der nächsten Berechnung. Reine 1D-Listen verwenden einen um 35% erweiterten Samplingbereich,
+Pfade während der nächsten Berechnung. AP28 bündelt Sampling während eines
+Pointer-Drags auf eine feste 90-ms-Frist (wie bei animierter Navigation), während
+der Canvas die Cachepfade weiter pro Dirty-Frame transformiert. Weitere Moves
+entwerten die laufende Antwort sofort, verschieben die bereits vorgemerkte Frist
+aber nicht. So entstehen auch bei langem Ziehen regelmäßig aktuelle Aufträge.
+Ein direkter Samplingaufruf, insbesondere nach dem Loslassen, räumt die Frist auf;
+der finale Viewport muss wieder als tatsächlich gerendert bestätigt werden.
+Es gibt keinen zusätzlichen Dauer-rAF-Loop. Reine 1D-Listen verwenden einen um 35% erweiterten Samplingbereich,
 der sichtbare Randlücken bei Bewegung reduziert. Implizite und gemischte Listen
 berechnen den sichtbaren Bereich innerhalb gemeinsamer 2D-Budgets. Bei fehlender Worker-Unterstützung
 existiert ein begrenzter synchroner 1D-Fallback; implizite Kurven benötigen den Worker. Worker und Listener werden beim Unmount beendet.
@@ -178,3 +185,29 @@ Budget-/Genauigkeitsdiagnosen erscheinen an der betroffenen Kurve in de/en.
 Analysis, Trace und Wertetabellen werden bewusst gesperrt; Fit verwendet die
 stabile AP21-Basis als begrenzte Ansicht. Plot-Version 1 benötigt keine Migration,
 weil unverändert Eingabetext gespeichert wird. Details: [AP27.md](AP27.md).
+
+## AP28 · Messvertrag für Graphperformance
+
+Die Grenzen bleiben Render-p95 <16,67 ms und mindestens 55 beobachtete rAF-FPS
+bei 3840×2160/DPR 1 mit den bisherigen sechs Kurven. Der Test wartet auf Fonts,
+beendetes Sampling und sechs nichtleere, fehlerfreie Pfade; CSS- und Backing-Store-
+Größe werden beide geprüft. Nach einem festen Warm-up werden 120 Intervalle
+zwischen rAF-Zeitstempeln und nur die Canvas-Aufrufzeiten dieses Fensters erfasst.
+Mindestens 120 tatsächliche Renderings und anschließendes Idle sind zusätzliche
+Gates. Der bestehende gemischte 2D-Fall bleibt bei 1280×720 und seinen Budgets.
+
+`playwright.ap28.config.ts` führt mit einem Worker und ohne Retries drei feste
+Fenster je ruhender Referenz, sichtbarem Pan und Pan mit Canvas-opacity 0 aus.
+Ein 25-ms-Draw und ein 25-ms-Main-Thread-Block außerhalb des Draw sind negative
+Referenzen. Die alte FPS-Aussage und die präzisierte Renderfenster-Auswertung
+werden an denselben Referenzen gemessen; keine Korrektur durch Absenken von Limits.
+Der separate CDP-CPU-/Compositortrace nach den Messfenstern enthält keine
+Screenshots und wird nicht als ungestörter FPS-Nachweis verwendet.
+
+Die Diagnose protokolliert Workeraufträge/-antworten/-zeiten, tatsächliche
+Kurven-Strokes, Rohintervalle, Long Tasks, Node, Browser, Runner und GPU-Backend.
+Der zusätzliche Auftragszähler prüft eine Obergrenze aus Fensterdauer/90 ms plus
+zwei Randaufträgen sowie mindestens sechs Aufträge während des langen Drags.
+Das prüft Bündelung und Fortschritt, nicht nur ein zufällig grünes FPS-Fenster.
+Headless-Komposition und schnelle Canvas-Aufrufe beweisen keine physische
+4K-/60-Hz-GPU-Abnahme. Rohdaten, Vergleich und Grenzen: [AP28.md](AP28.md).

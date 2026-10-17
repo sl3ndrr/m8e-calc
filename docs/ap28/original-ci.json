@@ -1,0 +1,19 @@
+{
+  "viewport": {
+    "width": 3840,
+    "height": 2160
+  },
+  "canvas": {
+    "width": 3840,
+    "height": 2160
+  },
+  "curves": 6,
+  "renderP95Ms": 0.5,
+  "rafAverageMs": 20.93416666666667,
+  "observedRafFps": 47.768799012778146,
+  "targetFps": 60,
+  "frameBudgetMs": 16.666666666666668,
+  "samplingWorkerMs": 13.899999999965075,
+  "method": "Native pointer-down, rAF-paced pointer moves, trace disabled; real mouse and wheel covered by functional E2E.",
+  "note": "Headless Chromium measurements; refresh rate and GPU vary on physical displays."
+}

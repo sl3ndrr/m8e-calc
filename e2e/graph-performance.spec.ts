@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { writeFile } from 'node:fs/promises';
+import { cpus, platform, release } from 'node:os';
+import { replaceGraphExpression } from './graphEditor';
 const curves = [
   'a*sin(x)',
   'x^2/5-2',
@@ -8,12 +10,18 @@ const curves = [
   'r=2*(1+cos(theta))',
   'exp(-x^2/2)',
 ];
-test('4K six-curve pan render budget and idle rendering', async ({ page }) => {
+test('4K six-curve pan render budget and idle rendering', async ({
+  page,
+  browser,
+}) => {
   await page.setViewportSize({ width: 3840, height: 2160 });
   await page.goto('/m8e-calc/#/graph');
   for (const input of curves) {
     await page.getByRole('button', { name: 'Hinzufügen', exact: true }).click();
-    await page.locator('.graph-editor [role="textbox"]').last().fill(input);
+    await replaceGraphExpression(
+      page.locator('.graph-editor [role="textbox"]').last(),
+      input,
+    );
   }
   // Move only the benchmark surface out of the shell's containment/clipping.
   // The mounted controller and native event handlers remain the production ones.
@@ -25,9 +33,33 @@ test('4K six-curve pan render budget and idle rendering', async ({ page }) => {
       '.graph-canvas-wrap { position: fixed; inset: 0; width: 3840px; height: 2160px; z-index: 100; border: none; }',
   });
   const canvas = page.locator('canvas.graph-canvas');
+  await page.evaluate(() => document.fonts.ready);
+  await expect(canvas).toHaveAttribute('data-sampling', 'false', {
+    timeout: 15000,
+  });
   await expect(canvas).toHaveAttribute('data-curve-count', '6');
   await expect(canvas).toHaveAttribute('data-truncated', 'false');
-  await page.waitForTimeout(800);
+  await page.waitForTimeout(1000);
+  const geometry = await canvas.evaluate((element: HTMLCanvasElement) => ({
+    width: element.width,
+    height: element.height,
+    dpr: devicePixelRatio,
+    samples: JSON.parse(element.dataset.sampleResult ?? '[]') as {
+      components: number;
+      error?: string;
+      truncated: boolean;
+    }[],
+  }));
+  expect(geometry).toMatchObject({ width: 3840, height: 2160, dpr: 1 });
+  expect(geometry.samples).toHaveLength(6);
+  for (const sample of geometry.samples) {
+    expect(sample.components).toBeGreaterThan(0);
+    expect(sample.error).toBeUndefined();
+    expect(sample.truncated).toBe(false);
+  }
+  const beforeFrames = JSON.parse(
+    (await canvas.getAttribute('data-graph-metrics')) ?? '{}',
+  ).frames as number;
   const box = await canvas.boundingBox();
   if (!box) throw Error('Missing canvas');
   expect(box).toMatchObject({ x: 0, y: 0, width: 3840, height: 2160 });
@@ -36,7 +68,9 @@ test('4K six-curve pan render budget and idle rendering', async ({ page }) => {
   const intervals = await canvas.evaluate(
     async (element: HTMLCanvasElement) => {
       const intervals: number[] = [];
-      let last = performance.now();
+      let last = await new Promise<number>((resolve) =>
+        requestAnimationFrame(resolve),
+      );
       const box = element.getBoundingClientRect();
       // Native mouse-down establishes capture; rAF-paced moves isolate rendering
       // from protocol round trips and trace screenshot encoding at 4K.
@@ -57,6 +91,7 @@ test('4K six-curve pan render budget and idle rendering', async ({ page }) => {
           }),
         );
       }
+      await new Promise<number>((resolve) => requestAnimationFrame(resolve));
       return intervals;
     },
   );
@@ -64,10 +99,28 @@ test('4K six-curve pan render budget and idle rendering', async ({ page }) => {
   const metrics = JSON.parse(
     (await canvas.getAttribute('data-graph-metrics')) ?? '{}',
   ) as { frames: number; renderMs: number[]; samplingMs: number };
-  const sorted = metrics.renderMs.slice().sort((a, b) => a - b),
+  const measuredFrames = metrics.frames - beforeFrames;
+  const renderMs = measuredFrames
+    ? metrics.renderMs.slice(-measuredFrames)
+    : [];
+  const sorted = renderMs.slice().sort((a, b) => a - b),
     p95 = sorted[Math.floor(sorted.length * 0.95)] ?? Infinity;
   const rafAverageMs = intervals.reduce((a, b) => a + b, 0) / intervals.length;
   const report = {
+    head: process.env.AP28_HEAD ?? process.env.GITHUB_SHA ?? null,
+    node: process.version,
+    browser: browser.version(),
+    runner: {
+      os: platform(),
+      release: release(),
+      cpu: cpus()[0]?.model,
+      cpus: cpus().length,
+      image: process.env.ImageVersion,
+    },
+    geometry,
+    intervals,
+    renderMs,
+    measuredFrames,
     viewport: { width: 3840, height: 2160 },
     canvas: { width: box.width, height: box.height },
     curves: 6,
@@ -81,23 +134,26 @@ test('4K six-curve pan render budget and idle rendering', async ({ page }) => {
       'Native pointer-down, rAF-paced pointer moves, trace disabled; real mouse and wheel covered by functional E2E.',
     note: 'Headless Chromium measurements; refresh rate and GPU vary on physical displays.',
   };
-  await writeFile(
-    'test-results/graph-performance.json',
-    JSON.stringify(report, null, 2),
-  );
-  expect(p95).toBeLessThan(16.67);
-  // Allow a small scheduling margin on the shared CI runner around 60 Hz.
-  expect(report.observedRafFps).toBeGreaterThanOrEqual(55);
   await page.mouse.move(0, 0);
+  await expect(canvas).toHaveAttribute('data-sampling', 'false', {
+    timeout: 15000,
+  });
   await page.waitForTimeout(1600);
   const idle = JSON.parse(
     (await canvas.getAttribute('data-graph-metrics')) ?? '{}',
-  ).frames;
+  ).frames as number;
   await page.waitForTimeout(300);
-  expect(
-    JSON.parse((await canvas.getAttribute('data-graph-metrics')) ?? '{}')
-      .frames,
-  ).toBe(idle);
+  const idleAfter = JSON.parse(
+    (await canvas.getAttribute('data-graph-metrics')) ?? '{}',
+  ).frames as number;
+  await writeFile(
+    'test-results/graph-performance.json',
+    JSON.stringify({ ...report, idleFrames: [idle, idleAfter] }, null, 2),
+  );
+  expect(measuredFrames).toBeGreaterThanOrEqual(120);
+  expect(p95).toBeLessThan(16.67);
+  expect(report.observedRafFps).toBeGreaterThanOrEqual(55);
+  expect(idleAfter).toBe(idle);
 });
 
 test('AP27 2D worker keeps mixed-plot pan responsive at 1280×720', async ({
@@ -108,7 +164,10 @@ test('AP27 2D worker keeps mixed-plot pan responsive at 1280×720', async ({
   await page.goto('/m8e-calc/#/graph');
   for (const input of ['x^2+y^2=a', 'sin(x)']) {
     await page.getByRole('button', { name: 'Hinzufügen', exact: true }).click();
-    await page.locator('.graph-editor [role="textbox"]').last().fill(input);
+    await replaceGraphExpression(
+      page.locator('.graph-editor [role="textbox"]').last(),
+      input,
+    );
   }
   await page
     .locator('.graph-canvas-wrap')
@@ -127,7 +186,9 @@ test('AP27 2D worker keeps mixed-plot pan responsive at 1280×720', async ({
   const intervals = await canvas.evaluate(
     async (element: HTMLCanvasElement) => {
       const intervals: number[] = [];
-      let last = performance.now();
+      let last = await new Promise<number>((resolve) =>
+        requestAnimationFrame(resolve),
+      );
       for (let i = 0; i < 120; i++) {
         const time = await new Promise<number>((r) => requestAnimationFrame(r));
         intervals.push(time - last);
@@ -143,6 +204,7 @@ test('AP27 2D worker keeps mixed-plot pan responsive at 1280×720', async ({
           }),
         );
       }
+      await new Promise<number>((resolve) => requestAnimationFrame(resolve));
       return intervals;
     },
   );
@@ -157,6 +219,8 @@ test('AP27 2D worker keeps mixed-plot pan responsive at 1280×720', async ({
     values.slice().sort((a, b) => a - b)[Math.floor(values.length * p)] ??
     Infinity;
   const report = {
+    intervals,
+    renderMs: metrics.renderMs,
     canvas: { width: 1280, height: 720 },
     curves: 2,
     renderP95Ms: percentile(metrics.renderMs, 0.95),
