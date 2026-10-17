@@ -176,7 +176,7 @@ async function windowMeasurement(
       await new Promise<number>((r) => requestAnimationFrame(r));
       const after = metrics();
       const frames = after.frames - before.frames;
-      const renderMs = after.renderMs.slice(-Math.min(frames, 600));
+      const renderMs = frames ? after.renderMs.slice(-Math.min(frames, 600)) : [];
       const sorted = renderMs.slice().sort((a, b) => a - b);
       const average = intervals.reduce((a, b) => a + b, 0) / intervals.length;
       return {
@@ -216,6 +216,9 @@ test('AP28 fixed diagnostic windows on unchanged graph code', async ({
 }, info) => {
   test.setTimeout(120000);
   const { geometry } = await setup(page);
+  const cdp = await browser.newBrowserCDPSession();
+  const graphics: unknown = await cdp.send('SystemInfo.getInfo');
+  await cdp.detach();
   const runs: {
     name: string;
     window: number;
@@ -251,13 +254,15 @@ test('AP28 fixed diagnostic windows on unchanged graph code', async ({
   });
   await mkdir('test-results/ap28', { recursive: true });
   await writeFile(
-    'test-results/ap28/diagnostic.json',
+    `test-results/ap28/${info.project.name}.json`,
     JSON.stringify(
       {
         commit: process.env.GITHUB_SHA,
         source: process.env.AP28_SOURCE ?? process.env.GITHUB_SHA,
         node: process.version,
         browser: browser.version(),
+        project: info.project.name,
+        graphics,
         runner: {
           os: platform(),
           release: release(),
