@@ -63,7 +63,7 @@ describe('AP27 actual AP26 dispatch', () => {
       }
       if (input === 'x*y=0')
         for (const seg of sampled?.segments ?? [])
-          for (const p of seg) expect(p.x * p.y).toBe(0);
+          for (const p of seg) expect(Math.abs(p.x * p.y)).toBe(0);
     },
   );
   it('preserves mixed order, changed parameters, visibility and deletion', () => {
@@ -248,5 +248,24 @@ it('fits implicit and mixed sets against the stable AP21 basis across navigation
     expect(fitPlot(resized, set).fitBasis).toEqual(moved.fitBasis);
     const next = fitPlot(resized, set);
     expect(fitPlot(next, set).bounds).toEqual(next.bounds);
+  }
+});
+
+it('sends changed implicit parameter values into AP26 rather than reusing an old contour', () => {
+  const req = request(['x^2+y^2=a']);
+  for (const value of [4, 9]) {
+    const curve = parseRow({
+      ...newRow('0', 'x^2+y^2=a'),
+      params: { a: { value, min: 1, max: 9, step: 1 } },
+    }).curve;
+    if (!curve) throw Error('Missing circle');
+    const result = sampleRequest({
+      ...req,
+      curves: [{ id: '0', curve, signature: JSON.stringify(curve) }],
+    });
+    const segments = result.curves[0]?.segments ?? [];
+    expect(segments.length).toBeGreaterThan(0);
+    for (const seg of segments)
+      for (const p of seg) expect(p.x * p.x + p.y * p.y).toBeCloseTo(value, 5);
   }
 });

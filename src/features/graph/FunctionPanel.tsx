@@ -282,8 +282,11 @@ function CurveRow({
       {curve?.kind === 'implicit' && (
         <div className="graph-implicit-help">
           <p>{t('graph.implicitActions', locale)}</p>
-          <p>{t('graph.implicitFit', locale)}</p>
-          <p>{t('graph.implicitAccuracy', locale)}</p>
+          <details>
+            <summary>{t('graph.implicitDetails', locale)}</summary>
+            <p>{t('graph.implicitFit', locale)}</p>
+            <p>{t('graph.implicitAccuracy', locale)}</p>
+          </details>
         </div>
       )}
       {sampled && (

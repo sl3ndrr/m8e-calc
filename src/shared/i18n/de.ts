@@ -483,6 +483,9 @@ export const de = {
   'graph.example.hyperbola': 'Hyperbel',
   'graph.implicitActions':
     'Für implizite Kurven sind Trace, Wertetabelle und Analysis noch nicht verfügbar: F(x, y) = 0 legt keinen eindeutigen y-Wert pro x fest.',
+  'graph.implicitDetails': 'Fit und numerische Grenzen',
+  'graph.exportPending':
+    'Die neue Kurve wird noch berechnet. PNG-Export anschließend erneut starten.',
   'graph.implicitFit':
     'Anpassen erhält für implizite Kurven den zuletzt bewusst gewählten Suchbereich (nach Pan/Zoom oder Ansichtsvorlage). Ein globaler Kurvenbereich ist nicht allgemein bestimmbar.',
   'graph.implicitAccuracy':

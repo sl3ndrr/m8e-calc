@@ -302,14 +302,21 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
     }
     function startWorker(): void {
       try {
-        worker = new Worker(new URL('./sampling.worker.ts', import.meta.url), {
-          type: 'module',
-        });
-        worker.onmessage = (event: MessageEvent<unknown>) => {
+        const created = new Worker(
+          new URL('./sampling.worker.ts', import.meta.url),
+          {
+            type: 'module',
+          },
+        );
+        worker = created;
+        created.onmessage = (event: MessageEvent<unknown>) => {
+          if (worker !== created || disposed) return;
           if (isSampleResponse(event.data)) accept(event.data);
           else failWorker(false);
         };
-        worker.onerror = () => failWorker(false);
+        created.onerror = () => {
+          if (worker === created && !disposed) failWorker(false);
+        };
       } catch {
         worker = null;
       }
@@ -367,7 +374,9 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         return;
       }
       if (worker) {
-        watchdog = window.setTimeout(() => failWorker(true), 3000);
+        watchdog = window.setTimeout(() => {
+          if (running === request && !disposed) failWorker(true);
+        }, 3000);
         try {
           worker.postMessage(request);
         } catch {
@@ -376,6 +385,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       } else {
         // Yield before the bounded 1D fallback; implicit work requires Worker.
         watchdog = window.setTimeout(() => {
+          if (running !== request || disposed) return;
           const start = performance.now();
           const result = sampleRequest(request, true);
           accept({ ...result, milliseconds: performance.now() - start });
@@ -779,7 +789,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
               paths.get(r.row.id)?.signature !== JSON.stringify(r.curve),
           )
         )
-          throw new Error('Sampling pending');
+          throw new Error('GraphSamplingPending');
         context.scale(dpr, dpr);
         drawGraph(context, {
           viewport,

@@ -465,6 +465,9 @@ export const en: Dictionary = {
   'graph.example.hyperbola': 'Hyperbola',
   'graph.implicitActions':
     'Trace, value tables and analysis are not yet available for implicit curves: F(x, y) = 0 does not define one y value for each x.',
+  'graph.implicitDetails': 'Fit and numerical limits',
+  'graph.exportPending':
+    'The new curve is still being calculated. Try the PNG export again when it is ready.',
   'graph.implicitFit':
     'Fit keeps the last deliberately chosen search region for implicit curves (after pan/zoom or a preset). A global curve extent cannot generally be determined.',
   'graph.implicitAccuracy':

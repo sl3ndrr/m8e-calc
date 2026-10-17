@@ -274,8 +274,15 @@ export default function GraphMode() {
         link.click();
         window.setTimeout(() => URL.revokeObjectURL(url), 1000);
       }
-    } catch {
-      snackbarQueue.add({ message: t('graph.exportError', locale) });
+    } catch (error) {
+      snackbarQueue.add({
+        message: t(
+          error instanceof Error && error.message === 'GraphSamplingPending'
+            ? 'graph.exportPending'
+            : 'graph.exportError',
+          locale,
+        ),
+      });
     } finally {
       setExporting(false);
     }
