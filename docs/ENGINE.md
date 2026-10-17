@@ -384,7 +384,7 @@ abgeschnitten. `formatValue` bietet kartesisch `a+bi` und polar `r∠θ`; θ fol
 `constantRegistry` enthält pro ASCII-Namen `name: {de,en}`, `symbol`, `value`
 als unveränderten Dezimalstring, `unit`, `source`, `exact` und optional
 `uncertainty` sowie `expression` für abgeleitete Werte. Keine Laufzeitrequests.
-Quelle: [NIST CODATA 2022, vollständige Tabelle](https://physics.nist.gov/cuu/Constants/Table/allascii.txt),
+Quelle: [NIST CODATA 2022, vollständige Tabelle (PDF)](https://physics.nist.gov/cuu/pdf/all.pdf),
 verifiziert am 2026-10-13. Testdaten speichern die veröffentlichten Werte und
 Unsicherheiten unabhängig von der Registry. Mathematische und abgeleitete
 irrationale Werte sind gespeicherte Näherungen; `exact` bezeichnet physikalische
