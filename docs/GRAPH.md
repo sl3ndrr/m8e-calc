@@ -1,4 +1,4 @@
-# Graph-Engine · AP12
+# Graph-Engine · AP12 / AP26
 
 Vertrag vor Tests und Implementierung. Öffentlicher Einstieg ist `src/graph/index.ts`;
 reines TypeScript ohne DOM, IO, React, `eval` oder `new Function`. AP13 übernimmt
@@ -217,11 +217,9 @@ Kardioide/Lissajous, unabhängige Bildschirm-Fehlerproben, Pole zwischen Rasterp
 NaN/Infinity, deterministisches fast-check-Fuzzing, Viewport-Invarianten und Benchmark.
 `npm run check` und Chromium-CI sind verbindlich. Keine UI-Änderung/Screenshots in AP12.
 
-[Folge-Issue #17](https://github.com/sl3ndrr/m8e-calc/issues/17): adaptive implizite Kurven F(x,y)=0 mit Marching Squares passend zur
-Plot-Auflösung, asymptotischem Sattel-Decider, konsistenter Zellrand-Stitching-
-Strategie, Kreisen/Hyperbeln/Kreuzungen und isolierten Komponenten. Akzeptanz:
-keine Risse bei adaptiven Zellgrößen, dokumentierte Pixelgenauigkeit und eigenes
-2D-Arbeits-/Performancebudget. AP13 übernimmt Canvas/SVG und Worker-Anbindung.
+[Issue #17](https://github.com/sl3ndrr/m8e-calc/issues/17) wird in AP26 (numerische
+Domäne, unten) und AP27 (Worker/UI einschließlich Analysis/Trace/Table) geteilt.
+AP26 allein schließt das Issue nicht.
 
 ## AP22 · Grenze zur Anzeige
 
@@ -229,3 +227,190 @@ Die Graph-Domäne bleibt Float64 und erhält keine Rundungspräferenz. Der
 Feature-Adapter formatiert Tabellen/Trace gezielt und liest nur numerische
 Eingabefelder lokalisiert. Darstellung und Berechnungsgrundlage sind getrennt;
 Details, Arbeitslimit und Bestätigung in [GRAPH_MODE.md](GRAPH_MODE.md).
+
+## AP26 · Implizite 2D-Domäne (optional)
+
+AP26 ist eine Funktionserweiterung auf AP18–AP25 und unabhängig vom AP21-Fit.
+Keine neue Renderinglogik, UI-Aktivierung, symbolische Algebra oder allgemeine
+Gleichungslösung. Die bestehenden `Curve`-, Sampling-, Analysis- und
+Viewport-Verträge bleiben unverändert.
+
+### Eingabe und API
+
+`ImplicitCurve` enthält `{ kind: 'implicit', expression: Ast, params?, angleMode? }`.
+`expression` ist bereits F(x,y); Eingabe und Ergebnis sind JSON-serialisierbar.
+`parseImplicitInput(source, { params?, angleMode? })` ist ein **separater Opt-in**:
+
+| Eingabe                                           | Normalisierung                                                 |
+| ------------------------------------------------- | -------------------------------------------------------------- |
+| `x^2+y^2=4` oder `x²+y²=4`                        | `(x^2+y^2)-4 = 0`                                              |
+| `sin(x)+cos(y)`                                   | F(x,y) ist der skalare Ausdruck selbst                         |
+| `0`, `1=1`, `2=3`                                 | konstante Nullmenge bzw. leere Menge                           |
+| `y=x^2`, `x=3`, `f(x)=...`, `r=...`, `a=2`, Tupel | in diesem Opt-in abgelehnt; bisheriger Parser bleibt zuständig |
+
+Genau ein Gleichheitszeichen trennt zwei skalare Ausdrücke. Eine einzelne
+Bezeichnerlinke bleibt der vorhandenen Gleichungs-/Zuweisungssyntax vorbehalten;
+auch `x=y` wird hier nicht umgedeutet (explizites F wäre `x-y`). Unicode-
+Hochziffern und zusammenhängendes Hochzeichen-Vorzeichen werden lediglich zu
+Potenzsyntax normalisiert; z.B. `x⁻²` → `x^(-2)`. Keine weiteren Umformungen.
+Fehlerbereiche umfassen wie beim bisherigen Graphparser die ursprüngliche Eingabe;
+AST-Positionen beziehen sich auf die normalisierten Teilausdrücke.
+`x,y` sind unabhängige Variablen; t/theta/θ sind hier Fehler, sonstige freie
+Bezeichner bleiben Sliderparameter mit dem bisherigen Standardwert 1.
+Float-Funktionen, Konstanten, Winkelmodi und NaN-Weitergabe folgen AP12.
+Anweisungen, Definitionen, Bitoperationen und Funktionen ohne `floatImpl`
+werden vom Eingabeadapter abgelehnt. Maximal 10000 Zeichen (auch nach
+Normalisierung), 2048 AST-Besuche und Tiefe 128; keine neuen Parserfreiheiten.
+
+`compileImplicitCurve(curve)` delegiert an `compile` mit `variables: ['x','y']`;
+die bestehenden lokalen Parameterslots bleiben erhalten. Sampling verändert
+weder AST noch Parameterobjekt. `sampleImplicitCurve(curve,bounds,pixelSize,options?)`
+liefert `Point[][]`; `sampleImplicitCurveDetailed` liefert kompatibel dazu
+`{ segments, evaluations, truncated, diagnostics }`. Kein Clock-/IO-Zugriff und
+kein globaler Cache: identische Eingaben ergeben identische Zahlen/Reihenfolge.
+
+### Auflösung, Verfeinerung und Randkonsistenz
+
+Der sichtbare Bereich wird zunächst in höchstens 32×32 CSS-Pixel große Kacheln
+geteilt. Ein lokaler Quadtree halbiert beide Achsen. **Alle** Kacheln werden bis
+zu einer maximalen Seitenlänge `discoveryPixels=8` untersucht, auch gleichsignige
+und undefinierte Bereiche. Jede Zelle prüft vier Ecken, vier Seitenmitten und
+Zentrum. Dieses Suchraster verhindert die reine Eckenvorzeichen-Heuristik bei
+kleinen Schleifen; es ist keine universelle Komponentensuche.
+Unterschiedliche Vorzeichen im Inneren, mehrere Randtreffer, Definitionsränder
+und unzureichende lokale Genauigkeit führen zu weiterer Teilung.
+
+Marching Squares verbindet Randnullstellen. Die Randprüfung halbiert eine
+Vorzeichenklammer höchstens 52-mal und versucht eine abschließende Sekante.
+Eine Nullstelle muss das Residuum gegenüber dem **kleineren** ursprünglichen
+Randbetrag um Faktor 10^7 reduzieren. Für darstellungsbedingt nicht exakt
+erreichbare Nullwerte ist alternativ eine kollabierte Wertklammer zulässig:
+`|F(lo)|+|F(hi)| <= min(10^-7*max(|F(a)|,|F(b)|),16*min(|F(a)|,|F(b)|))`.
+Damit darf Float64-Auslöschung einen regulären tangentialen Rasterkontakt
+schließen; ein bloß enger x/y-Abstand oder Pol-Vorzeichenwechsel genügt nicht.
+Wachsende beidseitige Beträge ohne Residuenverbesserung werden konservativ
+verworfen. Nichtendliche Zwischenproben verwerfen ebenfalls die Klammer.
+
+Für jede akzeptierte Sehne prüfen echte F-Auswertungen deren Viertel-, Mittel-
+und Dreiviertelpunkt. Die lokale Normalabstands-Schätzung ist
+`|F| / hypot(dF/dscreenX,dF/dscreenY)`; zentrale Differenzen verwenden je 1/32
+der Zellseitenlänge. Funktionswerte werden vor Differenzbildung skaliert, damit
+Produkte/Gradienten möglichst nicht überlaufen. Standardziel:
+`tolerancePixels=0.25` CSS-Pixel. Die größte **akzeptierte** Schätzung steht in
+`maxEstimatedErrorPixels`. Nichtendliche/verschwindende ungeeignete Gradienten
+werden nicht als kleine Fehler ausgegeben. Bei ungeklärten Zellen unterhalb
+dieser Pixel-Seitenlänge wird eine diagnostizierte Lücke ausgegeben.
+
+Für adaptive Ränder werden alle Blattseiten auf einem gemeinsamen ganzzahligen
+dyadischen Raster geführt. Jede feine Nachbarecke teilt auch die grobe Seite
+in dieselben **atomaren Intervalle**. Deren Nullstellen werden genau einmal
+berechnet und über identische Schlüssel geteilt; keine Entfernungsschwelle zum
+Zusammenkleben nahe gelegener Komponenten. Zusätzliche Randproben nehmen bereits
+an der Zellverwerfung teil. Mehrere Treffer auf einer groben Seite erzwingen
+deren Verfeinerung und einen erneuten, begrenzten Randdurchlauf. Die geänderten
+Sehnen werden erneut geometrisch geprüft. So stimmen grobe und feine Übergänge
+überein, ohne einen ganzen zusammenhängenden Konturzug gleich tief zu verfeinern.
+Budget-/Definitionslücken bleiben ausdrücklich als solche erkennbar.
+
+### Sättel und degenerierte Mengen
+
+Eckenreihenfolge: unten links A, unten rechts B, oben rechts C, oben links D.
+Der asymptotische Decider benutzt den skalierten Determinanten
+`Q=A*C-B*D` des bilinearen Interpolanten, **nicht** das Zentrumsvorzeichen:
+Q>0 verbindet unten–rechts / oben–links, Q<0 unten–links / rechts–oben.
+Der bilineare Sattel liegt bei
+`u=(A-D)/(A-B+C-D), v=(A-B)/(A-B+C-D)`.
+Bei Q=0 muss der tatsächliche F-Wert am Sattel null sein; sonst wird verfeinert.
+Bei numerisch nahezu null (64 Epsilon des skalierten Determinanten) darf auch
+der Schnitt gegenüberliegender Randsehnengeraden als Kandidat dienen, wiederum
+nur bei tatsächlich F=0. Dadurch erhalten auch verschobene bilineare Kreuzungen
+einen gemeinsamen Knoten. Vier Äste enden am Knoten; Stitching wählt dort keinen
+willkürlichen Durchgang. Für Q≠0 bleiben die beiden Hyperbeläste getrennt.
+
+Exakt nullwertige Ränder benötigen zusätzlich drei innere Nullproben. Sie werden
+einmal als gemeinsame Graphkanten ausgegeben, z.B. die Achsen von `x*y=0`,
+ohne falsche diagonale Abkürzung. Komplexere nicht aufgelöste Nullrand-/Innenast-
+Kombinationen werden verfeinert und gegebenenfalls als Lücke diagnostiziert.
+Zellen mit neun Nullproben liefern keine willkürlichen Gitterlinien:
+`zeroCells` kennzeichnet solche flächigen/degenerierten Kandidaten. Eine
+syntaktisch koordinatenunabhängige Funktion wird einmal ausgewertet:
+0 → `constant-zero` (gesamter Bereich, keine endliche Konturliste), endlicher
+Nichtnullwert → `empty`, NaN → `undefined`. `x-x` wird nicht algebraisch
+vereinfacht und bleibt eine diagnostizierte Nullregion. Isolierte Punktmengen
+wie `x^2+y^2=0` erhalten keine künstlichen Polylinien; doppelte Nullstellen ohne
+Vorzeichenwechsel sind nur bei passenden Nullproben/Rändern sichtbar.
+
+### Arbeits- und Speichergrenzen
+
+| Option                                              | Standard | zulässiger Höchstwert |
+| --------------------------------------------------- | -------: | --------------------: |
+| `maxCells` (inklusive verworfener Eltern)           |   200000 |               1000000 |
+| `maxEvaluations` (inklusive Rand-/Gradientenproben) |  1000000 |               4000000 |
+| `maxSamples` (gespeicherte Rasterwerte)             |   400000 |               1000000 |
+| `maxDepth` (pro Ausgangskachel; 0 erlaubt)          |       10 |                    16 |
+| `maxSegments` (Graphkanten vor Stitching)           |    50000 |                200000 |
+
+Budgets sind positive sichere Ganzzahlen (Tiefe auch 0); ungültige Optionen
+werfen RangeError. `discoveryPixels` ist positiv bis 64, `tolerancePixels`
+positiv bis 2. Bounds/Auflösung müssen außerdem die AP21-Präzisionsprüfung
+erfüllen. Schon eine zu große Zahl Ausgangskacheln wird vor deren Erzeugung
+abgebrochen. Kein zeitabhängiges Timeout und keine unbegrenzte Suchschleife.
+Es gibt höchstens `maxDepth+1` Randdurchläufe; jeder neue Durchlauf benötigt
+eine echte Zellteilung. Rekursionstiefe ist begrenzt. Blatt-, Linien-, Knoten-
+und Randcaches sind O(maxCells), Rasterwerte O(maxSamples), Ausgabe/Stitching
+O(maxSegments); keine unbudgetierte Speicherung aller F-/Gradientenaufrufe.
+Die Plattformkosten von Map/Objekten sind keine feste Bytegarantie.
+
+`diagnostics` enthält Status, sortierte `limits` (`cells`, `evaluations`,
+`samples`, `depth`, `segments`, `precision`), Zell-/Blatt-/Cache-/Kantenzahl,
+tiefste Stufe, nichtendliche Auswertungen, verworfene Randklammern, ungeklärte
+und nullwertige Zellen, Sattel-/Übergangszellen sowie die akzeptierte lokale
+Fehlerschätzung. `truncated` bedeutet ausgeschöpftes hartes Limit;
+`unresolvedCells` kann auch ohne dieses Flag numerische/Definitionslücken
+anzeigen. `empty` bedeutet bei ortsabhängigen Funktionen nur „keine Kontur im
+abgetasteten Bereich erkannt“, keinen mathematischen Leerheitsbeweis.
+Alle ausgegebenen Punkte und Diagnosen sind endlich und serialisierbar.
+
+### Fehlergrenzen und Verifikation
+
+Die 0,25 px sind eine lokale, getestete Normalabstands-Schätzung, **keine**
+universelle Hausdorff- oder Topologiegarantie. Schlechte Gradienten, sehr nahe
+Äste, Oszillationen zwischen Proben, schmalere Komponenten, große dynamische
+Wertespannen, Float64-Auslöschung und Pol-/Sprungstellen bleiben numerische
+Grenzen. Auch eine endliche Anzahl Residuenproben beweist keine Stetigkeit
+beliebiger Funktionen. Konservative Auslassungen sind möglich; Pole werden
+nicht allein aufgrund eines Vorzeichenwechsels gezeichnet. Es werden keine
+universellen Garantien für jede beliebig kleine Komponente behauptet.
+
+`src/graph/implicit.test.ts` prüft Kreis/Ellipse mit unabhängigen analytischen
+Abstandsproben, Hyperbelresiduen, beide Sattelentscheidungen, Raster- und
+verschobene Kreuzungen, getrennte Komponenten, nahe Schleifen mit Radius 5 px
+bei mehreren Rasterphasen, adaptive Übergänge ohne offene Enden, NaN-/Polbereiche,
+konstante/degenerierte Mengen, alle Budgets und deterministische Ergebnisse.
+fast-check: Ausdrucksfuzzing Seed 260017 (50 Fälle), analytische verschobene
+Kreise Seed 170026 (25 Fälle). Keine reinen Algorithmus-Snapshots.
+
+`npm test -- --project=engine src/graph` führt die Graph-Tests aus.
+`npm run test:graph:implicit:bench` misst acht Referenzen bei **1280×720**,
+8-px-Discovery/0,25-px-Ziel und obigen Standardbudgets, nach zwei Warm-ups mit
+fünf Messungen je Fall. Komponenten-/Schließungs- und Residuenprüfungen sind
+Teil des Benchmarks. Ziel 250 ms, großzügige Regressionsgrenze 1500 ms/Kurve;
+2D wird nicht mit dem 1D-Ziel von 4 ms vermischt. Reale lokale Messwerte und
+Arbeitszahlen: [graph-implicit-performance.json](graph-implicit-performance.json).
+Der unveränderte 1D-/Fit-Benchmark bleibt bei 2560×1440 und <25 ms.
+`npm run check` enthält beide Benchmarks. Vollständige npm-/Browsernachweise
+werden im PR mit dem tatsächlich geprüften Commit ausgewiesen.
+
+### AP27 · Exakter Integrationspunkt / Offen
+
+`parseCurveInput` meldet für implizite Eingaben weiterhin ausdrücklich
+`E_UNSUPPORTED_CURVE` mit `detectedKind: 'implicit'`. AP27 kann an genau diesem
+Dispatcherzweig nach bewusster Freigabe `parseImplicitInput` aufrufen und den
+neuen Typ an `sampleImplicitCurveDetailed` weiterreichen. Nicht einfach `Curve`
+erweitern: `src/features/graph/workerProtocol.ts`, Sampling-Worker, Plot-Satz-
+Validator/Persistenz und Fehlermeldungen müssen den neuen Auftrag verstehen.
+Worker übertragen nur AST/Optionen und Polylinien/Diagnosen, niemals Closures.
+Canvas/SVG können die resultierenden Polylinien übernehmen. AP27 muss zusätzlich
+das Verhalten für Analysis, Trace, Fit und Wertetabelle festlegen; diese APIs
+verlangen derzeit einen parametrisierten/einwertigen Kurvenvertrag und erhalten
+in AP26 keinen impliziten Fallback. Issue #17 bleibt für diese Integration offen.
