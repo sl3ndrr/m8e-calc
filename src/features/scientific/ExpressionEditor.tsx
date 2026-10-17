@@ -20,6 +20,7 @@ import {
   completionStatus,
   closeCompletion,
   acceptCompletion,
+  completionKeymap,
   type CompletionContext,
 } from '@codemirror/autocomplete';
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
@@ -152,6 +153,9 @@ function completions(locale: Locale) {
   const entries = completionEntries(locale);
   return autocompletion({
     // Tab explicitly accepts a visible completion; Enter is reserved for evaluation.
+    // Install the completion bindings below our calculator commands. Its default
+    // highest-priority map otherwise consumes Escape/Enter before those commands.
+    defaultKeymap: false,
     interactionDelay: 0,
     override: [
       (ctx: CompletionContext) => {
@@ -293,6 +297,7 @@ export default function ExpressionEditor({
             ]),
           ),
           keymap.of([
+            ...completionKeymap,
             ...closeBracketsKeymap,
             ...defaultKeymap,
             ...historyKeymap,

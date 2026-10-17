@@ -71,6 +71,17 @@
       "target": "gallery",
       "sha256": "16e25fa8ad09091e4893771a6f5a5ff5de0da2349b32e83bdd7919968518d40a",
       "pngPixels": [1178, 288]
+    },
+    {
+      "file": "scientific-escape-failure-chromium.jpeg",
+      "headCommit": "1cdffa6936e6baca3edd6bb7cd6cbb96a2956313",
+      "buildCommit": "65cbe1b55715bb5fc43de3e6e2c74567c47fd927",
+      "runId": 39012581208,
+      "artifactId": 12093264038,
+      "sourceArtifactPath": "test-results/app/scientific-DEG-definitions-48358-eyboard-history-and-restore-chromium/trace.zip",
+      "archiveMember": "screencast/page@4cd8ac76b4e384fbfe6c7a2213ce853c-1792221286292.jpeg",
+      "sha256": "2fb4e15aae56ad5a6d675118610fc9276467cb0afda9975e66ba5b22fdec08d6",
+      "note": "Unmodified final screencast frame from failed Chromium Escape trace, before keyboard correction."
     }
   ],
   "motionEvidence": {

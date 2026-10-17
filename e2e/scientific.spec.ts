@@ -81,6 +81,13 @@ test('insertion wraps a selection, 2nd flips functions, completion and single-li
   await expect(completion).toBeVisible();
   await expect(completion).toContainText('integral');
   await expect(completion).toContainText('integral(expr, x, a, b)');
+  // Escape is the documented clear command, including with an open suggestion.
+  await editor.press('Escape');
+  await expect(editor).toHaveText('');
+  await expect(completion).toHaveCount(0);
+  await editor.fill('inte');
+  await editor.press('Control+Space');
+  await expect(completion).toBeVisible();
   await editor.press('Tab');
   await expect(editor).toHaveText('integral(');
   await editor.press('Escape');

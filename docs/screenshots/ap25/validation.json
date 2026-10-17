@@ -266,7 +266,7 @@
     "method": "Native pointer-down, rAF-paced pointer moves, trace disabled; real mouse and wheel covered by functional E2E.",
     "note": "Headless Chromium measurements; refresh rate and GPU vary on physical displays."
   },
-  "finalCodeVerification": {
+  "preCorrectionVerification": {
     "headCommit": "0f2b3b3cfe224bf35b87c22ff9ea25155559958e",
     "buildCommit": "d8b996265dd06cecfc488fee6db483f16b9e0509",
     "ciRun": 39011871380,
@@ -295,5 +295,20 @@
     "ap22Run": 39011871369,
     "allCompletedGates": "success",
     "limits": "OS clipboard on Firefox/WebKit uses an explicit memory adapter; no live Pages or physical screenreader/GPU acceptance."
+  },
+  "editorRegressionRedProof": {
+    "headCommit": "d372a4740515e7bb120a5e9eb177f3bebb1e816f",
+    "runId": 39013181722,
+    "jobId": 117339833471,
+    "passed": 2086,
+    "failed": 2,
+    "failedCases": [
+      "Escape retains its calculator action with an open completion",
+      "Enter retains its calculator action with an open completion"
+    ],
+    "browserFailureHead": "1cdffa6936e6baca3edd6bb7cd6cbb96a2956313",
+    "browserFailureRun": 39012581208,
+    "browserFailureArtifact": 12093264038,
+    "note": "Read after completion. New tests fail at missing calculator callbacks; all preexisting unit tests pass. Final correction runs linked in PR40."
   }
 }

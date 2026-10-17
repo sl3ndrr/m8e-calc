@@ -10,6 +10,8 @@ Engine und AST-Vertrag bleiben unverändert.
 - Einzeiliger Ausdruckseditor: Enter wertet aus, ↑/↓ navigiert im Verlauf mit
   Rückkehr zum Entwurf, Esc leert, Strg+Leertaste öffnet Vorschläge, Tab übernimmt
   einen Vorschlag. Syntaxfarben und Klammerpaare verwenden Material-Tokens.
+  Esc und Enter behalten ihre Rechneraktion auch bei offenen Vorschlägen;
+  die Vorschlagsnavigation verwendet weiterhin die CodeMirror-Belegung.
 - Die Registry liefert Funktionssignaturen, Konstanten und vollständige de/en
   Kurzbeschreibungen. Fehler unterstreichen den UTF-16-Bereich der Engine; EOF
   bekommt eine Punktmarkierung. Literal-Gradzeichen werden im UI-Adapter für

@@ -16,6 +16,12 @@ Alle wesentlichen Änderungen werden hier dokumentiert. Das Format folgt
   Ergebnisse und offene Live-Abnahme in [AP25](docs/AP25.md). Keine neue Version,
   kein Release oder Tag daraus abgeleitet.
 
+### Fixed
+
+- Wissenschaftlicher Editor: Esc leert und Enter wertet auch bei offenen
+  Vorschlägen aus; die Standard-Completion-Belegung verdrängt diese
+  Rechneraktionen nicht mehr. AP25 ergänzt gezielte Adapter-/Browserregressionen.
+
 ## [1.0.0] – Veröffentlichung vorbereitet, noch nicht veröffentlicht
 
 AP16-Vorbereitungsstand. Seither integrierte, noch nicht als GitHub Release
