@@ -612,14 +612,16 @@ export default function GraphMode() {
               {!tableCurve && (
                 <p role="status">{t('graph.tableUnavailable', locale)}</p>
               )}
-              <ValueTable
-                curve={tableCurve}
-                bounds={state.bounds}
-                step={tableStep}
-                rounding={rounding}
-                locale={locale}
-                preferences={preferences}
-              />
+              {tableCurve && (
+                <ValueTable
+                  curve={tableCurve}
+                  bounds={state.bounds}
+                  step={tableStep}
+                  rounding={rounding}
+                  locale={locale}
+                  preferences={preferences}
+                />
+              )}
             </section>
           )}
         </div>

@@ -1,6 +1,6 @@
 # Graphen · AP13
 
-`src/features/graph` bindet die reine AP12-Engine an die Graphen-Route an. Die
+`src/features/graph` bindet AP12 und die optionale AP26-2D-Domäne an die Graphen-Route an. Die
 Domäne bleibt ohne Browserimporte. `model.ts` enthält Parserintegration,
 Parametersuche, Plot-Satz-Reducer, validierte Wiederherstellung, Trace und Tabellen.
 Die Funktionsliste verwendet den kompakten, lazy geladenen AP8-CodeMirror-Editor
@@ -18,8 +18,9 @@ AP4-Verlauf gespeichert. Parameter-Playback pausiert die Speicherung.
 Sampling läuft im lokalen Modul-Web-Worker. Es gibt höchstens einen laufenden
 und einen ersetzbaren nächsten Auftrag. Veraltete Antworten werden verworfen.
 Path2D-Pfade werden pro Antwort aufgebaut; Pan und Zoom transformieren diese
-Pfade während der nächsten Berechnung. Ein um 35% erweiterter Samplingbereich
-reduziert sichtbare Randlücken bei Bewegung. Bei fehlender Worker-Unterstützung
+Pfade während der nächsten Berechnung. Reine 1D-Listen verwenden einen um 35% erweiterten Samplingbereich,
+der sichtbare Randlücken bei Bewegung reduziert. Implizite und gemischte Listen
+berechnen den sichtbaren Bereich innerhalb gemeinsamer 2D-Budgets. Bei fehlender Worker-Unterstützung
 existiert ein begrenzter synchroner 1D-Fallback; implizite Kurven benötigen den Worker. Worker und Listener werden beim Unmount beendet.
 
 Ziehen, Trägheit, Radzoom am Mauszeiger, Doppelklick, +/−, Anpassen, 1:1 und
@@ -30,7 +31,7 @@ Die Seitenverhältnissperre bedeutet gleiche Welteinheiten pro Pixel; 1:1 setzt
 auf den Standardbereich zurück. π-Ticks gelten für die x-Achse. Grobe und feine
 Gitter verwenden die adaptive AP12-Tickliste.
 
-Hover rastet innerhalb von 18 CSS-Pixeln auf eine Kurve ein. Pfeiltasten bewegen
+Hover rastet innerhalb von 18 CSS-Pixeln auf eine unterstützte 1D-Kurve ein. Pfeiltasten bewegen
 den Parameter des Trace-Punkts; Escape löst ihn. Für parametrische/polare Kurven
 wird der nächstliegende Parameter numerisch verfeinert. Kontextmenü per Rechtsklick
 oder Shift+F10 am Trace; dieselben Analyseaktionen sind im Zeilenmenü verfügbar.
@@ -82,7 +83,7 @@ sichtbare x-Achse. Nur AP12-confidente Tangenten werden gezeichnet. Ergebnisse
 tragen Koordinaten-Chips; nicht verlässliche Integralwerte werden gekennzeichnet.
 Kurvenänderungen entfernen veraltete Analyseergebnisse.
 
-Tabellen verwenden x, y und u (bei parametrisch/polar der Kurvenparameter), mit
+Tabellen für unterstützte 1D-Kurven verwenden x, y und u (bei parametrisch/polar der Kurvenparameter), mit
 positiver Schrittweite und einer Obergrenze von 500 Zeilen. PNG-Export verwendet
 die genaue aktuelle Ansicht, DPR, die tatsächlich angezeigten akzeptierten
 Polylinien, Marker und Integralfläche, ohne Trace und ohne erneutes Sampling. Wählbar:

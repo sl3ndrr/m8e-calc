@@ -174,3 +174,14 @@ it.each(['de', 'en'] as const)(
     }
   },
 );
+
+it('explains parser resource limits without exposing only a technical error code', () => {
+  render(
+    <FunctionPanel
+      {...common}
+      rows={[parseRow(newRow('large', 'x'.repeat(10001)))]}
+      dispatch={vi.fn()}
+    />,
+  );
+  expect(screen.getByRole('alert')).toHaveTextContent('Maximal 10000 Zeichen');
+});

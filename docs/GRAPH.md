@@ -421,18 +421,16 @@ werden im PR mit dem tatsächlich geprüften Commit ausgewiesen.
 
 ### AP27 · Integrationspunkt
 
-`parseCurveInput` meldet für implizite Eingaben weiterhin ausdrücklich
-`E_UNSUPPORTED_CURVE` mit `detectedKind: 'implicit'`. AP27 kann an genau diesem
-Dispatcherzweig nach bewusster Freigabe `parseImplicitInput` aufrufen und den
-neuen Typ an `sampleImplicitCurveDetailed` weiterreichen. Nicht einfach `Curve`
-erweitern: `src/features/graph/workerProtocol.ts`, Sampling-Worker, Plot-Satz-
-Validator/Persistenz und Fehlermeldungen müssen den neuen Auftrag verstehen.
-Worker übertragen nur AST/Optionen und Polylinien/Diagnosen, niemals Closures.
-Canvas/SVG können die resultierenden Polylinien übernehmen. AP27 muss zusätzlich
-das Verhalten für Analysis, Trace, Fit und Wertetabelle festlegen; diese APIs
-verlangen derzeit einen parametrisierten/einwertigen Kurvenvertrag und erhalten
-in AP26 keinen impliziten Fallback. Issue #17 bleibt für diese Integration offen.
+`parseCurveInput` meldet für implizite Gleichungen weiterhin ausdrücklich
+`E_UNSUPPORTED_CURVE` mit `detectedKind: 'implicit'`. Der Featureadapter
+`parsePlotInput` aktiviert an diesem Dispatcherzweig `parseImplicitInput` und
+reicht den neuen Typ an den Worker mit `sampleImplicitCurveDetailed` weiter.
+`PlotCurve` vereinigt die beiden Verträge im Feature; die öffentliche Domänen-
+`Curve` und ihre 1D-Analysis-/Viewport-APIs bleiben stabil. Worker übertragen
+nur AST/Optionen und Polylinien/Diagnosen, niemals Closures. Getrennte Polylinien
+werden als getrennte Canvas-Unterpfade gezeichnet.
 
-Der AP27-Featureadapter `parsePlotInput` aktiviert jetzt diesen Dispatcherzweig;
-Worker/UI-Vertrag, Fit und bewusst gesperrte 1D-Aktionen: [AP27.md](AP27.md).
-Der öffentliche Domänenparser `parseCurveInput` behält seinen 1D-Vertrag.
+Worker/UI, gemeinsames Budget, kompatible textbasierte Speicherung, stabiler
+AP21-Fit und bewusst gesperrte implizite Analysis-/Trace-/Tabellenaktionen:
+[AP27.md](AP27.md). Issue #17 erhält erst nach belegter gemeinsamer Abnahme
+von AP26 und AP27 eine Schließungsverknüpfung.

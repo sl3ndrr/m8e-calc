@@ -1,9 +1,13 @@
+import { replaceGraphExpression } from './graphEditor';
 import { test, expect, type Page } from '@playwright/test';
 import { allowClipboard } from './clipboard';
 test.use({ serviceWorkers: 'block' });
 async function add(page: Page, input: string) {
   await page.getByRole('button', { name: 'Hinzufügen', exact: true }).click();
-  await page.locator('.graph-editor [role="textbox"]').last().fill(input);
+  await replaceGraphExpression(
+    page.locator('.graph-editor [role="textbox"]').last(),
+    input,
+  );
 }
 async function sampled(page: Page, count: number) {
   const canvas = page.locator('canvas.graph-canvas');
@@ -49,7 +53,7 @@ test('AP27 contours, invalid input, component boundaries and explicit action gat
     ['x*y=0', 4],
     ['((x-3)^2+y^2-1)*((x+3)^2+y^2-1)=0', 2],
   ] as const) {
-    await editor.fill(input);
+    await replaceGraphExpression(editor, input);
     const result = await sampled(page, 1);
     expect(result[0]?.components).toBeGreaterThanOrEqual(minimum);
     expect(result[0]?.error).toBeUndefined();
@@ -58,7 +62,9 @@ test('AP27 contours, invalid input, component boundaries and explicit action gat
   await canvas.focus();
   await canvas.press('ArrowRight');
   await expect(page.locator('.graph-trace')).toHaveCount(0);
-  await page.getByRole('button', { name: 'Aktionen für Funktion 1' }).click();
+  await page
+    .getByRole('button', { name: 'Aktionen für Funktion 1' })
+    .press('Enter');
   for (const name of [
     'Nullstellen',
     'Extrema',
@@ -80,7 +86,7 @@ test('AP27 contours, invalid input, component boundaries and explicit action gat
   await page.screenshot({
     path: info.outputPath('implicit-components-de-light.png'),
   });
-  await editor.fill('x^2+y^2=');
+  await replaceGraphExpression(editor, 'x^2+y^2=');
   await expect(page.getByRole('alert')).toContainText('Eingabe prüfen');
   await sampled(page, 0);
   await expect(table.getByRole('table')).toHaveCount(0);
@@ -118,13 +124,17 @@ test('AP27 mixed list animation, keyboard visibility/reordering/deletion and sta
   await page
     .getByRole('button', { name: 'Sichtbarkeit von Funktion 1' })
     .press('Enter');
-  await page.getByRole('button', { name: 'Aktionen für Funktion 1' }).click();
+  await page
+    .getByRole('button', { name: 'Aktionen für Funktion 1' })
+    .press('Enter');
   await page.getByRole('menuitem', { name: 'Nach unten' }).click();
   await expect(
     page.locator('.graph-editor [role="textbox"]').first(),
   ).toHaveText('sin(x)');
   await sampled(page, 2);
-  await page.getByRole('button', { name: 'Aktionen für Funktion 2' }).click();
+  await page
+    .getByRole('button', { name: 'Aktionen für Funktion 2' })
+    .press('Enter');
   await page.getByRole('menuitem', { name: 'Löschen', exact: true }).click();
   await sampled(page, 1);
 });
@@ -142,7 +152,7 @@ test('AP27 typing, zoom/pan/resize keep the latest signature and remain responsi
     'x*y=1',
     'x^2+y^2=4',
   ])
-    await editor.fill(input);
+    await replaceGraphExpression(editor, input);
   const canvas = page.locator('canvas.graph-canvas');
   const box = await canvas.boundingBox();
   if (!box) throw Error('Canvas');
@@ -159,13 +169,13 @@ test('AP27 typing, zoom/pan/resize keep the latest signature and remain responsi
   let result = await sampled(page, 1);
   expect(JSON.parse(result[0]?.signature ?? '{}').kind).toBe('implicit');
   expect(result[0]?.components).toBe(1);
-  await editor.fill('sin(100*x)*sin(100*y)=0');
+  await replaceGraphExpression(editor, 'sin(100*x)*sin(100*y)=0');
   result = await sampled(page, 1);
   expect(result[0]?.truncated || result[0]?.error === 'timeout').toBe(true);
   await expect(page.locator('.graph-sampling-status')).toContainText(
     /Arbeitsgrenze|3 Sekunden/,
   );
-  await editor.fill('x^2+y^2=4');
+  await replaceGraphExpression(editor, 'x^2+y^2=4');
   result = await sampled(page, 1);
   expect(result[0]?.truncated).toBe(false);
   await canvas.focus();
@@ -199,7 +209,10 @@ test('AP27 history, old/new links, reload and PNG contain the displayed contour'
     .toBe(true);
   await page.getByRole('button', { name: 'Link teilen', exact: true }).click();
   const link = await page.evaluate(() => navigator.clipboard.readText());
-  await page.locator('.graph-editor [role="textbox"]').first().fill('x*y=1');
+  await replaceGraphExpression(
+    page.locator('.graph-editor [role="textbox"]').first(),
+    'x*y=1',
+  );
   await page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }).click();
   await page
     .getByRole('button', {
@@ -244,13 +257,22 @@ test('AP27 history, old/new links, reload and PNG contain the displayed contour'
           return ctx.getImageData(0, 0, c.width, c.height).data;
         };
         const [a, b] = await Promise.all([pixels(screen), pixels(exported)]);
+        const dot = document.querySelector('.graph-color-dot');
+        if (!dot) throw Error('Missing implicit palette color');
+        const swatch = document.createElement('canvas').getContext('2d');
+        if (!swatch) throw Error('Missing color context');
+        swatch.fillStyle = getComputedStyle(dot).backgroundColor;
+        swatch.fillRect(0, 0, 1, 1);
+        const ink = swatch.getImageData(0, 0, 1, 1).data;
         let colored = 0,
           matches = 0;
         for (let i = 0; i < a.length; i += 4)
           if (
-            Math.max(a[i] ?? 0, a[i + 1] ?? 0, a[i + 2] ?? 0) -
-              Math.min(a[i] ?? 0, a[i + 1] ?? 0, a[i + 2] ?? 0) >
-            60
+            Math.max(
+              Math.abs((a[i] ?? 0) - (ink[0] ?? 0)),
+              Math.abs((a[i + 1] ?? 0) - (ink[1] ?? 0)),
+              Math.abs((a[i + 2] ?? 0) - (ink[2] ?? 0)),
+            ) < 24
           ) {
             colored++;
             if (
@@ -261,7 +283,7 @@ test('AP27 history, old/new links, reload and PNG contain the displayed contour'
             )
               matches++;
           }
-        return colored > 500 && matches / colored > 0.98;
+        return colored > 200 && matches / colored > 0.98;
       },
       { screen, exported },
     ),
@@ -303,7 +325,10 @@ test('AP27 English dark theme shows the same action limits and keeps keyboard fo
   const page = await context.newPage();
   await page.goto('/m8e-calc/#/graph');
   await page.getByRole('button', { name: 'Add', exact: true }).click();
-  await page.locator('.graph-editor [role="textbox"]').fill('x^2+y^2=4');
+  await replaceGraphExpression(
+    page.locator('.graph-editor [role="textbox"]'),
+    'x^2+y^2=4',
+  );
   await sampled(page, 1);
   await expect(page.getByText(/does not define one y value/)).toBeVisible();
   const actions = page.getByRole('button', { name: 'Actions for function 1' });
@@ -340,11 +365,11 @@ test('AP27 delayed and duplicated real Worker replies cannot replace a newer equ
             const data = event.data;
             setTimeout(
               () => this.dispatchEvent(new MessageEvent('message', { data })),
-              350,
+              1200,
             );
             setTimeout(
               () => this.dispatchEvent(new MessageEvent('message', { data })),
-              1000,
+              2200,
             );
           }
         });
@@ -356,7 +381,18 @@ test('AP27 delayed and duplicated real Worker replies cannot replace a newer equ
   await expect
     .poll(() => page.evaluate(() => '__ap27Held' in window))
     .toBe(true);
-  await page.locator('.graph-editor [role="textbox"]').fill('x*y=1');
+  await page
+    .getByRole('button', { name: 'PNG exportieren', exact: true })
+    .click();
+  await expect(
+    page.getByText(
+      'Die neue Kurve wird noch berechnet. PNG-Export anschließend erneut starten.',
+    ),
+  ).toBeVisible();
+  await replaceGraphExpression(
+    page.locator('.graph-editor [role="textbox"]'),
+    'x*y=1',
+  );
   const latest = await sampled(page, 1);
   expect(latest[0]?.components).toBeGreaterThanOrEqual(2);
   await page.waitForTimeout(1100);
@@ -394,7 +430,10 @@ test('AP27 stalled Worker stops after the deadline and a new equation recovers o
   await expect(page.locator('.graph-sampling-status')).toContainText(
     '3 Sekunden',
   );
-  await page.locator('.graph-editor [role="textbox"]').fill('x*y=1');
+  await replaceGraphExpression(
+    page.locator('.graph-editor [role="textbox"]'),
+    'x*y=1',
+  );
   const recovered = await sampled(page, 1);
   expect(recovered[0]?.error).toBeUndefined();
   expect(recovered[0]?.components).toBeGreaterThanOrEqual(2);

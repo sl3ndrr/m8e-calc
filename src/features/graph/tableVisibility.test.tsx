@@ -93,4 +93,5 @@ it('keeps an edited implicit or invalid selection instead of switching to a diff
   );
   fireEvent.change(second, { target: { value: 'sin(' } });
   expect(within(region).getByText(/ausgewählte Kurve/)).toBeInTheDocument();
+  expect(within(region).queryByRole('table')).not.toBeInTheDocument();
 });

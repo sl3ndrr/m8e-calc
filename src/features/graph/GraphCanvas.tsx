@@ -193,6 +193,8 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       sampleTimer = 0,
       viewTimer = 0;
     let revealDuration = 1;
+    let acceptedSampleId = 0,
+      renderedSampleId = 0;
     let sampleSignature = '',
       fontSize = 14,
       colorUntil = 0;
@@ -283,7 +285,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         paths = cachePaths(result, paths, performance.now());
         metrics.samplingMs = result.milliseconds;
         element.dataset.curveCount = String(paths.size);
-        element.dataset.sampling = 'false';
+        acceptedSampleId = result.id;
         element.dataset.sampleResult = JSON.stringify(
           result.curves.map((c) => ({
             id: c.id,
@@ -541,6 +543,9 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
           );
           ctx.globalAlpha = 1;
         }
+        renderedSampleId = acceptedSampleId;
+        if (latestRequest?.id === renderedSampleId)
+          element.dataset.sampling = 'false';
         dirty = false;
         metrics.frames++;
         metrics.renderMs.push(performance.now() - start);
@@ -783,6 +788,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         // Use the same accepted polylines and transform as the screen. Export
         // must never run a second 2D job synchronously or invent missing curves.
         if (
+          renderedSampleId !== acceptedSampleId ||
           visibleRows().some(
             (r) =>
               r.curve &&

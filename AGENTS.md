@@ -10,8 +10,8 @@ Vertrag und Toleranzen: `docs/GRAPH.md`. Registry-Einträge dürfen optional
 `floatImpl` anbieten; der Graph-Compiler verwendet niemals Decimal pro Sample.
 Graph-Tests laufen ebenfalls im Engine-Node-Projekt. `npm run test:graph:bench`
 misst typische Kurven bei 2560×1440 (Ziel <4 ms, Regression <25 ms).
-AP26 ergänzt einen separaten impliziten 2D-Domänenpfad (Issue #17); AP13 nutzt
-weiter ausschließlich die bisherigen Kurventypen mit lokalem Sampling-Worker.
+AP26 ergänzt einen separaten impliziten 2D-Domänenpfad (Issue #17); AP27 integriert diesen Pfad in AP13 mit lokalem Sampling-Worker, gemeinsamen
+Budgets, Diagnosen und expliziten Sperren für nicht unterstützte 1D-Aktionen.
 `ImplicitCurve`, `parseImplicitInput`, `compileImplicitCurve` und
 `sampleImplicitCurveDetailed` sind additiv; `Curve` und `parseCurveInput` bleiben
 bis AP27 unverändert. Adaptive gemeinsame Zellränder, Sattel-Decider, numerische

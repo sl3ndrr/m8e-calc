@@ -299,11 +299,13 @@ function CurveRow({
       {error && (
         <p id={id} className="graph-error" role="alert">
           {t(
-            error.code === 'E_UNSUPPORTED_CURVE'
-              ? 'graph.unsupportedCurve'
-              : error.code === 'E_UNSUPPORTED_FUNCTION'
-                ? 'graph.unsupportedFunction'
-                : 'graph.parseError',
+            error.code === 'E_RESOURCE_LIMIT'
+              ? 'graph.inputLimit'
+              : error.code === 'E_UNSUPPORTED_CURVE'
+                ? 'graph.unsupportedCurve'
+                : error.code === 'E_UNSUPPORTED_FUNCTION'
+                  ? 'graph.unsupportedFunction'
+                  : 'graph.parseError',
             locale,
             { code: error.code },
           )}

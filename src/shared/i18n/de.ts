@@ -521,6 +521,8 @@ export const de = {
     'Dieser Kurventyp wird nicht unterstützt. Eingabesyntax prüfen.',
   'graph.unsupportedFunction':
     'Diese Funktion unterstützt kein Float64-Plotting.',
+  'graph.inputLimit':
+    'Eingabe zu groß oder zu tief verschachtelt. Maximal 10000 Zeichen; den Ausdruck vereinfachen.',
   'graph.parseError': 'Eingabe prüfen ({code}).',
   'graph.analysis.roots': 'Nullstellen',
   'graph.analysis.extrema': 'Extrema',

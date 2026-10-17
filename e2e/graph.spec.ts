@@ -1,3 +1,4 @@
+import { replaceGraphExpression } from './graphEditor';
 import { allowClipboard } from './clipboard';
 import { test, expect, type Page } from '@playwright/test';
 // Feature-state checks are isolated from SW update toasts; the production
@@ -8,7 +9,7 @@ async function addFunction(page: Page, input: string): Promise<void> {
   await page.getByRole('button', { name: 'Hinzufügen', exact: true }).click();
   const editor = page.locator('.graph-editor [role="textbox"]').last();
   await editor.waitFor();
-  await editor.fill(input);
+  await replaceGraphExpression(editor, input);
 }
 async function bounds(page: Page) {
   return JSON.parse(
@@ -90,7 +91,10 @@ test('invalid input and visibility do not crash the plot; complete plot sets res
   await page.goto('/m8e-calc/#/graph');
   await addFunction(page, 'sin(');
   await expect(page.getByRole('alert')).toContainText('Eingabe prüfen');
-  await page.locator('.graph-editor [role="textbox"]').fill('a*sin(x)');
+  await replaceGraphExpression(
+    page.locator('.graph-editor [role="textbox"]'),
+    'a*sin(x)',
+  );
   await expect(
     page.getByRole('slider', { name: 'a', exact: true }),
   ).toBeVisible();
@@ -118,7 +122,10 @@ test('invalid input and visibility do not crash the plot; complete plot sets res
   );
   expect(entry.payload.rows[0].visible).toBe(false);
   expect(entry.payload.rows[0].input).toBe('a*sin(x)');
-  await page.locator('.graph-editor [role="textbox"]').fill('x^2');
+  await replaceGraphExpression(
+    page.locator('.graph-editor [role="textbox"]'),
+    'x^2',
+  );
   await page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }).click();
   await page
     .getByRole('button', { name: 'Wiederherstellen: a*sin(x)' })
@@ -346,9 +353,15 @@ test('AP21 replaces obsolete fit goals on curve/parameter changes, presets, rese
     .poll(async () => (await targetBounds(page)).yMax)
     .toBeGreaterThan(before.yMax);
   await settled(page);
-  await page.locator('.graph-editor [role="textbox"]').fill('exp(x)');
+  await replaceGraphExpression(
+    page.locator('.graph-editor [role="textbox"]'),
+    'exp(x)',
+  );
   await fit.click();
-  await page.locator('.graph-editor [role="textbox"]').fill('sin(x)');
+  await replaceGraphExpression(
+    page.locator('.graph-editor [role="textbox"]'),
+    'sin(x)',
+  );
   await expect
     .poll(async () => (await targetBounds(page)).yMax)
     .toBeLessThan(10);
@@ -397,7 +410,7 @@ test('AP21 empty/hidden/invalid fits retain view; extreme constants remain usabl
   await fit.click();
   await expectSameView(page, original);
   const editor = page.locator('.graph-editor [role="textbox"]');
-  await editor.fill('x^2');
+  await replaceGraphExpression(editor, 'x^2');
   await page
     .getByRole('button', { name: 'Sichtbarkeit von Funktion 1' })
     .click();
@@ -407,7 +420,7 @@ test('AP21 empty/hidden/invalid fits retain view; extreme constants remain usabl
     .getByRole('button', { name: 'Sichtbarkeit von Funktion 1' })
     .click();
   for (const source of ['sqrt(-1)', '1.79e308', '1e-323']) {
-    await editor.fill(source);
+    await replaceGraphExpression(editor, source);
     await fit.click();
     await expectSameView(page, original);
   }
@@ -419,7 +432,7 @@ test('AP21 empty/hidden/invalid fits retain view; extreme constants remain usabl
     '(cos(t),sin(t))',
     'r=1+cos(theta)',
   ]) {
-    await editor.fill(source);
+    await replaceGraphExpression(editor, source);
     await fit.click();
     await settled(page);
     const expected = await bounds(page);

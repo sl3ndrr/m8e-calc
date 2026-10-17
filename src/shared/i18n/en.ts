@@ -502,6 +502,8 @@ export const en: Dictionary = {
     'This curve type is not supported. Check the input syntax.',
   'graph.unsupportedFunction':
     'This function does not support Float64 plotting.',
+  'graph.inputLimit':
+    'Input is too large or too deeply nested. Maximum 10000 characters; simplify the expression.',
   'graph.parseError': 'Check the input ({code}).',
   'graph.analysis.roots': 'Roots',
   'graph.analysis.extrema': 'Extrema',
