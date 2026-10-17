@@ -131,7 +131,8 @@ function validCurve(v: unknown): boolean {
     if (
       !Array.isArray(v.range) ||
       v.range.length !== 2 ||
-      !v.range.every(finite) ||
+      !finite(v.range[0]) ||
+      !finite(v.range[1]) ||
       !(v.range[0] < v.range[1]) ||
       !Number.isFinite(v.range[1] - v.range[0])
     )

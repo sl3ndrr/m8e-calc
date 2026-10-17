@@ -167,9 +167,10 @@ it.each(['de', 'en'] as const)(
     for (const name of locale === 'de'
       ? ['Nullstellen', 'Extrema', 'Schnittpunkte', 'Tangente', 'Integral']
       : ['Roots', 'Extrema', 'Intersections', 'Tangent', 'Integral']) {
-      expect(
-        await screen.findByRole('menuitem', { name, exact: true }),
-      ).toHaveAttribute('aria-disabled', 'true');
+      expect(await screen.findByRole('menuitem', { name })).toHaveAttribute(
+        'aria-disabled',
+        'true',
+      );
     }
   },
 );

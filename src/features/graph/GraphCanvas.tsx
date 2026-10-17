@@ -35,6 +35,7 @@ import {
 import {
   implicitBudget,
   isSampleResponse,
+  isSampleRequest,
   matchesRequest,
   type SampleRequest,
   type SampleResponse,
@@ -346,9 +347,31 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       pending = null;
       busy = true;
       running = request;
+      if (!isSampleRequest(request)) {
+        accept({
+          version: 2,
+          id: request.id,
+          bounds: request.bounds,
+          size: request.size,
+          milliseconds: 0,
+          curves: request.curves.map((c) => ({
+            id: c.id,
+            signature: c.signature,
+            segments: [],
+            evaluations: 0,
+            truncated: false,
+            error: 'invalid' as const,
+          })),
+        });
+        return;
+      }
       if (worker) {
         watchdog = window.setTimeout(() => failWorker(true), 3000);
-        worker.postMessage(request);
+        try {
+          worker.postMessage(request);
+        } catch {
+          failWorker(false);
+        }
       } else {
         // Yield before the bounded 1D fallback; implicit work requires Worker.
         watchdog = window.setTimeout(() => {
@@ -359,6 +382,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       }
     }
     function resample(): void {
+      element.dataset.sampling = 'true';
       latestRequest = null;
       pending = null;
       window.clearTimeout(sampleTimer);
@@ -380,6 +404,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       window.clearTimeout(viewTimer);
       window.clearTimeout(sampleTimer);
       sampleTimer = 0;
+      element.dataset.sampling = 'true';
       latestRequest = null;
       pending = null;
       target = next;
@@ -696,6 +721,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
               ),
             ),
           );
+          element.dataset.curveCount = String(paths.size);
           updateTrace(null);
           resample();
         }

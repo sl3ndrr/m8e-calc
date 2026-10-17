@@ -84,9 +84,7 @@ it('keeps an edited implicit or invalid selection instead of switching to a diff
   ).toBeDisabled();
   // Pin a choice explicitly, then turn that exact row into an implicit curve.
   fireEvent.click(within(region).getByRole('button', { name: /x\^2\+y\^2=4/ }));
-  fireEvent.click(
-    await screen.findByRole('option', { name: 'x', exact: true }),
-  );
+  fireEvent.click(await screen.findByRole('option', { name: 'x' }));
   expect(within(region).getByRole('table')).toBeInTheDocument();
   fireEvent.change(second, { target: { value: 'x*y=1' } });
   expect(within(region).queryByRole('table')).not.toBeInTheDocument();
