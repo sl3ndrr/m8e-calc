@@ -5,7 +5,15 @@ export default defineConfig({
   workers: 1,
   retries: 0,
   projects: [
-    { name: 'default', testMatch: '**/ap28-diagnostic.spec.ts', use: { ...devices['Desktop Chrome'], locale: 'de-DE', trace: 'off', serviceWorkers: 'block' } },
-    { name: 'software', testMatch: '**/ap28-diagnostic.spec.ts', use: { ...devices['Desktop Chrome'], locale: 'de-DE', trace: 'off', serviceWorkers: 'block', launchOptions: { args: ['--disable-gpu'] } } },
+    {
+      name: 'default',
+      testMatch: '**/ap28-diagnostic.spec.ts',
+      use: {
+        ...devices['Desktop Chrome'],
+        locale: 'de-DE',
+        trace: 'off',
+        serviceWorkers: 'block',
+      },
+    },
   ],
 });

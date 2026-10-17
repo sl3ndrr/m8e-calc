@@ -18,7 +18,6 @@ interface Probe {
   longTasks: number[];
   strokes: number;
   delayRender: number;
-  suppressWorker: boolean;
 }
 declare global {
   interface Window {
@@ -36,7 +35,6 @@ async function setup(page: Page) {
       longTasks: [],
       strokes: 0,
       delayRender: 0,
-      suppressWorker: false,
     });
     const NativeWorker = window.Worker;
     window.Worker = class extends NativeWorker {
@@ -53,7 +51,7 @@ async function setup(page: Page) {
       }
       postMessage(message: unknown) {
         probe.posts++;
-        if (!probe.suppressWorker) super.postMessage(message);
+        super.postMessage(message);
       }
     };
     new PerformanceObserver((list) => {
@@ -176,7 +174,9 @@ async function windowMeasurement(
       await new Promise<number>((r) => requestAnimationFrame(r));
       const after = metrics();
       const frames = after.frames - before.frames;
-      const renderMs = frames ? after.renderMs.slice(-Math.min(frames, 600)) : [];
+      const renderMs = frames
+        ? after.renderMs.slice(-Math.min(frames, 600))
+        : [];
       const sorted = renderMs.slice().sort((a, b) => a - b);
       const average = intervals.reduce((a, b) => a + b, 0) / intervals.length;
       return {
@@ -210,7 +210,7 @@ async function windowMeasurement(
   return result;
 }
 
-test('AP28 fixed diagnostic windows on unchanged graph code', async ({
+test('AP28 fixed graph references and regression controls', async ({
   page,
   browser,
 }, info) => {
@@ -258,7 +258,11 @@ test('AP28 fixed diagnostic windows on unchanged graph code', async ({
     JSON.stringify(
       {
         commit: process.env.GITHUB_SHA,
-        source: process.env.AP28_SOURCE ?? process.env.GITHUB_SHA,
+        source:
+          process.env.AP28_SOURCE ??
+          process.env.AP28_HEAD ??
+          process.env.GITHUB_SHA,
+        phase: process.env.AP28_PHASE ?? 'after',
         node: process.version,
         browser: browser.version(),
         project: info.project.name,
@@ -278,6 +282,52 @@ test('AP28 fixed diagnostic windows on unchanged graph code', async ({
       2,
     ),
   );
+  const traceSession = await page.context().newCDPSession(page);
+  await traceSession.send('Tracing.start', {
+    categories: 'devtools.timeline,v8,blink,cc,gpu',
+    transferMode: 'ReturnAsStream',
+  });
+  await windowMeasurement(page, true, 0, 60);
+  const complete = new Promise<{ stream?: string }>((resolve) =>
+    traceSession.once('Tracing.tracingComplete', resolve),
+  );
+  await traceSession.send('Tracing.end');
+  const { stream } = await complete;
+  if (!stream) throw Error('Missing CPU trace stream');
+  const chunks: string[] = [];
+  for (;;) {
+    const chunk = (await traceSession.send('IO.read', { handle: stream })) as {
+      data: string;
+      eof: boolean;
+    };
+    chunks.push(chunk.data);
+    if (chunk.eof) break;
+  }
+  await traceSession.send('IO.close', { handle: stream });
+  await writeFile(
+    `test-results/ap28/${info.project.name}-trace.json`,
+    chunks.join(''),
+  );
+  await traceSession.detach();
+  for (const run of runs) {
+    const m = run.measurement;
+    if (run.name === 'idle-reference') {
+      expect(m.workerPosts).toBe(0);
+      expect(m.frames).toBeLessThanOrEqual(1);
+      expect(m.observedRafFps).toBeGreaterThanOrEqual(55);
+    }
+    if (run.name === 'pan' || run.name === 'hidden-pan') {
+      expect(m.curveStrokes).toBe(m.frames * 6);
+      expect(m.frames).toBeGreaterThanOrEqual(120);
+      if (process.env.AP28_PHASE !== 'before') {
+        const duration = m.intervals.reduce((a, b) => a + b, 0);
+        expect(m.workerPosts).toBeLessThanOrEqual(Math.ceil(duration / 90) + 2);
+        expect(m.workerPosts).toBeGreaterThan(5);
+        expect(m.renderP95Ms).toBeLessThan(16.67);
+        expect(m.observedRafFps).toBeGreaterThanOrEqual(55);
+      }
+    }
+  }
   const slowRender = runs.find(
     (r) => r.name === 'slow-render-25ms',
   )?.measurement;
@@ -285,4 +335,5 @@ test('AP28 fixed diagnostic windows on unchanged graph code', async ({
   expect(slowRender?.renderP95Ms).toBeGreaterThan(16.67);
   expect(slowRender?.observedRafFps).toBeLessThan(55);
   expect(slowMain?.observedRafFps).toBeLessThan(55);
+  expect(slowMain?.renderP95Ms).toBeLessThan(16.67);
 });

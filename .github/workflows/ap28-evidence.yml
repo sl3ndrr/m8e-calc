@@ -13,6 +13,8 @@ jobs:
   evidence:
     if: github.head_ref == 'feat/ap28-graph-performance' || github.ref == 'refs/heads/feat/ap28-graph-performance'
     runs-on: ubuntu-latest
+    env:
+      AP28_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -20,15 +22,34 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - run: npx prettier --write e2e/ap28-diagnostic.spec.ts playwright.ap28.config.ts playwright.config.ts tsconfig.node.json .github/workflows/ap28-evidence.yml
-      - run: npm run build
+      - run: npm run check
       - run: npx playwright install --with-deps chromium firefox webkit
-      - name: Export exact-lockfile tools for restricted local workspace
+      - name: Same-run original adapter (fixed windows, no retries)
         run: |
-          mkdir -p test-results/ap28
-          tar -czf ap28-dependencies.tgz node_modules
-      - name: Fixed diagnostic windows (no retries)
-        run: npx playwright test --config=playwright.ap28.config.ts --reporter=list
+          baseline="$RUNNER_TEMP/ap28-before"
+          git fetch --depth=1 origin 8eb32f105b44708da751f4bd836c01592617cedd
+          git worktree add "$baseline" FETCH_HEAD
+          cp e2e/ap28-diagnostic.spec.ts "$baseline/e2e/"
+          cp playwright.ap28.config.ts "$baseline/"
+          ln -s "$GITHUB_WORKSPACE/node_modules" "$baseline/node_modules"
+          cd "$baseline"
+          export GITHUB_SHA=8eb32f105b44708da751f4bd836c01592617cedd
+          export AP28_SOURCE="$GITHUB_SHA" AP28_PHASE=before
+          npm run build
+          npx playwright test --config=playwright.ap28.config.ts --reporter=list --output=test-results/ap28-before-browser
+          mkdir -p "$GITHUB_WORKSPACE/test-results/ap28-before"
+          cp test-results/ap28/* "$GITHUB_WORKSPACE/test-results/ap28-before/"
+      - name: Current adapter (same references, fixed windows, no retries)
+        run: |
+          AP28_PHASE=after npx playwright test --config=playwright.ap28.config.ts --reporter=list --output=test-results/ap28-after-browser
+          mkdir -p test-results/ap28-after
+          cp test-results/ap28/* test-results/ap28-after/
+      - name: Graph integration and images
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: test-results/ap28-graphs/results.json
+        run: npx playwright test e2e/graph.spec.ts e2e/graph-values.spec.ts e2e/graph-implicit.spec.ts e2e/graph-visual.spec.ts --project=chromium --project=firefox --project=webkit --workers=2 --reporter=list,json --output=test-results/ap28-graphs/browser
+      - name: Existing 4K and mixed 2D budgets
+        run: npx playwright test --project=chromium-graph-performance --no-deps --workers=1 --output=test-results/ap28-performance/browser
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -36,10 +57,4 @@ jobs:
           path: |
             test-results/
             dist/build-info.json
-            ap28-dependencies.tgz
-            e2e/ap28-diagnostic.spec.ts
-            playwright.ap28.config.ts
-            playwright.config.ts
-            tsconfig.node.json
-            .github/workflows/ap28-evidence.yml
           retention-days: 14
