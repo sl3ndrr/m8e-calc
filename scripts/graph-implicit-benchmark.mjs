@@ -25,6 +25,7 @@ const cases = [
   { source: 'x^2/4+y^2=1', components: 1, closed: true },
   { source: 'x*y=1', components: 2 },
   { source: '(x-.123)*(y-.234)=0', components: 4 },
+  { source: '(x-.123)*y=0', components: 4 },
   { source: '(x^2+y^2-1)*((x-1.7)^2+y^2-.16)=0', components: 2, closed: true },
   {
     source: '((x-.4)^2+(y-.43)^2-(6/720)^2)*((x-.42)^2+(y-.43)^2-(6/720)^2)=0',

@@ -329,7 +329,17 @@ willkürlichen Durchgang. Für Q≠0 bleiben die beiden Hyperbeläste getrennt.
 
 Exakt nullwertige Ränder benötigen zusätzlich drei innere Nullproben. Sie werden
 einmal als gemeinsame Graphkanten ausgegeben, z.B. die Achsen von `x*y=0`,
-ohne falsche diagonale Abkürzung. Komplexere nicht aufgelöste Nullrand-/Innenast-
+ohne falsche diagonale Abkürzung. Ein zusätzlicher Innenast erhält einen
+gemeinsamen Randknoten aus einem transversalen Feld: F-Proben bei ±1/32 CSS-Pixel
+normal zum Rand werden halbiert subtrahiert, bei beidseitig verschwindendem Feld
+alternativ addiert (gerade Vielfachheit). Eine darin geklammerte Nullstelle muss
+dieselbe Residuen-/Stetigkeitsprüfung bestehen. Der globale Pixelabstand und der
+atomare Randschlüssel sind für beide Nachbarn identisch; auch die Nullrandkante
+wird an genau diesem Knoten geteilt. So bleiben `(x-a)*y=0`, `y*(x+y-a)=0`
+und `y^2*(x-a)=0` ohne künstliche Lücke verbunden. Die tatsächliche neue Sehne
+unterliegt weiterhin der geometrischen F-Prüfung. Nichtendliche transversale
+Proben bzw. Polverdacht erzeugen eine diagnostizierte Lücke, keinen Ast.
+Komplexere nicht aufgelöste Nullrand-/Innenast-
 Kombinationen werden verfeinert und gegebenenfalls als Lücke diagnostiziert.
 Zellen mit neun Nullproben liefern keine willkürlichen Gitterlinien:
 `zeroCells` kennzeichnet solche flächigen/degenerierten Kandidaten. Eine
@@ -394,7 +404,7 @@ fast-check: Ausdrucksfuzzing Seed 260017 (50 Fälle), analytische verschobene
 Kreise Seed 170026 (25 Fälle). Keine reinen Algorithmus-Snapshots.
 
 `npm test -- --project=engine src/graph` führt die Graph-Tests aus.
-`npm run test:graph:implicit:bench` misst acht Referenzen bei **1280×720**,
+`npm run test:graph:implicit:bench` misst neun Referenzen bei **1280×720**,
 8-px-Discovery/0,25-px-Ziel und obigen Standardbudgets, nach zwei Warm-ups mit
 fünf Messungen je Fall. Komponenten-/Schließungs- und Residuenprüfungen sind
 Teil des Benchmarks. Ziel 250 ms, großzügige Regressionsgrenze 1500 ms/Kurve;

@@ -25,6 +25,7 @@ type Link = readonly [Node, Node];
 interface Edge {
   root?: Node;
   zero?: Link;
+  junction?: Node;
   rejected?: boolean;
 }
 interface Patch {
@@ -199,6 +200,130 @@ export function sampleImplicitCurveDetailed(
     return finish([], 0, 'unresolved');
   }
 
+  function refineRoot(
+    a: Node,
+    b: Node,
+    aValue: number,
+    bValue: number,
+    id: string,
+    field: (p: Point) => number,
+  ): Edge {
+    if (!Number.isFinite(aValue) || !Number.isFinite(bValue))
+      return { rejected: true };
+    if (aValue === 0 && bValue === 0) return {};
+    if (aValue === 0) return { root: a };
+    if (bValue === 0) return { root: b };
+    if (aValue < 0 === bValue < 0) return {};
+    const interpolate = (t: number): Point => ({
+      x: a.point.x + (b.point.x - a.point.x) * t,
+      y: a.point.y + (b.point.y - a.point.y) * t,
+    });
+    let lo = 0,
+      hi = 1,
+      flo = aValue,
+      fhi = bValue,
+      best = Math.min(Math.abs(aValue), Math.abs(bValue)),
+      bestT = Math.abs(aValue) < Math.abs(bValue) ? 0 : 1,
+      valid = true;
+    const baseline = best,
+      threshold = best * 1e-7,
+      continuityFloor = Math.min(
+        Math.max(Math.abs(aValue), Math.abs(bValue)) * 1e-7,
+        baseline * 16,
+      );
+    for (let i = 0; i < 52; i++) {
+      const mid = lo + (hi - lo) / 2,
+        value = field(interpolate(mid));
+      if (!Number.isFinite(value)) {
+        valid = false;
+        break;
+      }
+      if (Math.abs(value) < best) {
+        best = Math.abs(value);
+        bestT = mid;
+      }
+      if (value === 0) {
+        bestT = mid;
+        best = 0;
+        break;
+      }
+      if (flo < 0 === value < 0) {
+        lo = mid;
+        flo = value;
+      } else {
+        hi = mid;
+        fhi = value;
+      }
+      if (
+        i >= 8 &&
+        Math.min(Math.abs(flo), Math.abs(fhi)) > baseline * 4 &&
+        best >= baseline * 0.5
+      ) {
+        valid = false;
+        break;
+      }
+    }
+    let bestPoint = interpolate(bestT);
+    if (valid && best !== 0) {
+      // A final secant inside the tight bracket recovers representable linear
+      // roots exactly, including displaced crossing axes.
+      const p = interpolate(lo),
+        q = interpolate(hi),
+        scale = Math.max(Math.abs(flo), Math.abs(fhi)),
+        weight = flo / scale / (flo / scale - fhi / scale);
+      const candidate = {
+        x: p.x + (q.x - p.x) * weight,
+        y: p.y + (q.y - p.y) * weight,
+      };
+      const value = field(candidate);
+      if (Number.isFinite(value) && Math.abs(value) < best) {
+        best = Math.abs(value);
+        bestPoint = candidate;
+      }
+    }
+    return valid &&
+      (best <= threshold || Math.abs(flo) + Math.abs(fhi) <= continuityFloor)
+      ? {
+          root:
+            bestPoint.x === a.point.x && bestPoint.y === a.point.y
+              ? a
+              : bestPoint.x === b.point.x && bestPoint.y === b.point.y
+                ? b
+                : { id, point: bestPoint },
+        }
+      : { rejected: true };
+  }
+
+  function zeroJunction(a: Node, b: Node, id: string): Edge {
+    const horizontal = a.point.y === b.point.y;
+    // Fixed viewport-relative offsets make the field identical on both sides,
+    // even when the neighboring cells have different refinement levels.
+    const h = (horizontal ? dy / pixels.height : dx / pixels.width) / 32;
+    const field =
+      (even: boolean) =>
+      (p: Point): number => {
+        const plus = evaluate({
+            x: p.x + (horizontal ? 0 : h),
+            y: p.y + (horizontal ? h : 0),
+          }),
+          minus = evaluate({
+            x: p.x - (horizontal ? 0 : h),
+            y: p.y - (horizontal ? h : 0),
+          });
+        if (!Number.isFinite(plus) || !Number.isFinite(minus)) return NaN;
+        return even ? plus / 2 + minus / 2 : plus / 2 - minus / 2;
+      };
+    let transverse = field(false),
+      av = transverse(a.point),
+      bv = transverse(b.point);
+    if (av === 0 && bv === 0) {
+      transverse = field(true);
+      av = transverse(a.point);
+      bv = transverse(b.point);
+    }
+    return refineRoot(a, b, av, bv, 'z:' + id, transverse);
+  }
+
   function edge(ax: number, ay: number, bx: number, by: number): Edge {
     const aValue = sample(ax, ay),
       bValue = sample(bx, by);
@@ -210,97 +335,24 @@ export function sampleImplicitCurveDetailed(
     if (cached) return cached;
     const a = node(ax, ay),
       b = node(bx, by);
-    const interpolate = (t: number): Point => ({
-      x: a.point.x + (b.point.x - a.point.x) * t,
-      y: a.point.y + (b.point.y - a.point.y) * t,
-    });
     let result: Edge;
     if (aValue === 0 && bValue === 0) {
-      // Do not draw an edge merely because its endpoints happen to be zeros.
-      result = [0.25, 0.5, 0.75].every((t) => evaluate(interpolate(t)) === 0)
-        ? { zero: [a, b] }
-        : { rejected: true };
-    } else if (aValue === 0) result = { root: a };
-    else if (bValue === 0) result = { root: b };
-    else {
-      let lo = 0,
-        hi = 1,
-        flo = aValue,
-        fhi = bValue,
-        best = Math.min(Math.abs(aValue), Math.abs(bValue)),
-        bestT = Math.abs(aValue) < Math.abs(bValue) ? 0 : 1,
-        valid = true;
-      const baseline = best,
-        threshold = best * 1e-7,
-        continuityFloor = Math.min(
-          Math.max(Math.abs(aValue), Math.abs(bValue)) * 1e-7,
-          baseline * 16,
-        );
-      for (let i = 0; i < 52; i++) {
-        const mid = lo + (hi - lo) / 2,
-          value = evaluate(interpolate(mid));
-        if (!Number.isFinite(value)) {
-          valid = false;
-          break;
-        }
-        if (Math.abs(value) < best) {
-          best = Math.abs(value);
-          bestT = mid;
-        }
-        if (value === 0) {
-          bestT = mid;
-          best = 0;
-          break;
-        }
-        if (flo < 0 === value < 0) {
-          lo = mid;
-          flo = value;
-        } else {
-          hi = mid;
-          fhi = value;
-        }
-        if (
-          i >= 8 &&
-          Math.min(Math.abs(flo), Math.abs(fhi)) > baseline * 4 &&
-          best >= baseline * 0.5
-        ) {
-          valid = false;
-          break;
-        }
-      }
-      let bestPoint = interpolate(bestT);
-      if (valid && best !== 0) {
-        // A final secant inside the tight bracket recovers representable linear
-        // roots exactly, including displaced crossing axes.
-        const p = interpolate(lo),
-          q = interpolate(hi),
-          scale = Math.max(Math.abs(flo), Math.abs(fhi)),
-          weight = flo / scale / (flo / scale - fhi / scale);
-        const candidate = {
-          x: p.x + (q.x - p.x) * weight,
-          y: p.y + (q.y - p.y) * weight,
-        };
-        const value = evaluate(candidate);
-        if (Number.isFinite(value) && Math.abs(value) < best) {
-          best = Math.abs(value);
-          bestPoint = candidate;
-        }
-      }
-      result =
-        valid &&
-        (best <= threshold || Math.abs(flo) + Math.abs(fhi) <= continuityFloor)
-          ? {
-              root:
-                bestPoint.x === a.point.x && bestPoint.y === a.point.y
-                  ? a
-                  : bestPoint.x === b.point.x && bestPoint.y === b.point.y
-                    ? b
-                    : { id: 'e:' + id, point: bestPoint },
-            }
-          : { rejected: true };
-    }
+      const zero = [0.25, 0.5, 0.75].every(
+        (t) =>
+          evaluate({
+            x: a.point.x + (b.point.x - a.point.x) * t,
+            y: a.point.y + (b.point.y - a.point.y) * t,
+          }) === 0,
+      );
+      const junction = zero ? zeroJunction(a, b, id) : { rejected: true };
+      result = junction.rejected
+        ? { rejected: true }
+        : {
+            zero: [a, b],
+            ...(junction.root ? { junction: junction.root } : {}),
+          };
+    } else result = refineRoot(a, b, aValue, bValue, 'e:' + id, evaluate);
     if (result.rejected) rejectedEdges++;
-    // At most four potential edges per created cell, including retired parents.
     roots.set(id, result);
     return result;
   }
@@ -395,7 +447,8 @@ export function sampleImplicitCurveDetailed(
     if (!probes.every(Number.isFinite))
       return { links: [], refine: true, error: 0 };
     const sideRoots: Node[][] = [],
-      zeros: Link[] = [];
+      zeros: Link[] = [],
+      zeroJunctions = new Map<string, Node>();
     let rejected = false,
       transition = false;
     for (const { isHorizontal, fixed, coords } of sides) {
@@ -408,7 +461,13 @@ export function sampleImplicitCurveDetailed(
           ? edge(a, fixed, b, fixed)
           : edge(fixed, a, fixed, b);
         if (result.root) found.set(result.root.id, result.root);
-        if (result.zero) zeros.push(result.zero);
+        if (result.zero) {
+          const [p, q] = result.zero,
+            j = result.junction;
+          if (j) zeroJunctions.set(j.id, j);
+          if (j && j.id !== p.id && j.id !== q.id) zeros.push([p, j], [j, q]);
+          else zeros.push(result.zero);
+        }
         if (result.rejected) rejected = true;
       }
       sideRoots.push([...found.values()]);
@@ -425,9 +484,15 @@ export function sampleImplicitCurveDetailed(
             ? p.x === a.point.x && p.y >= a.point.y && p.y <= b.point.y
             : p.y === a.point.y && p.x >= a.point.x && p.x <= b.point.x,
         );
-      if ([...all.values()].some((n) => !onZero(n.point)))
-        return { links: [], refine: true, error: 0 };
       links = zeros;
+      const extra = [...all.values()].filter((n) => !onZero(n.point));
+      if (extra.length) {
+        const n = extra[0],
+          junction = [...zeroJunctions.values()][0];
+        if (extra.length !== 1 || zeroJunctions.size !== 1 || !n || !junction)
+          return { links: [], refine: true, error: 0 };
+        links.push([n, junction]);
+      }
     } else if (sideRoots.some((side) => side.length > 1))
       return { links: [], refine: true, error: 0 };
     else if (all.size === 2) {

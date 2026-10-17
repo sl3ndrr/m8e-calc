@@ -181,6 +181,10 @@ describe('AP26 analytic geometry and conforming adaptive boundaries', () => {
       ['x*y=0', 0, 0],
       ['x^2-y^2=0', 0, 0],
       ['(x-.123)*(y-.234)=0', 0.123, 0.234],
+      ['(x-.123)*y=0', 0.123, 0],
+      ['x*(y-.234)=0', 0, 0.234],
+      ['y*(x+y-.123)=0', 0.123, 0],
+      ['y^2*(x-.123)=0', 0.123, 0],
     ] as const) {
       const r = sample(source);
       expect(r.segments, source).toHaveLength(4);
@@ -286,6 +290,12 @@ describe('AP26 domains, degeneracy and deterministic limits', () => {
     const pole = sample('1/(x-.123)=0');
     expect(pole.segments).toEqual([]);
     expect(pole.diagnostics.rejectedEdges).toBeGreaterThan(0);
+    const zeroEdgePole = sample('y/(x-.123)=0');
+    expect(zeroEdgePole.segments).toHaveLength(2);
+    for (const line of zeroEdgePole.segments)
+      expect(
+        line.every((p) => p.x < 0.123) || line.every((p) => p.x > 0.123),
+      ).toBe(true);
     const r = sample('(x^2+y^2-1)/(x-.123)=0');
     finite(r);
     expect(r.diagnostics.unresolvedCells).toBeGreaterThan(0);

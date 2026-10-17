@@ -28,7 +28,7 @@
         "yMin": -3,
         "yMax": 3
       },
-      "meanMilliseconds": 359.7573552,
+      "meanMilliseconds": 278.5091544,
       "evaluations": 101055,
       "segments": 1,
       "status": "contours",
@@ -54,7 +54,7 @@
         "yMin": -3,
         "yMax": 3
       },
-      "meanMilliseconds": 217.14365740000002,
+      "meanMilliseconds": 176.73839620000007,
       "evaluations": 94069,
       "segments": 1,
       "status": "contours",
@@ -80,7 +80,7 @@
         "yMin": -3,
         "yMax": 3
       },
-      "meanMilliseconds": 160.19372619999996,
+      "meanMilliseconds": 174.06672660000004,
       "evaluations": 87629,
       "segments": 2,
       "status": "contours",
@@ -106,7 +106,7 @@
         "yMin": -3,
         "yMax": 3
       },
-      "meanMilliseconds": 207.10909859999992,
+      "meanMilliseconds": 187.29801439999991,
       "evaluations": 91901,
       "segments": 4,
       "status": "contours",
@@ -125,6 +125,32 @@
       "maxEstimatedErrorPixels": 0
     },
     {
+      "source": "(x-.123)*y=0",
+      "bounds": {
+        "xMin": -3,
+        "xMax": 3,
+        "yMin": -3,
+        "yMax": 3
+      },
+      "meanMilliseconds": 171.2977444,
+      "evaluations": 83257,
+      "segments": 4,
+      "status": "contours",
+      "limits": [],
+      "cells": 19320,
+      "leaves": 14720,
+      "cachedSamples": 59385,
+      "outputEdges": 253,
+      "deepestLevel": 2,
+      "nonFiniteEvaluations": 0,
+      "rejectedEdges": 0,
+      "unresolvedCells": 0,
+      "zeroCells": 0,
+      "saddleCells": 0,
+      "transitionCells": 0,
+      "maxEstimatedErrorPixels": 0
+    },
+    {
       "source": "(x^2+y^2-1)*((x-1.7)^2+y^2-.16)=0",
       "bounds": {
         "xMin": -3,
@@ -132,7 +158,7 @@
         "yMin": -3,
         "yMax": 3
       },
-      "meanMilliseconds": 306.84351960000004,
+      "meanMilliseconds": 207.9300166000001,
       "evaluations": 92247,
       "segments": 2,
       "status": "contours",
@@ -158,7 +184,7 @@
         "yMin": 0,
         "yMax": 1
       },
-      "meanMilliseconds": 206.2049632000002,
+      "meanMilliseconds": 247.93641299999982,
       "evaluations": 67527,
       "segments": 2,
       "status": "contours",
@@ -184,7 +210,7 @@
         "yMin": -3,
         "yMax": 3
       },
-      "meanMilliseconds": 302.377709,
+      "meanMilliseconds": 297.2642934000003,
       "evaluations": 151541,
       "segments": 0,
       "status": "unresolved",
@@ -210,7 +236,7 @@
         "yMin": -3,
         "yMax": 3
       },
-      "meanMilliseconds": 251.4071681999998,
+      "meanMilliseconds": 258.83616399999994,
       "evaluations": 113535,
       "segments": 1,
       "status": "contours",
