@@ -72,6 +72,10 @@ jobs:
             .qa-baseline/.lighthouseci/
           retention-days: 14
   browsers:
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [chromium, firefox, webkit, qa-performance]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -82,11 +86,14 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npx playwright install --with-deps chromium firefox webkit
-      - run: npx playwright test --project=chromium --project=firefox --project=webkit --project=qa-performance
+      - name: Browser gates
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: test-results/browser-results.json
+        run: npx playwright test --project=${{ matrix.project }} --reporter=list,json
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: qa-browsers
+          name: qa-browsers-${{ matrix.project }}
           path: test-results/
           retention-days: 14
   visual:

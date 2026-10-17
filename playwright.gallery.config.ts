@@ -10,7 +10,20 @@ export default defineConfig({
     baseURL: 'http://127.0.0.1:4174',
     trace: 'retain-on-failure',
   },
-  projects: [{ name: 'gallery' }],
+  projects: [
+    { name: 'gallery' },
+    ...(['firefox', 'webkit'] as const).map((browserName) => ({
+      name: `gallery-${browserName}`,
+      testMatch: '**/controls-polish.spec.ts',
+      use: {
+        ...devices[
+          browserName === 'firefox' ? 'Desktop Firefox' : 'Desktop Safari'
+        ],
+        browserName,
+        locale: 'de-DE',
+      },
+    })),
+  ],
   webServer: {
     command:
       process.env.GALLERY_DEV === '1'

@@ -6,7 +6,28 @@ Alle wesentlichen Änderungen werden hier dokumentiert. Das Format folgt
 
 ## [Unreleased]
 
+### Changed
+
+- AP17–AP24 integriert: optionale Währungen mit explizitem Opt-in, kompakte
+  Werkzeugleisten/Teilen, vollständige Ziffern, stabile Tasten und Checkboxen,
+  Systemtheme ohne Zusatzicon, stabiles Graph-Fit, lokalisierte gerundete
+  Tabellen, internes Designlab und Dependency-Wartung.
+- AP25 bereitet die belegte browserübergreifende Produktabnahme vor; aktuelle
+  Ergebnisse und offene Live-Abnahme in [AP25](docs/AP25.md). Keine neue Version,
+  kein Release oder Tag daraus abgeleitet.
+
+### Fixed
+
+- Wissenschaftlicher Editor: Esc leert und Enter wertet auch bei offenen
+  Vorschlägen aus; die Standard-Completion-Belegung verdrängt diese
+  Rechneraktionen nicht mehr. AP25 ergänzt gezielte Adapter-/Browserregressionen.
+
 ## [1.0.0] – Veröffentlichung vorbereitet, noch nicht veröffentlicht
+
+AP16-Vorbereitungsstand. Seither integrierte, noch nicht als GitHub Release
+veröffentlichte Änderungen stehen unter „Unreleased“. Ein erfolgreicher
+Pages-Deploy ist davon getrennt. Vor tatsächlichem Tag/Release diese
+Abschnitte zusammenführen und Datum/Versionsumfang ausdrücklich freigeben.
 
 ### Added
 

@@ -1,4 +1,10 @@
-import { act, render, screen, waitFor } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import { createRef } from 'react';
 import { expect, it, vi } from 'vitest';
 import ExpressionEditor, { type EditorHandle } from './ExpressionEditor';
@@ -46,3 +52,35 @@ it('wraps the selection through the real CodeMirror adapter and marks engine dia
     ),
   );
 });
+
+it.each(['Escape', 'Enter'])(
+  '%s retains its calculator action with an open completion',
+  async (key) => {
+    const ref = createRef<EditorHandle>();
+    const change = vi.fn();
+    const evaluate = vi.fn();
+    render(
+      <ExpressionEditor
+        ref={ref}
+        value="inte"
+        locale="de"
+        error={null}
+        onChange={change}
+        onEvaluate={evaluate}
+        onBrowse={() => {}}
+      />,
+    );
+    act(() => ref.current?.focus());
+    const editor = screen.getByRole('textbox', { name: 'Ausdruck' });
+    fireEvent.keyDown(editor, { key: ' ', code: 'Space', ctrlKey: true });
+    await waitFor(() => expect(screen.getByRole('listbox')).toBeVisible());
+    fireEvent.keyDown(editor, { key, code: key });
+    if (key === 'Escape') {
+      expect(change).toHaveBeenCalledWith('');
+      expect(evaluate).not.toHaveBeenCalled();
+    } else {
+      expect(evaluate).toHaveBeenCalledOnce();
+      expect(change).not.toHaveBeenCalled();
+    }
+  },
+);

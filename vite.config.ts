@@ -3,6 +3,7 @@ import { internalLabPlugin } from './scripts/internalLabPlugin.ts';
 import { localePlugin } from './scripts/localePlugin.ts';
 import { cspPlugin } from './scripts/cspPlugin.ts';
 import react from '@vitejs/plugin-react';
+import { buildInfoPlugin } from './scripts/buildInfoPlugin.ts';
 import { pwaPlugin } from './scripts/pwaPlugin.ts';
 import { buildScheme } from './src/styles/buildScheme.ts';
 import { bootstrapTheme } from './src/app/themeBootstrap.ts';
@@ -22,6 +23,7 @@ export default defineConfig(({ command, mode }) => {
       internalLabPlugin(internalLab),
       localePlugin(),
       pwaPlugin(),
+      buildInfoPlugin(internalLab),
       cspPlugin(),
       {
         name: 'inline-theme-bootstrap',

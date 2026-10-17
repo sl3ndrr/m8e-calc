@@ -15,8 +15,9 @@ m8e-calc bringt vier Taschenrechner-Arbeitsflächen in den Desktop-Browser:
 
 Dazu kommen lokaler Verlauf, Befehlspalette, Permalinks, Präsentation,
 Deutsch/Englisch, Hell/Dunkel und frei wählbare Akzente. Nach vollständigem
-Erstladen funktionieren alle Modi offline. Keine Tracker oder externen
-Laufzeitservices; Berechnungen bleiben im Browser.
+Erstladen funktionieren alle Modi offline. Keine Tracker; Berechnungen bleiben im Browser. Nur nach ausdrücklichem
+Opt-in lädt der Umrechner EZB-Referenzkurse über Frankfurter. Ohne Zustimmung
+entstehen keine Währungsrequests.
 
 [App öffnen](https://sl3ndrr.github.io/m8e-calc/) ·
 [Bedienung und Entwicklung](../README.md) · [Changelog](../CHANGELOG.md)
@@ -26,11 +27,13 @@ Laufzeitservices; Berechnungen bleiben im Browser.
 AP15 enthält automatisierte Prüfungen für Chromium, Firefox und WebKit,
 Barrierefreiheit, Kontraste, Performance und Screenshot-Regressionen.
 Messungen sind mit ihrem geprüften Code-Stand im [QA-Bericht](QA_REPORT.md)
-dokumentiert; die Release-PR-Checks müssen zusätzlich erfolgreich sein.
+dokumentiert. AP18–AP24 sind integriert; die aktuelle Produktabnahme und ihre
+Live-Grenzen stehen in [AP25.md](AP25.md). Der Merge der Releasevorbereitung
+#21 erteilt keine Lizenz-, Tag- oder Releasefreigabe.
 
 Numerische Analysis ist näherungsweise. Implizite Kurven (#17), Touch-Pinch,
-physischer Screenreader, echter Browser-Menüzoom und GPU-/Langzeitabnahmen
-bleiben offen. Währungen (AP17) sind nicht enthalten. Die Release-Vorbereitung
+physischer Screenreader, manuell bedienter Browser-Menüzoom und physische GPU-/Langzeitabnahmen
+bleiben offen. Optionale Währungen (AP17) sind integriert und standardmäßig deaktiviert. Die Release-Vorbereitung
 selbst ergänzt keine Produktfunktion.
 
 ## Lizenz
@@ -44,5 +47,6 @@ Bibliotheken und Fonts behalten ihre jeweiligen Lizenzen.
 The first prepared release includes simple and scientific calculation,
 programmer tools, unit conversion and interactive 2D graphs. It runs locally
 in your browser, supports German/English and offline use, and contains no
-trackers or external runtime services. This is a draft; publication and the
+trackers. Optional ECB reference rates require explicit consent; without opt-in
+there are no currency requests. This is a draft; publication and the
 proposed MIT license still require the owner's confirmation.

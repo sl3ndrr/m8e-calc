@@ -1,7 +1,12 @@
+import { allowClipboard } from './clipboard';
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { t } from '../src/shared/i18n';
 const route = '/m8e-calc/#/scientific';
+// Feature-state checks are isolated from SW update toasts; the production
+// matrix, comfort and pwa-update suites exercise the real worker separately.
+test.use({ serviceWorkers: 'block' });
+
 test.beforeEach(async ({ page }) => {
   await page.setViewportSize({ width: 2560, height: 1440 });
   await page.goto(route);
@@ -31,7 +36,7 @@ test('DEG, definitions, integral, errors, keyboard history and restore', async (
   await expect(result).toHaveText('9');
   await editor.fill('1/0');
   await editor.press('Enter');
-  await expect(page.getByRole('alert')).toContainText(
+  await expect(page.locator('.scientific-error[role="alert"]')).toContainText(
     t('scientific.error.E_DIVISION_BY_ZERO'),
   );
   await expect(editor).toHaveAttribute('aria-invalid', 'true');
@@ -68,12 +73,21 @@ test('insertion wraps a selection, 2nd flips functions, completion and single-li
   ).toBeVisible();
   await editor.fill('inte');
   await editor.press('Control+Space');
-  await expect(page.locator('.cm-tooltip-autocomplete')).toContainText(
-    'integral',
+  // CodeMirror retains the previous, disabled tooltip while a query is pending.
+  // Its text alone does not mean that Tab can accept the completion yet.
+  const completion = page.locator(
+    '.cm-tooltip-autocomplete:not(.cm-tooltip-autocomplete-disabled)',
   );
-  await expect(page.locator('.cm-tooltip-autocomplete')).toContainText(
-    'integral(expr, x, a, b)',
-  );
+  await expect(completion).toBeVisible();
+  await expect(completion).toContainText('integral');
+  await expect(completion).toContainText('integral(expr, x, a, b)');
+  // Escape is the documented clear command, including with an open suggestion.
+  await editor.press('Escape');
+  await expect(editor).toHaveText('');
+  await expect(completion).toHaveCount(0);
+  await editor.fill('inte');
+  await editor.press('Control+Space');
+  await expect(completion).toBeVisible();
   await editor.press('Tab');
   await expect(editor).toHaveText('integral(');
   await editor.press('Escape');
@@ -86,7 +100,7 @@ test('formats, copies LaTeX, switches complex mode and stores/recalls variables'
   page,
   context,
 }) => {
-  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await allowClipboard(context);
   const editor = page.getByRole('textbox', {
     name: t('scientific.expression'),
   });

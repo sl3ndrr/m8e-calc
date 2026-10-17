@@ -6,6 +6,10 @@ assert.equal(
   JSON.parse(readFileSync(join(directory, 'build-target.json'))).target,
   target,
 );
+const provenance = JSON.parse(readFileSync(join(directory, 'build-info.json')));
+assert.equal(provenance.schemaVersion, 1);
+assert.equal(provenance.target, target);
+assert.equal(provenance.sourceCommit, process.env.GITHUB_SHA ?? null);
 const manifest = JSON.parse(
   readFileSync(join(directory, '.vite/manifest.json')),
 );

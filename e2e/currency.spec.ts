@@ -6,6 +6,8 @@ import {
   RATE_CACHE_KEY,
   RATE_ENDPOINT,
 } from '../src/features/convert/currency/rates';
+// Network mocks must not be bypassed by an already controlling worker.
+test.use({ serviceWorkers: 'block' });
 const today = new Date().toISOString().slice(0, 10);
 const rows = currencyCodes
   .filter((code) => code !== 'EUR')

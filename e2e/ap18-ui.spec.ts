@@ -1,7 +1,11 @@
+import { allowClipboard } from './clipboard';
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { ready, qaModes, tabTo } from './qa-setup';
 import { t } from '../src/shared/i18n';
+
+// PWA updates have their own lifecycle suite; keep clipboard toasts isolated.
+test.use({ serviceWorkers: 'block' });
 
 for (const locale of ['de', 'en'] as const)
   for (const mode of qaModes) {
@@ -39,7 +43,7 @@ for (const locale of ['de', 'en'] as const)
           }),
         );
       }, locale);
-      await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+      await allowClipboard(context);
       await page.goto(`/m8e-calc/#/${mode}`);
       await ready(page, mode);
       const name = t(`mode.${mode}`, locale);

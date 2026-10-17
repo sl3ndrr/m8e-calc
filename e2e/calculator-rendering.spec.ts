@@ -1,8 +1,14 @@
+import { writeFile } from 'node:fs/promises';
+import { allowClipboard } from './clipboard';
 import { expect, test, type Page, type Locator } from '@playwright/test';
 import {
   captureCalculatorValue,
   calculatorInkPixels,
 } from './calculatorCapture';
+
+// Feature-state checks are isolated from SW update toasts; the production
+// matrix, comfort and pwa-update suites exercise the real worker separately.
+test.use({ serviceWorkers: 'block' });
 
 async function ready(page: Page) {
   await page.locator('.calculator-value').waitFor();
@@ -55,6 +61,7 @@ for (const [width, height, zoom, uiSize, theme, language] of [
     browser,
   }, info) => {
     const context = await browser.newContext({
+      serviceWorkers: 'block',
       baseURL: info.project.use.baseURL,
       viewport: {
         width: Math.round(width / zoom),
@@ -86,7 +93,10 @@ for (const [width, height, zoom, uiSize, theme, language] of [
     await page.goto('/m8e-calc/#/simple');
     await ready(page);
     const viewport = page.locator('.calculator-viewport');
-    const cdp = await context.newCDPSession(page);
+    const cdp =
+      context.browser()?.browserType().name() === 'chromium'
+        ? await context.newCDPSession(page)
+        : undefined;
     const heightBefore = await viewport.evaluate((n) => n.clientHeight);
     test.slow();
     const measurements = [];
@@ -192,20 +202,20 @@ for (const [width, height, zoom, uiSize, theme, language] of [
   });
 }
 
-test('operator shapes survive live mouse, global keyboard and React Aria press frames', async ({
-  page,
-}, info) => {
-  await page.setViewportSize({ width: 1920, height: 1080 });
-  await page.goto('/m8e-calc/#/simple');
-  await ready(page);
-  const evidence = [];
-  for (const [id, key] of [
-    ['+', '+'],
-    ['-', '-'],
-    ['*', '*'],
-    ['/', '/'],
-    ['equals', 'Enter'],
-  ] as const) {
+for (const [id, key, label] of [
+  ['+', '+', 'plus'],
+  ['-', '-', 'minus'],
+  ['*', '*', 'multiply'],
+  ['/', '/', 'divide'],
+  ['equals', 'Enter', 'equals'],
+] as const) {
+  test(`operator ${label} shapes survive live mouse, global keyboard and React Aria press frames`, async ({
+    page,
+  }, info) => {
+    await page.setViewportSize({ width: 1920, height: 1080 });
+    await page.goto('/m8e-calc/#/simple');
+    await ready(page);
+    const evidence = [];
     const button = page.locator(`[data-key="${id}"] button`);
     await settle(button);
     const baseline = (await frames(button, 1))[0];
@@ -236,7 +246,9 @@ test('operator shapes survive live mouse, global keyboard and React Aria press f
       });
       if (!repeat)
         await info.attach(`mouse-${id === '/' ? 'divide' : id}`, {
-          body: await page.screenshot(),
+          body: await page.screenshot({
+            path: info.outputPath(`press-${label}.png`),
+          }),
           contentType: 'image/png',
         });
       await button.evaluate((node) =>
@@ -274,16 +286,18 @@ test('operator shapes survive live mouse, global keyboard and React Aria press f
     expect(focused.every((f) => f.outline === 'solid')).toBe(true);
     await page.keyboard.up('Space');
     assertShape(await frames(button));
-  }
-  await page.locator('.simple-memory').click();
-  await page.keyboard.press('Escape');
-  await page.keyboard.type('1+-*/+-*/2=');
-  await expect(page.locator('.calculator-announcement')).toHaveText('0,5');
-  await info.attach('live-frames', {
-    body: JSON.stringify(evidence, null, 2),
-    contentType: 'application/json',
+    await page.locator('.simple-memory').click();
+    await page.keyboard.press('Escape');
+    await page.keyboard.type('1+-*/+-*/2=');
+    await expect(page.locator('.calculator-announcement')).toHaveText('0,5');
+    const framePath = info.outputPath('live-frames.json');
+    await writeFile(framePath, JSON.stringify(evidence, null, 2));
+    await info.attach('live-frames', {
+      path: framePath,
+      contentType: 'application/json',
+    });
   });
-});
+}
 
 for (const [motion, reduced] of [
   ['full', false],
@@ -380,7 +394,7 @@ for (const language of ['de', 'en'] as const) {
     page,
     context,
   }) => {
-    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    await allowClipboard(context);
     await page.addInitScript(
       (language) =>
         localStorage.setItem(

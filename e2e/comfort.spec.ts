@@ -1,3 +1,4 @@
+import { allowClipboard } from './clipboard';
 import { expect, test, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 async function copiedLink(page: Page): Promise<string> {
@@ -8,7 +9,7 @@ async function copiedLink(page: Page): Promise<string> {
   return url;
 }
 test.beforeEach(async ({ page, context }) => {
-  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await allowClipboard(context);
   await page.setViewportSize({ width: 1920, height: 1080 });
 });
 test('palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview', async ({
@@ -227,14 +228,16 @@ test('PWA installability and all four modes offline after only the first load', 
   await page.goto('/m8e-calc/#/simple');
   await page.evaluate(() => navigator.serviceWorker.ready.then(() => true));
   await page.waitForFunction(() => !!navigator.serviceWorker.controller);
-  const session = await context.newCDPSession(page);
-  await expect
-    .poll(
-      async () =>
-        (await session.send('Page.getInstallabilityErrors'))
-          .installabilityErrors,
-    )
-    .toEqual([]);
+  if (context.browser()?.browserType().name() === 'chromium') {
+    const session = await context.newCDPSession(page);
+    await expect
+      .poll(
+        async () =>
+          (await session.send('Page.getInstallabilityErrors'))
+            .installabilityErrors,
+      )
+      .toEqual([]);
+  }
   const manifest = await page.evaluate(async () => {
     const href = document.querySelector<HTMLLinkElement>(
       'link[rel="manifest"]',

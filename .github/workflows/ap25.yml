@@ -1,0 +1,40 @@
+name: AP25 acceptance evidence
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: ap25-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  evidence:
+    if: github.head_ref == 'feat/ap25-product-acceptance'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Record source and environment
+        env:
+          AP25_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          mkdir -p test-results/ap25
+          node --input-type=module -e 'import {writeFileSync} from "node:fs"; import {createRequire} from "node:module"; const require=createRequire(import.meta.url); writeFileSync("test-results/ap25/environment.json", JSON.stringify({sourceCommit:process.env.GITHUB_SHA,headCommit:process.env.AP25_HEAD_SHA,node:process.version,platform:process.platform,arch:process.arch,playwright:require("@playwright/test/package.json").version,runner:process.env.ImageOS,imageVersion:process.env.ImageVersion},null,2))'
+      - name: Integrated production acceptance
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: test-results/ap25/results.json
+        run: npx playwright test e2e/product-acceptance.spec.ts e2e/pwa-update.spec.ts --project=chromium --project=firefox --project=webkit --workers=2 --reporter=list,json --output=test-results/ap25/browser
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap25-acceptance
+          path: |
+            test-results/
+            dist/build-info.json
+          retention-days: 14
