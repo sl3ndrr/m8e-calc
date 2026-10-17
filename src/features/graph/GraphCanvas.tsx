@@ -8,12 +8,7 @@ import {
   useState,
   type Ref,
 } from 'react';
-import {
-  Viewport,
-  sampleCurveDetailed,
-  type Bounds,
-  type Point,
-} from '../../graph';
+import { Viewport, type Bounds, type Point } from '../../graph';
 import { useSettingsStore } from '../../shared/settingsStore';
 import { useMediaQuery } from '../../ui/useMediaQuery';
 import { VisuallyHidden } from '../../ui/VisuallyHidden';
@@ -25,6 +20,7 @@ import {
   samplingViewport,
   nearestTrace,
   defaultBounds,
+  isOneDimensional,
   type ParsedRow,
   type Trace,
 } from './model';
@@ -36,7 +32,15 @@ import {
   type IntegralShade,
   type Marker,
 } from './renderer';
-import type { SampleRequest, SampleResponse } from './workerProtocol';
+import {
+  implicitBudget,
+  isSampleResponse,
+  matchesRequest,
+  type SampleRequest,
+  type SampleResponse,
+} from './workerProtocol';
+import { sampleRequest } from './sampling';
+import { fitPlot } from './fit';
 import {
   advanceTransition,
   interpolateViewport,
@@ -58,6 +62,7 @@ interface Props {
   fitBasis?: Bounds;
   restoreToken: number;
   onViewError: () => void;
+  onSamples?: (curves: SampleResponse['curves']) => void;
   lockAspect: boolean;
   fine: boolean;
   pi: boolean;
@@ -94,7 +99,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
   const traceKind = props.rows.find((row) => row.row.id === trace?.id)?.curve
     ?.kind;
   const coordinates =
-    trace && traceKind
+    trace && traceKind && traceKind !== 'implicit'
       ? traceText(trace, traceKind, props.locale, preferences)
       : '';
   const reduced = useMediaQuery('(prefers-reduced-motion: reduce)');
@@ -181,7 +186,9 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       busy = false,
       pending: SampleRequest | null = null,
       requestId = 0,
-      latestId = 0,
+      latestRequest: SampleRequest | null = null,
+      running: SampleRequest | null = null,
+      watchdog = 0,
       sampleTimer = 0,
       viewTimer = 0;
     let revealDuration = 1;
@@ -234,7 +241,10 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       return current.rows.filter((r) => r.curve && r.row.visible);
     }
     function requestSamples(exact = false): void {
-      const sampledView = exact ? viewport : samplingViewport(viewport);
+      const sampledView =
+        exact || visibleRows().some((r) => r.curve?.kind === 'implicit')
+          ? viewport
+          : samplingViewport(viewport);
       const bounds = sampledView.bounds;
       const size = sampledView.pixelSize;
       const curves = visibleRows().flatMap((r) =>
@@ -249,43 +259,108 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
           : [],
       );
       const signature = JSON.stringify({ curves, bounds, size });
-      if (signature === sampleSignature) return;
+      if (signature === sampleSignature && latestRequest) return;
       sampleSignature = signature;
-      pending = { id: ++requestId, curves, bounds, size };
-      latestId = requestId;
+      pending = {
+        version: 2,
+        id: ++requestId,
+        curves,
+        bounds,
+        size,
+        budget: implicitBudget,
+      };
+      latestRequest = pending;
+      element.dataset.sampling = 'true';
       pump();
     }
     function accept(result: SampleResponse): void {
+      if (disposed || !running || result.id !== running.id) return;
+      window.clearTimeout(watchdog);
       busy = false;
-      if (disposed) return;
-      if (result.id === latestId) {
+      running = null;
+      if (latestRequest && matchesRequest(result, latestRequest)) {
         paths = cachePaths(result, paths, performance.now());
         metrics.samplingMs = result.milliseconds;
         element.dataset.curveCount = String(paths.size);
+        element.dataset.sampling = 'false';
+        element.dataset.sampleResult = JSON.stringify(
+          result.curves.map((c) => ({
+            id: c.id,
+            signature: c.signature,
+            evaluations: c.evaluations,
+            truncated: c.truncated,
+            diagnostics: c.diagnostics,
+            error: c.error,
+            components: c.segments.length,
+          })),
+        );
+        current.onSamples?.(result.curves.map((c) => ({ ...c, segments: [] })));
         invalidate();
       }
       pump();
+    }
+    function startWorker(): void {
+      try {
+        worker = new Worker(new URL('./sampling.worker.ts', import.meta.url), {
+          type: 'module',
+        });
+        worker.onmessage = (event: MessageEvent<unknown>) => {
+          if (isSampleResponse(event.data)) accept(event.data);
+          else failWorker(false);
+        };
+        worker.onerror = () => failWorker(false);
+      } catch {
+        worker = null;
+      }
+    }
+    function failWorker(timeout: boolean): void {
+      worker?.terminate();
+      worker = null;
+      window.clearTimeout(watchdog);
+      const failed = running;
+      if (timeout) startWorker();
+      if (failed) {
+        const result = timeout
+          ? {
+              version: 2 as const,
+              id: failed.id,
+              bounds: failed.bounds,
+              size: failed.size,
+              milliseconds: 3000,
+              curves: failed.curves.map((c) => ({
+                id: c.id,
+                signature: c.signature,
+                segments: [],
+                evaluations: 0,
+                truncated: true,
+                error: 'timeout' as const,
+              })),
+            }
+          : sampleRequest(failed, true);
+        accept(result);
+      }
     }
     function pump(): void {
       if (busy || !pending || disposed) return;
       const request = pending;
       pending = null;
       busy = true;
-      if (worker) worker.postMessage(request);
-      else {
-        const start = performance.now();
-        const curves = request.curves.map((c) => {
-          const result = sampleCurveDetailed(
-            c.curve,
-            request.bounds,
-            request.size,
-          );
-          return { ...c, ...result };
-        });
-        accept({ ...request, curves, milliseconds: performance.now() - start });
+      running = request;
+      if (worker) {
+        watchdog = window.setTimeout(() => failWorker(true), 3000);
+        worker.postMessage(request);
+      } else {
+        // Yield before the bounded 1D fallback; implicit work requires Worker.
+        watchdog = window.setTimeout(() => {
+          const start = performance.now();
+          const result = sampleRequest(request, true);
+          accept({ ...result, milliseconds: performance.now() - start });
+        }, 0);
       }
     }
     function resample(): void {
+      latestRequest = null;
+      pending = null;
       window.clearTimeout(sampleTimer);
       sampleTimer = window.setTimeout(
         () => {
@@ -305,6 +380,8 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       window.clearTimeout(viewTimer);
       window.clearTimeout(sampleTimer);
       sampleTimer = 0;
+      latestRequest = null;
+      pending = null;
       target = next;
       animationFrom = viewport;
       progress = 0;
@@ -340,7 +417,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       const start = performance.now();
       const cached = fitCache?.key === key;
       const next =
-        cached && fitCache ? fitCache.view : target.fitToCurves(curves);
+        cached && fitCache ? fitCache.view : fitPlot(target, current.rows);
       if (!cached) {
         metrics.fitComputations++;
         metrics.fitMs = performance.now() - start;
@@ -560,7 +637,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         const row =
           current.rows.find((r) => r.row.id === activeTrace?.id) ??
           visibleRows()[0];
-        if (row?.curve) {
+        if (row?.curve && isOneDimensional(row.curve)) {
           const c = row.curve,
             step =
               ((c.kind === 'parametric' || c.kind === 'polar'
@@ -610,7 +687,13 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         if (next.rows !== old.rows) {
           paths = new Map(
             [...paths].filter(([id]) =>
-              next.rows.some((r) => r.row.id === id && r.curve),
+              next.rows.some(
+                (r) =>
+                  r.row.id === id &&
+                  r.row.visible &&
+                  r.curve &&
+                  JSON.stringify(r.curve) === paths.get(id)?.signature,
+              ),
             ),
           );
           updateTrace(null);
@@ -660,34 +743,21 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         output.height = Math.round(viewport.pixelSize.height * dpr);
         const context = output.getContext('2d');
         if (!context) throw new Error('Canvas unavailable');
-        // Export is an explicit one-off: always sample the exact current viewport.
-        const curves = visibleRows().flatMap((r) => {
-          if (!r.curve) return [];
-          const sampled = sampleCurveDetailed(
-            r.curve,
-            viewport.bounds,
-            viewport.pixelSize,
-          );
-          return [
-            { id: r.row.id, signature: JSON.stringify(r.curve), ...sampled },
-          ];
-        });
-        const exact = cachePaths(
-          {
-            id: 0,
-            curves,
-            bounds: viewport.bounds,
-            size: viewport.pixelSize,
-            milliseconds: 0,
-          },
-          paths,
-          0,
-        );
+        // Use the same accepted polylines and transform as the screen. Export
+        // must never run a second 2D job synchronously or invent missing curves.
+        if (
+          visibleRows().some(
+            (r) =>
+              r.curve &&
+              paths.get(r.row.id)?.signature !== JSON.stringify(r.curve),
+          )
+        )
+          throw new Error('Sampling pending');
         context.scale(dpr, dpr);
         drawGraph(context, {
           viewport,
           colors,
-          paths: exact,
+          paths,
           rows: visibleRows().map((r) => ({
             id: r.row.id,
             color: r.row.color,
@@ -713,22 +783,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       },
     };
     controller.current = api;
-    try {
-      worker = new Worker(new URL('./sampling.worker.ts', import.meta.url), {
-        type: 'module',
-      });
-      worker.onmessage = (event: MessageEvent<SampleResponse>) =>
-        accept(event.data);
-      worker.onerror = () => {
-        worker?.terminate();
-        worker = null;
-        busy = false;
-        sampleSignature = '';
-        requestSamples();
-      };
-    } catch {
-      worker = null;
-    }
+    startWorker();
     const resize = () => {
       const r = element.getBoundingClientRect();
       if (!r.width || !r.height) return;
@@ -794,6 +849,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       window.clearTimeout(sampleTimer);
       window.clearTimeout(viewTimer);
       worker?.terminate();
+      window.clearTimeout(watchdog);
       observer.disconnect();
       mutations.disconnect();
       window.removeEventListener('resize', resize);

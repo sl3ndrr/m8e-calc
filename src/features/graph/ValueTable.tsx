@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
-import type { Bounds, Curve } from '../../graph';
+import type { Bounds } from '../../graph';
 import { t, type Locale, type NumberPreferences } from '../../shared/i18n';
-import { tableResult } from './model';
+import { tableResult, type PlotCurve } from './model';
 import { formatGraphNumber, type GraphRounding } from './numbers';
 
 export default function ValueTable({
@@ -12,7 +12,7 @@ export default function ValueTable({
   preferences,
   rounding,
 }: {
-  curve: Curve | null;
+  curve: PlotCurve | null;
   bounds: Bounds;
   step: number;
   locale: Locale;
@@ -38,6 +38,8 @@ export default function ValueTable({
   );
   const format = (value: number) =>
     formatGraphNumber(value, locale, preferences, rounding);
+  if (curve?.kind === 'implicit')
+    return <p role="status">{t('graph.implicitActions', locale)}</p>;
   return (
     <>
       <p role={result.stopped ? 'status' : undefined}>

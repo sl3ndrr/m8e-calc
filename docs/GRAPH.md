@@ -419,7 +419,7 @@ Der unveränderte 1D-/Fit-Benchmark bleibt bei 2560×1440 und <25 ms.
 `npm run check` enthält beide Benchmarks. Vollständige npm-/Browsernachweise
 werden im PR mit dem tatsächlich geprüften Commit ausgewiesen.
 
-### AP27 · Exakter Integrationspunkt / Offen
+### AP27 · Integrationspunkt
 
 `parseCurveInput` meldet für implizite Eingaben weiterhin ausdrücklich
 `E_UNSUPPORTED_CURVE` mit `detectedKind: 'implicit'`. AP27 kann an genau diesem
@@ -432,3 +432,7 @@ Canvas/SVG können die resultierenden Polylinien übernehmen. AP27 muss zusätzl
 das Verhalten für Analysis, Trace, Fit und Wertetabelle festlegen; diese APIs
 verlangen derzeit einen parametrisierten/einwertigen Kurvenvertrag und erhalten
 in AP26 keinen impliziten Fallback. Issue #17 bleibt für diese Integration offen.
+
+Der AP27-Featureadapter `parsePlotInput` aktiviert jetzt diesen Dispatcherzweig;
+Worker/UI-Vertrag, Fit und bewusst gesperrte 1D-Aktionen: [AP27.md](AP27.md).
+Der öffentliche Domänenparser `parseCurveInput` behält seinen 1D-Vertrag.

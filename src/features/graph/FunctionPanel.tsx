@@ -18,6 +18,8 @@ import {
   type ParsedRow,
   type PlotAction,
 } from './model';
+import type { SampleResponse } from './workerProtocol';
+import { sampleMessageKeys } from './samplingDiagnostics';
 import type { AnalysisKind } from './analysisAdapter';
 import { loadModeModule } from '../../app/ModeErrorBoundary';
 const Editor = lazy(() =>
@@ -25,6 +27,7 @@ const Editor = lazy(() =>
 );
 interface Props {
   rows: readonly ParsedRow[];
+  samples?: SampleResponse['curves'];
   colors: readonly string[];
   locale: Locale;
   dispatch: Dispatch<PlotAction>;
@@ -136,6 +139,9 @@ function CurveRow({
   const [other, setOther] = useState<string | null>(null);
   const id = `graph-error-${row.id}`,
     help = `graph-help-${row.id}`;
+  const sampled = props.samples?.find(
+    (c) => c.id === row.id && c.signature === JSON.stringify(curve),
+  );
   const [menuKind, setMenuKind] = useState<AnalysisKind | null>(null);
   return (
     <section
@@ -220,7 +226,11 @@ function CurveRow({
             </Button>
           }
           options={[
-            { id: 'duplicate', label: t('graph.duplicate', locale) },
+            {
+              id: 'duplicate',
+              label: t('graph.duplicate', locale),
+              isDisabled: props.rows.length >= 100,
+            },
             { id: 'delete', label: t('graph.delete', locale) },
             { id: 'up', label: t('graph.up', locale), isDisabled: index === 0 },
             {
@@ -240,7 +250,9 @@ function CurveRow({
               id: kind,
               label: t(`graph.analysis.${kind}`, locale),
               isDisabled:
-                !curve || (kind === 'integral' && curve.kind !== 'explicit'),
+                !curve ||
+                curve.kind === 'implicit' ||
+                (kind === 'integral' && curve.kind !== 'explicit'),
             })),
           ]}
           onAction={(key) => {
@@ -267,6 +279,20 @@ function CurveRow({
           }}
         />
       </div>
+      {curve?.kind === 'implicit' && (
+        <div className="graph-implicit-help">
+          <p>{t('graph.implicitActions', locale)}</p>
+          <p>{t('graph.implicitFit', locale)}</p>
+          <p>{t('graph.implicitAccuracy', locale)}</p>
+        </div>
+      )}
+      {sampled && (
+        <div role="status" className="graph-sampling-status">
+          {sampleMessageKeys(sampled).map((key) => (
+            <p key={key}>{t(key, locale)}</p>
+          ))}
+        </div>
+      )}
       {error && (
         <p id={id} className="graph-error" role="alert">
           {t(
@@ -285,14 +311,23 @@ function CurveRow({
           <Select
             label={t('graph.otherCurve', locale)}
             options={props.rows
-              .filter((r) => r.curve && r.row.id !== row.id)
+              .filter(
+                (r) =>
+                  r.curve && r.row.id !== row.id && r.curve.kind !== 'implicit',
+              )
               .map((r) => ({ id: r.row.id, label: r.row.input }))}
             selectedKey={other}
             onSelectionChange={(key) => setOther(key ? String(key) : null)}
           />
           <Button
             size="sm"
-            isDisabled={!other}
+            isDisabled={
+              curve?.kind === 'implicit' ||
+              !props.rows.some(
+                (r) =>
+                  r.row.id === other && r.curve && r.curve.kind !== 'implicit',
+              )
+            }
             onPress={() => {
               if (other) props.onAnalyze(row.id, 'intersections', other);
               setMenuKind(null);
@@ -328,7 +363,11 @@ export default function FunctionPanel(props: Props) {
     >
       <div className="graph-panel-intro">
         <p>{t('graph.panelHint', props.locale)}</p>
-        <Button size="sm" onPress={() => add()}>
+        <Button
+          size="sm"
+          isDisabled={props.rows.length >= 100}
+          onPress={() => add()}
+        >
           {t('graph.add', props.locale)}
         </Button>
       </div>

@@ -99,3 +99,81 @@ test('4K six-curve pan render budget and idle rendering', async ({ page }) => {
       .frames,
   ).toBe(idle);
 });
+
+test('AP27 2D worker keeps mixed-plot pan responsive at 1280×720', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1600, height: 1000 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/m8e-calc/#/graph');
+  for (const input of ['x^2+y^2=a', 'sin(x)']) {
+    await page.getByRole('button', { name: 'Hinzufügen', exact: true }).click();
+    await page.locator('.graph-editor [role="textbox"]').last().fill(input);
+  }
+  await page
+    .locator('.graph-canvas-wrap')
+    .evaluate((e) => document.body.appendChild(e));
+  await page.addStyleTag({
+    content:
+      '.graph-canvas-wrap { position:fixed; inset:0; width:1280px; height:720px; z-index:100; border:none; }',
+  });
+  const canvas = page.locator('canvas.graph-canvas');
+  await expect(canvas).toHaveAttribute('data-sampling', 'false', {
+    timeout: 15000,
+  });
+  await expect(canvas).toHaveAttribute('data-curve-count', '2');
+  await page.mouse.move(640, 360);
+  await page.mouse.down();
+  const intervals = await canvas.evaluate(
+    async (element: HTMLCanvasElement) => {
+      const intervals: number[] = [];
+      let last = performance.now();
+      for (let i = 0; i < 120; i++) {
+        const time = await new Promise<number>((r) => requestAnimationFrame(r));
+        intervals.push(time - last);
+        last = time;
+        element.dispatchEvent(
+          new PointerEvent('pointermove', {
+            pointerId: 1,
+            pointerType: 'mouse',
+            buttons: 1,
+            clientX: 640 + Math.sin(i / 15) * 100,
+            clientY: 360 + Math.cos(i / 15) * 50,
+            bubbles: true,
+          }),
+        );
+      }
+      return intervals;
+    },
+  );
+  await page.mouse.up();
+  await expect(canvas).toHaveAttribute('data-sampling', 'false', {
+    timeout: 15000,
+  });
+  const metrics = JSON.parse(
+    (await canvas.getAttribute('data-graph-metrics')) ?? '{}',
+  ) as { renderMs: number[]; samplingMs: number };
+  const percentile = (values: number[], p: number) =>
+    values.slice().sort((a, b) => a - b)[Math.floor(values.length * p)] ??
+    Infinity;
+  const report = {
+    canvas: { width: 1280, height: 720 },
+    curves: 2,
+    renderP95Ms: percentile(metrics.renderMs, 0.95),
+    rafP95Ms: percentile(intervals, 0.95),
+    rafAverageMs: intervals.reduce((a, b) => a + b, 0) / intervals.length,
+    workerMs: metrics.samplingMs,
+    samples: JSON.parse(
+      (await canvas.getAttribute('data-sample-result')) ?? '[]',
+    ),
+  };
+  await writeFile(
+    'test-results/graph-implicit-ui-performance.json',
+    JSON.stringify(report, null, 2),
+  );
+  expect(report.renderP95Ms).toBeLessThan(16.67);
+  expect(report.rafP95Ms).toBeLessThan(50);
+  expect(report.rafAverageMs).toBeLessThan(30);
+  expect(report.samples[0]?.error).toBeUndefined();
+  expect(report.samples[0]?.truncated).toBe(false);
+});

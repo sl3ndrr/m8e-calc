@@ -15,7 +15,7 @@ import {
 } from './model';
 import { analyze } from './analysisAdapter';
 describe('plot model and AP12 parser integration', () => {
-  it('detects all supported curve types and parameters; implicit input is an error', () => {
+  it('detects all supported curve types and parameters including AP26 implicit input', () => {
     for (const [input, kind] of [
       ['sin(x)', 'explicit'],
       ['x=3', 'vertical'],
@@ -24,9 +24,7 @@ describe('plot model and AP12 parser integration', () => {
     ])
       expect(parseRow(newRow('a', input)).curve?.kind).toBe(kind);
     expect(parseRow(newRow('a', 'a*x^2+b*x+c')).names).toEqual(['a', 'b', 'c']);
-    expect(parseRow(newRow('a', 'x^2+y^2=4')).error?.code).toBe(
-      'E_UNSUPPORTED_CURVE',
-    );
+    expect(parseRow(newRow('a', 'x^2+y^2=4')).curve?.kind).toBe('implicit');
     expect(parseRow(newRow('a', 'sin(')).error).not.toBeNull();
   });
   it('preserves identity while editing, toggling and reordering', () => {
@@ -141,7 +139,7 @@ it('AP21 persists the fit basis, supports old plot sets and rejects corrupt view
     { lockAspect: true },
   );
   const c = parseRow(newRow('a', 'x^2')).curve;
-  if (!c) throw Error('Missing curve');
+  if (!c || c.kind === 'implicit') throw Error('Missing 1D curve');
   const fitted = v.fitToCurves([c]);
   const plot = plotReducer(base, {
     type: 'view',

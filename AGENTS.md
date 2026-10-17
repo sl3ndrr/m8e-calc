@@ -194,3 +194,14 @@ Galerieprojekte verwenden eigene Browserprofile.
 `build-info.json` enthält passiv CI-Commit und Buildziel; ohne `GITHUB_SHA`
 steht der Commit auf `null`. Kein App-Request und keine sichtbare Entwickler-UI.
 Abnahme mit SHA, tatsächlichen Läufen und offenen Live-Grenzen: `docs/AP25.md`.
+
+## AP27 · Implizite Graphintegration
+
+Der Featuretyp `PlotCurve` vereinigt `Curve` und AP26-`ImplicitCurve`; der reine
+1D-Domänenvertrag bleibt unverändert. `parsePlotInput` nutzt ausschließlich den
+vorhandenen `detectedKind`-Dispatcher und die tatsächliche AP26-API. Worker-
+Protokoll 2 ist validiert, enthält gemeinsame 2D-Budgets und Diagnosen; kein
+synchrones 2D-Fallback. PNG übernimmt die dargestellten akzeptierten Polylinien.
+Implizite Analysis/Trace/Table sind explizit gesperrt; Fit verwendet die stabile
+AP21-Basis ohne rekursive Suche. Speicherung bleibt textbasiert in Plot-Version 1
+und Link-Umschlag v=1; keine Datenmigration. Vertrag/Nachweise: [docs/AP27.md](docs/AP27.md).

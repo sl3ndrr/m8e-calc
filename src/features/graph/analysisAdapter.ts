@@ -10,9 +10,11 @@ import {
   type Curve,
 } from '../../graph';
 import type { IntegralShade, Marker } from './renderer';
+import { isOneDimensional, type PlotCurve } from './model';
 export type AnalysisKind =
   'roots' | 'extrema' | 'intersections' | 'tangent' | 'integral';
 export interface AnalysisResult {
+  unsupported?: boolean;
   markers: Marker[];
   tangent: Curve | null;
   shade: IntegralShade | null;
@@ -23,11 +25,11 @@ export interface AnalysisResult {
   } | null;
 }
 export function analyze(
-  curve: Curve,
+  curve: PlotCurve,
   id: string,
   kind: AnalysisKind,
   bounds: Bounds,
-  other?: Curve,
+  other?: PlotCurve,
   u = 0,
   range?: readonly [number, number],
 ): AnalysisResult {
@@ -37,6 +39,8 @@ export function analyze(
     shade: null,
     integral: null,
   };
+  if (!isOneDimensional(curve) || (other && !isOneDimensional(other)))
+    return { ...result, unsupported: true };
   if (kind === 'integral' && range && curve.kind === 'explicit') {
     const from = Math.max(
         bounds.xMin,

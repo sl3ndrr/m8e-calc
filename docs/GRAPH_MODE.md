@@ -20,7 +20,7 @@ und einen ersetzbaren nächsten Auftrag. Veraltete Antworten werden verworfen.
 Path2D-Pfade werden pro Antwort aufgebaut; Pan und Zoom transformieren diese
 Pfade während der nächsten Berechnung. Ein um 35% erweiterter Samplingbereich
 reduziert sichtbare Randlücken bei Bewegung. Bei fehlender Worker-Unterstützung
-existiert ein synchroner Fallback. Worker und Listener werden beim Unmount beendet.
+existiert ein begrenzter synchroner 1D-Fallback; implizite Kurven benötigen den Worker. Worker und Listener werden beim Unmount beendet.
 
 Ziehen, Trägheit, Radzoom am Mauszeiger, Doppelklick, +/−, Anpassen, 1:1 und
 Presets verwenden AP12-Viewport-Operationen. Springs verwenden zentrale
@@ -84,7 +84,8 @@ Kurvenänderungen entfernen veraltete Analyseergebnisse.
 
 Tabellen verwenden x, y und u (bei parametrisch/polar der Kurvenparameter), mit
 positiver Schrittweite und einer Obergrenze von 500 Zeilen. PNG-Export verwendet
-die genaue aktuelle Ansicht, DPR, Marker und Integralfläche, ohne Trace. Wählbar:
+die genaue aktuelle Ansicht, DPR, die tatsächlich angezeigten akzeptierten
+Polylinien, Marker und Integralfläche, ohne Trace und ohne erneutes Sampling. Wählbar:
 aktuelles Theme oder transparenter Hintergrund. Export und Clipboard-Fehler
 werden lokal angezeigt; keine externen Laufzeitrequests.
 
@@ -108,7 +109,8 @@ werden lokal angezeigt; keine externen Laufzeitrequests.
 
 ## Offen / Folge-Issues
 
-Implizite Kurven bleiben in AP12-Folge-Issue #17. Numerische Analysis, Trace und
+AP27 integriert die implizite AP26-Domäne; Vertrag, Grenzen und tatsächlicher
+Nachweisstatus stehen in [AP27.md](AP27.md). Numerische Analysis, Trace und
 Sampling haben die in GRAPH.md dokumentierten Grenzen. Touch-Pinch und weitere
 Browser/GPU-/Screenreader-Abnahmen bleiben spätere Integrationsaufgaben.
 
@@ -167,3 +169,11 @@ Browserbilder mit expliziter Anzeigerundung und sichtbaren Tabellenzeilen:
 Die AP22-Evidence-Action prüft `npm run check` und die gezielten Graph-E2E;
 die reguläre CI prüft zusätzlich den vollständigen Chromium-Smoke samt
 Graph-Performance. Screenshots und tatsächliche Laufnachweise sind im PR verlinkt.
+
+## AP27 · Implizite Kurven
+
+`x^2+y^2=4` und andere von AP26 erkannte Gleichungen laufen im lokalen Worker.
+Budget-/Genauigkeitsdiagnosen erscheinen an der betroffenen Kurve in de/en.
+Analysis, Trace und Wertetabellen werden bewusst gesperrt; Fit verwendet die
+stabile AP21-Basis als begrenzte Ansicht. Plot-Version 1 benötigt keine Migration,
+weil unverändert Eingabetext gespeichert wird. Details: [AP27.md](AP27.md).

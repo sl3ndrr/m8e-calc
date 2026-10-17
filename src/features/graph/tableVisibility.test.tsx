@@ -64,3 +64,35 @@ it('does no closed-table work; updates an open table only after valid step confi
   );
   expect(vi.mocked(tableResult).mock.calls.length).toBe(closed);
 });
+
+it('keeps an edited implicit or invalid selection instead of switching to a different table curve', async () => {
+  render(<GraphMode />);
+  fireEvent.click(screen.getByRole('button', { name: 'Hinzufügen' }));
+  const first = await screen.findByRole('textbox', { name: 'Funktion 1' });
+  fireEvent.change(first, { target: { value: 'x^2+y^2=4' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Hinzufügen' }));
+  const second = await screen.findByRole('textbox', { name: 'Funktion 2' });
+  fireEvent.change(second, { target: { value: 'x' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Wertetabelle' }));
+  const region = screen.getByRole('region', { name: 'Wertetabelle' });
+  expect(within(region).getByRole('status')).toHaveTextContent(
+    'keinen eindeutigen y-Wert',
+  );
+  expect(within(region).queryByRole('table')).not.toBeInTheDocument();
+  expect(
+    within(region).getByRole('button', { name: 'Anwenden' }),
+  ).toBeDisabled();
+  // Pin a choice explicitly, then turn that exact row into an implicit curve.
+  fireEvent.click(within(region).getByRole('button', { name: /x\^2\+y\^2=4/ }));
+  fireEvent.click(
+    await screen.findByRole('option', { name: 'x', exact: true }),
+  );
+  expect(within(region).getByRole('table')).toBeInTheDocument();
+  fireEvent.change(second, { target: { value: 'x*y=1' } });
+  expect(within(region).queryByRole('table')).not.toBeInTheDocument();
+  expect(within(region).getByRole('status')).toHaveTextContent(
+    'keinen eindeutigen y-Wert',
+  );
+  fireEvent.change(second, { target: { value: 'sin(' } });
+  expect(within(region).getByText(/ausgewählte Kurve/)).toBeInTheDocument();
+});
