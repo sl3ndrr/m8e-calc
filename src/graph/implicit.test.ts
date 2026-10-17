@@ -176,31 +176,37 @@ describe('AP26 analytic geometry and conforming adaptive boundaries', () => {
       }
     }
   });
-  it('handles exact grid-edge and displaced four-arm crossings without diagonal shortcuts', () => {
-    for (const [source, x, y] of [
-      ['x*y=0', 0, 0],
-      ['x^2-y^2=0', 0, 0],
-      ['(x-.123)*(y-.234)=0', 0.123, 0.234],
-      ['(x-.123)*y=0', 0.123, 0],
-      ['x*(y-.234)=0', 0, 0.234],
-      ['y*(x+y-.123)=0', 0.123, 0],
-      ['y^2*(x-.123)=0', 0.123, 0],
-    ] as const) {
-      const r = sample(source);
-      expect(r.segments, source).toHaveLength(4);
-      expect(r.diagnostics.unresolvedCells).toBe(0);
-      let junctions = 0;
-      for (const line of r.segments) {
-        for (const p of [line[0], line[line.length - 1]])
-          if (p && Math.hypot(p.x - x, p.y - y) < 1e-8) junctions++;
-        for (const p of line)
-          expect(
-            Math.abs(compileImplicitCurve(curve(source))(p.x, p.y)),
-          ).toBeLessThan(1e-8);
+  it.each([192, 384, 720])(
+    'handles exact grid-edge and displaced four-arm crossings at %i pixels without diagonal shortcuts',
+    (resolution) => {
+      for (const [source, x, y] of [
+        ['x*y=0', 0, 0],
+        ['x^2-y^2=0', 0, 0],
+        ['(x-.123)*(y-.234)=0', 0.123, 0.234],
+        ['(x-.123)*y=0', 0.123, 0],
+        ['x*(y-.234)=0', 0, 0.234],
+        ['y*(x+y-.123)=0', 0.123, 0],
+        ['y^2*(x-.123)=0', 0.123, 0],
+      ] as const) {
+        const r = sample(source, box, {
+          width: resolution,
+          height: resolution,
+        });
+        expect(r.segments, source).toHaveLength(4);
+        expect(r.diagnostics.unresolvedCells).toBe(0);
+        let junctions = 0;
+        for (const line of r.segments) {
+          for (const p of [line[0], line[line.length - 1]])
+            if (p && Math.hypot(p.x - x, p.y - y) < 1e-8) junctions++;
+          for (const p of line)
+            expect(
+              Math.abs(compileImplicitCurve(curve(source))(p.x, p.y)),
+            ).toBeLessThan(1e-8);
+        }
+        expect(junctions).toBe(4);
       }
-      expect(junctions).toBe(4);
-    }
-  });
+    },
+  );
   it('uses the asymptotic determinant rather than the centre-sign heuristic', () => {
     // Bilinear centre is positive (mean 0.75) but Q=-6 chooses the other pairing.
     expect(asymptoticDecider([10, -4, 1, -4]).determinant).toBeLessThan(0);

@@ -290,6 +290,11 @@ Damit darf Float64-Auslöschung einen regulären tangentialen Rasterkontakt
 schließen; ein bloß enger x/y-Abstand oder Pol-Vorzeichenwechsel genügt nicht.
 Wachsende beidseitige Beträge ohne Residuenverbesserung werden konservativ
 verworfen. Nichtendliche Zwischenproben verwerfen ebenfalls die Klammer.
+Bei genau einem Nullendpunkt prüfen maximal zwölf halbierte Randproben außerdem
+auf einen zweiten inneren Vorzeichenwechsel. Dieser erhält eine eigene,
+ebenfalls residuengeprüfte Nullstelle; ein bekannter Nullendpunkt darf den
+zusätzlichen Ast z.B. bei `y*(x+y-a)` nicht verdecken. Nicht eindeutig auflösbare
+Mehrfachtreffer erzwingen Verfeinerung.
 
 Für jede akzeptierte Sehne prüfen echte F-Auswertungen deren Viertel-, Mittel-
 und Dreiviertelpunkt. Die lokale Normalabstands-Schätzung ist
@@ -404,7 +409,7 @@ fast-check: Ausdrucksfuzzing Seed 260017 (50 Fälle), analytische verschobene
 Kreise Seed 170026 (25 Fälle). Keine reinen Algorithmus-Snapshots.
 
 `npm test -- --project=engine src/graph` führt die Graph-Tests aus.
-`npm run test:graph:implicit:bench` misst neun Referenzen bei **1280×720**,
+`npm run test:graph:implicit:bench` misst zehn Referenzen bei **1280×720**,
 8-px-Discovery/0,25-px-Ziel und obigen Standardbudgets, nach zwei Warm-ups mit
 fünf Messungen je Fall. Komponenten-/Schließungs- und Residuenprüfungen sind
 Teil des Benchmarks. Ziel 250 ms, großzügige Regressionsgrenze 1500 ms/Kurve;

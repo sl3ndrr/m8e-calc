@@ -28,7 +28,7 @@
         "yMin": -3,
         "yMax": 3
       },
-      "meanMilliseconds": 278.5091544,
+      "meanMilliseconds": 224.92290679999996,
       "evaluations": 101055,
       "segments": 1,
       "status": "contours",
@@ -54,7 +54,7 @@
         "yMin": -3,
         "yMax": 3
       },
-      "meanMilliseconds": 176.73839620000007,
+      "meanMilliseconds": 138.45568859999995,
       "evaluations": 94069,
       "segments": 1,
       "status": "contours",
@@ -80,7 +80,7 @@
         "yMin": -3,
         "yMax": 3
       },
-      "meanMilliseconds": 174.06672660000004,
+      "meanMilliseconds": 122.24004100000002,
       "evaluations": 87629,
       "segments": 2,
       "status": "contours",
@@ -106,7 +106,7 @@
         "yMin": -3,
         "yMax": 3
       },
-      "meanMilliseconds": 187.29801439999991,
+      "meanMilliseconds": 139.6327636,
       "evaluations": 91901,
       "segments": 4,
       "status": "contours",
@@ -132,8 +132,8 @@
         "yMin": -3,
         "yMax": 3
       },
-      "meanMilliseconds": 171.2977444,
-      "evaluations": 83257,
+      "meanMilliseconds": 123.3357938000001,
+      "evaluations": 90985,
       "segments": 4,
       "status": "contours",
       "limits": [],
@@ -151,6 +151,32 @@
       "maxEstimatedErrorPixels": 0
     },
     {
+      "source": "y*(x+y-.123)=0",
+      "bounds": {
+        "xMin": -3,
+        "xMax": 3,
+        "yMin": -3,
+        "yMax": 3
+      },
+      "meanMilliseconds": 136.30803560000004,
+      "evaluations": 110993,
+      "segments": 4,
+      "status": "contours",
+      "limits": [],
+      "cells": 19320,
+      "leaves": 14720,
+      "cachedSamples": 59385,
+      "outputEdges": 408,
+      "deepestLevel": 2,
+      "nonFiniteEvaluations": 0,
+      "rejectedEdges": 0,
+      "unresolvedCells": 0,
+      "zeroCells": 0,
+      "saddleCells": 0,
+      "transitionCells": 0,
+      "maxEstimatedErrorPixels": 6.967031248913688e-14
+    },
+    {
       "source": "(x^2+y^2-1)*((x-1.7)^2+y^2-.16)=0",
       "bounds": {
         "xMin": -3,
@@ -158,7 +184,7 @@
         "yMin": -3,
         "yMax": 3
       },
-      "meanMilliseconds": 207.9300166000001,
+      "meanMilliseconds": 144.073409,
       "evaluations": 92247,
       "segments": 2,
       "status": "contours",
@@ -184,7 +210,7 @@
         "yMin": 0,
         "yMax": 1
       },
-      "meanMilliseconds": 247.93641299999982,
+      "meanMilliseconds": 137.95914919999996,
       "evaluations": 67527,
       "segments": 2,
       "status": "contours",
@@ -210,7 +236,7 @@
         "yMin": -3,
         "yMax": 3
       },
-      "meanMilliseconds": 297.2642934000003,
+      "meanMilliseconds": 221.36722539999974,
       "evaluations": 151541,
       "segments": 0,
       "status": "unresolved",
@@ -236,8 +262,8 @@
         "yMin": -3,
         "yMax": 3
       },
-      "meanMilliseconds": 258.83616399999994,
-      "evaluations": 113535,
+      "meanMilliseconds": 193.64638599999998,
+      "evaluations": 113811,
       "segments": 1,
       "status": "contours",
       "limits": [],
@@ -337,71 +363,71 @@
     "after": [
       {
         "source": "sin(x)",
-        "meanMilliseconds": 0.23528444500000034,
-        "fitMeanMilliseconds": 0.07827409499999988,
+        "meanMilliseconds": 0.9178899899999999,
+        "fitMeanMilliseconds": 0.622047705,
         "evaluations": 1281,
         "segments": 1
       },
       {
         "source": "1/x",
-        "meanMilliseconds": 0.5263151100000004,
-        "fitMeanMilliseconds": 0.040879960000000326,
+        "meanMilliseconds": 1.2819127350000008,
+        "fitMeanMilliseconds": 0.04759927500000003,
         "evaluations": 2817,
         "segments": 2
       },
       {
         "source": "tan(x)",
-        "meanMilliseconds": 1.518203415,
-        "fitMeanMilliseconds": 0.07655805999999984,
+        "meanMilliseconds": 1.933933424999999,
+        "fitMeanMilliseconds": 0.08329022000000123,
         "evaluations": 6921,
         "segments": 5
       },
       {
         "source": "abs(x)",
-        "meanMilliseconds": 0.2883434250000005,
-        "fitMeanMilliseconds": 0.057744345000000974,
+        "meanMilliseconds": 0.22063775500000019,
+        "fitMeanMilliseconds": 0.06080598499999951,
         "evaluations": 1281,
         "segments": 1
       },
       {
         "source": "x^x",
-        "meanMilliseconds": 0.27657692999999994,
-        "fitMeanMilliseconds": 0.04410059499999988,
+        "meanMilliseconds": 0.3097960450000005,
+        "fitMeanMilliseconds": 0.033926790000000435,
         "evaluations": 2427,
         "segments": 1
       },
       {
         "source": "sqrt(x)",
-        "meanMilliseconds": 0.1565876000000003,
-        "fitMeanMilliseconds": 0.02285391499999946,
+        "meanMilliseconds": 0.14125995500000044,
+        "fitMeanMilliseconds": 0.02585876499999813,
         "evaluations": 1437,
         "segments": 1
       },
       {
         "source": "ln(x)",
-        "meanMilliseconds": 0.2509527600000001,
-        "fitMeanMilliseconds": 0.026069270000000415,
+        "meanMilliseconds": 0.2340187549999996,
+        "fitMeanMilliseconds": 0.04811663499999895,
         "evaluations": 1953,
         "segments": 1
       },
       {
         "source": "(cos(t),sin(t))",
-        "meanMilliseconds": 0.47970603500000036,
-        "fitMeanMilliseconds": 0.11429878000000031,
+        "meanMilliseconds": 0.3351951050000002,
+        "fitMeanMilliseconds": 0.16585636999999906,
         "evaluations": 1281,
         "segments": 1
       },
       {
         "source": "r=1+cos(theta)",
-        "meanMilliseconds": 0.2960673750000001,
-        "fitMeanMilliseconds": 0.08601038000000016,
+        "meanMilliseconds": 0.3189672399999995,
+        "fitMeanMilliseconds": 0.09007178500000008,
         "evaluations": 1281,
         "segments": 1
       },
       {
         "source": "(sin(3*t),sin(2*t))",
-        "meanMilliseconds": 0.4456057999999996,
-        "fitMeanMilliseconds": 0.13873644499999954,
+        "meanMilliseconds": 0.35442379999999957,
+        "fitMeanMilliseconds": 0.1318757450000021,
         "evaluations": 1281,
         "segments": 1
       }

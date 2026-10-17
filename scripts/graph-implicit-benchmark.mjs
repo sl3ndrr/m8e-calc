@@ -24,8 +24,13 @@ const cases = [
   { source: 'x^2+y^2=4', components: 1, closed: true },
   { source: 'x^2/4+y^2=1', components: 1, closed: true },
   { source: 'x*y=1', components: 2 },
-  { source: '(x-.123)*(y-.234)=0', components: 4 },
-  { source: '(x-.123)*y=0', components: 4 },
+  {
+    source: '(x-.123)*(y-.234)=0',
+    components: 4,
+    junction: { x: 0.123, y: 0.234 },
+  },
+  { source: '(x-.123)*y=0', components: 4, junction: { x: 0.123, y: 0 } },
+  { source: 'y*(x+y-.123)=0', components: 4, junction: { x: 0.123, y: 0 } },
   { source: '(x^2+y^2-1)*((x-1.7)^2+y^2-.16)=0', components: 2, closed: true },
   {
     source: '((x-.4)^2+(y-.43)^2-(6/720)^2)*((x-.42)^2+(y-.43)^2-(6/720)^2)=0',
@@ -67,6 +72,14 @@ for (const reference of cases) {
   assert(sample.diagnostics.cells <= budgets.maxCells);
   assert(sample.diagnostics.cachedSamples <= budgets.maxSamples);
   assert(sample.diagnostics.outputEdges <= budgets.maxSegments);
+  if (reference.junction) {
+    assert.equal(sample.diagnostics.unresolvedCells, 0, 'resolved crossing');
+    const { x, y } = reference.junction;
+    const arms = sample.segments
+      .flatMap((line) => [line[0], line.at(-1)])
+      .filter((p) => Math.hypot(p.x - x, p.y - y) < 1e-8);
+    assert.equal(arms.length, 4, 'four shared junction endpoints');
+  }
   for (const line of sample.segments) {
     if (reference.closed)
       assert.deepEqual(line[0], line.at(-1), 'closed reference');

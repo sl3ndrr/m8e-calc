@@ -24,6 +24,7 @@ interface Node {
 type Link = readonly [Node, Node];
 interface Edge {
   root?: Node;
+  additionalRoots?: readonly Node[];
   zero?: Link;
   junction?: Node;
   rejected?: boolean;
@@ -351,6 +352,42 @@ export function sampleImplicitCurveDetailed(
             zero: [a, b],
             ...(junction.root ? { junction: junction.root } : {}),
           };
+    } else if (aValue === 0 || bValue === 0) {
+      const zero = aValue === 0 ? a : b,
+        far = aValue === 0 ? b : a,
+        farValue = aValue === 0 ? bValue : aValue;
+      result = { root: zero };
+      // A zero endpoint does not exclude a second crossing just inside the
+      // edge (e.g. y*(x+y-a)). Probe toward it before accepting only the endpoint.
+      for (let i = 1; i <= 12; i++) {
+        const t = 2 ** -i,
+          probe: Node = {
+            id: 'probe:' + id + ':' + i,
+            point: {
+              x: zero.point.x + (far.point.x - zero.point.x) * t,
+              y: zero.point.y + (far.point.y - zero.point.y) * t,
+            },
+          },
+          value = evaluate(probe.point);
+        if (!Number.isFinite(value)) {
+          result = { rejected: true };
+          break;
+        }
+        if (value !== 0 && value < 0 !== farValue < 0) {
+          const inner = refineRoot(
+            far,
+            probe,
+            farValue,
+            value,
+            'e:' + id + ':inner',
+            evaluate,
+          );
+          result = inner.root
+            ? { root: zero, additionalRoots: [inner.root] }
+            : { rejected: true };
+          break;
+        }
+      }
     } else result = refineRoot(a, b, aValue, bValue, 'e:' + id, evaluate);
     if (result.rejected) rejectedEdges++;
     roots.set(id, result);
@@ -461,6 +498,8 @@ export function sampleImplicitCurveDetailed(
           ? edge(a, fixed, b, fixed)
           : edge(fixed, a, fixed, b);
         if (result.root) found.set(result.root.id, result.root);
+        for (const root of result.additionalRoots ?? [])
+          found.set(root.id, root);
         if (result.zero) {
           const [p, q] = result.zero,
             j = result.junction;
@@ -486,12 +525,26 @@ export function sampleImplicitCurveDetailed(
         );
       links = zeros;
       const extra = [...all.values()].filter((n) => !onZero(n.point));
-      if (extra.length) {
+      if (extra.length === 2 && zeroJunctions.size === 0) {
+        const [a, b] = extra;
+        if (a && b) links.push([a, b]);
+      } else if (extra.length) {
         const n = extra[0],
           junction = [...zeroJunctions.values()][0];
         if (extra.length !== 1 || zeroJunctions.size !== 1 || !n || !junction)
           return { links: [], refine: true, error: 0 };
         links.push([n, junction]);
+      } else {
+        const lo = point(x, y),
+          hi = point(x + s, y + s);
+        if (
+          [...zeroJunctions.values()].some(
+            (n) =>
+              (n.point.x > lo.x && n.point.x < hi.x) ||
+              (n.point.y > lo.y && n.point.y < hi.y),
+          )
+        )
+          return { links: [], refine: true, error: 0 };
       }
     } else if (sideRoots.some((side) => side.length > 1))
       return { links: [], refine: true, error: 0 };
