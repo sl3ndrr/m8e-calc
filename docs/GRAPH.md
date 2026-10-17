@@ -352,13 +352,15 @@ Vorzeichenwechsel sind nur bei passenden Nullproben/Rändern sichtbar.
 
 Budgets sind positive sichere Ganzzahlen (Tiefe auch 0); ungültige Optionen
 werfen RangeError. `discoveryPixels` ist positiv bis 64, `tolerancePixels`
-positiv bis 2. Bounds/Auflösung müssen außerdem die AP21-Präzisionsprüfung
+positiv bis 2; `discoveryPixels >= tolerancePixels` ist erforderlich.
+Bounds/Auflösung müssen außerdem die AP21-Präzisionsprüfung
 erfüllen. Schon eine zu große Zahl Ausgangskacheln wird vor deren Erzeugung
 abgebrochen. Kein zeitabhängiges Timeout und keine unbegrenzte Suchschleife.
 Es gibt höchstens `maxDepth+1` Randdurchläufe; jeder neue Durchlauf benötigt
 eine echte Zellteilung. Rekursionstiefe ist begrenzt. Blatt-, Linien-, Knoten-
 und Randcaches sind O(maxCells), Rasterwerte O(maxSamples), Ausgabe/Stitching
 O(maxSegments); keine unbudgetierte Speicherung aller F-/Gradientenaufrufe.
+Alte Randpartitionen werden vor jedem neuen Randdurchlauf freigegeben.
 Die Plattformkosten von Map/Objekten sind keine feste Bytegarantie.
 
 `diagnostics` enthält Status, sortierte `limits` (`cells`, `evaluations`,
@@ -386,7 +388,8 @@ universellen Garantien für jede beliebig kleine Komponente behauptet.
 Abstandsproben, Hyperbelresiduen, beide Sattelentscheidungen, Raster- und
 verschobene Kreuzungen, getrennte Komponenten, nahe Schleifen mit Radius 5 px
 bei mehreren Rasterphasen, adaptive Übergänge ohne offene Enden, NaN-/Polbereiche,
-konstante/degenerierte Mengen, alle Budgets und deterministische Ergebnisse.
+konstante/degenerierte Mengen, Weltskalen 10^-200/10^200, alle Budgets und
+deterministische Ergebnisse.
 fast-check: Ausdrucksfuzzing Seed 260017 (50 Fälle), analytische verschobene
 Kreise Seed 170026 (25 Fälle). Keine reinen Algorithmus-Snapshots.
 

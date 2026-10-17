@@ -198,7 +198,7 @@ describe('AP26 analytic geometry and conforming adaptive boundaries', () => {
     }
   });
   it('uses the asymptotic determinant rather than the centre-sign heuristic', () => {
-    // Bilinear centre is positive (mean 2.25) but Q=-91 chooses the other pairing.
+    // Bilinear centre is positive (mean 0.75) but Q=-6 chooses the other pairing.
     expect(asymptoticDecider([10, -4, 1, -4]).determinant).toBeLessThan(0);
     expect(asymptoticDecider([2, -1, 2, -1]).determinant).toBeGreaterThan(0);
     expect(
@@ -260,6 +260,25 @@ describe('AP26 analytic geometry and conforming adaptive boundaries', () => {
       );
     }
   });
+  it.each([1e-200, 1e200])(
+    'keeps normalized crossings finite at world scale %s',
+    (scale) => {
+      const bounds = {
+        xMin: -3 * scale,
+        xMax: 3 * scale,
+        yMin: -3 * scale,
+        yMax: 3 * scale,
+      };
+      const r = sample(`(x/${scale}-.123)*(y/${scale}-.234)=0`, bounds, {
+        width: 96,
+        height: 96,
+      });
+      finite(r, bounds);
+      expect(r.segments).toHaveLength(4);
+      expect(r.truncated).toBe(false);
+      expect(r.diagnostics.unresolvedCells).toBe(0);
+    },
+  );
 });
 
 describe('AP26 domains, degeneracy and deterministic limits', () => {
