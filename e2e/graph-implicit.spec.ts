@@ -317,3 +317,85 @@ test('AP27 English dark theme shows the same action limits and keeps keyboard fo
   await page.screenshot({ path: info.outputPath('implicit-en-dark.png') });
   await context.close();
 });
+
+test('AP27 delayed and duplicated real Worker replies cannot replace a newer equation', async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    const NativeWorker = window.Worker;
+    let hold = true;
+    window.Worker = class extends NativeWorker {
+      constructor(url: string | URL, options?: WorkerOptions) {
+        super(url, options);
+        this.addEventListener('message', (event: MessageEvent) => {
+          if (
+            hold &&
+            event.data.curves?.some(
+              (c: { diagnostics?: unknown }) => c.diagnostics,
+            )
+          ) {
+            hold = false;
+            event.stopImmediatePropagation();
+            Object.assign(window, { __ap27Held: true });
+            const data = event.data;
+            setTimeout(
+              () => this.dispatchEvent(new MessageEvent('message', { data })),
+              350,
+            );
+            setTimeout(
+              () => this.dispatchEvent(new MessageEvent('message', { data })),
+              1000,
+            );
+          }
+        });
+      }
+    };
+  });
+  await page.goto('/m8e-calc/#/graph');
+  await add(page, 'x^2+y^2=4');
+  await expect
+    .poll(() => page.evaluate(() => '__ap27Held' in window))
+    .toBe(true);
+  await page.locator('.graph-editor [role="textbox"]').fill('x*y=1');
+  const latest = await sampled(page, 1);
+  expect(latest[0]?.components).toBeGreaterThanOrEqual(2);
+  await page.waitForTimeout(1100);
+  const after = await sampled(page, 1);
+  expect(after[0]?.signature).toBe(latest[0]?.signature);
+  expect(after[0]?.components).toBe(latest[0]?.components);
+});
+
+test('AP27 stalled Worker stops after the deadline and a new equation recovers on a new Worker', async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    const NativeWorker = window.Worker;
+    let drop = true;
+    window.Worker = class extends NativeWorker {
+      postMessage(
+        message: unknown,
+        transfer: Transferable[] | StructuredSerializeOptions = [],
+      ): void {
+        const curves = (message as { curves?: { curve: { kind: string } }[] })
+          .curves;
+        if (drop && curves?.some((c) => c.curve.kind === 'implicit')) {
+          drop = false;
+          return;
+        }
+        if (Array.isArray(transfer)) super.postMessage(message, transfer);
+        else super.postMessage(message, transfer);
+      }
+    };
+  });
+  await page.goto('/m8e-calc/#/graph');
+  await add(page, 'x^2+y^2=4');
+  const result = await sampled(page, 1);
+  expect(result[0]?.error).toBe('timeout');
+  await expect(page.locator('.graph-sampling-status')).toContainText(
+    '3 Sekunden',
+  );
+  await page.locator('.graph-editor [role="textbox"]').fill('x*y=1');
+  const recovered = await sampled(page, 1);
+  expect(recovered[0]?.error).toBeUndefined();
+  expect(recovered[0]?.components).toBeGreaterThanOrEqual(2);
+});

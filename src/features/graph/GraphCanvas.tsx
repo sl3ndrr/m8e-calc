@@ -347,7 +347,8 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       pending = null;
       busy = true;
       running = request;
-      if (!isSampleRequest(request)) {
+      const validate: (value: unknown) => boolean = isSampleRequest;
+      if (!validate(request)) {
         accept({
           version: 2,
           id: request.id,
