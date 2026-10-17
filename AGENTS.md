@@ -10,8 +10,8 @@ Vertrag und Toleranzen: `docs/GRAPH.md`. Registry-Einträge dürfen optional
 `floatImpl` anbieten; der Graph-Compiler verwendet niemals Decimal pro Sample.
 Graph-Tests laufen ebenfalls im Engine-Node-Projekt. `npm run test:graph:bench`
 misst typische Kurven bei 2560×1440 (Ziel <4 ms, Regression <25 ms).
-AP26 ergänzt einen separaten impliziten 2D-Domänenpfad (Issue #17); AP13 nutzt
-weiter ausschließlich die bisherigen Kurventypen mit lokalem Sampling-Worker.
+AP26 ergänzt einen separaten impliziten 2D-Domänenpfad (Issue #17); AP27 integriert diesen Pfad in AP13 mit lokalem Sampling-Worker, gemeinsamen
+Budgets, Diagnosen und expliziten Sperren für nicht unterstützte 1D-Aktionen.
 `ImplicitCurve`, `parseImplicitInput`, `compileImplicitCurve` und
 `sampleImplicitCurveDetailed` sind additiv; `Curve` und `parseCurveInput` bleiben
 bis AP27 unverändert. Adaptive gemeinsame Zellränder, Sattel-Decider, numerische
@@ -194,3 +194,14 @@ Galerieprojekte verwenden eigene Browserprofile.
 `build-info.json` enthält passiv CI-Commit und Buildziel; ohne `GITHUB_SHA`
 steht der Commit auf `null`. Kein App-Request und keine sichtbare Entwickler-UI.
 Abnahme mit SHA, tatsächlichen Läufen und offenen Live-Grenzen: `docs/AP25.md`.
+
+## AP27 · Implizite Graphintegration
+
+Der Featuretyp `PlotCurve` vereinigt `Curve` und AP26-`ImplicitCurve`; der reine
+1D-Domänenvertrag bleibt unverändert. `parsePlotInput` nutzt ausschließlich den
+vorhandenen `detectedKind`-Dispatcher und die tatsächliche AP26-API. Worker-
+Protokoll 2 ist validiert, enthält gemeinsame 2D-Budgets und Diagnosen; kein
+synchrones 2D-Fallback. PNG übernimmt die dargestellten akzeptierten Polylinien.
+Implizite Analysis/Trace/Table sind explizit gesperrt; Fit verwendet die stabile
+AP21-Basis ohne rekursive Suche. Speicherung bleibt textbasiert in Plot-Version 1
+und Link-Umschlag v=1; keine Datenmigration. Vertrag/Nachweise: [docs/AP27.md](docs/AP27.md).

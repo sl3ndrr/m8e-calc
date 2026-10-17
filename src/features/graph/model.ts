@@ -2,9 +2,12 @@ import {
   compile,
   detectParams,
   parseCurveInput,
+  parseImplicitInput,
   Viewport,
   type Bounds,
   type Curve,
+  type CurveInputOptions,
+  type ImplicitCurve,
   type GraphError,
   type Point,
 } from '../../graph';
@@ -34,9 +37,14 @@ export interface PlotSet {
 }
 export interface ParsedRow {
   row: PlotRow;
-  curve: Curve | null;
+  curve: PlotCurve | null;
   error: GraphError | null;
   names: string[];
+}
+/** AP26 stays separate from the domain's 1D Curve contract. */
+export type PlotCurve = Curve | ImplicitCurve;
+export function isOneDimensional(curve: PlotCurve): curve is Curve {
+  return curve.kind !== 'implicit';
 }
 export const defaultBounds: Bounds = { xMin: -10, xMax: 10, yMin: -6, yMax: 6 };
 export const examples = [
@@ -46,6 +54,8 @@ export const examples = [
   { key: 'cardioid', input: 'r=1+cos(theta)' },
   { key: 'normal', input: 'exp(-x^2/2)/sqrt(2*pi)' },
   { key: 'circle', input: '(cos(t),sin(t))' },
+  { key: 'implicitCircle', input: 'x^2+y^2=4' },
+  { key: 'hyperbola', input: 'x*y=1' },
 ] as const;
 export function newRow(id: string, input = '', color = 0): PlotRow {
   return { id, input, visible: true, color: color % 8, params: {} };
@@ -60,23 +70,35 @@ export function initialPlot(): PlotSet {
     fine: true,
   };
 }
+export function parsePlotInput(
+  source: string,
+  options: CurveInputOptions = {},
+) {
+  const result = parseCurveInput(source, options);
+  return !result.ok && result.error.detectedKind === 'implicit'
+    ? parseImplicitInput(source, options)
+    : result;
+}
 export function parseRow(row: PlotRow): ParsedRow {
   if (!row.input.trim()) return { row, curve: null, error: null, names: [] };
-  const result = parseCurveInput(row.input, {
+  const options = {
     params: Object.fromEntries(
       Object.entries(row.params).map(([k, p]) => [k, p.value]),
     ),
-  });
+  };
+  const result = parsePlotInput(row.input, options);
   if (!result.ok) return { row, curve: null, error: result.error, names: [] };
   const c = result.value;
   const variables =
-    c.kind === 'parametric'
-      ? ['t']
-      : c.kind === 'polar'
-        ? ['theta']
-        : c.kind === 'explicit'
-          ? ['x']
-          : [];
+    c.kind === 'implicit'
+      ? ['x', 'y']
+      : c.kind === 'parametric'
+        ? ['t']
+        : c.kind === 'polar'
+          ? ['theta']
+          : c.kind === 'explicit'
+            ? ['x']
+            : [];
   const names = [
     ...new Set(
       (c.kind === 'parametric' ? [c.x, c.y] : [c.expression]).flatMap((ast) =>
@@ -128,7 +150,9 @@ export type PlotAction =
 export function plotReducer(state: PlotSet, action: PlotAction): PlotSet {
   switch (action.type) {
     case 'add':
-      return { ...state, rows: [...state.rows, action.row] };
+      return state.rows.length >= 100
+        ? state
+        : { ...state, rows: [...state.rows, action.row] };
     case 'update':
       return {
         ...state,
@@ -288,7 +312,7 @@ export function nearestTrace(
   let best: Trace | null = null,
     distance = 18;
   for (const { row, curve } of rows) {
-    if (!curve || !row.visible) continue;
+    if (!curve || !row.visible || !isOneDimensional(curve)) continue;
     const evaluate = curveEvaluator(curve),
       world = viewport.screenToWorld(mouse);
     if (curve.kind === 'vertical') {
@@ -344,7 +368,7 @@ export function nearestTrace(
   return best;
 }
 export function tableValues(
-  curve: Curve,
+  curve: PlotCurve,
   bounds: Bounds,
   step: number,
 ): { u: number; point: Point }[] {
@@ -352,14 +376,15 @@ export function tableValues(
   return tableResult(curve, bounds, step).rows;
 }
 export function tableResult(
-  curve: Curve,
+  curve: PlotCurve,
   bounds: Bounds,
   step: number,
 ): {
   rows: { u: number; point: Point }[];
-  stopped: 'limit' | 'precision' | null;
+  stopped: 'limit' | 'precision' | 'unsupported' | null;
 } {
   const rows: { u: number; point: Point }[] = [];
+  if (!isOneDimensional(curve)) return { rows, stopped: 'unsupported' };
   if (!Number.isFinite(step) || step <= 0) return { rows, stopped: null };
   const [from, to] =
     curve.kind === 'parametric' || curve.kind === 'polar'

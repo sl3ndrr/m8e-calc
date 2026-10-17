@@ -339,3 +339,14 @@
     min-height: max(14rem, 40vh);
   }
 }
+
+.graph-implicit-help,
+.graph-sampling-status {
+  margin: 0.4rem 0.5rem;
+  font-size: 0.75rem;
+  color: var(--md-sys-color-on-surface-variant);
+}
+.graph-implicit-help p,
+.graph-sampling-status p {
+  margin: 0.4rem 0;
+}

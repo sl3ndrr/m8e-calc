@@ -37,6 +37,7 @@ export default defineConfig({
         '**/convert.spec.ts',
         '**/currency.spec.ts',
         '**/graph.spec.ts',
+        '**/graph-implicit.spec.ts',
         '**/graph-values.spec.ts',
         '**/product-acceptance.spec.ts',
         '**/pwa-update.spec.ts',

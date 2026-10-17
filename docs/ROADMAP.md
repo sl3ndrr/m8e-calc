@@ -80,14 +80,14 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       Browser-/PWA-Integration und belegter Produktionsstand; [AP25.md](AP25.md).
       Live-Abnahme und spätere Prüfung genau des AP25-Pages-Deploys bleiben separat.
 
-- [ ] 26 Implizite Kurven, Domäne (optional) — `feat/ap26-implicit-domain`:
+- [x] 26 Implizite Kurven, Domäne (optional) — `feat/ap26-implicit-domain`:
       separater Float64-Compiler und adaptives Marching Squares mit gemeinsamen
       Zellrändern, asymptotischem Sattel-Decider, Diagnosen, Arbeitsgrenzen,
       Referenz-/Fuzztests und eigenem 2D-Benchmark. Vertrag und Grenzen in
       [GRAPH.md](GRAPH.md), Teilumfang von [Issue #17](https://github.com/sl3ndrr/m8e-calc/issues/17).
       Kein Bestandteil der AP21-Autofitkorrektur; keine UI-Aktivierung in AP26.
-- [ ] 27 Implizite Kurven, Integration — Worker, Canvas-/UI-Dispatch,
-      Plot-Satz-/Restore-Vertrag und bewusstes Verhalten von Analysis, Trace,
-      Fit und Wertetabelle auf AP26 aufbauen. Öffentliche Eingaben bleiben bis
-      dahin ausdrücklich unsupported. Issue #17 erst nach dieser Integration
-      abschließend bewerten.
+- [ ] 27 Implizite Kurven, Integration — `feat/ap27-implicit-ui`: echte AP26-API,
+      Worker/Canvas/UI, gemeinsame Budgets und Diagnose; begrenzter AP21-Fit,
+      explizite Sperren für Analysis/Trace/Table, kompatible textbasierte Links.
+      Vertrag und Nachweisstatus: [AP27.md](AP27.md). Issue #17 erst nach
+      erfolgreichem gemeinsamen AP26/AP27-Nachweis abschließend bewerten.

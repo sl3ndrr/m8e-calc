@@ -14,7 +14,7 @@ import { Dialog } from '../../ui/Dialog';
 import { Select } from '../../ui/Select';
 import { TextField } from '../../ui/TextField';
 import { snackbarQueue } from '../../ui/snackbarQueue';
-import { parseCurveInput, type Bounds } from '../../graph';
+import { type Bounds } from '../../graph';
 import { t } from '../../shared/i18n';
 import { useAppStore } from '../../shared/store';
 import { useModeHistory } from '../../shared/useModeHistory';
@@ -24,6 +24,7 @@ import {
   plotReducer,
   newRow,
   parseRow,
+  parsePlotInput,
   parameter,
   advanceParameter,
   plotPayload,
@@ -43,6 +44,7 @@ import {
 import { useSettingsStore } from '../../shared/settingsStore';
 import FunctionPanel from './FunctionPanel';
 import './GraphMode.css';
+import type { SampleResponse } from './workerProtocol';
 import { CopyLinkButton } from '../../app/CopyLinkButton';
 import { readModeLink } from '../../app/permalinks';
 export default function GraphMode() {
@@ -51,6 +53,7 @@ export default function GraphMode() {
     undefined,
     () => readModeLink('graph', restorePlot) ?? initialPlot(),
   );
+  const [samples, setSamples] = useState<SampleResponse['curves']>([]);
   const [restoreToken, setRestoreToken] = useState(0);
   const [palette, setPalette] = useState<string[]>([]),
     [markers, setMarkers] = useState<Marker[]>([]),
@@ -217,6 +220,12 @@ export default function GraphMode() {
   ): void {
     const row = parsed.find((r) => r.row.id === id);
     if (!row?.curve) return;
+    const otherCurve = parsed.find((r) => r.row.id === other)?.curve;
+    if (row.curve.kind === 'implicit' || otherCurve?.kind === 'implicit') {
+      snackbarQueue.add({ message: t('graph.implicitActions', locale) });
+      return;
+    }
+    if (kind === 'integral' && row.curve.kind !== 'explicit') return;
     if (kind === 'integral' && !range) {
       setIntegralId(id);
       canvas.current?.viewport();
@@ -265,15 +274,23 @@ export default function GraphMode() {
         link.click();
         window.setTimeout(() => URL.revokeObjectURL(url), 1000);
       }
-    } catch {
-      snackbarQueue.add({ message: t('graph.exportError', locale) });
+    } catch (error) {
+      snackbarQueue.add({
+        message: t(
+          error instanceof Error && error.message === 'GraphSamplingPending'
+            ? 'graph.exportPending'
+            : 'graph.exportError',
+          locale,
+        ),
+      });
     } finally {
       setExporting(false);
     }
   }
   const selected =
-    parsed.find((r) => r.row.id === tableId && r.curve) ??
-    parsed.find((r) => r.curve);
+    tableId === null
+      ? parsed.find((r) => r.curve)
+      : parsed.find((r) => r.row.id === tableId);
   const selectedInput = selected?.row.input;
   const selectedValues = JSON.stringify(
     Object.fromEntries(
@@ -285,7 +302,7 @@ export default function GraphMode() {
   );
   const tableCurve = useMemo(() => {
     if (selectedInput === undefined) return null;
-    const result = parseCurveInput(selectedInput, {
+    const result = parsePlotInput(selectedInput, {
       params: JSON.parse(selectedValues) as Record<string, number>,
     });
     return result.ok ? result.value : null;
@@ -394,6 +411,7 @@ export default function GraphMode() {
             bounds={state.bounds}
             fitBasis={state.fitBasis}
             restoreToken={restoreToken}
+            onSamples={setSamples}
             onViewError={() =>
               snackbarQueue.add({ message: t('graph.viewUnavailable', locale) })
             }
@@ -486,7 +504,11 @@ export default function GraphMode() {
               size="sm"
               variant="text"
               isSelected={table}
-              onSelectedChange={setTable}
+              onSelectedChange={(open) => {
+                setTable(open);
+                if (open && tableId === null)
+                  setTableId(parsed.find((r) => r.curve)?.row.id ?? null);
+              }}
             >
               {t('graph.table', locale)}
             </Button>
@@ -542,6 +564,7 @@ export default function GraphMode() {
                   }}
                 >
                   <TextField
+                    isDisabled={tableCurve?.kind === 'implicit' || !tableCurve}
                     label={t('graph.step', locale)}
                     value={step}
                     onChange={setStep}
@@ -553,12 +576,17 @@ export default function GraphMode() {
                     type="submit"
                     size="sm"
                     variant="text"
-                    isDisabled={invalidStep}
+                    isDisabled={
+                      invalidStep ||
+                      tableCurve?.kind === 'implicit' ||
+                      !tableCurve
+                    }
                   >
                     {t('graph.apply', locale)}
                   </Button>
                 </form>
                 <Select
+                  isDisabled={tableCurve?.kind === 'implicit' || !tableCurve}
                   label={t('graph.rounding', locale)}
                   selectedKey={String(rounding)}
                   onSelectionChange={(key) =>
@@ -581,14 +609,19 @@ export default function GraphMode() {
                   locale,
                 )}
               </p>
-              <ValueTable
-                curve={tableCurve}
-                bounds={state.bounds}
-                step={tableStep}
-                rounding={rounding}
-                locale={locale}
-                preferences={preferences}
-              />
+              {!tableCurve && (
+                <p role="status">{t('graph.tableUnavailable', locale)}</p>
+              )}
+              {tableCurve && (
+                <ValueTable
+                  curve={tableCurve}
+                  bounds={state.bounds}
+                  step={tableStep}
+                  rounding={rounding}
+                  locale={locale}
+                  preferences={preferences}
+                />
+              )}
             </section>
           )}
         </div>
@@ -600,6 +633,7 @@ export default function GraphMode() {
           playing={playing}
           onPlay={onPlay}
           onAnalyze={runAnalysis}
+          samples={samples}
         />
       </div>
       <Dialog
@@ -635,7 +669,12 @@ export default function GraphMode() {
           <Select
             label={t('graph.otherCurve', locale)}
             options={parsed
-              .filter((r) => r.curve && r.row.id !== context?.id)
+              .filter(
+                (r) =>
+                  r.curve &&
+                  r.row.id !== context?.id &&
+                  r.curve.kind !== 'implicit',
+              )
               .map((r) => ({ id: r.row.id, label: r.row.input }))}
             selectedKey={contextOther}
             onSelectionChange={(key) =>
@@ -643,7 +682,14 @@ export default function GraphMode() {
             }
           />
           <Button
-            isDisabled={!contextOther}
+            isDisabled={
+              !parsed.some(
+                (r) =>
+                  r.row.id === contextOther &&
+                  r.curve &&
+                  r.curve.kind !== 'implicit',
+              )
+            }
             onPress={() => {
               if (context && contextOther)
                 runAnalysis(context.id, 'intersections', contextOther);

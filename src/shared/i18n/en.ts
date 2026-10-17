@@ -417,7 +417,7 @@ export const en: Dictionary = {
   'graph.functionN': 'Function {n}',
   'graph.add': 'Add',
   'graph.panelHint': 'Enter an expression. Type and parameters are detected.',
-  'graph.inputHint': 'y(x), x, (x(t), y(t)) or r(θ)',
+  'graph.inputHint': 'y(x), x, (x(t), y(t)), r(θ) or x^2+y^2=4',
   'graph.viewUnavailable':
     'No representable graph range found. The last valid view is preserved.',
   'graph.fit': 'Fit',
@@ -460,10 +460,50 @@ export const en: Dictionary = {
   'graph.kind.vertical': 'Vertical · x',
   'graph.kind.parametric': 'Parametric · t',
   'graph.kind.polar': 'Polar · θ',
+  'graph.kind.implicit': 'Implicit · F(x, y) = 0',
+  'graph.example.implicitCircle': 'Implicit circle',
+  'graph.example.hyperbola': 'Hyperbola',
+  'graph.implicitActions':
+    'Trace, value tables and analysis are not yet available for implicit curves: F(x, y) = 0 does not define one y value for each x.',
+  'graph.implicitDetails': 'Fit and numerical limits',
+  'graph.exportPending':
+    'The new curve is still being calculated. Try the PNG export again when it is ready.',
+  'graph.implicitFit':
+    'Fit keeps the last deliberately chosen search region for implicit curves (after pan/zoom or a preset). A global curve extent cannot generally be determined.',
+  'graph.implicitAccuracy':
+    'Numerical contour: local error target 0.25 CSS pixels, discovery grid 8 pixels. Very small or tangential components may be missed; complete topology is not guaranteed.',
+  'graph.workerRequired':
+    'Implicit curve not drawn: the local sampling worker is unavailable. Reload the page; the rest of the interface remains usable.',
+  'graph.samplingTimeout':
+    'Calculation stopped after 3 seconds. Simplify the expression or zoom into a smaller region.',
+  'graph.samplingBudget':
+    'Work limit reached: the contour is incomplete. Simplify the expression, show fewer curves or zoom in.',
+  'graph.fallbackLimit':
+    'Without a worker, at most four existing curve types are drawn at limited resolution. Reload the page to draw this curve.',
+  'graph.samplingInvalid':
+    'Curve cannot be calculated in this region. Check the input and view.',
+  'graph.implicitZero':
+    'The equation describes the entire region, rather than a contour line.',
+  'graph.implicitUndefined':
+    'The equation is undefined in this region. No contour was drawn.',
+  'graph.implicitEmpty':
+    'No contour was found in the sampled region. This does not prove that the solution is empty.',
+  'graph.implicitGaps':
+    'Numerically unresolved, undefined or degenerate regions were omitted. The contour may contain gaps.',
+  'graph.tableUnavailable':
+    'The selected curve was deleted or is invalid. Please select a curve.',
+  'graph.limit.cells': 'Cell budget reached.',
+  'graph.limit.evaluations': 'Evaluation budget reached.',
+  'graph.limit.samples': 'Grid storage budget reached.',
+  'graph.limit.segments': 'Contour output budget reached.',
+  'graph.limit.depth': 'Maximum refinement depth reached.',
+  'graph.limit.precision': 'Numerical precision is insufficient for this view.',
   'graph.unsupportedCurve':
-    'Implicit curves are not supported yet. For a circle use (cos(t), sin(t)).',
+    'This curve type is not supported. Check the input syntax.',
   'graph.unsupportedFunction':
     'This function does not support Float64 plotting.',
+  'graph.inputLimit':
+    'Input is too large or too deeply nested. Maximum 10000 characters; simplify the expression.',
   'graph.parseError': 'Check the input ({code}).',
   'graph.analysis.roots': 'Roots',
   'graph.analysis.extrema': 'Extrema',

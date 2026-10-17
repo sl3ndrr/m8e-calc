@@ -71,11 +71,11 @@ describe('function panel', () => {
     render(
       <FunctionPanel
         {...common}
-        rows={[parseRow(newRow('a', 'x^2+y^2=4'))]}
+        rows={[parseRow(newRow('a', 'x^2+y^2='))]}
         dispatch={vi.fn()}
       />,
     );
-    expect(screen.getByRole('alert')).toHaveTextContent('Implizite');
+    expect(screen.getByRole('alert')).toHaveTextContent('Eingabe prüfen');
     await waitFor(() =>
       expect(
         screen.getByRole('textbox', { name: 'Funktion 1' }),
@@ -139,4 +139,49 @@ describe('function panel', () => {
     }
     expect(dispatch).not.toHaveBeenCalled();
   });
+});
+
+it.each(['de', 'en'] as const)(
+  'explains unavailable implicit actions and disables every analysis entry in %s',
+  async (locale) => {
+    render(
+      <FunctionPanel
+        {...common}
+        locale={locale}
+        rows={[parseRow(newRow('implicit', 'x^2+y^2=4'))]}
+        dispatch={vi.fn()}
+      />,
+    );
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    expect(
+      screen.getByText(/F\(x, y\) = 0.*(legt|does not)/),
+    ).toBeInTheDocument();
+    fireEvent.click(
+      screen.getByRole('button', {
+        name:
+          locale === 'de'
+            ? 'Aktionen für Funktion 1'
+            : 'Actions for function 1',
+      }),
+    );
+    for (const name of locale === 'de'
+      ? ['Nullstellen', 'Extrema', 'Schnittpunkte', 'Tangente', 'Integral']
+      : ['Roots', 'Extrema', 'Intersections', 'Tangent', 'Integral']) {
+      expect(await screen.findByRole('menuitem', { name })).toHaveAttribute(
+        'aria-disabled',
+        'true',
+      );
+    }
+  },
+);
+
+it('explains parser resource limits without exposing only a technical error code', () => {
+  render(
+    <FunctionPanel
+      {...common}
+      rows={[parseRow(newRow('large', 'x'.repeat(10001)))]}
+      dispatch={vi.fn()}
+    />,
+  );
+  expect(screen.getByRole('alert')).toHaveTextContent('Maximal 10000 Zeichen');
 });

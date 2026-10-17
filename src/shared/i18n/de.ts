@@ -434,7 +434,7 @@ export const de = {
   'graph.functionN': 'Funktion {n}',
   'graph.add': 'Hinzufügen',
   'graph.panelHint': 'Ausdruck eingeben. Typ und Parameter werden erkannt.',
-  'graph.inputHint': 'y(x), x, (x(t), y(t)) oder r(θ)',
+  'graph.inputHint': 'y(x), x, (x(t), y(t)), r(θ) oder x^2+y^2=4',
   'graph.viewUnavailable':
     'Kein darstellbarer Graphbereich gefunden. Die letzte gültige Ansicht bleibt erhalten.',
   'graph.fit': 'Anpassen',
@@ -478,10 +478,51 @@ export const de = {
   'graph.kind.vertical': 'Vertikal · x',
   'graph.kind.parametric': 'Parametrisch · t',
   'graph.kind.polar': 'Polar · θ',
+  'graph.kind.implicit': 'Implizit · F(x, y) = 0',
+  'graph.example.implicitCircle': 'Impliziter Kreis',
+  'graph.example.hyperbola': 'Hyperbel',
+  'graph.implicitActions':
+    'Für implizite Kurven sind Trace, Wertetabelle und Analysis noch nicht verfügbar: F(x, y) = 0 legt keinen eindeutigen y-Wert pro x fest.',
+  'graph.implicitDetails': 'Fit und numerische Grenzen',
+  'graph.exportPending':
+    'Die neue Kurve wird noch berechnet. PNG-Export anschließend erneut starten.',
+  'graph.implicitFit':
+    'Anpassen erhält für implizite Kurven den zuletzt bewusst gewählten Suchbereich (nach Pan/Zoom oder Ansichtsvorlage). Ein globaler Kurvenbereich ist nicht allgemein bestimmbar.',
+  'graph.implicitAccuracy':
+    'Numerische Kontur: lokales Fehlerziel 0,25 CSS-Pixel, Suchraster 8 Pixel. Sehr kleine oder berührende Komponenten können fehlen; keine vollständige Topologiegarantie.',
+  'graph.workerRequired':
+    'Implizite Kurve nicht gezeichnet: Der lokale Sampling-Worker ist nicht verfügbar. Seite neu laden; die übrige Oberfläche bleibt bedienbar.',
+  'graph.samplingTimeout':
+    'Berechnung nach 3 Sekunden beendet. Ausdruck vereinfachen oder in einen kleineren Bereich zoomen.',
+  'graph.samplingBudget':
+    'Arbeitsgrenze erreicht: Die Kontur ist unvollständig. Ausdruck vereinfachen, weniger Kurven zeigen oder hineinzoomen.',
+  'graph.fallbackLimit':
+    'Ohne Worker werden höchstens vier bisherige Kurven mit begrenzter Auflösung gezeichnet. Für diese Kurve Seite neu laden.',
+  'graph.samplingInvalid':
+    'Kurve in diesem Bereich nicht berechenbar. Eingabe und Ansicht prüfen.',
+  'graph.implicitZero':
+    'Die Gleichung beschreibt den ganzen Bereich, keine einzelne Konturlinie.',
+  'graph.implicitUndefined':
+    'Die Gleichung ist in diesem Bereich nicht definiert. Keine Kontur gezeichnet.',
+  'graph.implicitEmpty':
+    'Im untersuchten Bereich wurde keine Kontur gefunden. Das beweist nicht, dass die Lösung leer ist.',
+  'graph.implicitGaps':
+    'Numerisch ungeklärte, undefinierte oder degenerierte Stellen wurden ausgelassen. Die Kontur kann Lücken haben.',
+  'graph.tableUnavailable':
+    'Die ausgewählte Kurve wurde gelöscht oder ist ungültig. Bitte eine Kurve auswählen.',
+  'graph.limit.cells': 'Zellbudget erreicht.',
+  'graph.limit.evaluations': 'Auswertungsbudget erreicht.',
+  'graph.limit.samples': 'Raster-Speicherbudget erreicht.',
+  'graph.limit.segments': 'Kontur-Ausgabebudget erreicht.',
+  'graph.limit.depth': 'Maximale Verfeinerungstiefe erreicht.',
+  'graph.limit.precision':
+    'Die Zahlenauflösung reicht für diese Ansicht nicht aus.',
   'graph.unsupportedCurve':
-    'Implizite Kurven werden noch nicht unterstützt. Nutze für einen Kreis (cos(t), sin(t)).',
+    'Dieser Kurventyp wird nicht unterstützt. Eingabesyntax prüfen.',
   'graph.unsupportedFunction':
     'Diese Funktion unterstützt kein Float64-Plotting.',
+  'graph.inputLimit':
+    'Eingabe zu groß oder zu tief verschachtelt. Maximal 10000 Zeichen; den Ausdruck vereinfachen.',
   'graph.parseError': 'Eingabe prüfen ({code}).',
   'graph.analysis.roots': 'Nullstellen',
   'graph.analysis.extrema': 'Extrema',
