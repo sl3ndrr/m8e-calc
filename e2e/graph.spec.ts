@@ -334,6 +334,8 @@ test('AP21 parabola fit is stable across 12 fits, rapid animated clicks and new 
 test('AP21 replaces obsolete fit goals on curve/parameter changes, presets, reset and resize', async ({
   page,
 }) => {
+  // Install before navigation; only the two pending-fit interactions pause.
+  await page.clock.install({ time: new Date('2026-01-01T00:00:00Z') });
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await page.setViewportSize({ width: 1600, height: 900 });
@@ -344,7 +346,11 @@ test('AP21 replaces obsolete fit goals on curve/parameter changes, presets, rese
     .press('Space');
   await settled(page);
   const fit = page.getByRole('button', { name: 'Anpassen', exact: true });
+  const canvas = page.locator('canvas.graph-canvas');
+  await expect(canvas).toHaveAttribute('data-sampling', 'false');
+  await page.clock.pauseAt(new Date('2026-01-01T00:01:00Z'));
   await fit.click();
+  await expect(canvas).toHaveAttribute('data-moving', 'true');
   const before = await targetBounds(page);
   await page
     .getByRole('slider', { name: 'a', exact: true })
@@ -352,19 +358,27 @@ test('AP21 replaces obsolete fit goals on curve/parameter changes, presets, rese
   await expect
     .poll(async () => (await targetBounds(page)).yMax)
     .toBeGreaterThan(before.yMax);
+  await expect(canvas).toHaveAttribute('data-moving', 'true');
+  await page.clock.resume();
   await settled(page);
   await replaceGraphExpression(
     page.locator('.graph-editor [role="textbox"]'),
     'exp(x)',
   );
+  await expect(canvas).toHaveAttribute('data-sampling', 'false');
+  // Host roundtrips must not finish the spring before the curve edit arrives.
+  await page.clock.pauseAt(new Date('2026-01-01T00:02:00Z'));
   await fit.click();
+  await expect(canvas).toHaveAttribute('data-moving', 'true');
   await replaceGraphExpression(
     page.locator('.graph-editor [role="textbox"]'),
     'sin(x)',
   );
+  await expect(canvas).toHaveAttribute('data-moving', 'true');
   await expect
     .poll(async () => (await targetBounds(page)).yMax)
     .toBeLessThan(10);
+  await page.clock.resume();
   await settled(page);
   await fit.click();
   await page.getByRole('button', { name: '1:1', exact: true }).click();
