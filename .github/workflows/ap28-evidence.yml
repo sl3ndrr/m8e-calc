@@ -1,0 +1,40 @@
+name: AP28 graph performance evidence
+on:
+  push:
+    branches: [feat/ap28-graph-performance]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: ap28-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+jobs:
+  evidence:
+    if: github.head_ref == 'feat/ap28-graph-performance' || github.ref == 'refs/heads/feat/ap28-graph-performance'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx prettier --write e2e/ap28-diagnostic.spec.ts playwright.ap28.config.ts playwright.config.ts tsconfig.node.json .github/workflows/ap28-evidence.yml
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Fixed diagnostic windows (no retries)
+        run: npx playwright test --config=playwright.ap28.config.ts --reporter=list
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap28-graph-evidence
+          path: |
+            test-results/
+            dist/build-info.json
+            e2e/ap28-diagnostic.spec.ts
+            playwright.ap28.config.ts
+            playwright.config.ts
+            tsconfig.node.json
+            .github/workflows/ap28-evidence.yml
+          retention-days: 14
