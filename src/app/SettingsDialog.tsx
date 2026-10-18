@@ -14,7 +14,7 @@ import {
   normalizeSettings,
   THEME_CACHE_KEY,
 } from '../shared/settings';
-import { formatNumber, t } from '../shared/i18n';
+import { formatNumber, t } from '../shared/i18n/extended';
 import { clearHistoryWithUndo } from './HistorySheet';
 import { downloadFile, exportSettings, importSettings } from './fileTransfer';
 export function SettingsDialog({

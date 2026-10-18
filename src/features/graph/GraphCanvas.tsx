@@ -14,7 +14,7 @@ import { useMediaQuery } from '../../ui/useMediaQuery';
 import { VisuallyHidden } from '../../ui/VisuallyHidden';
 import { graphPalette } from '../../styles/graphPalette';
 import { springs } from '../../styles/motion';
-import { t, type Locale } from '../../shared/i18n';
+import { t, type Locale } from '../../shared/i18n/extended';
 import {
   curveEvaluator,
   samplingViewport,

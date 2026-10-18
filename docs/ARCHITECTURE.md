@@ -209,3 +209,26 @@ Normaler Build: `dist/`; interner Galerie-Testbuild: `dist-gallery/`.
 Compile-Schalter, Modul-/Precache-Prüfung, getrennte Playwright-Ziele und
 Messverfahren stehen in [AP23.md](AP23.md). Pages validiert unmittelbar vor
 dem Upload das normale Buildziel und lädt ausschließlich `dist/` hoch.
+
+## AP30 · Statische Importgrenzen
+
+Einfach verwendet dieselben Parser-/Evaluator-/Zahlenfunktionen über direkte
+Engine-Modulimporte. Der öffentliche `engine/index.ts`-Einstieg bleibt für
+vollständige Verbraucher bestehen; Ausgabehelfer werden so nicht allein durch
+gemeinsame Barrel-Verwendung mit Einfach zusammengefasst.
+
+Der gemeinsame i18n-Einstieg importiert `coreDE/coreEN` für Shell, Einfach,
+Verlauf, globale Rückmeldungen und Kürzel. `i18n/extended.ts` importiert die
+vollständigen `de/en`-Dictionaries für bestehende Lazy-Modi und -Dialoge. Die
+vollständige deutsche Schlüsselmenge ergibt sich weiterhin aus `de.ts` inklusive
+Core; Englisch erfüllt denselben Typvertrag. Jeder Translator begrenzt seine
+Schlüssel statisch. Die kleine gemeinsame Factory erhält Interpolation,
+Pluralregeln und aktive Locale; Formatierungsfunktionen bleiben gemeinsam.
+Keine Registrierung, kein Text-Fallback während eines Imports und keine neue
+Interaktionsgrenze: Texte sind vor dem ersten Render des jeweiligen Lazy-Bereichs
+da. de/en-Wechsel bleibt synchron. Fehler des gemeinsamen `extended`-Chunks
+erreichen die bestehenden Mode-/App-Grenzen; Reload frischt ihn ebenfalls auf.
+
+Precache umfasst weiterhin sämtliche erzeugten Chunks. Startgraph, geladene
+Module, Gesamtartefakt und vollständiger Offline-Precache werden getrennt und
+mit festem Ausgangs-SHA in [AP30.md](AP30.md) berichtet.

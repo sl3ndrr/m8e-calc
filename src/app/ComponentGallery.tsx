@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from 'react';
 import { DialogTrigger, Dialog as AriaDialog } from 'react-aria-components';
 import * as UI from '../ui';
-import { t, type MessageKey } from '../shared/i18n';
+import { t, type MessageKey } from '../shared/i18n/extended';
 import { useAppStore } from '../shared/store';
 import './ComponentGallery.css';
 import { galleryEntries, type State } from './galleryEntries';

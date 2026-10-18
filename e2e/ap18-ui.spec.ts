@@ -2,7 +2,7 @@ import { allowClipboard } from './clipboard';
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { ready, qaModes, tabTo } from './qa-setup';
-import { t } from '../src/shared/i18n';
+import { t } from '../src/shared/i18n/extended';
 
 // PWA updates have their own lifecycle suite; keep clipboard toasts isolated.
 test.use({ serviceWorkers: 'block' });

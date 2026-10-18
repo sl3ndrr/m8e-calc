@@ -1,0 +1,58 @@
+name: AP30 startup evidence
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: ap30-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  evidence:
+    if: github.head_ref == 'feat/ap30-startup-budget'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Unchanged current-main baseline on the same runner
+        run: |
+          baseline="$RUNNER_TEMP/ap30-before"
+          git fetch --depth=1 origin 615a0cdb30cd42beb5743751420847a7f341851b
+          git worktree add "$baseline" FETCH_HEAD
+          cp scripts/ap30-measure.mjs "$baseline/scripts/"
+          cp e2e/startup-budget.spec.ts "$baseline/e2e/"
+          cd "$baseline"
+          npm ci
+          export GITHUB_SHA=615a0cdb30cd42beb5743751420847a7f341851b
+          export AP30_SOURCE="$GITHUB_SHA"
+          npm run build
+          node scripts/ap30-measure.mjs "$GITHUB_WORKSPACE/test-results/ap30/before"
+          AP30_PHASE=before npx playwright test e2e/startup-budget.spec.ts --project=chromium --workers=1 --output="$RUNNER_TEMP/ap30-before-browser"
+          cp test-results/ap30/before/startup-*.json "$GITHUB_WORKSPACE/test-results/ap30/before/"
+      - name: Measure head with identical commands and compression
+        env:
+          GITHUB_SHA: ${{ github.event.pull_request.head.sha }}
+          AP30_SOURCE: ${{ github.event.pull_request.head.sha }}
+        run: |
+          npm run build
+          node scripts/ap30-measure.mjs test-results/ap30/after
+          AP30_PHASE=after npx playwright test e2e/startup-budget.spec.ts --project=chromium --workers=1 --output="$RUNNER_TEMP/ap30-after-browser"
+      - name: Gallery is separate and rejected as production input
+        run: |
+          sha256sum dist/index.html dist/sw.js > "$RUNNER_TEMP/ap30-normal.sha256"
+          npm run build:gallery
+          sha256sum -c "$RUNNER_TEMP/ap30-normal.sha256"
+          if node scripts/check-build-target.mjs dist-gallery normal; then exit 1; fi
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap30-startup-evidence
+          path: test-results/ap30/
+          retention-days: 14

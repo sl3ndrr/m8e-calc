@@ -1,4 +1,4 @@
-import type { MessageKey } from '../shared/i18n';
+import type { MessageKey } from '../shared/i18n/extended';
 import type { ModeId } from '../shared/modes';
 export interface Shortcut {
   id: string;

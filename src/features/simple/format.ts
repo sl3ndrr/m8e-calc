@@ -1,4 +1,5 @@
-import { formatNumber, numberValue, parseLocalizedNumber } from '../../engine';
+import { formatNumber, parseLocalizedNumber } from '../../engine/format';
+import { numberValue } from '../../engine/numeric';
 import type { Locale, NumberPreferences } from '../../shared/i18n';
 import type { SimpleState } from './model';
 

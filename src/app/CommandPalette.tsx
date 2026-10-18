@@ -1,6 +1,6 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Dialog } from '../ui/Dialog';
-import { t } from '../shared/i18n';
+import { t } from '../shared/i18n/extended';
 import { useAppStore } from '../shared/store';
 import { searchPalette, type PaletteCommand } from './paletteModel';
 import { shortcutHint } from './shortcuts';

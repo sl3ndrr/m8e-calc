@@ -14,7 +14,7 @@ import {
   type Value,
   type ValueFormatOptions,
 } from '../../engine';
-import type { Locale, MessageKey } from '../../shared/i18n';
+import type { Locale, MessageKey } from '../../shared/i18n/extended';
 export interface Calculation {
   expression: string;
   expressionLatex: string;

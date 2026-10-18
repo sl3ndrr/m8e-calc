@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { t } from '../src/shared/i18n';
+import { t } from '../src/shared/i18n/extended';
 test.beforeEach(async ({ page }) => {
   await page.setViewportSize({ width: 2560, height: 1440 });
   await page.goto('/m8e-calc/#/scientific');

@@ -1,5 +1,5 @@
 import { currencyCodes, currencyProviderId } from '../../../units/currency';
-import { t } from '../../../shared/i18n';
+import { t } from '../../../shared/i18n/extended';
 import type { Category } from '../../../units';
 
 export function currencyCategory(): Category {

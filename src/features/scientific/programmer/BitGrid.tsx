@@ -1,5 +1,5 @@
 import { useRef, type CSSProperties } from 'react';
-import { t, type Locale } from '../../../shared/i18n';
+import { t, type Locale } from '../../../shared/i18n/extended';
 import { useSpring } from '../../../ui/useSpring';
 import type { WordWidth } from '../../../engine/programmer';
 import { setBit } from './model';

@@ -7,7 +7,7 @@ import { useHistoryStore } from '../../shared/historyStore';
 import { useSettingsStore } from '../../shared/settingsStore';
 import { useAppStore } from '../../shared/store';
 import { getMode } from '../../app/modeRegistry';
-import { t } from '../../shared/i18n';
+import { t } from '../../shared/i18n/extended';
 beforeEach(() => {
   useAppStore.setState({ locale: 'de' });
   useSettingsStore

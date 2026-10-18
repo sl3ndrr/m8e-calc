@@ -22,7 +22,7 @@ import {
   type EngineError,
   type ValueFormatOptions,
 } from '../../engine';
-import { t } from '../../shared/i18n';
+import { t } from '../../shared/i18n/extended';
 import { useAppStore } from '../../shared/store';
 import { useSettingsStore } from '../../shared/settingsStore';
 import { useModeHistory } from '../../shared/useModeHistory';

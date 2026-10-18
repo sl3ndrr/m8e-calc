@@ -1,5 +1,5 @@
 import { Dialog } from '../ui/Dialog';
-import { t } from '../shared/i18n';
+import { t } from '../shared/i18n/extended';
 import { useAppStore } from '../shared/store';
 import { shortcuts } from './shortcuts';
 export function ShortcutDialog({ onClose }: { onClose: () => void }) {

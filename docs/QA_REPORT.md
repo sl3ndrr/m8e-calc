@@ -10,6 +10,10 @@ Messgrößen. AP28 erhält die 55-FPS-/16,67-ms-Grenzen und ergänzt feste Refer
 mit absichtlichen Verlangsamungen; frühere grüne Läufe ersetzen den finalen
 PR-HEAD-Nachweis nicht.
 
+Aktuelle Startpfadmessung nach integriertem AP28/AP29, getrennte Artefakt-/
+Precachegrößen und Mess-SHA: [AP30 · Startbudget](AP30.md). Die historischen
+Reserveangaben unten werden dadurch nicht als aktuelle Messung übernommen.
+
 ## AP15 Hardening
 
 Stand: 14.10.2026. PR: [#20 · feat/hardening](https://github.com/sl3ndrr/m8e-calc/pull/20).

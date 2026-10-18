@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '../../../ui/Button';
 import { SegmentedControl } from '../../../ui/SegmentedControl';
 import { TextField } from '../../../ui/TextField';
-import { t, type Locale, type MessageKey } from '../../../shared/i18n';
+import { t, type Locale, type MessageKey } from '../../../shared/i18n/extended';
 import {
   formatBase,
   fromBits,

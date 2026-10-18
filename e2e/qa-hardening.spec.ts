@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { t } from '../src/shared/i18n';
+import { t } from '../src/shared/i18n/extended';
 import { qaSetup, ready, qaModes, tabTo } from './qa-setup';
 // Network-failure injection must reach the network rather than an offline cache.
 test.use({ serviceWorkers: 'block' });
@@ -288,7 +288,12 @@ test('global failures are localized notifications without exception details', as
   ).toBeVisible();
   await expect(page.getByText('secret user input')).toHaveCount(0);
 });
-for (const chunk of ['ScientificMode', 'ExpressionEditor', 'MathDisplay'])
+for (const chunk of [
+  'ScientificMode',
+  'ExpressionEditor',
+  'MathDisplay',
+  'extended',
+])
   test(`failed lazy ${chunk} can be reset while shell stays usable`, async ({
     page,
   }) => {
@@ -326,36 +331,39 @@ for (const chunk of ['ScientificMode', 'ExpressionEditor', 'MathDisplay'])
     await editor.press('Enter');
     await expect(page.locator('.scientific-result-text')).toHaveText('5');
   });
-test('shared lazy dialog failures show a global reset and notification', async ({
-  page,
-}) => {
-  await qaSetup(page);
-  await page.goto('/m8e-calc/#/simple');
-  await ready(page, 'simple');
-  await page.route('**/SettingsDialog-*.js', (route) =>
-    route.fulfill({ status: 503, body: 'temporarily unavailable' }),
-  );
-  await page
-    .getByRole('button', { name: 'Einstellungen', exact: true })
-    .click();
-  await expect(
-    page.getByRole('heading', { name: 'Die App konnte nicht geladen werden' }),
-  ).toBeVisible();
-  await expect(
-    page.getByText(
-      'Etwas ist schiefgegangen. Bitte versuche die Aktion erneut.',
-    ),
-  ).toBeVisible();
-  await page.unroute('**/SettingsDialog-*.js');
-  await Promise.all([
-    page.waitForEvent('load'),
-    page.getByRole('button', { name: 'Zurücksetzen', exact: true }).click(),
-  ]);
-  await ready(page, 'simple');
-  await page
-    .getByRole('button', { name: 'Einstellungen', exact: true })
-    .click();
-  await expect(
-    page.getByRole('dialog', { name: 'Einstellungen', exact: true }),
-  ).toBeVisible();
-});
+for (const chunk of ['SettingsDialog', 'extended'])
+  test(`shared lazy ${chunk} failures show a global reset and notification`, async ({
+    page,
+  }) => {
+    await qaSetup(page);
+    await page.goto('/m8e-calc/#/simple');
+    await ready(page, 'simple');
+    await page.route(`**/${chunk}-*.js`, (route) =>
+      route.fulfill({ status: 503, body: 'temporarily unavailable' }),
+    );
+    await page
+      .getByRole('button', { name: 'Einstellungen', exact: true })
+      .click();
+    await expect(
+      page.getByRole('heading', {
+        name: 'Die App konnte nicht geladen werden',
+      }),
+    ).toBeVisible();
+    await expect(
+      page.getByText(
+        'Etwas ist schiefgegangen. Bitte versuche die Aktion erneut.',
+      ),
+    ).toBeVisible();
+    await page.unroute(`**/${chunk}-*.js`);
+    await Promise.all([
+      page.waitForEvent('load'),
+      page.getByRole('button', { name: 'Zurücksetzen', exact: true }).click(),
+    ]);
+    await ready(page, 'simple');
+    await page
+      .getByRole('button', { name: 'Einstellungen', exact: true })
+      .click();
+    await expect(
+      page.getByRole('dialog', { name: 'Einstellungen', exact: true }),
+    ).toBeVisible();
+  });

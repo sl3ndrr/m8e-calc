@@ -1,7 +1,7 @@
 import { allowClipboard } from './clipboard';
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { t } from '../src/shared/i18n';
+import { t } from '../src/shared/i18n/extended';
 
 // Feature-state checks are isolated from SW update toasts; the production
 // matrix, comfort and pwa-update suites exercise the real worker separately.

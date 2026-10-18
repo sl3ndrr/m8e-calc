@@ -15,7 +15,7 @@ import { Select } from '../../ui/Select';
 import { TextField } from '../../ui/TextField';
 import { snackbarQueue } from '../../ui/snackbarQueue';
 import { type Bounds } from '../../graph';
-import { t } from '../../shared/i18n';
+import { t } from '../../shared/i18n/extended';
 import { useAppStore } from '../../shared/store';
 import { useModeHistory } from '../../shared/useModeHistory';
 import type { HistoryEntry } from '../../shared/history';

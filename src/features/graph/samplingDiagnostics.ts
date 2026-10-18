@@ -1,4 +1,4 @@
-import type { MessageKey } from '../../shared/i18n';
+import type { MessageKey } from '../../shared/i18n/extended';
 import type { SampleResponse } from './workerProtocol';
 
 export function sampleMessageKeys(
