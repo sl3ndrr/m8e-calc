@@ -32,14 +32,14 @@ it('updates seeds and customization, with color reset preserving appearance and 
     target: { value: '#008ba9' },
   });
   expect(useSettingsStore.getState().accent).toBe('#008ba9');
-  await user.click(
-    screen.getByRole('button', { name: 'Farben zurücksetzen' }),
-  );
+  const reset = screen.getByRole('button', { name: 'Farben zurücksetzen' });
+  await user.click(reset);
   expect(useSettingsStore.getState()).toMatchObject({
     ...defaultSettings(),
     themeMode: 'dark',
     motionLevel: 'off',
   });
+  expect(reset).toHaveFocus();
   await user.keyboard('{Escape}');
   await waitFor(() =>
     expect(
