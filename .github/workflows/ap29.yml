@@ -1,0 +1,38 @@
+name: AP29 build provenance
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: ap29-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Controlled production browser regression and existing PWA cases
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: test-results/ap29/results.json
+        run: npx playwright test --config=playwright.ap29.config.ts --reporter=list,json
+      - name: Preserve exact formatter for restricted local environments
+        if: always()
+        run: |
+          mkdir -p test-results/ap29
+          tar -czf test-results/ap29/prettier.tgz -C node_modules prettier
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap29-provenance
+          path: |
+            test-results/
+            dist/build-info.json
+          retention-days: 14

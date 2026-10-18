@@ -19,6 +19,7 @@ export default defineConfig({
       name: 'chromium',
       testIgnore: [
         ...gallerySpecs,
+        '**/build-provenance.spec.ts',
         '**/ap28-diagnostic.spec.ts',
         '**/graph-performance.spec.ts',
         '**/qa-visual.spec.ts',
