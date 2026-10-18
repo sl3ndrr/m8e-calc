@@ -334,8 +334,7 @@ for (const [id, key, label] of [
   });
 }
 
-
-test('live pointer recorder detects an intentionally missing transition', async ({
+test('pointer recorder retains live frames after completion and detects a snap', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1920, height: 1080 });
@@ -343,19 +342,28 @@ test('live pointer recorder detects an intentionally missing transition', async 
   await ready(page);
   const button = page.locator('[data-key="+"] button');
   await settle(button);
-  await button.evaluate((node) => {
-    (node as HTMLElement).style.transition = 'none';
-  });
-  await button.hover();
-  const recording = await recordFrames(button, 'pointerdown');
-  await page.mouse.down();
-  await expect(button).toHaveAttribute('data-pressed');
-  const down = await readFrames(recording);
-  await page.mouse.up();
-  expect(down).toHaveLength(12);
-  // A snap must fail the real operator test's moving-frame oracle.
-  expect(new Set(down.map((sample) => sample.transform)).size).toBe(1);
-  expect(down.every((sample) => sample.transform !== 'none')).toBe(true);
+  for (const transition of ['live', 'snap'] as const) {
+    if (transition === 'snap')
+      await button.evaluate((node) => {
+        (node as HTMLElement).style.transition = 'none';
+      });
+    await button.hover();
+    const recording = await recordFrames(button, 'pointerdown');
+    await page.mouse.down();
+    await expect(button).toHaveAttribute('data-pressed');
+    // Read only after the actual transition finishes. The recorder must retain
+    // the earlier live frames without depending on the caller's arrival time.
+    await settle(button);
+    const down = await readFrames(recording);
+    await page.mouse.up();
+    await settle(button);
+    expect(down).toHaveLength(12);
+    const transforms = new Set(down.map((sample) => sample.transform));
+    if (transition === 'live') expect(transforms.size).toBeGreaterThan(1);
+    // A snap must fail the real operator test's moving-frame oracle.
+    else expect(transforms.size).toBe(1);
+    expect(down.some((sample) => sample.transform !== 'none')).toBe(true);
+  }
 });
 
 for (const [motion, reduced] of [
