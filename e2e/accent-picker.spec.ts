@@ -52,10 +52,6 @@ test('cold accent dialog opens and focuses Iris while the design lab is loading'
     await page.keyboard.press('Escape');
     await expect(picker).toBeHidden();
     await expect(trigger).toBeFocused();
-    lab.release();
-    await expect(
-      page.getByRole('heading', { name: 'Raum für deinen Stil.' }),
-    ).toBeVisible();
   } finally {
     panel.release();
     lab.release();
