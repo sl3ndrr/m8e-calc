@@ -82,7 +82,7 @@ for (const locale of ['de-DE', 'en-US']) {
         page.getByRole('dialog', { name: settingsName, exact: true }),
       ).toBeVisible();
       await expect(
-        page.getByRole('checkbox', {
+        page.getByRole('switch', {
           name: locale === 'de-DE' ? 'Online-Kurse laden' : 'Load online rates',
         }),
       ).toBeVisible();
