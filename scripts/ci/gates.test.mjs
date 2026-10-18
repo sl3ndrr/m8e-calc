@@ -67,7 +67,10 @@ test('currency evidence is required only on its declared branch; no unexpected s
     ]) {
       if (result !== expected)
         assert.throws(() =>
-          assertQuality({ ...green(), 'currency-source': { result } }, required),
+          assertQuality(
+            { ...green(), 'currency-source': { result } },
+            required,
+          ),
         );
     }
     assert.throws(() => assertQuality(green(), required));
