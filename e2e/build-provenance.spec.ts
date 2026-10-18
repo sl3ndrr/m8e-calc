@@ -66,6 +66,16 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
     );
   });
   await new Promise<void>((done) => server.listen(0, '127.0.0.1', done));
+  let serverClosed = false;
+  const closeServer = async () => {
+    if (serverClosed) return;
+    serverClosed = true;
+    const closed = new Promise<void>((done, reject) =>
+      server.close((error) => (error ? reject(error) : done())),
+    );
+    server.closeAllConnections();
+    await closed;
+  };
   try {
     const address = server.address();
     if (!address || typeof address === 'string') throw Error('Missing server');
@@ -144,6 +154,9 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
     await expect(anchor.locator('meta[name="ap29-fixture"]')).toHaveAttribute(
       'content',
       'a',
+    );
+    const controllerA = await anchor.evaluateHandle(
+      () => navigator.serviceWorker.controller,
     );
     expect(requests.filter((r) => r.path.endsWith('/build-info.json'))).toEqual(
       [],
@@ -236,6 +249,7 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
     const missing = await page.goto(`${base}missing-proof.json`);
     expect(missing?.status()).toBe(404);
     expect(await missing?.text()).toBe('missing technical resource');
+    await controlled();
     const untouched = await page.evaluate(async (url) => {
       const outside = await fetch('/outside-base');
       const post = await fetch(url, { method: 'POST' });
@@ -253,12 +267,20 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
       page.getByRole('textbox', { name: 'Ausdruck', exact: true }),
     ).toHaveText('sin(30)');
     await controlled();
+    const anchorControllerUnchanged = await anchor.evaluate(
+      (worker) => navigator.serviceWorker.controller === worker,
+      controllerA,
+    );
+    expect(anchorControllerUnchanged).toBe(true);
+    await controllerA.dispose();
     const staleCache = await page.evaluate(
       async ({ name, url }) =>
         (await (await caches.open(name)).match(url))?.json(),
       { name: cachesA[0] ?? '', url },
     );
     expect(staleCache).toEqual(expected('a'));
+    // Stop the actual origin as well: offline emulation alone may leave SW IO online.
+    await closeServer();
     await context.setOffline(true);
     const offlineFetch = await page.evaluate(async (url) => {
       try {
@@ -268,6 +290,10 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
         return { error: String(error) };
       }
     }, url);
+    await info.attach('offline-fetch', {
+      body: JSON.stringify(offlineFetch),
+      contentType: 'application/json',
+    });
     expect('error' in offlineFetch || (offlineFetch.status ?? 0) >= 400).toBe(
       true,
     );
@@ -277,6 +303,10 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
         async (r) => ({ status: r?.status() ?? 0, body: await r?.text() }),
         (error: unknown) => ({ error: String(error) }),
       );
+    await info.attach('offline-navigation', {
+      body: JSON.stringify(offlineNavigation),
+      contentType: 'application/json',
+    });
     expect(
       'error' in offlineNavigation || offlineNavigation.status >= 400,
     ).toBe(true);
@@ -287,8 +317,10 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
           controlChecks,
           fetchEvidence,
           httpCacheWarmup,
+          anchorControllerUnchanged,
           cachesA,
           cachedUrls,
+          offlineOriginStopped: serverClosed,
           offlineFetch,
           offlineNavigation,
           requests,
@@ -300,9 +332,6 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
     });
   } finally {
     await context.setOffline(false);
-    server.closeAllConnections();
-    await new Promise<void>((done, reject) =>
-      server.close((error) => (error ? reject(error) : done())),
-    );
+    await closeServer();
   }
 });
