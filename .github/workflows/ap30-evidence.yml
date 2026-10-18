@@ -20,6 +20,13 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      - name: Preserve exact lockfile dependencies for local verification
+        run: tar -czf "$RUNNER_TEMP/ap30-dependencies.tgz" node_modules
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ap30-dependencies
+          path: ${{ runner.temp }}/ap30-dependencies.tgz
+          retention-days: 1
       - name: Unchanged current-main baseline on the same runner
         run: |
           baseline="$RUNNER_TEMP/ap30-before"
