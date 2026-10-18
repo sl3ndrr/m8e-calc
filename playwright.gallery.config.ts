@@ -14,7 +14,7 @@ export default defineConfig({
     { name: 'gallery' },
     ...(['firefox', 'webkit'] as const).map((browserName) => ({
       name: `gallery-${browserName}`,
-      testMatch: '**/controls-polish.spec.ts',
+      testMatch: ['**/controls-polish.spec.ts', '**/accent-picker.spec.ts'],
       use: {
         ...devices[
           browserName === 'firefox' ? 'Desktop Firefox' : 'Desktop Safari'

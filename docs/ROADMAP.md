@@ -111,10 +111,19 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       Entry-/Einfach-Messdefinition; hartes Gate weiterhin <200.000 Byte.
       Vergleich mit integriertem AP28/AP29 und Abnahme: [AP30.md](AP30.md).
 
-- [ ] 31 CI-/Pages-Freigabepfad — `feat/ap31-ci-pages-gate`: ein gemeinsamer
+- [x] 31 CI-/Pages-Freigabepfad — `feat/ap31-ci-pages-gate`: ein gemeinsamer
       Qualitätsstatus für PR/main, ein normaler Produktionsbuild und durchgängige
       Commit-/Artefakt-/Fingerprintbindung bis Pages. Pflicht-QA einschließlich
       AP28/AP29, Galerie und Release-Quellenprüfung; bedingte Paketnachweise separat.
-      Umsetzung und tatsächliche Läufe: [AP31.md](AP31.md). Erste reale main-/Pages-
-      Kette und Live-Abnahme erst nach späterem Merge; keine Regeländerung oder
+      PR #47 ist integriert (`9180b26`). Umsetzung und tatsächliche Läufe: [AP31.md](AP31.md). Erste reale main-/Pages-
+      Kette und Live-Abnahme bleiben separat zu prüfen; keine Regeländerung oder
       automatische Veröffentlichung in diesem Paket.
+
+- 32 Verbindlicher PR- und Qualitätsschutz — `feat/ap32-merge-protection`,
+  PR #48: Ruleset `25003991` durch den Eigentümer aktiviert und lesend bestätigt.
+  PR-Pflicht ohne fremde Zustimmung, `Quality gate` von GitHub Actions und
+  strikte Zielbranchaktualität sind verbindlich. Roter PR #48 belegt die Sperre;
+  aktueller Dependabot-Lauf bleibt offen. Der gezielte Iris-/Galeriefix und
+  seine Kaltstartregressionen gehören zum späteren Eigentümerauftrag.
+  Vorher/Nachher und reale Läufe: [AP32.md](AP32.md). Status: Schutz aktiviert,
+  Restverifikation offen; Dokumentationsintegration über PR #48.

@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, expect, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import { AccentPicker } from './AccentPicker';
@@ -16,9 +16,9 @@ it('updates seeds and customization, with color reset preserving appearance and 
   await user.click(
     screen.getByRole('button', { name: 'Akzentfarbe anpassen' }),
   );
-  fireEvent.click(
-    await screen.findByRole('button', { name: 'Koralle', hidden: true }),
-  );
+  const iris = await screen.findByRole('button', { name: 'Iris' });
+  await waitFor(() => expect(iris).toHaveFocus());
+  await user.click(await screen.findByRole('button', { name: 'Koralle' }));
   expect(useSettingsStore.getState().accent).toBe('#e2675a');
   await user.click(screen.getByRole('button', { name: /Schema-Variante/ }));
   await user.click(screen.getByRole('option', { name: 'Lebendig' }));
@@ -32,12 +32,18 @@ it('updates seeds and customization, with color reset preserving appearance and 
     target: { value: '#008ba9' },
   });
   expect(useSettingsStore.getState().accent).toBe('#008ba9');
-  fireEvent.click(
-    screen.getByRole('button', { name: 'Farben zurücksetzen', hidden: true }),
-  );
+  const reset = screen.getByRole('button', { name: 'Farben zurücksetzen' });
+  await user.click(reset);
   expect(useSettingsStore.getState()).toMatchObject({
     ...defaultSettings(),
     themeMode: 'dark',
     motionLevel: 'off',
   });
+  expect(reset).toHaveFocus();
+  await user.keyboard('{Escape}');
+  await waitFor(() =>
+    expect(
+      screen.getByRole('button', { name: 'Akzentfarbe anpassen' }),
+    ).toHaveFocus(),
+  );
 }, 20000);

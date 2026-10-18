@@ -232,3 +232,22 @@ Paket-Evidence bleibt bedingt und darf nicht pauschal als Required Check eingetr
 werden. Externe Release-Links bleiben ein blockierender Quellen-/Dokumentationscheck.
 Der Provider-Sondercheck bleibt auf `feat/currency` zusätzlich bindend; nur
 außerhalb dieses Branches akzeptiert der Aggregator sein erwartetes `skipped`.
+
+## AP32 · Merge-Schutzstatus
+
+Ruleset `25003991` ist durch den Eigentümer aktiviert und danach lesend bestätigt:
+PR-Pflicht mit 0 Zustimmungen, ausschließlich `Quality gate` von GitHub Actions
+(App-ID `15368`), strikte Aktualität zum Defaultbranch, Lösch-/Force-Push-Schutz
+und leere Bypassliste. Der Admin-Schritt ist erledigt. Die tatsächliche
+Erzeugung auf einem aktuellen Dependabot-PR bleibt offen. Der rote Quality-Check
+auf PR #48 und dessen Status `blocked` belegen die Merge-Sperre; AP32 wegen
+der offenen Dependabot-Abnahme nicht als vollständig abgenommen markieren.
+Teil-Reruns mit Build-Artefakten älterer Versuche scheitern absichtlich am
+Proof-Kontext. Quellenfehler und neue 4K-Abweichungen separat bearbeiten.
+Befund, reale Läufe und Abschlussgrenzen: [docs/AP32.md](docs/AP32.md).
+
+Die Farbauswahl hält den Popover-Rahmen auch beim kalten Lazy-Import geöffnet;
+Suspense ersetzt nur den Inhalt durch einen zugänglichen Ladedialog. Escape
+muss während des Ladens schließen, der fertige Dialog fokussiert „Iris“ erst
+nach dem Mount des Inhalts. Kontrollierte Modulverzögerung in
+`e2e/accent-picker.spec.ts` prüft Kaltstart und Wiederöffnen in drei Engines.

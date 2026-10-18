@@ -1,9 +1,11 @@
 import { lazy, Suspense, useState } from 'react';
-import { DialogTrigger } from 'react-aria-components';
+import { Dialog as AriaDialog, DialogTrigger } from 'react-aria-components';
 import { useAppStore } from '../shared/store';
 import { t } from '../shared/i18n';
 import { Button } from './Button';
 import { Icon } from './Icon';
+import { LoadingIndicator } from './LoadingIndicator';
+import { Popover } from './Popover';
 import './AccentPicker.css';
 const AccentPanel = lazy(() => import('./AccentPanel'));
 export function AccentPicker() {
@@ -22,9 +24,17 @@ export function AccentPicker() {
         <span>{t('accent.open', locale)}</span>
       </Button>
       {isOpen && (
-        <Suspense fallback={null}>
-          <AccentPanel onClose={() => setOpen(false)} />
-        </Suspense>
+        <Popover className="accent-popover">
+          <Suspense
+            fallback={
+              <AriaDialog aria-label={t('accent.open', locale)}>
+                <LoadingIndicator label={t('ui.loading', locale)} />
+              </AriaDialog>
+            }
+          >
+            <AccentPanel onClose={() => setOpen(false)} />
+          </Suspense>
+        </Popover>
       )}
     </DialogTrigger>
   );
