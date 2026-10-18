@@ -51,7 +51,29 @@ Integrations- und Abnahmestand: [AP25.md](AP25.md).
 
 ## Dokumentation prüfen
 
-`node scripts/check-release-docs.mjs` prüft lokale Markdown-Verweise und alle dokumentierten `npm run`-Befehle gegen package.json. Mit `--external` werden zusätzlich externe Markdown-Links per GET geprüft (30 s Timeout je URL, Redirect-Ziel im Log). Der vom CI-Orchestrator aufgerufene Release-Assets-Job führt diese externe Prüfung auf PRs und main aus. Sie bleibt blockierend: Ein Quellenfehler sperrt den Qualitätsstatus und damit die Veröffentlichung, auch wenn der Produktbuild selbst korrekt ist. Ein HTTP-200 allein beweist nicht, dass ein weitergeleitetes Dokument noch denselben Inhalt hat; Quellenänderungen werden zusätzlich redaktionell geprüft.
+`node scripts/check-release-docs.mjs` prüft lokale Markdown-Verweise und alle
+dokumentierten `npm run`-Befehle gegen package.json. Mit `--external` werden
+zusätzlich externe Markdown-Links per GET geprüft. Es bleibt bei einem Versuch
+und 30 s Timeout je URL; keine automatischen Retries, auch nicht für 400/404.
+Der JSON-Bericht `test-results/release-docs.json` (alternativ `--report PFAD`)
+enthält Original-URL, endgültiges Redirect-Ziel, HTTP-Status, Versuch, Fehlergrund
+und betroffene Dokumente. Ohne Antwort sind Ziel und Status ausdrücklich `null`.
+Er unterscheidet lokale Linkfehler, unbekannte npm-Befehle, HTTP-Fehler,
+vorübergehende HTTP-429-/5xx-Antworten, Transportfehler, Timeout und ausdrücklich
+manuell geprüfte Clientblockaden. Eine 429-/5xx-Kategorie beschreibt nur den
+möglicherweise vorübergehenden Fehler; sie ist kein Erfolgsstatus.
+
+Der AP31-Release-Assets-Job führt die externe Prüfung weiterhin blockierend auf
+PRs und main aus und sichert den Bericht auch bei einem Fehler im bestehenden
+Artefakt `release-assets`. Ein Quellenfehler sperrt den Qualitätsstatus und damit
+die Veröffentlichung, auch wenn der Produktbuild korrekt ist. Die normale Ausgabe
+zeigt nur Fehler, manuelle Entscheidungen und die Zusammenfassung; erfolgreiche
+URLs und Redirects stehen im JSON. Die beiden bestehenden exakten 403-Ausnahmen
+bleiben als `manually-reviewed-client-block` mit Datum/Inhaltsbeleg sichtbar,
+`httpPassed: false`; Redirects sind davon nicht abgedeckt. Neue URLs oder andere
+Statuscodes werden nicht akzeptiert. Ein HTTP-Erfolg allein beweist keinen
+unveränderten Quelleninhalt. Entscheidungen, aktuelle Quellenprüfung und Grenzen:
+[AP37.md](AP37.md).
 
 Beim Linkabgleich am 14.10.2026 wurden der verschobene NIST-Handbook-Link, die IAU-2015-PDF und die NASA-SP-367-Weiterleitung ersetzt. Die FDA-Quelle verweist jetzt auf den offiziellen HHS-Katalogeintrag, weil FDA den CI-Client auf eine Missbrauchserkennungsseite umleitete. Der ISO-2533-Katalogeintrag wurde unabhängig über die offizielle ISO-Seite bestätigt; dort erhält der CI-Client HTTP 403. Auch der HHS-Katalogeintrag wurde unabhängig auf der offiziellen Seite bestätigt und beantwortet den CI-Client mit HTTP 403. Nur diese beiden exakt dokumentierten URL/Status-Kombinationen sind im Prüfer als manuell verifiziert markiert, nicht als erfolgreiche HTTP-Tests. Die Live-URL lieferte HTTP 200; das ersetzt keine vollständige manuelle Pages-Abnahme.
 
