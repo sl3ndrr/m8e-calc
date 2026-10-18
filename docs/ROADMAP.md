@@ -137,4 +137,3 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
   übrige AP24-Migrationen), [#50](https://github.com/sl3ndrr/m8e-calc/issues/50)
   (TypeScript 7). Status: zur Prüfung, keine Migration integriert.
   AP34–AP36 und spätere Migrations-PRs bleiben eigenständig.
-
