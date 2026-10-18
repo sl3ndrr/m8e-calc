@@ -127,3 +127,16 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
   seine Kaltstartregressionen gehören zum späteren Eigentümerauftrag.
   Vorher/Nachher und reale Läufe: [AP32.md](AP32.md). Status: Schutz aktiviert,
   Restverifikation offen; Dokumentationsintegration über PR #48.
+
+- 33 Dependency-Entscheidungen — `feat/ap33-dependency-decisions`, PR #49:
+  aktuelle Registry-Verträge und Originalfehler für #33/#34/#37/#39 getrennt
+  dokumentiert; Node 24 und 24er-Typen bleiben erhalten. Entscheidungen,
+  Wiederaufnahmebedingungen und Schließempfehlungen: [AP33.md](AP33.md).
+  Tracking: [#31](https://github.com/sl3ndrr/m8e-calc/issues/31) (ESLint),
+  [#32](https://github.com/sl3ndrr/m8e-calc/issues/32) (Runtime/Material und
+  übrige AP24-Migrationen), [#50](https://github.com/sl3ndrr/m8e-calc/issues/50)
+  (TypeScript 7). Dokumentationsintegration über PR #49; keine Dependency-Migration.
+  Der zur Freigabe nötige Quellenfix für #51 und die ereignisgebundene
+  Live-Animationsmessung für #52 sind als eigene Korrekturcommits enthalten;
+  Abschluss und tatsächlicher CI-/Merge-Nachweis stehen im PR.
+  AP34–AP36 und spätere Migrations-PRs bleiben eigenständig.

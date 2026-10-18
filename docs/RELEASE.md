@@ -55,6 +55,16 @@ Integrations- und Abnahmestand: [AP25.md](AP25.md).
 
 Beim Linkabgleich am 14.10.2026 wurden der verschobene NIST-Handbook-Link, die IAU-2015-PDF und die NASA-SP-367-Weiterleitung ersetzt. Die FDA-Quelle verweist jetzt auf den offiziellen HHS-Katalogeintrag, weil FDA den CI-Client auf eine Missbrauchserkennungsseite umleitete. Der ISO-2533-Katalogeintrag wurde unabhängig über die offizielle ISO-Seite bestätigt; dort erhält der CI-Client HTTP 403. Auch der HHS-Katalogeintrag wurde unabhängig auf der offiziellen Seite bestätigt und beantwortet den CI-Client mit HTTP 403. Nur diese beiden exakt dokumentierten URL/Status-Kombinationen sind im Prüfer als manuell verifiziert markiert, nicht als erfolgreiche HTTP-Tests. Die Live-URL lieferte HTTP 200; das ersetzt keine vollständige manuelle Pages-Abnahme.
 
+Am 18.10.2026 blockierte derselbe externe Prüfer AP33 wegen HTTP 400 an zwei
+IAU-Übersichtsseiten (Issue #51). Die Quellenkorrektur im eigenen Commit von
+PR #49 verlinkt stattdessen die konkreten IAU-Resolutionen 2012 B2 und 2015 B2
+sowie die NASA/JPL-Tabelle für Tag, Julianisches Jahr und Lichtgeschwindigkeit.
+Die fachliche Zuordnung steht in [UNITS.md](UNITS.md); Referenzfälle erhalten
+passende Quellenlinks bei identischen Eingaben und Erwartungswerten. Keine
+neue Statusausnahme und keine Änderung am externen Prüfer. Maßgeblich für die
+Freigabe sind die tatsächlichen Pflichtchecks des aktualisierten PR-Heads,
+nicht der frühere rote Lauf `39157938093`.
+
 ## Technischer Produktionsnachweis
 
 Builds enthalten passiv `build-info.json` mit Schema 1, `sourceCommit` aus

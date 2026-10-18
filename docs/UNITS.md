@@ -177,9 +177,16 @@ Alle anderen Kategorien haben mindestens sechs Einheiten.
   ausdrücklich international, au/eV/u gemäß neueren Quellen statt alten Tabellen.
 - [NIST Handbook 44](https://www.nist.gov/pml/owm/nist-handbook-44-current-edition):
   Zoll, Fuß, Pfund und US-liquid-Maße.
-- [IAU Resolutionen](https://iauarchive.eso.org/administration/resolutions/general_assemblies/)
-  und [IAU Measuring the Universe](https://iauarchive.eso.org/public/themes/measuring/):
-  au, Parsec, Julianisches Jahr und Lichtjahr aus c × Julianischem Jahr.
+- [IAU 2012 Resolution B2](https://iauarchive.eso.org/static/resolutions/IAU2012_English.pdf),
+  Seite 3: au = exakt 149597870700 m.
+- [IAU 2015 Resolution B2](https://iauarchive.eso.org/static/resolutions/IAU2015_English.pdf),
+  Seite 5, Anmerkung 4: Parsec = exakt (648000 / π) au.
+- [NASA/JPL Astrodynamic Parameters](https://ssd.jpl.nasa.gov/astro_par.html):
+  Julianisches Jahr = 365,25 Tage, Tag = 86400 s und c = 299792458 m/s.
+  Daraus folgt für das Lichtjahr c × Julianisches Jahr = 9460730472580800 m.
+  Die beiden IAU-Resolutionen und die JPL-Tabelle wurden am 18.10.2026 inhaltlich
+  geprüft; sie ersetzen die im CI-Client mit HTTP 400 antwortenden IAU-Übersichtsseiten
+  (Issue #51). Die Werte und Rechenregeln bleiben unverändert.
 - [NIST CODATA 2022](https://physics.nist.gov/cuu/pdf/all.pdf): atomare Masseneinheit.
 - [NIST binary prefixes](https://physics.nist.gov/cuu/Units/binary.html): IEC-Binärpräfixe.
 - [ISO 2533:1975](https://www.iso.org/standard/7472.html): ISA-Modell und
