@@ -29,7 +29,7 @@ jobs:
           (cd .qa-ap18-before && npm run build)
           (cd .qa-ap18-before && npm run preview -- --host 127.0.0.1 --port 4174 --strictPort) > before-preview.log 2>&1 &
           npm run preview -- --host 127.0.0.1 --port 4173 --strictPort > after-preview.log 2>&1 &
-          for attempt in $(seq 1 30); do curl -sf http://127.0.0.1:4174/m8e-calc/ > /dev/null && break; sleep 1; done
+          for _attempt in $(seq 1 30); do curl -sf http://127.0.0.1:4174/m8e-calc/ > /dev/null && break; sleep 1; done
           AP18_PHASE=before AP18_BASE_URL=http://127.0.0.1:4174/m8e-calc/ node scripts/ap18-screenshots.mjs
           AP18_PHASE=after node scripts/ap18-screenshots.mjs
       - uses: actions/upload-artifact@v7
@@ -40,7 +40,7 @@ jobs:
           retention-days: 14
       - name: Propose visual references for review
         if: always()
-        run: CI= npx playwright test --project=qa-visual --update-snapshots --workers=2
+        run: CI='' npx playwright test --project=qa-visual --update-snapshots --workers=2
       - uses: actions/upload-artifact@v7
         if: always()
         with:

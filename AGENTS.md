@@ -230,3 +230,5 @@ Ein Teil-Rerun mit älterem Build-Artefakt darf wegen abweichender Laufversuchsn
 scheitern; in diesem Fall den vollständigen Workflow neu ausführen. Historische
 Paket-Evidence bleibt bedingt und darf nicht pauschal als Required Check eingetragen
 werden. Externe Release-Links bleiben ein blockierender Quellen-/Dokumentationscheck.
+Der Provider-Sondercheck bleibt auf `feat/currency` zusätzlich bindend; nur
+außerhalb dieses Branches akzeptiert der Aggregator sein erwartetes `skipped`.

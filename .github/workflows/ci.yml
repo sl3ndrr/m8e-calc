@@ -10,6 +10,18 @@ concurrency:
   # Serialize main through deployment. PR updates may cancel obsolete checks.
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
+  currency-source:
+    name: Currency source evidence
+    if: github.head_ref == 'feat/currency'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - run: node scripts/check-currency-source.mjs
   gate-tests:
     name: Pipeline contract tests
     runs-on: ubuntu-latest
@@ -23,7 +35,7 @@ jobs:
       - run: node --test scripts/ci/*.test.mjs
       - name: Check pipeline formatting and print proposed corrections
         run: |
-          npx --yes prettier@3.9.10 --write .github/workflows/{ci,qa,ap29,release-assets,currency-source}.yml scripts/ci/*.mjs docs/AP31.md docs/RELEASE.md docs/ROADMAP.md AGENTS.md
+          npx --yes prettier@3.9.10 --write .github/workflows/{ci,qa,ap29,release-assets,ap18-evidence}.yml scripts/ci/*.mjs docs/AP31.md docs/RELEASE.md docs/ROADMAP.md AGENTS.md
           git diff --exit-code
       - name: Validate all workflow syntax and dependencies
         run: go run github.com/rhysd/actionlint/cmd/actionlint@v1.7.7 -color
@@ -138,7 +150,7 @@ jobs:
       - name: Gallery screenshots
         run: |
           npm run preview:gallery -- --host 127.0.0.1 --port 4174 --strictPort > /tmp/m8e-preview.log 2>&1 &
-          for attempt in $(seq 1 30); do curl -sf http://127.0.0.1:4174/m8e-calc/ > /dev/null && break; sleep 1; done
+          for _attempt in $(seq 1 30); do curl -sf http://127.0.0.1:4174/m8e-calc/ > /dev/null && break; sleep 1; done
           npm run screenshots:gallery
       - name: Normal bytes unchanged; gallery rejected
         run: |
@@ -208,6 +220,7 @@ jobs:
     needs:
       [
         build,
+        currency-source,
         gate-tests,
         qa,
         graph-performance,
@@ -227,6 +240,7 @@ jobs:
       - name: Fail closed on every required job
         env:
           NEEDS: ${{ toJSON(needs) }}
+          CURRENCY_REQUIRED: ${{ github.head_ref == 'feat/currency' }}
         run: |
           echo "$NEEDS"
           node scripts/ci/quality-status.mjs quality

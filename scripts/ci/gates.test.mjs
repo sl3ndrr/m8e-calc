@@ -13,6 +13,7 @@ import { test } from 'node:test';
 import {
   required,
   assertSuccessful,
+  assertQuality,
   assertPublication,
 } from './quality-status.mjs';
 import { seal, verify } from './build-proof.mjs';
@@ -50,6 +51,27 @@ test('every prerequisite must succeed; missing, failed, cancelled, skipped and u
   assert.throws(() =>
     assertSuccessful({ ...green(), surprise: { result: 'success' } }),
   );
+});
+
+test('currency evidence is required only on its declared branch; no unexpected skips', () => {
+  for (const required of [true, false]) {
+    const expected = required ? 'success' : 'skipped';
+    const needs = { ...green(), 'currency-source': { result: expected } };
+    assert.doesNotThrow(() => assertQuality(needs, required));
+    for (const result of [
+      'success',
+      'failure',
+      'cancelled',
+      'skipped',
+      undefined,
+    ]) {
+      if (result !== expected)
+        assert.throws(() =>
+          assertQuality({ ...green(), 'currency-source': { result } }, required),
+        );
+    }
+    assert.throws(() => assertQuality(green(), required));
+  }
 });
 
 test('only successful current upstream main push can publish; no PR, fork or stale rerun', () => {

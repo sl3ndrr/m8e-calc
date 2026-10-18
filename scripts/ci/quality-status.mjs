@@ -23,6 +23,16 @@ export function assertSuccessful(needs, jobs = required) {
     assert.equal(needs[job]?.result, 'success', `${job} must succeed`);
 }
 
+export function assertQuality(needs, currencyRequired) {
+  const { 'currency-source': currency, ...unconditional } = needs;
+  assertSuccessful(unconditional);
+  assert.equal(
+    currency?.result,
+    currencyRequired ? 'success' : 'skipped',
+    'Currency source must match its explicit branch condition',
+  );
+}
+
 export function assertPublication(context, latest, quality) {
   assert.equal(quality, 'success', 'Quality must succeed');
   assert.equal(context.GITHUB_REPOSITORY, 'sl3ndrr/m8e-calc');
@@ -37,8 +47,13 @@ if (
   resolve(process.argv[1]) === fileURLToPath(import.meta.url)
 ) {
   const mode = process.argv[2];
-  if (mode === 'quality') assertSuccessful(JSON.parse(process.env.NEEDS));
-  else if (mode === 'qa')
+  if (mode === 'quality') {
+    assert.match(process.env.CURRENCY_REQUIRED ?? '', /^(true|false)$/);
+    assertQuality(
+      JSON.parse(process.env.NEEDS),
+      process.env.CURRENCY_REQUIRED === 'true',
+    );
+  } else if (mode === 'qa')
     assertSuccessful(JSON.parse(process.env.NEEDS), [
       'measure',
       'browsers',
