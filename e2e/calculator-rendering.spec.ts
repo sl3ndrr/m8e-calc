@@ -61,9 +61,7 @@ async function recordFrames(
     { event, count },
   );
 }
-async function readFrames(
-  recording: Awaited<ReturnType<typeof recordFrames>>,
-) {
+async function readFrames(recording: Awaited<ReturnType<typeof recordFrames>>) {
   try {
     return await recording.evaluate(({ samples }) => samples);
   } finally {
