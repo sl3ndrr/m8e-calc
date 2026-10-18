@@ -230,3 +230,16 @@ und prüft kontrollierte Clients, A/B-Abgleich, Offlinefehler sowie bestehende
 Comfort-/Updatefälle in Chromium/Firefox/WebKit. Vertrag und tatsächliche
 Belege: [docs/AP29.md](docs/AP29.md). Servernachweis und aktive Appversion
 getrennt prüfen; Live-Abnahme erst am konkreten Pages-Deploy dokumentieren.
+
+## AP30 · Startpfad
+
+`src/shared/i18n.ts` bindet nur die typisierten Startwörterbücher `coreDE/coreEN`.
+Bestehende Lazy-Modi/-Dialoge importieren `src/shared/i18n/extended.ts` statisch;
+dieser Einstieg enthält alle Schlüssel aus `de.ts` einschließlich Core. Keine
+asynchrone Übersetzung oder globale Wörterbuchregistrierung. Beide Einstiege
+verwenden dieselbe Locale und Formatierungslogik. Neue Schlüssel in beiden
+Sprachen pflegen; Starttexte in Core, übrige in `de.ts/en.ts`. Core-Aufrufer können
+nur vorhandene Core-Schlüssel verwenden. Einfach importiert konkrete reine
+Engine-Module; das öffentliche Engine-Barrel bleibt verfügbar. Der Reloadadapter
+berücksichtigt auch den gemeinsamen `extended`-Chunk. Messung und Belege:
+[docs/AP30.md](docs/AP30.md); `scripts/qa-bundle.mjs` bleibt unverändert.

@@ -3,7 +3,7 @@ import { Button } from '../../ui/Button';
 import { SegmentedControl } from '../../ui/SegmentedControl';
 import { TextField } from '../../ui/TextField';
 import { constantRegistry, type Environment } from '../../engine';
-import { t, type Locale } from '../../shared/i18n';
+import { t, type Locale } from '../../shared/i18n/extended';
 import { constantMatches, definitionSource } from './model';
 export function ConstantsPanel({
   locale,

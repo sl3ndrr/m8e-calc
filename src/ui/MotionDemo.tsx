@@ -4,7 +4,7 @@ import { springs, type SpringName } from '../styles/motion';
 import { effectiveMotion } from '../app/theme';
 import { useSettingsStore } from '../shared/settingsStore';
 import { useAppStore } from '../shared/store';
-import { t } from '../shared/i18n';
+import { t } from '../shared/i18n/extended';
 import { Symbol } from './Symbol';
 export function MotionDemo({ name }: { name: SpringName }) {
   const node = useRef<HTMLSpanElement>(null);

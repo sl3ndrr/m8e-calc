@@ -4,7 +4,7 @@ import { ComponentGallery } from './ComponentGallery';
 import { useAppStore } from '../shared/store';
 import { useSettingsStore } from '../shared/settingsStore';
 import { motionLevels, resolveDark } from '../shared/settings';
-import { t } from '../shared/i18n';
+import { t } from '../shared/i18n/extended';
 import { buildScheme, colorRoles, roleProperty } from '../styles/buildScheme';
 import { typeScale } from '../styles/typeScale';
 import { shapes } from '../styles/shapes';

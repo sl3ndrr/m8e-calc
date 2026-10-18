@@ -92,15 +92,21 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       PR #42 integriert (`8eb32f1`); Vertrag und Nachweisstatus:
       [AP27.md](AP27.md). Der separate wiederkehrende 4K-FPS-Befund ist AP28 / #43.
 
-- [ ] 28 Graphperformance stabilisieren — `feat/ap28-graph-performance`,
+- [x] 28 Graphperformance stabilisieren — PR #44 auf main integriert (`427d890`), `feat/ap28-graph-performance`,
       [Issue #43](https://github.com/sl3ndrr/m8e-calc/issues/43): feste Vergleichsfenster,
       Render-/rAF-/Worker-/Kompositionsdiagnose und begrenzte Drag-Samplingfrist.
       Grenzen von 55 FPS und 16,67 ms bleiben erhalten. Rohdaten, Regression-
       Kontrollen und tatsächliche CI-Abnahme: [AP28.md](AP28.md). Integration
-      erst nach Review/Merge; keine vorgezogene physische GPU-Abnahme.
+      erfolgt; keine vorgezogene physische GPU-Abnahme.
 
-- [ ] 29 Buildnachweise unter aktivem Produktionsworker —
+- [x] 29 Buildnachweise unter aktivem Produktionsworker — PR #45 auf main integriert (`615a0cd`),
       `feat/ap29-build-provenance`, PR #45: begrenzter Dokument-Fallback,
       netzgebundene passive Provenienz und echte kontrollierte Browserregression
       mit zwei Builds/Offlinefehler. Vertrag/Nachweise: [AP29.md](AP29.md).
-      Review/Merge und Live-Abnahme des konkreten Pages-Deploys bleiben getrennt.
+      Die Live-Abnahme des konkreten Pages-Deploys bleibt getrennt.
+
+- [ ] 30 Startbudget — `feat/ap30-startup-budget`, PR #46: direkte Engine-Imports
+      für Einfach und typisierte synchrone i18n-Einstiege für Startpfad bzw.
+      bestehende Lazy-Bereiche. Arbeitsziel ≤190.000 Byte gzip bei unveränderter
+      Entry-/Einfach-Messdefinition; hartes Gate weiterhin <200.000 Byte.
+      Vergleich mit integriertem AP28/AP29 und Abnahme: [AP30.md](AP30.md).

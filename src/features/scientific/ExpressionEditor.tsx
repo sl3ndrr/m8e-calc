@@ -30,7 +30,7 @@ import {
   functionRegistry,
   type EngineError,
 } from '../../engine';
-import { t, type Locale } from '../../shared/i18n';
+import { t, type Locale } from '../../shared/i18n/extended';
 import {
   insertAtSelection,
   singleLine,

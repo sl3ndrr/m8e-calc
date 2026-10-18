@@ -14,6 +14,7 @@ export async function refreshModeChunk(
 ): Promise<void> {
   const names = [
     chunks[mode],
+    'extended-',
     ...(mode === 'scientific' ? ['ExpressionEditor-', 'MathDisplay-'] : []),
     ...(mode === 'graph' ? ['ExpressionEditor-'] : []),
   ];
@@ -35,6 +36,7 @@ export async function refreshAppChunks(
       'CommandPalette-',
       'AccentPanel-',
       'DesignLab-',
+      'extended-',
     ],
     resources,
     origin,

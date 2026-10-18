@@ -1,10 +1,11 @@
-import { de } from './i18n/de';
-import { en } from './i18n/en';
+import { coreDE as de } from './i18n/coreDE';
+import { coreEN as en } from './i18n/coreEN';
 export { de, en };
 export type MessageKey = keyof typeof de;
 export type Locale = 'de' | 'en';
+type FullDictionary = typeof import('./i18n/de').de;
 export type Dictionary = {
-  [K in MessageKey]: (typeof de)[K] extends string
+  [K in keyof FullDictionary]: FullDictionary[K] extends string
     ? string
     : { one: string; other: string };
 };
@@ -16,32 +17,37 @@ export function detectLocale(language: string): Locale {
 export function setI18nLocale(locale: Locale): void {
   activeLocale = locale;
 }
-export function t(key: MessageKey, params?: MessageParams): string;
-/** Compatibility for existing design-system callers. New callers may use t(key, params). */
-export function t(
-  key: MessageKey,
-  locale: Locale,
-  params?: MessageParams,
-): string;
-export function t(
-  key: MessageKey,
-  localeOrParams: Locale | MessageParams = activeLocale,
-  params: MessageParams = {},
-): string {
-  const locale =
-    typeof localeOrParams === 'string' ? localeOrParams : activeLocale;
-  const values = typeof localeOrParams === 'string' ? params : localeOrParams;
-  const message = (locale === 'en' ? en : de)[key];
-  const template =
-    typeof message === 'string'
-      ? message
-      : new Intl.PluralRules(locale).select(Number(values.count)) === 'one'
-        ? message.one
-        : message.other;
-  return template.replace(/\{(\w+)\}/g, (match, name: string) =>
-    String(values[name] ?? match),
-  );
+type Message = string | { readonly one: string; readonly other: string };
+/** Each synchronous translator owns its static dictionary imports. */
+export function createTranslator<T extends Record<string, Message>>(
+  german: T,
+  english: { [K in keyof T]: Message },
+) {
+  type Key = keyof T & string;
+  function translate(key: Key, params?: MessageParams): string;
+  function translate(key: Key, locale: Locale, params?: MessageParams): string;
+  function translate(
+    key: Key,
+    localeOrParams: Locale | MessageParams = activeLocale,
+    params: MessageParams = {},
+  ): string {
+    const locale =
+      typeof localeOrParams === 'string' ? localeOrParams : activeLocale;
+    const values = typeof localeOrParams === 'string' ? params : localeOrParams;
+    const message = (locale === 'en' ? english : german)[key];
+    const template =
+      typeof message === 'string'
+        ? message
+        : new Intl.PluralRules(locale).select(Number(values.count)) === 'one'
+          ? message.one
+          : message.other;
+    return template.replace(/\{(\w+)\}/g, (match, name: string) =>
+      String(values[name] ?? match),
+    );
+  }
+  return translate;
 }
+export const t = createTranslator(de, en);
 export interface NumberPreferences {
   decimalSeparator: 'auto' | 'comma' | 'point';
   grouping: boolean;

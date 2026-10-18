@@ -1,6 +1,10 @@
 import { useMemo } from 'react';
 import type { Bounds } from '../../graph';
-import { t, type Locale, type NumberPreferences } from '../../shared/i18n';
+import {
+  t,
+  type Locale,
+  type NumberPreferences,
+} from '../../shared/i18n/extended';
 import { tableResult, type PlotCurve } from './model';
 import { formatGraphNumber, type GraphRounding } from './numbers';
 

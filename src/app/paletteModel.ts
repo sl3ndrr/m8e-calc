@@ -1,5 +1,5 @@
 import { parseQuery, convert, formatQuantity } from '../units';
-import { t, type Locale } from '../shared/i18n';
+import { t, type Locale } from '../shared/i18n/extended';
 import { completionEntries } from '../features/scientific/registry';
 import { seeds } from '../styles/seeds';
 import { modeIds } from '../shared/modes';

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { createUnitsEngine, type UnitErrorCode } from '../../../units';
 import { createCurrencyProvider } from '../../../units/currency';
-import { t, type Locale } from '../../../shared/i18n';
+import { t, type Locale } from '../../../shared/i18n/extended';
 import { useSettingsStore } from '../../../shared/settingsStore';
 import { Button } from '../../../ui/Button';
 import { Fab } from '../../../ui/Fab';

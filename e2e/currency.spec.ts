@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { t } from '../src/shared/i18n';
+import { t } from '../src/shared/i18n/extended';
 import { currencyCodes } from '../src/units/currency';
 import {
   RATE_CACHE_KEY,

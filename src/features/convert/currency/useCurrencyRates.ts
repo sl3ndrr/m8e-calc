@@ -1,6 +1,6 @@
 import { useEffect, useRef, useSyncExternalStore } from 'react';
 import { useSettingsStore } from '../../../shared/settingsStore';
-import { t, type Locale } from '../../../shared/i18n';
+import { t, type Locale } from '../../../shared/i18n/extended';
 import { snackbarQueue } from '../../../ui/snackbarQueue';
 import {
   CurrencyRateClient,

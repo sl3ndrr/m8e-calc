@@ -10,6 +10,8 @@ it('refreshes only the failed mode chunk on the current origin before reload', a
       { name: 'https://calc.example/assets/ScientificMode-a.js' },
       { name: 'https://calc.example/assets/ExpressionEditor-a.js' },
       { name: 'https://calc.example/assets/MathDisplay-a.js' },
+      { name: 'https://calc.example/assets/extended-a.js' },
+      { name: 'https://other.example/assets/extended-a.js' },
       { name: 'https://calc.example/assets/GraphMode-a.js' },
       { name: 'https://calc.example/assets/ScientificMode-a.css' },
       { name: 'https://other.example/assets/ScientificMode-a.js' },
@@ -17,7 +19,7 @@ it('refreshes only the failed mode chunk on the current origin before reload', a
     'https://calc.example',
     request,
   );
-  expect(request).toHaveBeenCalledTimes(3);
+  expect(request).toHaveBeenCalledTimes(4);
   expect(request).toHaveBeenCalledWith(
     'https://calc.example/assets/ScientificMode-a.js',
     { cache: 'reload' },
@@ -43,13 +45,14 @@ it('refreshes shared application chunks without requesting foreign origins', asy
       { name: 'https://calc.example/assets/SettingsDialog-a.js' },
       { name: 'https://calc.example/assets/ShortcutDialog-a.js' },
       { name: 'https://calc.example/assets/ExpressionEditor-a.js' },
+      { name: 'https://calc.example/assets/extended-a.js' },
       { name: 'https://other.example/assets/SettingsDialog-a.js' },
       { name: 'https://calc.example/assets/unrelated-a.js' },
     ],
     'https://calc.example',
     request,
   );
-  expect(request).toHaveBeenCalledTimes(3);
+  expect(request).toHaveBeenCalledTimes(4);
   expect(request).toHaveBeenCalledWith(
     'https://calc.example/assets/SettingsDialog-a.js',
     { cache: 'reload' },

@@ -43,6 +43,7 @@ export default defineConfig({
         '**/graph-values.spec.ts',
         '**/product-acceptance.spec.ts',
         '**/pwa-update.spec.ts',
+        '**/startup-budget.spec.ts',
       ],
       use: {
         ...devices[name === 'firefox' ? 'Desktop Firefox' : 'Desktop Safari'],

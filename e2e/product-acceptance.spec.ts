@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { qaModes, ready, tabTo } from './qa-setup';
-import { t } from '../src/shared/i18n';
+import { t } from '../src/shared/i18n/extended';
 
 test.beforeAll(async ({ browser }, info) => {
   await info.attach('browser-environment', {

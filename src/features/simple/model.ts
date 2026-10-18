@@ -1,4 +1,6 @@
-import { evaluateString, numberValue, type EngineError } from '../../engine';
+import { evaluateString } from '../../engine/evaluate';
+import { numberValue } from '../../engine/numeric';
+import type { EngineError } from '../../engine/types';
 
 export type Operator = '+' | '-' | '*' | '/';
 export type Unary = 'percent' | 'sqrt' | 'square' | 'reciprocal';

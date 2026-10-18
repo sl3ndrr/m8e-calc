@@ -8,7 +8,7 @@ import { SideSheet } from '../../ui/SideSheet';
 import { Slider } from '../../ui/Slider';
 import { TextField } from '../../ui/TextField';
 import { Select } from '../../ui/Select';
-import { t, type Locale } from '../../shared/i18n';
+import { t, type Locale } from '../../shared/i18n/extended';
 import {
   examples,
   newRow,

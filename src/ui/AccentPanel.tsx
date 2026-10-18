@@ -3,7 +3,7 @@ import { Dialog as AriaDialog } from 'react-aria-components';
 import { useSettingsStore } from '../shared/settingsStore';
 import { useAppStore } from '../shared/store';
 import { defaultSettings } from '../shared/settings';
-import { t } from '../shared/i18n';
+import { t } from '../shared/i18n/extended';
 import {
   buildScheme,
   schemeVariants,

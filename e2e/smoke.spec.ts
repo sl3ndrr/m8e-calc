@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { modes } from '../src/app/routing';
-import { t } from '../src/shared/i18n';
+import { t } from '../src/shared/i18n/extended';
 test('loads the production build under the Pages base path without external requests', async ({
   page,
   baseURL,

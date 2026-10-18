@@ -18,7 +18,7 @@ import { VisuallyHidden } from '../../ui/VisuallyHidden';
 import { snackbarQueue } from '../../ui/snackbarQueue';
 import { useSpring } from '../../ui/useSpring';
 import type { SelectOption } from '../../ui/Select';
-import { t } from '../../shared/i18n';
+import { t } from '../../shared/i18n/extended';
 import { useAppStore } from '../../shared/store';
 import { useSettingsStore } from '../../shared/settingsStore';
 import { useModeHistory } from '../../shared/useModeHistory';
