@@ -14,6 +14,7 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
     target: 'normal',
   });
   let current: 'a' | 'b' = 'a';
+  const fetchEvidence: unknown[] = [];
   const controlChecks: { scriptURL: string; state: string }[] = [];
   const requests: { path: string; build: string; mode: string | undefined }[] =
     [];
@@ -88,6 +89,7 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
         body: JSON.stringify({
           url: response.url(),
           status: response.status(),
+          fromServiceWorker: response.fromServiceWorker(),
           headers: response.headers(),
           body,
           controlChecks,
@@ -99,8 +101,8 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
       expect(response.headers()['content-type']).toContain('application/json');
       expect(await response.json()).toEqual(expected(label));
     };
-    const normalFetch = () =>
-      page.evaluate(async (url) => {
+    const normalFetch = async () => {
+      const result = await page.evaluate(async (url) => {
         const response = await fetch(url);
         return {
           status: response.status,
@@ -108,6 +110,9 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
           json: await response.json(),
         };
       }, url);
+      fetchEvidence.push(result);
+      return result;
+    };
     await page.goto(`${base}#/simple`);
     await expect(page.locator('.simple-calculator')).toBeVisible();
     await controlled();
@@ -129,6 +134,20 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
     expect(requests.filter((r) => r.path.endsWith('/build-info.json'))).toEqual(
       [],
     );
+    // Keep A controlling an app document even while page visits native JSON/error views.
+    // Otherwise a browser may legitimately activate waiting B when the last A client leaves.
+    const anchor = await context.newPage();
+    await anchor.goto(`${base}#/simple`);
+    await anchor.waitForFunction(
+      () => navigator.serviceWorker.controller?.state === 'activated',
+    );
+    await expect(anchor.locator('meta[name="ap29-fixture"]')).toHaveAttribute(
+      'content',
+      'a',
+    );
+    expect(requests.filter((r) => r.path.endsWith('/build-info.json'))).toEqual(
+      [],
+    );
     // An out-of-scope document has no controller and can really warm the HTTP cache.
     // The first uncontrolled request is setup only; all regression assertions use page.
     const warmer = await context.newPage();
@@ -143,9 +162,22 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
       r.path.endsWith('/build-info.json'),
     ).length;
     expect(await warm()).toEqual(expected('a'));
-    expect(
-      requests.filter((r) => r.path.endsWith('/build-info.json')).length,
-    ).toBe(warmedRequests);
+    const repeatedRequests = requests.filter((r) =>
+      r.path.endsWith('/build-info.json'),
+    ).length;
+    const httpCacheWarmup = {
+      warmedRequests,
+      repeatedRequests,
+      cacheHit: repeatedRequests === warmedRequests,
+    };
+    // Chromium provides the HTTP-cache regression. Some ephemeral WebKit sessions
+    // do not cache this response; still run the full SW-cache/navigation/offline case.
+    if (browser.browserType().name() === 'chromium')
+      expect(httpCacheWarmup.cacheHit).toBe(true);
+    await info.attach('http-cache-warmup', {
+      body: JSON.stringify(httpCacheWarmup),
+      contentType: 'application/json',
+    });
     await warmer.close();
     expect(await normalFetch()).toEqual({
       status: 200,
@@ -253,6 +285,8 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
         {
           browser: browser.version(),
           controlChecks,
+          fetchEvidence,
+          httpCacheWarmup,
           cachesA,
           cachedUrls,
           offlineFetch,

@@ -1,6 +1,7 @@
 import { build } from 'vite';
 import { spawnSync } from 'node:child_process';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile, readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 
 // Synthetic provenance, never a claim about two historical source revisions.
 export const commits = { a: 'a'.repeat(40), b: 'b'.repeat(40) };
@@ -39,7 +40,13 @@ export default async function prepare() {
         ],
         { env: process.env, encoding: 'utf8' },
       );
+      const digest = async (file) =>
+        createHash('sha256')
+          .update(await readFile(`${directory}/${file}`))
+          .digest('hex');
       results.push({
+        workerSha256: await digest('sw.js'),
+        htmlSha256: await digest('index.html'),
         label,
         sourceCommit: sha ?? null,
         status: result.status,
@@ -49,6 +56,10 @@ export default async function prepare() {
       if (result.status !== 0)
         throw Error(`Build-target check failed for ${label}: ${result.stderr}`);
     }
+    const a = results.find((result) => result.label === 'a');
+    const b = results.find((result) => result.label === 'b');
+    if (a.workerSha256 === b.workerSha256 || a.htmlSha256 === b.htmlSha256)
+      throw Error('Fixture builds must have distinct HTML and workers');
     const mismatch = spawnSync(
       process.execPath,
       ['scripts/check-build-target.mjs', 'test-results/ap29-builds/a'],
