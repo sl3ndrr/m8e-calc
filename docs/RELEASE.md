@@ -34,7 +34,8 @@ Die CI erzeugt Release-Bilder als separates Artefakt zur Reproduktion.
 
 - LICENSE: MIT und Copyright-Inhaber vom Repository-Eigentümer bestätigen lassen;
   anderenfalls den Entwurf anpassen. Drittanbieter-Lizenzen gelten weiter.
-- Release-PR reviewen; `npm run check`, Chromium-Smoke und QA grün prüfen.
+- Release-PR reviewen; den tatsächlichen abschließenden `Quality gate` des
+  finalen PR-Heads prüfen (Vertrag und echte Checknamen: [AP31.md](AP31.md)).
 - Nach Merge das erfolgreiche Pages-Deployment und die tatsächliche Live-Seite
   prüfen. Manuelle/physische Restabnahmen im [QA-Bericht](QA_REPORT.md) beachten.
 - Erst danach `v1.0.0` taggen, das tatsächliche Datum und Vergleichslinks im
@@ -50,7 +51,7 @@ Integrations- und Abnahmestand: [AP25.md](AP25.md).
 
 ## Dokumentation prüfen
 
-`node scripts/check-release-docs.mjs` prüft lokale Markdown-Verweise und alle dokumentierten `npm run`-Befehle gegen package.json. Mit `--external` werden zusätzlich externe Markdown-Links per GET geprüft (30 s Timeout je URL, Redirect-Ziel im Log). Die Release-Assets-CI führt diese externe Prüfung aus. Ein HTTP-200 allein beweist nicht, dass ein weitergeleitetes Dokument noch denselben Inhalt hat; Quellenänderungen werden zusätzlich redaktionell geprüft.
+`node scripts/check-release-docs.mjs` prüft lokale Markdown-Verweise und alle dokumentierten `npm run`-Befehle gegen package.json. Mit `--external` werden zusätzlich externe Markdown-Links per GET geprüft (30 s Timeout je URL, Redirect-Ziel im Log). Der vom CI-Orchestrator aufgerufene Release-Assets-Job führt diese externe Prüfung auf PRs und main aus. Sie bleibt blockierend: Ein Quellenfehler sperrt den Qualitätsstatus und damit die Veröffentlichung, auch wenn der Produktbuild selbst korrekt ist. Ein HTTP-200 allein beweist nicht, dass ein weitergeleitetes Dokument noch denselben Inhalt hat; Quellenänderungen werden zusätzlich redaktionell geprüft.
 
 Beim Linkabgleich am 14.10.2026 wurden der verschobene NIST-Handbook-Link, die IAU-2015-PDF und die NASA-SP-367-Weiterleitung ersetzt. Die FDA-Quelle verweist jetzt auf den offiziellen HHS-Katalogeintrag, weil FDA den CI-Client auf eine Missbrauchserkennungsseite umleitete. Der ISO-2533-Katalogeintrag wurde unabhängig über die offizielle ISO-Seite bestätigt; dort erhält der CI-Client HTTP 403. Auch der HHS-Katalogeintrag wurde unabhängig auf der offiziellen Seite bestätigt und beantwortet den CI-Client mit HTTP 403. Nur diese beiden exakt dokumentierten URL/Status-Kombinationen sind im Prüfer als manuell verifiziert markiert, nicht als erfolgreiche HTTP-Tests. Die Live-URL lieferte HTTP 200; das ersetzt keine vollständige manuelle Pages-Abnahme.
 
@@ -109,3 +110,49 @@ Server/CDN können weiterhin einen alten oder inkonsistenten Deploy ausliefern;
 SHA-Abgleich muss solche Abweichungen ablehnen. Preview-/CI-Erfolg wird nicht
 als bestandener Live-Abruf ausgegeben. Ältere Bilder bleiben ihrem ursprünglichen
 Build zugeordnet; bisherige Live-Grenzen aus [AP25.md](AP25.md) bleiben dokumentiert.
+
+## Gemeinsame CI-/Pages-Kette (AP31)
+
+Nur `.github/workflows/ci.yml` startet PR-/main-Prüfungen und nach erfolgreicher
+main-Freigabe Pages. Die bisherigen unabhängigen Pages-Prüfungen entfallen;
+Hardening, AP29 und Release-Assets werden als wiederverwendbare Jobs aufgerufen.
+`npm run check` baut einmal normal. Alle aktuellen Verbraucher prüfen den vom
+Buildjob ausgegebenen Fingerprint und alle Dateien vor und nach ihren Tests.
+Historische QA-/AP28-Vergleichsbuilds und AP29-Fixtures bleiben getrennte Belege
+und werden nicht veröffentlicht. Galerie schreibt ausschließlich `dist-gallery/`.
+
+`checked-normal-<run>-<attempt>` enthält `dist/` und `build-proof.json`: Repository,
+Commit, Ref, Ereignis, Lauf/Versuch, Ziel `normal`, Base-Pfad und SHA-256 jeder
+Datei. Der Fingerprint ist der SHA-256 der kanonisch geordneten Belegdaten;
+er identifiziert die geprüften Bytes, keine externe Signatur. Vertrauen entsteht
+zusätzlich durch unveränderliche Artefakt-ID aus demselben Workflow und den
+über Jobausgaben weitergereichten erwarteten Fingerprint. Kein erneuter
+Produktionsbuild für den Upload. Das Pages-TAR wird wieder entpackt und vollständig
+gegen diesen Beleg geprüft, dann unverändert als eigenes Pages-Artefakt hochgeladen.
+Der Deployjob kontrolliert dessen TAR-SHA-256 nochmals vor dem Pages-Aufruf.
+
+Standardberechtigung `contents: read`; nur `Deploy Pages` erhält Pages/OIDC-Write.
+Dieser Job akzeptiert ausschließlich `push` auf aktuelles upstream `main`,
+erfolgreichen `Quality gate` und das Artefakt dieses Laufs. Kein PR-/Fork-Deployment,
+kein `workflow_run`, keine manuelle Dispatch-/SHA-Eingabe. Main-Läufe und der
+Pages-Job sind ohne Abbruch serialisiert; unmittelbar vor dem Deploy-API-Aufruf
+wird `refs/heads/main` erneut gelesen. Ein alter Rerun nach neuerem main wird
+abgewiesen. Ein während eines bereits gestarteten Deploys eintreffender Push
+wartet in derselben Reihenfolge; ein älterer Deploy kann keinen neueren überholen.
+Fehlschläge lassen die zuletzt veröffentlichte Seite bestehen.
+
+Nach späterem Merge ausdrücklich separat prüfen und in AP31 nachtragen:
+
+1. Tatsächlichen main-SHA und zugehörigen CI-Lauf aufzeichnen; alle Pflichtjobs
+   und `Quality gate` müssen erfolgreich sein. PR-Merge-Ref und main-SHA unterscheiden.
+2. Build-Artefakt-ID, Fingerprint, `build-info.json`, Pages-Artefakt-ID und TAR-Hash
+   desselben Laufs abgleichen; erfolgreicher `Deploy Pages` muss genau daran hängen.
+3. Die reale Pages-/Environment-URL und den netzgebundenen Buildnachweis im
+   kontrollierten Produktionstab wie oben prüfen. UI-/Update-/Offlineabnahme separat.
+4. Erst dann die Kette als erfolgreich dokumentieren. Ein grüner AP31-PR nimmt
+   keinen dieser Schritte vorweg. Regeln, Tag, Release und Merge bleiben manuell.
+
+Rulesets später ausschließlich mit aus GitHub ausgelesenen Checknamen konfigurieren;
+die beobachteten Namen stehen in AP31. Keine bedingten historischen Evidence-Jobs
+pauschal verlangen. Bei abweichender Laufversuchsnummer den kompletten CI-Workflow
+neu ausführen; ein Teil-Rerun darf ältere Artefakte nicht stillschweigend übernehmen.

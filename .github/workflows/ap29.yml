@@ -1,29 +1,43 @@
 name: AP29 build provenance
 on:
-  pull_request:
-    branches: [main]
+  workflow_call:
+    inputs:
+      build-artifact-id:
+        required: true
+        type: string
+      fingerprint:
+        required: true
+        type: string
 permissions:
   contents: read
-concurrency:
-  group: ap29-${{ github.ref }}
-  cancel-in-progress: true
+env:
+  BUILD_FINGERPRINT: ${{ inputs.fingerprint }}
 jobs:
   evidence:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - run: npm run build
+      # No token/repository/run-id override: only this workflow run, by producer ID.
+      - uses: actions/download-artifact@v8
+        with:
+          merge-multiple: true
+          artifact-ids: ${{ inputs.build-artifact-id }}
+      - run: node scripts/ci/build-proof.mjs verify
+      - run: node scripts/check-build-target.mjs dist normal
       - run: npx playwright install --with-deps chromium firefox webkit
       - name: Controlled production browser regression and existing PWA cases
         env:
-          AP29_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          AP29_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
           PLAYWRIGHT_JSON_OUTPUT_NAME: test-results/ap29/results.json
         run: npx playwright test --config=playwright.ap29.config.ts --reporter=list,json
+      - run: node scripts/ci/build-proof.mjs verify
       - uses: actions/upload-artifact@v7
         if: always()
         with:

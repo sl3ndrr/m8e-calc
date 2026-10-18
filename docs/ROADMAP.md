@@ -105,8 +105,16 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       mit zwei Builds/Offlinefehler. Vertrag/Nachweise: [AP29.md](AP29.md).
       Die Live-Abnahme des konkreten Pages-Deploys bleibt getrennt.
 
-- [ ] 30 Startbudget — `feat/ap30-startup-budget`, PR #46: direkte Engine-Imports
+- [x] 30 Startbudget — `feat/ap30-startup-budget`, PR #46 integriert (`5f4f312`): direkte Engine-Imports
       für Einfach und typisierte synchrone i18n-Einstiege für Startpfad bzw.
       bestehende Lazy-Bereiche. Arbeitsziel ≤190.000 Byte gzip bei unveränderter
       Entry-/Einfach-Messdefinition; hartes Gate weiterhin <200.000 Byte.
       Vergleich mit integriertem AP28/AP29 und Abnahme: [AP30.md](AP30.md).
+
+- [ ] 31 CI-/Pages-Freigabepfad — `feat/ap31-ci-pages-gate`: ein gemeinsamer
+      Qualitätsstatus für PR/main, ein normaler Produktionsbuild und durchgängige
+      Commit-/Artefakt-/Fingerprintbindung bis Pages. Pflicht-QA einschließlich
+      AP28/AP29, Galerie und Release-Quellenprüfung; bedingte Paketnachweise separat.
+      Umsetzung und tatsächliche Läufe: [AP31.md](AP31.md). Erste reale main-/Pages-
+      Kette und Live-Abnahme erst nach späterem Merge; keine Regeländerung oder
+      automatische Veröffentlichung in diesem Paket.
