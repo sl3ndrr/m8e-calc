@@ -1,5 +1,7 @@
 # m8e-calc
 
+Geprüfter Integrationsstand, Pages-SHA und offene Freigaben: [Status / AP38](docs/AP38.md).
+
 Ein Taschenrechner für den Desktop-Browser: vom schnellen Dreisatz bis zu wissenschaftlichen Ausdrücken, Einheiten und interaktiven Funktionsgraphen. m8e-calc rechnet lokal, benötigt kein Konto und bietet eine deutsche und englische Oberfläche.
 
 **[Jetzt im Browser öffnen](https://sl3ndrr.github.io/m8e-calc/)** · [Dokumentation](docs/ARCHITECTURE.md) · [Änderungen](CHANGELOG.md)
@@ -11,18 +13,24 @@ Ein Taschenrechner für den Desktop-Browser: vom schnellen Dreisatz bis zu wisse
 | **Einfach**          | Grundrechenarten, Prozent, Vorzeichen, Speicher und Tastaturbedienung für alltägliche Rechnungen.                                                                                                                                |
 | **Wissenschaftlich** | Ausdruckseditor mit Vorschlägen, DEG/RAD/GRAD, komplexe Zahlen, Konstanten, Variablen und eigene Funktionen; Summen, Integrale und Ableitungen. Informatik-Panel mit BigInt-Wörtern, Bitraster, Zahlbasen, IEEE-754 und Unicode. |
 | **Umrechner**        | 286 Einheiten in 32 Kategorien, Suche, Favoritenpaare, beidseitige Eingabe und Schnelleingaben wie `5 km in mi` oder `3 ft 4 in`.                                                                                                |
-| **Graphen**          | Explizite, parametrische und polare 2D-Kurven, Parameterslider, Pan/Zoom, Trace, Nullstellen, Extrema, Schnittpunkte, Tangenten, Integrale, Wertetabellen und PNG-Export.                                                        |
+| **Graphen**          | Explizite, parametrische, polare und implizite 2D-Konturen, Parameterslider, Pan/Zoom und PNG-Export; Trace, Analysis und Wertetabellen für die unterstützten 1D-Kurven.                                                        |
 
 Alle Modi teilen Verlauf mit Suche, Pins und JSON-Export, Befehlspalette, Permalinks und Einstellungen. Hell/System/Dunkel, Akzentfarbe, UI-Größe und Präsentationsmodus passen die Arbeitsfläche an. Nach dem ersten vollständigen Laden ist die App offline nutzbar; unterstützte Browser bieten eine PWA-Installation an.
 
-Numerische Analysis ist näherungsweise. Genauigkeitsgrenzen stehen in [ENGINE.md](docs/ENGINE.md) und [GRAPH.md](docs/GRAPH.md). Implizite Kurven bleiben Folgearbeit. Optionale EZB-Währungskurse sind nach
+Numerische Analysis ist näherungsweise. Implizite Gleichungen wie `x^2+y^2=4`
+werden als Konturen dargestellt (AP26/AP27). Implizite Analysis, Trace und
+mehrwertige Tabellen werden bewusst nicht angeboten. Fit nutzt die stabile
+Abtastbasis als begrenzte Ansicht; kleine oder tangentiale Komponenten können
+fehlen. Es gibt keine universelle Vollständigkeits- oder Topologiegarantie.
+Genauigkeitsgrenzen: [ENGINE.md](docs/ENGINE.md), [GRAPH.md](docs/GRAPH.md)
+und [AP27.md](docs/AP27.md). Optionale EZB-Währungskurse sind nach
 ausdrücklichem Opt-in verfügbar; ohne Zustimmung erfolgen keine Währungsrequests.
 
 ## Screenshots
 
 Dokumentationsaufnahmen aus der Releasevorbereitung AP16 mit deutschen
 Beispielrechnungen, jeweils **2560 × 1440**, reproduzierbar mit `npm run screenshots`.
-Aktuelle Abnahmebilder und ihr geprüfter SHA: [AP25](docs/AP25.md).
+Historische AP25-Abnahmebilder und ihr geprüfter SHA: [AP25](docs/AP25.md).
 Weitere Modi: [Bildverzeichnis](docs/img).
 
 | Hell                                                                          | Dunkel                                                                        |
@@ -120,7 +128,7 @@ Requests an den Frankfurter-EZB-Endpunkt. Beträge und Verlauf bleiben lokal;
 Währungsberechnungen sind derzeit von Verlauf und Permalinks ausgeschlossen;
 versionierte Snapshots bleiben Folgearbeit. Cache, Offline-Fallback und
 Zustimmungsentzug sind dokumentiert in
-[UNITS.md](docs/UNITS.md). Aktueller Integrations-/Abnahmestand: [AP25](docs/AP25.md).
+[UNITS.md](docs/UNITS.md). Aktueller Integrations-/Abnahmestand: [AP38](docs/AP38.md).
 
 ## Build und Deployment prüfen
 
@@ -143,4 +151,4 @@ Die zugehörigen Bibliotheken und Fonts behalten ihre eigenen Lizenzen. MIT ist 
 
 ## English
 
-m8e-calc is a private, local-first desktop browser calculator with four modes: simple, scientific (including programmer tools), unit conversion and interactive 2D graphs. It supports German and English, light/dark themes, history, shareable links and offline use. No account, trackers or external calculation services are required. Optional ECB reference rates are fetched only after explicit consent; without opt-in there are no currency requests. [Try the live app](https://sl3ndrr.github.io/m8e-calc/). To develop locally, use Node 24, run `npm ci` and `npm run dev`; validate with `npm run check`. The proposed MIT license awaits the repository owner's confirmation.
+m8e-calc is a private, local-first desktop browser calculator with four modes: simple, scientific (including programmer tools), unit conversion and interactive 2D graphs, including bounded implicit contours. Implicit analysis, trace and multivalued tables are unavailable; fit uses a stable sampling basis and completeness is not guaranteed. It supports German and English, light/dark themes, history, shareable links and offline use. No account, trackers or external calculation services are required. Optional ECB reference rates are fetched only after explicit consent; without opt-in there are no currency requests. [Try the live app](https://sl3ndrr.github.io/m8e-calc/). To develop locally, use Node 24, run `npm ci` and `npm run dev`; validate with `npm run check`. The proposed MIT license awaits the repository owner's confirmation.
