@@ -18,9 +18,7 @@ it('updates seeds and customization, with color reset preserving appearance and 
   );
   const iris = await screen.findByRole('button', { name: 'Iris' });
   await waitFor(() => expect(iris).toHaveFocus());
-  await user.click(
-    await screen.findByRole('button', { name: 'Koralle' }),
-  );
+  await user.click(await screen.findByRole('button', { name: 'Koralle' }));
   expect(useSettingsStore.getState().accent).toBe('#e2675a');
   await user.click(screen.getByRole('button', { name: /Schema-Variante/ }));
   await user.click(screen.getByRole('option', { name: 'Lebendig' }));
