@@ -76,7 +76,7 @@ Datenfluss: Benutzereingabe → reine UI-Funktion/Reducer → Domäne → Ergebn
 ## Konventionen und verbindliche Regeln
 
 1. **Datenschutz:** Keine externen Requests zur Laufzeit außer der ausdrücklich beauftragten AP17-Währungsumrechnung: `onlineRates` ist standardmäßig aus; ausschließlich der Schalter „Online-Kurse laden“ erteilt Zustimmung. Ohne Opt-in weder Währungskategorie noch Requests. Nur `https://api.frankfurter.dev/v2/providers/ecb/rates` ist über CSP freigegeben; keine Beträge, kein Verlauf, keine Credentials und kein Referer werden übertragen. Importierte Einstellungen erteilen keine Netzwerkzustimmung. Assets lokal ausliefern, Fonts selbst hosten; bis dahin Systemfonts. Keine CDNs, Analytics oder entfernten Rechenservices. Entwicklungs- und CI-Paketdownloads sind davon getrennt.
-2. **i18n:** Alle UI-Texte einschließlich Titel, ARIA-Beschriftungen und Fehlermeldungen über i18n-Schlüssel, niemals hartkodiert. `de` ist Fallback, Auto erkennt `navigator.language`; `en` vollständig pflegen. `MessageKey` wird aus `src/shared/i18n/de.ts` abgeleitet, neue Texte in beiden Dictionaries ergänzen. Technische Fehler für Entwickler dürfen außerhalb sichtbarer UI stehen.
+2. **i18n:** Alle UI-Texte einschließlich Titel, ARIA-Beschriftungen und Fehlermeldungen über i18n-Schlüssel, niemals hartkodiert. `de` ist Fallback, Auto erkennt `navigator.language`; `en` vollständig pflegen. Die vollständige Schlüsselmenge wird aus `src/shared/i18n/de.ts` inklusive Core abgeleitet; `MessageKey` des jeweiligen i18n-Einstiegs begrenzt Aufrufer auf seine vorhandenen Texte. Neue Texte in beiden Dictionaries ergänzen. Technische Fehler für Entwickler dürfen außerhalb sichtbarer UI stehen.
 3. **Tokens:** Keine Farbwerte in Komponenten oder Feature-CSS; Farben ausschließlich über `--md-sys-color-*`. Formen und Bewegung ausschließlich über Shape- und Motion-Tokens (`--md-sys-shape-*`, `--md-sys-motion-*`). Tokenwerte zentral in `src/styles`. `prefers-reduced-motion` respektieren. AP2 liefert zentrale Farbrollen, Typografie, Shape- und Spring-Tokens; `npm run tokens` regeneriert `src/styles/tokens.css`. Neue Icons erfordern Font-Subsetting gemäß `docs/DESIGN.md`; AP3 liefert die Komponenten; AP4 nutzt die Registry in `src/app/modeRegistry.ts`, `useModeHistory(mode, onRestore)` und versionierten Verlauf (maximal 500); öffentliche API und Beispiele stehen in `docs/COMPONENTS.md`. Neue Modus-UI verwendet die Bausteine aus `src/ui`; direkte öffentliche Komponentenimporte erhalten Lazy-Grenzen, `index.ts` bleibt für Galerie und Kompatibilität verfügbar.
 4. **Tests und Logik:** Jede Logik bekommt Tests. UI-Logik als reine Funktionen/Reducer, getrennt von Komponenten. Komponenten orchestrieren Rendering und Browseradapter. Vitest für Logik, Testing Library für UI-Verhalten, fast-check für sinnvolle Eigenschaften, Playwright für Integration im Browser. Keine Rechenengine als Nebenaufgabe hinzufügen.
 5. **Barrierefreiheit:** Vollständige Tastaturbedienung, sichtbarer Fokus, semantisches HTML und geeignete ARIA-Beschriftungen; Text- und Fokuskontrast prüfen. Animationen dürfen Bedienung nicht blockieren.
@@ -140,53 +140,7 @@ im wissenschaftlichen Tastenfeld. Konzept und reproduzierbare Browsernachweise:
 
 Checkbox-Markierungen haben einen lokalen Größenvertrag; das generische
 Iconsystem bleibt unverändert. ThemeSwitch behält drei Hauptsymbole und den
-zugänglichen Live-Systemstatus. Reproduzierbare Zustands-/Zoom-/Motionprüfungen
-und Nachweisstatus stehen in [docs/AP20.md](docs/AP20.md).
-
-## AP22 · Graphzahlen
-
-`src/features/graph/numbers.ts` formatiert gezielt Float64-Graphwerte und adaptiert
-`parseLocalizedNumber` für einzelne numerische Felder. Keine pauschale Änderung
-an Rechnerformaten oder Formelausdrücken. Rundung ist reiner Anzeigezustand;
-Plot-Version 1, Settings und Permalinks bleiben unverändert. `ValueTable` trennt
-Berechnungsmemo von Formatierung und wird nur geöffnet eingebunden. Vertrag,
-Bestätigung und Arbeitsgrenzen stehen in `docs/GRAPH_MODE.md`.
-
-## AP23 · Internes Designlab
-
-`npm run build` erzeugt ausschließlich die Anwender-App in `dist/`.
-`npm run dev` aktiviert das interne Lab; `npm run build:gallery` ist der explizite
-Galerie-Testbuild in `dist-gallery/`, Preview mit `npm run preview:gallery` auf
-Port 4174. Niemals Galerie nach `dist/` bauen oder als Pages-Artefakt hochladen.
-`npm run test:e2e:gallery` führt die vollständigen Lab-/Theming-/Controlsprüfungen
-separat aus. Normale E2E, PWA, Bundle und Releasebilder prüfen weiter `dist/`.
-Der Compile-Schalter ist keine Anwenderoption. Neue Demoimporte bleiben hinter
-dieser Grenze; gemeinsam benötigte UI-Komponenten erhalten direkte Imports.
-Nachweise, Messdefinitionen und Reproduktion: [docs/AP23.md](docs/AP23.md).
-
-## AP24 · Dependency-Wartung
-
-Paketmatrix und Verfahren: [docs/AP24.md](docs/AP24.md). Node 24 und die passende
-24er-Typenlinie beibehalten. ESLint und `@eslint/js` gemeinsam auf der mit allen
-Plugins kompatiblen Linie halten; keine Peer-Overrides oder Abschaltung von
-Accessibility-Regeln. Dependabot gruppiert Patch/Minor nach Toolchain und
-Runtime; visuell sensible Pakete und unabhängige Majors erhalten eigene PRs.
-Security-Updates bleiben aktiv. Neue Lockfiles regulär mit Node 24/npm erzeugen,
-anschließend frisches `npm ci`, `check` und die betroffenen CI-/QA-Gates ausführen.
-Fontquellen-Updates regenerieren die eingecheckten Subsets nicht automatisch;
-Font-Regeneration und visuelle Referenzänderungen erfordern gezieltes Review.
-
-## AP25 · Produktabnahme
-
-Bestehende AP18–AP24-Regressionen werden in den drei Browserprojekten
-weiterverwendet; die integrierte Desktopmatrix und der echte
-Service-Worker-Lebenszyklus ergänzen sie. Der Update-Test verwendet eine explizite
-vorherige Cache-Identität desselben Produktionsworkers, keinen behaupteten alten
-Deploy. Chromium prüft die OS-Zwischenablage; Firefox/WebKit verwenden für
-Textkopierverträge einen gekennzeichneten In-Memory-Adapter. Native Paste- und
-PNG-Zwischenablage bleiben Chromium-Prüfungen.
-Feature-/Controls-Zustandsprüfungen blockieren den SW; integrierte Matrix,
-Comfort-Offline und PWA-Update behalten den echten Worker. Ein sichtbarer, aktiver
+zugänglichen Li…738 tokens truncated…barer, aktiver
 CodeMirror-Vorschlag ist Voraussetzung vor Tab; erhaltener Tooltiptext allein
 belegt keine Bereitschaft. Die Standard-Completion-Keymap liegt unter den
 Rechneraktionen: Escape leert, Enter wertet aus, auch bei offenen Vorschlägen.

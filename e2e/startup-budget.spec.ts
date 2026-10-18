@@ -75,12 +75,14 @@ for (const locale of ['de-DE', 'en-US']) {
       expect(startup.firstUsable).toBeGreaterThan(0);
       expect(startup.cls).toBe(0);
       const settingsName = locale === 'de-DE' ? 'Einstellungen' : 'Settings';
+      const settingsStart = Date.now();
       await page
         .getByRole('button', { name: settingsName, exact: true })
         .click();
       await expect(
         page.getByRole('dialog', { name: settingsName, exact: true }),
       ).toBeVisible();
+      const firstSettingsMs = Date.now() - settingsStart;
       await expect(
         page.getByRole('switch', {
           name: locale === 'de-DE' ? 'Online-Kurse laden' : 'Load online rates',
@@ -91,16 +93,13 @@ for (const locale of ['de-DE', 'en-US']) {
         page.getByRole('button', { name: settingsName, exact: true }),
       ).toBeFocused();
       expect(errors).toEqual([]);
-      const graph = JSON.parse(
-        readFileSync('test-results/ap23/modules-normal.json', 'utf8'),
-      ) as { file: string; modules: string[] }[];
       const evidence = {
         sha: process.env.AP30_SOURCE,
         locale,
         project: info.project.name,
         ...startup,
+        firstSettingsMs,
         scripts: [...expected].sort(),
-        loadedModules: graph.filter((chunk) => expected.has(chunk.file)),
       };
       const output = `test-results/ap30/${process.env.AP30_PHASE ?? 'after'}`;
       mkdirSync(output, { recursive: true });

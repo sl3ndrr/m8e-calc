@@ -34,7 +34,7 @@ jobs:
           export AP30_SOURCE="$GITHUB_SHA"
           npm run build
           node scripts/ap30-measure.mjs "$GITHUB_WORKSPACE/test-results/ap30/before"
-          AP30_PHASE=before npx playwright test e2e/startup-budget.spec.ts --project=chromium --workers=1
+          AP30_PHASE=before npx playwright test e2e/startup-budget.spec.ts --project=chromium --workers=1 --output="$RUNNER_TEMP/ap30-before-browser"
           cp test-results/ap30/before/startup-*.json "$GITHUB_WORKSPACE/test-results/ap30/before/"
       - name: Measure head with identical commands and compression
         env:
@@ -43,7 +43,7 @@ jobs:
         run: |
           npm run build
           node scripts/ap30-measure.mjs test-results/ap30/after
-          AP30_PHASE=after npx playwright test e2e/startup-budget.spec.ts --project=chromium --workers=1
+          AP30_PHASE=after npx playwright test e2e/startup-budget.spec.ts --project=chromium --workers=1 --output="$RUNNER_TEMP/ap30-after-browser"
       - name: Gallery is separate and rejected as production input
         run: |
           sha256sum dist/index.html dist/sw.js > "$RUNNER_TEMP/ap30-normal.sha256"
