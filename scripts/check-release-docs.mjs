@@ -48,6 +48,7 @@ export async function checkExternalUrl(
       (entry) =>
         entry.url === url &&
         entry.status === response.status &&
+        !response.redirected &&
         response.url === url,
     );
     if (response.ok) {

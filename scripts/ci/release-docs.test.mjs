@@ -16,6 +16,14 @@ test('real local HTTP: success, redirect, hard errors, transient errors and exac
   const server = createServer((req, res) => {
     const n = (calls.get(req.url) ?? 0) + 1;
     calls.set(req.url, n);
+    if (req.url === '/roundtrip' && n === 1) {
+      res.writeHead(302, { Location: '/roundtrip-back' });
+      return res.end();
+    }
+    if (req.url === '/roundtrip-back') {
+      res.writeHead(302, { Location: '/roundtrip' });
+      return res.end();
+    }
     if (req.url === '/disconnect') return req.socket.destroy();
     if (req.url === '/timeout') return; // Closed explicitly in cleanup.
     if (req.url === '/redirect' || req.url === '/redirect-block') {
@@ -28,6 +36,7 @@ test('real local HTTP: success, redirect, hard errors, transient errors and exac
           '/missing': 404,
           '/bad': 400,
           '/blocked': 403,
+          '/roundtrip': 403,
           '/blocked-other': 403,
           '/limited': 429,
           '/transient': n === 1 ? 503 : 200,
@@ -79,6 +88,7 @@ test('real local HTTP: success, redirect, hard errors, transient errors and exac
   assert.equal(reviewed.httpPassed, false);
   assert.deepEqual(reviewed.manualReview, review);
   for (const [path, entry] of [
+    ['/roundtrip', { ...review, url: `${base}/roundtrip` }],
     ['/blocked-other', review],
     ['/blocked?query=1', review],
     ['/blocked', { ...review, status: 400 }],
