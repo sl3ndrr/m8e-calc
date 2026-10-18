@@ -248,6 +248,6 @@ Befund, reale Läufe und Abschlussgrenzen: [docs/AP32.md](docs/AP32.md).
 
 Die Farbauswahl hält den Popover-Rahmen auch beim kalten Lazy-Import geöffnet;
 Suspense ersetzt nur den Inhalt durch einen zugänglichen Ladedialog. Escape
-muss während des Ladens schließen, der fertige Dialog fokussiert „Iris“ über
-React Aria `autoFocus`. Kontrollierte Modulverzögerung in
+muss während des Ladens schließen, der fertige Dialog fokussiert „Iris“ erst
+nach dem Mount des Inhalts. Kontrollierte Modulverzögerung in
 `e2e/accent-picker.spec.ts` prüft Kaltstart und Wiederöffnen in drei Engines.

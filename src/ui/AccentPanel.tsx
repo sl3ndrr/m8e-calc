@@ -1,4 +1,4 @@
-import { useId, type CSSProperties } from 'react';
+import { useEffect, useId, useRef, type CSSProperties } from 'react';
 import { Dialog as AriaDialog } from 'react-aria-components';
 import { useSettingsStore } from '../shared/settingsStore';
 import { useAppStore } from '../shared/store';
@@ -22,6 +22,10 @@ import { Select } from './Select';
 import './AccentPicker.css';
 export default function AccentPanel({ onClose }: { onClose: () => void }) {
   const id = useId();
+  const firstSeed = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    firstSeed.current?.focus();
+  }, []);
   const settings = useSettingsStore();
   const locale = useAppStore((state) => state.locale);
   const isDark = resolveDark(settings.themeMode, useSystemDark());
@@ -61,7 +65,7 @@ export default function AccentPanel({ onClose }: { onClose: () => void }) {
           return (
             <Button
               className="seed"
-              autoFocus={index === 0}
+              ref={index === 0 ? firstSeed : undefined}
               variant="text"
               isSelected={settings.accent === hex}
               type="button"
