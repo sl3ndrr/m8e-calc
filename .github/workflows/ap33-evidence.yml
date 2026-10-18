@@ -31,3 +31,19 @@ jobs:
           cat package/package.json
           sed -n '1,90p' package/dynamiccolor/color_spec_2025.js
           node --input-type=module -e "try { await import('./package/index.js'); console.log('AP33_NATIVE_IMPORT=success') } catch (e) { console.log('AP33_NATIVE_IMPORT=' + e.code + ': ' + e.message) }"
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Check local documentation and pipeline contracts
+        run: |
+          node scripts/check-release-docs.mjs
+          node --test scripts/ci/*.test.mjs
+      - name: Format only AP33 documentation and report exact contents
+        run: |
+          npx --yes prettier@3.9.10 --write docs/AP24.md docs/AP33.md docs/ROADMAP.md docs/ap33-package-metadata.json
+          node --input-type=module <<'NODE'
+          import { readFileSync } from 'node:fs';
+          for (const path of ['docs/AP24.md', 'docs/AP33.md', 'docs/ROADMAP.md', 'docs/ap33-package-metadata.json']) {
+            console.log('AP33_FORMATTED=' + JSON.stringify({path,content:readFileSync(path,'utf8')}));
+          }
+          NODE
