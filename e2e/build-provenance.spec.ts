@@ -249,6 +249,10 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
     const missing = await page.goto(`${base}missing-proof.json`);
     expect(missing?.status()).toBe(404);
     expect(await missing?.text()).toBe('missing technical resource');
+    await page.goto(`${base}index.html?entry=1#/scientific?e=sin(30)`);
+    await expect(
+      page.getByRole('textbox', { name: 'Ausdruck', exact: true }),
+    ).toHaveText('sin(30)');
     await controlled();
     const untouched = await page.evaluate(async (url) => {
       const outside = await fetch('/outside-base');
@@ -262,11 +266,6 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
       outside: [404, 'outside base'],
       post: [405, 'unsupported method'],
     });
-    await page.goto(`${base}index.html?entry=1#/scientific?e=sin(30)`);
-    await expect(
-      page.getByRole('textbox', { name: 'Ausdruck', exact: true }),
-    ).toHaveText('sin(30)');
-    await controlled();
     const anchorControllerUnchanged = await anchor.evaluate(
       (worker) => navigator.serviceWorker.controller === worker,
       controllerA,
