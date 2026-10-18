@@ -111,10 +111,16 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       Entry-/Einfach-Messdefinition; hartes Gate weiterhin <200.000 Byte.
       Vergleich mit integriertem AP28/AP29 und Abnahme: [AP30.md](AP30.md).
 
-- [ ] 31 CI-/Pages-Freigabepfad — `feat/ap31-ci-pages-gate`: ein gemeinsamer
+- [x] 31 CI-/Pages-Freigabepfad — `feat/ap31-ci-pages-gate`: ein gemeinsamer
       Qualitätsstatus für PR/main, ein normaler Produktionsbuild und durchgängige
       Commit-/Artefakt-/Fingerprintbindung bis Pages. Pflicht-QA einschließlich
       AP28/AP29, Galerie und Release-Quellenprüfung; bedingte Paketnachweise separat.
-      Umsetzung und tatsächliche Läufe: [AP31.md](AP31.md). Erste reale main-/Pages-
+      PR #47 ist integriert (`9180b26`). Umsetzung und tatsächliche Läufe: [AP31.md](AP31.md). Erste reale main-/Pages-
       Kette und Live-Abnahme erst nach späterem Merge; keine Regeländerung oder
       automatische Veröffentlichung in diesem Paket.
+
+- [ ] 32 Verbindlicher PR- und Qualitätsschutz — `feat/ap32-merge-protection`:
+      vorbereitet, Admin-Schritt offen. Ruleset `25003991` verlangt weiterhin
+      weder PRs noch CI; Soll: `Quality gate` von GitHub Actions und strikte
+      Zielbranchaktualität. Admin-Aktivierung sowie Rot-/Grün-/Dependabot-Abnahme
+      blockieren den Abschluss. Befund und Klickfolge: [AP32.md](AP32.md).
