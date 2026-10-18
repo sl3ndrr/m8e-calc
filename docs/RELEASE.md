@@ -56,10 +56,56 @@ Beim Linkabgleich am 14.10.2026 wurden der verschobene NIST-Handbook-Link, die I
 
 ## Technischer Produktionsnachweis
 
-Künftige Builds enthalten passiv `build-info.json` mit `sourceCommit` aus
-`GITHUB_SHA` und dem Ziel `normal`/`gallery`. Ohne CI-SHA steht dort ausdrücklich
-`null`. Die App lädt diese Datei nicht; es entstehen keine neuen Laufzeitrequests
-oder sichtbaren Entwicklerhinweise. Der Nachweis ersetzt keine UI-Abnahme.
-Nach Merge von AP25: Pages-Lauf, Deploy-SHA und direkt abgerufenes Build-Info
-abgleichen, dann genau diese Version live prüfen; ältere lokale/Live-Bilder
-nicht als Nachweis des neuen Deploys verwenden.
+Builds enthalten passiv `build-info.json` mit Schema 1, `sourceCommit` aus
+`GITHUB_SHA` und Ziel `normal`/`gallery`. Ohne gültigen CI-SHA steht dort
+`null`. Die App lädt diese Datei nicht und zeigt keine Entwickleranzeige.
+Der Worker behandelt die Datei auch bei Adresszeilen-Navigation ausschließlich
+über das Netzwerk mit `cache: 'no-store'`; offline muss der Abruf fehlschlagen.
+Kein App-Shell-Fallback, Precache oder alter Cache darf als Versionsbeleg dienen.
+Der Routingvertrag und seine echte Browserregression stehen in [AP29.md](AP29.md).
+
+Nach einem später ausdrücklich freigegebenen Merge/Deployment:
+
+1. Erfolgreichen Pages-Lauf, Deployment und den **vollständigen Build-SHA**
+   notieren. Bei PR-CI synthetischen Merge-SHA und Branch-Head unterscheiden;
+   der spätere Pages-SHA kann ein anderer sein.
+2. Online `/m8e-calc/build-info.json` direkt im bereits vom Produktionsworker
+   kontrollierten Tab aufrufen. Antwort muss echtes JSON sein, nicht nur HTTP 200.
+   `schemaVersion === 1`, `target === 'normal'` und exakte Gleichheit von
+   `sourceCommit` mit dem notierten Pages-Build-SHA verlangen. Ein anderer Commit,
+   `null`, HTML, Offlinefehler oder fehlender Nachweis bestätigt den Deploy nicht.
+3. Alternativ/zusätzlich in der Browserkonsole des kontrollierten App-Tabs prüfen
+   (den Platzhalter durch den vollständigen erwarteten SHA ersetzen):
+
+   ```js
+   const expectedCommit = 'VOLLSTAENDIGER_PAGES_BUILD_SHA';
+   const response = await fetch('/m8e-calc/build-info.json', {
+     cache: 'no-store',
+   });
+   if (
+     !response.ok ||
+     !response.headers.get('content-type')?.includes('application/json')
+   )
+     throw Error('Kein JSON-Nachweis');
+   const build = await response.json();
+   if (
+     !/^[a-f0-9]{40}$/i.test(expectedCommit) ||
+     build.schemaVersion !== 1 ||
+     build.target !== 'normal' ||
+     build.sourceCommit !== expectedCommit
+   )
+     throw Error('Deployment stimmt nicht mit erwartetem Commit überein');
+   console.log(build);
+   ```
+
+4. Eine zuvor installierte ältere Workerfassung muss zunächst regulär aktualisiert
+   werden; AP29 kann deren bereits laufenden Routingcode nicht rückwirkend ändern.
+   Ein aktueller Servernachweis allein aktualisiert den sichtbaren App-Tab nicht.
+   Updateangebot annehmen, Reload und genau diesen UI-/Offline-/Hashlinkstand
+   separat prüfen. Erst diese Abnahme mit Datum, URL, SHA und Browser dokumentieren.
+
+Die Datei ist Buildmetadatum, kein kryptografischer Beweis sämtlicher Assets.
+Server/CDN können weiterhin einen alten oder inkonsistenten Deploy ausliefern;
+SHA-Abgleich muss solche Abweichungen ablehnen. Preview-/CI-Erfolg wird nicht
+als bestandener Live-Abruf ausgegeben. Ältere Bilder bleiben ihrem ursprünglichen
+Build zugeordnet; bisherige Live-Grenzen aus [AP25.md](AP25.md) bleiben dokumentiert.

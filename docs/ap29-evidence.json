@@ -1,0 +1,892 @@
+{
+  "schemaVersion": 1,
+  "scope": "CI production-build previews on localhost; not a live Pages acceptance",
+  "before": {
+    "headCommit": "d3f85788da2cd111813db207cc292bf5f6a46480",
+    "mergeBuildCommit": "d0fbce1f5f7282c941c86985cd45e80facaa65d6",
+    "runId": 39081357484,
+    "jobId": 117538764153,
+    "artifactId": 12119440758,
+    "resultsSha256": "01428fb088e3e9a7e908d8b7c760a9819a9a94f95b274bd02076490739caf1aa",
+    "stats": {
+      "startTime": "2026-10-18T00:04:58.502Z",
+      "duration": 96453.331,
+      "expected": 33,
+      "skipped": 0,
+      "unexpected": 3,
+      "flaky": 0
+    },
+    "provenanceCases": [
+      {
+        "browser": "chromium",
+        "status": "failed",
+        "responseStatus": 200,
+        "contentType": "text/html",
+        "bodyStartsWith": "<!doctype html>\n<html lan",
+        "navigationAttachmentSha256": "13bc360c81ce4b12205fa8dd1c4ba99ca61a0ea147a3555ab60858b893364d6a",
+        "buildInfoRequests": [
+          {
+            "path": "/m8e-calc/build-info.json",
+            "build": "a",
+            "mode": "cors"
+          }
+        ]
+      },
+      {
+        "browser": "firefox",
+        "status": "failed",
+        "responseStatus": 200,
+        "contentType": "text/html",
+        "bodyStartsWith": "<!doctype html>\n<html lan",
+        "navigationAttachmentSha256": "dcc607d1168dae6c68f6390da94309f6567d576d8fcfad8e4e6740bd600cbd47",
+        "buildInfoRequests": [
+          {
+            "path": "/m8e-calc/build-info.json",
+            "build": "a",
+            "mode": "cors"
+          }
+        ]
+      },
+      {
+        "browser": "webkit",
+        "status": "failed",
+        "responseStatus": 200,
+        "contentType": "text/html",
+        "bodyStartsWith": "<!doctype html>\n<html lan",
+        "navigationAttachmentSha256": "1ea2c365a5a1b0f9dd4fb72c6cff429ca08626deb6cd29d01b1b39e948435585",
+        "buildInfoRequests": [
+          {
+            "path": "/m8e-calc/build-info.json",
+            "build": "a",
+            "mode": "cors"
+          }
+        ]
+      }
+    ]
+  },
+  "firstRepair": {
+    "headCommit": "285b87c4e330b964bbe0e6e9db9e0b06edf3266d",
+    "mergeBuildCommit": "a4d899450102d9d4cde6444680dbfb7eb9229b7e",
+    "runId": 39081686528,
+    "jobId": 117539759931,
+    "artifactId": 12118764322,
+    "resultsSha256": "2086dc5ffd9228870db7df757097fea6b9f981be9e77cf9da90e4c498f30e2aa",
+    "stats": {
+      "startTime": "2026-10-18T00:10:23.137Z",
+      "duration": 124765.247,
+      "expected": 34,
+      "skipped": 0,
+      "unexpected": 2,
+      "flaky": 0
+    },
+    "cases": [
+      {
+        "browser": "chromium",
+        "status": "passed",
+        "parsedNavigations": [
+          {
+            "url": "http://127.0.0.1:43491/m8e-calc/build-info.json",
+            "status": 200,
+            "contentType": "application/json",
+            "json": {
+              "schemaVersion": 1,
+              "sourceCommit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "target": "normal"
+            },
+            "attachmentSha256": "e6bfb281c76824cc7e92ff889939894537b7ffce9f3130a704ea884e2bdee8b8"
+          },
+          {
+            "url": "http://127.0.0.1:43491/m8e-calc/build-info.json",
+            "status": 200,
+            "contentType": "application/json",
+            "json": {
+              "schemaVersion": 1,
+              "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "target": "normal"
+            },
+            "attachmentSha256": "e2ce6e578d14f1da84878bd191b100faa2e4c35f93e552045d75ce03451be586"
+          },
+          {
+            "url": "http://127.0.0.1:43491/m8e-calc/build-info.json?deployment=b",
+            "status": 200,
+            "contentType": "application/json",
+            "json": {
+              "schemaVersion": 1,
+              "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "target": "normal"
+            },
+            "attachmentSha256": "0591a72a2344a48a99229e53e8041cf477b05f15d5301842ba36242c7adcb08a"
+          }
+        ],
+        "error": null
+      },
+      {
+        "browser": "firefox",
+        "status": "failed",
+        "parsedNavigations": [
+          {
+            "url": "http://127.0.0.1:36375/m8e-calc/build-info.json",
+            "status": 200,
+            "contentType": "application/json",
+            "json": {
+              "schemaVersion": 1,
+              "sourceCommit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "target": "normal"
+            },
+            "attachmentSha256": "ee6551466721aaf3f38813615cb10a7c4a51c7b7ec41a06a4d1f6244f378bad3"
+          },
+          {
+            "url": "http://127.0.0.1:36375/m8e-calc/build-info.json",
+            "status": 200,
+            "contentType": "application/json",
+            "json": {
+              "schemaVersion": 1,
+              "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "target": "normal"
+            },
+            "attachmentSha256": "e59cc9c87a09b0750ce8fabb44e7008ef11978de3f28f8f63179df685d20bc75"
+          },
+          {
+            "url": "http://127.0.0.1:36375/m8e-calc/build-info.json?deployment=b",
+            "status": 200,
+            "contentType": "application/json",
+            "json": {
+              "schemaVersion": 1,
+              "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "target": "normal"
+            },
+            "attachmentSha256": "ad45df976a82142919b078c4f970ade4a8180362114e8ab0cf17e6d90d23061d"
+          }
+        ],
+        "error": "Error: expect(received).toEqual(expected) // deep equality\n\nExpected: {\"schemaVersion\": 1, \"sourceCommit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"target\": \"normal\"}\nReceived: undefined"
+      },
+      {
+        "browser": "webkit",
+        "status": "failed",
+        "parsedNavigations": [],
+        "error": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 1\nReceived: 2"
+      }
+    ]
+  },
+  "anchorRun": {
+    "headCommit": "a0359f601a049d9a44825fc358397de3f095cd0c",
+    "runId": 39105656466,
+    "jobId": 117610814996,
+    "artifactId": 12128228168,
+    "resultsSha256": "d3eccabb5bd76df2db4655bbe096179aaa3d27773378b4c74988e08529587f00",
+    "stats": {
+      "startTime": "2026-10-18T06:54:40.843Z",
+      "duration": 85163.12100000001,
+      "expected": 35,
+      "skipped": 0,
+      "unexpected": 1,
+      "flaky": 0
+    },
+    "cases": [
+      {
+        "browser": "chromium",
+        "status": "passed",
+        "http-cache-warmup": {
+          "warmedRequests": 1,
+          "repeatedRequests": 1,
+          "cacheHit": true
+        },
+        "provenance-evidence": {
+          "browser": "156.0.8078.4",
+          "fetchEvidence": [
+            {
+              "status": 200,
+              "type": "application/json",
+              "json": {
+                "schemaVersion": 1,
+                "sourceCommit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "target": "normal"
+              }
+            },
+            {
+              "status": 200,
+              "type": "application/json",
+              "json": {
+                "schemaVersion": 1,
+                "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "target": "normal"
+              }
+            }
+          ],
+          "httpCacheWarmup": {
+            "warmedRequests": 1,
+            "repeatedRequests": 1,
+            "cacheHit": true
+          },
+          "cachesA": ["m8e-calc:/m8e-calc/:e7f26377211ef67c"],
+          "offlineFetch": {
+            "error": "TypeError: Failed to fetch"
+          },
+          "offlineNavigation": {
+            "error": "Error: page.goto: net::ERR_FAILED at http://127.0.0.1:40271/m8e-calc/build-info.json\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:40271/m8e-calc/build-info.json\", waiting until \"domcontentloaded\"\u001b[22m\n"
+          }
+        }
+      },
+      {
+        "browser": "firefox",
+        "status": "failed",
+        "http-cache-warmup": {
+          "warmedRequests": 1,
+          "repeatedRequests": 1,
+          "cacheHit": true
+        },
+        "error": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false"
+      },
+      {
+        "browser": "webkit",
+        "status": "passed",
+        "http-cache-warmup": {
+          "warmedRequests": 1,
+          "repeatedRequests": 2,
+          "cacheHit": false
+        },
+        "provenance-evidence": {
+          "browser": "27.2",
+          "fetchEvidence": [
+            {
+              "status": 200,
+              "type": "application/json",
+              "json": {
+                "schemaVersion": 1,
+                "sourceCommit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "target": "normal"
+              }
+            },
+            {
+              "status": 200,
+              "type": "application/json",
+              "json": {
+                "schemaVersion": 1,
+                "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "target": "normal"
+              }
+            }
+          ],
+          "httpCacheWarmup": {
+            "warmedRequests": 1,
+            "repeatedRequests": 2,
+            "cacheHit": false
+          },
+          "cachesA": ["m8e-calc:/m8e-calc/:e7f26377211ef67c"],
+          "offlineFetch": {
+            "error": "TypeError: FetchEvent.respondWith received an error: TypeError: Load failed"
+          },
+          "offlineNavigation": {
+            "error": "Error: page.goto: FetchEvent.respondWith received an error: TypeError: Load failed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:37669/m8e-calc/build-info.json\", waiting until \"domcontentloaded\"\u001b[22m\n"
+          }
+        }
+      }
+    ],
+    "firefoxOfflineFetchFromTrace": {
+      "status": 200,
+      "json": {
+        "schemaVersion": 1,
+        "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "target": "normal"
+      }
+    }
+  },
+  "native404ClientRun": {
+    "headCommit": "c82ad79b7781394d91dfeeab2d8bcd1d9f23a446",
+    "runId": 39105895389,
+    "jobId": 117611540006,
+    "artifactId": 12128377899,
+    "stats": {
+      "startTime": "2026-10-18T06:59:02.414Z",
+      "duration": 127137.814,
+      "expected": 35,
+      "skipped": 0,
+      "unexpected": 1,
+      "flaky": 0
+    },
+    "observedPendingAction": "waitForFunction(() => !!navigator.serviceWorker.controller) on /m8e-calc/missing-proof.json",
+    "offlineAttemptReached": false
+  },
+  "after": {
+    "headCommit": "d0d8d82d3615331c5184e0aeebd6345067948393",
+    "mergeBuildCommit": "a296cb9dc182da0588fd0d82ea1b30e1560b6889",
+    "runId": 39106239678,
+    "jobId": 117612570551,
+    "artifactId": 12128378385,
+    "artifactDigest": "sha256:bf28ee784368e8190ad0b41afeae83837a5f72b469a39550c1ec969c0c3839f5",
+    "resultsSha256": "556c8c10f010e46c89680250a83866304d0a2911dc6b3c07b67a0ebefe194fa2",
+    "stats": {
+      "startTime": "2026-10-18T07:04:26.118Z",
+      "duration": 87242.577,
+      "expected": 36,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "node": "v24.21.0",
+    "platform": "linux",
+    "arch": "x64",
+    "groups": {
+      "build-provenance.spec.ts": {
+        "chromium": 1,
+        "firefox": 1,
+        "webkit": 1
+      },
+      "comfort.spec.ts": {
+        "chromium": 7,
+        "firefox": 7,
+        "webkit": 7
+      },
+      "pwa-update.spec.ts": {
+        "chromium": 4,
+        "firefox": 4,
+        "webkit": 4
+      }
+    },
+    "buildChecks": [
+      {
+        "workerSha256": "b1eb33c4c2be7dcd573085fd3ec6725917666da522675ea9fec1f992686694db",
+        "htmlSha256": "ee5ee7391b050b7705cef4d6cd939d3f25c2fa37ea426f558c88220e392f938a",
+        "label": "a",
+        "sourceCommit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "status": 0
+      },
+      {
+        "workerSha256": "6064f366c8544430249cfa4357f3fcc596ec902fac10de6f3ffdb76cebb79a93",
+        "htmlSha256": "9bfc041e75925e14b7a95e82f19a9fea33a3c4079be8eccd29ad27e8e4894f90",
+        "label": "b",
+        "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "status": 0
+      },
+      {
+        "workerSha256": "768909c2e908bad30294d68f0a5dd0f779aa42b7d8fb916290743a35ec4c923f",
+        "htmlSha256": "4202deeecb753dcf435b55744e013a0b76ea96d82013cf46be003f149b7d14aa",
+        "label": "local",
+        "sourceCommit": null,
+        "status": 0
+      },
+      {
+        "workerSha256": "030a6dbdaf8795ce4cb27392c63a344e0a7dcbf38b2bd67d66080d2dc7eb48fa",
+        "htmlSha256": "0af50d4eb8153de0491d29d62d6cf7bb339c6e8da6d0df4fb61afeaa1e17d58c",
+        "label": "gallery",
+        "sourceCommit": null,
+        "status": 0
+      },
+      {
+        "label": "reject-a-as-b",
+        "expectedCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "actualCommit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "status": 1
+      }
+    ],
+    "provenanceCases": [
+      {
+        "project": "chromium",
+        "browserVersion": "156.0.8078.4",
+        "status": "passed",
+        "durationMs": 2676,
+        "controllerStates": [
+          "activated",
+          "activated",
+          "activated",
+          "activated",
+          "activated",
+          "activated"
+        ],
+        "anchorControllerUnchanged": true,
+        "initialCacheUrlCount": 132,
+        "initialCacheContainsBuildInfo": false,
+        "fetches": [
+          {
+            "status": 200,
+            "type": "application/json",
+            "json": {
+              "schemaVersion": 1,
+              "sourceCommit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "target": "normal"
+            }
+          },
+          {
+            "status": 200,
+            "type": "application/json",
+            "json": {
+              "schemaVersion": 1,
+              "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "target": "normal"
+            }
+          }
+        ],
+        "navigations": [
+          {
+            "url": "http://127.0.0.1:40997/m8e-calc/build-info.json",
+            "status": 200,
+            "fromServiceWorker": true,
+            "contentType": "application/json",
+            "parsedJson": {
+              "schemaVersion": 1,
+              "sourceCommit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "target": "normal"
+            },
+            "attachmentSha256": "504ea31a7ace9a5bdc7a8f13c6417abd93067336ea9b51c3b34cdfdab10e208b",
+            "buildInfoServerRequests": [
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "same-origin"
+              }
+            ]
+          },
+          {
+            "url": "http://127.0.0.1:40997/m8e-calc/build-info.json",
+            "status": 200,
+            "fromServiceWorker": true,
+            "contentType": "application/json",
+            "parsedJson": {
+              "schemaVersion": 1,
+              "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "target": "normal"
+            },
+            "attachmentSha256": "6b7c78e4fd8c46ceedf7371d956f969ebccebd5c74ec87b4a5c01814f1119ac7",
+            "buildInfoServerRequests": [
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "same-origin"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "b",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "b",
+                "mode": "same-origin"
+              }
+            ]
+          },
+          {
+            "url": "http://127.0.0.1:40997/m8e-calc/build-info.json?deployment=b",
+            "status": 200,
+            "fromServiceWorker": true,
+            "contentType": "application/json",
+            "parsedJson": {
+              "schemaVersion": 1,
+              "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "target": "normal"
+            },
+            "attachmentSha256": "4e658ccd1b342aba3e7ca53af48a523f7615a37a5e440924c5b6a69d775b58c8",
+            "buildInfoServerRequests": [
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "same-origin"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "b",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "b",
+                "mode": "same-origin"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "b",
+                "mode": "same-origin"
+              }
+            ]
+          }
+        ],
+        "httpCacheWarmup": {
+          "warmedRequests": 1,
+          "repeatedRequests": 1,
+          "cacheHit": true
+        },
+        "offlineOriginStopped": true,
+        "offlineFetch": {
+          "error": "TypeError: Failed to fetch"
+        },
+        "offlineNavigation": {
+          "error": "Error: page.goto: net::ERR_FAILED at http://127.0.0.1:40997/m8e-calc/build-info.json\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:40997/m8e-calc/build-info.json\", waiting until \"domcontentloaded\"\u001b[22m\n"
+        },
+        "provenanceAttachmentSha256": "e77d9d9bb6edc1e310062d3bce2467caa17b9c37b4246b81465a688c2ddf76bf"
+      },
+      {
+        "project": "firefox",
+        "browserVersion": "157.0",
+        "status": "passed",
+        "durationMs": 3743,
+        "controllerStates": [
+          "activated",
+          "activated",
+          "activated",
+          "activated",
+          "activated",
+          "activated"
+        ],
+        "anchorControllerUnchanged": true,
+        "initialCacheUrlCount": 132,
+        "initialCacheContainsBuildInfo": false,
+        "fetches": [
+          {
+            "status": 200,
+            "type": "application/json",
+            "json": {
+              "schemaVersion": 1,
+              "sourceCommit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "target": "normal"
+            }
+          },
+          {
+            "status": 200,
+            "type": "application/json",
+            "json": {
+              "schemaVersion": 1,
+              "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "target": "normal"
+            }
+          }
+        ],
+        "navigations": [
+          {
+            "url": "http://127.0.0.1:35907/m8e-calc/build-info.json",
+            "status": 200,
+            "fromServiceWorker": true,
+            "contentType": "application/json",
+            "parsedJson": {
+              "schemaVersion": 1,
+              "sourceCommit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "target": "normal"
+            },
+            "attachmentSha256": "24d3c677f4e5adc8c87a9c30c310efcc574af1ee6e0fa8cf8ceb1a2dfbe3a94b",
+            "buildInfoServerRequests": [
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "same-origin"
+              }
+            ]
+          },
+          {
+            "url": "http://127.0.0.1:35907/m8e-calc/build-info.json",
+            "status": 200,
+            "fromServiceWorker": true,
+            "contentType": "application/json",
+            "parsedJson": {
+              "schemaVersion": 1,
+              "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "target": "normal"
+            },
+            "attachmentSha256": "02076816559006b18d6a2083fae54f41f0955c94832d175f6ea1041d44b1e576",
+            "buildInfoServerRequests": [
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "same-origin"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "b",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "b",
+                "mode": "same-origin"
+              }
+            ]
+          },
+          {
+            "url": "http://127.0.0.1:35907/m8e-calc/build-info.json?deployment=b",
+            "status": 200,
+            "fromServiceWorker": true,
+            "contentType": "application/json",
+            "parsedJson": {
+              "schemaVersion": 1,
+              "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "target": "normal"
+            },
+            "attachmentSha256": "762093abe30f718e5ac4a038d96d1beed48b187eafda0b29d6b6b2638cf8e15c",
+            "buildInfoServerRequests": [
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "same-origin"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "b",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "b",
+                "mode": "same-origin"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "b",
+                "mode": "same-origin"
+              }
+            ]
+          }
+        ],
+        "httpCacheWarmup": {
+          "warmedRequests": 1,
+          "repeatedRequests": 1,
+          "cacheHit": true
+        },
+        "offlineOriginStopped": true,
+        "offlineFetch": {
+          "error": "TypeError: NetworkError when attempting to fetch resource."
+        },
+        "offlineNavigation": {
+          "error": "Error: page.goto: NS_ERROR_OFFLINE\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:35907/m8e-calc/build-info.json\", waiting until \"domcontentloaded\"\u001b[22m\n"
+        },
+        "provenanceAttachmentSha256": "7c961bdcdba42a93f5a3f45574669ebb7a08d1012c5c901e7d2e09a7f296f9f0"
+      },
+      {
+        "project": "webkit",
+        "browserVersion": "27.2",
+        "status": "passed",
+        "durationMs": 9239,
+        "controllerStates": [
+          "activated",
+          "activated",
+          "activated",
+          "activated",
+          "activated",
+          "activated"
+        ],
+        "anchorControllerUnchanged": true,
+        "initialCacheUrlCount": 132,
+        "initialCacheContainsBuildInfo": false,
+        "fetches": [
+          {
+            "status": 200,
+            "type": "application/json",
+            "json": {
+              "schemaVersion": 1,
+              "sourceCommit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "target": "normal"
+            }
+          },
+          {
+            "status": 200,
+            "type": "application/json",
+            "json": {
+              "schemaVersion": 1,
+              "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "target": "normal"
+            }
+          }
+        ],
+        "navigations": [
+          {
+            "url": "http://127.0.0.1:37185/m8e-calc/build-info.json",
+            "status": 200,
+            "fromServiceWorker": true,
+            "contentType": "application/json",
+            "parsedJson": {
+              "schemaVersion": 1,
+              "sourceCommit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "target": "normal"
+            },
+            "attachmentSha256": "d7c0fb29accbb072c562a94f1df3b9e7df1110d20cc491ff12aeb00597c9dcb8",
+            "buildInfoServerRequests": [
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "same-origin"
+              }
+            ]
+          },
+          {
+            "url": "http://127.0.0.1:37185/m8e-calc/build-info.json",
+            "status": 200,
+            "fromServiceWorker": true,
+            "contentType": "application/json",
+            "parsedJson": {
+              "schemaVersion": 1,
+              "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "target": "normal"
+            },
+            "attachmentSha256": "843c09b7d41c9e9d6b47501c808bdcd0d79866383ce8cda15629392c70a5cc00",
+            "buildInfoServerRequests": [
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "same-origin"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "b",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "b",
+                "mode": "same-origin"
+              }
+            ]
+          },
+          {
+            "url": "http://127.0.0.1:37185/m8e-calc/build-info.json?deployment=b",
+            "status": 200,
+            "fromServiceWorker": true,
+            "contentType": "application/json",
+            "parsedJson": {
+              "schemaVersion": 1,
+              "sourceCommit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "target": "normal"
+            },
+            "attachmentSha256": "152924e5c121a688f3b32119ed642b5034d92ddb0c63c5d3d9597eef9cca38d9",
+            "buildInfoServerRequests": [
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "a",
+                "mode": "same-origin"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "b",
+                "mode": "cors"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "b",
+                "mode": "same-origin"
+              },
+              {
+                "path": "/m8e-calc/build-info.json",
+                "build": "b",
+                "mode": "same-origin"
+              }
+            ]
+          }
+        ],
+        "httpCacheWarmup": {
+          "warmedRequests": 1,
+          "repeatedRequests": 2,
+          "cacheHit": false
+        },
+        "offlineOriginStopped": true,
+        "offlineFetch": {
+          "error": "TypeError: FetchEvent.respondWith received an error: TypeError: Load failed"
+        },
+        "offlineNavigation": {
+          "error": "Error: page.goto: FetchEvent.respondWith received an error: TypeError: Load failed\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:37185/m8e-calc/build-info.json\", waiting until \"domcontentloaded\"\u001b[22m\n"
+        },
+        "provenanceAttachmentSha256": "baf236b8250ac0a32e53b62b3172acc3985e4a4dc117bbde4b880382f7290491"
+      }
+    ]
+  }
+}

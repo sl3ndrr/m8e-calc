@@ -95,6 +95,15 @@ Updates erst nach Klick auf „Jetzt aktualisieren“ in der Snackbar „Neue Ve
 verfügbar“. Controllerwechsel lädt danach neu. Registrierung prüft beim nächsten
 sichtbaren Tabwechsel und stündlich; keine externen Laufzeitrequests durch PWA-Updates; AP17-Kurse sind separat ausdrücklich opt-in.
 
+AP29 begrenzt Dokument-Fallbacks auf Base und `index.html` (Query/Hash bleiben
+erlaubt). Unbekannte Pfade erhalten ihre echte Netzwerkantwort. Nur exakte
+Precache-Pfade werden sonst cache-first behandelt. `build-info.json` ist
+ausdrücklich kein Precache-Asset: Navigation und Fetch gehen vor jedem Cachezugriff
+mit `cache: 'no-store'` ins Netz; offline gibt es einen echten Fehler statt
+App-Shell oder altem Commit. Der Nachweis identifiziert den Serverbuild, nicht
+automatisch eine noch ältere aktive App. Routingvertrag, zwei gebaute Stände
+und kontrollierte Browserregression: [AP29.md](AP29.md).
+
 Manifest: Standalone, Start-URL/Scope unter Base, SVG sowie 192-/512-PNG und
 separates opakes maskable-512-PNG. Das neutrale Icon bleibt unabhängig vom Akzent;
 sein Motiv liegt in der maskable-Sicherheitszone. Reproduktion:

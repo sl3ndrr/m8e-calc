@@ -69,7 +69,7 @@ export function pwaPlugin(): Plugin {
           'icons/app-maskable-512.png',
           ...Object.keys(bundle),
         ]),
-      ].filter((f) => !f.endsWith('.map'));
+      ].filter((f) => !f.endsWith('.map') && f !== 'build-info.json');
       const hash = createHash('sha256');
       hash.update(manifestText);
       for (const file of files.filter((f) => f.startsWith('icons/')))
@@ -94,11 +94,20 @@ self.addEventListener('message', event => { if (event.data === 'SKIP_WAITING') s
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   if (event.request.method !== 'GET' || url.origin !== self.location.origin || !url.pathname.startsWith(${JSON.stringify(base)})) return;
+  // Provenance is network-only for both document navigation and ordinary fetch.
+  // Never consult either the SW cache or the browser's HTTP cache for this file.
+  if (url.pathname === ${JSON.stringify(base + 'build-info.json')}) {
+    event.respondWith(fetch(event.request, { cache: 'no-store' }));
+    return;
+  }
+  const isAppEntry = url.pathname === ${JSON.stringify(base)} || url.pathname === ${JSON.stringify(base + 'index.html')};
+  // Hash routing needs only the two app entry paths, never arbitrary documents.
+  if (!isAppEntry && !URLS.includes(url.pathname)) return;
   event.respondWith((async () => {
     const cache = await caches.open(CACHE);
     const cached = await cache.match(event.request, { ignoreSearch: true, ignoreVary: true });
     if (cached) return cached;
-    if (event.request.mode === 'navigate') return await cache.match(${JSON.stringify(base + 'index.html')}) || fetch(event.request);
+    if (isAppEntry && event.request.mode === 'navigate') return await cache.match(${JSON.stringify(base + 'index.html')}) || fetch(event.request);
     return fetch(event.request);
   })());
 });`;

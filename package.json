@@ -23,7 +23,8 @@
     "screenshots": "node scripts/release-screenshots.mjs",
     "build:gallery": "tsc -b && vite build --mode gallery && node scripts/check-build-target.mjs dist-gallery gallery",
     "preview:gallery": "vite preview --mode gallery",
-    "test:e2e:gallery": "playwright test --config=playwright.gallery.config.ts"
+    "test:e2e:gallery": "playwright test --config=playwright.gallery.config.ts",
+    "test:e2e:provenance": "playwright test --config=playwright.ap29.config.ts"
   },
   "dependencies": {
     "@material/material-color-utilities": "^0.3.0",
