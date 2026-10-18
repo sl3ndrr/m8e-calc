@@ -122,6 +122,19 @@ versionierte Snapshots bleiben Folgearbeit. Cache, Offline-Fallback und
 Zustimmungsentzug sind dokumentiert in
 [UNITS.md](docs/UNITS.md). Aktueller Integrations-/Abnahmestand: [AP25](docs/AP25.md).
 
+## Build und Deployment prüfen
+
+`build-info.json` enthält passiv Schema 1, den CI-Commit und das Buildziel.
+Online direkt im bereits vom Produktionsworker kontrollierten Tab abrufen;
+`sourceCommit` muss vollständig mit dem erfolgreichen Pages-Build-SHA
+übereinstimmen und `target` muss `normal` sein. Ein anderer Commit, `null`,
+HTML oder ein Offlinefehler bestätigt den erwarteten Deploy nicht. Die Datei
+wird nicht von der App geladen und ist nicht im SW-Precache; ein älterer
+aktiver App-Tab kann bis zur angenommenen Aktualisierung weiterhin älteren
+Code zeigen. Ablauf und Grenzen: [Release-Anleitung](docs/RELEASE.md),
+[Routing und Browsernachweise AP29](docs/AP29.md). CI-/Preview-Erfolg allein
+ist keine Live-Abnahme.
+
 ## Tech-Stack und Credits
 
 React 19, TypeScript, Vite, Zustand und CSS Custom Properties bilden die App. Das Design orientiert sich an **Material 3 Expressive**. Danke an die Projekte hinter [material-color-utilities](https://github.com/material-foundation/material-color-utilities), [decimal.js](https://github.com/MikeMcl/decimal.js), [CodeMirror](https://codemirror.net/), [KaTeX](https://katex.org/), [react-aria-components](https://react-aria.adobe.com/) und [motion](https://motion.dev/). Lokal ausgelieferte Schriften: Roboto Flex, Roboto Mono und Material Symbols. Tests: Vitest, Testing Library, fast-check, Playwright und axe.

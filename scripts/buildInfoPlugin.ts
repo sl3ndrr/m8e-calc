@@ -1,6 +1,7 @@
 import type { Plugin } from 'vite';
 
-/** Passive provenance for direct inspection; the app never requests this file. */
+/** Passive network-only provenance; pwaPlugin bypasses caches for direct inspection.
+ * The app never requests this file. */
 export function buildInfoPlugin(internalLab: boolean): Plugin {
   return {
     name: 'm8e-build-info',

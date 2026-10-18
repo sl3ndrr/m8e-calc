@@ -217,3 +217,16 @@ langsame Draw-/Main-Thread-Fälle, allein und ohne Retries. Die bestehenden
 55-FPS-/16,67-ms-Grenzen gelten weiter; Canvas-Aufrufzeit ist kein Nachweis für
 60 physische Bilder pro Sekunde. Vergleich, Rohmessungen, Runner und tatsächlich
 abgeschlossene Gates: [docs/AP28.md](docs/AP28.md).
+
+## AP29 · Passive Buildnachweise
+
+Der Worker routet nur GET innerhalb derselben Origin/Base: App-Fallback
+nur für Base und `index.html`, sonst Cache-first ausschließlich für exakte
+Precache-Pfade. `build-info.json` wird vor jedem Cachezugriff separat mit
+`cache: 'no-store'` abgerufen, für Fetch und Navigation; kein Offlineersatz.
+Die Datei bleibt außerhalb des Precache und wird nie automatisch von der App
+angefordert. `npm run test:e2e:provenance` baut getrennte Produktionsfixtures
+und prüft kontrollierte Clients, A/B-Abgleich, Offlinefehler sowie bestehende
+Comfort-/Updatefälle in Chromium/Firefox/WebKit. Vertrag und tatsächliche
+Belege: [docs/AP29.md](docs/AP29.md). Servernachweis und aktive Appversion
+getrennt prüfen; Live-Abnahme erst am konkreten Pages-Deploy dokumentieren.

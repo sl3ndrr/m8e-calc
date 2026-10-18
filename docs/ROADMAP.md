@@ -98,3 +98,9 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       Grenzen von 55 FPS und 16,67 ms bleiben erhalten. Rohdaten, Regression-
       Kontrollen und tatsächliche CI-Abnahme: [AP28.md](AP28.md). Integration
       erst nach Review/Merge; keine vorgezogene physische GPU-Abnahme.
+
+- [ ] 29 Buildnachweise unter aktivem Produktionsworker —
+      `feat/ap29-build-provenance`, PR #45: begrenzter Dokument-Fallback,
+      netzgebundene passive Provenienz und echte kontrollierte Browserregression
+      mit zwei Builds/Offlinefehler. Vertrag/Nachweise: [AP29.md](AP29.md).
+      Review/Merge und Live-Abnahme des konkreten Pages-Deploys bleiben getrennt.

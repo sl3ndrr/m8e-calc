@@ -14,7 +14,13 @@ export default defineConfig({
       '**/comfort.spec.ts',
     ],
     use: {
-      ...devices[name === 'chromium' ? 'Desktop Chrome' : name === 'firefox' ? 'Desktop Firefox' : 'Desktop Safari'],
+      ...devices[
+        name === 'chromium'
+          ? 'Desktop Chrome'
+          : name === 'firefox'
+            ? 'Desktop Firefox'
+            : 'Desktop Safari'
+      ],
       locale: 'de-DE',
     },
   })),

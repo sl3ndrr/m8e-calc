@@ -21,13 +21,9 @@ jobs:
       - run: npx playwright install --with-deps chromium firefox webkit
       - name: Controlled production browser regression and existing PWA cases
         env:
+          AP29_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           PLAYWRIGHT_JSON_OUTPUT_NAME: test-results/ap29/results.json
         run: npx playwright test --config=playwright.ap29.config.ts --reporter=list,json
-      - name: Preserve exact formatter for restricted local environments
-        if: always()
-        run: |
-          mkdir -p test-results/ap29
-          tar -czf test-results/ap29/prettier.tgz -C node_modules prettier
       - uses: actions/upload-artifact@v7
         if: always()
         with:
