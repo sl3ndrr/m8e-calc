@@ -1,0 +1,47 @@
+name: AP30 startup evidence
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: ap30-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  evidence:
+    if: github.head_ref == 'feat/ap30-startup-budget'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Unchanged current-main baseline on the same runner
+        run: |
+          baseline="$RUNNER_TEMP/ap30-before"
+          git fetch --depth=1 origin 615a0cdb30cd42beb5743751420847a7f341851b
+          git worktree add "$baseline" FETCH_HEAD
+          cp scripts/ap30-measure.mjs "$baseline/scripts/"
+          cd "$baseline"
+          npm ci
+          export GITHUB_SHA=615a0cdb30cd42beb5743751420847a7f341851b
+          export AP30_SOURCE="$GITHUB_SHA"
+          npm run build
+          node scripts/ap30-measure.mjs "$GITHUB_WORKSPACE/test-results/ap30/before"
+      - name: Measure head with identical commands and compression
+        env:
+          GITHUB_SHA: ${{ github.event.pull_request.head.sha }}
+          AP30_SOURCE: ${{ github.event.pull_request.head.sha }}
+        run: |
+          npm run build
+          node scripts/ap30-measure.mjs test-results/ap30/after
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap30-startup-evidence
+          path: test-results/ap30/
+          retention-days: 14
