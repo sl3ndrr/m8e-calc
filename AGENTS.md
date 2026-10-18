@@ -88,7 +88,29 @@ TypeScript: `strict` und `noUncheckedIndexedAccess` bleiben aktiv. Explizite Typ
 
 ## CI und GitHub Pages
 
-`ci.yml` prüft PRs und Pushes auf `main`: `npm ci`, lint, typecheck, test, build und Playwright-Smoke. `pages.yml` prüft auf `main` ebenfalls den Build einschließlich Checks/Smoke, lädt ausschließlich `dist/` hoch und deployt über GitHub Pages. Deployment nutzt `pages: write`, `id-token: write`, die Umgebung `github-pages` und eine Concurrency-Gruppe. In Repository Settings → Pages muss **GitHub Actions** als Quelle eingestellt sein. Hostingpfad: `/m8e-calc/`. Im PR nicht mergen; Deployment wird erst durch den Merge ausgelöst.
+`ci.yml` ist der einzige Orchestrator für PRs und Pushes auf `main`. Er baut
+mit `npm run check` einmal `dist/` (Ziel `normal`), versiegelt alle Dateien mit
+SHA-256 und reicht genau dieses Artefakt an Browser, AP28-Performance, Galerie,
+Hardening, AP29 und Release-Prüfungen weiter. `qa.yml`, `ap29.yml` und
+`release-assets.yml` sind ausschließlich wiederverwendbare Workflows.
+Der abschließende `Quality gate` verlangt explizit Erfolg aller Pflichtjobs;
+`failure`, `cancelled`, fehlende Jobs oder unerwartetes `skipped` sperren die Freigabe.
+Verträge, tatsächliche Checknamen und Nachweise: [docs/AP31.md](docs/AP31.md).
+
+Der frühere unabhängige `pages.yml` ist entfernt. Nur der Job `Deploy Pages`
+nach erfolgreichem Gate auf einem aktuellen `main`-Push aus `sl3ndrr/m8e-calc`
+erhält `pages: write` und `id-token: write`. Standard bleibt `contents: read`.
+PRs/Forks bekommen keine Veröffentlichungsrechte; keine `workflow_run`-Übernahme.
+Das Pages-TAR enthält dieselben geprüften Bytes inklusive Vite-Manifest;
+Fingerprint, Lauf, Commit und Ziel müssen passen. Main-Läufe und Deployments
+werden serialisiert; direkt vor Veröffentlichung wird der aktuelle main-SHA
+abgeglichen. Ein fehlgeschlagenes Gate verändert das bisherige Deployment nicht.
+
+In Repository Settings → Pages muss **GitHub Actions** als Quelle eingestellt
+sein. Hostingpfad: `/m8e-calc/`. Ohne gesonderten Auftrag weder mergen noch
+Regeln, Tags, Releases oder Live-Deployments ändern. Nach späterem Merge ist
+die erste reale main-/Pages-Kette einschließlich Live-/Workerabgleich separat
+zu verifizieren; PR-CI-Erfolg belegt sie nicht.
 
 ## AP15 · Hardening
 
@@ -197,3 +219,15 @@ nur vorhandene Core-Schlüssel verwenden. Einfach importiert konkrete reine
 Engine-Module; das öffentliche Engine-Barrel bleibt verfügbar. Der Reloadadapter
 berücksichtigt auch den gemeinsamen `extended`-Chunk. Messung und Belege:
 [docs/AP30.md](docs/AP30.md); `scripts/qa-bundle.mjs` bleibt unverändert.
+
+
+## AP31 · CI-/Pages-Freigabe
+
+Pipelineänderungen benötigen die tatsächlichen PR-Gates auf dem finalen Head.
+`scripts/ci/gates.test.mjs` prüft die Sperrpfade ohne Deployment und ohne Änderungen
+an Produkt-/Performancegrenzen. Artefakte nur über die ID des Buildjobs desselben
+Laufs laden; weder Namen fremder Läufe noch PR-Artefakte für main übernehmen.
+Ein Teil-Rerun mit älterem Build-Artefakt darf wegen abweichender Laufversuchsnummer
+scheitern; in diesem Fall den vollständigen Workflow neu ausführen. Historische
+Paket-Evidence bleibt bedingt und darf nicht pauschal als Required Check eingetragen
+werden. Externe Release-Links bleiben ein blockierender Quellen-/Dokumentationscheck.

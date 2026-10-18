@@ -1,11 +1,17 @@
 name: Hardening QA
 on:
-  pull_request:
+  workflow_call:
+    inputs:
+      build-artifact-id:
+        required: true
+        type: string
+      fingerprint:
+        required: true
+        type: string
 permissions:
   contents: read
-concurrency:
-  group: qa-${{ github.ref }}
-  cancel-in-progress: true
+env:
+  BUILD_FINGERPRINT: ${{ inputs.fingerprint }}
 jobs:
   measure:
     runs-on: ubuntu-latest
@@ -15,11 +21,20 @@ jobs:
         phase: [before, after]
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      # No token/repository/run-id override: only this workflow run, by producer ID.
+      - uses: actions/download-artifact@v8
+        with:
+          merge-multiple: true
+          artifact-ids: ${{ inputs.build-artifact-id }}
+      - run: node scripts/ci/build-proof.mjs verify
+      - run: node scripts/check-build-target.mjs dist normal
       - name: Prepare pinned baseline
         if: matrix.phase == 'before'
         run: |
@@ -34,7 +49,7 @@ jobs:
           PHASE: ${{ matrix.phase }}
         run: |
           if [ "$PHASE" = before ]; then cd .qa-baseline; export QA_BASELINE=1; fi
-          npx vite build --manifest
+          if [ "$PHASE" = before ]; then npx vite build --manifest; fi
           status=0
           node scripts/qa-bundle.mjs || status=1
           node scripts/qa-contrast.mjs || status=1
@@ -61,6 +76,7 @@ jobs:
           npx --yes --package @lhci/cli@0.15.1 lhci autorun || status=$?
           node scripts/qa-lighthouse.mjs || status=1
           exit "$status"
+      - run: node scripts/ci/build-proof.mjs verify
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -79,17 +95,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - run: npm run build
+      # No token/repository/run-id override: only this workflow run, by producer ID.
+      - uses: actions/download-artifact@v8
+        with:
+          merge-multiple: true
+          artifact-ids: ${{ inputs.build-artifact-id }}
+      - run: node scripts/ci/build-proof.mjs verify
+      - run: node scripts/check-build-target.mjs dist normal
       - run: npx playwright install --with-deps chromium firefox webkit
       - name: Browser gates
         env:
           PLAYWRIGHT_JSON_OUTPUT_NAME: test-results/browser-results.json
         run: npx playwright test --project=${{ matrix.project }} --reporter=list,json
+      - run: node scripts/ci/build-proof.mjs verify
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -100,15 +125,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - run: npm run build
+      # No token/repository/run-id override: only this workflow run, by producer ID.
+      - uses: actions/download-artifact@v8
+        with:
+          merge-multiple: true
+          artifact-ids: ${{ inputs.build-artifact-id }}
+      - run: node scripts/ci/build-proof.mjs verify
+      - run: node scripts/check-build-target.mjs dist normal
       - run: npx playwright install --with-deps chromium
       - name: Compare committed references
         run: npx playwright test --project=qa-visual
+      - run: node scripts/ci/build-proof.mjs verify
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -117,3 +151,20 @@ jobs:
             test-results/
             e2e/qa-visual.spec.ts-snapshots/
           retention-days: 14
+
+  quality:
+    name: QA gate
+    if: ${{ always() }}
+    needs: [measure, browsers, visual]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - name: Require every QA matrix and visual job
+        env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: node scripts/ci/quality-status.mjs qa

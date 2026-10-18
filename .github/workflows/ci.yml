@@ -2,48 +2,261 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [main, feat/foundation, feat/components]
+    branches: [main]
 permissions:
   contents: read
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: ci-${{ github.ref }}
+  # Serialize main through deployment. PR updates may cancel obsolete checks.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
-  currency-source:
-    if: github.head_ref == 'feat/currency'
+  gate-tests:
+    name: Pipeline contract tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
-      - run: node scripts/check-currency-source.mjs
-  check:
+      - run: node --test scripts/ci/*.test.mjs
+      - name: Check pipeline formatting and print proposed corrections
+        run: |
+          npx --yes prettier@3.9.10 --write .github/workflows/{ci,qa,ap29,release-assets,currency-source}.yml scripts/ci/*.mjs docs/AP31.md docs/RELEASE.md docs/ROADMAP.md AGENTS.md
+          git diff --exit-code
+      - name: Validate all workflow syntax and dependencies
+        run: go run github.com/rhysd/actionlint/cmd/actionlint@v1.7.7 -color
+  build:
+    name: Production build
     runs-on: ubuntu-latest
+    outputs:
+      artifact-id: ${{ steps.upload.outputs.artifact-id }}
+      fingerprint: ${{ steps.proof.outputs.fingerprint }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
       - run: npm run check
+      - id: proof
+        run: node scripts/ci/build-proof.mjs seal
+      - id: upload
+        uses: actions/upload-artifact@v7
+        with:
+          name: checked-normal-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            dist/
+            build-proof.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+  qa:
+    name: Hardening QA
+    needs: build
+    uses: ./.github/workflows/qa.yml
+    with:
+      build-artifact-id: ${{ needs.build.outputs.artifact-id }}
+      fingerprint: ${{ needs.build.outputs.fingerprint }}
+  provenance:
+    name: Build provenance
+    needs: build
+    uses: ./.github/workflows/ap29.yml
+    with:
+      build-artifact-id: ${{ needs.build.outputs.artifact-id }}
+      fingerprint: ${{ needs.build.outputs.fingerprint }}
+  release-assets:
+    name: Release assets
+    needs: build
+    uses: ./.github/workflows/release-assets.yml
+    with:
+      build-artifact-id: ${{ needs.build.outputs.artifact-id }}
+      fingerprint: ${{ needs.build.outputs.fingerprint }}
+  graph-performance:
+    name: Graph performance
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      BUILD_FINGERPRINT: ${{ needs.build.outputs.fingerprint }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      # No token/repository/run-id override: only this workflow run, by producer ID.
+      - uses: actions/download-artifact@v8
+        with:
+          merge-multiple: true
+          artifact-ids: ${{ needs.build.outputs.artifact-id }}
+      - run: node scripts/ci/build-proof.mjs verify
+      - run: node scripts/check-build-target.mjs dist normal
+      - run: npx playwright install --with-deps chromium
+      - name: AP28 fixed windows and intentional slow controls (no retries)
+        run: npx playwright test --config=playwright.ap28.config.ts --reporter=list --output=test-results/ap28-current
+      - name: Existing 4K and mixed 2D budgets (no retries)
+        run: npx playwright test --project=chromium-graph-performance --no-deps --workers=1 --output=test-results/graph-performance
+      - run: node scripts/ci/build-proof.mjs verify
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: graph-performance
+          path: test-results/
+          retention-days: 14
+  gallery:
+    name: Gallery
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      BUILD_FINGERPRINT: ${{ needs.build.outputs.fingerprint }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      # No token/repository/run-id override: only this workflow run, by producer ID.
+      - uses: actions/download-artifact@v8
+        with:
+          merge-multiple: true
+          artifact-ids: ${{ needs.build.outputs.artifact-id }}
+      - run: node scripts/ci/build-proof.mjs verify
+      - run: node scripts/check-build-target.mjs dist normal
       - run: npx playwright install --with-deps chromium firefox webkit
-      - run: npx playwright test --project=chromium --project=chromium-graph-performance --output=test-results/app
       - run: npm run build:gallery
       - run: npm run test:e2e:gallery -- --output=test-results/gallery
       - name: Gallery screenshots
-        if: success()
         run: |
           npm run preview:gallery -- --host 127.0.0.1 --port 4174 --strictPort > /tmp/m8e-preview.log 2>&1 &
           for attempt in $(seq 1 30); do curl -sf http://127.0.0.1:4174/m8e-calc/ > /dev/null && break; sleep 1; done
           npm run screenshots:gallery
+      - name: Normal bytes unchanged; gallery rejected
+        run: |
+          node scripts/ci/build-proof.mjs verify
+          if node scripts/check-build-target.mjs dist-gallery normal; then exit 1; fi
+          if node scripts/ci/build-proof.mjs verify dist-gallery; then exit 1; fi
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: playwright-results
+          name: gallery
           path: |
             test-results/
             docs/screenshots/components-*.png
             docs/screenshots/comfort-*.png
-          retention-days: 7
+          retention-days: 14
+  pages-package:
+    name: Pages artifact verification
+    needs: build
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-id: ${{ steps.upload.outputs.artifact-id }}
+      tar-sha256: ${{ steps.tar.outputs.sha256 }}
+      artifact-name: pages-${{ github.run_id }}-${{ github.run_attempt }}
+    env:
+      BUILD_FINGERPRINT: ${{ needs.build.outputs.fingerprint }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      # No token/repository/run-id override: only this workflow run, by producer ID.
+      - uses: actions/download-artifact@v8
+        with:
+          merge-multiple: true
+          artifact-ids: ${{ needs.build.outputs.artifact-id }}
+      - run: node scripts/ci/build-proof.mjs verify
+      - run: node scripts/check-build-target.mjs dist normal
+      - name: Package every verified byte, including the Vite manifest; verify round trip
+        id: tar
+        run: |
+          tar --directory dist -cf "$RUNNER_TEMP/artifact.tar" .
+          mkdir "$RUNNER_TEMP/pages-roundtrip"
+          tar --extract --file "$RUNNER_TEMP/artifact.tar" --directory "$RUNNER_TEMP/pages-roundtrip"
+          node scripts/ci/build-proof.mjs verify "$RUNNER_TEMP/pages-roundtrip"
+          echo "sha256=$(sha256sum "$RUNNER_TEMP/artifact.tar" | cut -d ' ' -f 1)" >> "$GITHUB_OUTPUT"
+      - id: upload
+        uses: actions/upload-artifact@v7
+        with:
+          name: pages-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/artifact.tar
+          if-no-files-found: error
+          retention-days: 14
+  quality:
+    name: Quality gate
+    if: ${{ always() }}
+    needs: [build, gate-tests, qa, graph-performance, gallery, provenance, release-assets, pages-package]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - name: Fail closed on every required job
+        env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: |
+          echo "$NEEDS"
+          node scripts/ci/quality-status.mjs quality
+  deploy:
+    name: Deploy Pages
+    needs: [quality, pages-package]
+    if: >-
+      ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' &&
+          github.repository == 'sl3ndrr/m8e-calc' && needs.quality.result == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - uses: actions/download-artifact@v8
+        with:
+          merge-multiple: true
+          artifact-ids: ${{ needs.pages-package.outputs.artifact-id }}
+          path: ${{ runner.temp }}/pages-upload
+      - name: Verify the exact upload archive
+        env:
+          EXPECTED_TAR_SHA256: ${{ needs.pages-package.outputs.tar-sha256 }}
+        run: |
+          test "${#EXPECTED_TAR_SHA256}" -eq 64
+          echo "$EXPECTED_TAR_SHA256  $RUNNER_TEMP/pages-upload/artifact.tar" | sha256sum --check
+      # This check is inside the deployment lock, immediately before the API call.
+      - name: Reject superseded main or any non-production context
+        env:
+          GH_TOKEN: ${{ github.token }}
+          QUALITY_RESULT: ${{ needs.quality.result }}
+        run: |
+          export LATEST_MAIN
+          LATEST_MAIN=$(gh api repos/sl3ndrr/m8e-calc/git/ref/heads/main --jq .object.sha)
+          node scripts/ci/quality-status.mjs publish
+      - name: Deploy the verified archive from this run
+        id: deployment
+        uses: actions/deploy-pages@v5
+        with:
+          artifact_name: ${{ needs.pages-package.outputs.artifact-name }}

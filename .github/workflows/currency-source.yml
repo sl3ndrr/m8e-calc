@@ -1,0 +1,17 @@
+name: Currency source evidence
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  currency-source:
+    if: github.head_ref == 'feat/currency'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - run: node scripts/check-currency-source.mjs
