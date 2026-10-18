@@ -251,3 +251,11 @@ Suspense ersetzt nur den Inhalt durch einen zugänglichen Ladedialog. Escape
 muss während des Ladens schließen, der fertige Dialog fokussiert „Iris“ erst
 nach dem Mount des Inhalts. Kontrollierte Modulverzögerung in
 `e2e/accent-picker.spec.ts` prüft Kaltstart und Wiederöffnen in drei Engines.
+
+## AP37 · Dokumentationsquellen
+
+Externe Release-Links bleiben blockierend. Der Checker sichert Diagnosen auch
+bei Fehlern in `test-results/release-docs.json`; ein Versuch, 30 Sekunden je URL,
+keine automatischen Wiederholungen. Nur die bestehenden exakten ISO-/HHS-403-
+Entscheidungen gelten als manuell geprüft, niemals als bestandener HTTP-Test.
+Vertrag, Quellenzuordnung und Ausführungsgrenzen: [docs/AP37.md](docs/AP37.md).

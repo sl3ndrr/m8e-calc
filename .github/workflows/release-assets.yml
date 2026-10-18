@@ -40,5 +40,7 @@ jobs:
         if: always()
         with:
           name: release-assets
-          path: docs/img/
+          path: |
+            docs/img/
+            test-results/release-docs.json
           retention-days: 14
