@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export const gallerySpecs = [
+  '**/accent-picker.spec.ts',
   '**/components.spec.ts',
   '**/theming.spec.ts',
   '**/controls-polish.spec.ts',

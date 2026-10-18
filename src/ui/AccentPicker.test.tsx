@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, expect, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import { AccentPicker } from './AccentPicker';
@@ -16,6 +16,8 @@ it('updates seeds and customization, with color reset preserving appearance and 
   await user.click(
     screen.getByRole('button', { name: 'Akzentfarbe anpassen' }),
   );
+  const iris = await screen.findByRole('button', { name: 'Iris' });
+  await waitFor(() => expect(iris).toHaveFocus());
   fireEvent.click(
     await screen.findByRole('button', { name: 'Koralle', hidden: true }),
   );
@@ -40,4 +42,10 @@ it('updates seeds and customization, with color reset preserving appearance and 
     themeMode: 'dark',
     motionLevel: 'off',
   });
+  await user.keyboard('{Escape}');
+  await waitFor(() =>
+    expect(
+      screen.getByRole('button', { name: 'Akzentfarbe anpassen' }),
+    ).toHaveFocus(),
+  );
 }, 20000);
