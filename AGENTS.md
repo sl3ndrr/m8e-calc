@@ -220,7 +220,6 @@ Engine-Module; das öffentliche Engine-Barrel bleibt verfügbar. Der Reloadadapt
 berücksichtigt auch den gemeinsamen `extended`-Chunk. Messung und Belege:
 [docs/AP30.md](docs/AP30.md); `scripts/qa-bundle.mjs` bleibt unverändert.
 
-
 ## AP31 · CI-/Pages-Freigabe
 
 Pipelineänderungen benötigen die tatsächlichen PR-Gates auf dem finalen Head.

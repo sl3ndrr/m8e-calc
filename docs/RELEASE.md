@@ -111,7 +111,6 @@ SHA-Abgleich muss solche Abweichungen ablehnen. Preview-/CI-Erfolg wird nicht
 als bestandener Live-Abruf ausgegeben. Ältere Bilder bleiben ihrem ursprünglichen
 Build zugeordnet; bisherige Live-Grenzen aus [AP25.md](AP25.md) bleiben dokumentiert.
 
-
 ## Gemeinsame CI-/Pages-Kette (AP31)
 
 Nur `.github/workflows/ci.yml` startet PR-/main-Prüfungen und nach erfolgreicher

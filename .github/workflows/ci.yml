@@ -178,6 +178,15 @@ jobs:
           artifact-ids: ${{ needs.build.outputs.artifact-id }}
       - run: node scripts/ci/build-proof.mjs verify
       - run: node scripts/check-build-target.mjs dist normal
+      - name: Reject wrong SHA and foreign artifact context on the actual build
+        run: |
+          if GITHUB_SHA=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb node scripts/ci/build-proof.mjs verify; then exit 1; fi
+          echo "Wrong SHA rejected"
+          if GITHUB_REPOSITORY=foreign/untrusted node scripts/ci/build-proof.mjs verify; then exit 1; fi
+          echo "Foreign repository rejected"
+          if GITHUB_RUN_ID=0 node scripts/ci/build-proof.mjs verify; then exit 1; fi
+          echo "Foreign run rejected"
+          node scripts/ci/build-proof.mjs verify
       - name: Package every verified byte, including the Vite manifest; verify round trip
         id: tar
         run: |
@@ -196,7 +205,17 @@ jobs:
   quality:
     name: Quality gate
     if: ${{ always() }}
-    needs: [build, gate-tests, qa, graph-performance, gallery, provenance, release-assets, pages-package]
+    needs:
+      [
+        build,
+        gate-tests,
+        qa,
+        graph-performance,
+        gallery,
+        provenance,
+        release-assets,
+        pages-package,
+      ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

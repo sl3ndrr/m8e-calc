@@ -42,4 +42,3 @@ jobs:
           name: release-assets
           path: docs/img/
           retention-days: 14
-

@@ -111,7 +111,6 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       Entry-/Einfach-Messdefinition; hartes Gate weiterhin <200.000 Byte.
       Vergleich mit integriertem AP28/AP29 und Abnahme: [AP30.md](AP30.md).
 
-
 - [ ] 31 CI-/Pages-Freigabepfad — `feat/ap31-ci-pages-gate`: ein gemeinsamer
       Qualitätsstatus für PR/main, ein normaler Produktionsbuild und durchgängige
       Commit-/Artefakt-/Fingerprintbindung bis Pages. Pflicht-QA einschließlich

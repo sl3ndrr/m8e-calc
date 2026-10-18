@@ -14,7 +14,11 @@ export const required = [
 ];
 
 export function assertSuccessful(needs, jobs = required) {
-  assert.deepEqual(Object.keys(needs).sort(), [...jobs].sort(), 'Exact prerequisite set');
+  assert.deepEqual(
+    Object.keys(needs).sort(),
+    [...jobs].sort(),
+    'Exact prerequisite set',
+  );
   for (const job of jobs)
     assert.equal(needs[job]?.result, 'success', `${job} must succeed`);
 }
@@ -28,13 +32,24 @@ export function assertPublication(context, latest, quality) {
   assert.equal(context.GITHUB_SHA, latest, 'Only the current main may publish');
 }
 
-if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+if (
+  process.argv[1] &&
+  resolve(process.argv[1]) === fileURLToPath(import.meta.url)
+) {
   const mode = process.argv[2];
   if (mode === 'quality') assertSuccessful(JSON.parse(process.env.NEEDS));
   else if (mode === 'qa')
-    assertSuccessful(JSON.parse(process.env.NEEDS), ['measure', 'browsers', 'visual']);
+    assertSuccessful(JSON.parse(process.env.NEEDS), [
+      'measure',
+      'browsers',
+      'visual',
+    ]);
   else if (mode === 'publish')
-    assertPublication(process.env, process.env.LATEST_MAIN, process.env.QUALITY_RESULT);
+    assertPublication(
+      process.env,
+      process.env.LATEST_MAIN,
+      process.env.QUALITY_RESULT,
+    );
   else throw Error('Expected quality, qa or publish');
   console.log(`${mode}: all prerequisites satisfied`);
 }
