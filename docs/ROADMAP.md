@@ -125,27 +125,27 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       beobachtete main-Läufe und getrennte Live-Abnahme: [AP38](AP38.md).
 
 - [x] 32 Verbindlicher PR- und Qualitätsschutz — `feat/ap32-merge-protection`,
-  PR #48: Ruleset `25003991` durch den Eigentümer aktiviert und lesend bestätigt.
-  PR-Pflicht ohne fremde Zustimmung, `Quality gate` von GitHub Actions und
-  strikte Zielbranchaktualität sind verbindlich. Roter PR #48 belegt die Sperre;
-  aktueller Dependabot-Lauf bleibt offen. Der gezielte Iris-/Galeriefix und
-  seine Kaltstartregressionen gehören zum späteren Eigentümerauftrag.
-  Vorher/Nachher und reale Läufe: [AP32.md](AP32.md). Status: Schutz aktiviert,
-  Restverifikation offen; PR #48 integriert (`3384c0d`), einschließlich Iris-Fix.
-  Der Haken bestätigt den Merge, nicht die vollständige Dependabot-Abnahme.
+      PR #48: Ruleset `25003991` durch den Eigentümer aktiviert und lesend bestätigt.
+      PR-Pflicht ohne fremde Zustimmung, `Quality gate` von GitHub Actions und
+      strikte Zielbranchaktualität sind verbindlich. Roter PR #48 belegt die Sperre;
+      aktueller Dependabot-Lauf bleibt offen. Der gezielte Iris-/Galeriefix und
+      seine Kaltstartregressionen gehören zum späteren Eigentümerauftrag.
+      Vorher/Nachher und reale Läufe: [AP32.md](AP32.md). Status: Schutz aktiviert,
+      Restverifikation offen; PR #48 integriert (`3384c0d`), einschließlich Iris-Fix.
+      Der Haken bestätigt den Merge, nicht die vollständige Dependabot-Abnahme.
 
 - [x] 33 Dependency-Entscheidungen — `feat/ap33-dependency-decisions`, PR #49:
-  aktuelle Registry-Verträge und Originalfehler für #33/#34/#37/#39 getrennt
-  dokumentiert; Node 24 und 24er-Typen bleiben erhalten. Entscheidungen,
-  Wiederaufnahmebedingungen und Schließempfehlungen: [AP33.md](AP33.md).
-  Tracking: [#31](https://github.com/sl3ndrr/m8e-calc/issues/31) (ESLint),
-  [#32](https://github.com/sl3ndrr/m8e-calc/issues/32) (Runtime/Material und
-  übrige AP24-Migrationen), [#50](https://github.com/sl3ndrr/m8e-calc/issues/50)
-  (TypeScript 7). PR #49 integriert (`2b13384`); keine Dependency-Migration.
-  Der zur Freigabe nötige Quellenfix für #51 und die ereignisgebundene
-  Live-Animationsmessung für #52 sind als eigene Korrekturcommits enthalten;
-  #51/#52 sind nach grüner finaler PR-CI und Merge geschlossen.
-  #33/#37/#39 bleiben offen; #34 ist wegen des Node-24-Vertrags geschlossen.
+      aktuelle Registry-Verträge und Originalfehler für #33/#34/#37/#39 getrennt
+      dokumentiert; Node 24 und 24er-Typen bleiben erhalten. Entscheidungen,
+      Wiederaufnahmebedingungen und Schließempfehlungen: [AP33.md](AP33.md).
+      Tracking: [#31](https://github.com/sl3ndrr/m8e-calc/issues/31) (ESLint),
+      [#32](https://github.com/sl3ndrr/m8e-calc/issues/32) (Runtime/Material und
+      übrige AP24-Migrationen), [#50](https://github.com/sl3ndrr/m8e-calc/issues/50)
+      (TypeScript 7). PR #49 integriert (`2b13384`); keine Dependency-Migration.
+      Der zur Freigabe nötige Quellenfix für #51 und die ereignisgebundene
+      Live-Animationsmessung für #52 sind als eigene Korrekturcommits enthalten;
+      #51/#52 sind nach grüner finaler PR-CI und Merge geschlossen.
+      #33/#37/#39 bleiben offen; #34 ist wegen des Node-24-Vertrags geschlossen.
 
 - 34–36 Wartungsfolgepakete — bewusst zurückgestellt, kein Integrationsnachweis
   in den erneut gelesenen PRs und kein eigenes AP34–AP36-Dokument auf dem

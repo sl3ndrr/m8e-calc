@@ -13,7 +13,7 @@ Ein Taschenrechner für den Desktop-Browser: vom schnellen Dreisatz bis zu wisse
 | **Einfach**          | Grundrechenarten, Prozent, Vorzeichen, Speicher und Tastaturbedienung für alltägliche Rechnungen.                                                                                                                                |
 | **Wissenschaftlich** | Ausdruckseditor mit Vorschlägen, DEG/RAD/GRAD, komplexe Zahlen, Konstanten, Variablen und eigene Funktionen; Summen, Integrale und Ableitungen. Informatik-Panel mit BigInt-Wörtern, Bitraster, Zahlbasen, IEEE-754 und Unicode. |
 | **Umrechner**        | 286 Einheiten in 32 Kategorien, Suche, Favoritenpaare, beidseitige Eingabe und Schnelleingaben wie `5 km in mi` oder `3 ft 4 in`.                                                                                                |
-| **Graphen**          | Explizite, parametrische, polare und implizite 2D-Konturen, Parameterslider, Pan/Zoom und PNG-Export; Trace, Analysis und Wertetabellen für die unterstützten 1D-Kurven.                                                        |
+| **Graphen**          | Explizite, parametrische, polare und implizite 2D-Konturen, Parameterslider, Pan/Zoom und PNG-Export; Trace, Analysis und Wertetabellen für die unterstützten 1D-Kurven.                                                         |
 
 Alle Modi teilen Verlauf mit Suche, Pins und JSON-Export, Befehlspalette, Permalinks und Einstellungen. Hell/System/Dunkel, Akzentfarbe, UI-Größe und Präsentationsmodus passen die Arbeitsfläche an. Nach dem ersten vollständigen Laden ist die App offline nutzbar; unterstützte Browser bieten eine PWA-Installation an.
 

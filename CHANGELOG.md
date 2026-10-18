@@ -67,4 +67,3 @@ Abschnitte zusammenführen und Datum/Versionsumfang ausdrücklich freigeben.
 Dies ist die erste vorbereitete öffentliche Version. Die Release-Vorbereitung
 ändert keine Produktfunktionen. Datum und Vergleichslinks werden beim tatsächlichen
 Taggen ergänzt; ein Tag oder GitHub Release wird durch diesen PR nicht erstellt.
-

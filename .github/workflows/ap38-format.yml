@@ -1,0 +1,19 @@
+name: AP38 documentation formatting
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  format:
+    if: github.head_ref == 'feat/ap38-status-documentation'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - run: npx --yes prettier@3.9.10 --write AGENTS.md README.md CHANGELOG.md docs/AP24.md docs/AP25.md docs/AP27.md docs/AP31.md docs/AP32.md docs/AP33.md docs/AP37.md docs/AP38.md docs/PRODUCT_SPEC.md docs/QA_REPORT.md docs/RELEASE.md docs/RELEASE_NOTES_1.0.md docs/ROADMAP.md
+      - run: git diff --no-color
