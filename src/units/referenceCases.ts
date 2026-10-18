@@ -519,13 +519,7 @@ export const referenceCases: readonly (readonly [
     '604800',
     'https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b8',
   ],
-  [
-    '1',
-    'year',
-    's',
-    '31557600',
-    'https://ssd.jpl.nasa.gov/astro_par.html',
-  ],
+  ['1', 'year', 's', '31557600', 'https://ssd.jpl.nasa.gov/astro_par.html'],
   [
     '1',
     'decade',
