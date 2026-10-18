@@ -1,5 +1,8 @@
 # Veröffentlichung vorbereiten
 
+Aktueller Produkt-/Pages-Prüfstand und kurze Eigentümerliste: [AP38](AP38.md).
+Diese Anleitung beschreibt den Ablauf; sie erteilt keine Veröffentlichungserlaubnis.
+
 ## Reproduzierbare Bilder
 
 Node 24 und das Lockfile verwenden:
@@ -47,7 +50,7 @@ Die CI erzeugt Release-Bilder als separates Artefakt zur Reproduktion.
 Die Versionsnummer 1.0.0 bezeichnet die vorbereitete Version und allein keine
 bereits erfolgte Veröffentlichung. Die Releasevorbereitung AP16 ist über PR #21 integriert. MIT-Bestätigung,
 Produktfreigabe, Tag und tatsächliches GitHub Release sind dadurch nicht erteilt.
-Integrations- und Abnahmestand: [AP25.md](AP25.md).
+Integrations- und Abnahmestand: [AP38.md](AP38.md).
 
 ## Dokumentation prüfen
 
@@ -173,7 +176,9 @@ abgewiesen. Ein während eines bereits gestarteten Deploys eintreffender Push
 wartet in derselben Reihenfolge; ein älterer Deploy kann keinen neueren überholen.
 Fehlschläge lassen die zuletzt veröffentlichte Seite bestehen.
 
-Nach späterem Merge ausdrücklich separat prüfen und in AP31 nachtragen:
+Nach einem später autorisierten Merge separat prüfen und im zentralen
+[Status](AP38.md) nachtragen. Die neue Kette ist noch nicht als erfolgreich
+veröffentlicht belegt; auch ein grünes main-Gate allein genügt nicht:
 
 1. Tatsächlichen main-SHA und zugehörigen CI-Lauf aufzeichnen; alle Pflichtjobs
    und `Quality gate` müssen erfolgreich sein. PR-Merge-Ref und main-SHA unterscheiden.
@@ -184,7 +189,8 @@ Nach späterem Merge ausdrücklich separat prüfen und in AP31 nachtragen:
 4. Erst dann die Kette als erfolgreich dokumentieren. Ein grüner AP31-PR nimmt
    keinen dieser Schritte vorweg. Regeln, Tag, Release und Merge bleiben manuell.
 
-Rulesets später ausschließlich mit aus GitHub ausgelesenen Checknamen konfigurieren;
-die beobachteten Namen stehen in AP31. Keine bedingten historischen Evidence-Jobs
-pauschal verlangen. Bei abweichender Laufversuchsnummer den kompletten CI-Workflow
+Ruleset `25003991` ist bereits aktiv: PR-Pflicht, exakt `Quality gate` von
+GitHub Actions 15368, strikte Aktualität und kein Bypass. Die tatsächliche
+Dependabot-Restverifikation bleibt offen; [AP32](AP32.md). Keine bedingten
+historischen Evidence-Jobs pauschal verlangen. Bei abweichender Laufversuchsnummer den kompletten CI-Workflow
 neu ausführen; ein Teil-Rerun darf ältere Artefakte nicht stillschweigend übernehmen.

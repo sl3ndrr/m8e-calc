@@ -1,5 +1,7 @@
 # Produktspezifikation: m8e-calc
 
+Geprüfter Integrations-/Freigabestand: [AP38](AP38.md).
+
 ## Ziel und Nutzungskontext
 
 m8e-calc ist ein Taschenrechner für den Browser am Desktop. Die Oberfläche wird für große Monitore von Full HD bis 4K und Ultrawide optimiert: großzügige, gut lesbare Arbeitsflächen und effizient nutzbarer Platz statt einer vergrößerten mobilen Oberfläche. Das Produkt wird statisch über GitHub Pages unter `/m8e-calc/` gehostet; es benötigt weder Backend noch Routing-Rewrites.
@@ -16,6 +18,12 @@ Das visuelle Ziel ist Material 3 Expressive. Ansprechendes Design, gute Handhabu
 | Graphen          | 2D-Plotter zur Darstellung und Untersuchung von Funktionen.      |
 
 In jedem Modus kann der Berechnungsverlauf ein- und ausgeblendet werden. Moduswechsel erfolgen über Hash-Routen: `#/simple`, `#/scientific`, `#/convert`, `#/graph`. Leere Hashes setzen den zuletzt genutzten Modus fort (Standard Einfach), unbekannte Hashes führen zur Ansicht Einfach.
+
+AP26/AP27 ergänzen implizite Konturen wie `x^2+y^2=4`, einschließlich Worker,
+Diagnosen und PNG. Implizite Analysis, Trace und mehrwertige Tabellen werden
+bewusst nicht angeboten. Fit nutzt die stabile Abtastbasis als begrenzte
+Ansicht; universelle Vollständigkeit und Topologie sind nicht garantiert.
+Numerischer Vertrag: [GRAPH.md](GRAPH.md), Integration: [AP27.md](AP27.md).
 
 Die aktive Moduskennung ist die einzige sichtbare Hauptüberschrift oben links.
 Modusinhalte verzichten auf zusätzliche Werbe- und Modustitel. Teilen ist eine

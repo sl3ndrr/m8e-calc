@@ -1,6 +1,7 @@
 # Qualitätsbericht
 
-Aktueller Integrations-/Abnahmestand: [AP25 · Produktabnahme](AP25.md).
+Aktueller Integrations-/Abnahmestand: [AP38 · Status](AP38.md).
+Historische Produktabnahme vom 17.10.2026: [AP25](AP25.md).
 Die nachfolgenden Messwerte sind historische AP15-Nachweise, keine erneute
 Abnahme von AP18–AP24 oder des aktuellen Pages-Deploys.
 
@@ -10,7 +11,7 @@ Messgrößen. AP28 erhält die 55-FPS-/16,67-ms-Grenzen und ergänzt feste Refer
 mit absichtlichen Verlangsamungen; frühere grüne Läufe ersetzen den finalen
 PR-HEAD-Nachweis nicht.
 
-Aktuelle Startpfadmessung nach integriertem AP28/AP29, getrennte Artefakt-/
+Historische AP30-Startpfadmessung vom 18.10.2026 nach integriertem AP28/AP29, getrennte Artefakt-/
 Precachegrößen und Mess-SHA: [AP30 · Startbudget](AP30.md). Die historischen
 Reserveangaben unten werden dadurch nicht als aktuelle Messung übernommen.
 
@@ -121,13 +122,13 @@ Property-Tests laufen im Gesamtcheck weiter.
 
 ## Verbleibende Risiken / Folgeabnahme
 
-| Priorität | Status / Risiko                                                                                                                                                                                                                                                                             |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| P1        | AP18–AP24 sind integriert; Pages bestätigt den Deploy `de6b502…`. Die interaktive Live-Abnahme ist hier weiterhin blockiert und #22 bleibt offen. Konkrete Deploy-/Prüfnachweise und nächste Schritte: [AP25](AP25.md). Kein automatischer Merge und keine vorgezogene Produktionsfreigabe. |
-| P2        | Physischer Screenreader, echter Browser-Menüzoom bis 200%, 4K/GPU und langfristige Nutzung werden durch Headless-Checks nicht vollständig nachgewiesen.                                                                                                                                     |
-| P2        | CSP benötigt `style-src 'unsafe-inline'` für CodeMirror, React Aria und DOM-Animationen. Script-Regeln bleiben strikt. Meta-CSP kann `frame-ancestors` nicht durchsetzen; Pages stellt hier keine frei konfigurierbaren Header bereit.                                                      |
-| P2        | Event Timing und Heap-Schwellen sind Laborindikatoren; reale INP-Verteilung und sehr lange Sitzungen bleiben gesondert zu beobachten.                                                                                                                                                       |
-| P3        | Das Startbudget hat nur rund 2,4 kB Reserve. CI muss bei jeder Änderung die vollständige statische Importmenge kontrollieren.                                                                                                                                                               |
+| Priorität | Status / Risiko                                                                                                                                                                                                                                        |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| P1        | Live-Abnahme und #22 bleiben offen. Aktueller Kandidat und letzter tatsächlich bestätigter Pages-SHA stehen zentral in [AP38](AP38.md); AP39 prüft genau den veröffentlichten Kandidaten. Die alten AP15-/AP25-Deploywerte sind historische Nachweise. |
+| P2        | Physischer Screenreader, echter Browser-Menüzoom bis 200%, 4K/GPU und langfristige Nutzung werden durch Headless-Checks nicht vollständig nachgewiesen.                                                                                                |
+| P2        | CSP benötigt `style-src 'unsafe-inline'` für CodeMirror, React Aria und DOM-Animationen. Script-Regeln bleiben strikt. Meta-CSP kann `frame-ancestors` nicht durchsetzen; Pages stellt hier keine frei konfigurierbaren Header bereit.                 |
+| P2        | Event Timing und Heap-Schwellen sind Laborindikatoren; reale INP-Verteilung und sehr lange Sitzungen bleiben gesondert zu beobachten.                                                                                                                  |
+| P3        | Historisch hatte AP15 nur rund 2,4 kB Reserve. AP30 verbesserte den Startpfad; spätere Messung und verbleibende endliche Reserve stehen in [AP38](AP38.md). Die vollständige statische Importmenge bleibt Prüfgrundlage.                               |
 
 Ein früherer kalter Lighthouse-Einzellauf des Einfach-Modus lag bei Performance 73
 (TBT 664 ms), die beiden anderen bei 100. Median-Gate und alle anderen Modi sind

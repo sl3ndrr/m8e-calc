@@ -1,5 +1,7 @@
 # Roadmap
 
+Verbindlicher aktueller Prüfstand und offene Freigaben: [AP38](AP38.md).
+
 Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet integriert (Merge auf `main`); manuelle Produkt-/Pages-Abnahmen sind separat dokumentiert und werden dadurch nicht als bestanden erklärt. Stand: 18.10.2026.
 
 - [x] 1 Fundament — Toolchain, Struktur, Platzhalter, CI/Pages und Projektgedächtnis.
@@ -13,7 +15,7 @@ Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet integriert (Merge auf `
 - [x] 9 Programmierer-Panel — BigInt-Wörter, BitGrid, Basisanzeige, opt-in Parser, IEEE-754 und Unicode im AP8-Informatik-Kontext (PR `feat/programmer-panel`, integriert).
 - [x] 10 Einheiten-Engine — 286 Einheiten in 32 Kategorien, Decimal-Umrechnung, Suche/Parser/Compound-Ausgabe und unabhängige Referenz-/Paartests (PR `feat/units-engine`; Vertrag in `UNITS.md`, integriert).
 - [x] 11 Umrechner — AP10-Anbindung, lokalisierte Felder, Kartenraster, Schnelleingabe, persistente Paare und AP4-Ruheverlauf (PR `feat/convert-mode`; Vertrag in `CONVERT_MODE.md`, integriert).
-- [x] 12 Graph-Engine — Float64-Compiler, Parameter, adaptive explizite/parametrische/polare Kurven, Analysis und Viewport (PR `feat/graph-engine`; Vertrag in `GRAPH.md`, integriert). Implizite Marching-Squares-Kurven folgen separat.
+- [x] 12 Graph-Engine — Float64-Compiler, Parameter, adaptive explizite/parametrische/polare Kurven, Analysis und Viewport (PR `feat/graph-engine`; Vertrag in `GRAPH.md`, integriert). Implizite Marching-Squares-Kurven sind separat in AP26/AP27 integriert.
 - [x] 13 Graphen-Modus — 2D-Plotter und Interaktion auf AP12, Canvas/SVG-Adapter und Worker-Anbindung; keine Darstellung in AP12.
 - [x] 14 Komfort — Command Palette, zentrale Tastenkürzel, versionierte Permalinks, UI-Größe/Präsentation und vorgezogenes PWA/Offline (PR `feat/comfort`; Vertrag und Kürzel in `COMFORT.md`, integriert); Verlauf mit Suche/Pins/Export sowie de/en und proportionale Desktop-Skalierung sind in AP4 vorgezogen.
 - [x] 15 Hardening — weitere PWA-/Installations-/Browserabnahme, Datenschutz, Performance und Accessibility; Offline-Fundament in AP14 vorgezogen.
@@ -31,7 +33,8 @@ AP11 implementiert den Umrechner auf AP10; Verhalten, Persistenz und Testvertrag
 
 AP13: Graphen-UI mit Canvas 2D/HiDPI, lokalem Sampling-Worker, Parameterslidern,
 Trace/Analysis, Tabellen/PNG und AP4-Plot-Satz-Verlauf. Vertrag: [GRAPH_MODE.md](GRAPH_MODE.md).
-Implizite Kurven (#17), Touch-Pinch und physische GPU-/Screenreader-Abnahme bleiben Folgearbeit.
+Implizite Konturen sind durch AP26/AP27 integriert (#17 geschlossen). Touch-Pinch
+und physische GPU-/Screenreader-Abnahme bleiben Folgearbeit.
 
 AP15: Hardening-Durchgang in `feat/hardening` / PR #20. Befund, Messverfahren,
 Vorher-/Nachher-Werte und offene Produktionsabnahme: [QA_REPORT.md](QA_REPORT.md).
@@ -62,7 +65,8 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       Anzeigerundung, lokalisierte Zahlenfelder/Koordinaten und bedarfsgerechte
       Tabellenberechnung auf integriertem AP21. Vertrag und Testnachweise in
       [GRAPH_MODE.md](GRAPH_MODE.md); PR #28 integriert.
-      CSV-Export, neue Rechenfeatures und implizite Kurven bleiben Folgepakete.
+      CSV-Export und neue Rechenfeatures bleiben Folgearbeit; implizite Konturen
+      sind in AP26/AP27 integriert, ohne mehrwertige Wertetabelle.
 
 - [x] 23 Internes Designlab — `feat/ap23-internal-design-lab`: vier Modi im
       normalen Build, internes Lab nur in Entwicklung/ausdrücklichem Galerie-Build,
@@ -78,7 +82,8 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
 
 - [x] 25 Produktabnahme — PR #40 auf main integriert (`5b1c5a9`): gezielte Wiederverwendung der AP18–AP24-Regressionen,
       Browser-/PWA-Integration und belegter Produktionsstand; [AP25.md](AP25.md).
-      Live-Abnahme und spätere Prüfung genau des AP25-Pages-Deploys bleiben separat.
+      Die historischen AP25-Messungen bleiben erhalten; Live-Abnahme des aktuellen
+      Kandidaten gehört zu AP39, siehe [AP38](AP38.md).
 
 - [x] 26 Implizite Kurven, Domäne (optional) — `feat/ap26-implicit-domain`:
       separater Float64-Compiler und adaptives Marching Squares mit gemeinsamen
@@ -115,28 +120,42 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       Qualitätsstatus für PR/main, ein normaler Produktionsbuild und durchgängige
       Commit-/Artefakt-/Fingerprintbindung bis Pages. Pflicht-QA einschließlich
       AP28/AP29, Galerie und Release-Quellenprüfung; bedingte Paketnachweise separat.
-      PR #47 ist integriert (`9180b26`). Umsetzung und tatsächliche Läufe: [AP31.md](AP31.md). Erste reale main-/Pages-
-      Kette und Live-Abnahme bleiben separat zu prüfen; keine Regeländerung oder
-      automatische Veröffentlichung in diesem Paket.
+      PR #47 ist integriert (`9180b26`). Umsetzung und tatsächliche Läufe: [AP31.md](AP31.md).
+      Erfolgreiche Veröffentlichung über diese neue Kette bleibt unbestätigt;
+      beobachtete main-Läufe und getrennte Live-Abnahme: [AP38](AP38.md).
 
-- 32 Verbindlicher PR- und Qualitätsschutz — `feat/ap32-merge-protection`,
-  PR #48: Ruleset `25003991` durch den Eigentümer aktiviert und lesend bestätigt.
-  PR-Pflicht ohne fremde Zustimmung, `Quality gate` von GitHub Actions und
-  strikte Zielbranchaktualität sind verbindlich. Roter PR #48 belegt die Sperre;
-  aktueller Dependabot-Lauf bleibt offen. Der gezielte Iris-/Galeriefix und
-  seine Kaltstartregressionen gehören zum späteren Eigentümerauftrag.
-  Vorher/Nachher und reale Läufe: [AP32.md](AP32.md). Status: Schutz aktiviert,
-  Restverifikation offen; Dokumentationsintegration über PR #48.
+- [x] 32 Verbindlicher PR- und Qualitätsschutz — `feat/ap32-merge-protection`,
+      PR #48: Ruleset `25003991` durch den Eigentümer aktiviert und lesend bestätigt.
+      PR-Pflicht ohne fremde Zustimmung, `Quality gate` von GitHub Actions und
+      strikte Zielbranchaktualität sind verbindlich. Roter PR #48 belegt die Sperre;
+      aktueller Dependabot-Lauf bleibt offen. Der gezielte Iris-/Galeriefix und
+      seine Kaltstartregressionen gehören zum späteren Eigentümerauftrag.
+      Vorher/Nachher und reale Läufe: [AP32.md](AP32.md). Status: Schutz aktiviert,
+      Restverifikation offen; PR #48 integriert (`3384c0d`), einschließlich Iris-Fix.
+      Der Haken bestätigt den Merge, nicht die vollständige Dependabot-Abnahme.
 
-- 33 Dependency-Entscheidungen — `feat/ap33-dependency-decisions`, PR #49:
-  aktuelle Registry-Verträge und Originalfehler für #33/#34/#37/#39 getrennt
-  dokumentiert; Node 24 und 24er-Typen bleiben erhalten. Entscheidungen,
-  Wiederaufnahmebedingungen und Schließempfehlungen: [AP33.md](AP33.md).
-  Tracking: [#31](https://github.com/sl3ndrr/m8e-calc/issues/31) (ESLint),
-  [#32](https://github.com/sl3ndrr/m8e-calc/issues/32) (Runtime/Material und
-  übrige AP24-Migrationen), [#50](https://github.com/sl3ndrr/m8e-calc/issues/50)
-  (TypeScript 7). Dokumentationsintegration über PR #49; keine Dependency-Migration.
-  Der zur Freigabe nötige Quellenfix für #51 und die ereignisgebundene
-  Live-Animationsmessung für #52 sind als eigene Korrekturcommits enthalten;
-  Abschluss und tatsächlicher CI-/Merge-Nachweis stehen im PR.
-  AP34–AP36 und spätere Migrations-PRs bleiben eigenständig.
+- [x] 33 Dependency-Entscheidungen — `feat/ap33-dependency-decisions`, PR #49:
+      aktuelle Registry-Verträge und Originalfehler für #33/#34/#37/#39 getrennt
+      dokumentiert; Node 24 und 24er-Typen bleiben erhalten. Entscheidungen,
+      Wiederaufnahmebedingungen und Schließempfehlungen: [AP33.md](AP33.md).
+      Tracking: [#31](https://github.com/sl3ndrr/m8e-calc/issues/31) (ESLint),
+      [#32](https://github.com/sl3ndrr/m8e-calc/issues/32) (Runtime/Material und
+      übrige AP24-Migrationen), [#50](https://github.com/sl3ndrr/m8e-calc/issues/50)
+      (TypeScript 7). PR #49 integriert (`2b13384`); keine Dependency-Migration.
+      Der zur Freigabe nötige Quellenfix für #51 und die ereignisgebundene
+      Live-Animationsmessung für #52 sind als eigene Korrekturcommits enthalten;
+      #51/#52 sind nach grüner finaler PR-CI und Merge geschlossen.
+      #33/#37/#39 bleiben offen; #34 ist wegen des Node-24-Vertrags geschlossen.
+
+- 34–36 Wartungsfolgepakete — bewusst zurückgestellt, kein Integrationsnachweis
+  in den erneut gelesenen PRs und kein eigenes AP34–AP36-Dokument auf dem
+  geprüften main. Die getrennten Migrationen werden über #31/#32/#50 und
+  [AP33](AP33.md) wiederaufgenommen; dies sind keine fehlenden Produktfeatures.
+- [x] 37 Dokumentationsquellen — PR #53 integriert (`177f329`): verständliche
+      Quellenfehler und dauerhafter JSON-Bericht, unverändert blockierendes Gate.
+      Historische Nachweise: [AP37](AP37.md), finaler Nachweis in [AP38](AP38.md).
+- 38 Statusdokumentation — in Arbeit auf `feat/ap38-status-documentation`;
+  dieser Dokumentations-PR ist noch nicht integriert oder veröffentlicht.
+- 39 Manuelle Live-Abnahme — offen; erst Kandidat und tatsächlich veröffentlichten
+  SHA abgleichen, dann UI/Update/Offline und physische Grenzen dokumentieren.
+  Zuständigkeiten und konkrete Schritte bis zum Release: [AP38](AP38.md).
