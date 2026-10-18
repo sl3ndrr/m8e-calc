@@ -124,9 +124,7 @@ export default function AccentPanel({ onClose }: { onClose: () => void }) {
                 '--md-sys-color-preview': palette[roleProperty(role)],
                 '--md-sys-color-on-preview':
                   palette[
-                    roleProperty(
-                      `on${role[0]?.toUpperCase()}${role.slice(1)}`,
-                    )
+                    roleProperty(`on${role[0]?.toUpperCase()}${role.slice(1)}`)
                   ],
               } as CSSProperties
             }
