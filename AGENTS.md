@@ -235,10 +235,12 @@ außerhalb dieses Branches akzeptiert der Aggregator sein erwartetes `skipped`.
 
 ## AP32 · Merge-Schutzstatus
 
-AP32 ist vorbereitet, Admin-Schritt offen; kein aktivierter PR-/CI-Schutz behauptet.
-Ruleset `25003991` enthält im gelesenen Stand nur Lösch-/Force-Push-Schutz.
-Vorgesehener Required Check ist ausschließlich der real beobachtete `Quality gate`
-von GitHub Actions, mit strikter Aktualität zum Defaultbranch und ohne neue
-Bypass-Akteure oder fremde Reviewerpflicht. Vor Abschluss Settings erneut lesen
-und rote/grüne aktuelle PRs sowie einen aktuellen Dependabot-Lauf prüfen.
-Befund, Grenzen und Eigentümeranleitung: [docs/AP32.md](docs/AP32.md).
+Ruleset `25003991` ist durch den Eigentümer aktiviert und danach lesend bestätigt:
+PR-Pflicht mit 0 Zustimmungen, ausschließlich `Quality gate` von GitHub Actions
+(App-ID `15368`), strikte Aktualität zum Defaultbranch, Lösch-/Force-Push-Schutz
+und leere Bypassliste. Der Admin-Schritt ist erledigt. Die tatsächliche
+Erzeugung auf einem aktuellen Dependabot-PR und der lesende Rotnachweis einer
+blockierten Mergebox bleiben offen; AP32 nicht als vollständig abgenommen markieren.
+Teil-Reruns mit Build-Artefakten älterer Versuche scheitern absichtlich am
+Proof-Kontext. Quellenfehler und neue 4K-Abweichungen separat bearbeiten.
+Befund, reale Läufe und Abschlussgrenzen: [docs/AP32.md](docs/AP32.md).

@@ -119,8 +119,10 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       Kette und Live-Abnahme bleiben separat zu prüfen; keine Regeländerung oder
       automatische Veröffentlichung in diesem Paket.
 
-- [ ] 32 Verbindlicher PR- und Qualitätsschutz — `feat/ap32-merge-protection`:
-      vorbereitet, Admin-Schritt offen. Ruleset `25003991` verlangt weiterhin
-      weder PRs noch CI; Soll: `Quality gate` von GitHub Actions und strikte
-      Zielbranchaktualität. Admin-Aktivierung sowie Rot-/Grün-/Dependabot-Abnahme
-      blockieren den Abschluss. Befund und Klickfolge: [AP32.md](AP32.md).
+- 32 Verbindlicher PR- und Qualitätsschutz — `feat/ap32-merge-protection`,
+      PR #48: Ruleset `25003991` durch den Eigentümer aktiviert und lesend bestätigt.
+      PR-Pflicht ohne fremde Zustimmung, `Quality gate` von GitHub Actions und
+      strikte Zielbranchaktualität sind verbindlich. Aktueller Dependabot-Lauf
+      und lesender Rotnachweis bleiben offen; keine vollständige Abnahme behauptet.
+      Vorher/Nachher und reale Läufe: [AP32.md](AP32.md). Status: Schutz aktiviert,
+      Restverifikation offen; Dokumentationsintegration über PR #48.
