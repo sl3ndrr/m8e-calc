@@ -116,7 +116,7 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       Commit-/Artefakt-/Fingerprintbindung bis Pages. Pflicht-QA einschließlich
       AP28/AP29, Galerie und Release-Quellenprüfung; bedingte Paketnachweise separat.
       PR #47 ist integriert (`9180b26`). Umsetzung und tatsächliche Läufe: [AP31.md](AP31.md). Erste reale main-/Pages-
-      Kette und Live-Abnahme erst nach späterem Merge; keine Regeländerung oder
+      Kette und Live-Abnahme bleiben separat zu prüfen; keine Regeländerung oder
       automatische Veröffentlichung in diesem Paket.
 
 - [ ] 32 Verbindlicher PR- und Qualitätsschutz — `feat/ap32-merge-protection`:
