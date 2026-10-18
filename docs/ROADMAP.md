@@ -136,6 +136,7 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
   [#32](https://github.com/sl3ndrr/m8e-calc/issues/32) (Runtime/Material und
   übrige AP24-Migrationen), [#50](https://github.com/sl3ndrr/m8e-calc/issues/50)
   (TypeScript 7). Dokumentationsintegration über PR #49; keine Dependency-Migration.
-  Der zur Freigabe nötige Quellenfix für #51 ist als eigener Commit enthalten;
+  Der zur Freigabe nötige Quellenfix für #51 und die ereignisgebundene
+  Live-Animationsmessung für #52 sind als eigene Korrekturcommits enthalten;
   Abschluss und tatsächlicher CI-/Merge-Nachweis stehen im PR.
   AP34–AP36 und spätere Migrations-PRs bleiben eigenständig.

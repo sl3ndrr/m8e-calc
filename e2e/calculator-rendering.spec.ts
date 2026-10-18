@@ -26,23 +26,52 @@ async function settle(locator: Locator) {
     );
   });
 }
+async function recordFrames(
+  button: Locator,
+  event: 'pointerdown' | 'pointerup' | null,
+  count = 12,
+) {
+  // Arm the browser-side recorder before input. Resolving a Locator after the
+  // event can consume most of the 421-ms transition on a loaded CI runner.
+  return button.evaluateHandle(
+    (node, { event, count }) => {
+      const samples = (async () => {
+        if (event)
+          await new Promise<void>((resolve) =>
+            node.addEventListener(event, () => resolve(), { once: true }),
+          );
+        const result = [];
+        for (let frame = 0; frame < count; frame++) {
+          await new Promise(requestAnimationFrame);
+          const style = getComputedStyle(node);
+          result.push({
+            time: performance.now(),
+            radius: style.borderRadius,
+            transform: style.transform,
+            width: (node as HTMLElement).offsetWidth,
+            height: (node as HTMLElement).offsetHeight,
+            outline: style.outlineStyle,
+            background: style.backgroundColor,
+          });
+        }
+        return result;
+      })();
+      return { samples };
+    },
+    { event, count },
+  );
+}
+async function readFrames(
+  recording: Awaited<ReturnType<typeof recordFrames>>,
+) {
+  try {
+    return await recording.evaluate(({ samples }) => samples);
+  } finally {
+    await recording.dispose();
+  }
+}
 async function frames(button: Locator, count = 12) {
-  return button.evaluate(async (node, count) => {
-    const samples = [];
-    for (let frame = 0; frame < count; frame++) {
-      await new Promise(requestAnimationFrame);
-      const style = getComputedStyle(node);
-      samples.push({
-        radius: style.borderRadius,
-        transform: style.transform,
-        width: (node as HTMLElement).offsetWidth,
-        height: (node as HTMLElement).offsetHeight,
-        outline: style.outlineStyle,
-        background: style.backgroundColor,
-      });
-    }
-    return samples;
-  }, count);
+  return readFrames(await recordFrames(button, null, count));
 }
 
 // Viewport/DPR matrix supplements the real tab zoom in calculator-native-zoom.
@@ -229,9 +258,14 @@ for (const [id, key, label] of [
     };
     for (let repeat = 0; repeat < 2; repeat++) {
       await button.hover();
+      const downRecording = await recordFrames(button, 'pointerdown');
       await page.mouse.down();
       await expect(button).toHaveAttribute('data-pressed');
-      const down = await frames(button);
+      const down = await readFrames(downRecording);
+      await info.attach(`mouse-${label}-${repeat}-down`, {
+        body: JSON.stringify(down),
+        contentType: 'application/json',
+      });
       assertShape(down);
       expect(new Set(down.map((f) => f.transform)).size).toBeGreaterThan(1);
       expect(down.some((f) => f.transform !== 'none')).toBe(true);
@@ -254,8 +288,9 @@ for (const [id, key, label] of [
       await button.evaluate((node) =>
         node.getAnimations().forEach((a) => a.play()),
       );
+      const upRecording = await recordFrames(button, 'pointerup');
       await page.mouse.up();
-      const up = await frames(button);
+      const up = await readFrames(upRecording);
       assertShape(up);
       expect(new Set(up.map((f) => f.transform)).size).toBeGreaterThan(1);
       if (id !== 'equals') {
@@ -298,6 +333,30 @@ for (const [id, key, label] of [
     });
   });
 }
+
+
+test('live pointer recorder detects an intentionally missing transition', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1920, height: 1080 });
+  await page.goto('/m8e-calc/#/simple');
+  await ready(page);
+  const button = page.locator('[data-key="+"] button');
+  await settle(button);
+  await button.evaluate((node) => {
+    (node as HTMLElement).style.transition = 'none';
+  });
+  await button.hover();
+  const recording = await recordFrames(button, 'pointerdown');
+  await page.mouse.down();
+  await expect(button).toHaveAttribute('data-pressed');
+  const down = await readFrames(recording);
+  await page.mouse.up();
+  expect(down).toHaveLength(12);
+  // A snap must fail the real operator test's moving-frame oracle.
+  expect(new Set(down.map((sample) => sample.transform)).size).toBe(1);
+  expect(down.every((sample) => sample.transform !== 'none')).toBe(true);
+});
 
 for (const [motion, reduced] of [
   ['full', false],
