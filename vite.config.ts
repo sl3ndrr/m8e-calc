@@ -43,11 +43,17 @@ export default defineConfig(({ command, mode }) => {
     test: {
       pool: 'threads',
       maxWorkers: 2,
+      // Keep independent Vite servers; app-build plugins do not belong to tests.
+      sharedViteServer: false,
       projects: [
         {
+          // Vitest 5 otherwise inherits the app's Vite plugins by default.
+          extends: false,
           define: { __INTERNAL_DESIGN_LAB__: 'true' },
           test: {
             name: 'ui',
+            // Preserve Vitest 4's explicit, per-suite mock cleanup lifecycle.
+            clearMocks: false,
             environment: 'jsdom',
             setupFiles: ['./src/test/setup.ts'],
             include: ['src/**/*.test.{ts,tsx}'],
@@ -59,9 +65,13 @@ export default defineConfig(({ command, mode }) => {
           },
         },
         {
+          // Vitest 5 otherwise inherits the app's Vite plugins by default.
+          extends: false,
           define: { __INTERNAL_DESIGN_LAB__: 'true' },
           test: {
             name: 'engine',
+            // Preserve Vitest 4's explicit, per-suite mock cleanup lifecycle.
+            clearMocks: false,
             environment: 'node',
             include: [
               'src/engine/**/*.test.ts',
