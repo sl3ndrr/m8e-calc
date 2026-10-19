@@ -58,6 +58,9 @@ function HistoryItem({
       },
     );
     return () => {
+      // stop() preserves a sampled MotionValue and may queue its render.
+      // Commit the neutral entrance goal before releasing the DOM styles.
+      animation.complete();
       animation.stop();
       node.style.opacity = '';
       node.style.transform = '';

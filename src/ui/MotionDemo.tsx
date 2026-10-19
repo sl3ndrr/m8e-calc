@@ -15,8 +15,21 @@ export function MotionDemo({ name }: { name: SpringName }) {
   useEffect(() => {
     const query = window.matchMedia('(prefers-reduced-motion: reduce)');
     const reset = () => {
-      animation.current?.stop();
+      const current = animation.current;
+      animation.current = null;
+      current?.stop();
       if (node.current) {
+        if (current) {
+          // Clear Motion's stored values too: stop() retains its sampled value,
+          // whose queued render could otherwise restore the old DOM styles.
+          const reset = animate(
+            node.current,
+            { x: 0, opacity: 1 },
+            { duration: 0 },
+          );
+          reset.complete();
+          reset.stop();
+        }
         node.current.style.transform = '';
         node.current.style.opacity = '';
       }

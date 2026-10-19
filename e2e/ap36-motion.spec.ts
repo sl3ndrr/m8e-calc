@@ -8,6 +8,7 @@ import {
   picture,
   resume,
   sampleFrames,
+  waitFrozen,
 } from './ap36Capture';
 import { replaceGraphExpression } from './graphEditor';
 
@@ -33,7 +34,6 @@ for (const [level, os] of [
   test(`history Vanilla entrance ${level} OS ${os}, interrupted by Off and unmount`, async ({
     page,
   }, info) => {
-    await page.clock.install({ time: new Date('2026-01-01T00:00:00Z') });
     await page.emulateMedia({ reducedMotion: os ? 'reduce' : 'no-preference' });
     await page.addInitScript((motionLevel) => {
       localStorage.setItem(
@@ -83,11 +83,10 @@ for (const [level, os] of [
     });
     await toggle.click();
     await expect(entry).toHaveCount(0);
-    await holdNext(page, '.history-entry');
-    await page.clock.pauseAt(new Date('2026-01-01T00:01:00Z'));
+    await holdNext(page, '.history-entry', true);
     await toggle.click();
     await expect(entry).toBeVisible();
-    await page.clock.runFor(40);
+    await waitFrozen(page);
     const middle = await entry.evaluate((node) => {
       const s = getComputedStyle(node);
       return {
@@ -118,22 +117,23 @@ for (const [level, os] of [
       middle,
     });
     await resume(page);
-    await page.clock.resume();
     await idle(page);
     // A second entrance stays genuinely in-flight until changing the setting.
     await toggle.click();
     await expect(entry).toHaveCount(0);
-    await holdNext(page, '.history-entry');
-    await page.clock.pauseAt(new Date('2026-01-01T00:02:00Z'));
+    await holdNext(page, '.history-entry', true);
     await toggle.click();
-    await page.clock.runFor(40);
+    await waitFrozen(page);
     await expect(entry).toBeVisible();
     await setMotion(page, 'Aus');
     await expect(page.locator('html')).toHaveAttribute('data-motion', 'off');
     await resume(page);
-    await page.clock.resume();
     const off = await sampleFrames(entry);
     await attach(info, 'history-off-frames', off);
+    test.fail(
+      process.env.AP36_PHASE === 'before' && level !== 'off',
+      'Pinned Motion 12 baseline preserves the sampled opacity after stop; AP36 fixes this cleanup contract.',
+    );
     for (const frame of off) {
       expect(frame.opacity).toBe(1);
       expect(['none', 'matrix(1, 0, 0, 1, 0, 0)']).toContain(frame.transform);

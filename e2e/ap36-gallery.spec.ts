@@ -8,6 +8,7 @@ import {
   picture,
   resume,
   sampleFrames,
+  waitFrozen,
 } from './ap36Capture';
 
 test.use({ serviceWorkers: 'block' });
@@ -20,7 +21,6 @@ for (const level of ['full', 'reduced', 'off'] as const) {
   test(`Vanilla demo ${level}: live frames, retarget, OS reduction, Off and unmount`, async ({
     page,
   }, info) => {
-    await page.clock.install({ time: new Date('2026-01-01T00:00:00Z') });
     await page.goto('/m8e-calc/#/design');
     await page.getByLabel('Animationsstufe').selectOption(level);
     const demo = page
@@ -73,10 +73,9 @@ for (const level of ['full', 'reduced', 'off'] as const) {
       ).toBeGreaterThan(1);
     await attach(info, 'demo-live-frames', { level, frames });
     await idle(page, true);
-    await holdNext(page, '.motion-dot');
-    await page.clock.pauseAt(new Date('2026-01-01T00:01:00Z'));
+    await holdNext(page, '.motion-dot', true);
     await play.click();
-    await page.clock.runFor(40);
+    await waitFrozen(page);
     const captured = await held(page);
     if (level !== 'off') {
       const middle = await dot.evaluate((node) => {
@@ -101,12 +100,16 @@ for (const level of ['full', 'reduced', 'off'] as const) {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await expect(dot).toHaveCSS('transform', 'none');
     await resume(page);
-    await page.clock.resume();
     await page.getByLabel('Animationsstufe').selectOption('off');
     const off = await sampleFrames(dot);
+    test.fail(
+      process.env.AP36_PHASE === 'before' && level === 'reduced',
+      'Pinned baseline resets DOM styles but retains the sampled Motion opacity.',
+    );
     expect(
       off.every(
         (f) =>
+          f.opacity === 1 &&
           f.animations === 0 &&
           f.transform === 'none' &&
           (f.translate === 'none' || f.translate === '0px'),

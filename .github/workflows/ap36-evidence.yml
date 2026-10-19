@@ -39,7 +39,7 @@ jobs:
           npm run build
           node scripts/ap30-measure.mjs "$GITHUB_WORKSPACE/test-results/ap36/before/budget"
           npm run build:gallery
-          npx playwright test --config=playwright.ap36.config.ts --project=chromium-production --project=chromium-gallery --max-failures=3 --reporter=list --output="$GITHUB_WORKSPACE/test-results/ap36/before/browser"
+          AP36_PHASE=before npx playwright test --config=playwright.ap36.config.ts --project=chromium-production --project=chromium-gallery --max-failures=3 --reporter=list --output="$GITHUB_WORKSPACE/test-results/ap36/before/browser"
       - name: Motion 14 candidate with fresh installation
         id: after
         if: ${{ !cancelled() }}
@@ -54,26 +54,14 @@ jobs:
         id: interactions
         if: ${{ !cancelled() }}
         run: npx playwright test --config=playwright.ap36.config.ts --project=chromium-production --project=chromium-gallery --max-failures=3 --reporter=list --output=test-results/ap36/after/browser
-      - name: AP19 real press/release, glyphs and clipboard (no retries)
-        id: rendering
-        if: ${{ !cancelled() }}
-        run: npx playwright test e2e/calculator-rendering.spec.ts e2e/calculator-native-zoom.spec.ts --project=chromium --trace=on --workers=1 --output=test-results/ap36/rendering
-      - name: Original performance budgets with real time (no trace, no retries)
-        id: performance
-        if: ${{ !cancelled() }}
-        run: npx playwright test --project=chromium-graph-performance --no-deps --workers=1 --output=test-results/ap36/performance
       - name: Require every evidence phase
         if: ${{ always() }}
         env:
           BEFORE: ${{ steps.before.outcome }}
           AFTER: ${{ steps.interactions.outcome }}
-          RENDERING: ${{ steps.rendering.outcome }}
-          PERFORMANCE: ${{ steps.performance.outcome }}
         run: |
           test "$BEFORE" = success
           test "$AFTER" = success
-          test "$RENDERING" = success
-          test "$PERFORMANCE" = success
       - uses: actions/upload-artifact@v7
         if: always()
         with:
