@@ -29,10 +29,9 @@ jobs:
       - run: npx playwright install --with-deps chromium firefox webkit
       - name: Verify current official IAU PDFs (independent source correction)
         id: sources
-        continue-on-error: true
         run: |
           sudo apt-get update
-          sudo apt-get install --yes poppler-utils
+          sudo apt-get install --yes poppler-utils ripgrep
           mkdir -p test-results/ap36/sources
           for item in '2012:1FBKjaswlP-rTs6z6V4WygXsbdHKVHYcP' '2015:1vL1vXyzFUWjY083Yb5s67dDsc_rxTWWZ'; do
             year="${item%%:*}"
