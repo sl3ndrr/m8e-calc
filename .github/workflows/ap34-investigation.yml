@@ -1,0 +1,49 @@
+name: AP34 investigation
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  investigate:
+    if: github.head_ref == 'feat/ap34-jsdom30'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Official metadata and migration notes
+        run: |
+          node --version
+          npm --version
+          npm view 'jsdom@30' version engines peerDependencies peerDependenciesMeta deprecated --json
+          npm view 'node@24' version --json
+          npm view npm version engines --json
+          npm view vitest@4.1.12 engines peerDependencies peerDependenciesMeta --json
+          npm view vite@8.2.1 engines peerDependencies --json
+          npm view '@types/node@24' version --json
+          curl --fail --silent --show-error https://raw.githubusercontent.com/jsdom/jsdom/main/Changelog.md | head -n 360
+      - run: npm ci
+      - name: Baseline full UI project
+        run: npx vitest run --project=ui --reporter=json --outputFile=/tmp/ap34-before-ui.json
+      - name: Baseline full engine project
+        if: ${{ !cancelled() }}
+        run: npx vitest run --project=engine --reporter=json --outputFile=/tmp/ap34-before-engine.json
+      - name: Baseline summary
+        if: ${{ !cancelled() }}
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          for (const project of ['ui', 'engine']) {
+            const r = JSON.parse(fs.readFileSync('/tmp/ap34-before-' + project + '.json'));
+            console.log(JSON.stringify({ project, suites: r.numTotalTestSuites, tests: r.numTotalTests, passed: r.numPassedTests, failed: r.numFailedTests, pending: r.numPendingTests }));
+          }
+          JS
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap34-baseline
+          path: /tmp/ap34-before-*.json
