@@ -1,6 +1,7 @@
 # Projektgedächtnis: m8e-calc
 
-Zentraler geprüfter Produkt-/Pages- und Freigabestand: [docs/AP38.md](docs/AP38.md).
+Aktuelle Live-Abnahme und Releaseentscheidung: [docs/AP39.md](docs/AP39.md)
+(blockiert); vorheriger Integrationsbericht: [docs/AP38.md](docs/AP38.md).
 Paketnachweise behalten ihre historischen SHAs; PR-Head, geprüfter Produkt-SHA
 und tatsächlich veröffentlichter Pages-SHA sind getrennte Identitäten.
 
@@ -263,3 +264,4 @@ bei Fehlern in `test-results/release-docs.json`; ein Versuch, 30 Sekunden je URL
 keine automatischen Wiederholungen. Nur die bestehenden exakten ISO-/HHS-403-
 Entscheidungen gelten als manuell geprüft, niemals als bestandener HTTP-Test.
 Vertrag, Quellenzuordnung und Ausführungsgrenzen: [docs/AP37.md](docs/AP37.md).
+

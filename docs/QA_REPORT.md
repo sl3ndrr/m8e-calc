@@ -1,6 +1,7 @@
 # Qualitätsbericht
 
-Aktueller Integrations-/Abnahmestand: [AP38 · Status](AP38.md).
+Aktuelle Live-Abnahme: [AP39](AP39.md) (blockiert; #22 offen).
+Vorheriger Integrationsbericht: [AP38 · Status](AP38.md).
 Historische Produktabnahme vom 17.10.2026: [AP25](AP25.md).
 Die nachfolgenden Messwerte sind historische AP15-Nachweise, keine erneute
 Abnahme von AP18–AP24 oder des aktuellen Pages-Deploys.
@@ -183,3 +184,4 @@ node scripts/qa-lighthouse.mjs
 
 Referenzen nur nach visueller Prüfung mit `--update-snapshots` erneuern. Das ist
 keine Möglichkeit, eine unbeabsichtigte Darstellungsänderung freizugeben.
+

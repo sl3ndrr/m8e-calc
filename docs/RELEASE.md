@@ -1,6 +1,7 @@
 # Veröffentlichung vorbereiten
 
-Aktueller Produkt-/Pages-Prüfstand und kurze Eigentümerliste: [AP38](AP38.md).
+Aktuelle Live-Abnahme und Releaseentscheidung: [AP39](AP39.md) (blockiert).
+Vorheriger Integrationsbericht: [AP38](AP38.md).
 Diese Anleitung beschreibt den Ablauf; sie erteilt keine Veröffentlichungserlaubnis.
 
 ## Reproduzierbare Bilder
@@ -194,3 +195,4 @@ GitHub Actions 15368, strikte Aktualität und kein Bypass. Die tatsächliche
 Dependabot-Restverifikation bleibt offen; [AP32](AP32.md). Keine bedingten
 historischen Evidence-Jobs pauschal verlangen. Bei abweichender Laufversuchsnummer den kompletten CI-Workflow
 neu ausführen; ein Teil-Rerun darf ältere Artefakte nicht stillschweigend übernehmen.
+
