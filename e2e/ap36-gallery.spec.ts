@@ -254,3 +254,64 @@ test('checkbox reversal and theme fallback interruption have real intermediate s
   await expect(label.getByRole('checkbox')).toBeChecked();
   await idle(page, true);
 });
+
+test('platform theme reveal retargets and stops on Off and OS reduction', async ({
+  page,
+}, info) => {
+  await page.emulateMedia({
+    colorScheme: 'light',
+    reducedMotion: 'no-preference',
+  });
+  await page.goto('/m8e-calc/#/design');
+  const native = await page.evaluate(() =>
+    Boolean(document.startViewTransition),
+  );
+  const selector = native ? 'html' : '.theme-snapshot';
+  const theme = (value: string) =>
+    page.locator(`#root .theme-switch input[value="${value}"]`);
+  const root = page.locator('html');
+  const reveal = async (value: string) => {
+    await idle(page, true);
+    await holdNext(page, selector);
+    await theme(value).press('Space');
+    await expect(root).toHaveAttribute('data-theme', value);
+    await expect(root).toHaveAttribute('data-theme-changing', 'true');
+    await expect.poll(async () => (await held(page)).length).toBeGreaterThan(0);
+    const frames = await held(page);
+    if (native)
+      expect(
+        frames.some((animation) =>
+          animation.frames.some((frame) =>
+            String(frame.clipPath).startsWith('circle('),
+          ),
+        ),
+      ).toBe(true);
+    await attach(info, `platform-theme-${value}`, { native, frames });
+    await picture(info, `platform-theme-${value}`, root);
+  };
+  await reveal('dark');
+  await theme('light').press('Space');
+  await resume(page);
+  await expect(root).toHaveAttribute('data-theme', 'light');
+  await expect(root).not.toHaveAttribute('data-theme-changing');
+  await idle(page, true);
+
+  await reveal('dark');
+  await page.getByLabel('Animationsstufe').selectOption('off');
+  await resume(page);
+  await expect(root).toHaveAttribute('data-motion', 'off');
+  await expect(root).not.toHaveAttribute('data-theme-changing');
+  await idle(page, true);
+  await theme('light').press('Space');
+  await expect(root).toHaveAttribute('data-theme', 'light');
+  await idle(page, true);
+
+  await page.getByLabel('Animationsstufe').selectOption('full');
+  await reveal('dark');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await resume(page);
+  await expect(root).toHaveAttribute('data-motion', 'reduced');
+  await expect(root).not.toHaveAttribute('data-theme-changing');
+  await expect(page.locator('.theme-snapshot')).toHaveCount(0);
+  await idle(page, true);
+});
