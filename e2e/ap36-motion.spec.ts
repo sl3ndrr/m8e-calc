@@ -67,6 +67,16 @@ for (const [level, os] of [
     await expect(entry).toBeVisible();
     await page.evaluate(() => document.fonts.ready);
     await idle(page);
+    // Warm the lazy settings chunk before freezing the app clock. Its cold load
+    // remains covered by startup-budget; this case interrupts a running spring.
+    await page
+      .getByRole('button', { name: 'Einstellungen', exact: true })
+      .click();
+    await expect(
+      page.getByRole('button', { name: /Animationsstufe/ }),
+    ).toBeVisible();
+    await page.keyboard.press('Escape');
+    await idle(page);
     // Remount through the real sheet toggle, registering the pause before input.
     const toggle = page.getByRole('button', {
       name: 'Verlauf ein-/ausblenden',
@@ -77,7 +87,7 @@ for (const [level, os] of [
     await page.clock.pauseAt(new Date('2026-01-01T00:01:00Z'));
     await toggle.click();
     await expect(entry).toBeVisible();
-    await page.clock.runFor(120);
+    await page.clock.runFor(40);
     const middle = await entry.evaluate((node) => {
       const s = getComputedStyle(node);
       return {
@@ -116,7 +126,7 @@ for (const [level, os] of [
     await holdNext(page, '.history-entry');
     await page.clock.pauseAt(new Date('2026-01-01T00:02:00Z'));
     await toggle.click();
-    await page.clock.runFor(120);
+    await page.clock.runFor(40);
     await expect(entry).toBeVisible();
     await setMotion(page, 'Aus');
     await expect(page.locator('html')).toHaveAttribute('data-motion', 'off');

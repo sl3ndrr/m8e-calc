@@ -1,7 +1,5 @@
 name: AP36 Motion migration evidence
 on:
-  push:
-    branches: [feat/ap36-motion14]
   pull_request:
     branches: [main]
 permissions:
@@ -11,7 +9,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   evidence:
-    if: github.event_name == 'push' || github.head_ref == 'feat/ap36-motion14'
+    if: github.head_ref == 'feat/ap36-motion14'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -24,14 +22,6 @@ jobs:
           check-latest: true
       - run: npm install --global npm@11.19.0
       - run: npm ci --engine-strict
-      - name: Export formatter for restricted local environment
-        run: |
-          mkdir -p test-results/ap36-tools
-          tar -czf test-results/ap36-tools/prettier.tgz node_modules/prettier
-      - uses: actions/upload-artifact@v7
-        with:
-          name: ap36-tools
-          path: test-results/ap36-tools/
       - run: npx playwright install --with-deps chromium firefox webkit
       - name: Same-run Motion 12 baseline, original lockfile
         id: before
@@ -54,21 +44,12 @@ jobs:
         id: after
         if: ${{ !cancelled() }}
         env:
+          GITHUB_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
           AP30_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           npm run build
           node scripts/ap30-measure.mjs test-results/ap36/after/budget
           npm run build:gallery
-          mkdir -p "$RUNNER_TEMP/ap36-kit/browsers"
-          for directory in "$HOME"/.cache/ms-playwright/chromium_headless_shell-*; do cp -r "$directory" "$RUNNER_TEMP/ap36-kit/browsers/"; done
-          tar -czf "$RUNNER_TEMP/ap36-kit/runtime.tgz" node_modules dist dist-gallery
-          tar -czf "$RUNNER_TEMP/ap36-local.tgz" -C "$RUNNER_TEMP/ap36-kit" .
-      - uses: actions/upload-artifact@v7
-        if: ${{ !cancelled() }}
-        with:
-          name: ap36-local-kit
-          path: ${{ runner.temp }}/ap36-local.tgz
-          retention-days: 1
       - name: Candidate interaction probes
         id: interactions
         if: ${{ !cancelled() }}

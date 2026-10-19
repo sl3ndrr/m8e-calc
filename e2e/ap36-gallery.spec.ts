@@ -76,7 +76,7 @@ for (const level of ['full', 'reduced', 'off'] as const) {
     await holdNext(page, '.motion-dot');
     await page.clock.pauseAt(new Date('2026-01-01T00:01:00Z'));
     await play.click();
-    await page.clock.runFor(120);
+    await page.clock.runFor(40);
     const captured = await held(page);
     if (level !== 'off') {
       const middle = await dot.evaluate((node) => {
@@ -119,35 +119,59 @@ for (const level of ['full', 'reduced', 'off'] as const) {
   });
 }
 
-for (const component of ['Dialog', 'Menu', 'SideSheet'] as const) {
-  test(`${component} closes during a real entrance and reopens with focus`, async ({
-    page,
-  }, info) => {
-    await page.goto('/m8e-calc/#/design');
-    const trigger = page
-      .locator(`[data-component="${component}"] [data-state="default"] button`)
-      .first();
-    await trigger.scrollIntoViewIfNeeded();
-    await idle(page, true);
-    const selector = component === 'Menu' ? '.ui-menu-popover' : '.ui-modal';
-    await holdNext(page, selector);
-    await trigger.click();
-    const overlay = page.locator(selector);
-    await expect(overlay).toBeVisible();
-    await expect.poll(async () => (await held(page)).length).toBeGreaterThan(0);
-    await picture(info, `${component}-middle`, overlay);
-    await attach(info, `${component}-held`, await held(page));
-    await page.keyboard.press('Escape');
-    await expect(overlay).toHaveCount(0);
-    await expect(trigger).toBeFocused();
-    await resume(page);
-    await trigger.press('Enter');
-    await expect(overlay).toBeVisible();
-    await page.keyboard.press('Escape');
-    await expect(overlay).toHaveCount(0);
-    await expect(trigger).toBeFocused();
-    await idle(page, true);
-  });
+for (const [motion, os] of [
+  ['full', false],
+  ['reduced', false],
+  ['off', false],
+  ['full', true],
+] as const) {
+  for (const component of ['Dialog', 'Menu', 'SideSheet'] as const) {
+    test(`${component} ${motion} OS ${os} closes during a real entrance and reopens with focus`, async ({
+      page,
+    }, info) => {
+      await page.emulateMedia({
+        reducedMotion: os ? 'reduce' : 'no-preference',
+      });
+      await page.addInitScript(
+        (motionLevel) =>
+          localStorage.setItem(
+            'm8e-calc.settings',
+            JSON.stringify({ version: 4, state: { motionLevel } }),
+          ),
+        motion,
+      );
+      await page.goto('/m8e-calc/#/design');
+      const trigger = page
+        .locator(
+          `[data-component="${component}"] [data-state="default"] button`,
+        )
+        .first();
+      await trigger.scrollIntoViewIfNeeded();
+      await idle(page, true);
+      const selector = component === 'Menu' ? '.ui-menu-popover' : '.ui-modal';
+      await holdNext(page, selector);
+      await trigger.click();
+      const overlay = page.locator(selector);
+      await expect(overlay).toBeVisible();
+      if (motion === 'full' && !os) {
+        await expect
+          .poll(async () => (await held(page)).length)
+          .toBeGreaterThan(0);
+        await picture(info, `${component}-middle`, overlay);
+      } else expect(await held(page)).toEqual([]);
+      await attach(info, `${component}-held`, await held(page));
+      await page.keyboard.press('Escape');
+      await expect(overlay).toHaveCount(0);
+      await expect(trigger).toBeFocused();
+      await resume(page);
+      await trigger.press('Enter');
+      await expect(overlay).toBeVisible();
+      await page.keyboard.press('Escape');
+      await expect(overlay).toHaveCount(0);
+      await expect(trigger).toBeFocused();
+      await idle(page, true);
+    });
+  }
 }
 
 test('checkbox reversal and theme fallback interruption have real intermediate states', async ({

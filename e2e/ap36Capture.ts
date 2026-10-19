@@ -32,7 +32,7 @@ export async function installMotionProbe(page: Page) {
       probe.held.push(animation);
       queueMicrotask(() => {
         animation.pause();
-        animation.currentTime = 120;
+        animation.currentTime = 40;
       });
     };
     const animate = Element.prototype.animate;
