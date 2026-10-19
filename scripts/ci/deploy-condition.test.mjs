@@ -10,7 +10,7 @@ const workflow = readFileSync(
 const deploy = workflow.split('\n  deploy:\n')[1];
 assert.ok(deploy, 'Production deployment job exists');
 const expression = deploy
-  .match(/\n    if: >-\n([\s\S]*?)\n    runs-on:/)[1]
+  .match(/\n {4}if: >-\n([\s\S]*?)\n {4}runs-on:/)[1]
   .trim()
   .replace(/^\$\{\{\s*|\s*\}\}$/g, '')
   .replace(/\bneeds\.([\w-]+)/g, (_, id) => `needs[${JSON.stringify(id)}]`);
