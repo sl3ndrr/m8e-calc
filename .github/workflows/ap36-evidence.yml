@@ -59,7 +59,20 @@ jobs:
           npm run build
           node scripts/ap30-measure.mjs test-results/ap36/after/budget
           npm run build:gallery
-          npx playwright test --config=playwright.ap36.config.ts --project=chromium-production --project=chromium-gallery --max-failures=3 --reporter=list --output=test-results/ap36/after/browser
+          mkdir -p "$RUNNER_TEMP/ap36-kit/browsers"
+          for directory in "$HOME"/.cache/ms-playwright/chromium_headless_shell-*; do cp -r "$directory" "$RUNNER_TEMP/ap36-kit/browsers/"; done
+          tar -czf "$RUNNER_TEMP/ap36-kit/runtime.tgz" node_modules dist dist-gallery
+          tar -czf "$RUNNER_TEMP/ap36-local.tgz" -C "$RUNNER_TEMP/ap36-kit" .
+      - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: ap36-local-kit
+          path: ${{ runner.temp }}/ap36-local.tgz
+          retention-days: 1
+      - name: Candidate interaction probes
+        id: interactions
+        if: ${{ !cancelled() }}
+        run: npx playwright test --config=playwright.ap36.config.ts --project=chromium-production --project=chromium-gallery --max-failures=3 --reporter=list --output=test-results/ap36/after/browser
       - name: AP19 real press/release, glyphs and clipboard (no retries)
         id: rendering
         if: ${{ !cancelled() }}
@@ -72,7 +85,7 @@ jobs:
         if: ${{ always() }}
         env:
           BEFORE: ${{ steps.before.outcome }}
-          AFTER: ${{ steps.after.outcome }}
+          AFTER: ${{ steps.interactions.outcome }}
           RENDERING: ${{ steps.rendering.outcome }}
           PERFORMANCE: ${{ steps.performance.outcome }}
         run: |

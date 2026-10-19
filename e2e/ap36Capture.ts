@@ -29,10 +29,11 @@ export async function installMotionProbe(page: Page) {
     };
     const hold = (element: Element, animation: Animation) => {
       if (!probe.selector || !element.matches(probe.selector)) return;
-      animation.pause();
-      animation.currentTime =
-        Number(animation.effect?.getTiming().duration) / 3;
       probe.held.push(animation);
+      queueMicrotask(() => {
+        animation.pause();
+        animation.currentTime = 120;
+      });
     };
     const animate = Element.prototype.animate;
     Element.prototype.animate = function (frames, options) {
@@ -123,7 +124,9 @@ export async function idle(page: Page, galleryLoaders = false) {
           animations: document
             .getAnimations()
             .filter(
-              (a) => a.playState === 'running' || a.playState === 'paused',
+              (a) =>
+                (a.playState === 'running' || a.playState === 'paused') &&
+                a.effect?.getTiming().iterations !== Infinity,
             ).length,
         };
       }, galleryLoaders),

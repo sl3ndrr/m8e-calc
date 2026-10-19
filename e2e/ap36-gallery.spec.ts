@@ -20,6 +20,7 @@ for (const level of ['full', 'reduced', 'off'] as const) {
   test(`Vanilla demo ${level}: live frames, retarget, OS reduction, Off and unmount`, async ({
     page,
   }, info) => {
+    await page.clock.install({ time: new Date('2026-01-01T00:00:00Z') });
     await page.goto('/m8e-calc/#/design');
     await page.getByLabel('Animationsstufe').selectOption(level);
     const demo = page
@@ -73,15 +74,34 @@ for (const level of ['full', 'reduced', 'off'] as const) {
     await attach(info, 'demo-live-frames', { level, frames });
     await idle(page, true);
     await holdNext(page, '.motion-dot');
+    await page.clock.pauseAt(new Date('2026-01-01T00:01:00Z'));
     await play.click();
+    await page.clock.runFor(120);
     const captured = await held(page);
     if (level !== 'off') {
-      expect(captured.length).toBeGreaterThan(0);
+      const middle = await dot.evaluate((node) => {
+        const s = getComputedStyle(node);
+        return {
+          transform: s.transform,
+          translate: s.translate,
+          opacity: Number(s.opacity),
+        };
+      });
+      if (level === 'full')
+        expect(middle.transform !== 'none' || middle.translate !== 'none').toBe(
+          true,
+        );
+      else {
+        expect(middle.opacity).toBeGreaterThan(0.25);
+        expect(middle.opacity).toBeLessThan(1);
+      }
+      await attach(info, 'demo-middle-values', middle);
       await picture(info, 'demo-middle', demo);
     }
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await expect(dot).toHaveCSS('transform', 'none');
     await resume(page);
+    await page.clock.resume();
     await page.getByLabel('Animationsstufe').selectOption('off');
     const off = await sampleFrames(dot);
     expect(

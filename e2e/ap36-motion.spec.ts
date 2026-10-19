@@ -33,6 +33,7 @@ for (const [level, os] of [
   test(`history Vanilla entrance ${level} OS ${os}, interrupted by Off and unmount`, async ({
     page,
   }, info) => {
+    await page.clock.install({ time: new Date('2026-01-01T00:00:00Z') });
     await page.emulateMedia({ reducedMotion: os ? 'reduce' : 'no-preference' });
     await page.addInitScript((motionLevel) => {
       localStorage.setItem(
@@ -73,22 +74,30 @@ for (const [level, os] of [
     await toggle.click();
     await expect(entry).toHaveCount(0);
     await holdNext(page, '.history-entry');
+    await page.clock.pauseAt(new Date('2026-01-01T00:01:00Z'));
     await toggle.click();
     await expect(entry).toBeVisible();
+    await page.clock.runFor(120);
+    const middle = await entry.evaluate((node) => {
+      const s = getComputedStyle(node);
+      return {
+        transform: s.transform,
+        translate: s.translate,
+        scale: s.scale,
+        opacity: Number(s.opacity),
+      };
+    });
     const captured = await held(page);
     if (level === 'off') expect(captured).toEqual([]);
     else {
       expect(captured.length).toBeGreaterThan(0);
       expect(captured.every((a) => a.state === 'paused')).toBe(true);
+      expect(middle.opacity).toBeGreaterThan(0);
+      expect(middle.opacity).toBeLessThan(1);
       expect(
-        captured.some((a) =>
-          a.frames.some(
-            (f) =>
-              f.transform !== undefined ||
-              f.translate !== undefined ||
-              f.scale !== undefined,
-          ),
-        ),
+        middle.transform !== 'none' ||
+          middle.translate !== 'none' ||
+          middle.scale !== 'none',
       ).toBe(level === 'full' && !os);
       await picture(info, 'history-middle', entry);
     }
@@ -96,19 +105,23 @@ for (const [level, os] of [
       level,
       os,
       captured,
-      samples: await sampleFrames(entry, 2),
+      middle,
     });
     await resume(page);
+    await page.clock.resume();
     await idle(page);
     // A second entrance stays genuinely in-flight until changing the setting.
     await toggle.click();
     await expect(entry).toHaveCount(0);
     await holdNext(page, '.history-entry');
+    await page.clock.pauseAt(new Date('2026-01-01T00:02:00Z'));
     await toggle.click();
+    await page.clock.runFor(120);
     await expect(entry).toBeVisible();
     await setMotion(page, 'Aus');
     await expect(page.locator('html')).toHaveAttribute('data-motion', 'off');
     await resume(page);
+    await page.clock.resume();
     const off = await sampleFrames(entry);
     await attach(info, 'history-off-frames', off);
     for (const frame of off) {
