@@ -90,14 +90,19 @@ jobs:
           test ! -d dist-gallery
           test ! -e test-results/ap23/modules-normal.json
       - name: Full migrated check
-        run: npm run check
+        run: |
+          mkdir -p test-results/ap35
+          mv before-ui.json before-engine.json after-ui.json after-engine.json metadata.json comparison.json test-results/ap35/
+          rm -rf baseline
+          npm run check
       - name: Export exact generated data
         if: always()
         run: |
           python3 <<'PY'
           import base64,gzip,pathlib
           for name in ['package-lock.json','metadata.json','comparison.json']:
-              p=pathlib.Path(name)
+              p=pathlib.Path(name) if name == 'package-lock.json' else pathlib.Path('test-results/ap35',name)
+              if not p.exists(): p=pathlib.Path(name)
               if not p.exists(): continue
               data=base64.b64encode(gzip.compress(p.read_bytes())).decode()
               for i in range(0,len(data),12000): print('AP35_DATA:'+name+':'+str(i//12000)+':'+data[i:i+12000])
@@ -108,6 +113,7 @@ jobs:
           name: ap35-migration-evidence
           path: |
             package-lock.json
+            test-results/ap35/*.json
             metadata.json
             comparison.json
             before-*.json
