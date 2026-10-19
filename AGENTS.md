@@ -314,3 +314,12 @@ bleiben erhalten. Reguläre Lockfile-Erzeugung mit Node 24/npm 11.19.0;
 laufen vollständig getrennt; reale Browser bleiben für Layout, Fokus und
 Pointerinteraktion maßgeblich. Entscheidung, Vergleich und Grenzen:
 [docs/AP34.md](docs/AP34.md). #36 erst nach integrierter Ablösung schließen.
+
+## AP35 · Vitest-Projektgrenzen
+
+Vitest 5.0.5 behält zwei unabhängige Inline-Projekte: ausdrücklich
+`extends: false` und `sharedViteServer: false`. App-Buildplugins gehören
+nicht in diese Projekte. UI verwendet jsdom und das bestehende Testsetup;
+Engine/Units/Graph verwenden Node ohne UI-Setup. `clearMocks: false` und
+`restoreMocks: false` erhalten den bisherigen lokalen Mock-Lebenszyklus.
+Vollständige Auswahl, Titelzuordnung und Nachweise: [docs/AP35.md](docs/AP35.md).
