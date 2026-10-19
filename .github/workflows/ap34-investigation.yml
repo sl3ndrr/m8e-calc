@@ -59,7 +59,7 @@ jobs:
           for version in v28.0.0 v29.0.0 v30.0.0 v30.1.3; do
             curl --fail --silent --show-error "https://api.github.com/repos/jsdom/jsdom/releases/tags/$version" | jq -r .body
           done
-          rg -n 'ResourceLoader|JSDOM|environmentOptions|PointerEvent|MouseEvent|pointerType' src vite.config.ts || test "$?" = 1
+          grep -R -n -E 'ResourceLoader|JSDOM|environmentOptions|PointerEvent|MouseEvent|pointerType' src vite.config.ts || test "$?" = 1
       - run: npm ci --engine-strict
       - name: Migrated full UI project
         run: npx vitest run --project=ui --reporter=json --outputFile=/tmp/ap34-after-ui.json
