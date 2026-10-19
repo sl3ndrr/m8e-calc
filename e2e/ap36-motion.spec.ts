@@ -156,10 +156,10 @@ for (const [level, os] of [
       expect(['none', '1', '1 1']).toContain(frame.scale);
       expect(frame.animations).toBe(0);
     }
-    const settings = page.getByRole('dialog', {
-      name: 'Einstellungen',
-      exact: true,
-    });
+    const settings = page.locator('.ui-modal .ui-dialog');
+    await expect(
+      settings.getByRole('heading', { name: 'Einstellungen', exact: true }),
+    ).toBeVisible();
     await settings
       .getByRole('button', { name: 'Schließen', exact: true })
       .click();
