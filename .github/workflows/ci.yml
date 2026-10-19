@@ -248,8 +248,9 @@ jobs:
     name: Deploy Pages
     needs: [quality, pages-package]
     if: >-
-      ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' &&
-          github.repository == 'sl3ndrr/m8e-calc' && needs.quality.result == 'success' }}
+      ${{ !cancelled() && github.event_name == 'push' && github.ref == 'refs/heads/main' &&
+          github.repository == 'sl3ndrr/m8e-calc' && needs.quality.result == 'success' &&
+          needs.pages-package.result == 'success' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read

@@ -1,6 +1,7 @@
 # Projektgedächtnis: m8e-calc
 
-Zentraler geprüfter Produkt-/Pages- und Freigabestand: [docs/AP38.md](docs/AP38.md).
+Aktuelle Live-Abnahme und Releaseentscheidung: [docs/AP39.md](docs/AP39.md)
+(blockiert); vorheriger Integrationsbericht: [docs/AP38.md](docs/AP38.md).
 Paketnachweise behalten ihre historischen SHAs; PR-Head, geprüfter Produkt-SHA
 und tatsächlich veröffentlichter Pages-SHA sind getrennte Identitäten.
 
@@ -166,14 +167,54 @@ im wissenschaftlichen Tastenfeld. Konzept und reproduzierbare Browsernachweise:
 
 Checkbox-Markierungen haben einen lokalen Größenvertrag; das generische
 Iconsystem bleibt unverändert. ThemeSwitch behält drei Hauptsymbole und den
-zugänglichen Li…738 tokens truncated…barer, aktiver
-CodeMirror-Vorschlag ist Voraussetzung vor Tab; erhaltener Tooltiptext allein
-belegt keine Bereitschaft. Die Standard-Completion-Keymap liegt unter den
-Rechneraktionen: Escape leert, Enter wertet aus, auch bei offenen Vorschlägen.
-Galerieprojekte verwenden eigene Browserprofile.
+zugänglichen Live-Systemstatus. Reproduzierbare Zustands-/Zoom-/Motionprüfungen
+und Nachweisstatus stehen in [docs/AP20.md](docs/AP20.md).
+
+## AP22 · Graphzahlen
+
+`src/features/graph/numbers.ts` formatiert gezielt Float64-Graphwerte und adaptiert
+`parseLocalizedNumber` für einzelne numerische Felder. Keine pauschale Änderung
+an Rechnerformaten oder Formelausdrücken. Rundung ist reiner Anzeigezustand;
+Plot-Version 1, Settings und Permalinks bleiben unverändert. `ValueTable` trennt
+Berechnungsmemo von Formatierung und wird nur geöffnet eingebunden. Vertrag,
+Bestätigung und Arbeitsgrenzen stehen in `docs/GRAPH_MODE.md`.
+
+## AP23 · Internes Designlab
+
+`npm run build` erzeugt ausschließlich die Anwender-App in `dist/`.
+`npm run dev` aktiviert das interne Lab; `npm run build:gallery` ist der explizite
+Galerie-Testbuild in `dist-gallery/`, Preview mit `npm run preview:gallery` auf
+Port 4174. Niemals Galerie nach `dist/` bauen oder als Pages-Artefakt hochladen.
+`npm run test:e2e:gallery` führt die vollständigen Lab-/Theming-/Controlsprüfungen
+separat aus. Normale E2E, PWA, Bundle und Releasebilder prüfen weiter `dist/`.
+Der Compile-Schalter ist keine Anwenderoption. Neue Demoimporte bleiben hinter
+dieser Grenze; gemeinsam benötigte UI-Komponenten erhalten direkte Imports.
+Nachweise, Messdefinitionen und Reproduktion: [docs/AP23.md](docs/AP23.md).
+
+## AP24 · Dependency-Wartung
+
+Paketmatrix und Verfahren: [docs/AP24.md](docs/AP24.md). Node 24 und die passende
+24er-Typenlinie beibehalten. ESLint und `@eslint/js` gemeinsam auf der mit allen
+Plugins kompatiblen Linie halten; keine Peer-Overrides oder Abschaltung von
+Accessibility-Regeln. Dependabot gruppiert Patch/Minor nach Toolchain und
+Runtime; visuell sensible Pakete und unabhängige Majors erhalten eigene PRs.
+Security-Updates bleiben aktiv. Neue Lockfiles regulär mit Node 24/npm erzeugen,
+anschließend frisches `npm ci`, `check` und die betroffenen CI-/QA-Gates ausführen.
+Fontquellen-Updates regenerieren die eingecheckten Subsets nicht automatisch;
+Font-Regeneration und visuelle Referenzänderungen erfordern gezieltes Review.
+
+## AP25 · Produktabnahme
+
+Die vorhandenen AP18–AP24-Regressionen, Desktop-/Browsermatrix und PWA-Fälle
+werden wiederverwendet; historische SHA-/Bildbelege bleiben ihrem Build
+zugeordnet. Ein sichtbarer, aktiver CodeMirror-Vorschlag ist Voraussetzung vor
+Tab; erhaltener Tooltiptext allein belegt keine Bereitschaft. Die Standard-
+Completion-Keymap liegt unter den Rechneraktionen: Escape leert, Enter wertet
+aus, auch bei offenen Vorschlägen. Galerieprojekte verwenden eigene Browserprofile.
 `build-info.json` enthält passiv CI-Commit und Buildziel; ohne `GITHUB_SHA`
 steht der Commit auf `null`. Kein App-Request und keine sichtbare Entwickler-UI.
-Abnahme mit SHA, tatsächlichen Läufen und offenen Live-Grenzen: `docs/AP25.md`.
+Historische Abnahme: [docs/AP25.md](docs/AP25.md); aktuelle Live-Grenzen und
+Releaseentscheidung: [docs/AP39.md](docs/AP39.md).
 
 ## AP27 · Implizite Graphintegration
 
