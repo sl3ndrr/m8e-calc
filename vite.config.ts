@@ -54,6 +54,7 @@ export default defineConfig(({ command, mode }) => {
             name: 'ui',
             // Preserve Vitest 4's explicit, per-suite mock cleanup lifecycle.
             clearMocks: false,
+            restoreMocks: false,
             environment: 'jsdom',
             setupFiles: ['./src/test/setup.ts'],
             include: ['src/**/*.test.{ts,tsx}'],
@@ -72,6 +73,7 @@ export default defineConfig(({ command, mode }) => {
             name: 'engine',
             // Preserve Vitest 4's explicit, per-suite mock cleanup lifecycle.
             clearMocks: false,
+            restoreMocks: false,
             environment: 'node',
             include: [
               'src/engine/**/*.test.ts',

@@ -148,14 +148,19 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       #51/#52 sind nach grüner finaler PR-CI und Merge geschlossen.
       #33/#37/#39 bleiben offen; #34 ist wegen des Node-24-Vertrags geschlossen.
 
-- [ ] 34 jsdom-30-Testumgebung — `feat/ap34-jsdom30`, [PR #59](https://github.com/sl3ndrr/m8e-calc/pull/59):
-      eigenständige Migration 27.4.0 → 30.1.3, Node `>=24.15.0 <25`,
+- [x] 34 jsdom-30-Testumgebung — `feat/ap34-jsdom30`, [PR #59](https://github.com/sl3ndrr/m8e-calc/pull/59):
+      seit main `874c2443` integriert; 27.4.0 → 30.1.3, Node `>=24.15.0 <25`,
       getrennte UI-/Engine-Projekte und zusätzliche Untergrenzen-CI.
       Entscheidung und konkrete Nachweise: [AP34](AP34.md), Tracking #32.
-      Ablösung von #36 erst nach Integration; bis dahin #36 offen lassen und
-      AP34 unerledigt führen. Nach Produktabnahme empfohlene Wartung,
-      kein zusätzlicher Blocker der Produkt-/Live-Abnahme.
-- 35–36 Wartungsfolgepakete — weiterhin getrennt zurückgestellt.
+      #36 ist nach Integration als ersetzt geschlossen.
+- [ ] 35 Vitest-5-Migration — `feat/ap35-vitest5`, [PR #60](https://github.com/sl3ndrr/m8e-calc/pull/60):
+      eigenständig auf integriertem AP34, 4.1.12 → 5.0.5; explizite
+      Projekt-/Plugintrennung und erhaltener Mock-Lebenszyklus.
+      Vollständiger Vorher-/Nachher-Vergleich beider Projekte: gleiche
+      462 UI-/1666 Engine-Tests, geänderte Anzeigetitel einzeln dokumentiert.
+      Nachweise und finale Gates: [AP35](AP35.md). Noch nicht integriert;
+      #38 erst nach integrierter Ersatzlösung schließen, Tracking #32.
+- 36 Wartungsfolgepaket — weiterhin getrennt zurückgestellt.
   Wiederaufnahme über #31/#32/#50 und [AP33](AP33.md); keine fehlenden Produktfeatures.
 - [x] 37 Dokumentationsquellen — PR #53 integriert (`177f329`): verständliche
       Quellenfehler und dauerhafter JSON-Bericht, unverändert blockierendes Gate.
