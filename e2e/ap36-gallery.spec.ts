@@ -1,5 +1,14 @@
 import { expect, test } from '@playwright/test';
-import { attach, held, holdNext, idle, installMotionProbe, picture, resume, sampleFrames } from './ap36Capture';
+import {
+  attach,
+  held,
+  holdNext,
+  idle,
+  installMotionProbe,
+  picture,
+  resume,
+  sampleFrames,
+} from './ap36Capture';
 
 test.use({ serviceWorkers: 'block' });
 test.beforeEach(async ({ page }) => {
@@ -8,10 +17,14 @@ test.beforeEach(async ({ page }) => {
 });
 
 for (const level of ['full', 'reduced', 'off'] as const) {
-  test(`Vanilla demo ${level}: live frames, retarget, OS reduction, Off and unmount`, async ({ page }, info) => {
+  test(`Vanilla demo ${level}: live frames, retarget, OS reduction, Off and unmount`, async ({
+    page,
+  }, info) => {
     await page.goto('/m8e-calc/#/design');
     await page.getByLabel('Animationsstufe').selectOption(level);
-    const demo = page.locator('.motion-demo').filter({ has: page.getByText('spatial-slow', { exact: true }) });
+    const demo = page
+      .locator('.motion-demo')
+      .filter({ has: page.getByText('spatial-slow', { exact: true }) });
     const dot = demo.locator('.motion-dot');
     const play = demo.getByRole('button');
     await play.scrollIntoViewIfNeeded();
@@ -19,23 +32,44 @@ for (const level of ['full', 'reduced', 'off'] as const) {
     // Start sampling in the browser at click, before Motion receives input.
     const recording = await dot.evaluateHandle((node) => {
       const samples = new Promise<unknown[]>((resolve) => {
-        node.closest('.motion-demo')?.querySelector('button')?.addEventListener('click', () => {
-          const frames: unknown[] = [];
-          const tick = () => {
-            const s = getComputedStyle(node);
-            frames.push({ time: performance.now(), transform: s.transform, translate: s.translate, opacity: s.opacity });
-            if (frames.length === 12) resolve(frames);
-            else requestAnimationFrame(tick);
-          };
-          requestAnimationFrame(tick);
-        }, { once: true, capture: true });
+        node
+          .closest('.motion-demo')
+          ?.querySelector('button')
+          ?.addEventListener(
+            'click',
+            () => {
+              const frames: unknown[] = [];
+              const tick = () => {
+                const s = getComputedStyle(node);
+                frames.push({
+                  time: performance.now(),
+                  transform: s.transform,
+                  translate: s.translate,
+                  opacity: s.opacity,
+                });
+                if (frames.length === 12) resolve(frames);
+                else requestAnimationFrame(tick);
+              };
+              requestAnimationFrame(tick);
+            },
+            { once: true, capture: true },
+          );
       });
       return { samples };
     });
     await play.click();
     const frames = await recording.evaluate(({ samples }) => samples);
     await recording.dispose();
-    if (level !== 'off') expect(new Set(frames.map((f) => JSON.stringify(f, (key, value) => key === 'time' ? undefined : value))).size).toBeGreaterThan(1);
+    if (level !== 'off')
+      expect(
+        new Set(
+          frames.map((f) =>
+            JSON.stringify(f, (key, value) =>
+              key === 'time' ? undefined : value,
+            ),
+          ),
+        ).size,
+      ).toBeGreaterThan(1);
     await attach(info, 'demo-live-frames', { level, frames });
     await idle(page, true);
     await holdNext(page, '.motion-dot');
@@ -50,7 +84,14 @@ for (const level of ['full', 'reduced', 'off'] as const) {
     await resume(page);
     await page.getByLabel('Animationsstufe').selectOption('off');
     const off = await sampleFrames(dot);
-    expect(off.every((f) => f.animations === 0 && f.transform === 'none' && (f.translate === 'none' || f.translate === '0px'))).toBe(true);
+    expect(
+      off.every(
+        (f) =>
+          f.animations === 0 &&
+          f.transform === 'none' &&
+          (f.translate === 'none' || f.translate === '0px'),
+      ),
+    ).toBe(true);
     await attach(info, 'demo-interrupted-off', { captured, off });
     await page.getByRole('link', { name: 'Einfach', exact: true }).click();
     await expect(dot).toHaveCount(0);
@@ -59,9 +100,13 @@ for (const level of ['full', 'reduced', 'off'] as const) {
 }
 
 for (const component of ['Dialog', 'Menu', 'SideSheet'] as const) {
-  test(`${component} closes during a real entrance and reopens with focus`, async ({ page }, info) => {
+  test(`${component} closes during a real entrance and reopens with focus`, async ({
+    page,
+  }, info) => {
     await page.goto('/m8e-calc/#/design');
-    const trigger = page.locator(`[data-component="${component}"] [data-state="default"] button`).first();
+    const trigger = page
+      .locator(`[data-component="${component}"] [data-state="default"] button`)
+      .first();
     await trigger.scrollIntoViewIfNeeded();
     await idle(page, true);
     const selector = component === 'Menu' ? '.ui-menu-popover' : '.ui-modal';
@@ -85,10 +130,18 @@ for (const component of ['Dialog', 'Menu', 'SideSheet'] as const) {
   });
 }
 
-test('checkbox reversal and theme fallback interruption have real intermediate states', async ({ page }, info) => {
-  await page.addInitScript(() => Object.defineProperty(document, 'startViewTransition', { value: undefined }));
+test('checkbox reversal and theme fallback interruption have real intermediate states', async ({
+  page,
+}, info) => {
+  await page.addInitScript(() =>
+    Object.defineProperty(document, 'startViewTransition', {
+      value: undefined,
+    }),
+  );
   await page.goto('/m8e-calc/#/design');
-  const label = page.locator('[data-component="Checkbox"] [data-state="default"] .ui-checkbox');
+  const label = page.locator(
+    '[data-component="Checkbox"] [data-state="default"] .ui-checkbox',
+  );
   await label.scrollIntoViewIfNeeded();
   await holdNext(page, '.ui-checkbox-check');
   await label.click();
@@ -103,13 +156,16 @@ test('checkbox reversal and theme fallback interruption have real intermediate s
   await expect(label.getByRole('checkbox')).not.toBeChecked();
   await idle(page, true);
   await holdNext(page, '.theme-snapshot');
-  await page.locator('.theme-switch input[value="dark"]').press('Space');
+  await page.locator('#root .theme-switch input[value="dark"]').press('Space');
   const snapshot = page.locator('.theme-snapshot');
   await expect(snapshot).toHaveCount(1);
   await expect.poll(async () => (await held(page)).length).toBeGreaterThan(0);
-  await picture(info, 'theme-middle', page.locator('.theme-switch'));
-  await attach(info, 'checkbox-theme-interruption', { state, theme: await held(page) });
-  await page.locator('.theme-switch input[value="light"]').press('Space');
+  await picture(info, 'theme-middle', page.locator('#root .theme-switch'));
+  await attach(info, 'checkbox-theme-interruption', {
+    state,
+    theme: await held(page),
+  });
+  await page.locator('#root .theme-switch input[value="light"]').press('Space');
   await resume(page);
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   await expect(snapshot).toHaveCount(0);

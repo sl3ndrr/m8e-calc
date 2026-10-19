@@ -1,5 +1,14 @@
 import { expect, test, type Page } from '@playwright/test';
-import { attach, held, holdNext, idle, installMotionProbe, picture, resume, sampleFrames } from './ap36Capture';
+import {
+  attach,
+  held,
+  holdNext,
+  idle,
+  installMotionProbe,
+  picture,
+  resume,
+  sampleFrames,
+} from './ap36Capture';
 import { replaceGraphExpression } from './graphEditor';
 
 test.use({ serviceWorkers: 'block' });
@@ -8,20 +17,49 @@ test.beforeEach(async ({ page }) => {
   await page.setViewportSize({ width: 1600, height: 1000 });
 });
 async function setMotion(page: Page, label: string) {
-  await page.getByRole('button', { name: 'Einstellungen', exact: true }).click();
+  await page
+    .getByRole('button', { name: 'Einstellungen', exact: true })
+    .click();
   await page.getByRole('button', { name: /Animationsstufe/ }).click();
   await page.getByRole('option', { name: label, exact: true }).click();
   await page.keyboard.press('Escape');
 }
-for (const [level, os] of [['full', false], ['reduced', false], ['off', false], ['full', true]] as const) {
-  test(`history Vanilla entrance ${level} OS ${os}, interrupted by Off and unmount`, async ({ page }, info) => {
+for (const [level, os] of [
+  ['full', false],
+  ['reduced', false],
+  ['off', false],
+  ['full', true],
+] as const) {
+  test(`history Vanilla entrance ${level} OS ${os}, interrupted by Off and unmount`, async ({
+    page,
+  }, info) => {
     await page.emulateMedia({ reducedMotion: os ? 'reduce' : 'no-preference' });
     await page.addInitScript((motionLevel) => {
-      localStorage.setItem('m8e-calc.settings', JSON.stringify({ version: 4, state: { motionLevel } }));
-      localStorage.setItem('m8e-calc.history', JSON.stringify({ version: 1, state: {
-        entries: [{ id: 'ap36', mode: 'simple', ts: Date.now(), input: '2 + 3', result: '5', pinned: false, payload: null }],
-        visibility: { simple: true }, limit: 500,
-      } }));
+      localStorage.setItem(
+        'm8e-calc.settings',
+        JSON.stringify({ version: 4, state: { motionLevel } }),
+      );
+      localStorage.setItem(
+        'm8e-calc.history',
+        JSON.stringify({
+          version: 1,
+          state: {
+            entries: [
+              {
+                id: 'ap36',
+                mode: 'simple',
+                ts: Date.now(),
+                input: '2 + 3',
+                result: '5',
+                pinned: false,
+                payload: null,
+              },
+            ],
+            visibility: { simple: true },
+            limit: 500,
+          },
+        }),
+      );
     }, level);
     await page.goto('/m8e-calc/#/simple');
     const entry = page.locator('.history-entry');
@@ -29,7 +67,9 @@ for (const [level, os] of [['full', false], ['reduced', false], ['off', false], 
     await page.evaluate(() => document.fonts.ready);
     await idle(page);
     // Remount through the real sheet toggle, registering the pause before input.
-    const toggle = page.getByRole('button', { name: 'Verlauf ein-/ausblenden' });
+    const toggle = page.getByRole('button', {
+      name: 'Verlauf ein-/ausblenden',
+    });
     await toggle.click();
     await expect(entry).toHaveCount(0);
     await holdNext(page, '.history-entry');
@@ -40,10 +80,24 @@ for (const [level, os] of [['full', false], ['reduced', false], ['off', false], 
     else {
       expect(captured.length).toBeGreaterThan(0);
       expect(captured.every((a) => a.state === 'paused')).toBe(true);
-      expect(captured.some((a) => a.frames.some((f) => f.transform !== undefined || f.translate !== undefined || f.scale !== undefined))).toBe(level === 'full' && !os);
+      expect(
+        captured.some((a) =>
+          a.frames.some(
+            (f) =>
+              f.transform !== undefined ||
+              f.translate !== undefined ||
+              f.scale !== undefined,
+          ),
+        ),
+      ).toBe(level === 'full' && !os);
       await picture(info, 'history-middle', entry);
     }
-    await attach(info, 'history-held', { level, os, captured, samples: await sampleFrames(entry, 2) });
+    await attach(info, 'history-held', {
+      level,
+      os,
+      captured,
+      samples: await sampleFrames(entry, 2),
+    });
     await resume(page);
     await idle(page);
     // A second entrance stays genuinely in-flight until changing the setting.
@@ -70,15 +124,22 @@ for (const [level, os] of [['full', false], ['reduced', false], ['off', false], 
   });
 }
 
-test('rapid mode replacement cancels a held entrance and remains operable', async ({ page }, info) => {
+test('rapid mode replacement cancels a held entrance and remains operable', async ({
+  page,
+}, info) => {
   await page.goto('/m8e-calc/#/scientific');
   await expect(page.locator('.cm-content')).toBeVisible();
   await page.getByRole('link', { name: 'Einfach', exact: true }).click();
   await expect(page.locator('.calculator-value')).toBeVisible();
   await idle(page);
   await holdNext(page, '.mode-stage');
-  await page.getByRole('link', { name: 'Wissenschaftlich', exact: true }).click();
-  await expect(page.locator('.mode-stage')).toHaveAttribute('data-mode', 'scientific');
+  await page
+    .getByRole('link', { name: 'Wissenschaftlich', exact: true })
+    .click();
+  await expect(page.locator('.mode-stage')).toHaveAttribute(
+    'data-mode',
+    'scientific',
+  );
   const entrance = await held(page);
   expect(entrance.length).toBeGreaterThan(0);
   await picture(info, 'mode-middle', page.locator('.mode-stage'));
@@ -87,21 +148,34 @@ test('rapid mode replacement cancels a held entrance and remains operable', asyn
   await page.getByRole('link', { name: 'Einfach', exact: true }).click();
   await resume(page);
   await expect(page.locator('.mode-stage')).toHaveCount(1);
-  await expect(page.locator('.mode-stage')).toHaveAttribute('data-mode', 'simple');
+  await expect(page.locator('.mode-stage')).toHaveAttribute(
+    'data-mode',
+    'simple',
+  );
   await page.keyboard.type('2+3=');
   await expect(page.locator('.calculator-announcement')).toHaveText('5');
   await idle(page);
-  await attach(info, 'mode-interruption', { entrance, final: await sampleFrames(page.locator('.mode-stage'), 2) });
+  await attach(info, 'mode-interruption', {
+    entrance,
+    final: await sampleFrames(page.locator('.mode-stage'), 2),
+  });
 });
 
-test('fit repeats preserve the goal; native pan and wheel interrupt an active fit', async ({ page }, info) => {
+test('fit repeats preserve the goal; native pan and wheel interrupt an active fit', async ({
+  page,
+}, info) => {
   await page.clock.install({ time: new Date('2026-01-01T00:00:00Z') });
   await page.goto('/m8e-calc/#/graph');
   await page.getByRole('button', { name: 'Hinzufügen', exact: true }).click();
-  await replaceGraphExpression(page.locator('.graph-editor [role="textbox"]'), 'x^2');
+  await replaceGraphExpression(
+    page.locator('.graph-editor [role="textbox"]'),
+    'x^2',
+  );
   const canvas = page.locator('canvas.graph-canvas');
   await expect(canvas).toHaveAttribute('data-sampling', 'false');
-  await page.getByRole('checkbox', { name: 'Seitenverhältnis sperren' }).uncheck();
+  await page
+    .getByRole('checkbox', { name: 'Seitenverhältnis sperren' })
+    .uncheck();
   await idle(page);
   const fit = page.getByRole('button', { name: 'Anpassen', exact: true });
   await page.clock.pauseAt(new Date('2026-01-01T00:01:00Z'));
@@ -118,7 +192,11 @@ test('fit repeats preserve the goal; native pan and wheel interrupt an active fi
   if (!box) throw Error('Canvas unavailable');
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
   await page.mouse.down();
-  await page.mouse.move(box.x + box.width / 2 + 60, box.y + box.height / 2 + 20, { steps: 3 });
+  await page.mouse.move(
+    box.x + box.width / 2 + 60,
+    box.y + box.height / 2 + 20,
+    { steps: 3 },
+  );
   await expect(canvas).toHaveAttribute('data-moving', 'false');
   const panned = await canvas.getAttribute('data-target-bounds');
   expect(panned).not.toBe(goal);
@@ -136,5 +214,12 @@ test('fit repeats preserve the goal; native pan and wheel interrupt an active fi
   await expect(canvas).toHaveAttribute('data-sampling', 'false');
   const frames = await canvas.getAttribute('data-graph-metrics');
   await idle(page);
-  await attach(info, 'fit-interruption', { goal, middle, panned, zoomed, frames, final: await canvas.getAttribute('data-bounds') });
+  await attach(info, 'fit-interruption', {
+    goal,
+    middle,
+    panned,
+    zoomed,
+    frames,
+    final: await canvas.getAttribute('data-bounds'),
+  });
 });

@@ -1,4 +1,9 @@
-import { expect, type Locator, type Page, type TestInfo } from '@playwright/test';
+import {
+  expect,
+  type Locator,
+  type Page,
+  type TestInfo,
+} from '@playwright/test';
 
 export async function installMotionProbe(page: Page) {
   await page.addInitScript(() => {
@@ -25,7 +30,8 @@ export async function installMotionProbe(page: Page) {
     const hold = (element: Element, animation: Animation) => {
       if (!probe.selector || !element.matches(probe.selector)) return;
       animation.pause();
-      animation.currentTime = Number(animation.effect?.getTiming().duration) / 3;
+      animation.currentTime =
+        Number(animation.effect?.getTiming().duration) / 3;
       probe.held.push(animation);
     };
     const animate = Element.prototype.animate;
@@ -35,11 +41,15 @@ export async function installMotionProbe(page: Page) {
       return animation;
     };
     for (const name of ['animationstart', 'transitionrun'])
-      document.addEventListener(name, (event) => {
-        if (event.target instanceof Element)
-          for (const animation of event.target.getAnimations())
-            hold(event.target, animation);
-      }, true);
+      document.addEventListener(
+        name,
+        (event) => {
+          if (event.target instanceof Element)
+            for (const animation of event.target.getAnimations())
+              hold(event.target, animation);
+        },
+        true,
+      );
   });
 }
 
@@ -81,24 +91,54 @@ export async function sampleFrames(locator: Locator, count = 12) {
     for (let i = 0; i < count; i++) {
       await new Promise(requestAnimationFrame);
       const s = getComputedStyle(node);
-      samples.push({ time: performance.now(), transform: s.transform,
-        translate: s.translate, scale: s.scale, opacity: Number(s.opacity),
-        radius: s.borderRadius, connected: node.isConnected,
-        animations: node.getAnimations().filter((a) => a.playState !== 'finished').length });
+      samples.push({
+        time: performance.now(),
+        transform: s.transform,
+        translate: s.translate,
+        scale: s.scale,
+        opacity: Number(s.opacity),
+        radius: s.borderRadius,
+        connected: node.isConnected,
+        animations: node
+          .getAnimations()
+          .filter((a) => a.playState !== 'finished').length,
+      });
     }
     return samples;
   }, count);
 }
 export async function idle(page: Page, galleryLoaders = false) {
-  await expect.poll(() => page.evaluate((galleryLoaders) => {
-    const probe = Reflect.get(window, 'ap36Probe') as Probe;
-    return { frames: Math.max(0, probe.frames.size - (galleryLoaders ? document.querySelectorAll('.ui-loading').length : 0)),
-      animations: document.getAnimations().filter((a) => a.playState === 'running' || a.playState === 'paused').length };
-  }, galleryLoaders)).toEqual({ frames: 0, animations: 0 });
+  await expect
+    .poll(() =>
+      page.evaluate((galleryLoaders) => {
+        const probe = Reflect.get(window, 'ap36Probe') as Probe;
+        return {
+          frames: Math.max(
+            0,
+            probe.frames.size -
+              (galleryLoaders
+                ? document.querySelectorAll('.ui-loading').length
+                : 0),
+          ),
+          animations: document
+            .getAnimations()
+            .filter(
+              (a) => a.playState === 'running' || a.playState === 'paused',
+            ).length,
+        };
+      }, galleryLoaders),
+    )
+    .toEqual({ frames: 0, animations: 0 });
 }
 export async function attach(info: TestInfo, name: string, data: unknown) {
-  await info.attach(name, { body: JSON.stringify(data, null, 2), contentType: 'application/json' });
+  await info.attach(name, {
+    body: JSON.stringify(data, null, 2),
+    contentType: 'application/json',
+  });
 }
 export async function picture(info: TestInfo, name: string, locator: Locator) {
-  await info.attach(name, { body: await locator.screenshot({ animations: 'allow' }), contentType: 'image/png' });
+  await info.attach(name, {
+    body: await locator.screenshot({ animations: 'allow' }),
+    contentType: 'image/png',
+  });
 }
