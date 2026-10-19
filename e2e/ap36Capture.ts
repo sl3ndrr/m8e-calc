@@ -219,3 +219,89 @@ export async function picture(info: TestInfo, name: string, locator: Locator) {
     contentType: 'image/png',
   });
 }
+
+/** Drive the real React-Aria motion selector inside the browser so RPC/stability
+ * waits cannot postpone Off until after the short spring has already ended. */
+export async function armLiveOff(select: Locator, selector: string) {
+  return select.evaluateHandle((button, selector) => {
+    const done = new Promise<{
+      before: {
+        time: number;
+        opacity: number;
+        transform: string;
+        animations: number;
+      }[];
+      after: {
+        time: number;
+        opacity: number;
+        transform: string;
+        translate: string;
+        scale: string;
+        animations: number;
+      }[];
+    }>((resolve, reject) => {
+      const before: {
+        time: number;
+        opacity: number;
+        transform: string;
+        animations: number;
+      }[] = [];
+      const after: {
+        time: number;
+        opacity: number;
+        transform: string;
+        translate: string;
+        scale: string;
+        animations: number;
+      }[] = [];
+      let waiting = 0;
+      const tick = (time: number) => {
+        const node = document.querySelector(selector);
+        if (!node) {
+          reject(new Error('Missing live animation subject'));
+          return;
+        }
+        const animations = node
+          .getAnimations()
+          .filter(
+            (a) => a.playState === 'running' || a.playState === 'paused',
+          ).length;
+        if (!before.length && !animations) {
+          if (++waiting > 30) {
+            reject(new Error('No live Motion entrance before Off'));
+            return;
+          }
+          requestAnimationFrame(tick);
+          return;
+        }
+        const style = getComputedStyle(node);
+        const frame = {
+          time,
+          opacity: Number(style.opacity),
+          transform: style.transform,
+          translate: style.translate,
+          scale: style.scale,
+          animations,
+        };
+        if (before.length < 3) {
+          before.push(frame);
+          if (before.length === 2) (button as HTMLElement).click();
+          if (before.length === 3) {
+            const option = Array.from(
+              document.querySelectorAll<HTMLElement>('[role="option"]'),
+            ).find((node) => node.textContent?.trim() === 'Aus');
+            if (!option) {
+              reject(new Error('Off option did not mount on the next frame'));
+              return;
+            }
+            option.click();
+          }
+        } else after.push(frame);
+        if (after.length === 12) resolve({ before, after });
+        else requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+    return { done };
+  }, selector);
+}

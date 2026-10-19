@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Locator } from '@playwright/test';
 import {
   attach,
   held,
@@ -17,6 +17,42 @@ test.beforeEach(async ({ page }) => {
   await page.setViewportSize({ width: 1600, height: 1000 });
 });
 
+async function recordClick(dot: Locator, count: number) {
+  return dot.evaluateHandle((node, count) => {
+    const samples = new Promise<
+      { time: number; transform: string; translate: string; opacity: number }[]
+    >((resolve) => {
+      node
+        .closest('.motion-demo')
+        ?.querySelector('button')
+        ?.addEventListener(
+          'click',
+          () => {
+            const frames: {
+              time: number;
+              transform: string;
+              translate: string;
+              opacity: number;
+            }[] = [];
+            const tick = () => {
+              const s = getComputedStyle(node);
+              frames.push({
+                time: performance.now(),
+                transform: s.transform,
+                translate: s.translate,
+                opacity: Number(s.opacity),
+              });
+              if (frames.length === count) resolve(frames);
+              else requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+          },
+          { once: true, capture: true },
+        );
+    });
+    return { samples };
+  }, count);
+}
 for (const level of ['full', 'reduced', 'off'] as const) {
   test(`Vanilla demo ${level}: live frames, retarget, OS reduction, Off and unmount`, async ({
     page,
@@ -31,33 +67,7 @@ for (const level of ['full', 'reduced', 'off'] as const) {
     await play.scrollIntoViewIfNeeded();
     await idle(page, true);
     // Start sampling in the browser at click, before Motion receives input.
-    const recording = await dot.evaluateHandle((node) => {
-      const samples = new Promise<unknown[]>((resolve) => {
-        node
-          .closest('.motion-demo')
-          ?.querySelector('button')
-          ?.addEventListener(
-            'click',
-            () => {
-              const frames: unknown[] = [];
-              const tick = () => {
-                const s = getComputedStyle(node);
-                frames.push({
-                  time: performance.now(),
-                  transform: s.transform,
-                  translate: s.translate,
-                  opacity: s.opacity,
-                });
-                if (frames.length === 12) resolve(frames);
-                else requestAnimationFrame(tick);
-              };
-              requestAnimationFrame(tick);
-            },
-            { once: true, capture: true },
-          );
-      });
-      return { samples };
-    });
+    const recording = await recordClick(dot, 12);
     await play.click();
     const frames = await recording.evaluate(({ samples }) => samples);
     await recording.dispose();
@@ -97,15 +107,41 @@ for (const level of ['full', 'reduced', 'off'] as const) {
       await attach(info, 'demo-middle-values', middle);
       await picture(info, 'demo-middle', demo);
     }
-    await page.emulateMedia({ reducedMotion: 'reduce' });
-    await expect(dot).toHaveCSS('transform', 'none');
     await resume(page);
+    await idle(page, true);
+    // A separate live interruption: no paused animation or artificial clock.
+    const activeRecording = await recordClick(dot, 2);
+    await play.click();
+    const active = await activeRecording.evaluate(({ samples }) => samples);
+    await activeRecording.dispose();
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    const reset = await sampleFrames(dot);
+    await attach(info, 'demo-live-os-reset', { active, reset });
+    await picture(info, 'demo-os-reset', demo);
+    if (process.env.AP36_PHASE === 'before' && level !== 'off')
+      expect(
+        reset.some(
+          (f) =>
+            f.opacity < 1 ||
+            (f.transform !== 'none' &&
+              f.transform !== 'matrix(1, 0, 0, 1, 0, 0)'),
+        ),
+      ).toBe(true);
+    test.fail(
+      process.env.AP36_PHASE === 'before' && level !== 'off',
+      'Pinned baseline restores a sampled value after live OS reset.',
+    );
+    expect(
+      reset.every(
+        (f) =>
+          f.opacity === 1 &&
+          f.animations === 0 &&
+          ['none', 'matrix(1, 0, 0, 1, 0, 0)'].includes(f.transform),
+      ),
+    ).toBe(true);
     await page.getByLabel('Animationsstufe').selectOption('off');
     const off = await sampleFrames(dot);
-    test.fail(
-      process.env.AP36_PHASE === 'before' && level === 'reduced',
-      'Pinned baseline resets DOM styles but retains the sampled Motion opacity.',
-    );
+    await picture(info, 'demo-off', demo);
     expect(
       off.every(
         (f) =>

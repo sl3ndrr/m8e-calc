@@ -1,6 +1,7 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import {
   attach,
+  armLiveOff,
   held,
   holdNext,
   idle,
@@ -17,14 +18,6 @@ test.beforeEach(async ({ page }) => {
   await installMotionProbe(page);
   await page.setViewportSize({ width: 1600, height: 1000 });
 });
-async function setMotion(page: Page, label: string) {
-  await page
-    .getByRole('button', { name: 'Einstellungen', exact: true })
-    .click();
-  await page.getByRole('button', { name: /Animationsstufe/ }).click();
-  await page.getByRole('option', { name: label, exact: true }).click();
-  await page.keyboard.press('Escape');
-}
 for (const [level, os] of [
   ['full', false],
   ['reduced', false],
@@ -118,21 +111,43 @@ for (const [level, os] of [
     });
     await resume(page);
     await idle(page);
-    // A second entrance stays genuinely in-flight until changing the setting.
-    await toggle.click();
-    await expect(entry).toHaveCount(0);
-    await holdNext(page, '.history-entry', true);
-    await toggle.click();
-    await waitFrozen(page);
-    await expect(entry).toBeVisible();
-    await setMotion(page, 'Aus');
+    // Exercise a genuinely running spring with a common real timebase. The
+    // selector's two virtual clicks run on consecutive native browser frames.
+    await page
+      .getByRole('button', { name: 'Einstellungen', exact: true })
+      .click();
+    const motionSelect = page.getByRole('button', { name: /Animationsstufe/ });
+    await motionSelect.click();
+    await page.getByRole('option', { name: 'Aus', exact: true }).click();
     await expect(page.locator('html')).toHaveAttribute('data-motion', 'off');
-    await resume(page);
-    const off = await sampleFrames(entry);
+    let off;
+    if (level === 'off') off = await sampleFrames(entry);
+    else {
+      await motionSelect.click();
+      const recording = await armLiveOff(motionSelect, '.history-entry');
+      await page
+        .getByRole('option', {
+          name: level === 'full' ? 'Voll' : 'Reduziert',
+          exact: true,
+        })
+        .click();
+      const frames = await recording.evaluate(({ done }) => done);
+      await recording.dispose();
+      await attach(info, 'history-live-interruption', frames);
+      expect(frames.before.at(-1)?.animations).toBeGreaterThan(0);
+      expect(frames.before.at(-1)?.opacity).toBeGreaterThan(0);
+      expect(frames.before.at(-1)?.opacity).toBeLessThan(1);
+      off = frames.after;
+    }
     await attach(info, 'history-off-frames', off);
+    await picture(info, 'history-off', entry);
+    if (process.env.AP36_PHASE === 'before' && level !== 'off')
+      expect(off.some((frame) => frame.opacity > 0 && frame.opacity < 1)).toBe(
+        true,
+      );
     test.fail(
       process.env.AP36_PHASE === 'before' && level !== 'off',
-      'Pinned Motion 12 baseline preserves the sampled opacity after stop; AP36 fixes this cleanup contract.',
+      'Pinned baseline retains a sampled MotionValue after real live Off; AP36 commits its neutral goal.',
     );
     for (const frame of off) {
       expect(frame.opacity).toBe(1);
@@ -141,6 +156,14 @@ for (const [level, os] of [
       expect(['none', '1', '1 1']).toContain(frame.scale);
       expect(frame.animations).toBe(0);
     }
+    const settings = page.getByRole('dialog', {
+      name: 'Einstellungen',
+      exact: true,
+    });
+    await settings
+      .getByRole('button', { name: 'Schließen', exact: true })
+      .click();
+    await expect(settings).toHaveCount(0);
     await page.getByRole('link', { name: 'Umrechner', exact: true }).click();
     await expect(entry).toHaveCount(0);
     await idle(page);

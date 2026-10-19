@@ -22,13 +22,13 @@ export function MotionDemo({ name }: { name: SpringName }) {
         if (current) {
           // Clear Motion's stored values too: stop() retains its sampled value,
           // whose queued render could otherwise restore the old DOM styles.
-          const reset = animate(
+          const rest = animate(
             node.current,
             { x: 0, opacity: 1 },
             { duration: 0 },
           );
-          reset.complete();
-          reset.stop();
+          rest.complete();
+          rest.stop();
         }
         node.current.style.transform = '';
         node.current.style.opacity = '';
