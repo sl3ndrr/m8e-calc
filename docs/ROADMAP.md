@@ -148,10 +148,15 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       #51/#52 sind nach grüner finaler PR-CI und Merge geschlossen.
       #33/#37/#39 bleiben offen; #34 ist wegen des Node-24-Vertrags geschlossen.
 
-- 34–36 Wartungsfolgepakete — bewusst zurückgestellt, kein Integrationsnachweis
-  in den erneut gelesenen PRs und kein eigenes AP34–AP36-Dokument auf dem
-  geprüften main. Die getrennten Migrationen werden über #31/#32/#50 und
-  [AP33](AP33.md) wiederaufgenommen; dies sind keine fehlenden Produktfeatures.
+- [ ] 34 jsdom-30-Testumgebung — `feat/ap34-jsdom30`, [PR #59](https://github.com/sl3ndrr/m8e-calc/pull/59):
+      eigenständige Migration 27.4.0 → 30.1.3, Node `>=24.15.0 <25`,
+      getrennte UI-/Engine-Projekte und zusätzliche Untergrenzen-CI.
+      Entscheidung und konkrete Nachweise: [AP34](AP34.md), Tracking #32.
+      Ablösung von #36 erst nach Integration; bis dahin #36 offen lassen und
+      AP34 unerledigt führen. Nach Produktabnahme empfohlene Wartung,
+      kein zusätzlicher Blocker der Produkt-/Live-Abnahme.
+- 35–36 Wartungsfolgepakete — weiterhin getrennt zurückgestellt.
+  Wiederaufnahme über #31/#32/#50 und [AP33](AP33.md); keine fehlenden Produktfeatures.
 - [x] 37 Dokumentationsquellen — PR #53 integriert (`177f329`): verständliche
       Quellenfehler und dauerhafter JSON-Bericht, unverändert blockierendes Gate.
       Historische Nachweise: [AP37](AP37.md), finaler Nachweis in [AP38](AP38.md).
