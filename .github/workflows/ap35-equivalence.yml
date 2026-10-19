@@ -1,0 +1,76 @@
+name: AP35 production equivalence
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  compare:
+    if: github.head_ref == 'feat/ap35-vitest5'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: 874c24432df3d88def6ff6e493c2af979d339ae9
+          path: before
+          persist-credentials: false
+      - uses: actions/checkout@v7
+        with:
+          ref: 57697501f8cb31ad8bb9efcb95c8e511df6e3d5f
+          path: after
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          check-latest: true
+      - run: npm install --global npm@11.19.0
+      - name: Build baseline using Vitest 4
+        working-directory: before
+        env:
+          GITHUB_SHA: 874c24432df3d88def6ff6e493c2af979d339ae9
+        run: |
+          node --version
+          npm --version
+          npm ci --engine-strict
+          npm run build
+      - name: Build migration using Vitest 5
+        working-directory: after
+        env:
+          GITHUB_SHA: 57697501f8cb31ad8bb9efcb95c8e511df6e3d5f
+        run: |
+          npm ci --engine-strict
+          npm run build
+      - name: Compare every production byte except separately verified commit provenance
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
+          import { createHash } from 'node:crypto';
+          import { join } from 'node:path';
+          function files(root,dir='') {
+            return readdirSync(join(root,dir),{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(root,join(dir,e.name)):[join(dir,e.name)]).sort();
+          }
+          const b=files('before/dist'),a=files('after/dist');
+          assert.deepEqual(a,b);
+          const rows=[];
+          for(const path of b) {
+            const old=readFileSync(join('before/dist',path)),next=readFileSync(join('after/dist',path));
+            if(path==='build-info.json') {
+              const oldInfo=JSON.parse(old),newInfo=JSON.parse(next);
+              assert.equal(oldInfo.sourceCommit,'874c24432df3d88def6ff6e493c2af979d339ae9');
+              assert.equal(newInfo.sourceCommit,'57697501f8cb31ad8bb9efcb95c8e511df6e3d5f');
+              assert.deepEqual({...newInfo,sourceCommit:null},{...oldInfo,sourceCommit:null});
+              continue;
+            }
+            assert.deepEqual(next,old,path);
+            rows.push({path,bytes:old.length,sha256:createHash('sha256').update(old).digest('hex')});
+          }
+          const result={baseline:'874c24432df3d88def6ff6e493c2af979d339ae9',migration:'57697501f8cb31ad8bb9efcb95c8e511df6e3d5f',node:process.version,files:rows,provenance:'build-info.json has the verified correct sourceCommit for each separate build; other fields identical'};
+          writeFileSync('production-equivalence.json',JSON.stringify(result,null,2)+'\n');
+          console.log('AP35_PRODUCTION_EQUIVALENCE:'+JSON.stringify(result));
+          JS
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap35-production-equivalence
+          path: production-equivalence.json
+          if-no-files-found: error
