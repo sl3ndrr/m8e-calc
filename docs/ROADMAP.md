@@ -153,15 +153,20 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       getrennte UI-/Engine-Projekte und zusätzliche Untergrenzen-CI.
       Entscheidung und konkrete Nachweise: [AP34](AP34.md), Tracking #32.
       #36 ist nach Integration als ersetzt geschlossen.
-- [ ] 35 Vitest-5-Migration — `feat/ap35-vitest5`, [PR #60](https://github.com/sl3ndrr/m8e-calc/pull/60):
+- [x] 35 Vitest-5-Migration — `feat/ap35-vitest5`, [PR #60](https://github.com/sl3ndrr/m8e-calc/pull/60):
       eigenständig auf integriertem AP34, 4.1.12 → 5.0.5; explizite
       Projekt-/Plugintrennung und erhaltener Mock-Lebenszyklus.
       Vollständiger Vorher-/Nachher-Vergleich beider Projekte: gleiche
       462 UI-/1666 Engine-Tests, geänderte Anzeigetitel einzeln dokumentiert.
-      Nachweise und finale Gates: [AP35](AP35.md). Noch nicht integriert;
-      #38 erst nach integrierter Ersatzlösung schließen, Tracking #32.
-- 36 Wartungsfolgepaket — weiterhin getrennt zurückgestellt.
-  Wiederaufnahme über #31/#32/#50 und [AP33](AP33.md); keine fehlenden Produktfeatures.
+      Nachweise und finale Gates: [AP35](AP35.md). #60 ist seit 19.10.2026
+      integriert (main `964f6b4e`); #38 danach als ersetzt geschlossen.
+      Tracking #32/F4 erledigt.
+- [ ] 36 Motion-14-Migration — `feat/ap36-motion14`, [PR #61](https://github.com/sl3ndrr/m8e-calc/pull/61):
+      eigenständig ab main `964f6b4e`, AP28/AP30/AP33/AP34/AP35 integriert;
+      12.43.0 → 14.4.0 mit regulärem Lockfile, zwei lokalen Cleanup-Korrekturen
+      und 69 echten Browser-/Unterbrechungsfällen. Abnahme, Messungen und Bilder:
+      [AP36](AP36.md). Integration offen, Tracking #32/F2;
+      #35 erst nach tatsächlicher Integration schließen. Kein Merge/Deployment.
 - [x] 37 Dokumentationsquellen — PR #53 integriert (`177f329`): verständliche
       Quellenfehler und dauerhafter JSON-Bericht, unverändert blockierendes Gate.
       Historische Nachweise: [AP37](AP37.md), finaler Nachweis in [AP38](AP38.md).

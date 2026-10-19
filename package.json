@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@material/material-color-utilities": "^0.3.0",
-    "motion": "^12.23.24",
+    "motion": "^14.4.0",
     "@fontsource-variable/roboto-flex": "^5.2.8",
     "@fontsource-variable/roboto-mono": "^5.2.7",
     "material-symbols": "^0.48.0",

@@ -118,7 +118,7 @@ export const referenceCases: readonly (readonly [
     'au',
     'm',
     '149597870700',
-    'https://iauarchive.eso.org/static/resolutions/IAU2012_English.pdf',
+    'https://drive.google.com/file/d/1FBKjaswlP-rTs6z6V4WygXsbdHKVHYcP/view',
   ],
   [
     '1',

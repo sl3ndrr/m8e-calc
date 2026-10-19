@@ -1,0 +1,129 @@
+name: AP36 Motion migration evidence
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: ap36-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+jobs:
+  evidence:
+    if: github.head_ref == 'feat/ap36-motion14'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          check-latest: true
+      - run: npm install --global npm@11.19.0
+      - run: npm ci --engine-strict
+      - name: Record exact Motion package resolution
+        run: |
+          mkdir -p test-results/ap36/after
+          npm ls motion framer-motion motion-dom motion-utils --all --json > test-results/ap36/after/packages.json
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Verify current official IAU PDFs (independent source correction)
+        id: sources
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes poppler-utils ripgrep
+          mkdir -p test-results/ap36/sources
+          for item in '2012:1FBKjaswlP-rTs6z6V4WygXsbdHKVHYcP' '2015:1vL1vXyzFUWjY083Yb5s67dDsc_rxTWWZ'; do
+            year="${item%%:*}"
+            file_id="${item#*:}"
+            curl --fail --location --max-time 45 "https://drive.google.com/uc?export=download&id=$file_id" --output "$RUNNER_TEMP/iau-$year.pdf"
+            file "$RUNNER_TEMP/iau-$year.pdf"
+            sha256sum "$RUNNER_TEMP/iau-$year.pdf"
+            pdftotext -layout "$RUNNER_TEMP/iau-$year.pdf" "$RUNNER_TEMP/iau-$year.txt"
+            rg -n -i -C 2 '149 597 870 700|149597870700|648 000|648000|parsec|astronomical unit' "$RUNNER_TEMP/iau-$year.txt"
+            sha256sum "$RUNNER_TEMP/iau-$year.pdf" >> test-results/ap36/sources/pdf-sha256.txt
+          done
+          rg '149 ?597 ?870 ?700' "$RUNNER_TEMP/iau-2012.txt"
+          rg '648 ?000' "$RUNNER_TEMP/iau-2015.txt"
+          rg -i 'parsec' "$RUNNER_TEMP/iau-2015.txt"
+      - name: Same-run Motion 12 baseline, original lockfile
+        id: before
+        # Collect candidate evidence even when the pinned baseline regresses.
+        # The final gate checks outcome, never the adjusted conclusion.
+        continue-on-error: true
+        run: |
+          baseline="$RUNNER_TEMP/ap36-before"
+          git fetch --depth=1 origin 964f6b4e7d605d7b2e73248c1ed9ac3e32fe2839
+          git worktree add "$baseline" FETCH_HEAD
+          cp e2e/ap36*.ts "$baseline/e2e/"
+          cp playwright.ap36.config.ts "$baseline/"
+          cd "$baseline"
+          npm ci --engine-strict
+          mkdir -p "$GITHUB_WORKSPACE/test-results/ap36/before"
+          npm ls motion framer-motion motion-dom motion-utils --all --json > "$GITHUB_WORKSPACE/test-results/ap36/before/packages.json"
+          export GITHUB_SHA=964f6b4e7d605d7b2e73248c1ed9ac3e32fe2839
+          export AP30_SOURCE="$GITHUB_SHA"
+          npm run build
+          node scripts/ap30-measure.mjs "$GITHUB_WORKSPACE/test-results/ap36/before/budget"
+          npm run build:gallery
+          AP36_PHASE=before npx playwright test --config=playwright.ap36.config.ts --reporter=list --output="$GITHUB_WORKSPACE/test-results/ap36/before/browser"
+      - name: Motion 14 candidate with fresh installation
+        id: after
+        if: ${{ !cancelled() }}
+        env:
+          GITHUB_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          AP30_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          npm run check
+          node scripts/ap30-measure.mjs test-results/ap36/after/budget
+          npm run build:gallery
+      - name: Candidate interaction probes
+        id: interactions
+        if: ${{ !cancelled() }}
+        run: npx playwright test --config=playwright.ap36.config.ts --reporter=list --output=test-results/ap36/after/browser
+      - name: AP19 real press/release, glyphs and clipboard (no retries)
+        id: rendering
+        if: ${{ !cancelled() }}
+        run: npx playwright test e2e/calculator-rendering.spec.ts e2e/calculator-native-zoom.spec.ts --project=chromium --trace=on --workers=1 --output=test-results/ap36/rendering
+      - name: Paired original 4K and mixed 2D budgets, real time
+        id: performance
+        if: ${{ !cancelled() }}
+        env:
+          GITHUB_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          baseline="$RUNNER_TEMP/ap36-before"
+          (
+            cd "$baseline"
+            export GITHUB_SHA=964f6b4e7d605d7b2e73248c1ed9ac3e32fe2839
+            npx playwright test --project=chromium-graph-performance --no-deps --workers=1 --output="$GITHUB_WORKSPACE/test-results/ap36/before/performance-browser"
+            mkdir -p "$GITHUB_WORKSPACE/test-results/ap36/before/performance"
+            cp test-results/graph-performance.json test-results/graph-implicit-ui-performance.json "$GITHUB_WORKSPACE/test-results/ap36/before/performance/"
+          )
+          npx playwright test --project=chromium-graph-performance --no-deps --workers=1 --output=test-results/ap36/after/performance-browser
+          mkdir -p test-results/ap36/after/performance
+          cp test-results/graph-performance.json test-results/graph-implicit-ui-performance.json test-results/ap36/after/performance/
+      - name: Require every evidence phase
+        if: ${{ always() }}
+        env:
+          SOURCES: ${{ steps.sources.outcome }}
+          BEFORE: ${{ steps.before.outcome }}
+          BUILD: ${{ steps.after.outcome }}
+          AFTER: ${{ steps.interactions.outcome }}
+          RENDERING: ${{ steps.rendering.outcome }}
+          PERFORMANCE: ${{ steps.performance.outcome }}
+        run: |
+          test "$SOURCES" = success
+          test "$BEFORE" = success
+          test "$BUILD" = success
+          test "$AFTER" = success
+          test "$RENDERING" = success
+          test "$PERFORMANCE" = success
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap36-motion-evidence
+          path: |
+            test-results/ap36/
+            test-results/graph-performance.json
+            test-results/graph-implicit-ui-performance.json
+          retention-days: 14
