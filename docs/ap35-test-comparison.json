@@ -1,0 +1,6496 @@
+{
+  "files": [
+    {
+      "project": "ui",
+      "path": "src/app/App.test.tsx",
+      "before": 3,
+      "after": 3
+    },
+    {
+      "project": "ui",
+      "path": "src/app/AppErrorBoundary.test.tsx",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "project": "ui",
+      "path": "src/app/CopyLinkButton.test.tsx",
+      "before": 4,
+      "after": 4
+    },
+    {
+      "project": "ui",
+      "path": "src/app/HistorySheet.test.tsx",
+      "before": 2,
+      "after": 2
+    },
+    {
+      "project": "ui",
+      "path": "src/app/fileTransfer.test.ts",
+      "before": 3,
+      "after": 3
+    },
+    {
+      "project": "ui",
+      "path": "src/app/fuzzySearch.test.ts",
+      "before": 4,
+      "after": 4
+    },
+    {
+      "project": "ui",
+      "path": "src/app/hardening.test.tsx",
+      "before": 4,
+      "after": 4
+    },
+    {
+      "project": "ui",
+      "path": "src/app/inputFuzz.test.ts",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "project": "ui",
+      "path": "src/app/localePlugin.test.ts",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "project": "ui",
+      "path": "src/app/permalinks.test.ts",
+      "before": 10,
+      "after": 10
+    },
+    {
+      "project": "ui",
+      "path": "src/app/pwa.test.ts",
+      "before": 3,
+      "after": 3
+    },
+    {
+      "project": "ui",
+      "path": "src/app/reloadMode.test.ts",
+      "before": 3,
+      "after": 3
+    },
+    {
+      "project": "ui",
+      "path": "src/app/routing.test.ts",
+      "before": 7,
+      "after": 7
+    },
+    {
+      "project": "ui",
+      "path": "src/app/shortcuts.test.ts",
+      "before": 2,
+      "after": 2
+    },
+    {
+      "project": "ui",
+      "path": "src/app/themeBootstrap.test.ts",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "project": "ui",
+      "path": "src/shared/colorInput.test.ts",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "project": "ui",
+      "path": "src/shared/history.test.ts",
+      "before": 8,
+      "after": 8
+    },
+    {
+      "project": "ui",
+      "path": "src/shared/i18n.test.ts",
+      "before": 3,
+      "after": 3
+    },
+    {
+      "project": "ui",
+      "path": "src/shared/linkCodec.test.ts",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "project": "ui",
+      "path": "src/shared/settings.test.ts",
+      "before": 8,
+      "after": 8
+    },
+    {
+      "project": "ui",
+      "path": "src/shared/store.test.ts",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "project": "ui",
+      "path": "src/shared/useModeHistory.test.tsx",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "project": "ui",
+      "path": "src/styles/buildScheme.test.ts",
+      "before": 5,
+      "after": 5
+    },
+    {
+      "project": "ui",
+      "path": "src/styles/graphPalette.test.ts",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "project": "ui",
+      "path": "src/styles/motion.test.ts",
+      "before": 10,
+      "after": 10
+    },
+    {
+      "project": "ui",
+      "path": "src/ui/AccentPicker.test.tsx",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "project": "ui",
+      "path": "src/ui/ThemeSwitch.test.tsx",
+      "before": 2,
+      "after": 2
+    },
+    {
+      "project": "ui",
+      "path": "src/ui/components.test.tsx",
+      "before": 59,
+      "after": 59
+    },
+    {
+      "project": "ui",
+      "path": "src/ui/hooks.test.tsx",
+      "before": 3,
+      "after": 3
+    },
+    {
+      "project": "ui",
+      "path": "src/ui/loadingShapes.test.ts",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "project": "ui",
+      "path": "src/ui/snackbarQueue.test.ts",
+      "before": 2,
+      "after": 2
+    },
+    {
+      "project": "ui",
+      "path": "src/features/convert/ConvertMode.test.tsx",
+      "before": 4,
+      "after": 4
+    },
+    {
+      "project": "ui",
+      "path": "src/features/convert/model.test.ts",
+      "before": 8,
+      "after": 8
+    },
+    {
+      "project": "ui",
+      "path": "src/features/convert/preferences.test.ts",
+      "before": 2,
+      "after": 2
+    },
+    {
+      "project": "ui",
+      "path": "src/features/graph/FunctionPanel.test.tsx",
+      "before": 8,
+      "after": 8
+    },
+    {
+      "project": "ui",
+      "path": "src/features/graph/ValueTable.test.tsx",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "project": "ui",
+      "path": "src/features/graph/history.test.tsx",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "project": "ui",
+      "path": "src/features/graph/implicitIntegration.test.ts",
+      "before": 12,
+      "after": 12
+    },
+    {
+      "project": "ui",
+      "path": "src/features/graph/model.test.ts",
+      "before": 8,
+      "after": 8
+    },
+    {
+      "project": "ui",
+      "path": "src/features/graph/numbers.test.ts",
+      "before": 34,
+      "after": 34
+    },
+    {
+      "project": "ui",
+      "path": "src/features/graph/renderer.test.ts",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "project": "ui",
+      "path": "src/features/graph/table.test.ts",
+      "before": 10,
+      "after": 10
+    },
+    {
+      "project": "ui",
+      "path": "src/features/graph/tableVisibility.test.tsx",
+      "before": 2,
+      "after": 2
+    },
+    {
+      "project": "ui",
+      "path": "src/features/graph/viewportTransition.test.ts",
+      "before": 2,
+      "after": 2
+    },
+    {
+      "project": "ui",
+      "path": "src/features/scientific/ExpressionEditor.test.tsx",
+      "before": 3,
+      "after": 3
+    },
+    {
+      "project": "ui",
+      "path": "src/features/scientific/ScientificMode.test.tsx",
+      "before": 3,
+      "after": 3
+    },
+    {
+      "project": "ui",
+      "path": "src/features/scientific/editorModel.test.ts",
+      "before": 8,
+      "after": 8
+    },
+    {
+      "project": "ui",
+      "path": "src/features/scientific/model.test.ts",
+      "before": 7,
+      "after": 7
+    },
+    {
+      "project": "ui",
+      "path": "src/features/scientific/scientificStore.test.ts",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "project": "ui",
+      "path": "src/features/simple/SimpleMode.test.tsx",
+      "before": 15,
+      "after": 15
+    },
+    {
+      "project": "ui",
+      "path": "src/features/simple/format.test.ts",
+      "before": 17,
+      "after": 17
+    },
+    {
+      "project": "ui",
+      "path": "src/features/simple/keyboard.test.ts",
+      "before": 29,
+      "after": 29
+    },
+    {
+      "project": "ui",
+      "path": "src/features/simple/model.test.ts",
+      "before": 102,
+      "after": 102
+    },
+    {
+      "project": "ui",
+      "path": "src/ui/keypad/displayFit.test.ts",
+      "before": 6,
+      "after": 6
+    },
+    {
+      "project": "ui",
+      "path": "src/ui/keypad/keypad.test.tsx",
+      "before": 3,
+      "after": 3
+    },
+    {
+      "project": "ui",
+      "path": "src/features/convert/currency/rates.test.ts",
+      "before": 12,
+      "after": 12
+    },
+    {
+      "project": "ui",
+      "path": "src/features/scientific/programmer/ProgrammerPanel.test.tsx",
+      "before": 4,
+      "after": 4
+    },
+    {
+      "project": "ui",
+      "path": "src/features/scientific/programmer/model.test.ts",
+      "before": 3,
+      "after": 3
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "before": 473,
+      "after": 473
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/format.test.ts",
+      "before": 45,
+      "after": 45
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/properties.test.ts",
+      "before": 2,
+      "after": 2
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "before": 388,
+      "after": 388
+    },
+    {
+      "project": "engine",
+      "path": "src/graph/graph.test.ts",
+      "before": 106,
+      "after": 106
+    },
+    {
+      "project": "engine",
+      "path": "src/graph/implicit.test.ts",
+      "before": 22,
+      "after": 22
+    },
+    {
+      "project": "engine",
+      "path": "src/units/currency.test.ts",
+      "before": 2,
+      "after": 2
+    },
+    {
+      "project": "engine",
+      "path": "src/units/units.test.ts",
+      "before": 341,
+      "after": 341
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/programmer/programmer.test.ts",
+      "before": 287,
+      "after": 287
+    }
+  ],
+  "titleChanges": [
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 1,
+      "before": "'12' → '12' (undefined)",
+      "after": "12 → 12 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 2,
+      "before": "'0.5' → '0.5' (undefined)",
+      "after": "0.5 → 0.5 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 3,
+      "before": "'.5' → '0.5' (undefined)",
+      "after": ".5 → 0.5 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 4,
+      "before": "'12.' → '12' (undefined)",
+      "after": "12. → 12 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 5,
+      "before": "'1e-3' → '0.001' (undefined)",
+      "after": "1e-3 → 0.001 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 6,
+      "before": "'2E5' → '200000' (undefined)",
+      "after": "2E5 → 200000 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 7,
+      "before": "'1E+3' → '1000' (undefined)",
+      "after": "1E+3 → 1000 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 8,
+      "before": "'0.1+0.2' → '0.3' (undefined)",
+      "after": "0.1+0.2 → 0.3 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 9,
+      "before": "'0.3-0.2' → '0.1' (undefined)",
+      "after": "0.3-0.2 → 0.1 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 10,
+      "before": "'0.1*0.2' → '0.02' (undefined)",
+      "after": "0.1*0.2 → 0.02 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 11,
+      "before": "'0.3/0.1' → '3' (undefined)",
+      "after": "0.3/0.1 → 3 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 12,
+      "before": "'1/8' → '0.125' (undefined)",
+      "after": "1/8 → 0.125 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 13,
+      "before": "'1e-20+2e-20' → '3e-20' (undefined)",
+      "after": "1e-20+2e-20 → 3e-20 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 14,
+      "before": "'2+3*4' → '14' (undefined)",
+      "after": "2+3*4 → 14 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 15,
+      "before": "'(2+3)*4' → '20' (undefined)",
+      "after": "(2+3)*4 → 20 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 16,
+      "before": "'12/3*2' → '8' (undefined)",
+      "after": "12/3*2 → 8 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 17,
+      "before": "'12/(3*2)' → '2' (undefined)",
+      "after": "12/(3*2) → 2 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 18,
+      "before": "'10-3-2' → '5' (undefined)",
+      "after": "10-3-2 → 5 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 19,
+      "before": "'8/4/2' → '1' (undefined)",
+      "after": "8/4/2 → 1 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 20,
+      "before": "'2^3^2' → '512' (undefined)",
+      "after": "2^3^2 → 512 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 21,
+      "before": "'(2^3)^2' → '64' (undefined)",
+      "after": "(2^3)^2 → 64 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 22,
+      "before": "'2^(3^2)' → '512' (undefined)",
+      "after": "2^(3^2) → 512 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 23,
+      "before": "'-2^2' → '-4' (undefined)",
+      "after": "-2^2 → -4 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 24,
+      "before": "'(-2)^2' → '4' (undefined)",
+      "after": "(-2)^2 → 4 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 25,
+      "before": "'2^-3' → '0.125' (undefined)",
+      "after": "2^-3 → 0.125 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 26,
+      "before": "'-2^-2' → '-0.25' (undefined)",
+      "after": "-2^-2 → -0.25 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 27,
+      "before": "'2^+3' → '8' (undefined)",
+      "after": "2^+3 → 8 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 28,
+      "before": "'2^--3' → '8' (undefined)",
+      "after": "2^--3 → 8 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 29,
+      "before": "'2^-2^2' → '0.0625' (undefined)",
+      "after": "2^-2^2 → 0.0625 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 30,
+      "before": "'(-2)^3' → '-8' (undefined)",
+      "after": "(-2)^3 → -8 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 31,
+      "before": "'-(-2)^2' → '-4' (undefined)",
+      "after": "-(-2)^2 → -4 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 32,
+      "before": "'-3!' → '-6' (undefined)",
+      "after": "-3! → -6 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 33,
+      "before": "'(-3)^2' → '9' (undefined)",
+      "after": "(-3)^2 → 9 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 34,
+      "before": "'2^3!' → '64' (undefined)",
+      "after": "2^3! → 64 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 35,
+      "before": "'3!^2' → '36' (undefined)",
+      "after": "3!^2 → 36 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 36,
+      "before": "'0!' → '1' (undefined)",
+      "after": "0! → 1 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 37,
+      "before": "'1!' → '1' (undefined)",
+      "after": "1! → 1 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 38,
+      "before": "'5!' → '120' (undefined)",
+      "after": "5! → 120 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 39,
+      "before": "'3!!' → '720' (undefined)",
+      "after": "3!! → 720 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 40,
+      "before": "'2+3!^2' → '38' (undefined)",
+      "after": "2+3!^2 → 38 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 41,
+      "before": "'+2' → '2' (undefined)",
+      "after": "+2 → 2 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 42,
+      "before": "'--2' → '2' (undefined)",
+      "after": "--2 → 2 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 43,
+      "before": "'+-2' → '-2' (undefined)",
+      "after": "+-2 → -2 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 44,
+      "before": "'1+-2' → '-1' (undefined)",
+      "after": "1+-2 → -1 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 45,
+      "before": "'1--2' → '3' (undefined)",
+      "after": "1--2 → 3 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 46,
+      "before": "'4*-2' → '-8' (undefined)",
+      "after": "4*-2 → -8 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 47,
+      "before": "'4/-2' → '-2' (undefined)",
+      "after": "4/-2 → -2 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 48,
+      "before": "'2×3' → '6' (undefined)",
+      "after": "2×3 → 6 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 49,
+      "before": "'8÷2' → '4' (undefined)",
+      "after": "8÷2 → 4 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 50,
+      "before": "'2·3' → '6' (undefined)",
+      "after": "2·3 → 6 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 51,
+      "before": "'5−3' → '2' (undefined)",
+      "after": "5−3 → 2 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 52,
+      "before": "'−2^2' → '-4' (undefined)",
+      "after": "−2^2 → -4 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 53,
+      "before": "'2(3+4)' → '14' (undefined)",
+      "after": "2(3+4) → 14 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 54,
+      "before": "'(1+2)(3+4)' → '21' (undefined)",
+      "after": "(1+2)(3+4) → 21 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 55,
+      "before": "'3sqrt(4)' → '6' (undefined)",
+      "after": "3sqrt(4) → 6 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 56,
+      "before": "'2sqrt(4)^2' → '8' (undefined)",
+      "after": "2sqrt(4)^2 → 8 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 57,
+      "before": "'(2)3' → '6' (undefined)",
+      "after": "(2)3 → 6 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 58,
+      "before": "'3!2' → '12' (undefined)",
+      "after": "3!2 → 12 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 59,
+      "before": "'50%2' → '1' (undefined)",
+      "after": "50%2 → 1 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 60,
+      "before": "'2(3)4' → '24' (undefined)",
+      "after": "2(3)4 → 24 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 61,
+      "before": "'4/2(1+1)' → '4' (undefined)",
+      "after": "4/2(1+1) → 4 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 62,
+      "before": "'4/(2(1+1))' → '1' (undefined)",
+      "after": "4/(2(1+1)) → 1 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 63,
+      "before": "'2(3+4)^2' → '98' (undefined)",
+      "after": "2(3+4)^2 → 98 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 64,
+      "before": "'2^3(4)' → '32' (undefined)",
+      "after": "2^3(4) → 32 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 65,
+      "before": "'2(-3)' → '-6' (undefined)",
+      "after": "2(-3) → -6 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 66,
+      "before": "'(2)(-3)' → '-6' (undefined)",
+      "after": "(2)(-3) → -6 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 67,
+      "before": "'sqrt(4)(3)' → '6' (undefined)",
+      "after": "sqrt(4)(3) → 6 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 68,
+      "before": "'(1+1)!' → '2' (undefined)",
+      "after": "(1+1)! → 2 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 69,
+      "before": "'2^(-3)' → '0.125' (undefined)",
+      "after": "2^(-3) → 0.125 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 70,
+      "before": "'sqrt(9)+cbrt(8)' → '5' (undefined)",
+      "after": "sqrt(9)+cbrt(8) → 5 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 71,
+      "before": "'root(3,-8)' → '-2' (undefined)",
+      "after": "root(3,-8) → -2 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 72,
+      "before": "'root(-3,-8)' → '-0.5' (undefined)",
+      "after": "root(-3,-8) → -0.5 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 73,
+      "before": "'root(2,9)' → '3' (undefined)",
+      "after": "root(2,9) → 3 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 74,
+      "before": "'root(-2,4)' → '0.5' (undefined)",
+      "after": "root(-2,4) → 0.5 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 75,
+      "before": "'root(1,-7)' → '-7' (undefined)",
+      "after": "root(1,-7) → -7 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 76,
+      "before": "'abs(-2.5)' → '2.5' (undefined)",
+      "after": "abs(-2.5) → 2.5 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 77,
+      "before": "'exp(0)' → '1' (undefined)",
+      "after": "exp(0) → 1 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 78,
+      "before": "'ln(1)' → '0' (undefined)",
+      "after": "ln(1) → 0 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 79,
+      "before": "'log(1000)' → '3' (undefined)",
+      "after": "log(1000) → 3 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 80,
+      "before": "'log2(1024)' → '10' (undefined)",
+      "after": "log2(1024) → 10 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 81,
+      "before": "'logb(3,81)' → '4' (undefined)",
+      "after": "logb(3,81) → 4 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 82,
+      "before": "'logb(0.5,8)' → '-3' (undefined)",
+      "after": "logb(0.5,8) → -3 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 83,
+      "before": "'floor(-2.1)' → '-3' (undefined)",
+      "after": "floor(-2.1) → -3 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 84,
+      "before": "'ceil(-2.1)' → '-2' (undefined)",
+      "after": "ceil(-2.1) → -2 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 85,
+      "before": "'round(2.5)' → '3' (undefined)",
+      "after": "round(2.5) → 3 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 86,
+      "before": "'round(-2.5)' → '-3' (undefined)",
+      "after": "round(-2.5) → -3 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 87,
+      "before": "'round(-2.49)' → '-2' (undefined)",
+      "after": "round(-2.49) → -2 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 88,
+      "before": "'trunc(-2.9)' → '-2' (undefined)",
+      "after": "trunc(-2.9) → -2 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 89,
+      "before": "'sign(-2)' → '-1' (undefined)",
+      "after": "sign(-2) → -1 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 90,
+      "before": "'sign(0)' → '0' (undefined)",
+      "after": "sign(0) → 0 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 91,
+      "before": "'sign(2)' → '1' (undefined)",
+      "after": "sign(2) → 1 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 92,
+      "before": "'min(4,2,-1,3)' → '-1' (undefined)",
+      "after": "min(4,2,-1,3) → -1 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 93,
+      "before": "'max(4,2,-1,3)' → '4' (undefined)",
+      "after": "max(4,2,-1,3) → 4 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 94,
+      "before": "'min(7)' → '7' (undefined)",
+      "after": "min(7) → 7 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 95,
+      "before": "'max(-7)' → '-7' (undefined)",
+      "after": "max(-7) → -7 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 96,
+      "before": "'mod(-5,3)' → '1' (undefined)",
+      "after": "mod(-5,3) → 1 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 97,
+      "before": "'mod(5,-3)' → '2' (undefined)",
+      "after": "mod(5,-3) → 2 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 98,
+      "before": "'mod(-5,-3)' → '1' (undefined)",
+      "after": "mod(-5,-3) → 1 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 99,
+      "before": "'mod(5.5,2)' → '1.5' (undefined)",
+      "after": "mod(5.5,2) → 1.5 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 100,
+      "before": "'mod(-5.5,2)' → '0.5' (undefined)",
+      "after": "mod(-5.5,2) → 0.5 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 101,
+      "before": "'0^3' → '0' (undefined)",
+      "after": "0^3 → 0 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 102,
+      "before": "'(-0)^2' → '0' (undefined)",
+      "after": "(-0)^2 → 0 (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 103,
+      "before": "'50%' → '0.5' ({ percentMode: 'strict' })",
+      "after": "50% → 0.5 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 104,
+      "before": "'50%' → '0.5' ({ percentMode: 'calculator' })",
+      "after": "50% → 0.5 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 105,
+      "before": "'50%%' → '0.005' ({ percentMode: 'strict' })",
+      "after": "50%% → 0.005 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 106,
+      "before": "'50%%' → '0.005' ({ percentMode: 'calculator' })",
+      "after": "50%% → 0.005 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 107,
+      "before": "'200+10%' → '200.1' ({ percentMode: 'strict' })",
+      "after": "200+10% → 200.1 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 108,
+      "before": "'200+10%' → '220' ({ percentMode: 'calculator' })",
+      "after": "200+10% → 220 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 109,
+      "before": "'200-10%' → '199.9' ({ percentMode: 'strict' })",
+      "after": "200-10% → 199.9 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 110,
+      "before": "'200-10%' → '180' ({ percentMode: 'calculator' })",
+      "after": "200-10% → 180 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 111,
+      "before": "'200*10%' → '20' ({ percentMode: 'strict' })",
+      "after": "200*10% → 20 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 112,
+      "before": "'200*10%' → '20' ({ percentMode: 'calculator' })",
+      "after": "200*10% → 20 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 113,
+      "before": "'200/10%' → '2000' ({ percentMode: 'strict' })",
+      "after": "200/10% → 2000 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 114,
+      "before": "'200/10%' → '2000' ({ percentMode: 'calculator' })",
+      "after": "200/10% → 2000 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 115,
+      "before": "'200+(10%)' → '200.1' ({ percentMode: 'strict' })",
+      "after": "200+(10%) → 200.1 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 116,
+      "before": "'200+(10%)' → '220' ({ percentMode: 'calculator' })",
+      "after": "200+(10%) → 220 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 117,
+      "before": "'200+(-10%)' → '199.9' ({ percentMode: 'strict' })",
+      "after": "200+(-10%) → 199.9 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 118,
+      "before": "'200+(-10%)' → '180' ({ percentMode: 'calculator' })",
+      "after": "200+(-10%) → 180 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 119,
+      "before": "'200+-10%' → '199.9' ({ percentMode: 'strict' })",
+      "after": "200+-10% → 199.9 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 120,
+      "before": "'200+-10%' → '180' ({ percentMode: 'calculator' })",
+      "after": "200+-10% → 180 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 121,
+      "before": "'200--10%' → '200.1' ({ percentMode: 'strict' })",
+      "after": "200--10% → 200.1 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 122,
+      "before": "'200--10%' → '220' ({ percentMode: 'calculator' })",
+      "after": "200--10% → 220 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 123,
+      "before": "'200+10%*2' → '200.2' ({ percentMode: 'strict' })",
+      "after": "200+10%*2 → 200.2 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 124,
+      "before": "'200+10%*2' → '200.2' ({ percentMode: 'calculator' })",
+      "after": "200+10%*2 → 200.2 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 125,
+      "before": "'200+(10+5)%' → '200.15' ({ percentMode: 'strict' })",
+      "after": "200+(10+5)% → 200.15 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 126,
+      "before": "'200+(10+5)%' → '230' ({ percentMode: 'calculator' })",
+      "after": "200+(10+5)% → 230 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 127,
+      "before": "'200+10%+10%' → '200.2' ({ percentMode: 'strict' })",
+      "after": "200+10%+10% → 200.2 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 128,
+      "before": "'200+10%+10%' → '242' ({ percentMode: 'calculator' })",
+      "after": "200+10%+10% → 242 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 129,
+      "before": "'200-10%-10%' → '199.8' ({ percentMode: 'strict' })",
+      "after": "200-10%-10% → 199.8 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 130,
+      "before": "'200-10%-10%' → '162' ({ percentMode: 'calculator' })",
+      "after": "200-10%-10% → 162 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 131,
+      "before": "'(100+100)+10%' → '200.1' ({ percentMode: 'strict' })",
+      "after": "(100+100)+10% → 200.1 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 132,
+      "before": "'(100+100)+10%' → '220' ({ percentMode: 'calculator' })",
+      "after": "(100+100)+10% → 220 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 133,
+      "before": "'200+10%%' → '200.001' ({ percentMode: 'strict' })",
+      "after": "200+10%% → 200.001 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 134,
+      "before": "'200+10%%' → '200.2' ({ percentMode: 'calculator' })",
+      "after": "200+10%% → 200.2 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 135,
+      "before": "'200+10%^2' → '200.01' ({ percentMode: 'strict' })",
+      "after": "200+10%^2 → 200.01 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 136,
+      "before": "'200+10%^2' → '200.01' ({ percentMode: 'calculator' })",
+      "after": "200+10%^2 → 200.01 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 137,
+      "before": "'200+abs(10%)' → '200.1' ({ percentMode: 'strict' })",
+      "after": "200+abs(10%) → 200.1 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 138,
+      "before": "'200+abs(10%)' → '200.1' ({ percentMode: 'calculator' })",
+      "after": "200+abs(10%) → 200.1 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 139,
+      "before": "'100%+10%' → '1.1' ({ percentMode: 'strict' })",
+      "after": "100%+10% → 1.1 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 140,
+      "before": "'100%+10%' → '1.1' ({ percentMode: 'calculator' })",
+      "after": "100%+10% → 1.1 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 141,
+      "before": "'100%*10%' → '0.1' ({ percentMode: 'strict' })",
+      "after": "100%*10% → 0.1 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 142,
+      "before": "'100%*10%' → '0.1' ({ percentMode: 'calculator' })",
+      "after": "100%*10% → 0.1 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 143,
+      "before": "'-200+10%' → '-199.9' ({ percentMode: 'strict' })",
+      "after": "-200+10% → -199.9 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 144,
+      "before": "'-200+10%' → '-220' ({ percentMode: 'calculator' })",
+      "after": "-200+10% → -220 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 145,
+      "before": "'0+10%' → '0.1' ({ percentMode: 'strict' })",
+      "after": "0+10% → 0.1 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 146,
+      "before": "'0+10%' → '0' ({ percentMode: 'calculator' })",
+      "after": "0+10% → 0 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 147,
+      "before": "'2^50%' → '1.41421356237309504880168872420969807…' ({ percentMode: 'strict' })",
+      "after": "2^50% → 1.4142135623730950488016887242096980785… ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 148,
+      "before": "'2^50%' → '1.41421356237309504880168872420969807…' ({ percentMode: 'calculator' })",
+      "after": "2^50% → 1.4142135623730950488016887242096980785… ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 149,
+      "before": "'(2^2)%' → '0.04' ({ percentMode: 'strict' })",
+      "after": "(2^2)% → 0.04 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 150,
+      "before": "'(2^2)%' → '0.04' ({ percentMode: 'calculator' })",
+      "after": "(2^2)% → 0.04 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 151,
+      "before": "'5!%' → '1.2' ({ percentMode: 'strict' })",
+      "after": "5!% → 1.2 ({ percentMode: 'strict' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 152,
+      "before": "'5!%' → '1.2' ({ percentMode: 'calculator' })",
+      "after": "5!% → 1.2 ({ percentMode: 'calculator' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 153,
+      "before": "'sin(0)' → '0' ({ angleMode: 'deg' })",
+      "after": "sin(0) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 154,
+      "before": "'cos(0)' → '1' ({ angleMode: 'deg' })",
+      "after": "cos(0) → 1 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 155,
+      "before": "'tan(0)' → '0' ({ angleMode: 'deg' })",
+      "after": "tan(0) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 156,
+      "before": "'sin((0*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "sin((0*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 157,
+      "before": "'cos((0*pi/180))' → '1' ({ angleMode: 'rad' })",
+      "after": "cos((0*pi/180)) → 1 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 158,
+      "before": "'tan((0*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "tan((0*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 159,
+      "before": "'sin((0*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "sin((0*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 160,
+      "before": "'cos((0*10/9))' → '1' ({ angleMode: 'grad' })",
+      "after": "cos((0*10/9)) → 1 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 161,
+      "before": "'tan((0*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "tan((0*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 162,
+      "before": "'sin(30)' → '0.5' ({ angleMode: 'deg' })",
+      "after": "sin(30) → 0.5 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 163,
+      "before": "'sin((30*pi/180))' → '0.5' ({ angleMode: 'rad' })",
+      "after": "sin((30*pi/180)) → 0.5 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 164,
+      "before": "'sin((30*10/9))' → '0.5' ({ angleMode: 'grad' })",
+      "after": "sin((30*10/9)) → 0.5 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 165,
+      "before": "'cos(60)' → '0.5' ({ angleMode: 'deg' })",
+      "after": "cos(60) → 0.5 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 166,
+      "before": "'cos((60*pi/180))' → '0.5' ({ angleMode: 'rad' })",
+      "after": "cos((60*pi/180)) → 0.5 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 167,
+      "before": "'cos((60*10/9))' → '0.5' ({ angleMode: 'grad' })",
+      "after": "cos((60*10/9)) → 0.5 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 168,
+      "before": "'sin(90)' → '1' ({ angleMode: 'deg' })",
+      "after": "sin(90) → 1 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 169,
+      "before": "'cos(90)' → '0' ({ angleMode: 'deg' })",
+      "after": "cos(90) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 170,
+      "before": "'sin((90*pi/180))' → '1' ({ angleMode: 'rad' })",
+      "after": "sin((90*pi/180)) → 1 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 171,
+      "before": "'cos((90*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "cos((90*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 172,
+      "before": "'sin((90*10/9))' → '1' ({ angleMode: 'grad' })",
+      "after": "sin((90*10/9)) → 1 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 173,
+      "before": "'cos((90*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "cos((90*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 174,
+      "before": "'cos(120)' → '-0.5' ({ angleMode: 'deg' })",
+      "after": "cos(120) → -0.5 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 175,
+      "before": "'cos((120*pi/180))' → '-0.5' ({ angleMode: 'rad' })",
+      "after": "cos((120*pi/180)) → -0.5 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 176,
+      "before": "'cos((120*10/9))' → '-0.5' ({ angleMode: 'grad' })",
+      "after": "cos((120*10/9)) → -0.5 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 177,
+      "before": "'sin(150)' → '0.5' ({ angleMode: 'deg' })",
+      "after": "sin(150) → 0.5 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 178,
+      "before": "'sin((150*pi/180))' → '0.5' ({ angleMode: 'rad' })",
+      "after": "sin((150*pi/180)) → 0.5 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 179,
+      "before": "'sin((150*10/9))' → '0.5' ({ angleMode: 'grad' })",
+      "after": "sin((150*10/9)) → 0.5 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 180,
+      "before": "'sin(180)' → '0' ({ angleMode: 'deg' })",
+      "after": "sin(180) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 181,
+      "before": "'cos(180)' → '-1' ({ angleMode: 'deg' })",
+      "after": "cos(180) → -1 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 182,
+      "before": "'tan(180)' → '0' ({ angleMode: 'deg' })",
+      "after": "tan(180) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 183,
+      "before": "'sin((180*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "sin((180*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 184,
+      "before": "'cos((180*pi/180))' → '-1' ({ angleMode: 'rad' })",
+      "after": "cos((180*pi/180)) → -1 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 185,
+      "before": "'tan((180*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "tan((180*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 186,
+      "before": "'sin((180*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "sin((180*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 187,
+      "before": "'cos((180*10/9))' → '-1' ({ angleMode: 'grad' })",
+      "after": "cos((180*10/9)) → -1 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 188,
+      "before": "'tan((180*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "tan((180*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 189,
+      "before": "'sin(210)' → '-0.5' ({ angleMode: 'deg' })",
+      "after": "sin(210) → -0.5 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 190,
+      "before": "'sin((210*pi/180))' → '-0.5' ({ angleMode: 'rad' })",
+      "after": "sin((210*pi/180)) → -0.5 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 191,
+      "before": "'sin((210*10/9))' → '-0.5' ({ angleMode: 'grad' })",
+      "after": "sin((210*10/9)) → -0.5 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 192,
+      "before": "'cos(240)' → '-0.5' ({ angleMode: 'deg' })",
+      "after": "cos(240) → -0.5 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 193,
+      "before": "'cos((240*pi/180))' → '-0.5' ({ angleMode: 'rad' })",
+      "after": "cos((240*pi/180)) → -0.5 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 194,
+      "before": "'cos((240*10/9))' → '-0.5' ({ angleMode: 'grad' })",
+      "after": "cos((240*10/9)) → -0.5 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 195,
+      "before": "'sin(270)' → '-1' ({ angleMode: 'deg' })",
+      "after": "sin(270) → -1 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 196,
+      "before": "'cos(270)' → '0' ({ angleMode: 'deg' })",
+      "after": "cos(270) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 197,
+      "before": "'sin((270*pi/180))' → '-1' ({ angleMode: 'rad' })",
+      "after": "sin((270*pi/180)) → -1 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 198,
+      "before": "'cos((270*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "cos((270*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 199,
+      "before": "'sin((270*10/9))' → '-1' ({ angleMode: 'grad' })",
+      "after": "sin((270*10/9)) → -1 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 200,
+      "before": "'cos((270*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "cos((270*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 201,
+      "before": "'cos(300)' → '0.5' ({ angleMode: 'deg' })",
+      "after": "cos(300) → 0.5 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 202,
+      "before": "'cos((300*pi/180))' → '0.5' ({ angleMode: 'rad' })",
+      "after": "cos((300*pi/180)) → 0.5 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 203,
+      "before": "'cos((300*10/9))' → '0.5' ({ angleMode: 'grad' })",
+      "after": "cos((300*10/9)) → 0.5 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 204,
+      "before": "'sin(330)' → '-0.5' ({ angleMode: 'deg' })",
+      "after": "sin(330) → -0.5 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 205,
+      "before": "'sin((330*pi/180))' → '-0.5' ({ angleMode: 'rad' })",
+      "after": "sin((330*pi/180)) → -0.5 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 206,
+      "before": "'sin((330*10/9))' → '-0.5' ({ angleMode: 'grad' })",
+      "after": "sin((330*10/9)) → -0.5 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 207,
+      "before": "'sin(360)' → '0' ({ angleMode: 'deg' })",
+      "after": "sin(360) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 208,
+      "before": "'cos(360)' → '1' ({ angleMode: 'deg' })",
+      "after": "cos(360) → 1 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 209,
+      "before": "'tan(360)' → '0' ({ angleMode: 'deg' })",
+      "after": "tan(360) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 210,
+      "before": "'sin((360*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "sin((360*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 211,
+      "before": "'cos((360*pi/180))' → '1' ({ angleMode: 'rad' })",
+      "after": "cos((360*pi/180)) → 1 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 212,
+      "before": "'tan((360*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "tan((360*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 213,
+      "before": "'sin((360*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "sin((360*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 214,
+      "before": "'cos((360*10/9))' → '1' ({ angleMode: 'grad' })",
+      "after": "cos((360*10/9)) → 1 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 215,
+      "before": "'tan((360*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "tan((360*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 216,
+      "before": "'tan(45)' → '1' ({ angleMode: 'deg' })",
+      "after": "tan(45) → 1 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 217,
+      "before": "'tan((45*pi/180))' → '1' ({ angleMode: 'rad' })",
+      "after": "tan((45*pi/180)) → 1 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 218,
+      "before": "'tan((45*10/9))' → '1' ({ angleMode: 'grad' })",
+      "after": "tan((45*10/9)) → 1 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 219,
+      "before": "'tan(135)' → '-1' ({ angleMode: 'deg' })",
+      "after": "tan(135) → -1 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 220,
+      "before": "'tan((135*pi/180))' → '-1' ({ angleMode: 'rad' })",
+      "after": "tan((135*pi/180)) → -1 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 221,
+      "before": "'tan((135*10/9))' → '-1' ({ angleMode: 'grad' })",
+      "after": "tan((135*10/9)) → -1 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 222,
+      "before": "'tan(225)' → '1' ({ angleMode: 'deg' })",
+      "after": "tan(225) → 1 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 223,
+      "before": "'tan((225*pi/180))' → '1' ({ angleMode: 'rad' })",
+      "after": "tan((225*pi/180)) → 1 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 224,
+      "before": "'tan((225*10/9))' → '1' ({ angleMode: 'grad' })",
+      "after": "tan((225*10/9)) → 1 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 225,
+      "before": "'tan(315)' → '-1' ({ angleMode: 'deg' })",
+      "after": "tan(315) → -1 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 226,
+      "before": "'tan((315*pi/180))' → '-1' ({ angleMode: 'rad' })",
+      "after": "tan((315*pi/180)) → -1 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 227,
+      "before": "'tan((315*10/9))' → '-1' ({ angleMode: 'grad' })",
+      "after": "tan((315*10/9)) → -1 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 228,
+      "before": "'tan(-45)' → '-1' ({ angleMode: 'deg' })",
+      "after": "tan(-45) → -1 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 229,
+      "before": "'tan((-45*pi/180))' → '-1' ({ angleMode: 'rad' })",
+      "after": "tan((-45*pi/180)) → -1 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 230,
+      "before": "'tan((-45*10/9))' → '-1' ({ angleMode: 'grad' })",
+      "after": "tan((-45*10/9)) → -1 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 231,
+      "before": "'sin(-90)' → '-1' ({ angleMode: 'deg' })",
+      "after": "sin(-90) → -1 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 232,
+      "before": "'cos(-90)' → '0' ({ angleMode: 'deg' })",
+      "after": "cos(-90) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 233,
+      "before": "'sin((-90*pi/180))' → '-1' ({ angleMode: 'rad' })",
+      "after": "sin((-90*pi/180)) → -1 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 234,
+      "before": "'cos((-90*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "cos((-90*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 235,
+      "before": "'sin((-90*10/9))' → '-1' ({ angleMode: 'grad' })",
+      "after": "sin((-90*10/9)) → -1 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 236,
+      "before": "'cos((-90*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "cos((-90*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 237,
+      "before": "'sin(-180)' → '0' ({ angleMode: 'deg' })",
+      "after": "sin(-180) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 238,
+      "before": "'cos(-180)' → '-1' ({ angleMode: 'deg' })",
+      "after": "cos(-180) → -1 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 239,
+      "before": "'tan(-180)' → '0' ({ angleMode: 'deg' })",
+      "after": "tan(-180) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 240,
+      "before": "'sin((-180*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "sin((-180*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 241,
+      "before": "'cos((-180*pi/180))' → '-1' ({ angleMode: 'rad' })",
+      "after": "cos((-180*pi/180)) → -1 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 242,
+      "before": "'tan((-180*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "tan((-180*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 243,
+      "before": "'sin((-180*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "sin((-180*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 244,
+      "before": "'cos((-180*10/9))' → '-1' ({ angleMode: 'grad' })",
+      "after": "cos((-180*10/9)) → -1 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 245,
+      "before": "'tan((-180*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "tan((-180*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 246,
+      "before": "'sin(-360)' → '0' ({ angleMode: 'deg' })",
+      "after": "sin(-360) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 247,
+      "before": "'cos(-360)' → '1' ({ angleMode: 'deg' })",
+      "after": "cos(-360) → 1 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 248,
+      "before": "'tan(-360)' → '0' ({ angleMode: 'deg' })",
+      "after": "tan(-360) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 249,
+      "before": "'sin((-360*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "sin((-360*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 250,
+      "before": "'cos((-360*pi/180))' → '1' ({ angleMode: 'rad' })",
+      "after": "cos((-360*pi/180)) → 1 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 251,
+      "before": "'tan((-360*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "tan((-360*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 252,
+      "before": "'sin((-360*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "sin((-360*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 253,
+      "before": "'cos((-360*10/9))' → '1' ({ angleMode: 'grad' })",
+      "after": "cos((-360*10/9)) → 1 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 254,
+      "before": "'tan((-360*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "tan((-360*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 255,
+      "before": "'sin(390)' → '0.5' ({ angleMode: 'deg' })",
+      "after": "sin(390) → 0.5 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 256,
+      "before": "'sin((390*pi/180))' → '0.5' ({ angleMode: 'rad' })",
+      "after": "sin((390*pi/180)) → 0.5 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 257,
+      "before": "'sin((390*10/9))' → '0.5' ({ angleMode: 'grad' })",
+      "after": "sin((390*10/9)) → 0.5 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 258,
+      "before": "'sin(540)' → '0' ({ angleMode: 'deg' })",
+      "after": "sin(540) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 259,
+      "before": "'cos(540)' → '-1' ({ angleMode: 'deg' })",
+      "after": "cos(540) → -1 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 260,
+      "before": "'tan(540)' → '0' ({ angleMode: 'deg' })",
+      "after": "tan(540) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 261,
+      "before": "'sin((540*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "sin((540*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 262,
+      "before": "'cos((540*pi/180))' → '-1' ({ angleMode: 'rad' })",
+      "after": "cos((540*pi/180)) → -1 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 263,
+      "before": "'tan((540*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "tan((540*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 264,
+      "before": "'sin((540*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "sin((540*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 265,
+      "before": "'cos((540*10/9))' → '-1' ({ angleMode: 'grad' })",
+      "after": "cos((540*10/9)) → -1 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 266,
+      "before": "'tan((540*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "tan((540*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 267,
+      "before": "'sin(720)' → '0' ({ angleMode: 'deg' })",
+      "after": "sin(720) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 268,
+      "before": "'cos(720)' → '1' ({ angleMode: 'deg' })",
+      "after": "cos(720) → 1 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 269,
+      "before": "'tan(720)' → '0' ({ angleMode: 'deg' })",
+      "after": "tan(720) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 270,
+      "before": "'sin((720*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "sin((720*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 271,
+      "before": "'cos((720*pi/180))' → '1' ({ angleMode: 'rad' })",
+      "after": "cos((720*pi/180)) → 1 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 272,
+      "before": "'tan((720*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "tan((720*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 273,
+      "before": "'sin((720*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "sin((720*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 274,
+      "before": "'cos((720*10/9))' → '1' ({ angleMode: 'grad' })",
+      "after": "cos((720*10/9)) → 1 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 275,
+      "before": "'tan((720*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "tan((720*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 276,
+      "before": "'sin(1080)' → '0' ({ angleMode: 'deg' })",
+      "after": "sin(1080) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 277,
+      "before": "'cos(1080)' → '1' ({ angleMode: 'deg' })",
+      "after": "cos(1080) → 1 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 278,
+      "before": "'tan(1080)' → '0' ({ angleMode: 'deg' })",
+      "after": "tan(1080) → 0 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 279,
+      "before": "'sin((1080*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "sin((1080*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 280,
+      "before": "'cos((1080*pi/180))' → '1' ({ angleMode: 'rad' })",
+      "after": "cos((1080*pi/180)) → 1 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 281,
+      "before": "'tan((1080*pi/180))' → '0' ({ angleMode: 'rad' })",
+      "after": "tan((1080*pi/180)) → 0 ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 282,
+      "before": "'sin((1080*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "sin((1080*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 283,
+      "before": "'cos((1080*10/9))' → '1' ({ angleMode: 'grad' })",
+      "after": "cos((1080*10/9)) → 1 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 284,
+      "before": "'tan((1080*10/9))' → '0' ({ angleMode: 'grad' })",
+      "after": "tan((1080*10/9)) → 0 ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 285,
+      "before": "'asin(0.5)' → '30' ({ angleMode: 'deg' })",
+      "after": "asin(0.5) → 30 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 286,
+      "before": "'acos(0.5)' → '60' ({ angleMode: 'deg' })",
+      "after": "acos(0.5) → 60 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 287,
+      "before": "'atan(1)' → '45' ({ angleMode: 'deg' })",
+      "after": "atan(1) → 45 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 288,
+      "before": "'atan(-1)' → '-45' ({ angleMode: 'deg' })",
+      "after": "atan(-1) → -45 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 289,
+      "before": "'asin(1)' → '90' ({ angleMode: 'deg' })",
+      "after": "asin(1) → 90 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 290,
+      "before": "'acos(-1)' → '180' ({ angleMode: 'deg' })",
+      "after": "acos(-1) → 180 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 291,
+      "before": "'atan2(1,1)' → '45' ({ angleMode: 'deg' })",
+      "after": "atan2(1,1) → 45 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 292,
+      "before": "'atan2(1,-1)' → '135' ({ angleMode: 'deg' })",
+      "after": "atan2(1,-1) → 135 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 293,
+      "before": "'atan2(-1,-1)' → '-135' ({ angleMode: 'deg' })",
+      "after": "atan2(-1,-1) → -135 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 294,
+      "before": "'atan2(-1,1)' → '-45' ({ angleMode: 'deg' })",
+      "after": "atan2(-1,1) → -45 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 295,
+      "before": "'atan2(0,-1)' → '180' ({ angleMode: 'deg' })",
+      "after": "atan2(0,-1) → 180 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 296,
+      "before": "'atan2(1,0)' → '90' ({ angleMode: 'deg' })",
+      "after": "atan2(1,0) → 90 ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 297,
+      "before": "'' → 'E_SYNTAX' [+0,+0)",
+      "after": " → E_SYNTAX [0,0)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 298,
+      "before": "'  ' → 'E_SYNTAX' [2,2)",
+      "after": "   → E_SYNTAX [2,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 299,
+      "before": "'1+' → 'E_UNEXPECTED_TOKEN' [2,2)",
+      "after": "1+ → E_UNEXPECTED_TOKEN [2,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 300,
+      "before": "'*2' → 'E_UNEXPECTED_TOKEN' [+0,1)",
+      "after": "*2 → E_UNEXPECTED_TOKEN [0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 301,
+      "before": "'1 2' → 'E_UNEXPECTED_TOKEN' [2,3)",
+      "after": "1 2 → E_UNEXPECTED_TOKEN [2,3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 302,
+      "before": "'1.2.3' → 'E_UNEXPECTED_TOKEN' [3,5)",
+      "after": "1.2.3 → E_UNEXPECTED_TOKEN [3,5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 303,
+      "before": "'.' → 'E_UNEXPECTED_TOKEN' [+0,1)",
+      "after": ". → E_UNEXPECTED_TOKEN [0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 304,
+      "before": "'1,2' → 'E_UNEXPECTED_TOKEN' [1,2)",
+      "after": "1,2 → E_UNEXPECTED_TOKEN [1,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 305,
+      "before": "'1e' → 'E_INVALID_NUMBER' [+0,2)",
+      "after": "1e → E_INVALID_NUMBER [0,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 306,
+      "before": "'1e+' → 'E_INVALID_NUMBER' [+0,3)",
+      "after": "1e+ → E_INVALID_NUMBER [0,3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 307,
+      "before": "'1E-' → 'E_INVALID_NUMBER' [+0,3)",
+      "after": "1E- → E_INVALID_NUMBER [0,3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 308,
+      "before": "'(1' → 'E_MISSING_PAREN' [2,2)",
+      "after": "(1 → E_MISSING_PAREN [2,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 309,
+      "before": "'sin(1' → 'E_MISSING_PAREN' [5,5)",
+      "after": "sin(1 → E_MISSING_PAREN [5,5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 310,
+      "before": "'1)' → 'E_UNEXPECTED_PAREN' [1,2)",
+      "after": "1) → E_UNEXPECTED_PAREN [1,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 311,
+      "before": "'()' → 'E_UNEXPECTED_TOKEN' [1,2)",
+      "after": "() → E_UNEXPECTED_TOKEN [1,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 312,
+      "before": "'min(1,)' → 'E_UNEXPECTED_TOKEN' [6,7)",
+      "after": "min(1,) → E_UNEXPECTED_TOKEN [6,7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 313,
+      "before": "'min(,1)' → 'E_UNEXPECTED_TOKEN' [4,5)",
+      "after": "min(,1) → E_UNEXPECTED_TOKEN [4,5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 314,
+      "before": "'min(1 2)' → 'E_MISSING_PAREN' [6,7)",
+      "after": "min(1 2) → E_MISSING_PAREN [6,7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 315,
+      "before": "'2**3' → 'E_UNEXPECTED_TOKEN' [2,3)",
+      "after": "2**3 → E_UNEXPECTED_TOKEN [2,3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 316,
+      "before": "'2^^3' → 'E_UNEXPECTED_TOKEN' [2,3)",
+      "after": "2^^3 → E_UNEXPECTED_TOKEN [2,3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 317,
+      "before": "'2//3' → 'E_UNEXPECTED_TOKEN' [2,3)",
+      "after": "2//3 → E_UNEXPECTED_TOKEN [2,3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 318,
+      "before": "'2^' → 'E_UNEXPECTED_TOKEN' [2,2)",
+      "after": "2^ → E_UNEXPECTED_TOKEN [2,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 319,
+      "before": "'π@2' → 'E_UNEXPECTED_TOKEN' [1,2)",
+      "after": "π@2 → E_UNEXPECTED_TOKEN [1,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 320,
+      "before": "'😀' → 'E_UNEXPECTED_TOKEN' [+0,2)",
+      "after": "😀 → E_UNEXPECTED_TOKEN [0,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 321,
+      "before": "'sin(90°)' → 'E_UNEXPECTED_TOKEN' [6,7)",
+      "after": "sin(90°) → E_UNEXPECTED_TOKEN [6,7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 322,
+      "before": "'1/0' → 'E_DIVISION_BY_ZERO' [1,2)",
+      "after": "1/0 → E_DIVISION_BY_ZERO [1,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 323,
+      "before": "'1÷0' → 'E_DIVISION_BY_ZERO' [1,2)",
+      "after": "1÷0 → E_DIVISION_BY_ZERO [1,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 324,
+      "before": "'1/(2-2)' → 'E_DIVISION_BY_ZERO' [1,2)",
+      "after": "1/(2-2) → E_DIVISION_BY_ZERO [1,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 325,
+      "before": "'sqrt(-1)' → 'E_DOMAIN' [+0,8)",
+      "after": "sqrt(-1) → E_DOMAIN [0,8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 326,
+      "before": "'ln(0)' → 'E_DOMAIN' [+0,5)",
+      "after": "ln(0) → E_DOMAIN [0,5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 327,
+      "before": "'asin(2)' → 'E_DOMAIN' [+0,7)",
+      "after": "asin(2) → E_DOMAIN [0,7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 328,
+      "before": "'acos(-2)' → 'E_DOMAIN' [+0,8)",
+      "after": "acos(-2) → E_DOMAIN [0,8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 329,
+      "before": "'log(-1)' → 'E_DOMAIN' [+0,7)",
+      "after": "log(-1) → E_DOMAIN [0,7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 330,
+      "before": "'log2(0)' → 'E_DOMAIN' [+0,7)",
+      "after": "log2(0) → E_DOMAIN [0,7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 331,
+      "before": "'logb(1,2)' → 'E_DOMAIN' [+0,9)",
+      "after": "logb(1,2) → E_DOMAIN [0,9)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 332,
+      "before": "'logb(-2,4)' → 'E_DOMAIN' [+0,10)",
+      "after": "logb(-2,4) → E_DOMAIN [0,10)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 333,
+      "before": "'root(0,2)' → 'E_DOMAIN' [+0,9)",
+      "after": "root(0,2) → E_DOMAIN [0,9)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 334,
+      "before": "'root(2,-1)' → 'E_DOMAIN' [+0,10)",
+      "after": "root(2,-1) → E_DOMAIN [0,10)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 335,
+      "before": "'root(0.5,2)' → 'E_DOMAIN' [+0,11)",
+      "after": "root(0.5,2) → E_DOMAIN [0,11)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 336,
+      "before": "'root(-2,0)' → 'E_DIVISION_BY_ZERO' [+0,10)",
+      "after": "root(-2,0) → E_DIVISION_BY_ZERO [0,10)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 337,
+      "before": "'mod(2,0)' → 'E_DIVISION_BY_ZERO' [+0,8)",
+      "after": "mod(2,0) → E_DIVISION_BY_ZERO [0,8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 338,
+      "before": "'atan2(0,0)' → 'E_DOMAIN' [+0,10)",
+      "after": "atan2(0,0) → E_DOMAIN [0,10)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 339,
+      "before": "'0^0' → 'E_DOMAIN' [1,2)",
+      "after": "0^0 → E_DOMAIN [1,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 340,
+      "before": "'(-2)^0.5' → 'E_DOMAIN' [4,5)",
+      "after": "(-2)^0.5 → E_DOMAIN [4,5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 341,
+      "before": "'0^-2' → 'E_DIVISION_BY_ZERO' [1,2)",
+      "after": "0^-2 → E_DIVISION_BY_ZERO [1,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 342,
+      "before": "'(-1)!' → 'E_DOMAIN' [4,5)",
+      "after": "(-1)! → E_DOMAIN [4,5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 343,
+      "before": "'1.5!' → 'E_DOMAIN' [3,4)",
+      "after": "1.5! → E_DOMAIN [3,4)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 344,
+      "before": "'1001!' → 'E_RESOURCE_LIMIT' [4,5)",
+      "after": "1001! → E_RESOURCE_LIMIT [4,5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 345,
+      "before": "'unknown' → 'E_UNKNOWN_VARIABLE' [+0,7)",
+      "after": "unknown → E_UNKNOWN_VARIABLE [0,7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 346,
+      "before": "'ans' → 'E_UNKNOWN_VARIABLE' [+0,3)",
+      "after": "ans → E_UNKNOWN_VARIABLE [0,3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 347,
+      "before": "'missing(2)' → 'E_UNKNOWN_FUNCTION' [+0,7)",
+      "after": "missing(2) → E_UNKNOWN_FUNCTION [0,7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 348,
+      "before": "'constructor(2)' → 'E_UNKNOWN_FUNCTION' [+0,11)",
+      "after": "constructor(2) → E_UNKNOWN_FUNCTION [0,11)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 349,
+      "before": "'constructor' → 'E_UNKNOWN_VARIABLE' [+0,11)",
+      "after": "constructor → E_UNKNOWN_VARIABLE [0,11)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 350,
+      "before": "'sqrt()' → 'E_ARGUMENT_COUNT' [+0,6)",
+      "after": "sqrt() → E_ARGUMENT_COUNT [0,6)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 351,
+      "before": "'sqrt(1,2)' → 'E_ARGUMENT_COUNT' [+0,9)",
+      "after": "sqrt(1,2) → E_ARGUMENT_COUNT [0,9)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 352,
+      "before": "'min()' → 'E_ARGUMENT_COUNT' [+0,5)",
+      "after": "min() → E_ARGUMENT_COUNT [0,5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 353,
+      "before": "'max()' → 'E_ARGUMENT_COUNT' [+0,5)",
+      "after": "max() → E_ARGUMENT_COUNT [0,5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 354,
+      "before": "'atan2(1)' → 'E_ARGUMENT_COUNT' [+0,8)",
+      "after": "atan2(1) → E_ARGUMENT_COUNT [0,8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 355,
+      "before": "'logb(2)' → 'E_ARGUMENT_COUNT' [+0,7)",
+      "after": "logb(2) → E_ARGUMENT_COUNT [0,7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 356,
+      "before": "'1e10001' → 'E_OVERFLOW' [+0,7)",
+      "after": "1e10001 → E_OVERFLOW [0,7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 357,
+      "before": "'1e-10001' → 'E_OVERFLOW' [+0,8)",
+      "after": "1e-10001 → E_OVERFLOW [0,8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 358,
+      "before": "'1e10000*10' → 'E_OVERFLOW' [7,8)",
+      "after": "1e10000*10 → E_OVERFLOW [7,8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 359,
+      "before": "'1e-10000/10' → 'E_OVERFLOW' [8,9)",
+      "after": "1e-10000/10 → E_OVERFLOW [8,9)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 360,
+      "before": "'exp(30000)' → 'E_OVERFLOW' [+0,10)",
+      "after": "exp(30000) → E_OVERFLOW [0,10)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 361,
+      "before": "'tan(90)' → 'E_DOMAIN' [+0,7)",
+      "after": "tan(90) → E_DOMAIN [0,7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 362,
+      "before": "'tan(270)' → 'E_DOMAIN' [+0,8)",
+      "after": "tan(270) → E_DOMAIN [0,8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 363,
+      "before": "'tan(-90)' → 'E_DOMAIN' [+0,8)",
+      "after": "tan(-90) → E_DOMAIN [0,8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 364,
+      "before": "'tan(450)' → 'E_DOMAIN' [+0,8)",
+      "after": "tan(450) → E_DOMAIN [0,8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 365,
+      "before": "'sqrt(0.125)' has ≥45 reference digits (undefined)",
+      "after": "sqrt(0.125) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 366,
+      "before": "'cbrt(0.125)' has ≥45 reference digits (undefined)",
+      "after": "cbrt(0.125) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 367,
+      "before": "'abs(0.125)' has ≥45 reference digits (undefined)",
+      "after": "abs(0.125) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 368,
+      "before": "'exp(0.125)' has ≥45 reference digits (undefined)",
+      "after": "exp(0.125) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 369,
+      "before": "'ln(0.125)' has ≥45 reference digits (undefined)",
+      "after": "ln(0.125) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 370,
+      "before": "'log(0.125)' has ≥45 reference digits (undefined)",
+      "after": "log(0.125) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 371,
+      "before": "'log2(0.125)' has ≥45 reference digits (undefined)",
+      "after": "log2(0.125) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 372,
+      "before": "'sin(0.125)' has ≥45 reference digits (undefined)",
+      "after": "sin(0.125) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 373,
+      "before": "'cos(0.125)' has ≥45 reference digits (undefined)",
+      "after": "cos(0.125) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 374,
+      "before": "'tan(0.125)' has ≥45 reference digits (undefined)",
+      "after": "tan(0.125) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 375,
+      "before": "'atan(0.125)' has ≥45 reference digits (undefined)",
+      "after": "atan(0.125) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 376,
+      "before": "'sqrt(2)' has ≥45 reference digits (undefined)",
+      "after": "sqrt(2) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 377,
+      "before": "'cbrt(2)' has ≥45 reference digits (undefined)",
+      "after": "cbrt(2) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 378,
+      "before": "'abs(2)' has ≥45 reference digits (undefined)",
+      "after": "abs(2) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 379,
+      "before": "'exp(2)' has ≥45 reference digits (undefined)",
+      "after": "exp(2) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 380,
+      "before": "'ln(2)' has ≥45 reference digits (undefined)",
+      "after": "ln(2) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 381,
+      "before": "'log(2)' has ≥45 reference digits (undefined)",
+      "after": "log(2) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 382,
+      "before": "'log2(2)' has ≥45 reference digits (undefined)",
+      "after": "log2(2) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 383,
+      "before": "'sin(2)' has ≥45 reference digits (undefined)",
+      "after": "sin(2) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 384,
+      "before": "'cos(2)' has ≥45 reference digits (undefined)",
+      "after": "cos(2) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 385,
+      "before": "'tan(2)' has ≥45 reference digits (undefined)",
+      "after": "tan(2) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 386,
+      "before": "'atan(2)' has ≥45 reference digits (undefined)",
+      "after": "atan(2) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 387,
+      "before": "'sqrt(10)' has ≥45 reference digits (undefined)",
+      "after": "sqrt(10) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 388,
+      "before": "'cbrt(10)' has ≥45 reference digits (undefined)",
+      "after": "cbrt(10) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 389,
+      "before": "'abs(10)' has ≥45 reference digits (undefined)",
+      "after": "abs(10) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 390,
+      "before": "'exp(10)' has ≥45 reference digits (undefined)",
+      "after": "exp(10) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 391,
+      "before": "'ln(10)' has ≥45 reference digits (undefined)",
+      "after": "ln(10) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 392,
+      "before": "'log(10)' has ≥45 reference digits (undefined)",
+      "after": "log(10) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 393,
+      "before": "'log2(10)' has ≥45 reference digits (undefined)",
+      "after": "log2(10) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 394,
+      "before": "'sin(10)' has ≥45 reference digits (undefined)",
+      "after": "sin(10) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 395,
+      "before": "'cos(10)' has ≥45 reference digits (undefined)",
+      "after": "cos(10) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 396,
+      "before": "'tan(10)' has ≥45 reference digits (undefined)",
+      "after": "tan(10) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 397,
+      "before": "'atan(10)' has ≥45 reference digits (undefined)",
+      "after": "atan(10) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 398,
+      "before": "'asin(-0.75)' has ≥45 reference digits ({ angleMode: 'rad' })",
+      "after": "asin(-0.75) has ≥45 reference digits ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 399,
+      "before": "'asin(-0.75)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "asin(-0.75) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 400,
+      "before": "'asin(-0.75)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "asin(-0.75) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 401,
+      "before": "'acos(-0.75)' has ≥45 reference digits ({ angleMode: 'rad' })",
+      "after": "acos(-0.75) has ≥45 reference digits ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 402,
+      "before": "'acos(-0.75)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "acos(-0.75) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 403,
+      "before": "'acos(-0.75)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "acos(-0.75) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 404,
+      "before": "'asin(0.125)' has ≥45 reference digits ({ angleMode: 'rad' })",
+      "after": "asin(0.125) has ≥45 reference digits ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 405,
+      "before": "'asin(0.125)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "asin(0.125) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 406,
+      "before": "'asin(0.125)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "asin(0.125) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 407,
+      "before": "'acos(0.125)' has ≥45 reference digits ({ angleMode: 'rad' })",
+      "after": "acos(0.125) has ≥45 reference digits ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 408,
+      "before": "'acos(0.125)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "acos(0.125) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 409,
+      "before": "'acos(0.125)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "acos(0.125) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 410,
+      "before": "'asin(0.8)' has ≥45 reference digits ({ angleMode: 'rad' })",
+      "after": "asin(0.8) has ≥45 reference digits ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 411,
+      "before": "'asin(0.8)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "asin(0.8) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 412,
+      "before": "'asin(0.8)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "asin(0.8) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 413,
+      "before": "'acos(0.8)' has ≥45 reference digits ({ angleMode: 'rad' })",
+      "after": "acos(0.8) has ≥45 reference digits ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 414,
+      "before": "'acos(0.8)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "acos(0.8) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 415,
+      "before": "'acos(0.8)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "acos(0.8) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 416,
+      "before": "'root(5,2)' has ≥45 reference digits (undefined)",
+      "after": "root(5,2) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 417,
+      "before": "'root(7,123)' has ≥45 reference digits (undefined)",
+      "after": "root(7,123) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 418,
+      "before": "'root(-5,2)' has ≥45 reference digits (undefined)",
+      "after": "root(-5,2) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 419,
+      "before": "'logb(3,2)' has ≥45 reference digits (undefined)",
+      "after": "logb(3,2) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 420,
+      "before": "'logb(2.5,8)' has ≥45 reference digits (undefined)",
+      "after": "logb(2.5,8) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 421,
+      "before": "'logb(0.25,10)' has ≥45 reference digits (undefined)",
+      "after": "logb(0.25,10) has ≥45 reference digits (undefined)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 422,
+      "before": "'atan2(2,3)' has ≥45 reference digits ({ angleMode: 'rad' })",
+      "after": "atan2(2,3) has ≥45 reference digits ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 423,
+      "before": "'atan2(2,3)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "atan2(2,3) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 424,
+      "before": "'atan2(2,3)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "atan2(2,3) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 425,
+      "before": "'atan2(-2,3)' has ≥45 reference digits ({ angleMode: 'rad' })",
+      "after": "atan2(-2,3) has ≥45 reference digits ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 426,
+      "before": "'atan2(-2,3)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "atan2(-2,3) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 427,
+      "before": "'atan2(-2,3)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "atan2(-2,3) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 428,
+      "before": "'atan2(2,-3)' has ≥45 reference digits ({ angleMode: 'rad' })",
+      "after": "atan2(2,-3) has ≥45 reference digits ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 429,
+      "before": "'atan2(2,-3)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "atan2(2,-3) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 430,
+      "before": "'atan2(2,-3)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "atan2(2,-3) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 431,
+      "before": "'atan2(-2,-3)' has ≥45 reference digits ({ angleMode: 'rad' })",
+      "after": "atan2(-2,-3) has ≥45 reference digits ({ angleMode: 'rad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 432,
+      "before": "'atan2(-2,-3)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "atan2(-2,-3) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 433,
+      "before": "'atan2(-2,-3)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "atan2(-2,-3) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 434,
+      "before": "'sin(12.345)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "sin(12.345) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 435,
+      "before": "'cos(12.345)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "cos(12.345) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 436,
+      "before": "'tan(12.345)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "tan(12.345) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 437,
+      "before": "'sin(89.9)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "sin(89.9) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 438,
+      "before": "'cos(89.9)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "cos(89.9) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 439,
+      "before": "'tan(89.9)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "tan(89.9) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 440,
+      "before": "'sin(-123.456)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "sin(-123.456) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 441,
+      "before": "'cos(-123.456)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "cos(-123.456) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 442,
+      "before": "'tan(-123.456)' has ≥45 reference digits ({ angleMode: 'deg' })",
+      "after": "tan(-123.456) has ≥45 reference digits ({ angleMode: 'deg' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 443,
+      "before": "'sin(12.345)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "sin(12.345) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 444,
+      "before": "'cos(12.345)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "cos(12.345) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 445,
+      "before": "'tan(12.345)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "tan(12.345) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 446,
+      "before": "'sin(89.9)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "sin(89.9) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 447,
+      "before": "'cos(89.9)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "cos(89.9) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 448,
+      "before": "'tan(89.9)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "tan(89.9) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 449,
+      "before": "'sin(-123.456)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "sin(-123.456) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 450,
+      "before": "'cos(-123.456)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "cos(-123.456) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/engine.test.ts",
+      "index": 451,
+      "before": "'tan(-123.456)' has ≥45 reference digits ({ angleMode: 'grad' })",
+      "after": "tan(-123.456) has ≥45 reference digits ({ angleMode: 'grad' })",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 1,
+      "before": "'factorial(0)'",
+      "after": "factorial(0)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 2,
+      "before": "'factorial(1)'",
+      "after": "factorial(1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 3,
+      "before": "'factorial(2)'",
+      "after": "factorial(2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 4,
+      "before": "'factorial(3)'",
+      "after": "factorial(3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 5,
+      "before": "'factorial(4)'",
+      "after": "factorial(4)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 6,
+      "before": "'factorial(5)'",
+      "after": "factorial(5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 7,
+      "before": "'factorial(6)'",
+      "after": "factorial(6)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 8,
+      "before": "'factorial(7)'",
+      "after": "factorial(7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 9,
+      "before": "'factorial(8)'",
+      "after": "factorial(8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 10,
+      "before": "'factorial(9)'",
+      "after": "factorial(9)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 11,
+      "before": "'factorial(10)'",
+      "after": "factorial(10)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 12,
+      "before": "'factorial(11)'",
+      "after": "factorial(11)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 13,
+      "before": "'factorial(12)'",
+      "after": "factorial(12)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 14,
+      "before": "'factorial(13)'",
+      "after": "factorial(13)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 15,
+      "before": "'factorial(14)'",
+      "after": "factorial(14)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 16,
+      "before": "'factorial(15)'",
+      "after": "factorial(15)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 17,
+      "before": "'factorial(16)'",
+      "after": "factorial(16)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 18,
+      "before": "'factorial(17)'",
+      "after": "factorial(17)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 19,
+      "before": "'factorial(18)'",
+      "after": "factorial(18)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 20,
+      "before": "'factorial(19)'",
+      "after": "factorial(19)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 21,
+      "before": "'factorial(20)'",
+      "after": "factorial(20)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 22,
+      "before": "'nCr(1, 0)'",
+      "after": "nCr(1, 0)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 23,
+      "before": "'nPr(1, 1)'",
+      "after": "nPr(1, 1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 24,
+      "before": "'nCr(2, 1)'",
+      "after": "nCr(2, 1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 25,
+      "before": "'nPr(2, 2)'",
+      "after": "nPr(2, 2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 26,
+      "before": "'nCr(3, 1)'",
+      "after": "nCr(3, 1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 27,
+      "before": "'nPr(3, 3)'",
+      "after": "nPr(3, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 28,
+      "before": "'nCr(4, 2)'",
+      "after": "nCr(4, 2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 29,
+      "before": "'nPr(4, 3)'",
+      "after": "nPr(4, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 30,
+      "before": "'nCr(5, 2)'",
+      "after": "nCr(5, 2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 31,
+      "before": "'nPr(5, 3)'",
+      "after": "nPr(5, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 32,
+      "before": "'nCr(6, 3)'",
+      "after": "nCr(6, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 33,
+      "before": "'nPr(6, 3)'",
+      "after": "nPr(6, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 34,
+      "before": "'nCr(7, 3)'",
+      "after": "nCr(7, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 35,
+      "before": "'nPr(7, 3)'",
+      "after": "nPr(7, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 36,
+      "before": "'nCr(8, 4)'",
+      "after": "nCr(8, 4)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 37,
+      "before": "'nPr(8, 3)'",
+      "after": "nPr(8, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 38,
+      "before": "'nCr(9, 4)'",
+      "after": "nCr(9, 4)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 39,
+      "before": "'nPr(9, 3)'",
+      "after": "nPr(9, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 40,
+      "before": "'nCr(10, 5)'",
+      "after": "nCr(10, 5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 41,
+      "before": "'nPr(10, 3)'",
+      "after": "nPr(10, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 42,
+      "before": "'nCr(11, 5)'",
+      "after": "nCr(11, 5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 43,
+      "before": "'nPr(11, 3)'",
+      "after": "nPr(11, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 44,
+      "before": "'nCr(12, 6)'",
+      "after": "nCr(12, 6)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 45,
+      "before": "'nPr(12, 3)'",
+      "after": "nPr(12, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 46,
+      "before": "'nCr(13, 6)'",
+      "after": "nCr(13, 6)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 47,
+      "before": "'nPr(13, 3)'",
+      "after": "nPr(13, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 48,
+      "before": "'nCr(14, 7)'",
+      "after": "nCr(14, 7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 49,
+      "before": "'nPr(14, 3)'",
+      "after": "nPr(14, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 50,
+      "before": "'nCr(15, 7)'",
+      "after": "nCr(15, 7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 51,
+      "before": "'nPr(15, 3)'",
+      "after": "nPr(15, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 52,
+      "before": "'nCr(16, 8)'",
+      "after": "nCr(16, 8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 53,
+      "before": "'nPr(16, 3)'",
+      "after": "nPr(16, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 54,
+      "before": "'nCr(17, 8)'",
+      "after": "nCr(17, 8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 55,
+      "before": "'nPr(17, 3)'",
+      "after": "nPr(17, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 56,
+      "before": "'nCr(18, 9)'",
+      "after": "nCr(18, 9)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 57,
+      "before": "'nPr(18, 3)'",
+      "after": "nPr(18, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 58,
+      "before": "'nCr(19, 9)'",
+      "after": "nCr(19, 9)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 59,
+      "before": "'nPr(19, 3)'",
+      "after": "nPr(19, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 60,
+      "before": "'nCr(20, 10)'",
+      "after": "nCr(20, 10)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 61,
+      "before": "'nPr(20, 3)'",
+      "after": "nPr(20, 3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 62,
+      "before": "'gamma(1.5)'",
+      "after": "gamma(1.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 63,
+      "before": "'gamma(2.5)'",
+      "after": "gamma(2.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 64,
+      "before": "'gamma(3.5)'",
+      "after": "gamma(3.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 65,
+      "before": "'gamma(4.5)'",
+      "after": "gamma(4.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 66,
+      "before": "'gamma(5.5)'",
+      "after": "gamma(5.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 67,
+      "before": "'gamma(6.5)'",
+      "after": "gamma(6.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 68,
+      "before": "'gamma(7.5)'",
+      "after": "gamma(7.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 69,
+      "before": "'gamma(8.5)'",
+      "after": "gamma(8.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 70,
+      "before": "'gamma(9.5)'",
+      "after": "gamma(9.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 71,
+      "before": "'gamma(10.5)'",
+      "after": "gamma(10.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 72,
+      "before": "'gamma(11.5)'",
+      "after": "gamma(11.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 73,
+      "before": "'gamma(12.5)'",
+      "after": "gamma(12.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 74,
+      "before": "'gamma(13.5)'",
+      "after": "gamma(13.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 75,
+      "before": "'gamma(14.5)'",
+      "after": "gamma(14.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 76,
+      "before": "'gamma(15.5)'",
+      "after": "gamma(15.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 77,
+      "before": "'gamma(16.5)'",
+      "after": "gamma(16.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 78,
+      "before": "'gamma(17.5)'",
+      "after": "gamma(17.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 79,
+      "before": "'gamma(18.5)'",
+      "after": "gamma(18.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 80,
+      "before": "'gamma(19.5)'",
+      "after": "gamma(19.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 81,
+      "before": "'gamma(20.5)'",
+      "after": "gamma(20.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 82,
+      "before": "'gamma(21.5)'",
+      "after": "gamma(21.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 83,
+      "before": "'gamma(22.5)'",
+      "after": "gamma(22.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 84,
+      "before": "'gamma(23.5)'",
+      "after": "gamma(23.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 85,
+      "before": "'gamma(24.5)'",
+      "after": "gamma(24.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 86,
+      "before": "'gamma(25.5)'",
+      "after": "gamma(25.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 87,
+      "before": "'gamma(0.5)'",
+      "after": "gamma(0.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 88,
+      "before": "'gamma(-0.5)'",
+      "after": "gamma(-0.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 89,
+      "before": "'gamma(1/3)'",
+      "after": "gamma(1/3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 90,
+      "before": "'gamma(2/3)'",
+      "after": "gamma(2/3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 91,
+      "before": "'gamma(0.25)'",
+      "after": "gamma(0.25)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 92,
+      "before": "'integral(1,x,0,1)'",
+      "after": "integral(1,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 93,
+      "before": "'integral(x^1,x,0,1)'",
+      "after": "integral(x^1,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 94,
+      "before": "'integral(x^2,x,0,1)'",
+      "after": "integral(x^2,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 95,
+      "before": "'integral(x^3,x,0,1)'",
+      "after": "integral(x^3,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 96,
+      "before": "'integral(x^4,x,0,1)'",
+      "after": "integral(x^4,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 97,
+      "before": "'integral(x^5,x,0,1)'",
+      "after": "integral(x^5,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 98,
+      "before": "'integral(x^6,x,0,1)'",
+      "after": "integral(x^6,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 99,
+      "before": "'integral(x^7,x,0,1)'",
+      "after": "integral(x^7,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 100,
+      "before": "'integral(x^8,x,0,1)'",
+      "after": "integral(x^8,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 101,
+      "before": "'integral(x^9,x,0,1)'",
+      "after": "integral(x^9,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 102,
+      "before": "'integral(x^10,x,0,1)'",
+      "after": "integral(x^10,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 103,
+      "before": "'integral(x^11,x,0,1)'",
+      "after": "integral(x^11,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 104,
+      "before": "'integral(x^12,x,0,1)'",
+      "after": "integral(x^12,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 105,
+      "before": "'integral(x^13,x,0,1)'",
+      "after": "integral(x^13,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 106,
+      "before": "'integral(x^14,x,0,1)'",
+      "after": "integral(x^14,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 107,
+      "before": "'integral(x^15,x,0,1)'",
+      "after": "integral(x^15,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 108,
+      "before": "'integral(x^16,x,0,1)'",
+      "after": "integral(x^16,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 109,
+      "before": "'integral(x^17,x,0,1)'",
+      "after": "integral(x^17,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 110,
+      "before": "'integral(x^18,x,0,1)'",
+      "after": "integral(x^18,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 111,
+      "before": "'integral(x^19,x,0,1)'",
+      "after": "integral(x^19,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 112,
+      "before": "'integral(x^20,x,0,1)'",
+      "after": "integral(x^20,x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 113,
+      "before": "'deriv(x^1,x,2)'",
+      "after": "deriv(x^1,x,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 114,
+      "before": "'deriv(x^2,x,2)'",
+      "after": "deriv(x^2,x,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 115,
+      "before": "'deriv(x^3,x,2)'",
+      "after": "deriv(x^3,x,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 116,
+      "before": "'deriv(x^4,x,2)'",
+      "after": "deriv(x^4,x,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 117,
+      "before": "'deriv(x^5,x,2)'",
+      "after": "deriv(x^5,x,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 118,
+      "before": "'deriv(x^6,x,2)'",
+      "after": "deriv(x^6,x,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 119,
+      "before": "'deriv(x^7,x,2)'",
+      "after": "deriv(x^7,x,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 120,
+      "before": "'deriv(x^8,x,2)'",
+      "after": "deriv(x^8,x,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 121,
+      "before": "'deriv(x^9,x,2)'",
+      "after": "deriv(x^9,x,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 122,
+      "before": "'deriv(x^10,x,2)'",
+      "after": "deriv(x^10,x,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 123,
+      "before": "'deriv(x^11,x,2)'",
+      "after": "deriv(x^11,x,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 124,
+      "before": "'deriv(x^12,x,2)'",
+      "after": "deriv(x^12,x,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 125,
+      "before": "'deriv(x^13,x,2)'",
+      "after": "deriv(x^13,x,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 126,
+      "before": "'deriv(x^14,x,2)'",
+      "after": "deriv(x^14,x,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 127,
+      "before": "'deriv(x^15,x,2)'",
+      "after": "deriv(x^15,x,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 128,
+      "before": "'asinh(-3)'",
+      "after": "asinh(-3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 129,
+      "before": "'asinh(-1)'",
+      "after": "asinh(-1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 130,
+      "before": "'asinh(-0.1)'",
+      "after": "asinh(-0.1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 131,
+      "before": "'asinh(0)'",
+      "after": "asinh(0)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 132,
+      "before": "'asinh(0.1)'",
+      "after": "asinh(0.1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 133,
+      "before": "'asinh(1)'",
+      "after": "asinh(1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 134,
+      "before": "'asinh(3)'",
+      "after": "asinh(3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 135,
+      "before": "'acosh(1)'",
+      "after": "acosh(1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 136,
+      "before": "'acosh(1.01)'",
+      "after": "acosh(1.01)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 137,
+      "before": "'acosh(2)'",
+      "after": "acosh(2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 138,
+      "before": "'acosh(3)'",
+      "after": "acosh(3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 139,
+      "before": "'acosh(10)'",
+      "after": "acosh(10)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 140,
+      "before": "'atanh(-0.9)'",
+      "after": "atanh(-0.9)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 141,
+      "before": "'atanh(-0.5)'",
+      "after": "atanh(-0.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 142,
+      "before": "'atanh(0)'",
+      "after": "atanh(0)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 143,
+      "before": "'atanh(0.5)'",
+      "after": "atanh(0.5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 144,
+      "before": "'atanh(0.9)'",
+      "after": "atanh(0.9)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 145,
+      "before": "'sinh(-3)'",
+      "after": "sinh(-3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 146,
+      "before": "'cosh(-3)'",
+      "after": "cosh(-3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 147,
+      "before": "'tanh(-3)'",
+      "after": "tanh(-3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 148,
+      "before": "'sinh(-1)'",
+      "after": "sinh(-1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 149,
+      "before": "'cosh(-1)'",
+      "after": "cosh(-1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 150,
+      "before": "'tanh(-1)'",
+      "after": "tanh(-1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 151,
+      "before": "'sinh(-0.1)'",
+      "after": "sinh(-0.1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 152,
+      "before": "'cosh(-0.1)'",
+      "after": "cosh(-0.1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 153,
+      "before": "'tanh(-0.1)'",
+      "after": "tanh(-0.1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 154,
+      "before": "'sinh(0)'",
+      "after": "sinh(0)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 155,
+      "before": "'cosh(0)'",
+      "after": "cosh(0)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 156,
+      "before": "'tanh(0)'",
+      "after": "tanh(0)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 157,
+      "before": "'sinh(0.1)'",
+      "after": "sinh(0.1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 158,
+      "before": "'cosh(0.1)'",
+      "after": "cosh(0.1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 159,
+      "before": "'tanh(0.1)'",
+      "after": "tanh(0.1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 160,
+      "before": "'sinh(1)'",
+      "after": "sinh(1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 161,
+      "before": "'cosh(1)'",
+      "after": "cosh(1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 162,
+      "before": "'tanh(1)'",
+      "after": "tanh(1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 163,
+      "before": "'sinh(3)'",
+      "after": "sinh(3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 164,
+      "before": "'cosh(3)'",
+      "after": "cosh(3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 165,
+      "before": "'tanh(3)'",
+      "after": "tanh(3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 166,
+      "before": "'total(1)'",
+      "after": "total(1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 167,
+      "before": "'mean(1)'",
+      "after": "mean(1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 168,
+      "before": "'median(1)'",
+      "after": "median(1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 169,
+      "before": "'count(1)'",
+      "after": "count(1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 170,
+      "before": "'stdevp(1)'",
+      "after": "stdevp(1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 171,
+      "before": "'total(1,2)'",
+      "after": "total(1,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 172,
+      "before": "'mean(1,2)'",
+      "after": "mean(1,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 173,
+      "before": "'median(1,2)'",
+      "after": "median(1,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 174,
+      "before": "'count(1,2)'",
+      "after": "count(1,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 175,
+      "before": "'variance(1,2)'",
+      "after": "variance(1,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 176,
+      "before": "'stdev(1,2)'",
+      "after": "stdev(1,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 177,
+      "before": "'stdevp(1,2)'",
+      "after": "stdevp(1,2)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 178,
+      "before": "'total(1,2,3)'",
+      "after": "total(1,2,3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 179,
+      "before": "'mean(1,2,3)'",
+      "after": "mean(1,2,3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 180,
+      "before": "'median(1,2,3)'",
+      "after": "median(1,2,3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 181,
+      "before": "'count(1,2,3)'",
+      "after": "count(1,2,3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 182,
+      "before": "'variance(1,2,3)'",
+      "after": "variance(1,2,3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 183,
+      "before": "'stdev(1,2,3)'",
+      "after": "stdev(1,2,3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 184,
+      "before": "'stdevp(1,2,3)'",
+      "after": "stdevp(1,2,3)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 185,
+      "before": "'total(1,2,3,4)'",
+      "after": "total(1,2,3,4)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 186,
+      "before": "'mean(1,2,3,4)'",
+      "after": "mean(1,2,3,4)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 187,
+      "before": "'median(1,2,3,4)'",
+      "after": "median(1,2,3,4)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 188,
+      "before": "'count(1,2,3,4)'",
+      "after": "count(1,2,3,4)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 189,
+      "before": "'variance(1,2,3,4)'",
+      "after": "variance(1,2,3,4)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 190,
+      "before": "'stdev(1,2,3,4)'",
+      "after": "stdev(1,2,3,4)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 191,
+      "before": "'stdevp(1,2,3,4)'",
+      "after": "stdevp(1,2,3,4)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 192,
+      "before": "'total(1,2,3,4,5)'",
+      "after": "total(1,2,3,4,5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 193,
+      "before": "'mean(1,2,3,4,5)'",
+      "after": "mean(1,2,3,4,5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 194,
+      "before": "'median(1,2,3,4,5)'",
+      "after": "median(1,2,3,4,5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 195,
+      "before": "'count(1,2,3,4,5)'",
+      "after": "count(1,2,3,4,5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 196,
+      "before": "'variance(1,2,3,4,5)'",
+      "after": "variance(1,2,3,4,5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 197,
+      "before": "'stdev(1,2,3,4,5)'",
+      "after": "stdev(1,2,3,4,5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 198,
+      "before": "'stdevp(1,2,3,4,5)'",
+      "after": "stdevp(1,2,3,4,5)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 199,
+      "before": "'total(1,2,3,4,5,6)'",
+      "after": "total(1,2,3,4,5,6)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 200,
+      "before": "'mean(1,2,3,4,5,6)'",
+      "after": "mean(1,2,3,4,5,6)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 201,
+      "before": "'median(1,2,3,4,5,6)'",
+      "after": "median(1,2,3,4,5,6)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 202,
+      "before": "'count(1,2,3,4,5,6)'",
+      "after": "count(1,2,3,4,5,6)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 203,
+      "before": "'variance(1,2,3,4,5,6)'",
+      "after": "variance(1,2,3,4,5,6)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 204,
+      "before": "'stdev(1,2,3,4,5,6)'",
+      "after": "stdev(1,2,3,4,5,6)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 205,
+      "before": "'stdevp(1,2,3,4,5,6)'",
+      "after": "stdevp(1,2,3,4,5,6)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 206,
+      "before": "'total(1,2,3,4,5,6,7)'",
+      "after": "total(1,2,3,4,5,6,7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 207,
+      "before": "'mean(1,2,3,4,5,6,7)'",
+      "after": "mean(1,2,3,4,5,6,7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 208,
+      "before": "'median(1,2,3,4,5,6,7)'",
+      "after": "median(1,2,3,4,5,6,7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 209,
+      "before": "'count(1,2,3,4,5,6,7)'",
+      "after": "count(1,2,3,4,5,6,7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 210,
+      "before": "'variance(1,2,3,4,5,6,7)'",
+      "after": "variance(1,2,3,4,5,6,7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 211,
+      "before": "'stdev(1,2,3,4,5,6,7)'",
+      "after": "stdev(1,2,3,4,5,6,7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 212,
+      "before": "'stdevp(1,2,3,4,5,6,7)'",
+      "after": "stdevp(1,2,3,4,5,6,7)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 213,
+      "before": "'total(1,2,3,4,5,6,7,8)'",
+      "after": "total(1,2,3,4,5,6,7,8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 214,
+      "before": "'mean(1,2,3,4,5,6,7,8)'",
+      "after": "mean(1,2,3,4,5,6,7,8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 215,
+      "before": "'median(1,2,3,4,5,6,7,8)'",
+      "after": "median(1,2,3,4,5,6,7,8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 216,
+      "before": "'count(1,2,3,4,5,6,7,8)'",
+      "after": "count(1,2,3,4,5,6,7,8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 217,
+      "before": "'variance(1,2,3,4,5,6,7,8)'",
+      "after": "variance(1,2,3,4,5,6,7,8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 218,
+      "before": "'stdev(1,2,3,4,5,6,7,8)'",
+      "after": "stdev(1,2,3,4,5,6,7,8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 219,
+      "before": "'stdevp(1,2,3,4,5,6,7,8)'",
+      "after": "stdevp(1,2,3,4,5,6,7,8)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 220,
+      "before": "'total(1,2,3,4,5,6,7,8,9)'",
+      "after": "total(1,2,3,4,5,6,7,8,9)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 221,
+      "before": "'mean(1,2,3,4,5,6,7,8,9)'",
+      "after": "mean(1,2,3,4,5,6,7,8,9)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 222,
+      "before": "'median(1,2,3,4,5,6,7,8,9)'",
+      "after": "median(1,2,3,4,5,6,7,8,9)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 223,
+      "before": "'count(1,2,3,4,5,6,7,8,9)'",
+      "after": "count(1,2,3,4,5,6,7,8,9)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 224,
+      "before": "'variance(1,2,3,4,5,6,7,8,9)'",
+      "after": "variance(1,2,3,4,5,6,7,8,9)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 225,
+      "before": "'stdev(1,2,3,4,5,6,7,8,9)'",
+      "after": "stdev(1,2,3,4,5,6,7,8,9)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 226,
+      "before": "'stdevp(1,2,3,4,5,6,7,8,9)'",
+      "after": "stdevp(1,2,3,4,5,6,7,8,9)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 227,
+      "before": "'total(1,2,3,4,5,6,7,8,9,10)'",
+      "after": "total(1,2,3,4,5,6,7,8,9,10)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 228,
+      "before": "'mean(1,2,3,4,5,6,7,8,9,10)'",
+      "after": "mean(1,2,3,4,5,6,7,8,9,10)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 229,
+      "before": "'median(1,2,3,4,5,6,7,8,9,10)'",
+      "after": "median(1,2,3,4,5,6,7,8,9,10)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 230,
+      "before": "'count(1,2,3,4,5,6,7,8,9,10)'",
+      "after": "count(1,2,3,4,5,6,7,8,9,10)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 231,
+      "before": "'variance(1,2,3,4,5,6,7,8,9,10)'",
+      "after": "variance(1,2,3,4,5,6,7,8,9,10)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 232,
+      "before": "'stdev(1,2,3,4,5,6,7,8,9,10)'",
+      "after": "stdev(1,2,3,4,5,6,7,8,9,10)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 233,
+      "before": "'stdevp(1,2,3,4,5,6,7,8,9,10)'",
+      "after": "stdevp(1,2,3,4,5,6,7,8,9,10)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 234,
+      "before": "'total(1,2,3,4,5,6,7,8,9,10,11)'",
+      "after": "total(1,2,3,4,5,6,7,8,9,10,11)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 235,
+      "before": "'mean(1,2,3,4,5,6,7,8,9,10,11)'",
+      "after": "mean(1,2,3,4,5,6,7,8,9,10,11)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 236,
+      "before": "'median(1,2,3,4,5,6,7,8,9,10,11)'",
+      "after": "median(1,2,3,4,5,6,7,8,9,10,11)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 237,
+      "before": "'count(1,2,3,4,5,6,7,8,9,10,11)'",
+      "after": "count(1,2,3,4,5,6,7,8,9,10,11)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 238,
+      "before": "'variance(1,2,3,4,5,6,7,8,9,10,11)'",
+      "after": "variance(1,2,3,4,5,6,7,8,9,10,11)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 239,
+      "before": "'stdev(1,2,3,4,5,6,7,8,9,10,11)'",
+      "after": "stdev(1,2,3,4,5,6,7,8,9,10,11)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 240,
+      "before": "'stdevp(1,2,3,4,5,6,7,8,9,10,11)'",
+      "after": "stdevp(1,2,3,4,5,6,7,8,9,10,11)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 241,
+      "before": "'total(1,2,3,4,5,6,7,8,9,10,11,12)'",
+      "after": "total(1,2,3,4,5,6,7,8,9,10,11,12)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 242,
+      "before": "'mean(1,2,3,4,5,6,7,8,9,10,11,12)'",
+      "after": "mean(1,2,3,4,5,6,7,8,9,10,11,12)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 243,
+      "before": "'median(1,2,3,4,5,6,7,8,9,10,11,12)'",
+      "after": "median(1,2,3,4,5,6,7,8,9,10,11,12)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 244,
+      "before": "'count(1,2,3,4,5,6,7,8,9,10,11,12)'",
+      "after": "count(1,2,3,4,5,6,7,8,9,10,11,12)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 245,
+      "before": "'variance(1,2,3,4,5,6,7,8,9,10,11,12)'",
+      "after": "variance(1,2,3,4,5,6,7,8,9,10,11,12)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 246,
+      "before": "'stdev(1,2,3,4,5,6,7,8,9,10,11,12)'",
+      "after": "stdev(1,2,3,4,5,6,7,8,9,10,11,12)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 247,
+      "before": "'stdevp(1,2,3,4,5,6,7,8,9,10,11,12)'",
+      "after": "stdevp(1,2,3,4,5,6,7,8,9,10,11,12)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 248,
+      "before": "'total(1,2,3,4,5,6,7,8,9,10,11,12,13)'",
+      "after": "total(1,2,3,4,5,6,7,8,9,10,11,12,13)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 249,
+      "before": "'mean(1,2,3,4,5,6,7,8,9,10,11,12,13)'",
+      "after": "mean(1,2,3,4,5,6,7,8,9,10,11,12,13)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 250,
+      "before": "'median(1,2,3,4,5,6,7,8,9,10,11,12,13)'",
+      "after": "median(1,2,3,4,5,6,7,8,9,10,11,12,13)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 251,
+      "before": "'count(1,2,3,4,5,6,7,8,9,10,11,12,13)'",
+      "after": "count(1,2,3,4,5,6,7,8,9,10,11,12,13)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 252,
+      "before": "'variance(1,2,3,4,5,6,7,8,9,10,11,12,1…'",
+      "after": "variance(1,2,3,4,5,6,7,8,9,10,11,12,13)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 253,
+      "before": "'stdev(1,2,3,4,5,6,7,8,9,10,11,12,13)'",
+      "after": "stdev(1,2,3,4,5,6,7,8,9,10,11,12,13)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 254,
+      "before": "'stdevp(1,2,3,4,5,6,7,8,9,10,11,12,13)'",
+      "after": "stdevp(1,2,3,4,5,6,7,8,9,10,11,12,13)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 255,
+      "before": "'total(1,2,3,4,5,6,7,8,9,10,11,12,13,1…'",
+      "after": "total(1,2,3,4,5,6,7,8,9,10,11,12,13,14)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 256,
+      "before": "'mean(1,2,3,4,5,6,7,8,9,10,11,12,13,14)'",
+      "after": "mean(1,2,3,4,5,6,7,8,9,10,11,12,13,14)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 257,
+      "before": "'median(1,2,3,4,5,6,7,8,9,10,11,12,13,…'",
+      "after": "median(1,2,3,4,5,6,7,8,9,10,11,12,13,14)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 258,
+      "before": "'count(1,2,3,4,5,6,7,8,9,10,11,12,13,1…'",
+      "after": "count(1,2,3,4,5,6,7,8,9,10,11,12,13,14)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 259,
+      "before": "'variance(1,2,3,4,5,6,7,8,9,10,11,12,1…'",
+      "after": "variance(1,2,3,4,5,6,7,8,9,10,11,12,13,…",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 260,
+      "before": "'stdev(1,2,3,4,5,6,7,8,9,10,11,12,13,1…'",
+      "after": "stdev(1,2,3,4,5,6,7,8,9,10,11,12,13,14)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 261,
+      "before": "'stdevp(1,2,3,4,5,6,7,8,9,10,11,12,13,…'",
+      "after": "stdevp(1,2,3,4,5,6,7,8,9,10,11,12,13,14)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 262,
+      "before": "'total(1,2,3,4,5,6,7,8,9,10,11,12,13,1…'",
+      "after": "total(1,2,3,4,5,6,7,8,9,10,11,12,13,14,…",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 263,
+      "before": "'mean(1,2,3,4,5,6,7,8,9,10,11,12,13,14…'",
+      "after": "mean(1,2,3,4,5,6,7,8,9,10,11,12,13,14,1…",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 264,
+      "before": "'median(1,2,3,4,5,6,7,8,9,10,11,12,13,…'",
+      "after": "median(1,2,3,4,5,6,7,8,9,10,11,12,13,14…",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 265,
+      "before": "'count(1,2,3,4,5,6,7,8,9,10,11,12,13,1…'",
+      "after": "count(1,2,3,4,5,6,7,8,9,10,11,12,13,14,…",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 266,
+      "before": "'variance(1,2,3,4,5,6,7,8,9,10,11,12,1…'",
+      "after": "variance(1,2,3,4,5,6,7,8,9,10,11,12,13,…",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 267,
+      "before": "'stdev(1,2,3,4,5,6,7,8,9,10,11,12,13,1…'",
+      "after": "stdev(1,2,3,4,5,6,7,8,9,10,11,12,13,14,…",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 268,
+      "before": "'stdevp(1,2,3,4,5,6,7,8,9,10,11,12,13,…'",
+      "after": "stdevp(1,2,3,4,5,6,7,8,9,10,11,12,13,14…",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 269,
+      "before": "'exp(i*pi)+1'",
+      "after": "exp(i*pi)+1",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 270,
+      "before": "'e^(i*pi)+1'",
+      "after": "e^(i*pi)+1",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 271,
+      "before": "'i^2'",
+      "after": "i^2",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 272,
+      "before": "'sqrt(-1)'",
+      "after": "sqrt(-1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 273,
+      "before": "'ln(-1)'",
+      "after": "ln(-1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 274,
+      "before": "'(1+i)*(1-i)'",
+      "after": "(1+i)*(1-i)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 275,
+      "before": "'1/i'",
+      "after": "1/i",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 276,
+      "before": "'conj(3+4i)'",
+      "after": "conj(3+4i)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 277,
+      "before": "'sin(i)'",
+      "after": "sin(i)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 278,
+      "before": "'cos(i)'",
+      "after": "cos(i)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 279,
+      "before": "'exp(ln(2+3i))'",
+      "after": "exp(ln(2+3i))",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 280,
+      "before": "'sqrt(3+4i)'",
+      "after": "sqrt(3+4i)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 281,
+      "before": "'integral(sin(x),x,0,pi)'",
+      "after": "integral(sin(x),x,0,pi)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 282,
+      "before": "'integral(exp(x),x,0,1)'",
+      "after": "integral(exp(x),x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 283,
+      "before": "'integral(1/(1+x^2),x,0,1)'",
+      "after": "integral(1/(1+x^2),x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 284,
+      "before": "'integral(sqrt(x),x,0,1)'",
+      "after": "integral(sqrt(x),x,0,1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 285,
+      "before": "'sum(k^2,k,1,100)'",
+      "after": "sum(k^2,k,1,100)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 286,
+      "before": "'prod(k,k,1,10)'",
+      "after": "prod(k,k,1,10)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 287,
+      "before": "'deg2rad(180)'",
+      "after": "deg2rad(180)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 288,
+      "before": "'rad2deg(pi)'",
+      "after": "rad2deg(pi)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 289,
+      "before": "'frac(-3.75)'",
+      "after": "frac(-3.75)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 290,
+      "before": "'round(123.45,-1)'",
+      "after": "round(123.45,-1)",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 292,
+      "before": "verifies 'c' against NIST 2022",
+      "after": "verifies c against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 293,
+      "before": "verifies 'h' against NIST 2022",
+      "after": "verifies h against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 294,
+      "before": "verifies 'hbar' against NIST 2022",
+      "after": "verifies hbar against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 295,
+      "before": "verifies 'qe' against NIST 2022",
+      "after": "verifies qe against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 296,
+      "before": "verifies 'kB' against NIST 2022",
+      "after": "verifies kB against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 297,
+      "before": "verifies 'NA' against NIST 2022",
+      "after": "verifies NA against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 298,
+      "before": "verifies 'R' against NIST 2022",
+      "after": "verifies R against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 299,
+      "before": "verifies 'G' against NIST 2022",
+      "after": "verifies G against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 300,
+      "before": "verifies 'gn' against NIST 2022",
+      "after": "verifies gn against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 301,
+      "before": "verifies 'epsilon0' against NIST 2022",
+      "after": "verifies epsilon0 against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 302,
+      "before": "verifies 'mu0' against NIST 2022",
+      "after": "verifies mu0 against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 303,
+      "before": "verifies 'me' against NIST 2022",
+      "after": "verifies me against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 304,
+      "before": "verifies 'mp' against NIST 2022",
+      "after": "verifies mp against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 305,
+      "before": "verifies 'mn' against NIST 2022",
+      "after": "verifies mn against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 306,
+      "before": "verifies 'u' against NIST 2022",
+      "after": "verifies u against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 307,
+      "before": "verifies 'alpha' against NIST 2022",
+      "after": "verifies alpha against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 308,
+      "before": "verifies 'sigma' against NIST 2022",
+      "after": "verifies sigma against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 309,
+      "before": "verifies 'Rinf' against NIST 2022",
+      "after": "verifies Rinf against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 310,
+      "before": "verifies 'a0' against NIST 2022",
+      "after": "verifies a0 against NIST 2022",
+      "status": "passed"
+    },
+    {
+      "project": "engine",
+      "path": "src/engine/scientific.test.ts",
+      "index": 311,
+      "before": "verifies 'muB' against NIST 2022",
+      "after": "verifies muB against NIST 2022",
+      "status": "passed"
+    }
+  ]
+}
