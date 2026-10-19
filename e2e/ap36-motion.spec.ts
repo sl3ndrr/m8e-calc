@@ -136,7 +136,17 @@ for (const [level, os] of [
       await attach(info, 'history-live-interruption', frames);
       expect(frames.before.at(-1)?.animations).toBeGreaterThan(0);
       expect(frames.before.at(-1)?.opacity).toBeGreaterThan(0);
-      expect(frames.before.at(-1)?.opacity).toBeLessThan(1);
+      const active = frames.before.at(-1);
+      // Spatial spring opacity can already be clamped at 1 while y/scale
+      // visibly move. Effects-only Reduced must still have opacity < 1.
+      expect(
+        active &&
+          (active.opacity < 1 ||
+            (level === 'full' &&
+              !os &&
+              active.transform !== 'none' &&
+              active.transform !== 'matrix(1, 0, 0, 1, 0, 0)')),
+      ).toBe(true);
       off = frames.after;
     }
     await attach(info, 'history-off-frames', off);
@@ -144,7 +154,12 @@ for (const [level, os] of [
     test.fail(
       process.env.AP36_PHASE === 'before' &&
         level !== 'off' &&
-        off.some((frame) => frame.opacity > 0 && frame.opacity < 1),
+        off.some(
+          (frame) =>
+            (frame.opacity > 0 && frame.opacity < 1) ||
+            (frame.transform !== 'none' &&
+              frame.transform !== 'matrix(1, 0, 0, 1, 0, 0)'),
+        ),
       'Pinned baseline retains a sampled MotionValue after real live Off; AP36 commits its neutral goal.',
     );
     for (const frame of off) {

@@ -27,9 +27,13 @@ jobs:
           mkdir -p test-results/ap36/after
           npm ls motion framer-motion motion-dom motion-utils --all --json > test-results/ap36/after/packages.json
       - run: npx playwright install --with-deps chromium firefox webkit
-      - name: Diagnose current official IAU PDF locations (temporary, independent)
+      - name: Verify current official IAU PDFs (independent source correction)
+        id: sources
         continue-on-error: true
         run: |
+          sudo apt-get update
+          sudo apt-get install --yes poppler-utils
+          mkdir -p test-results/ap36/sources
           for item in '2012:1FBKjaswlP-rTs6z6V4WygXsbdHKVHYcP' '2015:1vL1vXyzFUWjY083Yb5s67dDsc_rxTWWZ'; do
             year="${item%%:*}"
             file_id="${item#*:}"
@@ -37,8 +41,13 @@ jobs:
             file "$RUNNER_TEMP/iau-$year.pdf"
             sha256sum "$RUNNER_TEMP/iau-$year.pdf"
             pdftotext -layout "$RUNNER_TEMP/iau-$year.pdf" "$RUNNER_TEMP/iau-$year.txt"
-            rg -n -i '149 597 870 700|149597870700|648 000|648000|parsec|astronomical unit' "$RUNNER_TEMP/iau-$year.txt"
+            rg -n -i -C 2 '149 597 870 700|149597870700|648 000|648000|parsec|astronomical unit' "$RUNNER_TEMP/iau-$year.txt"
+            cp "$RUNNER_TEMP/iau-$year.txt" "test-results/ap36/sources/iau-$year.txt"
+            sha256sum "$RUNNER_TEMP/iau-$year.pdf" >> test-results/ap36/sources/pdf-sha256.txt
           done
+          rg '149 ?597 ?870 ?700' test-results/ap36/sources/iau-2012.txt
+          rg '648 ?000' test-results/ap36/sources/iau-2015.txt
+          rg -i 'parsec' test-results/ap36/sources/iau-2015.txt
       - name: Same-run Motion 12 baseline, original lockfile
         id: before
         # Collect candidate evidence even when the pinned baseline regresses.
@@ -98,12 +107,14 @@ jobs:
       - name: Require every evidence phase
         if: ${{ always() }}
         env:
+          SOURCES: ${{ steps.sources.outcome }}
           BEFORE: ${{ steps.before.outcome }}
           BUILD: ${{ steps.after.outcome }}
           AFTER: ${{ steps.interactions.outcome }}
           RENDERING: ${{ steps.rendering.outcome }}
           PERFORMANCE: ${{ steps.performance.outcome }}
         run: |
+          test "$SOURCES" = success
           test "$BEFORE" = success
           test "$BUILD" = success
           test "$AFTER" = success
