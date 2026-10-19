@@ -1,0 +1,31 @@
+name: AP39 bounded diagnostics
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  diagnose:
+    if: github.head_ref == 'feat/ap39-ci-repairs'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Export exact source and locked dependencies for local diagnosis
+        run: |
+          git archive --format=tar.gz --output="$RUNNER_TEMP/ap39-source.tgz" HEAD
+          tar -czf "$RUNNER_TEMP/ap39-dependencies.tgz" node_modules
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ap39-diagnostic-workspace
+          path: |
+            ${{ runner.temp }}/ap39-source.tgz
+            ${{ runner.temp }}/ap39-dependencies.tgz
+          retention-days: 1
+      - name: Scientific lifecycle baseline without retry or timeout changes
+        run: npx vitest run src/features/scientific/ScientificMode.test.tsx --reporter=verbose
