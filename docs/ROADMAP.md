@@ -1,6 +1,7 @@
 # Roadmap
 
-Verbindlicher aktueller Prüfstand und offene Freigaben: [AP38](AP38.md).
+Aktuelle Live-Abnahme und offene Freigaben: [AP39](AP39.md) (blockiert).
+Vorheriger Integrationsbericht: [AP38](AP38.md).
 
 Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet integriert (Merge auf `main`); manuelle Produkt-/Pages-Abnahmen sind separat dokumentiert und werden dadurch nicht als bestanden erklärt. Stand: 18.10.2026.
 
@@ -154,8 +155,11 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
 - [x] 37 Dokumentationsquellen — PR #53 integriert (`177f329`): verständliche
       Quellenfehler und dauerhafter JSON-Bericht, unverändert blockierendes Gate.
       Historische Nachweise: [AP37](AP37.md), finaler Nachweis in [AP38](AP38.md).
-- 38 Statusdokumentation — in Arbeit auf `feat/ap38-status-documentation`;
-  dieser Dokumentations-PR ist noch nicht integriert oder veröffentlicht.
-- 39 Manuelle Live-Abnahme — offen; erst Kandidat und tatsächlich veröffentlichten
-  SHA abgleichen, dann UI/Update/Offline und physische Grenzen dokumentieren.
-  Zuständigkeiten und konkrete Schritte bis zum Release: [AP38](AP38.md).
+- [x] 38 Statusdokumentation — PR #54 am 18.10.2026 integriert (`c79bf88`);
+      aktuelles main-Quality-gate rot, kein neuer Pages-Deploy. Historischer
+      Integrationsbericht: [AP38](AP38.md).
+- 39 Manuelle Live-Abnahme — ausgeführt bis zur belegten Zugangssperre;
+  technische Abnahme blockiert, #22 bleibt offen. Kandidat `c79bf88` und letzter
+  Pages-Deploy `5f4f312` sind getrennte Stände. CI-Timeout #55 und Deploy-Skip
+  trotz grünem Gate #56 werden separat bearbeitet. Echte Belege, konkrete
+  Restprüfliste und Eigentümerentscheidungen: [AP39](AP39.md).

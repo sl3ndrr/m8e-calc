@@ -1,6 +1,7 @@
 # Projektgedächtnis: m8e-calc
 
-Zentraler geprüfter Produkt-/Pages- und Freigabestand: [docs/AP38.md](docs/AP38.md).
+Aktuelle Live-Abnahme und Releaseentscheidung: [docs/AP39.md](docs/AP39.md)
+(blockiert); vorheriger Integrationsbericht: [docs/AP38.md](docs/AP38.md).
 Paketnachweise behalten ihre historischen SHAs; PR-Head, geprüfter Produkt-SHA
 und tatsächlich veröffentlichter Pages-SHA sind getrennte Identitäten.
 

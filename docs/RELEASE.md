@@ -1,6 +1,7 @@
 # Veröffentlichung vorbereiten
 
-Aktueller Produkt-/Pages-Prüfstand und kurze Eigentümerliste: [AP38](AP38.md).
+Aktuelle Live-Abnahme und Releaseentscheidung: [AP39](AP39.md) (blockiert).
+Vorheriger Integrationsbericht: [AP38](AP38.md).
 Diese Anleitung beschreibt den Ablauf; sie erteilt keine Veröffentlichungserlaubnis.
 
 ## Reproduzierbare Bilder
