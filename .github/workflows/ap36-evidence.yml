@@ -41,12 +41,11 @@ jobs:
             sha256sum "$RUNNER_TEMP/iau-$year.pdf"
             pdftotext -layout "$RUNNER_TEMP/iau-$year.pdf" "$RUNNER_TEMP/iau-$year.txt"
             rg -n -i -C 2 '149 597 870 700|149597870700|648 000|648000|parsec|astronomical unit' "$RUNNER_TEMP/iau-$year.txt"
-            cp "$RUNNER_TEMP/iau-$year.txt" "test-results/ap36/sources/iau-$year.txt"
             sha256sum "$RUNNER_TEMP/iau-$year.pdf" >> test-results/ap36/sources/pdf-sha256.txt
           done
-          rg '149 ?597 ?870 ?700' test-results/ap36/sources/iau-2012.txt
-          rg '648 ?000' test-results/ap36/sources/iau-2015.txt
-          rg -i 'parsec' test-results/ap36/sources/iau-2015.txt
+          rg '149 ?597 ?870 ?700' "$RUNNER_TEMP/iau-2012.txt"
+          rg '648 ?000' "$RUNNER_TEMP/iau-2015.txt"
+          rg -i 'parsec' "$RUNNER_TEMP/iau-2015.txt"
       - name: Same-run Motion 12 baseline, original lockfile
         id: before
         # Collect candidate evidence even when the pinned baseline regresses.
