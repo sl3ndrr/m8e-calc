@@ -83,7 +83,8 @@ for (const level of ['full', 'reduced', 'off'] as const) {
       ).toBeGreaterThan(1);
     await attach(info, 'demo-live-frames', { level, frames });
     await idle(page, true);
-    await holdNext(page, '.motion-dot', true);
+    await dot.evaluate((node) => node.setAttribute('data-ap36-subject', ''));
+    await holdNext(page, '[data-ap36-subject]', true);
     await play.click();
     await waitFrozen(page);
     const captured = await held(page);
@@ -118,17 +119,13 @@ for (const level of ['full', 'reduced', 'off'] as const) {
     const reset = await sampleFrames(dot);
     await attach(info, 'demo-live-os-reset', { active, reset });
     await picture(info, 'demo-os-reset', demo);
-    if (process.env.AP36_PHASE === 'before' && level !== 'off')
-      expect(
-        reset.some(
-          (f) =>
-            f.opacity < 1 ||
-            (f.transform !== 'none' &&
-              f.transform !== 'matrix(1, 0, 0, 1, 0, 0)'),
-        ),
-      ).toBe(true);
+    const residual = reset.some(
+      (f) =>
+        f.opacity < 1 ||
+        (f.transform !== 'none' && f.transform !== 'matrix(1, 0, 0, 1, 0, 0)'),
+    );
     test.fail(
-      process.env.AP36_PHASE === 'before' && level !== 'off',
+      process.env.AP36_PHASE === 'before' && level !== 'off' && residual,
       'Pinned baseline restores a sampled value after live OS reset.',
     );
     expect(

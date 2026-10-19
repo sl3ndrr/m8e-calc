@@ -112,7 +112,7 @@ for (const [level, os] of [
     await resume(page);
     await idle(page);
     // Exercise a genuinely running spring with a common real timebase. The
-    // selector's two virtual clicks run on consecutive native browser frames.
+    // selector opens and chooses Off at the first live intermediate frame.
     await page
       .getByRole('button', { name: 'Einstellungen', exact: true })
       .click();
@@ -141,12 +141,10 @@ for (const [level, os] of [
     }
     await attach(info, 'history-off-frames', off);
     await picture(info, 'history-off', entry);
-    if (process.env.AP36_PHASE === 'before' && level !== 'off')
-      expect(off.some((frame) => frame.opacity > 0 && frame.opacity < 1)).toBe(
-        true,
-      );
     test.fail(
-      process.env.AP36_PHASE === 'before' && level !== 'off',
+      process.env.AP36_PHASE === 'before' &&
+        level !== 'off' &&
+        off.some((frame) => frame.opacity > 0 && frame.opacity < 1),
       'Pinned baseline retains a sampled MotionValue after real live Off; AP36 commits its neutral goal.',
     );
     for (const frame of off) {

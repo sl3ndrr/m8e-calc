@@ -50,6 +50,12 @@ export async function installMotionProbe(page: Page) {
       () => {
         if (!probe.freezeFrames || !probe.selector || probe.suspended) return;
         let count = 0;
+        const initial = document.querySelector(probe.selector);
+        const initialStyle = initial ? getComputedStyle(initial) : null;
+        const initialValue = initialStyle
+          ? `${initialStyle.transform}/${initialStyle.opacity}`
+          : null;
+        let waiting = 0;
         const capture = (time: number) => {
           const node = document.querySelector(probe.selector);
           if (!node) {
@@ -57,6 +63,17 @@ export async function installMotionProbe(page: Page) {
             return;
           }
           const style = getComputedStyle(node);
+          // WebKit can use Motion's JS fallback. Do not freeze before that
+          // fallback has rendered its first changed value (Off stays neutral).
+          if (
+            !count &&
+            document.documentElement.dataset.motion !== 'off' &&
+            initialValue === `${style.transform}/${style.opacity}` &&
+            ++waiting < 30
+          ) {
+            raf(capture);
+            return;
+          }
           probe.live.push({
             time,
             transform: style.transform,
@@ -191,7 +208,8 @@ export async function idle(page: Page, galleryLoaders = false) {
           frames: Math.max(
             0,
             probe.frames.size -
-              (galleryLoaders
+              (galleryLoaders &&
+              document.documentElement.dataset.motion === 'full'
                 ? document.querySelectorAll('.ui-loading').length
                 : 0),
           ),
@@ -224,84 +242,79 @@ export async function picture(info: TestInfo, name: string, locator: Locator) {
  * waits cannot postpone Off until after the short spring has already ended. */
 export async function armLiveOff(select: Locator, selector: string) {
   return select.evaluateHandle((button, selector) => {
-    const done = new Promise<{
-      before: {
-        time: number;
-        opacity: number;
-        transform: string;
-        animations: number;
-      }[];
-      after: {
-        time: number;
-        opacity: number;
-        transform: string;
-        translate: string;
-        scale: string;
-        animations: number;
-      }[];
-    }>((resolve, reject) => {
-      const before: {
-        time: number;
-        opacity: number;
-        transform: string;
-        animations: number;
-      }[] = [];
-      const after: {
-        time: number;
-        opacity: number;
-        transform: string;
-        translate: string;
-        scale: string;
-        animations: number;
-      }[] = [];
-      let waiting = 0;
-      const tick = (time: number) => {
-        const node = document.querySelector(selector);
-        if (!node) {
-          reject(new Error('Missing live animation subject'));
-          return;
-        }
-        const animations = node
+    const read = () => {
+      const node = document.querySelector(selector);
+      if (!node) throw new Error('Missing live animation subject');
+      const style = getComputedStyle(node);
+      return {
+        time: performance.now(),
+        opacity: Number(style.opacity),
+        transform: style.transform,
+        translate: style.translate,
+        scale: style.scale,
+        animations: node
           .getAnimations()
-          .filter(
-            (a) => a.playState === 'running' || a.playState === 'paused',
-          ).length;
-        if (!before.length && !animations) {
-          if (++waiting > 30) {
-            reject(new Error('No live Motion entrance before Off'));
-            return;
-          }
-          requestAnimationFrame(tick);
-          return;
-        }
-        const style = getComputedStyle(node);
-        const frame = {
-          time,
-          opacity: Number(style.opacity),
-          transform: style.transform,
-          translate: style.translate,
-          scale: style.scale,
-          animations,
+          .filter((a) => a.playState === 'running' || a.playState === 'paused')
+          .length,
+      };
+    };
+    type Frame = ReturnType<typeof read>;
+    const done = new Promise<{ before: Frame[]; after: Frame[] }>(
+      (resolve, reject) => {
+        const before: Frame[] = [];
+        const after: Frame[] = [];
+        let waiting = 0;
+        let switched = false;
+        let observer: MutationObserver | undefined;
+        const chooseOff = () => {
+          const option = Array.from(
+            document.querySelectorAll<HTMLElement>('[role="option"]'),
+          ).find((node) => node.textContent?.trim() === 'Aus');
+          if (!option) return;
+          before.push(read());
+          switched = true;
+          observer?.disconnect();
+          option.click();
         };
-        if (before.length < 3) {
-          before.push(frame);
-          if (before.length === 2) (button as HTMLElement).click();
-          if (before.length === 3) {
-            const option = Array.from(
-              document.querySelectorAll<HTMLElement>('[role="option"]'),
-            ).find((node) => node.textContent?.trim() === 'Aus');
-            if (!option) {
-              reject(new Error('Off option did not mount on the next frame'));
+        const tick = () => {
+          try {
+            const frame = read();
+            if (switched) {
+              after.push(frame);
+              if (after.length === 12) {
+                resolve({ before, after });
+                return;
+              }
+            } else if (
+              !before.length &&
+              frame.animations &&
+              frame.opacity > 0 &&
+              frame.opacity < 1
+            ) {
+              before.push(frame);
+              // Select as soon as React mounts the menu. Waiting several rAFs
+              // loses short Reduced springs on WebKit under trace capture.
+              observer = new MutationObserver(chooseOff);
+              observer.observe(document.body, {
+                childList: true,
+                subtree: true,
+              });
+              (button as HTMLElement).click();
+              chooseOff();
+            } else if (++waiting > 60) {
+              observer?.disconnect();
+              reject(new Error('No live Motion entrance/Off menu'));
               return;
             }
-            option.click();
+            requestAnimationFrame(tick);
+          } catch (error) {
+            observer?.disconnect();
+            reject(error);
           }
-        } else after.push(frame);
-        if (after.length === 12) resolve({ before, after });
-        else requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    });
+        };
+        requestAnimationFrame(tick);
+      },
+    );
     return { done };
   }, selector);
 }

@@ -27,6 +27,18 @@ jobs:
           mkdir -p test-results/ap36/after
           npm ls motion framer-motion motion-dom motion-utils --all --json > test-results/ap36/after/packages.json
       - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Diagnose current official IAU PDF locations (temporary, independent)
+        continue-on-error: true
+        run: |
+          for item in '2012:1FBKjaswlP-rTs6z6V4WygXsbdHKVHYcP' '2015:1vL1vXyzFUWjY083Yb5s67dDsc_rxTWWZ'; do
+            year="${item%%:*}"
+            file_id="${item#*:}"
+            curl --fail --location --max-time 45 "https://drive.google.com/uc?export=download&id=$file_id" --output "$RUNNER_TEMP/iau-$year.pdf"
+            file "$RUNNER_TEMP/iau-$year.pdf"
+            sha256sum "$RUNNER_TEMP/iau-$year.pdf"
+            pdftotext -layout "$RUNNER_TEMP/iau-$year.pdf" "$RUNNER_TEMP/iau-$year.txt"
+            rg -n -i '149 597 870 700|149597870700|648 000|648000|parsec|astronomical unit' "$RUNNER_TEMP/iau-$year.txt"
+          done
       - name: Same-run Motion 12 baseline, original lockfile
         id: before
         # Collect candidate evidence even when the pinned baseline regresses.
