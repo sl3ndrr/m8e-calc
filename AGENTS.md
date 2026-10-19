@@ -38,7 +38,7 @@ sie neu; Resize/Aspektsperre erhalten sie. Fit-Vertrag und numerische Grenzen:
 
 ## Arbeitsumgebung und Befehle
 
-Node 24 LTS (`nvm use`), npm und das eingecheckte `package-lock.json` verwenden. Installation: `npm ci`.
+Node `>=24.15.0 <25` (24 LTS), npm 11.19.0 und das eingecheckte `package-lock.json` verwenden. `.nvmrc` folgt 24 (`nvm install && nvm use`); CI prüft die Untergrenze 24.15.0 zusätzlich zur aktuellen gepflegten 24er-Version. Installation: `npm ci`.
 
 | Befehl                        | Zweck                                                                  |
 | ----------------------------- | ---------------------------------------------------------------------- |
@@ -83,7 +83,7 @@ Datenfluss: Benutzereingabe → reine UI-Funktion/Reducer → Domäne → Ergebn
 1. **Datenschutz:** Keine externen Requests zur Laufzeit außer der ausdrücklich beauftragten AP17-Währungsumrechnung: `onlineRates` ist standardmäßig aus; ausschließlich der Schalter „Online-Kurse laden“ erteilt Zustimmung. Ohne Opt-in weder Währungskategorie noch Requests. Nur `https://api.frankfurter.dev/v2/providers/ecb/rates` ist über CSP freigegeben; keine Beträge, kein Verlauf, keine Credentials und kein Referer werden übertragen. Importierte Einstellungen erteilen keine Netzwerkzustimmung. Assets lokal ausliefern, Fonts selbst hosten; bis dahin Systemfonts. Keine CDNs, Analytics oder entfernten Rechenservices. Entwicklungs- und CI-Paketdownloads sind davon getrennt.
 2. **i18n:** Alle UI-Texte einschließlich Titel, ARIA-Beschriftungen und Fehlermeldungen über i18n-Schlüssel, niemals hartkodiert. `de` ist Fallback, Auto erkennt `navigator.language`; `en` vollständig pflegen. Die vollständige Schlüsselmenge wird aus `src/shared/i18n/de.ts` inklusive Core abgeleitet; `MessageKey` des jeweiligen i18n-Einstiegs begrenzt Aufrufer auf seine vorhandenen Texte. Neue Texte in beiden Dictionaries ergänzen. Technische Fehler für Entwickler dürfen außerhalb sichtbarer UI stehen.
 3. **Tokens:** Keine Farbwerte in Komponenten oder Feature-CSS; Farben ausschließlich über `--md-sys-color-*`. Formen und Bewegung ausschließlich über Shape- und Motion-Tokens (`--md-sys-shape-*`, `--md-sys-motion-*`). Tokenwerte zentral in `src/styles`. `prefers-reduced-motion` respektieren. AP2 liefert zentrale Farbrollen, Typografie, Shape- und Spring-Tokens; `npm run tokens` regeneriert `src/styles/tokens.css`. Neue Icons erfordern Font-Subsetting gemäß `docs/DESIGN.md`; AP3 liefert die Komponenten; AP4 nutzt die Registry in `src/app/modeRegistry.ts`, `useModeHistory(mode, onRestore)` und versionierten Verlauf (maximal 500); öffentliche API und Beispiele stehen in `docs/COMPONENTS.md`. Neue Modus-UI verwendet die Bausteine aus `src/ui`; direkte öffentliche Komponentenimporte erhalten Lazy-Grenzen, `index.ts` bleibt für Galerie und Kompatibilität verfügbar.
-4. **Tests und Logik:** Jede Logik bekommt Tests. UI-Logik als reine Funktionen/Reducer, getrennt von Komponenten. Komponenten orchestrieren Rendering und Browseradapter. Vitest für Logik, Testing Library für UI-Verhalten, fast-check für sinnvolle Eigenschaften, Playwright für Integration im Browser. Keine Rechenengine als Nebenaufgabe hinzufügen.
+4. **Tests und Logik:** Jede Logik bekommt Tests. UI-Logik als reine Funktionen/Reducer, getrennt von Komponenten. Komponenten orchestrieren Rendering und Browseradapter. Vitest mit getrennten vollständigen UI-/Engine-Läufen (`test:ui` / `test:engine`) für Logik, Testing Library für UI-Verhalten, fast-check für sinnvolle Eigenschaften, Playwright für Integration im Browser. Keine Rechenengine als Nebenaufgabe hinzufügen.
 5. **Barrierefreiheit:** Vollständige Tastaturbedienung, sichtbarer Fokus, semantisches HTML und geeignete ARIA-Beschriftungen; Text- und Fokuskontrast prüfen. Animationen dürfen Bedienung nicht blockieren.
 6. **Scope-Disziplin:** Nur das beauftragte Paket umsetzen. Restpunkte als Liste **„Offen / Folge-Issues“** in die PR-Beschreibung aufnehmen. Folgepakete in der Roadmap dokumentieren.
 7. **PR-Konventionen:** Branch `feat/<paket>` (AP1: `feat/foundation`), Conventional Commits. PR-Beschreibung enthält **Was / Warum / Test / Screenshots** (bei UI) sowie **Offen / Folge-Issues**. Bei Architektur- oder Konventionsänderungen `docs/` und `AGENTS.md` aktualisieren. Keine Änderungen direkt auf `main`, außer der einmaligen Initialisierung des zuvor leeren Repositories.
@@ -304,3 +304,13 @@ bei Fehlern in `test-results/release-docs.json`; ein Versuch, 30 Sekunden je URL
 keine automatischen Wiederholungen. Nur die bestehenden exakten ISO-/HHS-403-
 Entscheidungen gelten als manuell geprüft, niemals als bestandener HTTP-Test.
 Vertrag, Quellenzuordnung und Ausführungsgrenzen: [docs/AP37.md](docs/AP37.md).
+
+## AP34 · jsdom-Testumgebung
+
+jsdom 30.1.3 ersetzt 27.4.0; der Node-Vertrag wird innerhalb 24 auf
+`>=24.15.0 <25` angehoben. 24er-Typen, Vitest 4 und die Produktabhängigkeiten
+bleiben erhalten. Reguläre Lockfile-Erzeugung mit Node 24/npm 11.19.0;
+`Node 24 minimum` ist Bestandteil des gemeinsamen Quality gate. UI und Engine
+laufen vollständig getrennt; reale Browser bleiben für Layout, Fokus und
+Pointerinteraktion maßgeblich. Entscheidung, Vergleich und Grenzen:
+[docs/AP34.md](docs/AP34.md). #36 erst nach integrierter Ablösung schließen.

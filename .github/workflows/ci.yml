@@ -21,6 +21,7 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
+          check-latest: true
       - run: node scripts/check-currency-source.mjs
   gate-tests:
     name: Pipeline contract tests
@@ -32,6 +33,7 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
+          check-latest: true
       - run: node --test scripts/ci/*.test.mjs
       - name: Check pipeline formatting and print proposed corrections
         run: |
@@ -39,6 +41,20 @@ jobs:
           git diff --exit-code
       - name: Validate all workflow syntax and dependencies
         run: go run github.com/rhysd/actionlint/cmd/actionlint@v1.7.7 -color
+  node-minimum:
+    name: Node 24 minimum
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24.15.0'
+      - run: npm install --global npm@11.19.0
+      - run: node --version && npm --version
+      - run: npm ci --engine-strict
+      - run: npm run check
   build:
     name: Production build
     runs-on: ubuntu-latest
@@ -52,8 +68,10 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
+          check-latest: true
           cache: npm
-      - run: npm ci
+      - run: npm install --global npm@11.19.0
+      - run: npm ci --engine-strict
       - run: npm run check
       - id: proof
         run: node scripts/ci/build-proof.mjs seal
@@ -101,8 +119,10 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
+          check-latest: true
           cache: npm
-      - run: npm ci
+      - run: npm install --global npm@11.19.0
+      - run: npm ci --engine-strict
       # No token/repository/run-id override: only this workflow run, by producer ID.
       - uses: actions/download-artifact@v8
         with:
@@ -135,8 +155,10 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
+          check-latest: true
           cache: npm
-      - run: npm ci
+      - run: npm install --global npm@11.19.0
+      - run: npm ci --engine-strict
       # No token/repository/run-id override: only this workflow run, by producer ID.
       - uses: actions/download-artifact@v8
         with:
@@ -183,6 +205,7 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
+          check-latest: true
       # No token/repository/run-id override: only this workflow run, by producer ID.
       - uses: actions/download-artifact@v8
         with:
@@ -222,6 +245,7 @@ jobs:
         build,
         currency-source,
         gate-tests,
+        node-minimum,
         qa,
         graph-performance,
         gallery,
@@ -237,6 +261,7 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
+          check-latest: true
       - name: Fail closed on every required job
         env:
           NEEDS: ${{ toJSON(needs) }}
@@ -269,6 +294,7 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
+          check-latest: true
       - uses: actions/download-artifact@v8
         with:
           merge-multiple: true

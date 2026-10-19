@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 export const required = [
   'build',
   'gate-tests',
+  'node-minimum',
   'qa',
   'graph-performance',
   'gallery',
