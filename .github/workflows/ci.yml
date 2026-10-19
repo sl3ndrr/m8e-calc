@@ -37,7 +37,7 @@ jobs:
       - run: node --test scripts/ci/*.test.mjs
       - name: Check pipeline formatting and print proposed corrections
         run: |
-          npx --yes prettier@3.9.10 --write .github/workflows/{ci,qa,ap29,release-assets,ap18-evidence}.yml scripts/ci/*.mjs scripts/check-release-docs.mjs docs/AP37.md docs/AP31.md docs/RELEASE.md docs/ROADMAP.md AGENTS.md
+          npx --yes prettier@3.9.10 --write .github/workflows/{ci,qa,ap29,release-assets,ap18-evidence}.yml scripts/ci/*.mjs scripts/check-release-docs.mjs docs/AP37.md docs/AP35.md docs/AP31.md docs/RELEASE.md docs/ROADMAP.md AGENTS.md
           git diff --exit-code
       - name: Validate all workflow syntax and dependencies
         run: go run github.com/rhysd/actionlint/cmd/actionlint@v1.7.7 -color
