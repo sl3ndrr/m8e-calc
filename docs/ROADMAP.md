@@ -163,4 +163,3 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
   Pages-Deploy `5f4f312` sind getrennte Stände. CI-Timeout #55 und Deploy-Skip
   trotz grünem Gate #56 werden separat bearbeitet. Echte Belege, konkrete
   Restprüfliste und Eigentümerentscheidungen: [AP39](AP39.md).
-

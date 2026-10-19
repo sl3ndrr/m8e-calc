@@ -264,4 +264,3 @@ bei Fehlern in `test-results/release-docs.json`; ein Versuch, 30 Sekunden je URL
 keine automatischen Wiederholungen. Nur die bestehenden exakten ISO-/HHS-403-
 Entscheidungen gelten als manuell geprüft, niemals als bestandener HTTP-Test.
 Vertrag, Quellenzuordnung und Ausführungsgrenzen: [docs/AP37.md](docs/AP37.md).
-

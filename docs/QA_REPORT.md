@@ -184,4 +184,3 @@ node scripts/qa-lighthouse.mjs
 
 Referenzen nur nach visueller Prüfung mit `--update-snapshots` erneuern. Das ist
 keine Möglichkeit, eine unbeabsichtigte Darstellungsänderung freizugeben.
-

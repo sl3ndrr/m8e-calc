@@ -195,4 +195,3 @@ GitHub Actions 15368, strikte Aktualität und kein Bypass. Die tatsächliche
 Dependabot-Restverifikation bleibt offen; [AP32](AP32.md). Keine bedingten
 historischen Evidence-Jobs pauschal verlangen. Bei abweichender Laufversuchsnummer den kompletten CI-Workflow
 neu ausführen; ein Teil-Rerun darf ältere Artefakte nicht stillschweigend übernehmen.
-
