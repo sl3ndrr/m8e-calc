@@ -570,12 +570,17 @@ for (const mode of ['simple', 'scientific']) {
       await button.scrollIntoViewIfNeeded();
       await settle(button);
       const rest = (await frames(button, 1))[0];
-      const recording = await recordFrames(button, 'pointerdown');
+      await expect(button).toBeEnabled();
       await button.hover();
+      const recording = await recordFrames(button, 'pointerdown');
       await page.mouse.down();
       const down = await readFrames(recording);
       await page.mouse.up();
       const up = await frames(button);
+      await info.attach(`keypad-${mode}-${id}`, {
+        body: JSON.stringify({ rest, down, up }),
+        contentType: 'application/json',
+      });
       for (const f of [...down, ...up]) {
         expect(f.corners).toEqual(rest?.corners);
         expect(f.layerCorners).toEqual(rest?.corners);
@@ -584,10 +589,6 @@ for (const mode of ['simple', 'scientific']) {
         expect(f.hostTransform).toBe('none');
       }
       expect(new Set(down.map((f) => f.transform)).size).toBeGreaterThan(1);
-      await info.attach(`keypad-${mode}-${id}`, {
-        body: JSON.stringify({ rest, down, up }),
-        contentType: 'application/json',
-      });
     }
   });
 }

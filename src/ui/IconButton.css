@@ -1,4 +1,5 @@
 .ui-icon-button {
-  padding: 0.75rem;
+  --ui-button-padding-block: 0.75rem;
+  --ui-button-padding-inline: 0.75rem;
   aspect-ratio: 1;
 }

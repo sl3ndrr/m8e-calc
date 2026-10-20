@@ -3,7 +3,7 @@
 }
 .comfort-control {
   min-width: 3rem;
-  padding-inline: 0.75rem;
+  --ui-button-padding-inline: 0.75rem;
   font-size: 1.5rem;
 }
 .palette-input {

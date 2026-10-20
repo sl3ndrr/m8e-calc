@@ -180,8 +180,29 @@ export async function recordFrames(
             hostCorners: corners(node),
             layerCorners: layer ? corners(layer) : [],
             contentCorners: content ? corners(content) : [],
-            contentTransform: content
+            contentSharesSurface: content?.parentElement === surface,
+            contentLocalTransform: content
               ? getComputedStyle(content).transform
+              : 'none',
+            // A nested content span receives the surface transform by ancestry.
+            // Compose actual computed transforms to catch independent drift.
+            contentTransform: content
+              ? content.parentElement === surface
+                ? style.transform === 'none' &&
+                  getComputedStyle(content).transform === 'none'
+                  ? 'none'
+                  : new DOMMatrixReadOnly(
+                      style.transform === 'none' ? undefined : style.transform,
+                    )
+                      .multiply(
+                        new DOMMatrixReadOnly(
+                          getComputedStyle(content).transform === 'none'
+                            ? undefined
+                            : getComputedStyle(content).transform,
+                        ),
+                      )
+                      .toString()
+                : getComputedStyle(content).transform
               : 'none',
             layerOpacity: layer ? Number(getComputedStyle(layer).opacity) : 0,
             clip: style.overflow,

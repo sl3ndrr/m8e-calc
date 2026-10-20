@@ -157,7 +157,7 @@ Indikator. Tests und Bildreproduktion: [AP20.md](AP20.md).
 Normales Button-Feedback verändert keine Shape-Geometrie. Die zentralen
 `--md-sys-motion-button-press-*`-Tokens koppeln 0,97 Skalierung an die monotone
 Effects-Fast-Kurve. Die übrigen Spatial-/Effects-Springs bleiben unverändert.
-Klickziel und Fokusring stehen still; nur Oberfläche und Inhalt skalieren.
+Klickziel und Fokusring stehen still; eine gemeinsame Oberfläche mitsamt Inhalt skaliert.
 Selected-Formen wechseln diskret zwischen den vorhandenen Shape-Endpunkten.
 State-Layer erbt den Radius der Oberfläche und bleibt innerhalb ihrer Rundung.
 Vertrag und Messnachweise: [COMPONENTS](COMPONENTS.md), [AP42](AP42.md).

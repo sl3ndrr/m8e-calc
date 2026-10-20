@@ -51,6 +51,7 @@ jobs:
           GITHUB_SHA: ${{ github.event.pull_request.head.sha }}
           AP30_SOURCE: ${{ github.event.pull_request.head.sha }}
         run: |
+          export GITHUB_SHA="$AP42_SOURCE"
           npm run tokens
           git diff --exit-code src/styles/tokens.css
           npm run check

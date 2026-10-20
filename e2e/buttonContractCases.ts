@@ -17,6 +17,8 @@ function stable(samples: Frame[], rest: Frame) {
     expect(f.hostTransform).toBe('none');
     expect(f.clip).toBe('clip');
     expect(f.contentInsideSurface).toBe(true);
+    expect(f.contentSharesSurface).toBe(true);
+    expect(f.contentLocalTransform).toBe('none');
     expect(f.contentTransform).toBe(f.transform);
   }
 }
@@ -204,6 +206,12 @@ export function buttonContractCases(gallery: boolean) {
             ),
           ).toBe(true);
           stable(pressed, rest);
+          if (key === 'Space')
+            await picture(
+              info,
+              'button-contract-focus',
+              gallery ? button.locator('..') : page.locator('.app-shell'),
+            );
           const release = await recordFrames(button, 'keyup', 12);
           await page.keyboard.up(key);
           const released = await readFrames(release);
@@ -221,7 +229,63 @@ export function buttonContractCases(gallery: boolean) {
     }
   }
 
-  if (!gallery) return;
+  if (!gallery) {
+    test('button contract disabling on release cancels the in-flight feedback', async ({
+      page,
+    }, info) => {
+      await page.goto('/m8e-calc/#/simple');
+      await expect(page.locator('.calculator-value')).toBeVisible();
+      await page.keyboard.type('2+3=');
+      const button = page.locator('.history-tools > .ui-button');
+      await expect(button).toBeEnabled();
+      await button.hover();
+      const press = await recordFrames(button, 'pointerdown', 2);
+      await page.mouse.down();
+      const down = await readFrames(press);
+      expect(down.some((f) => f.transform !== 'none')).toBe(true);
+      const release = await recordFrames(button, 'pointerup');
+      await page.mouse.up();
+      await expect(button).toBeDisabled();
+      const up = await readFrames(release);
+      expect(
+        up.every((f) => f.transform === 'none' && f.layerOpacity === 0),
+      ).toBe(true);
+      expect(
+        await button.evaluate(
+          (node) => node.getAnimations({ subtree: true }).length,
+        ),
+      ).toBe(0);
+      await attach(info, 'button-contract-disabled-release', { down, up });
+      await idle(page);
+    });
+    test('button contract scrolled cards keep the complete focus ring', async ({
+      page,
+    }, info) => {
+      await page.goto('/m8e-calc/#/convert');
+      for (const selector of ['.convert-category-grid', '.convert-unit-grid']) {
+        const button = page.locator(`${selector} .ui-button`).first();
+        await button.scrollIntoViewIfNeeded();
+        await button.focus();
+        const recording = await recordFrames(button, 'keydown', 6);
+        await page.keyboard.down('Space');
+        const pressed = await readFrames(recording);
+        expect(
+          pressed.every(
+            (f) =>
+              f.outline === 'solid' &&
+              f.outlineOffset === '-4px' &&
+              !f.focusClipped,
+          ),
+        ).toBe(true);
+        expect(new Set(pressed.map((f) => f.radius)).size).toBe(1);
+        await picture(info, 'scrolled-card-focus', button.locator('..'));
+        await page.keyboard.up('Space');
+        await attach(info, `button-contract-focus-${selector}`, pressed);
+      }
+      await idle(page);
+    });
+    return;
+  }
   for (const [level, os] of [
     ['full', false],
     ['reduced', false],
@@ -297,7 +361,7 @@ export function buttonContractCases(gallery: boolean) {
     });
   }
 
-  test('button contract selected forms are endpoints; connected targets, disabled and unmount stay stable', async ({
+  test('button contract selected Button and IconButton forms are endpoints', async ({
     page,
   }, info) => {
     await page.goto('/m8e-calc/#/design');
@@ -351,6 +415,13 @@ export function buttonContractCases(gallery: boolean) {
       expect([squareRest.radius, squareSelected.radius]).toContain(f.radius);
     expect(squareSelected.radius).not.toBe(squareRest.radius);
     await attach(info, 'button-contract-selected-square', squareFrames);
+    await idle(page, true);
+  });
+
+  test('button contract radio and theme selections keep bounded form endpoints', async ({
+    page,
+  }, info) => {
+    await page.goto('/m8e-calc/#/design');
     const segments = page.locator(
       '[data-component="SegmentedControl"] [data-state="default"] .ui-segment',
     );
@@ -391,6 +462,13 @@ export function buttonContractCases(gallery: boolean) {
       themeFrames.every((f) => f.corners.every((r) => parseFloat(r) > 0)),
     ).toBe(true);
     await attach(info, 'button-contract-theme-selection', themeFrames);
+    await idle(page, true);
+  });
+
+  test('button contract connected targets and unmount stay stable', async ({
+    page,
+  }) => {
+    await page.goto('/m8e-calc/#/design');
     const group = page.locator(
       '[data-component="ButtonGroup"] [data-state="default"]',
     );

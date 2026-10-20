@@ -146,10 +146,12 @@ Auslieferung ausgeschlossen. Getrennte Build-/QA-Nachweise: [AP23.md](AP23.md).
 Button, IconButton und ihre Ableitungen behalten beim normalen Press/Release
 ihre rollenbezogene Rundung. Der native Button bleibt untransformiertes,
 unverändertes Klickziel (mindestens 48×48 px) mit äußerem Fokusring. Eine interne,
-inert dekorative Oberfläche trägt Hintergrund, Rand, Schatten und den geclippten
-State-Layer; sie und der Inhalt skalieren zentral mit Button-Press-Tokens.
+Oberfläche enthält Hintergrund, Rand, Schatten, den geclippten State-Layer und
+Inhalt. Ein einziger Transform skaliert sie synchron mit Button-Press-Tokens.
 Paint-Anpassungen verwenden `--ui-button-background`, `--ui-button-border` und
 `--ui-button-shadow`; die Form kommt weiterhin vom Radius des Buttons.
+Abstände setzen `--ui-button-padding-block/inline`, die Randbreite
+`--ui-button-border-width`. Das native Ziel selbst behält Padding null.
 Connected-Gruppen ändern beim Press keine Flexbreiten.
 
 Selected invertiert weiterhin round/square, setzt den Zielradius aber unmittelbar.
@@ -163,3 +165,10 @@ Details, gemessene Grenzen und Reproduktion: [AP42](AP42.md).
 Auch Radio-Segmente und der Theme-Thumb setzen ihre Selected-Radien diskret;
 die räumliche Translation des Theme-Thumbs behält ihren bisherigen Spring.
 Die AP36-Selected-Fälle prüfen deren echte Zwischenwerte bei Wiederholung.
+
+Bei flächenfüllenden Umrechner-Aktionen in Scrollrastern liegt derselbe
+Fokusring mit −4px Offset innerhalb der Karte, damit der Scrollclip ihn nicht
+abschneidet. Der native Button trägt auch dort den Ring.
+
+Ein während Press/Release deaktivierter Button beendet auch die internen
+Transitions unmittelbar und zeigt den neutralen Disabled-Zustand.

@@ -7,8 +7,11 @@
   gap: 0.5rem;
   min-width: 48px;
   min-height: 48px;
-  padding: 0.75rem 1.5rem;
-  border: 1px solid transparent;
+  --ui-button-padding-block: 0.75rem;
+  --ui-button-padding-inline: 1.5rem;
+  --ui-button-border-width: 1px;
+  padding: 0;
+  border: var(--ui-button-border-width) solid transparent;
   border-radius: var(--md-sys-shape-full);
   --ui-button-background: var(--md-sys-color-primary);
   --ui-button-border: transparent;
@@ -19,11 +22,20 @@
   font-size: var(--md-sys-typescale-label-large-size);
   font-weight: var(--md-sys-typescale-label-large-emphasized-weight);
   /* The native button is the stable hit target and owns the focus ring.
-     Only its paint surface and content respond to press. */
+     Its single paint surface contains the state layer and content. */
 }
 .ui-button-surface {
-  position: absolute;
-  inset: -1px;
+  position: relative;
+  display: inline-flex;
+  flex: 1 1 auto;
+  align-self: stretch;
+  min-width: 0;
+  align-items: inherit;
+  justify-content: inherit;
+  gap: inherit;
+  /* Cancel the nested border in layout; paint still reaches the native edge. */
+  margin: calc(-1 * var(--ui-button-border-width));
+  padding: var(--ui-button-padding-block) var(--ui-button-padding-inline);
   border: inherit;
   border-color: var(--ui-button-border);
   border-radius: inherit;
@@ -31,9 +43,6 @@
   box-shadow: var(--ui-button-shadow);
   overflow: clip;
   pointer-events: none;
-}
-.ui-button-surface,
-.ui-button-content {
   transform: var(--ui-button-press-transform);
   transform-origin: center;
   transition: transform var(--md-sys-motion-button-press-duration)
@@ -67,20 +76,24 @@
   --ui-button-border: var(--md-sys-color-outline);
 }
 .ui-button[data-size='xs'] {
-  padding: 0.35rem 0.75rem;
+  --ui-button-padding-block: 0.35rem;
+  --ui-button-padding-inline: 0.75rem;
   font-size: var(--md-sys-typescale-label-small-size);
 }
 .ui-button[data-size='sm'] {
-  padding: 0.5rem 1rem;
+  --ui-button-padding-block: 0.5rem;
+  --ui-button-padding-inline: 1rem;
 }
 .ui-button[data-size='lg'] {
   min-height: 64px;
-  padding: 1rem 2rem;
+  --ui-button-padding-block: 1rem;
+  --ui-button-padding-inline: 2rem;
   font-size: var(--md-sys-typescale-title-medium-size);
 }
 .ui-button[data-size='xl'] {
   min-height: 80px;
-  padding: 1.25rem 2.5rem;
+  --ui-button-padding-block: 1.25rem;
+  --ui-button-padding-inline: 2.5rem;
   font-size: var(--md-sys-typescale-title-large-size);
 }
 .ui-button[data-shape='square'] {
@@ -106,6 +119,10 @@
   color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
   --ui-button-shadow: none;
   cursor: default;
+}
+.ui-button[data-disabled]
+  :is(.ui-button-surface, .ui-button-content, .ui-state-layer) {
+  transition: none;
 }
 :root[data-motion='reduced'] .ui-button,
 :root[data-motion='off'] .ui-button {

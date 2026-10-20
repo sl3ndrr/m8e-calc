@@ -94,12 +94,10 @@ export function Button({
     'data-shape': shape,
   };
   const content = (
-    <>
-      <span className="ui-button-surface" aria-hidden="true">
-        <StateLayer />
-      </span>
+    <span className="ui-button-surface">
+      <StateLayer />
       <span className="ui-button-content">{children}</span>
-    </>
+    </span>
   );
   return isSelected !== undefined ||
     defaultSelected !== undefined ||
