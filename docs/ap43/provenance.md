@@ -56,3 +56,23 @@ lokal gegen die heruntergeladenen Bytes verifiziert. Der erfolgreiche
 unabhängige AP28-Lauf 39490426246 hat Artefakt 12296395823, Uploadhash
 `936a08d88a440d0977d4eae8b97fd101a347d6760df7bb12c0608f1696e2a266`.
 Beide Ergebnisse gehören zu eigenen tatsächlichen Runnerfenstern.
+
+## Abschließender Produkt-/Prüfstand
+
+`final-frames.ndjson` enthält alle 17 vollständigen komprimierten Frameberichte
+des erfolgreichen AP43-Laufs 39492114055 auf `dff1e16`: fünf Vorherfälle, fünf
+Chromiumfälle, fünf WebKitfälle und je einen verzögerten Workerfall.
+`progressStart` erhält den Beginn der drei festen ruhigen Fortschrittsfenster;
+Leer-/Reveal-Zähler gelten weiterhin für die gesamte Aufnahme einschließlich
+Dialogbedienung. Artefakt 12297165006, tatsächlicher Uploadhash
+`85f21dd630efcf759f37774c5526a38ed4ab8569b7358ad859d06cae297c1a37`.
+Komprimierung und Wiederholungszähler folgen dem oben beschriebenen Reporter.
+
+`final-performance.ndjson` enthält fünf vollständige Original-Reportobjekte,
+jeweils mit Run/Job/Artefakt/Dateiname: drei des grünen Pflichtjobs 118868803412
+(CI 39492114134, Prüf-Merge `b268147` zu `dff1e16`) und beide AP43-Messungen
+auf dem Head selbst. Pflichtartefakt 12296502000, Uploadhash
+`c5002da0d772f8f1da2eff96ce20630db692b7a7001712d722cc8defa155b1f7`.
+Dieser Hash wurde zusätzlich lokal gegen die heruntergeladenen ZIP-Bytes geprüft.
+Die roten Vorläufer bleiben unverändert erhalten; kein Messfenster ersetzt ein
+anderes. Die finalen Dokumentationsänderungen verändern Produkt und Tests nicht.

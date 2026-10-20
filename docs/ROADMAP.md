@@ -218,3 +218,8 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
   grün. AP28-Pflichtjob rot (48,98223 FPS), unabhängiger AP28-Lauf grün.
   WebKit erhält nach kaltem Seitenstart und einer nicht beobachtbaren
   Dialogsekunde eine gezielte Harnesskorrektur bei unveränderten Graphgates.
+  Abschließender Prüfstand `dff1e16`: zwölf Fälle in Chromium und WebKit grün,
+  volle Matrix 176 Chromium / 150 Firefox / 150 WebKit (zwei bestehende Skips),
+  alter main bei allen fünf Kurventypen negativ. Aktuelle AP28-/4K-/Mixed-Gates
+  grün; früheres Performance-Rot bleibt dokumentiert und #43 offen.
+  Ein bestehender Galerie-Theme-Timeout blockiert die Gesamt-CI; kein Merge.

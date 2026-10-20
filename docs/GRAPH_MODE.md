@@ -240,3 +240,12 @@ Das rote AP28-Artefakt bleibt samt aller Rohfenster dauerhaft erhalten.
 Der AP28-Pflichtjob desselben Stands bleibt mit 48,98223 FPS rot; der
 Quellencheck ist dort grün. Zwei weitere WebKit-Harnessprobleme und die
 begrenzte Korrektur sind in AP43 dokumentiert; keine Performancefreigabe.
+
+Abschließender Produkt-/Prüfstand `dff1e16`: zwölf neue Fälle jeweils in
+Chromium und WebKit bestanden, alle fünf Kurven mit 0 Leer-/Reveal-Frames.
+Die volle Browsermatrix besteht mit 176 Chromium-, 150 Firefox- und
+150 WebKitfällen; zwei bestehende WebKit-Skips bleiben erhalten.
+Aktueller AP28-Pflichtjob und 4K/Mixed-Gates grün (60,00348 FPS / 0,4 ms).
+Ein bestehender Galerie-Theme-Timeout sperrt die Gesamt-CI; kein Graphgate
+wurde dafür verändert. Alle 17 aktuellen Frameberichte und Zeitrohwerte sind
+dauerhaft in [AP43.md](AP43.md) verlinkt. Frühere rote Fenster bleiben erhalten.
