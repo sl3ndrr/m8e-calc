@@ -1,3 +1,5 @@
+import { buttonContractCases } from './buttonContractCases';
+import { installMotionProbe } from './ap36Capture';
 import { writeFile } from 'node:fs/promises';
 import { allowClipboard } from './clipboard';
 import { expect, test, type Page, type Locator } from '@playwright/test';
@@ -589,3 +591,12 @@ for (const mode of ['simple', 'scientific']) {
     }
   });
 }
+
+// Keep the shared-button regression in the normal recurring AP19 browser gate.
+test.describe('common button foundation', () => {
+  test.beforeEach(async ({ page }) => {
+    await installMotionProbe(page);
+    await page.setViewportSize({ width: 1600, height: 1000 });
+  });
+  buttonContractCases(false);
+});

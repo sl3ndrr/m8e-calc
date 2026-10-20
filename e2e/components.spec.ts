@@ -1,3 +1,5 @@
+import { buttonContractCases } from './buttonContractCases';
+import { installMotionProbe } from './ap36Capture';
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { galleryEntries } from '../src/app/galleryEntries';
@@ -47,8 +49,9 @@ test('keyboard focus, expressive press, connected group and slider use real brow
   );
   const first = group.locator('button').first();
   const neighbor = group.locator('button').nth(1);
-  const before = await neighbor.boundingBox();
+  await first.scrollIntoViewIfNeeded();
   await first.focus();
+  const before = await neighbor.boundingBox();
   await page.keyboard.down('Space');
   await page.waitForTimeout(350);
   expect((await first.boundingBox())?.width).toBeCloseTo(
@@ -145,4 +148,14 @@ test('tooltips open on pointer hover after keyboard interaction', async ({
   await expect(page.getByRole('tooltip')).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(page.getByRole('tooltip')).toBeHidden();
+});
+
+// The same AP19/AP36 cases also protect the recurring gallery build.
+test.describe('common button foundation', () => {
+  test.use({ serviceWorkers: 'block' });
+  test.beforeEach(async ({ page }) => {
+    await installMotionProbe(page);
+    await page.setViewportSize({ width: 1600, height: 1000 });
+  });
+  buttonContractCases(true);
 });

@@ -49,7 +49,7 @@ async function subject(
     : page.locator('.mode-share .ui-icon-button');
 }
 
-/** AP41 extends the AP19 recorder and the AP36 browser cases; no new clock or
+/** AP42 extends the AP19 recorder and the AP36 browser cases; no new clock or
  * animation shim. Before-only expected failures require the actual zero-radius
  * frame from the pinned main build, after all raw evidence has been attached. */
 export function buttonContractCases(gallery: boolean) {
@@ -80,8 +80,11 @@ export function buttonContractCases(gallery: boolean) {
           await page.request.get('/m8e-calc/build-info.json')
         ).json()) as { sourceCommit: string | null; target: string };
         expect(build.target).toBe(gallery ? 'gallery' : 'normal');
-        if (process.env.GITHUB_SHA)
-          expect(build.sourceCommit).toBe(process.env.GITHUB_SHA);
+        const expectedSource =
+          process.env.AP42_PHASE === 'before'
+            ? process.env.GITHUB_SHA
+            : (process.env.AP42_SOURCE ?? process.env.GITHUB_SHA);
+        if (expectedSource) expect(build.sourceCommit).toBe(expectedSource);
         await button.scrollIntoViewIfNeeded();
         await page.evaluate(() => document.fonts.ready);
         await settle(button);
@@ -95,7 +98,7 @@ export function buttonContractCases(gallery: boolean) {
         await page.mouse.up();
         const up = await readFrames(upRecording);
         await attach(info, 'button-contract-live', {
-          source: process.env.AP41_PHASE ?? 'candidate',
+          source: process.env.AP42_PHASE ?? 'candidate',
           build,
           gallery,
           kind,
@@ -128,7 +131,7 @@ export function buttonContractCases(gallery: boolean) {
         await resume(page);
         await page.mouse.up();
         await settle(button);
-        if (process.env.AP41_PHASE === 'before') {
+        if (process.env.AP42_PHASE === 'before') {
           expect(
             down.some((f) => f.corners.some((r) => parseFloat(r) === 0)),
           ).toBe(true);

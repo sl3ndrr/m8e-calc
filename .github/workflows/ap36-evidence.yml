@@ -9,9 +9,11 @@ concurrency:
   cancel-in-progress: true
 jobs:
   button-contract:
-    name: AP41 button contract (AP19/AP36 recorders)
+    name: AP42 button contract (AP19/AP36 recorders)
     if: github.head_ref == 'feat/ap41-button-feedback'
     runs-on: ubuntu-latest
+    env:
+      AP42_SOURCE: ${{ github.event.pull_request.head.sha }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -31,7 +33,7 @@ jobs:
         id: before
         continue-on-error: true
         run: |
-          baseline="$RUNNER_TEMP/ap41-before"
+          baseline="$RUNNER_TEMP/ap42-before"
           git fetch --depth=1 origin 65ce593bc2fe7065c3f43d29502f2023b49cf58b
           git worktree add "$baseline" FETCH_HEAD
           cp e2e/ap36*.ts e2e/buttonContractCases.ts e2e/calculatorCapture.ts "$baseline/e2e/"
@@ -41,7 +43,7 @@ jobs:
           export GITHUB_SHA=65ce593bc2fe7065c3f43d29502f2023b49cf58b
           npm run build
           npm run build:gallery
-          AP41_PHASE=before npx playwright test --config=playwright.ap36.config.ts --grep 'button contract .*: live press/release' --reporter=list --output="$GITHUB_WORKSPACE/test-results/ap41/before"
+          AP42_PHASE=before npx playwright test --config=playwright.ap36.config.ts --grep 'button contract .*: live press/release' --reporter=list --output="$GITHUB_WORKSPACE/test-results/ap42/before"
       - name: Candidate check, generated tokens and separate gallery build
         id: build
         if: ${{ !cancelled() }}
@@ -52,16 +54,16 @@ jobs:
           npm run tokens
           git diff --exit-code src/styles/tokens.css
           npm run check
-          node scripts/ap30-measure.mjs test-results/ap41/budget
+          node scripts/ap30-measure.mjs test-results/ap42/budget
           npm run build:gallery
       - name: Existing AP36 cases plus common button regressions in three engines
         id: browsers
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
-        run: npx playwright test --config=playwright.ap36.config.ts --reporter=list --output=test-results/ap41/after
+        run: npx playwright test --config=playwright.ap36.config.ts --reporter=list --output=test-results/ap42/after
       - name: AP19 real frames, glyphs, native zoom and calculator behavior
         id: rendering
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
-        run: npx playwright test e2e/calculator-rendering.spec.ts e2e/calculator-native-zoom.spec.ts e2e/simple-calculator.spec.ts e2e/scientific.spec.ts --project=chromium --trace=on --workers=1 --output=test-results/ap41/rendering
+        run: npx playwright test e2e/calculator-rendering.spec.ts e2e/calculator-native-zoom.spec.ts e2e/simple-calculator.spec.ts e2e/scientific.spec.ts --project=chromium --trace=on --workers=1 --output=test-results/ap42/rendering
       - name: Require all phases without retries or new exceptions
         if: always()
         env:
@@ -79,9 +81,9 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: ap41-button-contract
+          name: ap42-button-contract
           path: |
-            test-results/ap41/
+            test-results/ap42/
             dist/
             dist-gallery/
           include-hidden-files: true

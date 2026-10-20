@@ -184,8 +184,11 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
   Wartung, Quellenblocker, Dependabot-/Pages-Nachweise und konkrete offene
   Abnahmen in [AP40](AP40.md). Kein Produkt- oder Checkerumbau.
 
-- [ ] 41 Gemeinsames Button-Feedback — `feat/ap41-button-feedback`, ab main
+- 41 Live-Abnahme — in [AP40](AP40.md) für die kontrollierte Abnahme nach
+  grünem main-/Pages-Nachweis vorgemerkt; nicht Teil des Button-Pakets.
+
+- [ ] 42 Gemeinsames Button-Feedback — `feat/ap41-button-feedback`, ab main
       `65ce593`: konstante rollenbezogene Press-Formen, stabile Klickziele und
       Fokusringe, zentraler Effects-Press und diskrete Selected-Formen. Erweitert
       AP19/AP36 statt einer zweiten Messinfrastruktur. Vertrag und tatsächlicher
-      Prüfstatus: [AP41](AP41.md). Keine Dependency-Updates oder Veröffentlichung.
+      Prüfstatus: [AP42](AP42.md). Keine Dependency-Updates oder Veröffentlichung.

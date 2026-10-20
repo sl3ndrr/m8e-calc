@@ -141,7 +141,7 @@ Indikator. Tests und Bildreproduktion: [AP20.md](AP20.md).
 Die Komponentenbibliothek bleibt erhalten; nur das Lab wird aus der normalen
 Auslieferung ausgeschlossen. Getrennte Build-/QA-Nachweise: [AP23.md](AP23.md).
 
-## AP41 · Gemeinsamer Buttonvertrag
+## AP42 · Gemeinsamer Buttonvertrag
 
 Button, IconButton und ihre Ableitungen behalten beim normalen Press/Release
 ihre rollenbezogene Rundung. Der native Button bleibt untransformiertes,
@@ -158,7 +158,7 @@ setzen Press/Release vom aktuellen sichtbaren Wert fort, ohne Timer, Mindesthold
 oder Verzögerung von React-Aria-Aktionen. Globale Keypad-Kürzel nutzen denselben
 visuellen Pfad. Reduced/Off und OS-Reduktion unterdrücken die Skalierung und
 beenden laufende CSS-Bewegung; Entfernen aus dem DOM beendet deren Animationen.
-Details, gemessene Grenzen und Reproduktion: [AP41](AP41.md).
+Details, gemessene Grenzen und Reproduktion: [AP42](AP42.md).
 
 Auch Radio-Segmente und der Theme-Thumb setzen ihre Selected-Radien diskret;
 die räumliche Translation des Theme-Thumbs behält ihren bisherigen Spring.

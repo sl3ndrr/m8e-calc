@@ -325,11 +325,11 @@ Engine/Units/Graph verwenden Node ohne UI-Setup. `clearMocks: false` und
 `restoreMocks: false` erhalten den bisherigen lokalen Mock-Lebenszyklus.
 Vollständige Auswahl, Titelzuordnung und Nachweise: [docs/AP35.md](docs/AP35.md).
 
-## AP41 · Gemeinsame Buttons
+## AP42 · Gemeinsame Buttons
 
 Der native Button bleibt stabiles Klickziel und trägt den äußeren Fokusring.
 Press skaliert interne Oberfläche/Inhalt mit zentralen Button-Press-Tokens;
 keine Radiusinterpolation, kein Flexwachstum verbundener Buttons. Paint-Rollen
 über `--ui-button-background/border/shadow`, Formen weiterhin über Shape-Tokens.
 Selected setzt vorhandene Form-Endpunkte direkt. AP19-Recorder und AP36-Fälle
-prüfen gemeinsame Buttons zusätzlich zum Keypad; Vertrag/Nachweise: [docs/AP41.md](docs/AP41.md).
+prüfen gemeinsame Buttons zusätzlich zum Keypad; Vertrag/Nachweise: [docs/AP42.md](docs/AP42.md).
