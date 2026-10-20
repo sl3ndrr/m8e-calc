@@ -1,7 +1,8 @@
 # Projektgedächtnis: m8e-calc
 
-Aktuelle Live-Abnahme und Releaseentscheidung: [docs/AP39.md](docs/AP39.md)
-(blockiert); vorheriger Integrationsbericht: [docs/AP38.md](docs/AP38.md).
+Aktuelle Ausgangslage: [docs/AP40.md](docs/AP40.md). Live-Abnahme und
+Releaseentscheidung: [docs/AP39.md](docs/AP39.md) (blockiert);
+vorheriger Integrationsbericht: [docs/AP38.md](docs/AP38.md).
 Paketnachweise behalten ihre historischen SHAs; PR-Head, geprüfter Produkt-SHA
 und tatsächlich veröffentlichter Pages-SHA sind getrennte Identitäten.
 
@@ -284,9 +285,9 @@ Ruleset `25003991` ist durch den Eigentümer aktiviert und danach lesend bestät
 PR-Pflicht mit 0 Zustimmungen, ausschließlich `Quality gate` von GitHub Actions
 (App-ID `15368`), strikte Aktualität zum Defaultbranch, Lösch-/Force-Push-Schutz
 und leere Bypassliste. Der Admin-Schritt ist erledigt. Die tatsächliche
-Erzeugung auf einem aktuellen Dependabot-PR bleibt offen. Der rote Quality-Check
-auf PR #48 und dessen Status `blocked` belegen die Merge-Sperre; AP32 wegen
-der offenen Dependabot-Abnahme nicht als vollständig abgenommen markieren.
+Erzeugung von `Quality gate` auf aktuellen Dependabot-PRs #33/#37/#39 ist
+in AP40 belegt: App `15368`, jeweils rot und `blocked`. Der frühere rote PR #48
+bleibt gesonderter Sperrnachweis. Klassische Admin-Regeleinsicht bleibt begrenzt.
 Teil-Reruns mit Build-Artefakten älterer Versuche scheitern absichtlich am
 Proof-Kontext. Quellenfehler und neue 4K-Abweichungen separat bearbeiten.
 Befund, reale Läufe und Abschlussgrenzen: [docs/AP32.md](docs/AP32.md).
@@ -308,12 +309,12 @@ Vertrag, Quellenzuordnung und Ausführungsgrenzen: [docs/AP37.md](docs/AP37.md).
 ## AP34 · jsdom-Testumgebung
 
 jsdom 30.1.3 ersetzt 27.4.0; der Node-Vertrag wird innerhalb 24 auf
-`>=24.15.0 <25` angehoben. 24er-Typen, Vitest 4 und die Produktabhängigkeiten
-bleiben erhalten. Reguläre Lockfile-Erzeugung mit Node 24/npm 11.19.0;
+`>=24.15.0 <25` angehoben. 24er-Typen und die Produktabhängigkeiten blieben bei AP34 erhalten;
+Vitest wurde anschließend separat durch AP35 auf 5.0.5 migriert. Reguläre Lockfile-Erzeugung mit Node 24/npm 11.19.0;
 `Node 24 minimum` ist Bestandteil des gemeinsamen Quality gate. UI und Engine
 laufen vollständig getrennt; reale Browser bleiben für Layout, Fokus und
 Pointerinteraktion maßgeblich. Entscheidung, Vergleich und Grenzen:
-[docs/AP34.md](docs/AP34.md). #36 erst nach integrierter Ablösung schließen.
+[docs/AP34.md](docs/AP34.md). #59 ist integriert, #36 danach geschlossen.
 
 ## AP35 · Vitest-Projektgrenzen
 
