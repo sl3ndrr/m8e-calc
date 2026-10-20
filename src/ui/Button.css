@@ -26,6 +26,8 @@
 }
 .ui-button-surface {
   position: relative;
+  /* The isolated native button paints its focus ring above all button paint. */
+  z-index: -1;
   display: inline-flex;
   flex: 1 1 auto;
   align-self: stretch;

@@ -107,7 +107,14 @@ export async function installMotionProbe(page: Page) {
       document.addEventListener(
         name,
         (event) => {
-          if (event.target instanceof Element)
+          // A dormant hold probe must not synchronize native animations.
+          // Only inspect the explicitly armed subject (the live recorder is
+          // deliberately independent of the held-image mechanism).
+          if (
+            probe.selector &&
+            event.target instanceof Element &&
+            event.target.matches(probe.selector)
+          )
             for (const animation of event.target.getAnimations())
               hold(event.target, animation);
         },

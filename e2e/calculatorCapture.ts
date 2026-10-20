@@ -83,35 +83,49 @@ export async function calculatorInkPixels(
   page: Page,
   png: Buffer,
 ): Promise<number> {
-  return page.evaluate(async (encoded) => {
-    const bytes = Uint8Array.from(atob(encoded), (c) => c.charCodeAt(0));
-    const bitmap = await createImageBitmap(
-      new Blob([bytes], { type: 'image/png' }),
-    );
-    const canvas = document.createElement('canvas');
-    canvas.width = bitmap.width;
-    canvas.height = bitmap.height;
-    const ctx = canvas.getContext('2d');
-    const ink = document.querySelector('.calculator-value');
-    if (!ctx || !ink) throw Error('Missing screenshot decoder or result');
-    ctx.drawImage(bitmap, 0, 0);
-    const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    const [red = 0, green = 0, blue = 0] = (
-      getComputedStyle(ink).color.match(/\d+/g) ?? []
-    ).map(Number);
-    let count = 0;
-    for (let i = 0; i < pixels.length; i += 4) {
-      if (
-        (pixels[i + 3] ?? 0) > 240 &&
-        Math.abs((pixels[i] ?? 0) - red) < 8 &&
-        Math.abs((pixels[i + 1] ?? 0) - green) < 8 &&
-        Math.abs((pixels[i + 2] ?? 0) - blue) < 8
-      )
-        count++;
-    }
-    bitmap.close();
-    return count;
-  }, png.toString('base64'));
+  return paintedColorPixels(page, png, '.calculator-value', 'color');
+}
+
+/** Shared AP19 pixel decoder: also verifies that the native focus ring is
+ * actually painted above a button surface, rather than only present in CSS. */
+export async function paintedColorPixels(
+  page: Page,
+  png: Buffer,
+  selector: string,
+  property: 'color' | 'outlineColor',
+): Promise<number> {
+  return page.evaluate(
+    async ({ encoded, selector, property }) => {
+      const bytes = Uint8Array.from(atob(encoded), (c) => c.charCodeAt(0));
+      const bitmap = await createImageBitmap(
+        new Blob([bytes], { type: 'image/png' }),
+      );
+      const canvas = document.createElement('canvas');
+      canvas.width = bitmap.width;
+      canvas.height = bitmap.height;
+      const ctx = canvas.getContext('2d');
+      const ink = document.querySelector(selector);
+      if (!ctx || !ink) throw Error('Missing screenshot decoder or result');
+      ctx.drawImage(bitmap, 0, 0);
+      const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      const [red = 0, green = 0, blue = 0] = (
+        getComputedStyle(ink)[property].match(/\d+/g) ?? []
+      ).map(Number);
+      let count = 0;
+      for (let i = 0; i < pixels.length; i += 4) {
+        if (
+          (pixels[i + 3] ?? 0) > 240 &&
+          Math.abs((pixels[i] ?? 0) - red) < 8 &&
+          Math.abs((pixels[i + 1] ?? 0) - green) < 8 &&
+          Math.abs((pixels[i + 2] ?? 0) - blue) < 8
+        )
+          count++;
+      }
+      bitmap.close();
+      return count;
+    },
+    { encoded: png.toString('base64'), selector, property },
+  );
 }
 
 export async function recordFrames(

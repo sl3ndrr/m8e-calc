@@ -1,5 +1,10 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
-import { frames, readFrames, recordFrames } from './calculatorCapture';
+import {
+  frames,
+  paintedColorPixels,
+  readFrames,
+  recordFrames,
+} from './calculatorCapture';
 import { allowClipboard } from './clipboard';
 import { attach, held, holdNext, idle, picture, resume } from './ap36Capture';
 
@@ -287,6 +292,40 @@ export function buttonContractCases(gallery: boolean) {
         ).toBe(true);
         expect(new Set(pressed.map((f) => f.radius)).size).toBe(1);
         await picture(info, 'scrolled-card-focus', button.locator('..'));
+        const box = await button.boundingBox();
+        if (!box) throw Error('Missing focused card bounds');
+        const png = await button.screenshot({ animations: 'allow' });
+        const focusSelector = `${selector} .ui-button[data-focus-visible]`;
+        const pixels = await paintedColorPixels(
+          page,
+          png,
+          focusSelector,
+          'outlineColor',
+        );
+        // A rounded 3px ring must paint substantially more than a 1px edge.
+        const minimum = 2 * (box.width + box.height) * 2;
+        expect(pixels).toBeGreaterThan(minimum);
+        if (selector === '.convert-category-grid') {
+          const surface = button.locator('.ui-button-surface');
+          await surface.evaluate((node) => {
+            (node as HTMLElement).style.zIndex = 'auto';
+          });
+          const covered = await paintedColorPixels(
+            page,
+            await button.screenshot({ animations: 'allow' }),
+            focusSelector,
+            'outlineColor',
+          );
+          expect(covered).toBeLessThan(minimum);
+          await surface.evaluate((node) => {
+            (node as HTMLElement).style.zIndex = '';
+          });
+          await attach(info, 'button-contract-focus-pixels', {
+            pixels,
+            covered,
+            minimum,
+          });
+        }
         await page.keyboard.up('Space');
         await attach(info, `button-contract-focus-${selector}`, pressed);
       }
