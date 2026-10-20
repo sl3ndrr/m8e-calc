@@ -65,6 +65,6 @@
   color: var(--md-sys-color-on-surface-variant);
   opacity: 0.55;
 }
-.keypad-cell[data-key-pressed] .ui-state-layer {
+.keypad-cell[data-key-pressed] .keypad-key:not([data-disabled]) .ui-state-layer {
   opacity: 0.1;
 }

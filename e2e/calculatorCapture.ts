@@ -138,6 +138,16 @@ export async function recordFrames(
           const content = node.querySelector('.ui-button-content');
           const box = node.getBoundingClientRect();
           const hit = document.elementFromPoint(box.left + 1, box.top + box.height / 2);
+          const visualBox = surface.getBoundingClientRect();
+          const contentBox = content?.getBoundingClientRect();
+          const ring = parseFloat(host.outlineWidth) + parseFloat(host.outlineOffset);
+          let focusClipped = false;
+          for (let parent = node.parentElement; parent; parent = parent.parentElement) {
+            const s = getComputedStyle(parent);
+            const r = parent.getBoundingClientRect();
+            if (s.overflowX !== 'visible' && (box.left - ring < r.left || box.right + ring > r.right)) focusClipped = true;
+            if (s.overflowY !== 'visible' && (box.top - ring < r.top || box.bottom + ring > r.bottom)) focusClipped = true;
+          }
           const corners = (element: Element) => {
             const s = getComputedStyle(element);
             return [s.borderTopLeftRadius, s.borderTopRightRadius,
@@ -150,7 +160,9 @@ export async function recordFrames(
             hostCorners: corners(node),
             layerCorners: layer ? corners(layer) : [],
             contentCorners: content ? corners(content) : [],
-            contentTransform: content ? getComputedStyle(content).transform : 'none',
+            contentTransform: content
+              ? getComputedStyle(content).transform
+              : 'none',
             layerOpacity: layer ? Number(getComputedStyle(layer).opacity) : 0,
             clip: style.overflow,
             hostTransform: host.transform,
@@ -163,6 +175,8 @@ export async function recordFrames(
             height: (node as HTMLElement).offsetHeight,
             outline: host.outlineStyle,
             outlineOffset: host.outlineOffset,
+            focusClipped,
+            contentInsideSurface: !contentBox || (contentBox.left >= visualBox.left - 1 && contentBox.right <= visualBox.right + 1 && contentBox.top >= visualBox.top - 1 && contentBox.bottom <= visualBox.bottom + 1),
             background: style.backgroundColor,
           });
         }
@@ -173,7 +187,9 @@ export async function recordFrames(
     { event, count },
   );
 }
-export async function readFrames(recording: Awaited<ReturnType<typeof recordFrames>>) {
+export async function readFrames(
+  recording: Awaited<ReturnType<typeof recordFrames>>,
+) {
   try {
     return await recording.evaluate(({ samples }) => samples);
   } finally {
@@ -183,4 +199,3 @@ export async function readFrames(recording: Awaited<ReturnType<typeof recordFram
 export async function frames(button: Locator, count = 12) {
   return readFrames(await recordFrames(button, null, count));
 }
-

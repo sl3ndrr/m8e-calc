@@ -161,3 +161,7 @@ Klickziel und Fokusring stehen still; nur Oberfläche und Inhalt skalieren.
 Selected-Formen wechseln diskret zwischen den vorhandenen Shape-Endpunkten.
 State-Layer erbt den Radius der Oberfläche und bleibt innerhalb ihrer Rundung.
 Vertrag und Messnachweise: [COMPONENTS](COMPONENTS.md), [AP41](AP41.md).
+
+Auch Radio-Segmente und der Theme-Thumb setzen ihre Selected-Radien diskret;
+die räumliche Translation des Theme-Thumbs behält ihren bisherigen Spring.
+Die AP36-Selected-Fälle prüfen deren echte Zwischenwerte bei Wiederholung.

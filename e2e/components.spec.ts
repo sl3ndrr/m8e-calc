@@ -38,9 +38,9 @@ test('keyboard focus, expressive press, connected group and slider use real brow
   await page.keyboard.down('Space');
   await expect(button).toHaveAttribute('data-pressed');
   await page.waitForTimeout(350);
-  expect(
-    await button.evaluate((e) => getComputedStyle(e).borderRadius),
-  ).toBe(initial);
+  expect(await button.evaluate((e) => getComputedStyle(e).borderRadius)).toBe(
+    initial,
+  );
   await page.keyboard.up('Space');
   const group = page.locator(
     '[data-component="ButtonGroup"] [data-state="default"]',

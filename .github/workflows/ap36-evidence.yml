@@ -28,8 +28,9 @@ jobs:
         id: formatting
         continue-on-error: true
         run: |
-          npx prettier --write e2e/buttonContractCases.ts e2e/calculatorCapture.ts e2e/calculator-rendering.spec.ts e2e/components.spec.ts e2e/ap36-motion.spec.ts e2e/ap36-gallery.spec.ts src/ui/Button.css src/ui/Button.tsx src/ui/StateLayer.css src/ui/keypad/Keypad.css src/styles/motion.ts src/styles/tokens.css .github/workflows/ap36-evidence.yml docs/AP41.md docs/COMPONENTS.md docs/DESIGN.md docs/ROADMAP.md AGENTS.md
+          npx prettier --write e2e/buttonContractCases.ts e2e/calculatorCapture.ts e2e/calculator-rendering.spec.ts e2e/components.spec.ts e2e/ap36-motion.spec.ts e2e/ap36-gallery.spec.ts src/ui/Button.css src/ui/Button.tsx src/ui/StateLayer.css src/ui/keypad/Keypad.css src/styles/motion.ts src/styles/motion.test.ts src/styles/tokens.css .github/workflows/ap36-evidence.yml docs/AP41.md docs/COMPONENTS.md docs/DESIGN.md docs/ROADMAP.md AGENTS.md
           mkdir -p test-results/ap41
+          tar -czf test-results/ap41/prettier.tgz -C node_modules prettier
           git diff > test-results/ap41/format.patch
           git diff --exit-code
       - name: Same-run current main baseline, original dependencies

@@ -300,7 +300,10 @@ test('pointer recorder retains live frames after completion and detects a snap',
   for (const transition of ['live', 'snap'] as const) {
     if (transition === 'snap')
       await button.evaluate((node) => {
-        for (const visual of [node, ...node.querySelectorAll('.ui-button-surface, .ui-button-content')])
+        for (const visual of [
+          node,
+          ...node.querySelectorAll('.ui-button-surface, .ui-button-content'),
+        ])
           (visual as HTMLElement).style.transition = 'none';
       });
     await button.hover();
@@ -548,12 +551,15 @@ test('presentation uses the same bounded fit instead of overriding its font size
 });
 
 for (const mode of ['simple', 'scientific']) {
-  test(`all ${mode} keypad roles preserve live shape and hit area`, async ({ page }, info) => {
+  test(`all ${mode} keypad roles preserve live shape and hit area`, async ({
+    page,
+  }, info) => {
     await page.setViewportSize({ width: 1920, height: 1080 });
     await page.goto(`/m8e-calc/#/${mode}`);
-    const keys = mode === 'simple'
-      ? ['9', '+', 'equals', 'clear', 'backspace', 'MS']
-      : ['9', '+', 'equals', 'clear', '1-0'];
+    const keys =
+      mode === 'simple'
+        ? ['9', '+', 'equals', 'clear', 'backspace', 'MS']
+        : ['9', '+', 'equals', 'clear', '1-0'];
     for (const id of keys) {
       const button = page.locator(`[data-key="${id}"] button`);
       await expect(button).toBeVisible();
@@ -574,7 +580,10 @@ for (const mode of ['simple', 'scientific']) {
         expect(f.hostTransform).toBe('none');
       }
       expect(new Set(down.map((f) => f.transform)).size).toBeGreaterThan(1);
-      await info.attach(`keypad-${mode}-${id}`, { body: JSON.stringify({ rest, down, up }), contentType: 'application/json' });
+      await info.attach(`keypad-${mode}-${id}`, {
+        body: JSON.stringify({ rest, down, up }),
+        contentType: 'application/json',
+      });
     }
   });
 }

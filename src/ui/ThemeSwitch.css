@@ -43,11 +43,8 @@
   height: 48px;
   background: var(--md-sys-color-primary);
   border-radius: var(--md-sys-shape-large-increased);
-  transition:
-    transform var(--md-sys-motion-spatial-fast-duration)
-      var(--md-sys-motion-spatial-fast-easing),
-    border-radius var(--md-sys-motion-spatial-fast-duration)
-      var(--md-sys-motion-spatial-fast-easing);
+  transition: transform var(--md-sys-motion-spatial-fast-duration)
+    var(--md-sys-motion-spatial-fast-easing);
 }
 .theme-switch[data-selected='system'] .theme-thumb {
   transform: translateX(calc(100% + 4px));
