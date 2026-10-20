@@ -4,14 +4,14 @@ Produkt-/Test-SHA `6eca7c7070f0f041bfd72d24c13ffb73d82eb538`,
 main-Gegenprobe `65ce593bc2fe7065c3f43d29502f2023b49cf58b`.
 [Erfolgreicher Lauf](https://github.com/sl3ndrr/m8e-calc/actions/runs/39439567310)
 mit 24 Gegenproben, 120 Kandidatenfällen und 59 AP19-/Rechnerfällen;
-[Originalartefakt 12274266536](https://github.com/sl3ndrr/m8e-calc/actions/runs/39439567310/artifacts/12274266536).
+[Originalartefakt 12274266536](https://github.com/sl3ndrr/m8e-calc/actions/runs/39439567310#artifacts).
 Beide `build-info.json` nennen diesen Produkt-SHA und das passende Buildziel.
 24 Vorherfälle enthalten 211 Nullradius-Frames, 24 Nachherfälle keinen.
 Die Kernfälle enthalten jeweils 30 laufende Press- und 18 Release-Frames;
 der erste Press zeigt 4–11, Release 6–11 verschiedene Transformwerte.
 198 weitere Attachments halten unter anderem den zweiten Press, Unterbrechungen
 und Fokus-Pixelgegenproben fest. Diese Dateien bleiben nach Ablauf des
-14-Tage-Actions-Artefakts reviewbar. Der abschließende Dokumentations-Head und
+14-Tage-Actions-Artefakts reviewbar. Der abschließende PR-Head und
 seine Gates werden gesondert im [PR #63](https://github.com/sl3ndrr/m8e-calc/pull/63) genannt.
 
 ## Laufende Frames und Zwischenbilder

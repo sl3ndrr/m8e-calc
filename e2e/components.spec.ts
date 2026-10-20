@@ -78,6 +78,9 @@ test('modal dialog traps focus, restores the trigger, and passes axe', async ({
   await page.keyboard.press('Enter');
   const dialog = page.getByRole('dialog', { name: 'Dialog', exact: true });
   await expect(dialog).toBeVisible();
+  // Axe evaluates a static color state. Visibility alone is already true
+  // during the native opacity entrance; require its actual end, not a timeout.
+  await expect(page.locator('.ui-modal')).not.toHaveAttribute('data-entering');
   await page.keyboard.press('Tab');
   await page.keyboard.press('Tab');
   expect(await dialog.evaluate((e) => e.contains(document.activeElement))).toBe(
