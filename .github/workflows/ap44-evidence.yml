@@ -1,0 +1,46 @@
+name: AP44 settings actions evidence
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/app/**'
+      - 'src/ui/Accent*'
+      - 'src/shared/i18n/**'
+      - 'e2e/settings-actions.spec.ts'
+      - 'e2e/accent-picker.spec.ts'
+      - '.github/workflows/ap44-evidence.yml'
+      - 'docs/AP44.md'
+permissions:
+  contents: read
+concurrency:
+  group: ap44-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          check-latest: true
+          cache: npm
+      - run: npm install --global npm@11.19.0
+      - run: npm ci --engine-strict
+      - name: Formatting diagnostics without accepting generated changes
+        run: |
+          npx prettier --write src/app/App.tsx src/app/SettingsDialog.tsx src/app/pwa.ts src/shared/i18n/de.ts src/shared/i18n/en.ts e2e/smoke.spec.ts e2e/graph.spec.ts e2e/accent-picker.spec.ts src/app/App.test.tsx e2e/settings-actions.spec.ts playwright.config.ts docs/ROADMAP.md docs/AP44.md docs/COMFORT.md docs/DESIGN.md docs/COMPONENTS.md .github/workflows/ap44-evidence.yml
+          git diff --exit-code
+      - run: npm run check
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Product navigation and PWA contracts, no retries
+        run: npx playwright test e2e/settings-actions.spec.ts e2e/app-shell.spec.ts e2e/comfort.spec.ts e2e/pwa-update.spec.ts e2e/startup-budget.spec.ts --project=chromium --project=firefox --project=webkit --workers=1 --retries=0 --reporter=list --output=test-results/ap44
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap44-settings-evidence
+          path: test-results/
+          retention-days: 14

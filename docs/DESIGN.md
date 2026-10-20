@@ -171,3 +171,10 @@ Vertrag und Messnachweise: [COMPONENTS](COMPONENTS.md), [AP42](AP42.md).
 Auch Radio-Segmente und der Theme-Thumb setzen ihre Selected-Radien diskret;
 die räumliche Translation des Theme-Thumbs behält ihren bisherigen Spring.
 Die AP36-Selected-Fälle prüfen deren echte Zwischenwerte bei Wiederholung.
+
+## AP44 · Akzentzugang
+
+Im Produkt öffnet Einstellungen → Erscheinungsbild denselben AccentPicker.
+ThemeSwitch bleibt in der Shell; das interne Lab behält seine Demonstration.
+SettingsDialog und AccentPanel bleiben lazy, die Farblogik unverändert.
+Prüfstatus und Grenzen: [AP44](AP44.md).

@@ -52,18 +52,26 @@ test('cold accent dialog opens and focuses Iris while the design lab is loading'
     await page.keyboard.press('Escape');
     await expect(picker).toBeHidden();
     await expect(trigger).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expect(
+      page.getByRole('button', { name: 'Einstellungen', exact: true }),
+    ).toBeFocused();
   } finally {
     panel.release();
     lab.release();
   }
 });
 
-test('Escape during a cold load preserves focus and allows a cached reopen', async ({
+test('nested Escape during a cold load preserves focus and allows a cached reopen', async ({
   page,
 }) => {
   const panel = await holdChunk(page, 'AccentPanel');
   try {
     await page.goto('/m8e-calc/#/simple');
+    await page
+      .getByRole('button', { name: 'Einstellungen', exact: true })
+      .click();
+
     const trigger = page.getByRole('button', { name: 'Akzentfarbe anpassen' });
     await trigger.focus();
     await page.keyboard.press('Enter');
@@ -77,7 +85,10 @@ test('Escape during a cold load preserves focus and allows a cached reopen', asy
     const response = page.waitForResponse(/\/assets\/AccentPanel-[^/]+\.js$/);
     panel.release();
     await response;
-    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(
+      page.getByRole('dialog', { name: 'Einstellungen', exact: true }),
+    ).toBeVisible();
+    await expect(page.getByRole('dialog')).toHaveCount(1);
     await expect(trigger).toBeFocused();
     await page.keyboard.press('Enter');
     const picker = page.getByRole('dialog', { name: 'Deine Farbwelt' });

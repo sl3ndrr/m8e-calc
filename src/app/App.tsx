@@ -13,7 +13,6 @@ import { useHistoryStore } from '../shared/historyStore';
 import { useSettingsStore } from '../shared/settingsStore';
 import { parseHash } from './routing';
 import { modeRegistry } from './modeRegistry';
-import { AccentPicker } from '../ui/AccentPicker';
 import { Button } from '../ui/Button';
 import { Icon } from '../ui/Icon';
 import { IconButton } from '../ui/IconButton';
@@ -53,7 +52,14 @@ import { exportHistory } from '../shared/history';
 import { usePwa } from './pwa';
 if (__INTERNAL_DESIGN_LAB__) void import('./internalLabLink.css');
 
-// Compile-time boundary: the normal build never retains this import.
+// Compile-time boundary: the normal build never retains these imports.
+const LabAccentPicker = __INTERNAL_DESIGN_LAB__
+  ? lazy(() =>
+      import('../ui/AccentPicker').then((module) => ({
+        default: module.AccentPicker,
+      })),
+    )
+  : null;
 const DesignLab = __INTERNAL_DESIGN_LAB__
   ? lazy(() =>
       import('./DesignLab').then((module) => ({ default: module.DesignLab })),
@@ -230,7 +236,6 @@ export function App() {
       aria-label={t('design.controls', locale)}
     >
       <ThemeSwitch />
-      <AccentPicker />
     </div>
   );
   const notifications = (
@@ -262,6 +267,11 @@ export function App() {
             ))}
           </nav>
           {personalization}
+          {LabAccentPicker && (
+            <Suspense fallback={null}>
+              <LabAccentPicker />
+            </Suspense>
+          )}
           <Suspense
             fallback={<LoadingIndicator label={t('ui.loading', locale)} />}
           >
@@ -362,14 +372,6 @@ export function App() {
                   {t('comfort.presentation', locale)} ·{' '}
                   {shortcutHint('presentation')}
                 </Tooltip>
-                <Button
-                  variant="text"
-                  onPress={pwa.install}
-                  style={{ visibility: pwa.canInstall ? 'visible' : 'hidden' }}
-                  aria-hidden={!pwa.canInstall || undefined}
-                >
-                  {t('comfort.install', locale)}
-                </Button>
                 <IconButton
                   icon="settings"
                   variant="text"
@@ -461,7 +463,11 @@ export function App() {
         <Suspense
           fallback={<LoadingIndicator label={t('ui.loading', locale)} />}
         >
-          <SettingsDialog isOpen onOpenChange={setSettingsOpen} />
+          <SettingsDialog
+            isOpen
+            onOpenChange={setSettingsOpen}
+            installation={pwa}
+          />
         </Suspense>
       )}
       {route !== 'design' && notifications}
