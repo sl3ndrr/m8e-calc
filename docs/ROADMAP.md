@@ -204,3 +204,9 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       tatsächlicher Prüfstatus: [AP43](AP43.md). AP42 ist bereits belegt;
       #43 bleibt ein eigener historischer Performancebefund.
       Keine Dependency-Migration, kein Merge oder Deploy.
+
+  AP43-Prüfstand `025ea1e`: fünf echte negative Vorher-Gegenproben,
+  12/12 neue Chromiumfälle, check und bestehende 4K/Mixed-Gates bestanden.
+  Framebelege sind dauerhaft gespeichert. Ein separater AP28-Vergleich auf
+  `6662ec5` bleibt bei 48,00384 <55 FPS rot; Ursache/Performancefreigabe offen.
+  Der abschließende PR-Head benötigt seine eigenen Pflichtchecks.

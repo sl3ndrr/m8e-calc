@@ -218,3 +218,14 @@ zwei Randaufträgen sowie mindestens sechs Aufträge während des langen Drags.
 Das prüft Bündelung und Fortschritt, nicht nur ein zufällig grünes FPS-Fenster.
 Headless-Komposition und schnelle Canvas-Aufrufe beweisen keine physische
 4K-/60-Hz-GPU-Abnahme. Rohdaten, Vergleich und Grenzen: [AP28.md](AP28.md).
+
+## AP43 · Gemessene Parameterkontinuität
+
+Der vollständige Fünf-Kurven-Vergleich auf `025ea1e` bestätigt beim Kandidaten
+0 Leer-/erneute Reveal-Frames bei tatsächlich wechselnden akzeptierten Pfaden.
+Der alte main zeigt bei denselben Bedienabläufen beide Fehler. Ein separater
+180-ms-Workerfall bestätigt Zwischenfortschritt und den aktuellen Endwert nach
+Pause. Die 4K-/Mixed-Gates des AP43-Laufs bestehen; ein separater AP28-Lauf
+bleibt mit 48,00384 <55 FPS rot. Deshalb keine pauschale Performancefreigabe
+oder Schließung von #43. Rohbelege, Zeit-/Latenzgrenzen und echte Laufzuordnung:
+[AP43.md](AP43.md).

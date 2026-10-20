@@ -234,6 +234,15 @@ test('Full slow Worker over 50 ms presents ongoing geometry, keeps export pendin
     .getByRole('button', { name: 'PNG exportieren', exact: true })
     .click();
   await (await download).saveAs(info.outputPath('latest-paused.png'));
+  await page.evaluate(() => {
+    (window as ProbeWindow).__parameterProbe.stallNext = true;
+  });
+  await page.getByRole('button', { name: 'Parameter a abspielen' }).click();
+  await expect
+    .poll(() =>
+      page.evaluate(() => (window as ProbeWindow).__parameterProbe.inFlight),
+    )
+    .toBe(1);
   await page.goto('/m8e-calc/#/simple');
   await expect
     .poll(() =>
@@ -245,6 +254,10 @@ test('Full slow Worker over 50 ms presents ongoing geometry, keeps export pendin
       () => (window as ProbeWindow).__parameterProbe.inFlight,
     ),
   ).toBe(0);
+  await page.waitForTimeout(3100);
+  expect(
+    await page.evaluate(() => (window as ProbeWindow).__parameterProbe.created),
+  ).toBe(1);
 });
 
 test('updates before first reveal finishes keep its birth and a running old function cannot reappear', async ({
