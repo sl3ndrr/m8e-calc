@@ -133,9 +133,13 @@ export async function recordFrames(
           await new Promise(requestAnimationFrame);
           const surface = node.querySelector('.ui-button-surface') ?? node;
           const style = getComputedStyle(surface);
+          const transform = style.transform;
           const host = getComputedStyle(node);
           const layer = node.querySelector('.ui-state-layer');
           const content = node.querySelector('.ui-button-content');
+          const contentLocalTransform = content
+            ? getComputedStyle(content).transform
+            : 'none';
           const box = node.getBoundingClientRect();
           const hit = document.elementFromPoint(
             box.left + 1,
@@ -181,29 +185,15 @@ export async function recordFrames(
             layerCorners: layer ? corners(layer) : [],
             contentCorners: content ? corners(content) : [],
             contentSharesSurface: content?.parentElement === surface,
-            contentLocalTransform: content
-              ? getComputedStyle(content).transform
-              : 'none',
-            // A nested content span receives the surface transform by ancestry.
-            // Compose actual computed transforms to catch independent drift.
-            contentTransform: content
-              ? content.parentElement === surface
-                ? style.transform === 'none' &&
-                  getComputedStyle(content).transform === 'none'
-                  ? 'none'
-                  : new DOMMatrixReadOnly(
-                      style.transform === 'none' ? undefined : style.transform,
-                    )
-                      .multiply(
-                        new DOMMatrixReadOnly(
-                          getComputedStyle(content).transform === 'none'
-                            ? undefined
-                            : getComputedStyle(content).transform,
-                        ),
-                      )
-                      .toString()
-                : getComputedStyle(content).transform
-              : 'none',
+            contentLocalTransform,
+            // An untransformed direct child receives precisely its parent's
+            // transform. Keep the browser's sampled serialization: multiplying
+            // an identity DOMMatrix in Firefox converts it to float32.
+            contentTransform:
+              content?.parentElement === surface &&
+              contentLocalTransform === 'none'
+                ? transform
+                : contentLocalTransform,
             layerOpacity: layer ? Number(getComputedStyle(layer).opacity) : 0,
             clip: style.overflow,
             hostTransform: host.transform,
@@ -211,7 +201,7 @@ export async function recordFrames(
             hit: hit === node || (hit !== null && node.contains(hit)),
             selected: node.hasAttribute('data-selected'),
             pressed: node.hasAttribute('data-pressed'),
-            transform: style.transform,
+            transform,
             width: (node as HTMLElement).offsetWidth,
             height: (node as HTMLElement).offsetHeight,
             outline: host.outlineStyle,

@@ -595,6 +595,9 @@ for (const mode of ['simple', 'scientific']) {
 
 // Keep the shared-button regression in the normal recurring AP19 browser gate.
 test.describe('common button foundation', () => {
+  test.use({
+    trace: { mode: 'on', screenshots: false, snapshots: false, sources: true },
+  });
   test.beforeEach(async ({ page }) => {
     await installMotionProbe(page);
     await page.setViewportSize({ width: 1600, height: 1000 });

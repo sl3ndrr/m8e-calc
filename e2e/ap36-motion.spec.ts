@@ -284,4 +284,9 @@ test('fit repeats preserve the goal; native pan and wheel interrupt an active fi
   });
 });
 
-buttonContractCases(false);
+test.describe('common button foundation', () => {
+  test.use({
+    trace: { mode: 'on', screenshots: false, snapshots: false, sources: true },
+  });
+  buttonContractCases(false);
+});

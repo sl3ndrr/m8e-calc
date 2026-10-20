@@ -40,6 +40,7 @@
   border-color: var(--ui-button-border);
   border-radius: inherit;
   background: var(--ui-button-background);
+  background-clip: inherit;
   box-shadow: var(--ui-button-shadow);
   overflow: clip;
   pointer-events: none;

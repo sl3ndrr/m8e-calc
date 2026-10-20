@@ -51,6 +51,9 @@ async function subject(
     : page.locator('.mode-share .ui-icon-button');
 }
 
+// Calling suites retain traces with screenshots/snapshots disabled while the
+// native timeline runs. Explicit picture() attachments supply the intermediate
+// images without trace filmstrip/DOM capture blocking WebKit's short effects.
 /** AP42 extends the AP19 recorder and the AP36 browser cases; no new clock or
  * animation shim. Before-only expected failures require the actual zero-radius
  * frame from the pinned main build, after all raw evidence has been attached. */
@@ -236,8 +239,13 @@ export function buttonContractCases(gallery: boolean) {
       await page.goto('/m8e-calc/#/simple');
       await expect(page.locator('.calculator-value')).toBeVisible();
       await page.keyboard.type('2+3=');
+      await expect(page.locator('.calculator-announcement')).toHaveText('5');
+      await page
+        .getByRole('button', { name: 'Verlauf ein-/ausblenden' })
+        .click();
       const button = page.locator('.history-tools > .ui-button');
       await expect(button).toBeEnabled();
+      await settle(button);
       await button.hover();
       const press = await recordFrames(button, 'pointerdown', 2);
       await page.mouse.down();

@@ -145,7 +145,7 @@ Auslieferung ausgeschlossen. Getrennte Build-/QA-Nachweise: [AP23.md](AP23.md).
 
 Button, IconButton und ihre Ableitungen behalten beim normalen Press/Release
 ihre rollenbezogene Rundung. Der native Button bleibt untransformiertes,
-unverändertes Klickziel (mindestens 48×48 px) mit äußerem Fokusring. Eine interne,
+unverändertes Klickziel (mindestens 48×48 px) mit äußerem Fokusring. Eine interne
 Oberfläche enthält Hintergrund, Rand, Schatten, den geclippten State-Layer und
 Inhalt. Ein einziger Transform skaliert sie synchron mit Button-Press-Tokens.
 Paint-Anpassungen verwenden `--ui-button-background`, `--ui-button-border` und

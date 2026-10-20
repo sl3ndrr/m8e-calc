@@ -152,6 +152,9 @@ test('tooltips open on pointer hover after keyboard interaction', async ({
 
 // The same AP19/AP36 cases also protect the recurring gallery build.
 test.describe('common button foundation', () => {
+  test.use({
+    trace: { mode: 'on', screenshots: false, snapshots: false, sources: true },
+  });
   test.use({ serviceWorkers: 'block' });
   test.beforeEach(async ({ page }) => {
     await installMotionProbe(page);
