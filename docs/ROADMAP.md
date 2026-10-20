@@ -1,9 +1,10 @@
 # Roadmap
 
-Aktuelle Live-Abnahme und offene Freigaben: [AP39](AP39.md) (blockiert).
-Vorheriger Integrationsbericht: [AP38](AP38.md).
+Aktuelle Ausgangslage für UI-PRs: [AP40](AP40.md) (20.10.2026).
+Live-Abnahme und Release bleiben in [AP39](AP39.md) blockiert;
+[AP38](AP38.md) hält den früheren Integrationsstand fest.
 
-Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet integriert (Merge auf `main`); manuelle Produkt-/Pages-Abnahmen sind separat dokumentiert und werden dadurch nicht als bestanden erklärt. Stand: 18.10.2026.
+Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet integriert (Merge auf `main`); manuelle Produkt-/Pages-Abnahmen sind separat dokumentiert und werden dadurch nicht als bestanden erklärt. Stand: 20.10.2026.
 
 - [x] 1 Fundament — Toolchain, Struktur, Platzhalter, CI/Pages und Projektgedächtnis.
 - [x] 2 Theming — Material 3 Expressive, Hell/System/Dunkel, Akzentwahl, Typography-/Shape-/Motion-Fundament und `#/design` (PR `feat/theming`, Details: `DESIGN.md`).
@@ -122,18 +123,17 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       Commit-/Artefakt-/Fingerprintbindung bis Pages. Pflicht-QA einschließlich
       AP28/AP29, Galerie und Release-Quellenprüfung; bedingte Paketnachweise separat.
       PR #47 ist integriert (`9180b26`). Umsetzung und tatsächliche Läufe: [AP31.md](AP31.md).
-      Erfolgreiche Veröffentlichung über diese neue Kette bleibt unbestätigt;
-      beobachtete main-Läufe und getrennte Live-Abnahme: [AP38](AP38.md).
+      Erfolgreiche main-/Pages-Kette inzwischen belegt, zuletzt für `964f6b4e`;
+      aktuelles main `11865098` bleibt am Quellencheck gesperrt: [AP40](AP40.md).
 
 - [x] 32 Verbindlicher PR- und Qualitätsschutz — `feat/ap32-merge-protection`,
       PR #48: Ruleset `25003991` durch den Eigentümer aktiviert und lesend bestätigt.
       PR-Pflicht ohne fremde Zustimmung, `Quality gate` von GitHub Actions und
       strikte Zielbranchaktualität sind verbindlich. Roter PR #48 belegt die Sperre;
-      aktueller Dependabot-Lauf bleibt offen. Der gezielte Iris-/Galeriefix und
+      aktuelle Dependabot-PRs erzeugen den Pflichtcheck und sind bei Rot blockiert. Der gezielte Iris-/Galeriefix und
       seine Kaltstartregressionen gehören zum späteren Eigentümerauftrag.
-      Vorher/Nachher und reale Läufe: [AP32.md](AP32.md). Status: Schutz aktiviert,
-      Restverifikation offen; PR #48 integriert (`3384c0d`), einschließlich Iris-Fix.
-      Der Haken bestätigt den Merge, nicht die vollständige Dependabot-Abnahme.
+      Vorher/Nachher und reale Läufe: [AP32.md](AP32.md). Status: Schutz und Dependabot-Sperre belegt ([AP40](AP40.md)); PR #48 integriert (`3384c0d`), einschließlich Iris-Fix.
+      Klassische Admin-Regeleinsicht bleibt zugriffsbeschränkt.
 
 - [x] 33 Dependency-Entscheidungen — `feat/ap33-dependency-decisions`, PR #49:
       aktuelle Registry-Verträge und Originalfehler für #33/#34/#37/#39 getrennt
@@ -161,20 +161,25 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       Nachweise und finale Gates: [AP35](AP35.md). #60 ist seit 19.10.2026
       integriert (main `964f6b4e`); #38 danach als ersetzt geschlossen.
       Tracking #32/F4 erledigt.
-- [ ] 36 Motion-14-Migration — `feat/ap36-motion14`, [PR #61](https://github.com/sl3ndrr/m8e-calc/pull/61):
+- [x] 36 Motion-14-Migration — `feat/ap36-motion14`, [PR #61](https://github.com/sl3ndrr/m8e-calc/pull/61):
       eigenständig ab main `964f6b4e`, AP28/AP30/AP33/AP34/AP35 integriert;
       12.43.0 → 14.4.0 mit regulärem Lockfile, zwei lokalen Cleanup-Korrekturen
       und 69 echten Browser-/Unterbrechungsfällen. Abnahme, Messungen und Bilder:
-      [AP36](AP36.md). Integration offen, Tracking #32/F2;
-      #35 erst nach tatsächlicher Integration schließen. Kein Merge/Deployment.
+      [AP36](AP36.md). Seit 19.10.2026 integriert (main `11865098`);
+      #35 ist als ersetzt geschlossen, #32/F2 erledigt. PR-Abnahme grün,
+      nachfolgende main-CI wegen externer Quellen rot; kein Motion-Deploy belegt.
 - [x] 37 Dokumentationsquellen — PR #53 integriert (`177f329`): verständliche
       Quellenfehler und dauerhafter JSON-Bericht, unverändert blockierendes Gate.
       Historische Nachweise: [AP37](AP37.md), finaler Nachweis in [AP38](AP38.md).
 - [x] 38 Statusdokumentation — PR #54 am 18.10.2026 integriert (`c79bf88`);
-      aktuelles main-Quality-gate rot, kein neuer Pages-Deploy. Historischer
+      damaliges main-Quality-gate rot, damals kein neuer Pages-Deploy. Historischer
       Integrationsbericht: [AP38](AP38.md).
 - 39 Manuelle Live-Abnahme — ausgeführt bis zur belegten Zugangssperre;
-  technische Abnahme blockiert, #22 bleibt offen. Kandidat `c79bf88` und letzter
-  Pages-Deploy `5f4f312` sind getrennte Stände. CI-Timeout #55 und Deploy-Skip
-  trotz grünem Gate #56 werden separat bearbeitet. Echte Belege, konkrete
+  technische Abnahme blockiert, #22 bleibt offen. Historische Kandidaten und
+  Messgrenzen bleiben erhalten. Reparatur #58 ist integriert, #55/#56 geschlossen;
+  aktuelle main-/Pages-Identitäten stehen in [AP40](AP40.md). Echte Belege, konkrete
   Restprüfliste und Eigentümerentscheidungen: [AP39](AP39.md).
+
+- 40 Aktuelle Ausgangslage — Dokumentationspaket auf `11865098`: integrierte
+  Wartung, Quellenblocker, Dependabot-/Pages-Nachweise und konkrete offene
+  Abnahmen in [AP40](AP40.md). Kein Produkt- oder Checkerumbau.
