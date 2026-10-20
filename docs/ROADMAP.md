@@ -195,3 +195,12 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       Prüfstatus und dauerhafte native Frame-/Bildbelege: [AP42](AP42.md),
       Umsetzung in [PR #63](https://github.com/sl3ndrr/m8e-calc/pull/63).
       Keine Dependency-Updates oder Veröffentlichung.
+
+- [ ] 43 Stetige Parameterkurven — `feat/ap43-graph-parameter-continuity`,
+      ab main `63fdc9c`: einmaliger Full-Reveal pro sichtbarer gültiger Funktion,
+      erhaltene Geometrie bei Pending, atomarer Ersatz und begrenzte
+      koaleszierte Workeraufträge mit kompatiblem Zwischenfortschritt.
+      PNG/Diagnosen behalten ehrliche Aktualität. Verträge, Framevergleich und
+      tatsächlicher Prüfstatus: [AP43](AP43.md). AP42 ist bereits belegt;
+      #43 bleibt ein eigener historischer Performancebefund.
+      Keine Dependency-Migration, kein Merge oder Deploy.

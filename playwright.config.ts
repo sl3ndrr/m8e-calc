@@ -43,6 +43,7 @@ export default defineConfig({
         '**/graph.spec.ts',
         '**/graph-implicit.spec.ts',
         '**/graph-values.spec.ts',
+        '**/graph-parameters.spec.ts',
         '**/product-acceptance.spec.ts',
         '**/pwa-update.spec.ts',
         '**/startup-budget.spec.ts',

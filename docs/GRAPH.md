@@ -437,3 +437,14 @@ AP28 / [Issue #43](https://github.com/sl3ndrr/m8e-calc/issues/43) begrenzt getre
 hiervon die Auftragsfrequenz während Browser-Drags. Die reinen 1D-/2D-APIs,
 Samplingauflösung, numerischen Toleranzen und gemeinsamen Arbeitsbudgets dieses
 Dokuments bleiben unverändert; Diagnose und Browsernachweise: [AP28.md](AP28.md).
+
+## AP43 · Präsentation von Parametersnapshots
+
+Der Browseradapter trennt Funktion/Reveal, neuesten Samplingauftrag und letzte
+akzeptierte Darstellung. Nur Parameterwerte dürfen kompatible Zwischenstände
+derselben Samplingansicht erzeugen; aktuelle Daten verlangen weiterhin die
+vollständige Signatur des neuesten tatsächlich gerenderten Auftrags.
+PNG umgeht Pending nicht durch einen erhaltenen Pfad. Analysis/Trace/Table
+verwenden unverändert aktuelle Modellwerte. Reine Domänen-APIs, AP21-Fit,
+1D-/2D-Budgets, Toleranzen und Protokoll 2 bleiben unverändert.
+Identität, Generation, begrenzte Queue und Latenzgrenzen: [AP43.md](AP43.md).

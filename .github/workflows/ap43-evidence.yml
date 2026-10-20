@@ -1,0 +1,81 @@
+name: AP43 parameter continuity evidence
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/features/graph/**'
+      - 'e2e/graph-parameters.spec.ts'
+      - 'e2e/graphParameterProbe.ts'
+      - 'scripts/ap43-report.mjs'
+      - '.github/workflows/ap43-evidence.yml'
+      - 'docs/AP43.md'
+permissions:
+  contents: read
+concurrency:
+  group: ap43-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    env:
+      AP43_HEAD: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          check-latest: true
+          cache: npm
+      - run: npm install --global npm@11.19.0
+      - run: npm ci --engine-strict
+      - name: Formatting diagnostics without accepting generated changes
+        run: |
+          npx prettier --write src/features/graph/GraphCanvas.tsx src/features/graph/GraphMode.tsx src/features/graph/FunctionPanel.tsx src/features/graph/renderer.ts src/features/graph/workerProtocol.ts src/features/graph/presentation.ts src/features/graph/presentation.test.ts src/features/graph/samplingQueue.ts src/features/graph/samplingQueue.test.ts e2e/graphParameterProbe.ts e2e/graph-parameters.spec.ts playwright.config.ts docs/AP43.md docs/GRAPH_MODE.md docs/GRAPH.md docs/AP27.md docs/ROADMAP.md AGENTS.md scripts/ap43-report.mjs .github/workflows/ap43-evidence.yml
+          git diff --exit-code
+      - run: npm run check
+      - run: npx playwright install --with-deps chromium
+      - name: Original main must expose the defect with the same frame collector
+        env:
+          AP43_BASELINE: '1'
+          PLAYWRIGHT_JSON_OUTPUT_NAME: test-results/ap43-before/results.json
+        run: |
+          ap43_before="$RUNNER_TEMP/ap43-before"
+          git fetch --depth=1 origin 63fdc9c7f0ddfc596eb8b04e7f09e426d57962f6
+          git worktree add "$ap43_before" FETCH_HEAD
+          cp e2e/graph-parameters.spec.ts e2e/graphParameterProbe.ts "$ap43_before/e2e/"
+          ln -s "$GITHUB_WORKSPACE/node_modules" "$ap43_before/node_modules"
+          cd "$ap43_before"
+          export GITHUB_SHA=63fdc9c7f0ddfc596eb8b04e7f09e426d57962f6
+          export AP43_HEAD="$GITHUB_SHA"
+          npm run build
+          status=0
+          npx playwright test e2e/graph-parameters.spec.ts --project=chromium --workers=1 --retries=0 --grep 'Full continuity: a' --reporter=list,json --output=test-results/ap43-before/browser || status=$?
+          node "$GITHUB_WORKSPACE/scripts/ap43-report.mjs" test-results/ap43-before/browser
+          mkdir -p "$GITHUB_WORKSPACE/test-results/ap43-before"
+          cp -R test-results/ap43-before/. "$GITHUB_WORKSPACE/test-results/ap43-before/"
+          exit "$status"
+      - name: Candidate Full motion and slow Worker, no retries
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: test-results/ap43-after/results.json
+        run: |
+          status=0
+          npx playwright test e2e/graph-parameters.spec.ts --project=chromium --workers=1 --retries=0 --reporter=list,json --output=test-results/ap43-after/browser || status=$?
+          node scripts/ap43-report.mjs test-results/ap43-after/browser
+          exit "$status"
+      - name: Unchanged 4K, mixed 2D and idle gates, no retries
+        run: |
+          status=0
+          npx playwright test --project=chromium-graph-performance --no-deps --workers=1 --retries=0 --output=test-results/ap43-performance || status=$?
+          node scripts/ap43-report.mjs test-results/ap43-after/browser
+          exit "$status"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap43-parameter-evidence
+          path: |
+            test-results/
+            dist/build-info.json
+          retention-days: 14

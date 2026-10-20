@@ -16,7 +16,9 @@ den Plot-Satz-Reducer; neue Plot-Sätze werden nach drei Sekunden Ruhe im
 AP4-Verlauf gespeichert. Parameter-Playback pausiert die Speicherung.
 
 Sampling läuft im lokalen Modul-Web-Worker. Es gibt höchstens einen laufenden
-und einen ersetzbaren nächsten Auftrag. Veraltete Antworten werden verworfen.
+und einen ersetzbaren nächsten Auftrag. Strukturell veraltete Antworten werden
+verworfen; AP43 erlaubt bei identischer Funktion und Samplingansicht kompatible
+abgeschlossene Parameterzwischenstände, ohne sie als aktuelle Daten auszugeben.
 Path2D-Pfade werden pro Antwort aufgebaut; Pan und Zoom transformieren diese
 Pfade während der nächsten Berechnung. AP28 bündelt Sampling während eines
 Pointer-Drags auf eine feste 90-ms-Frist (wie bei animierter Navigation), während
@@ -34,6 +36,11 @@ Ziehen, Trägheit, Radzoom am Mauszeiger, Doppelklick, +/−, Anpassen, 1:1 und
 Presets verwenden AP12-Viewport-Operationen. Springs verwenden zentrale
 Expressive-Motion-Tokens und respektieren Reduced/Off. Neue Kurven werden über
 Strichfortschritt eingeblendet. Parameterslider verändern vorhandene Kurven sofort.
+Während Parameterberechnungen bleibt die letzte akzeptierte Geometrie sichtbar;
+der atomare Ersatz erhält den Reveal-Lebenszyklus der Funktion. Entfernen,
+Verbergen, ungültige Eingabe und Strukturwechsel entfernen alte Inhalte sofort.
+Pending-Export und Diagnosen verlangen weiterhin aktuelle vollständige Signaturen.
+Auftrags-/Latenzvertrag, echte Frameprobe und Abnahme: [AP43.md](AP43.md).
 Die Seitenverhältnissperre bedeutet gleiche Welteinheiten pro Pixel; 1:1 setzt
 auf den Standardbereich zurück. π-Ticks gelten für die x-Achse. Grobe und feine
 Gitter verwenden die adaptive AP12-Tickliste.

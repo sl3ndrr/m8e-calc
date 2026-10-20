@@ -333,3 +333,14 @@ keine Radiusinterpolation, kein Flexwachstum verbundener Buttons. Paint-Rollen
 über `--ui-button-background/border/shadow`, Formen weiterhin über Shape-Tokens.
 Selected setzt vorhandene Form-Endpunkte direkt. AP19-Recorder und AP36-Fälle
 prüfen gemeinsame Buttons zusätzlich zum Keypad; Vertrag/Nachweise: [docs/AP42.md](docs/AP42.md).
+
+## AP43 · Stetige Parameterkurven
+
+`CurvePresentation` trennt Funktion/Reveal von akzeptierten Cachepfaden;
+`SamplingQueue` hält einen laufenden und einen ersetzbaren Folgeauftrag.
+Nur kompatible Parametersnapshots derselben Generation/Ansicht dürfen
+Zwischenfortschritt darstellen. Navigation/Struktur einschließlich A → B → A
+entwertet alte Aufträge. Aktuell sind ausschließlich die vollständig passenden,
+tatsächlich gerenderten neuesten Daten; PNG und Diagnosen beachten Pending.
+AP21/AP27/AP28, deterministische Budgets, Dirty-Rendering und Idle bleiben
+bindend. Vertrag, Latenzgrenzen und tatsächliche Nachweise: [docs/AP43.md](docs/AP43.md).

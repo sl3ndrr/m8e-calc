@@ -25,9 +25,7 @@ import {
   type Trace,
 } from './model';
 import {
-  cachePaths,
   drawGraph,
-  type CachedPath,
   type GraphColors,
   type IntegralShade,
   type Marker,
@@ -41,6 +39,8 @@ import {
   type SampleResponse,
 } from './workerProtocol';
 import { sampleRequest } from './sampling';
+import { CurvePresentation } from './presentation';
+import { SamplingQueue } from './samplingQueue';
 import { fitPlot } from './fit';
 import {
   advanceTransition,
@@ -165,14 +165,17 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       lastTime = 0,
       moving = false,
       ratio = 0;
-    let paths = new Map<string, CachedPath>(),
-      colors: GraphColors = {
-        background: '',
-        grid: '',
-        axis: '',
-        label: '',
-        curves: [],
-      };
+    const presentation = new CurvePresentation();
+    presentation.configure(current.rows);
+    const queue = new SamplingQueue();
+    let colors: GraphColors = {
+      background: '',
+      grid: '',
+      axis: '',
+      label: '',
+      curves: [],
+    };
+    let renderedPaths: typeof presentation.paths | null = null;
     let activeTrace: Trace | null = null,
       pointer: {
         id: number;
@@ -184,17 +187,15 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       } | null = null,
       selection: readonly [number, number] | null = null;
     let worker: Worker | null = null,
-      busy = false,
-      pending: SampleRequest | null = null,
       requestId = 0,
-      latestRequest: SampleRequest | null = null,
-      running: SampleRequest | null = null,
       watchdog = 0,
       sampleTimer = 0,
       viewTimer = 0;
     let revealDuration = 1;
     let acceptedSampleId = 0,
-      renderedSampleId = 0;
+      renderedSampleId = 0,
+      reportedSampleId = 0;
+    let acceptedCurves: SampleResponse['curves'] = [];
     let sampleSignature = '',
       fontSize = 14,
       colorUntil = 0;
@@ -243,6 +244,13 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
     function visibleRows() {
       return current.rows.filter((r) => r.curve && r.row.visible);
     }
+    function markPending(): void {
+      if (element.dataset.sampling !== 'true') {
+        reportedSampleId = 0;
+        current.onSamples?.([]);
+      }
+      element.dataset.sampling = 'true';
+    }
     function requestSamples(exact = false): void {
       window.clearTimeout(sampleTimer);
       sampleTimer = 0;
@@ -264,9 +272,9 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
           : [],
       );
       const signature = JSON.stringify({ curves, bounds, size });
-      if (signature === sampleSignature && latestRequest) return;
+      if (signature === sampleSignature && queue.latest) return;
       sampleSignature = signature;
-      pending = {
+      const request: SampleRequest = {
         version: 2,
         id: ++requestId,
         curves,
@@ -274,19 +282,30 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         size,
         budget: implicitBudget,
       };
-      latestRequest = pending;
-      element.dataset.sampling = 'true';
+      queue.enqueue(request);
+      element.dataset.sampleRequest = JSON.stringify({
+        id: request.id,
+        curves: request.curves.map(({ id, signature }) => ({ id, signature })),
+      });
+      markPending();
       pump();
     }
     function accept(result: SampleResponse): void {
-      if (disposed || !running || result.id !== running.id) return;
+      if (disposed || !queue.running || result.id !== queue.running.id) return;
+      if (!matchesRequest(result, queue.running)) {
+        failWorker(false);
+        return;
+      }
       window.clearTimeout(watchdog);
-      busy = false;
-      running = null;
-      if (latestRequest && matchesRequest(result, latestRequest)) {
-        paths = cachePaths(result, paths, performance.now());
+      const completed = queue.complete(result);
+      if (
+        completed?.present &&
+        (completed.current || !result.curves.some((curve) => curve.error))
+      ) {
+        presentation.replace(result, performance.now());
+        if (!animation) presentation.finishReveals();
         metrics.samplingMs = result.milliseconds;
-        element.dataset.curveCount = String(paths.size);
+        element.dataset.curveCount = String(presentation.paths.size);
         acceptedSampleId = result.id;
         element.dataset.sampleResult = JSON.stringify(
           result.curves.map((c) => ({
@@ -299,7 +318,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
             components: c.segments.length,
           })),
         );
-        current.onSamples?.(result.curves.map((c) => ({ ...c, segments: [] })));
+        acceptedCurves = result.curves.map((c) => ({ ...c, segments: [] }));
         invalidate();
       }
       pump();
@@ -329,7 +348,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       worker?.terminate();
       worker = null;
       window.clearTimeout(watchdog);
-      const failed = running;
+      const failed = queue.running;
       if (timeout) startWorker();
       if (failed) {
         const result = timeout
@@ -353,11 +372,9 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       }
     }
     function pump(): void {
-      if (busy || !pending || disposed) return;
-      const request = pending;
-      pending = null;
-      busy = true;
-      running = request;
+      if (disposed) return;
+      const request = queue.take();
+      if (!request) return;
       const validate: (value: unknown) => boolean = isSampleRequest;
       if (!validate(request)) {
         accept({
@@ -379,7 +396,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       }
       if (worker) {
         watchdog = window.setTimeout(() => {
-          if (running === request && !disposed) failWorker(true);
+          if (queue.running === request && !disposed) failWorker(true);
         }, 3000);
         try {
           worker.postMessage(request);
@@ -389,7 +406,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       } else {
         // Yield before the bounded 1D fallback; implicit work requires Worker.
         watchdog = window.setTimeout(() => {
-          if (running !== request || disposed) return;
+          if (queue.running !== request || disposed) return;
           const start = performance.now();
           const result = sampleRequest(request, true);
           accept({ ...result, milliseconds: performance.now() - start });
@@ -397,9 +414,8 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       }
     }
     function resample(): void {
-      element.dataset.sampling = 'true';
-      latestRequest = null;
-      pending = null;
+      markPending();
+      queue.invalidate();
       // Dragging updates the cached transform each frame. Keep one 90-ms
       // sampling deadline instead of restarting it or posting every move.
       if (pointer && sampleTimer) return;
@@ -424,9 +440,8 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         window.clearTimeout(sampleTimer);
         sampleTimer = 0;
       }
-      element.dataset.sampling = 'true';
-      latestRequest = null;
-      pending = null;
+      markPending();
+      queue.invalidate(true);
       target = next;
       animationFrom = viewport;
       progress = 0;
@@ -522,7 +537,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         reveal = drawGraph(ctx, {
           viewport,
           colors,
-          paths,
+          paths: presentation.paths,
           rows: visibleRows().map((r) => ({
             id: r.row.id,
             color: r.row.color,
@@ -551,8 +566,24 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
           ctx.globalAlpha = 1;
         }
         renderedSampleId = acceptedSampleId;
-        if (latestRequest?.id === renderedSampleId)
+        if (renderedPaths !== presentation.paths) {
+          renderedPaths = presentation.paths;
+          element.dataset.renderedResult = JSON.stringify(
+            [...presentation.paths.values()].map((path) => ({
+              id: path.id,
+              signature: path.signature,
+              born: path.born,
+              length: path.length,
+            })),
+          );
+        }
+        if (queue.latest?.id === renderedSampleId && !sampleTimer && !moving) {
           element.dataset.sampling = 'false';
+          if (reportedSampleId !== renderedSampleId) {
+            reportedSampleId = renderedSampleId;
+            current.onSamples?.(acceptedCurves);
+          }
+        }
         dirty = false;
         metrics.frames++;
         metrics.renderMs.push(performance.now() - start);
@@ -563,7 +594,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         element.dataset.moving = String(moving);
         element.dataset.graphMetrics = JSON.stringify(metrics);
         element.dataset.truncated = String(
-          [...paths.values()].some((p) => p.truncated),
+          [...presentation.paths.values()].some((p) => p.truncated),
         );
       }
       if (moving || reveal || time < colorUntil) {
@@ -713,6 +744,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         const old = current;
         current = next;
         animation = canAnimate;
+        if (!animation) presentation.finishReveals();
         if (!animation && moving) setView(target, false);
         const restored = next.restoreToken !== old.restoreToken;
         if (
@@ -731,20 +763,15 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         } else if (next.lockAspect !== old.lockAspect) {
           changeView(() => target.withAspectLock(next.lockAspect), true);
         }
+        if (restored) {
+          queue.invalidate(true);
+          updateTrace(null);
+          resample();
+        }
         if (!restored && next.rows !== old.rows && fitting && moving) fit();
         if (next.rows !== old.rows) {
-          paths = new Map(
-            [...paths].filter(([id]) =>
-              next.rows.some(
-                (r) =>
-                  r.row.id === id &&
-                  r.row.visible &&
-                  r.curve &&
-                  JSON.stringify(r.curve) === paths.get(id)?.signature,
-              ),
-            ),
-          );
-          element.dataset.curveCount = String(paths.size);
+          if (presentation.configure(next.rows)) queue.invalidate(true);
+          element.dataset.curveCount = String(presentation.paths.size);
           updateTrace(null);
           resample();
         }
@@ -795,11 +822,13 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         // Use the same accepted polylines and transform as the screen. Export
         // must never run a second 2D job synchronously or invent missing curves.
         if (
+          element.dataset.sampling !== 'false' ||
+          queue.latest?.id !== renderedSampleId ||
           renderedSampleId !== acceptedSampleId ||
           visibleRows().some(
             (r) =>
               r.curve &&
-              paths.get(r.row.id)?.signature !== JSON.stringify(r.curve),
+              presentation.paths.get(r.row.id)?.signature !== JSON.stringify(r.curve),
           )
         )
           throw new Error('GraphSamplingPending');
@@ -807,7 +836,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         drawGraph(context, {
           viewport,
           colors,
-          paths,
+          paths: presentation.paths,
           rows: visibleRows().map((r) => ({
             id: r.row.id,
             color: r.row.color,
@@ -899,6 +928,8 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       window.clearTimeout(sampleTimer);
       window.clearTimeout(viewTimer);
       worker?.terminate();
+      queue.clear();
+      presentation.paths.clear();
       window.clearTimeout(watchdog);
       observer.disconnect();
       mutations.disconnect();
