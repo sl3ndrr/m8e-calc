@@ -76,15 +76,6 @@
 .gallery-state-pressed .ui-slider-thumb::after {
   inset: 8px 22px;
 }
-.gallery-state-pressed .ui-button-group[data-connected] .ui-button:first-child {
-  flex-grow: 1.6;
-}
-.gallery-state-pressed
-  .ui-button-group[data-connected]
-  .ui-button:not(:first-child) {
-  flex-grow: 1;
-}
-
 .gallery-state-focus .ui-button-group .ui-button:not(:first-child) {
   outline: none;
 }

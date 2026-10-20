@@ -72,7 +72,7 @@
   align-items: end;
 }
 .programmer-base-row .ui-button {
-  padding-inline: 0.5rem;
+  --ui-button-padding-inline: 0.5rem;
   font-size: 0.75rem;
 }
 .programmer-base-row input {

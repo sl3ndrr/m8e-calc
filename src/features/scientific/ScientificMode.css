@@ -108,7 +108,7 @@
 .scientific-result-card .ui-button-group .ui-button {
   font-size: 0.75rem;
   min-width: 0;
-  padding-inline: 0.5rem;
+  --ui-button-padding-inline: 0.5rem;
 }
 .scientific-tools {
   min-width: 0;
@@ -145,7 +145,8 @@
 .scientific-keypad-panel .keypad-key {
   min-height: max(48px, 2.75rem);
   font-size: 1rem;
-  padding: 0.4rem;
+  --ui-button-padding-block: 0.4rem;
+  --ui-button-padding-inline: 0.4rem;
   border-radius: var(--md-sys-shape-medium);
 }
 .scientific-keypad-panel .keypad-cell[data-role='function'] .keypad-key {
@@ -243,7 +244,8 @@
 }
 .scientific-reference li .ui-button {
   min-height: max(48px, 2.5rem);
-  padding: 0.5rem;
+  --ui-button-padding-block: 0.5rem;
+  --ui-button-padding-inline: 0.5rem;
   font-size: 0.75rem;
 }
 .scientific-definition .ui-button-content {

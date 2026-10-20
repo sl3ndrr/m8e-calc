@@ -151,3 +151,23 @@ Error/On Error; Hover, Pressed, Fokus und Disabled bleiben React-Aria-Zustände.
 ThemeSwitch zeigt genau Sonne / Auto / Mond. Der aktuelle Systemzustand bleibt
 im zugänglichen Namen und Tooltip des Auto-Segments, ohne zusätzlichen sichtbaren
 Indikator. Tests und Bildreproduktion: [AP20.md](AP20.md).
+
+## AP42 · Press ohne Formverlust
+
+Normales Button-Feedback verändert keine Shape-Geometrie. Die zentralen
+`--md-sys-motion-button-press-*`-Tokens koppeln 0,97 Skalierung an den vorhandenen
+Spatial-Fast-Spring (421ms). Sein Scale-Überschwingen bleibt zwischen 0,965 und
+1,005; kein Radius verwendet diese Kurve. State-Layer nutzt Effects Fast.
+Die globalen Spatial-/Effects-Springs bleiben unverändert.
+Klickziel und Fokusring stehen still; eine gemeinsame Oberfläche mitsamt Inhalt skaliert.
+Selected-Formen wechseln diskret zwischen den vorhandenen Shape-Endpunkten.
+State-Layer erbt den Radius der Oberfläche und bleibt innerhalb ihrer Rundung.
+Die Oberfläche liegt innerhalb des isolierten Buttons unter dessen nativem
+Fokusring; das gilt auch für innen liegende Ringe in Scrollrastern.
+Full bereitet bedienbare Oberflächen vor der Eingabe mit `will-change: transform`
+vor; Disabled, Reduced, Off und OS-Reduktion entfernen den Hinweis.
+Vertrag und Messnachweise: [COMPONENTS](COMPONENTS.md), [AP42](AP42.md).
+
+Auch Radio-Segmente und der Theme-Thumb setzen ihre Selected-Radien diskret;
+die räumliche Translation des Theme-Thumbs behält ihren bisherigen Spring.
+Die AP36-Selected-Fälle prüfen deren echte Zwischenwerte bei Wiederholung.

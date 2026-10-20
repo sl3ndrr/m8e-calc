@@ -83,33 +83,204 @@ export async function calculatorInkPixels(
   page: Page,
   png: Buffer,
 ): Promise<number> {
-  return page.evaluate(async (encoded) => {
-    const bytes = Uint8Array.from(atob(encoded), (c) => c.charCodeAt(0));
-    const bitmap = await createImageBitmap(
-      new Blob([bytes], { type: 'image/png' }),
-    );
-    const canvas = document.createElement('canvas');
-    canvas.width = bitmap.width;
-    canvas.height = bitmap.height;
-    const ctx = canvas.getContext('2d');
-    const ink = document.querySelector('.calculator-value');
-    if (!ctx || !ink) throw Error('Missing screenshot decoder or result');
-    ctx.drawImage(bitmap, 0, 0);
-    const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    const [red = 0, green = 0, blue = 0] = (
-      getComputedStyle(ink).color.match(/\d+/g) ?? []
-    ).map(Number);
-    let count = 0;
-    for (let i = 0; i < pixels.length; i += 4) {
-      if (
-        (pixels[i + 3] ?? 0) > 240 &&
-        Math.abs((pixels[i] ?? 0) - red) < 8 &&
-        Math.abs((pixels[i + 1] ?? 0) - green) < 8 &&
-        Math.abs((pixels[i + 2] ?? 0) - blue) < 8
-      )
-        count++;
-    }
-    bitmap.close();
-    return count;
-  }, png.toString('base64'));
+  return paintedColorPixels(page, png, '.calculator-value', 'color');
+}
+
+/** Shared AP19 pixel decoder: also verifies that the native focus ring is
+ * actually painted above a button surface, rather than only present in CSS. */
+export async function paintedColorPixels(
+  page: Page,
+  png: Buffer,
+  selector: string,
+  property: 'color' | 'outlineColor',
+): Promise<number> {
+  return page.evaluate(
+    async ({ encoded, selector, property }) => {
+      const bytes = Uint8Array.from(atob(encoded), (c) => c.charCodeAt(0));
+      const bitmap = await createImageBitmap(
+        new Blob([bytes], { type: 'image/png' }),
+      );
+      const canvas = document.createElement('canvas');
+      canvas.width = bitmap.width;
+      canvas.height = bitmap.height;
+      const ctx = canvas.getContext('2d');
+      const ink = document.querySelector(selector);
+      if (!ctx || !ink) throw Error('Missing screenshot decoder or result');
+      ctx.drawImage(bitmap, 0, 0);
+      const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      const [red = 0, green = 0, blue = 0] = (
+        getComputedStyle(ink)[property].match(/\d+/g) ?? []
+      ).map(Number);
+      let count = 0;
+      for (let i = 0; i < pixels.length; i += 4) {
+        if (
+          (pixels[i + 3] ?? 0) > 240 &&
+          Math.abs((pixels[i] ?? 0) - red) < 8 &&
+          Math.abs((pixels[i + 1] ?? 0) - green) < 8 &&
+          Math.abs((pixels[i + 2] ?? 0) - blue) < 8
+        )
+          count++;
+      }
+      bitmap.close();
+      return count;
+    },
+    { encoded: png.toString('base64'), selector, property },
+  );
+}
+
+export async function recordFrames(
+  button: Locator,
+  event: 'pointerdown' | 'pointerup' | 'keydown' | 'keyup' | null,
+  count = 12,
+) {
+  // Arm the browser-side recorder before input. Resolving a Locator after the
+  // event can consume most of the 421-ms transition on a loaded CI runner.
+  return button.evaluateHandle(
+    (node, { event, count }) => {
+      const surface = node.querySelector('.ui-button-surface') ?? node;
+      const layer = node.querySelector('.ui-state-layer');
+      const content = node.querySelector('.ui-button-content');
+      const corners = (style: CSSStyleDeclaration) => [
+        style.borderTopLeftRadius,
+        style.borderTopRightRadius,
+        style.borderBottomRightRadius,
+        style.borderBottomLeftRadius,
+      ];
+      let inputTime: number | null = null;
+      let inputDispatchTime: number | null = null;
+      let inputMicrotaskTime: number | null = null;
+      const sample = (frameTime: number) => {
+        const started = performance.now();
+        // Reuse each computed style in this sample. Re-querying animated
+        // elements forces repeated compositor synchronization in WebKit.
+        const style = getComputedStyle(surface);
+        const host = surface === node ? style : getComputedStyle(node);
+        const layerStyle = layer ? getComputedStyle(layer) : null;
+        const contentStyle = content ? getComputedStyle(content) : null;
+        const transform = style.transform;
+        const contentLocalTransform = contentStyle?.transform ?? 'none';
+        const box = node.getBoundingClientRect();
+        const hit = document.elementFromPoint(
+          box.left + 1,
+          box.top + box.height / 2,
+        );
+        const visualBox = surface.getBoundingClientRect();
+        const contentBox = content?.getBoundingClientRect();
+        const ring =
+          parseFloat(host.outlineWidth) + parseFloat(host.outlineOffset);
+        let focusClipped = false;
+        // There is no focus ring to clip when no outline is painted. The
+        // full ancestor check still runs in every visible-focus frame.
+        for (
+          let parent = host.outlineStyle === 'none' ? null : node.parentElement;
+          parent;
+          parent = parent.parentElement
+        ) {
+          const s = getComputedStyle(parent);
+          const r = parent.getBoundingClientRect();
+          if (
+            s.overflowX !== 'visible' &&
+            (box.left - ring < r.left || box.right + ring > r.right)
+          )
+            focusClipped = true;
+          if (
+            s.overflowY !== 'visible' &&
+            (box.top - ring < r.top || box.bottom + ring > r.bottom)
+          )
+            focusClipped = true;
+        }
+        const sample = {
+          frameTime,
+          time: performance.now(),
+          radius: style.borderRadius,
+          corners: corners(style),
+          hostCorners: corners(host),
+          layerCorners: layerStyle ? corners(layerStyle) : [],
+          contentCorners: contentStyle ? corners(contentStyle) : [],
+          contentSharesSurface: content?.parentElement === surface,
+          contentLocalTransform,
+          // An untransformed direct child receives precisely its parent's
+          // transform. Keep the browser's sampled serialization: multiplying
+          // an identity DOMMatrix in Firefox converts it to float32.
+          contentTransform:
+            content?.parentElement === surface &&
+            contentLocalTransform === 'none'
+              ? transform
+              : contentLocalTransform,
+          layerOpacity: layerStyle ? Number(layerStyle.opacity) : 0,
+          clip: style.overflow,
+          hostTransform: host.transform,
+          box: { x: box.x, y: box.y, width: box.width, height: box.height },
+          hit: hit === node || (hit !== null && node.contains(hit)),
+          selected: node.hasAttribute('data-selected'),
+          pressed: node.hasAttribute('data-pressed'),
+          transform,
+          willChange: style.willChange,
+          width: (node as HTMLElement).offsetWidth,
+          height: (node as HTMLElement).offsetHeight,
+          outline: host.outlineStyle,
+          outlineOffset: host.outlineOffset,
+          focusClipped,
+          contentInsideSurface:
+            !contentBox ||
+            (contentBox.left >= visualBox.left - 1 &&
+              contentBox.right <= visualBox.right + 1 &&
+              contentBox.top >= visualBox.top - 1 &&
+              contentBox.bottom <= visualBox.bottom + 1),
+          background: style.backgroundColor,
+        };
+        return {
+          ...sample,
+          inputTime,
+          inputDispatchTime,
+          inputMicrotaskTime,
+          captureMs: performance.now() - started,
+        };
+      };
+      const samples = new Promise<ReturnType<typeof sample>[]>(
+        (resolve, reject) => {
+          const result: ReturnType<typeof sample>[] = [];
+          const capture = (frameTime: number) => {
+            try {
+              result.push(sample(frameTime));
+              if (result.length === count) resolve(result);
+              else requestAnimationFrame(capture);
+            } catch (error) {
+              reject(error);
+            }
+          };
+          // Read in the native callback, rather than a Promise microtask after
+          // it. The input and every frame retain the real document timeline.
+          if (event)
+            node.addEventListener(
+              event,
+              (input) => {
+                inputTime = input.timeStamp;
+                inputDispatchTime = performance.now();
+                queueMicrotask(() => {
+                  inputMicrotaskTime = performance.now();
+                });
+                requestAnimationFrame(capture);
+              },
+              { once: true },
+            );
+          else requestAnimationFrame(capture);
+        },
+      );
+      return { samples };
+    },
+    { event, count },
+  );
+}
+export async function readFrames(
+  recording: Awaited<ReturnType<typeof recordFrames>>,
+) {
+  try {
+    return await recording.evaluate(({ samples }) => samples);
+  } finally {
+    await recording.dispose();
+  }
+}
+export async function frames(button: Locator, count = 12) {
+  return readFrames(await recordFrames(button, null, count));
 }

@@ -59,6 +59,11 @@ export function springToLinear(
 }
 export const motionProperties: Record<string, string> = {
   '--md-sys-motion-press-scale': '0.96',
+  '--md-sys-motion-button-press-scale': '0.97',
+  '--md-sys-motion-button-press-duration':
+    'var(--md-sys-motion-spatial-fast-duration)',
+  '--md-sys-motion-button-press-easing':
+    'var(--md-sys-motion-spatial-fast-easing)',
   ...Object.fromEntries(
     Object.entries(springs).flatMap(([name, spring]) => {
       const { duration, easing } = springToLinear(

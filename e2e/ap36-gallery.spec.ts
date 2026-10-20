@@ -1,3 +1,4 @@
+import { buttonContractCases } from './buttonContractCases';
 import { expect, test, type Locator } from '@playwright/test';
 import {
   attach,
@@ -314,4 +315,12 @@ test('platform theme reveal retargets and stops on Off and OS reduction', async 
   await expect(root).not.toHaveAttribute('data-theme-changing');
   await expect(page.locator('.theme-snapshot')).toHaveCount(0);
   await idle(page, true);
+});
+
+test.use({
+  trace: { mode: 'on', screenshots: false, snapshots: false, sources: true },
+});
+
+test.describe('common button foundation', () => {
+  buttonContractCases(true);
 });

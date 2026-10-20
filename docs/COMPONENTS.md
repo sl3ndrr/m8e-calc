@@ -15,27 +15,27 @@
 
 ## Katalog und Tastatur
 
-| Bausteine                             | Verhalten und Varianten                                                                                                                                                                                                                                                                          |
-| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Button                                | filled, tonal, elevated, outlined, text; xs/sm/md/lg/xl; round/square; Enter und Leertaste. Toggle über `isSelected`/`defaultSelected` und `onSelectedChange`. Radius und leichte Skalierung beim Drücken; ausgewählte Toggle-Form invertiert round/square.                                      |
-| IconButton, Icon                      | IconButton nutzt Button-Verhalten; lokale Material Symbols mit interpolierter FILL-Achse. Zwanzig vorhandene Glyphen als `IconName`-Union. Neue Glyphen zuerst in `scripts/subset-fonts.py` aufnehmen und lokal neu generieren.                                                                  |
-| ButtonGroup                           | React-Aria-Toolbar mit einem Tab-Einstieg und Pfeilnavigation. `connected` teilt eine feste Breite: gedrückte Aktion wächst, Nachbarn schrumpfen mit Spatial Fast.                                                                                                                               |
-| SegmentedControl                      | Native Radios über React Aria, ein Tab-Stopp, Pfeile mit Wraparound und Überspringen deaktivierter Optionen; Home/End zum ersten/letzten aktivierten Segment.                                                                                                                                    |
-| Fab, ExtendedFab, FabMenu             | FABs verwenden Button-Press-Verhalten; FAB-Menü verwendet MenuTrigger, Pfeile/Enter und Escape mit Fokus-Rückgabe.                                                                                                                                                                               |
-| NavigationRail                        | Links in zugeklappter/aufgeklappter Rail, `aria-current`, Textbadge und JS-Spring-Aktivpille; Tab/Enter für Navigation.                                                                                                                                                                          |
-| Switch, Checkbox                      | Native Eingaben mit React Aria, Leertaste, kontrolliert/unkontrolliert; Checkbox zusätzlich indeterminate/invalid.                                                                                                                                                                               |
-| Slider                                | Einzelwert, Pfeile/Home/End, Output, Drag-Anzeige, schrumpfender Griff; Input-Ziel 48 px.                                                                                                                                                                                                        |
-| Chip                                  | assist/filter/input; Filter toggelt, Input ruft `onRemove` auf. `removeLabel` beschreibt das entfernte Objekt. Der Aufrufer entfernt es aus seiner Collection.                                                                                                                                   |
-| TextField                             | filled/outlined, prefix/suffix, description/errorMessage; Standard-Textbearbeitung und native Formvalidierung oder `validationBehavior="aria"`.                                                                                                                                                  |
-| Select                                | Auswahl mit Label, Optionen, deaktivierten Keys; `searchable` verwendet ComboBox mit Eingabe, Filter, Pfeilen/Enter und Escape. Ohne Suche verwendet es Select/ListBox.                                                                                                                          |
-| Menu                                  | MenuTrigger, optionale Suche, deaktivierte Einträge, `onAction`. Pfeile/Enter/Escape; ArrowDown aus Suche fokussiert den ersten Treffer.                                                                                                                                                         |
-| Dialog, SideSheet                     | ModalOverlay mit Dialog und Titel, Fokuscontainment, Escape/Light-Dismiss und Fokus-Rückgabe. SideSheet unterstützt zusätzlich `mode="docked"` als benanntes Aside.                                                                                                                              |
-| Popover                               | React-Aria-Popover in DialogTrigger/MenuTrigger/Select/ComboBox-Kontext. Escape, Light-Dismiss und Fokus-Rückgabe gelten auch für verschachtelte Auswahl-Popover.                                                                                                                                |
-| Tooltip                               | Schlicht oder `rich`, öffnet bei Hover/Tastaturfokus, Beschreibung über React Aria; Trigger bleibt die einzige Aktion.                                                                                                                                                                           |
-| Snackbar                              | React-Aria-ToastRegion mit FIFO-Queue, genau einer sichtbaren Nachricht, Pause bei Hover/Fokus und F6/Shift+F6-Navigation. Undo ruft die Aktion einmal auf und schließt die Nachricht. Nachrichten mit Aktionen ohne Timeout einreihen. Informationsnachrichten optional mit mindestens 5000 ms. |
-| Card, List/ListItem, Divider          | Card filled/elevated/outlined. List ist GridList mit Pfeil-/Auswahlbedienung und deaktivierten Keys. Divider horizontal/vertikal mit Separator-Semantik.                                                                                                                                         |
-| LoadingIndicator                      | Indeterminierter ProgressBar mit zugänglichem Namen; fünf unterschiedliche SVG-Formen, 32 gemeinsame Kurvensegmente, kontinuierliche Pfadinterpolation und endlos retargeteter Spatial-Slow-Spring. Bei Reduced/Off statische Form.                                                              |
-| StateLayer, FocusRing, VisuallyHidden | Kompositionshilfen für Zustand, Fokus und unsichtbaren zugänglichen Text.                                                                                                                                                                                                                        |
+| Bausteine                             | Verhalten und Varianten                                                                                                                                                                                                                                                                                         |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Button                                | filled, tonal, elevated, outlined, text; xs/sm/md/lg/xl; round/square; Enter und Leertaste. Toggle über `isSelected`/`defaultSelected` und `onSelectedChange`. Konstante Press-Grundform, leichte Skalierung der internen Oberfläche; ausgewählte Toggle-Form invertiert round/square ohne Radiusinterpolation. |
+| IconButton, Icon                      | IconButton nutzt Button-Verhalten; lokale Material Symbols mit interpolierter FILL-Achse. Zwanzig vorhandene Glyphen als `IconName`-Union. Neue Glyphen zuerst in `scripts/subset-fonts.py` aufnehmen und lokal neu generieren.                                                                                 |
+| ButtonGroup                           | React-Aria-Toolbar mit einem Tab-Einstieg und Pfeilnavigation. `connected` teilt eine feste Breite: Press verändert weder Zielbreite noch Nachbarlayout.                                                                                                                                                        |
+| SegmentedControl                      | Native Radios über React Aria, ein Tab-Stopp, Pfeile mit Wraparound und Überspringen deaktivierter Optionen; Home/End zum ersten/letzten aktivierten Segment.                                                                                                                                                   |
+| Fab, ExtendedFab, FabMenu             | FABs verwenden Button-Press-Verhalten; FAB-Menü verwendet MenuTrigger, Pfeile/Enter und Escape mit Fokus-Rückgabe.                                                                                                                                                                                              |
+| NavigationRail                        | Links in zugeklappter/aufgeklappter Rail, `aria-current`, Textbadge und JS-Spring-Aktivpille; Tab/Enter für Navigation.                                                                                                                                                                                         |
+| Switch, Checkbox                      | Native Eingaben mit React Aria, Leertaste, kontrolliert/unkontrolliert; Checkbox zusätzlich indeterminate/invalid.                                                                                                                                                                                              |
+| Slider                                | Einzelwert, Pfeile/Home/End, Output, Drag-Anzeige, schrumpfender Griff; Input-Ziel 48 px.                                                                                                                                                                                                                       |
+| Chip                                  | assist/filter/input; Filter toggelt, Input ruft `onRemove` auf. `removeLabel` beschreibt das entfernte Objekt. Der Aufrufer entfernt es aus seiner Collection.                                                                                                                                                  |
+| TextField                             | filled/outlined, prefix/suffix, description/errorMessage; Standard-Textbearbeitung und native Formvalidierung oder `validationBehavior="aria"`.                                                                                                                                                                 |
+| Select                                | Auswahl mit Label, Optionen, deaktivierten Keys; `searchable` verwendet ComboBox mit Eingabe, Filter, Pfeilen/Enter und Escape. Ohne Suche verwendet es Select/ListBox.                                                                                                                                         |
+| Menu                                  | MenuTrigger, optionale Suche, deaktivierte Einträge, `onAction`. Pfeile/Enter/Escape; ArrowDown aus Suche fokussiert den ersten Treffer.                                                                                                                                                                        |
+| Dialog, SideSheet                     | ModalOverlay mit Dialog und Titel, Fokuscontainment, Escape/Light-Dismiss und Fokus-Rückgabe. SideSheet unterstützt zusätzlich `mode="docked"` als benanntes Aside.                                                                                                                                             |
+| Popover                               | React-Aria-Popover in DialogTrigger/MenuTrigger/Select/ComboBox-Kontext. Escape, Light-Dismiss und Fokus-Rückgabe gelten auch für verschachtelte Auswahl-Popover.                                                                                                                                               |
+| Tooltip                               | Schlicht oder `rich`, öffnet bei Hover/Tastaturfokus, Beschreibung über React Aria; Trigger bleibt die einzige Aktion.                                                                                                                                                                                          |
+| Snackbar                              | React-Aria-ToastRegion mit FIFO-Queue, genau einer sichtbaren Nachricht, Pause bei Hover/Fokus und F6/Shift+F6-Navigation. Undo ruft die Aktion einmal auf und schließt die Nachricht. Nachrichten mit Aktionen ohne Timeout einreihen. Informationsnachrichten optional mit mindestens 5000 ms.                |
+| Card, List/ListItem, Divider          | Card filled/elevated/outlined. List ist GridList mit Pfeil-/Auswahlbedienung und deaktivierten Keys. Divider horizontal/vertikal mit Separator-Semantik.                                                                                                                                                        |
+| LoadingIndicator                      | Indeterminierter ProgressBar mit zugänglichem Namen; fünf unterschiedliche SVG-Formen, 32 gemeinsame Kurvensegmente, kontinuierliche Pfadinterpolation und endlos retargeteter Spatial-Slow-Spring. Bei Reduced/Off statische Form.                                                                             |
+| StateLayer, FocusRing, VisuallyHidden | Kompositionshilfen für Zustand, Fokus und unsichtbaren zugänglichen Text.                                                                                                                                                                                                                                       |
 
 ## Beispiele
 
@@ -140,3 +140,44 @@ Indikator. Tests und Bildreproduktion: [AP20.md](AP20.md).
 
 Die Komponentenbibliothek bleibt erhalten; nur das Lab wird aus der normalen
 Auslieferung ausgeschlossen. Getrennte Build-/QA-Nachweise: [AP23.md](AP23.md).
+
+## AP42 · Gemeinsamer Buttonvertrag
+
+Button, IconButton und ihre Ableitungen behalten beim normalen Press/Release
+ihre rollenbezogene Rundung. Der native Button bleibt untransformiertes,
+unverändertes Klickziel (mindestens 48×48 px) mit äußerem Fokusring. Eine interne
+Oberfläche enthält Hintergrund, Rand, Schatten, den geclippten State-Layer und
+Inhalt. Ein einziger Transform skaliert sie synchron mit Button-Press-Tokens:
+0,97 und vorhandenes Spatial Fast (421ms), einschließlich kleinem, geprüftem
+Scale-Überschwingen (0,965 < Scale < 1,005). State-Layer nutzt Effects Fast;
+kein Radius wird mit einem Spring interpoliert.
+Paint-Anpassungen verwenden `--ui-button-background`, `--ui-button-border` und
+`--ui-button-shadow`; die Form kommt weiterhin vom Radius des Buttons.
+Abstände setzen `--ui-button-padding-block/inline`, die Randbreite
+`--ui-button-border-width`. Das native Ziel selbst behält Padding null.
+Connected-Gruppen ändern beim Press keine Flexbreiten.
+
+Selected invertiert weiterhin round/square, setzt den Zielradius aber unmittelbar.
+Es gibt keinen Spring zwischen Full und einem kleinen Radius. CSS-Transitions
+setzen Press/Release vom aktuellen sichtbaren Wert fort, ohne Timer, Mindesthold
+oder Verzögerung von React-Aria-Aktionen. Globale Keypad-Kürzel nutzen denselben
+visuellen Pfad. Reduced/Off und OS-Reduktion unterdrücken die Skalierung und
+beenden laufende CSS-Bewegung; Entfernen aus dem DOM beendet deren Animationen.
+Details, gemessene Grenzen und Reproduktion: [AP42](AP42.md).
+
+Full verwendet für bedienbare Oberflächen schon vor der Eingabe einen
+Transform-Hinweis an den Compositor; dafür ist kein Hover-Frame erforderlich.
+Disabled, Reduced, Off und OS-Reduktion entfernen den Hinweis.
+
+Auch Radio-Segmente und der Theme-Thumb setzen ihre Selected-Radien diskret;
+die räumliche Translation des Theme-Thumbs behält ihren bisherigen Spring.
+Die AP36-Selected-Fälle prüfen deren echte Zwischenwerte bei Wiederholung.
+
+Bei flächenfüllenden Umrechner-Aktionen in Scrollrastern liegt derselbe
+Fokusring mit −4px Offset innerhalb der Karte, damit der Scrollclip ihn nicht
+abschneidet. Der native Button trägt auch dort den Ring; seine isolierte
+Stapelreihenfolge hält die gesamte animierte Oberfläche unter dem Fokusring.
+AP19s gemeinsamer Bilddecoder prüft zusätzlich dessen tatsächliche Farbfläche.
+
+Ein während Press/Release deaktivierter Button beendet auch die internen
+Transitions unmittelbar und zeigt den neutralen Disabled-Zustand.

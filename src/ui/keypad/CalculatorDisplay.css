@@ -13,12 +13,13 @@
   display: flex;
   width: 100%;
   justify-content: flex-end;
-  padding: 0.5rem 0;
+  --ui-button-padding-block: 0.5rem;
+  --ui-button-padding-inline: 0;
   min-height: 8rem;
   border-radius: var(--md-sys-shape-small);
   color: var(--md-sys-color-on-surface);
-  background: transparent;
-  transform: none;
+  --ui-button-background: transparent;
+  --ui-button-press-transform: none !important;
 }
 .calculator-result .ui-button-content {
   width: 100%;

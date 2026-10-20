@@ -1,3 +1,5 @@
+import { buttonContractCases } from './buttonContractCases';
+import { installMotionProbe } from './ap36Capture';
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { galleryEntries } from '../src/app/galleryEntries';
@@ -38,25 +40,25 @@ test('keyboard focus, expressive press, connected group and slider use real brow
   await page.keyboard.down('Space');
   await expect(button).toHaveAttribute('data-pressed');
   await page.waitForTimeout(350);
-  expect(
-    await button.evaluate((e) => getComputedStyle(e).borderRadius),
-  ).not.toBe(initial);
+  expect(await button.evaluate((e) => getComputedStyle(e).borderRadius)).toBe(
+    initial,
+  );
   await page.keyboard.up('Space');
   const group = page.locator(
     '[data-component="ButtonGroup"] [data-state="default"]',
   );
   const first = group.locator('button').first();
   const neighbor = group.locator('button').nth(1);
-  const before = await neighbor.boundingBox();
+  await first.scrollIntoViewIfNeeded();
   await first.focus();
+  const before = await neighbor.boundingBox();
   await page.keyboard.down('Space');
   await page.waitForTimeout(350);
-  expect((await first.boundingBox())?.width).toBeGreaterThan(
+  expect((await first.boundingBox())?.width).toBeCloseTo(
     (await neighbor.boundingBox())?.width ?? 0,
+    1,
   );
-  expect((await neighbor.boundingBox())?.width).toBeLessThan(
-    before?.width ?? 0,
-  );
+  expect(await neighbor.boundingBox()).toEqual(before);
   await page.keyboard.up('Space');
   const slider = page
     .locator('[data-component="Slider"] [data-state="default"]')
@@ -76,6 +78,9 @@ test('modal dialog traps focus, restores the trigger, and passes axe', async ({
   await page.keyboard.press('Enter');
   const dialog = page.getByRole('dialog', { name: 'Dialog', exact: true });
   await expect(dialog).toBeVisible();
+  // Axe evaluates a static color state. Visibility alone is already true
+  // during the native opacity entrance; require its actual end, not a timeout.
+  await expect(page.locator('.ui-modal')).not.toHaveAttribute('data-entering');
   await page.keyboard.press('Tab');
   await page.keyboard.press('Tab');
   expect(await dialog.evaluate((e) => e.contains(document.activeElement))).toBe(
@@ -146,4 +151,18 @@ test('tooltips open on pointer hover after keyboard interaction', async ({
   await expect(page.getByRole('tooltip')).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(page.getByRole('tooltip')).toBeHidden();
+});
+
+// The same AP19/AP36 cases also protect the recurring gallery build.
+test.use({
+  trace: { mode: 'on', screenshots: false, snapshots: false, sources: true },
+});
+
+test.describe('common button foundation', () => {
+  test.use({ serviceWorkers: 'block' });
+  test.beforeEach(async ({ page }) => {
+    await installMotionProbe(page);
+    await page.setViewportSize({ width: 1600, height: 1000 });
+  });
+  buttonContractCases(true);
 });

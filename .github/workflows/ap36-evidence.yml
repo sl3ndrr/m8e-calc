@@ -8,6 +8,109 @@ concurrency:
   group: ap36-${{ github.event.pull_request.head.ref || github.ref_name }}
   cancel-in-progress: true
 jobs:
+  button-contract:
+    name: AP42 button contract (AP19/AP36 recorders)
+    if: github.head_ref == 'feat/ap41-button-feedback'
+    runs-on: ubuntu-latest
+    env:
+      AP42_SOURCE: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          check-latest: true
+      - run: npm install --global npm@11.19.0
+      - run: npm ci --engine-strict
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Verify formatting without changing the candidate
+        id: formatting
+        run: npx prettier --check .
+      - name: Same-run current main baseline, original dependencies
+        id: before
+        continue-on-error: true
+        run: |
+          baseline="$RUNNER_TEMP/ap42-before"
+          git fetch --depth=1 origin 65ce593bc2fe7065c3f43d29502f2023b49cf58b
+          git worktree add "$baseline" FETCH_HEAD
+          cp e2e/ap36*.ts e2e/buttonContractCases.ts e2e/calculatorCapture.ts "$baseline/e2e/"
+          cp playwright.ap36.config.ts "$baseline/"
+          cd "$baseline"
+          npm ci --engine-strict
+          export GITHUB_SHA=65ce593bc2fe7065c3f43d29502f2023b49cf58b
+          npm run build
+          npm run build:gallery
+          AP42_PHASE=before npx playwright test --config=playwright.ap36.config.ts --grep 'button contract .*: live press/release' --reporter=list --output="$GITHUB_WORKSPACE/test-results/ap42/before"
+      - name: Candidate check, generated tokens and separate gallery build
+        id: build
+        if: ${{ !cancelled() }}
+        env:
+          GITHUB_SHA: ${{ github.event.pull_request.head.sha }}
+          AP30_SOURCE: ${{ github.event.pull_request.head.sha }}
+        run: |
+          export GITHUB_SHA="$AP42_SOURCE"
+          npm run tokens
+          git diff --exit-code src/styles/tokens.css
+          npm run check
+          node scripts/ap30-measure.mjs test-results/ap42/budget
+          npm run build:gallery
+      - name: Existing AP36 WebKit gallery cases first
+        id: webkit_gallery
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: npx playwright test --config=playwright.ap36.config.ts --project=webkit-gallery --reporter=list --output=test-results/ap42/after/webkit-gallery
+      - uses: actions/upload-artifact@v7
+        if: ${{ always() && steps.build.outcome == 'success' }}
+        with:
+          name: ap42-webkit-gallery
+          path: |
+            test-results/ap42/after/webkit-gallery/
+            test-results/ap42/budget/
+            dist/build-info.json
+            dist-gallery/build-info.json
+          include-hidden-files: true
+          retention-days: 14
+      - name: Remaining existing AP36 browser projects without duplicate cases
+        id: browsers
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: |
+          npx playwright test --config=playwright.ap36.config.ts \
+            --project=chromium-production --project=chromium-gallery \
+            --project=firefox-production --project=firefox-gallery \
+            --project=webkit-production --reporter=list \
+            --output=test-results/ap42/after/other-projects
+      - name: AP19 real frames, glyphs, native zoom and calculator behavior
+        id: rendering
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: npx playwright test e2e/calculator-rendering.spec.ts e2e/calculator-native-zoom.spec.ts e2e/simple-calculator.spec.ts e2e/scientific.spec.ts --project=chromium --trace=on --workers=1 --output=test-results/ap42/rendering
+      - name: Require all phases without retries or new exceptions
+        if: always()
+        env:
+          FORMATTING: ${{ steps.formatting.outcome }}
+          BEFORE: ${{ steps.before.outcome }}
+          BUILD: ${{ steps.build.outcome }}
+          WEBKIT_GALLERY: ${{ steps.webkit_gallery.outcome }}
+          BROWSERS: ${{ steps.browsers.outcome }}
+          RENDERING: ${{ steps.rendering.outcome }}
+        run: |
+          test "$FORMATTING" = success
+          test "$BEFORE" = success
+          test "$BUILD" = success
+          test "$WEBKIT_GALLERY" = success
+          test "$BROWSERS" = success
+          test "$RENDERING" = success
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap42-button-contract
+          path: |
+            test-results/ap42/
+            dist/
+            dist-gallery/
+          include-hidden-files: true
+          retention-days: 14
   evidence:
     if: github.head_ref == 'feat/ap36-motion14'
     runs-on: ubuntu-latest

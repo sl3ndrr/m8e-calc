@@ -243,7 +243,8 @@
   width: 100%;
   justify-content: flex-start;
   text-align: left;
-  padding: 0.5rem;
+  --ui-button-padding-block: 0.5rem;
+  --ui-button-padding-inline: 0.5rem;
 }
 .history-restore .ui-button-content {
   width: 100%;
@@ -265,7 +266,8 @@
 }
 .history-entry-actions .ui-icon-button {
   min-width: max(48px, 3rem);
-  padding: 0.5rem;
+  --ui-button-padding-block: 0.5rem;
+  --ui-button-padding-inline: 0.5rem;
 }
 .history-tools {
   display: grid;
@@ -380,7 +382,7 @@
     gap: 0.25rem;
   }
   .shell-controls > .ui-button {
-    padding-inline: 0.5rem;
+    --ui-button-padding-inline: 0.5rem;
   }
   .app-shell[data-expanded] {
     --rail-width: 9rem;

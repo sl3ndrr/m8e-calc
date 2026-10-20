@@ -5,11 +5,13 @@
   justify-content: center;
   align-items: center;
   gap: 0.65rem;
-  padding: 0.75rem 1.25rem;
+  --ui-button-padding-block: 0.75rem;
+  --ui-button-padding-inline: 1.25rem;
+  --ui-button-border-width: 0px;
   border: 0;
   border-radius: var(--md-sys-shape-full);
   color: var(--md-sys-color-on-secondary-container);
-  background: var(--md-sys-color-secondary-container);
+  --ui-button-background: var(--md-sys-color-secondary-container);
   font-weight: var(--md-sys-typescale-label-large-weight);
   font-size: var(--md-sys-typescale-label-large-size);
 }
@@ -102,12 +104,18 @@ input[type='color'] {
 .accent-popover .seed {
   min-width: 48px;
   min-height: 48px;
-  padding: 0.5rem;
-  background: var(--md-sys-color-seed);
+  --ui-button-padding-block: 0.5rem;
+  --ui-button-padding-inline: 0.5rem;
+  --ui-button-border-width: 3px;
+  background: transparent;
+  border-color: transparent;
+  --ui-button-border: transparent;
+  --ui-button-background: var(--md-sys-color-seed);
   color: var(--md-sys-color-on-seed);
 }
 .accent-popover .seed[data-selected] {
-  background: var(--md-sys-color-seed);
+  --ui-button-background: var(--md-sys-color-seed);
+  --ui-button-border: var(--md-sys-color-outline);
   color: var(--md-sys-color-on-seed);
   border-radius: var(--md-sys-shape-full);
 }

@@ -1,0 +1,19 @@
+{
+  "run": "39447316474",
+  "artifactSha256": "22e885ddef2b5f461d2639f37b9ed59a712defc9b20f05855b1c4eedb1599f01",
+  "builds": {
+    "dist/build-info.json": {
+      "schemaVersion": 1,
+      "sourceCommit": "47315f82df03a82048bcfef9cb388a091ed1fd47",
+      "target": "normal"
+    },
+    "dist-gallery/build-info.json": {
+      "schemaVersion": 1,
+      "sourceCommit": "47315f82df03a82048bcfef9cb388a091ed1fd47",
+      "target": "gallery"
+    }
+  },
+  "artifactId": 12277606822,
+  "artifactUrl": "https://github.com/sl3ndrr/m8e-calc/actions/runs/39447316474#artifacts",
+  "baselineCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b"
+}

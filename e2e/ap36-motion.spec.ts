@@ -1,3 +1,4 @@
+import { buttonContractCases } from './buttonContractCases';
 import { expect, test } from '@playwright/test';
 import {
   attach,
@@ -281,4 +282,12 @@ test('fit repeats preserve the goal; native pan and wheel interrupt an active fi
     frames,
     final: await canvas.getAttribute('data-bounds'),
   });
+});
+
+test.use({
+  trace: { mode: 'on', screenshots: false, snapshots: false, sources: true },
+});
+
+test.describe('common button foundation', () => {
+  buttonContractCases(false);
 });

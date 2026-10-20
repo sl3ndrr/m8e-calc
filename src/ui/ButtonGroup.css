@@ -11,7 +11,7 @@
 .ui-button-group[data-connected] > .ui-button {
   flex: 1 1 0;
   min-width: 48px;
-  padding-inline: 0.75rem;
+  --ui-button-padding-inline: 0.75rem;
   border-radius: var(--md-sys-shape-small);
 }
 .ui-button-group[data-connected] > .ui-button:first-child {
@@ -21,9 +21,4 @@
 .ui-button-group[data-connected] > .ui-button:last-child {
   border-start-end-radius: var(--md-sys-shape-full);
   border-end-end-radius: var(--md-sys-shape-full);
-}
-.ui-button-group[data-connected]
-  > .ui-button:where([data-pressed], .ui-state-pressed) {
-  flex-grow: 1.6;
-  transform: none;
 }

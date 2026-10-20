@@ -20,3 +20,16 @@
 :where([data-disabled]) > .ui-state-layer {
   opacity: 0;
 }
+
+/* Buttons keep paint inside the scaled surface, outside the native focus ring. */
+:where([data-hovered], .ui-state-hover) > .ui-button-surface > .ui-state-layer {
+  opacity: 0.08;
+}
+:where([data-focus-visible], .ui-state-focus, [data-pressed], .ui-state-pressed)
+  > .ui-button-surface
+  > .ui-state-layer {
+  opacity: 0.1;
+}
+:where([data-disabled]) > .ui-button-surface > .ui-state-layer {
+  opacity: 0;
+}

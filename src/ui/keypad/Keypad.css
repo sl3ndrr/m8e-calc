@@ -11,17 +11,18 @@
   width: 100%;
   min-width: 48px;
   min-height: max(48px, 4.25rem);
-  padding: 0.75rem;
+  --ui-button-padding-block: 0.75rem;
+  --ui-button-padding-inline: 0.75rem;
   font-size: 1.75rem;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
   border-radius: var(--md-sys-shape-extra-large);
-  background: var(--md-sys-color-surface-container-high);
+  --ui-button-background: var(--md-sys-color-surface-container-high);
   color: var(--md-sys-color-on-surface);
 }
 .keypad-cell[data-role='operator'] .keypad-key {
   border-radius: var(--md-sys-shape-full);
-  background: var(--md-sys-color-secondary-container);
+  --ui-button-background: var(--md-sys-color-secondary-container);
   color: var(--md-sys-color-on-secondary-container);
   font-size: 2rem;
 }
@@ -30,51 +31,43 @@
 }
 .keypad-cell[data-role='equals'] .keypad-key {
   border-radius: var(--md-sys-shape-extra-extra-large);
-  background: var(--md-sys-color-primary);
+  --ui-button-background: var(--md-sys-color-primary);
   color: var(--md-sys-color-on-primary);
   font-size: 2.75rem;
 }
 .keypad-cell[data-role='clear'] .keypad-key {
   border-radius: var(--md-sys-shape-large);
-  background: var(--md-sys-color-tertiary-container);
+  --ui-button-background: var(--md-sys-color-tertiary-container);
   color: var(--md-sys-color-on-tertiary-container);
   font-size: 1.25rem;
 }
 .keypad-cell[data-role='function'] .keypad-key {
   border-radius: var(--md-sys-shape-large);
-  background: var(--md-sys-color-surface-container);
+  --ui-button-background: var(--md-sys-color-surface-container);
   color: var(--md-sys-color-on-surface-variant);
   font-size: 1.25rem;
 }
 .keypad-cell[data-role='memory'] .keypad-key {
   min-height: max(48px, 3rem);
   border-radius: var(--md-sys-shape-full);
-  background: transparent;
+  --ui-button-background: transparent;
   color: var(--md-sys-color-primary);
   font-size: 0.875rem;
   font-weight: 650;
 }
 .keypad-cell[data-active] .keypad-key {
-  background: var(--md-sys-color-secondary);
+  --ui-button-background: var(--md-sys-color-secondary);
   color: var(--md-sys-color-on-secondary);
 }
-.keypad-cell[data-key-pressed] .keypad-key,
-.keypad-cell .keypad-key[data-pressed] {
-  transform: scale(var(--md-sys-motion-press-scale));
+.keypad-cell[data-key-pressed] .keypad-key:not([data-disabled]) {
+  --ui-button-press-transform: scale(var(--md-sys-motion-button-press-scale));
 }
 .keypad-cell .keypad-key[data-disabled] {
   color: var(--md-sys-color-on-surface-variant);
   opacity: 0.55;
 }
-.keypad-cell[data-key-pressed] .ui-state-layer {
+.keypad-cell[data-key-pressed]
+  .keypad-key:not([data-disabled])
+  .ui-state-layer {
   opacity: 0.1;
-}
-:root[data-motion='off'] .keypad-key,
-:root[data-motion='reduced'] .keypad-key {
-  transform: none;
-}
-@media (prefers-reduced-motion: reduce) {
-  .keypad-cell .keypad-key {
-    transform: none;
-  }
 }

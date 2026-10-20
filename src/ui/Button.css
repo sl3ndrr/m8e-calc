@@ -7,61 +7,106 @@
   gap: 0.5rem;
   min-width: 48px;
   min-height: 48px;
-  padding: 0.75rem 1.5rem;
-  border: 1px solid transparent;
+  --ui-button-padding-block: 0.75rem;
+  --ui-button-padding-inline: 1.5rem;
+  --ui-button-border-width: 1px;
+  padding: 0;
+  border: var(--ui-button-border-width) solid transparent;
   border-radius: var(--md-sys-shape-full);
-  background: var(--md-sys-color-primary);
+  --ui-button-background: var(--md-sys-color-primary);
+  --ui-button-border: transparent;
+  --ui-button-shadow: none;
+  --ui-button-press-transform: none;
+  background: transparent;
   color: var(--md-sys-color-on-primary);
   font-size: var(--md-sys-typescale-label-large-size);
   font-weight: var(--md-sys-typescale-label-large-emphasized-weight);
-  transition:
-    border-radius var(--md-sys-motion-spatial-fast-duration)
-      var(--md-sys-motion-spatial-fast-easing),
-    transform var(--md-sys-motion-spatial-fast-duration)
-      var(--md-sys-motion-spatial-fast-easing),
-    flex-grow var(--md-sys-motion-spatial-fast-duration)
-      var(--md-sys-motion-spatial-fast-easing);
+  /* The native button is the stable hit target and owns the focus ring.
+     Its single paint surface contains the state layer and content. */
+}
+.ui-button-surface {
+  position: relative;
+  /* The isolated native button paints its focus ring above all button paint. */
+  z-index: -1;
+  display: inline-flex;
+  flex: 1 1 auto;
+  align-self: stretch;
+  min-width: 0;
+  align-items: inherit;
+  justify-content: inherit;
+  gap: inherit;
+  /* Cancel the nested border in layout; paint still reaches the native edge. */
+  margin: calc(-1 * var(--ui-button-border-width));
+  padding: var(--ui-button-padding-block) var(--ui-button-padding-inline);
+  border: inherit;
+  border-color: var(--ui-button-border);
+  border-radius: inherit;
+  background: var(--ui-button-background);
+  background-clip: inherit;
+  box-shadow: var(--ui-button-shadow);
+  overflow: clip;
+  pointer-events: none;
+  transform: var(--ui-button-press-transform);
+  transform-origin: center;
+  transition: transform var(--md-sys-motion-button-press-duration)
+    var(--md-sys-motion-button-press-easing);
 }
 .ui-button-content {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  border-radius: inherit;
   pointer-events: none;
 }
+/* Full prepares enabled paint surfaces before input, including global keyboard
+   shortcuts and a click without a preceding hover frame. Disabled and reduced
+   motion controls do not request compositor preparation. */
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-motion='full']
+    .ui-button:not([data-disabled])
+    > .ui-button-surface {
+    will-change: transform;
+  }
+}
 .ui-button[data-variant='tonal'] {
-  background: var(--md-sys-color-secondary-container);
+  --ui-button-background: var(--md-sys-color-secondary-container);
   color: var(--md-sys-color-on-secondary-container);
 }
 .ui-button[data-variant='elevated'] {
-  background: var(--md-sys-color-surface-container-low);
+  --ui-button-background: var(--md-sys-color-surface-container-low);
   color: var(--md-sys-color-primary);
-  box-shadow: 0 2px 5px
+  --ui-button-shadow: 0 2px 5px
     color-mix(in srgb, var(--md-sys-color-shadow) 20%, transparent);
 }
 .ui-button[data-variant='outlined'],
 .ui-button[data-variant='text'] {
-  background: transparent;
+  --ui-button-background: transparent;
   color: var(--md-sys-color-primary);
 }
 .ui-button[data-variant='outlined'] {
-  border-color: var(--md-sys-color-outline);
+  --ui-button-border: var(--md-sys-color-outline);
 }
 .ui-button[data-size='xs'] {
-  padding: 0.35rem 0.75rem;
+  --ui-button-padding-block: 0.35rem;
+  --ui-button-padding-inline: 0.75rem;
   font-size: var(--md-sys-typescale-label-small-size);
 }
 .ui-button[data-size='sm'] {
-  padding: 0.5rem 1rem;
+  --ui-button-padding-block: 0.5rem;
+  --ui-button-padding-inline: 1rem;
 }
 .ui-button[data-size='lg'] {
   min-height: 64px;
-  padding: 1rem 2rem;
+  --ui-button-padding-block: 1rem;
+  --ui-button-padding-inline: 2rem;
   font-size: var(--md-sys-typescale-title-medium-size);
 }
 .ui-button[data-size='xl'] {
   min-height: 80px;
-  padding: 1.25rem 2.5rem;
+  --ui-button-padding-block: 1.25rem;
+  --ui-button-padding-inline: 2.5rem;
   font-size: var(--md-sys-typescale-title-large-size);
 }
 .ui-button[data-shape='square'] {
@@ -69,33 +114,35 @@
 }
 .ui-button[data-selected] {
   border-radius: var(--md-sys-shape-large);
-  background: var(--md-sys-color-tertiary-container);
+  --ui-button-background: var(--md-sys-color-tertiary-container);
   color: var(--md-sys-color-on-tertiary-container);
 }
 .ui-button[data-shape='square'][data-selected] {
   border-radius: var(--md-sys-shape-full);
 }
-.ui-button:where([data-pressed], .ui-state-pressed) {
-  border-radius: var(--md-sys-shape-small);
-  transform: scale(var(--md-sys-motion-press-scale));
+.ui-button:where([data-pressed], .ui-state-pressed):not([data-disabled]) {
+  --ui-button-press-transform: scale(var(--md-sys-motion-button-press-scale));
 }
 .ui-button[data-disabled] {
-  background: color-mix(
+  --ui-button-background: color-mix(
     in srgb,
     var(--md-sys-color-on-surface) 12%,
     transparent
   );
   color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
-  box-shadow: none;
+  --ui-button-shadow: none;
   cursor: default;
 }
-:root[data-motion='reduced']
-  .ui-button:where([data-pressed], .ui-state-pressed),
-:root[data-motion='off'] .ui-button:where([data-pressed], .ui-state-pressed) {
-  transform: none;
+.ui-button[data-disabled]
+  :is(.ui-button-surface, .ui-button-content, .ui-state-layer) {
+  transition: none;
+}
+:root[data-motion='reduced'] .ui-button,
+:root[data-motion='off'] .ui-button {
+  --ui-button-press-transform: none !important;
 }
 @media (prefers-reduced-motion: reduce) {
-  .ui-button:where([data-pressed], .ui-state-pressed) {
-    transform: none;
+  .ui-button {
+    --ui-button-press-transform: none !important;
   }
 }
