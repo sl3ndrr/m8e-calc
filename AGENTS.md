@@ -327,7 +327,7 @@ Vollständige Auswahl, Titelzuordnung und Nachweise: [docs/AP35.md](docs/AP35.md
 
 ## AP42 · Gemeinsame Buttons
 
-Der native Button bleibt stabiles Klickziel und trägt den äußeren Fokusring.
+Der native Button bleibt stabiles Klickziel und trägt den nativen Fokusring.
 Press skaliert eine gemeinsame Oberfläche mitsamt Inhalt mit zentralen Button-Press-Tokens;
 keine Radiusinterpolation, kein Flexwachstum verbundener Buttons. Paint-Rollen
 über `--ui-button-background/border/shadow`, Formen weiterhin über Shape-Tokens.

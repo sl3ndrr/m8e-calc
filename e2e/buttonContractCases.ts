@@ -151,6 +151,8 @@ export function buttonContractCases(gallery: boolean) {
           );
         }
         stable([...down, ...up], rest);
+        if (process.env.AP42_PHASE !== 'before')
+          expect(rest.willChange).toBe('transform');
         expect(new Set(down.map((f) => f.transform)).size).toBeGreaterThan(2);
         expect(new Set(up.map((f) => f.transform)).size).toBeGreaterThan(2);
         expect(down.some((f) => f.layerOpacity > 0)).toBe(true);
@@ -200,9 +202,15 @@ export function buttonContractCases(gallery: boolean) {
         stable(await frames(button), rest);
         await settle(button);
 
+        // Remove hover as a preparation/focus cue. Reach the subject through
+        // native keyboard navigation before measuring Space and Enter.
+        await page.mouse.move(0, 0);
         await button.focus();
+        await page.keyboard.press('Tab');
+        await page.keyboard.press('Shift+Tab');
+        await expect(button).toBeFocused();
         for (const key of ['Space', 'Enter']) {
-          const press = await recordFrames(button, 'keydown', 4);
+          const press = await recordFrames(button, 'keydown', 12);
           await page.keyboard.down(key);
           const pressed = await readFrames(press);
           expect(
@@ -228,6 +236,12 @@ export function buttonContractCases(gallery: boolean) {
             pressed,
             released,
           });
+          expect(new Set(pressed.map((f) => f.transform)).size).toBeGreaterThan(
+            2,
+          );
+          expect(
+            new Set(released.map((f) => f.transform)).size,
+          ).toBeGreaterThan(2);
           await settle(button);
         }
         if (!gallery && kind === 'Button')
