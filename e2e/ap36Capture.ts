@@ -10,6 +10,7 @@ export async function installMotionProbe(page: Page) {
     const probe = {
       selector: '',
       freezeFrames: false,
+      holdTime: 40,
       suspended: false,
       waiting: new Map<number, FrameRequestCallback>(),
       live: [] as { time: number; transform: string; opacity: string }[],
@@ -42,7 +43,7 @@ export async function installMotionProbe(page: Page) {
       if (probe.freezeFrames) return;
       queueMicrotask(() => {
         animation.pause();
-        animation.currentTime = 40;
+        animation.currentTime = probe.holdTime;
       });
     };
     document.addEventListener(
@@ -89,7 +90,7 @@ export async function installMotionProbe(page: Page) {
           probe.held = Array.from(node.getAnimations());
           for (const animation of probe.held) {
             animation.pause();
-            animation.currentTime = 40;
+            animation.currentTime = probe.holdTime;
           }
         };
         raf(capture);
@@ -118,6 +119,7 @@ export async function installMotionProbe(page: Page) {
 interface Probe {
   selector: string;
   freezeFrames: boolean;
+  holdTime: number;
   suspended: boolean;
   waiting: Map<number, FrameRequestCallback>;
   live: { time: number; transform: string; opacity: string }[];
@@ -128,16 +130,18 @@ export async function holdNext(
   page: Page,
   selector: string,
   freezeFrames = false,
+  holdTime = 40,
 ) {
   await page.evaluate(
-    ({ selector, freezeFrames }) => {
+    ({ selector, freezeFrames, holdTime }) => {
       const probe = Reflect.get(window, 'ap36Probe') as Probe;
       probe.selector = selector;
+      probe.holdTime = holdTime;
       probe.held = [];
       probe.freezeFrames = freezeFrames;
       probe.live = [];
     },
-    { selector, freezeFrames },
+    { selector, freezeFrames, holdTime },
   );
 }
 export async function held(page: Page) {

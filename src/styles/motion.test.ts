@@ -11,9 +11,9 @@ describe('springToLinear', () => {
       'effects-default': { stiffness: 1600, damping: 1 },
       'effects-slow': { stiffness: 800, damping: 1 },
     });
-    expect(
-      motionProperties['--md-sys-motion-button-press-duration'],
-    ).toBe('var(--md-sys-motion-effects-fast-duration)');
+    expect(motionProperties['--md-sys-motion-button-press-duration']).toBe(
+      'var(--md-sys-motion-effects-fast-duration)',
+    );
     expect(motionProperties['--md-sys-motion-button-press-easing']).toBe(
       'var(--md-sys-motion-effects-fast-easing)',
     );

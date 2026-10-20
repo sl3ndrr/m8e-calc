@@ -302,7 +302,9 @@ test('pointer recorder retains live frames after completion and detects a snap',
       await button.evaluate((node) => {
         for (const visual of [
           node,
-          ...node.querySelectorAll('.ui-button-surface, .ui-button-content'),
+          ...Array.from(
+            node.querySelectorAll('.ui-button-surface, .ui-button-content'),
+          ),
         ])
           (visual as HTMLElement).style.transition = 'none';
       });

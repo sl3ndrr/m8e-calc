@@ -24,15 +24,9 @@ jobs:
       - run: npm install --global npm@11.19.0
       - run: npm ci --engine-strict
       - run: npx playwright install --with-deps chromium firefox webkit
-      - name: Formatting diagnostic (final head must be clean)
+      - name: Verify formatting without changing the candidate
         id: formatting
-        continue-on-error: true
-        run: |
-          npx prettier --write e2e/buttonContractCases.ts e2e/calculatorCapture.ts e2e/calculator-rendering.spec.ts e2e/components.spec.ts e2e/ap36-motion.spec.ts e2e/ap36-gallery.spec.ts src/ui/Button.css src/ui/Button.tsx src/ui/StateLayer.css src/ui/keypad/Keypad.css src/styles/motion.ts src/styles/motion.test.ts src/styles/tokens.css .github/workflows/ap36-evidence.yml docs/AP41.md docs/COMPONENTS.md docs/DESIGN.md docs/ROADMAP.md AGENTS.md
-          mkdir -p test-results/ap41
-          tar -czf test-results/ap41/prettier.tgz -C node_modules prettier
-          git diff > test-results/ap41/format.patch
-          git diff --exit-code
+        run: npx prettier --check .
       - name: Same-run current main baseline, original dependencies
         id: before
         continue-on-error: true
@@ -62,11 +56,11 @@ jobs:
           npm run build:gallery
       - name: Existing AP36 cases plus common button regressions in three engines
         id: browsers
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: npx playwright test --config=playwright.ap36.config.ts --reporter=list --output=test-results/ap41/after
       - name: AP19 real frames, glyphs, native zoom and calculator behavior
         id: rendering
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: npx playwright test e2e/calculator-rendering.spec.ts e2e/calculator-native-zoom.spec.ts e2e/simple-calculator.spec.ts e2e/scientific.spec.ts --project=chromium --trace=on --workers=1 --output=test-results/ap41/rendering
       - name: Require all phases without retries or new exceptions
         if: always()

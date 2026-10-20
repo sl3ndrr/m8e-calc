@@ -137,21 +137,41 @@ export async function recordFrames(
           const layer = node.querySelector('.ui-state-layer');
           const content = node.querySelector('.ui-button-content');
           const box = node.getBoundingClientRect();
-          const hit = document.elementFromPoint(box.left + 1, box.top + box.height / 2);
+          const hit = document.elementFromPoint(
+            box.left + 1,
+            box.top + box.height / 2,
+          );
           const visualBox = surface.getBoundingClientRect();
           const contentBox = content?.getBoundingClientRect();
-          const ring = parseFloat(host.outlineWidth) + parseFloat(host.outlineOffset);
+          const ring =
+            parseFloat(host.outlineWidth) + parseFloat(host.outlineOffset);
           let focusClipped = false;
-          for (let parent = node.parentElement; parent; parent = parent.parentElement) {
+          for (
+            let parent = node.parentElement;
+            parent;
+            parent = parent.parentElement
+          ) {
             const s = getComputedStyle(parent);
             const r = parent.getBoundingClientRect();
-            if (s.overflowX !== 'visible' && (box.left - ring < r.left || box.right + ring > r.right)) focusClipped = true;
-            if (s.overflowY !== 'visible' && (box.top - ring < r.top || box.bottom + ring > r.bottom)) focusClipped = true;
+            if (
+              s.overflowX !== 'visible' &&
+              (box.left - ring < r.left || box.right + ring > r.right)
+            )
+              focusClipped = true;
+            if (
+              s.overflowY !== 'visible' &&
+              (box.top - ring < r.top || box.bottom + ring > r.bottom)
+            )
+              focusClipped = true;
           }
           const corners = (element: Element) => {
             const s = getComputedStyle(element);
-            return [s.borderTopLeftRadius, s.borderTopRightRadius,
-              s.borderBottomRightRadius, s.borderBottomLeftRadius];
+            return [
+              s.borderTopLeftRadius,
+              s.borderTopRightRadius,
+              s.borderBottomRightRadius,
+              s.borderBottomLeftRadius,
+            ];
           };
           result.push({
             time: performance.now(),
@@ -176,7 +196,12 @@ export async function recordFrames(
             outline: host.outlineStyle,
             outlineOffset: host.outlineOffset,
             focusClipped,
-            contentInsideSurface: !contentBox || (contentBox.left >= visualBox.left - 1 && contentBox.right <= visualBox.right + 1 && contentBox.top >= visualBox.top - 1 && contentBox.bottom <= visualBox.bottom + 1),
+            contentInsideSurface:
+              !contentBox ||
+              (contentBox.left >= visualBox.left - 1 &&
+                contentBox.right <= visualBox.right + 1 &&
+                contentBox.top >= visualBox.top - 1 &&
+                contentBox.bottom <= visualBox.bottom + 1),
             background: style.backgroundColor,
           });
         }
