@@ -229,3 +229,9 @@ Pause. Die 4K-/Mixed-Gates des AP43-Laufs bestehen; ein separater AP28-Lauf
 bleibt mit 48,00384 <55 FPS rot. Deshalb keine pauschale Performancefreigabe
 oder Schließung von #43. Rohbelege, Zeit-/Latenzgrenzen und echte Laufzuordnung:
 [AP43.md](AP43.md).
+
+`df91629` bestätigt alle zwölf neuen Fälle in Chromium/Firefox und den
+erweiterten Pending-Cleanup sowie einen grünen eigenständigen AP28-Lauf.
+WebKit benötigt nach Korrektur der Beobachtungsdauer/Slideranzeige eigene
+neue Ergebnisse; ein HTTP-502 im Quellencheck blockiert zusätzlich die CI.
+Das rote AP28-Artefakt bleibt samt aller Rohfenster dauerhaft erhalten.

@@ -39,7 +39,7 @@ jobs:
       - run: |
           export GITHUB_SHA="$AP43_HEAD"
           npm run check
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install --with-deps chromium webkit
       - name: Original main must expose the defect with the same frame collector
         env:
           AP43_BASELINE: '1'
@@ -73,6 +73,14 @@ jobs:
           status=0
           npx playwright test --project=chromium-graph-performance --no-deps --workers=1 --retries=0 --output=test-results/ap43-performance || status=$?
           node scripts/ap43-report.mjs test-results/ap43-after/browser
+          exit "$status"
+      - name: WebKit Full motion and slow Worker, no retries
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: test-results/ap43-webkit/results.json
+        run: |
+          status=0
+          npx playwright test e2e/graph-parameters.spec.ts --project=webkit --workers=1 --retries=0 --reporter=list,json --output=test-results/ap43-webkit/browser || status=$?
+          node scripts/ap43-report.mjs test-results/ap43-webkit/browser
           exit "$status"
       - uses: actions/upload-artifact@v7
         if: always()

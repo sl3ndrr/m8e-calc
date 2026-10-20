@@ -210,3 +210,7 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
   Framebelege sind dauerhaft gespeichert. Ein separater AP28-Vergleich auf
   `6662ec5` bleibt bei 48,00384 <55 FPS rot; Ursache/Performancefreigabe offen.
   Der abschließende PR-Head benötigt seine eigenen Pflichtchecks.
+  `df91629`: zwölf neue Chromium-/Firefoxfälle und eigenständiger AP28-Lauf
+  bestanden. WebKit-Messfenster/Slideranzeige werden korrigiert; vollständige
+  CI bleibt zusätzlich am HTTP-502 eines historischen Quellenlinks blockiert.
+  Der frühere rote AP28-Lauf ist samt Pan-/Hidden-Pan-Rohfenstern erhalten.

@@ -58,7 +58,12 @@ async function finalValue(page: Page) {
     snapshot.requested.curves[0]?.signature,
   );
   expect(snapshot.accepted[0]?.signature).toBe(snapshot.rendered[0]?.signature);
-  expect(JSON.parse(snapshot.rendered[0].signature).params.a).toBe(value);
+  // The native slider normalizes decimal step display. Freshness above still
+  // requires byte-for-byte model/request/render signature equality.
+  const modelValue = JSON.parse(snapshot.rendered[0].signature).params.a;
+  const magnitude = Math.max(Math.abs(modelValue), Math.abs(value));
+  const ulp = 2 ** (Math.floor(Math.log2(magnitude)) - 52);
+  expect(Math.abs(modelValue - value)).toBeLessThanOrEqual(ulp);
   expect(snapshot.rendered[0]?.length).toBeGreaterThan(0);
   return snapshot;
 }
@@ -102,6 +107,15 @@ for (const input of [
     await page.waitForTimeout(1600);
     await range(page, '1', '2,5');
     await page.waitForTimeout(1600);
+    await expect
+      .poll(
+        () =>
+          page.evaluate(
+            () => (window as ProbeWindow).__parameterProbe.frames.length,
+          ),
+        { timeout: 15000 },
+      )
+      .toBeGreaterThan(120);
     await page.getByRole('button', { name: 'Parameter a anhalten' }).click();
     await ready(page);
     const probe = await readProbe(page);
@@ -189,6 +203,15 @@ test('Full slow Worker over 50 ms presents ongoing geometry, keeps export pendin
   ).toBeVisible();
   await page.getByRole('alertdialog').getByRole('button').click();
   await page.waitForTimeout(2000);
+  await expect
+    .poll(
+      () =>
+        page.evaluate(
+          () => (window as ProbeWindow).__parameterProbe.frames.length,
+        ),
+      { timeout: 15000 },
+    )
+    .toBeGreaterThan(120);
   await page.getByRole('button', { name: 'Parameter a anhalten' }).click();
   const final = await finalValue(page);
   expect(final.rendered[0]?.born).toBe(initialBirth);
