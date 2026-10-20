@@ -214,3 +214,7 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
   bestanden. WebKit-Messfenster/Slideranzeige werden korrigiert; vollständige
   CI bleibt zusätzlich am HTTP-502 eines historischen Quellenlinks blockiert.
   Der frühere rote AP28-Lauf ist samt Pan-/Hidden-Pan-Rohfenstern erhalten.
+  `68b8c1d`: check und volle Chromium-/Firefoxmatrix bestanden, Quellencheck
+  grün. AP28-Pflichtjob rot (48,98223 FPS), unabhängiger AP28-Lauf grün.
+  WebKit erhält nach kaltem Seitenstart und einer nicht beobachtbaren
+  Dialogsekunde eine gezielte Harnesskorrektur bei unveränderten Graphgates.

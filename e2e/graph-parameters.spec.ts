@@ -9,7 +9,10 @@ import {
 } from './graphParameterProbe';
 
 test.use({ serviceWorkers: 'block' });
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page, browserName }, info) => {
+  // Cold WebKit page creation can consume ~20 s before the measured actions.
+  // Only the harness budget changes; sampling and performance deadlines do not.
+  if (browserName === 'webkit') info.setTimeout(60000);
   await page.setViewportSize({ width: 1600, height: 1000 });
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await installParameterProbe(page);
@@ -202,7 +205,10 @@ test('Full slow Worker over 50 ms presents ongoing geometry, keeps export pendin
     ),
   ).toBeVisible();
   await page.getByRole('alertdialog').getByRole('button').click();
-  await page.waitForTimeout(2000);
+  // Keep every frame, including the dialog interaction. The fixed progress
+  // windows cover uninterrupted playback after that traced UI interaction.
+  const progressStart = await page.evaluate(() => performance.now());
+  await page.waitForTimeout(3200);
   await expect
     .poll(
       () =>
@@ -215,7 +221,7 @@ test('Full slow Worker over 50 ms presents ongoing geometry, keeps export pendin
   await page.getByRole('button', { name: 'Parameter a anhalten' }).click();
   const final = await finalValue(page);
   expect(final.rendered[0]?.born).toBe(initialBirth);
-  const probe = await readProbe(page);
+  const probe = { ...(await readProbe(page)), progressStart };
   await writeFile(
     info.outputPath('slow-worker-frames.json'),
     JSON.stringify(probe),
@@ -233,14 +239,15 @@ test('Full slow Worker over 50 ms presents ongoing geometry, keeps export pendin
     ),
   );
   expect(signatures.size).toBeGreaterThan(6);
-  // Progress in each fixed one-second window, not just a final fresh result.
+  // Progress in each fixed quiet one-second window, not just a final result.
   const start = probe.frames[0]?.at ?? 0;
   for (let second = 0; second < 3; second++) {
     const window = probe.frames.filter(
       (frame) =>
-        frame.at >= start + second * 1000 &&
-        frame.at < start + (second + 1) * 1000,
+        frame.at >= progressStart + second * 1000 &&
+        frame.at < progressStart + (second + 1) * 1000,
     );
+    expect(window.length).toBeGreaterThanOrEqual(2);
     expect(
       new Set(window.flatMap((frame) => frame.rendered.map((p) => p.signature)))
         .size,

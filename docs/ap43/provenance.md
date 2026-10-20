@@ -44,3 +44,15 @@ erweitert den Vorher-Browservergleich von zwei auf fünf Kurventypen.
 Beide Paare bleiben erhalten; es wird kein günstigeres FPS-Fenster ausgewählt.
 Der nachfolgende PR-Head hat eigene Checks und ist kein neuer Pages-SHA.
 Es wurde nichts veröffentlicht.
+
+## Weitere getrennte Fenster
+
+`ap28-ci-68b8c1d.ndjson` ist das vollständige After-Objekt des roten
+AP28-Pflichtjobs in CI 39490426242, Job 118862757332. Quell- und Buildidentität
+im unveränderten JSON sind der Prüf-Merge `6a3f3f6` zu PR-Head `68b8c1d`.
+Artefakt 12296405303, ZIP SHA-256
+`06383c22cd90abf32a150653987081b9cdfcbf38607755bc3b5ed3402a7858ca`,
+lokal gegen die heruntergeladenen Bytes verifiziert. Der erfolgreiche
+unabhängige AP28-Lauf 39490426246 hat Artefakt 12296395823, Uploadhash
+`936a08d88a440d0977d4eae8b97fd101a347d6760df7bb12c0608f1696e2a266`.
+Beide Ergebnisse gehören zu eigenen tatsächlichen Runnerfenstern.

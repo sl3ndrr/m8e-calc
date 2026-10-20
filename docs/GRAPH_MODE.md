@@ -235,3 +235,8 @@ erweiterten Pending-Cleanup sowie einen grünen eigenständigen AP28-Lauf.
 WebKit benötigt nach Korrektur der Beobachtungsdauer/Slideranzeige eigene
 neue Ergebnisse; ein HTTP-502 im Quellencheck blockiert zusätzlich die CI.
 Das rote AP28-Artefakt bleibt samt aller Rohfenster dauerhaft erhalten.
+
+`68b8c1d` besteht check, Chromium/Firefox und den unabhängigen AP28-Vergleich.
+Der AP28-Pflichtjob desselben Stands bleibt mit 48,98223 FPS rot; der
+Quellencheck ist dort grün. Zwei weitere WebKit-Harnessprobleme und die
+begrenzte Korrektur sind in AP43 dokumentiert; keine Performancefreigabe.
