@@ -317,9 +317,10 @@ test('platform theme reveal retargets and stops on Off and OS reduction', async 
   await idle(page, true);
 });
 
+test.use({
+  trace: { mode: 'on', screenshots: false, snapshots: false, sources: true },
+});
+
 test.describe('common button foundation', () => {
-  test.use({
-    trace: { mode: 'on', screenshots: false, snapshots: false, sources: true },
-  });
   buttonContractCases(true);
 });
