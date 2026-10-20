@@ -1,3 +1,4 @@
+import { buttonContractCases } from './buttonContractCases';
 import { expect, test, type Locator } from '@playwright/test';
 import {
   attach,
@@ -315,3 +316,5 @@ test('platform theme reveal retargets and stops on Off and OS reduction', async 
   await expect(page.locator('.theme-snapshot')).toHaveCount(0);
   await idle(page, true);
 });
+
+buttonContractCases(true);

@@ -95,7 +95,9 @@ export function Button({
   };
   const content = (
     <>
-      <StateLayer />
+      <span className="ui-button-surface" aria-hidden="true">
+        <StateLayer />
+      </span>
       <span className="ui-button-content">{children}</span>
     </>
   );

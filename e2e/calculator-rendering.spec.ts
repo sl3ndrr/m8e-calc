@@ -4,6 +4,9 @@ import { expect, test, type Page, type Locator } from '@playwright/test';
 import {
   captureCalculatorValue,
   calculatorInkPixels,
+  recordFrames,
+  readFrames,
+  frames,
 } from './calculatorCapture';
 
 // Feature-state checks are isolated from SW update toasts; the production
@@ -26,52 +29,6 @@ async function settle(locator: Locator) {
     );
   });
 }
-async function recordFrames(
-  button: Locator,
-  event: 'pointerdown' | 'pointerup' | null,
-  count = 12,
-) {
-  // Arm the browser-side recorder before input. Resolving a Locator after the
-  // event can consume most of the 421-ms transition on a loaded CI runner.
-  return button.evaluateHandle(
-    (node, { event, count }) => {
-      const samples = (async () => {
-        if (event)
-          await new Promise<void>((resolve) =>
-            node.addEventListener(event, () => resolve(), { once: true }),
-          );
-        const result = [];
-        for (let frame = 0; frame < count; frame++) {
-          await new Promise(requestAnimationFrame);
-          const style = getComputedStyle(node);
-          result.push({
-            time: performance.now(),
-            radius: style.borderRadius,
-            transform: style.transform,
-            width: (node as HTMLElement).offsetWidth,
-            height: (node as HTMLElement).offsetHeight,
-            outline: style.outlineStyle,
-            background: style.backgroundColor,
-          });
-        }
-        return result;
-      })();
-      return { samples };
-    },
-    { event, count },
-  );
-}
-async function readFrames(recording: Awaited<ReturnType<typeof recordFrames>>) {
-  try {
-    return await recording.evaluate(({ samples }) => samples);
-  } finally {
-    await recording.dispose();
-  }
-}
-async function frames(button: Locator, count = 12) {
-  return readFrames(await recordFrames(button, null, count));
-}
-
 // Viewport/DPR matrix supplements the real tab zoom in calculator-native-zoom.
 // CSS zoom and disabled-animation pictures do not replace moving-frame checks.
 for (const [width, height, zoom, uiSize, theme, language] of [
@@ -270,7 +227,7 @@ for (const [id, key, label] of [
       // Capture an actual CSS transition at its middle, using the browser's
       // animation clock, then resume it. Live rAF samples above are independent.
       await button.evaluate((node) => {
-        for (const animation of node.getAnimations()) {
+        for (const animation of node.getAnimations({ subtree: true })) {
           animation.pause();
           animation.currentTime =
             Number(animation.effect?.getTiming().duration) / 2;
@@ -284,7 +241,7 @@ for (const [id, key, label] of [
           contentType: 'image/png',
         });
       await button.evaluate((node) =>
-        node.getAnimations().forEach((a) => a.play()),
+        node.getAnimations({ subtree: true }).forEach((a) => a.play()),
       );
       const upRecording = await recordFrames(button, 'pointerup');
       await page.mouse.up();
@@ -343,7 +300,8 @@ test('pointer recorder retains live frames after completion and detects a snap',
   for (const transition of ['live', 'snap'] as const) {
     if (transition === 'snap')
       await button.evaluate((node) => {
-        (node as HTMLElement).style.transition = 'none';
+        for (const visual of [node, ...node.querySelectorAll('.ui-button-surface, .ui-button-content')])
+          (visual as HTMLElement).style.transition = 'none';
       });
     await button.hover();
     const recording = await recordFrames(button, 'pointerdown');
@@ -588,3 +546,35 @@ test('presentation uses the same bounded fit instead of overriding its font size
     contentType: 'image/png',
   });
 });
+
+for (const mode of ['simple', 'scientific']) {
+  test(`all ${mode} keypad roles preserve live shape and hit area`, async ({ page }, info) => {
+    await page.setViewportSize({ width: 1920, height: 1080 });
+    await page.goto(`/m8e-calc/#/${mode}`);
+    const keys = mode === 'simple'
+      ? ['9', '+', 'equals', 'clear', 'backspace', 'MS']
+      : ['9', '+', 'equals', 'clear', '1-0'];
+    for (const id of keys) {
+      const button = page.locator(`[data-key="${id}"] button`);
+      await expect(button).toBeVisible();
+      await button.scrollIntoViewIfNeeded();
+      await settle(button);
+      const rest = (await frames(button, 1))[0];
+      const recording = await recordFrames(button, 'pointerdown');
+      await button.hover();
+      await page.mouse.down();
+      const down = await readFrames(recording);
+      await page.mouse.up();
+      const up = await frames(button);
+      for (const f of [...down, ...up]) {
+        expect(f.corners).toEqual(rest?.corners);
+        expect(f.layerCorners).toEqual(rest?.corners);
+        expect(f.box).toEqual(rest?.box);
+        expect(f.hit).toBe(true);
+        expect(f.hostTransform).toBe('none');
+      }
+      expect(new Set(down.map((f) => f.transform)).size).toBeGreaterThan(1);
+      await info.attach(`keypad-${mode}-${id}`, { body: JSON.stringify({ rest, down, up }), contentType: 'application/json' });
+    }
+  });
+}

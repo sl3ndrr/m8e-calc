@@ -8,6 +8,89 @@ concurrency:
   group: ap36-${{ github.event.pull_request.head.ref || github.ref_name }}
   cancel-in-progress: true
 jobs:
+  button-contract:
+    name: AP41 button contract (AP19/AP36 recorders)
+    if: github.head_ref == 'feat/ap41-button-feedback'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          check-latest: true
+      - run: npm install --global npm@11.19.0
+      - run: npm ci --engine-strict
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Formatting diagnostic (final head must be clean)
+        id: formatting
+        continue-on-error: true
+        run: |
+          npx prettier --write e2e/buttonContractCases.ts e2e/calculatorCapture.ts e2e/calculator-rendering.spec.ts e2e/components.spec.ts e2e/ap36-motion.spec.ts e2e/ap36-gallery.spec.ts src/ui/Button.css src/ui/Button.tsx src/ui/StateLayer.css src/ui/keypad/Keypad.css src/styles/motion.ts src/styles/tokens.css .github/workflows/ap36-evidence.yml docs/AP41.md docs/COMPONENTS.md docs/DESIGN.md docs/ROADMAP.md AGENTS.md
+          mkdir -p test-results/ap41
+          git diff > test-results/ap41/format.patch
+          git diff --exit-code
+      - name: Same-run current main baseline, original dependencies
+        id: before
+        continue-on-error: true
+        run: |
+          baseline="$RUNNER_TEMP/ap41-before"
+          git fetch --depth=1 origin 65ce593bc2fe7065c3f43d29502f2023b49cf58b
+          git worktree add "$baseline" FETCH_HEAD
+          cp e2e/ap36*.ts e2e/buttonContractCases.ts e2e/calculatorCapture.ts "$baseline/e2e/"
+          cp playwright.ap36.config.ts "$baseline/"
+          cd "$baseline"
+          npm ci --engine-strict
+          export GITHUB_SHA=65ce593bc2fe7065c3f43d29502f2023b49cf58b
+          npm run build
+          npm run build:gallery
+          AP41_PHASE=before npx playwright test --config=playwright.ap36.config.ts --grep 'button contract .*: live press/release' --reporter=list --output="$GITHUB_WORKSPACE/test-results/ap41/before"
+      - name: Candidate check, generated tokens and separate gallery build
+        id: build
+        if: ${{ !cancelled() }}
+        env:
+          GITHUB_SHA: ${{ github.event.pull_request.head.sha }}
+          AP30_SOURCE: ${{ github.event.pull_request.head.sha }}
+        run: |
+          npm run tokens
+          git diff --exit-code src/styles/tokens.css
+          npm run check
+          node scripts/ap30-measure.mjs test-results/ap41/budget
+          npm run build:gallery
+      - name: Existing AP36 cases plus common button regressions in three engines
+        id: browsers
+        if: ${{ !cancelled() }}
+        run: npx playwright test --config=playwright.ap36.config.ts --reporter=list --output=test-results/ap41/after
+      - name: AP19 real frames, glyphs, native zoom and calculator behavior
+        id: rendering
+        if: ${{ !cancelled() }}
+        run: npx playwright test e2e/calculator-rendering.spec.ts e2e/calculator-native-zoom.spec.ts e2e/simple-calculator.spec.ts e2e/scientific.spec.ts --project=chromium --trace=on --workers=1 --output=test-results/ap41/rendering
+      - name: Require all phases without retries or new exceptions
+        if: always()
+        env:
+          FORMATTING: ${{ steps.formatting.outcome }}
+          BEFORE: ${{ steps.before.outcome }}
+          BUILD: ${{ steps.build.outcome }}
+          BROWSERS: ${{ steps.browsers.outcome }}
+          RENDERING: ${{ steps.rendering.outcome }}
+        run: |
+          test "$FORMATTING" = success
+          test "$BEFORE" = success
+          test "$BUILD" = success
+          test "$BROWSERS" = success
+          test "$RENDERING" = success
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap41-button-contract
+          path: |
+            test-results/ap41/
+            dist/
+            dist-gallery/
+          include-hidden-files: true
+          retention-days: 14
   evidence:
     if: github.head_ref == 'feat/ap36-motion14'
     runs-on: ubuntu-latest

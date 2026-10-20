@@ -22,8 +22,3 @@
   border-start-end-radius: var(--md-sys-shape-full);
   border-end-end-radius: var(--md-sys-shape-full);
 }
-.ui-button-group[data-connected]
-  > .ui-button:where([data-pressed], .ui-state-pressed) {
-  flex-grow: 1.6;
-  transform: none;
-}

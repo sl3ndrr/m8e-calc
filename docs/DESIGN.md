@@ -151,3 +151,13 @@ Error/On Error; Hover, Pressed, Fokus und Disabled bleiben React-Aria-Zustände.
 ThemeSwitch zeigt genau Sonne / Auto / Mond. Der aktuelle Systemzustand bleibt
 im zugänglichen Namen und Tooltip des Auto-Segments, ohne zusätzlichen sichtbaren
 Indikator. Tests und Bildreproduktion: [AP20.md](AP20.md).
+
+## AP41 · Press ohne Formverlust
+
+Normales Button-Feedback verändert keine Shape-Geometrie. Die zentralen
+`--md-sys-motion-button-press-*`-Tokens koppeln 0,97 Skalierung an die monotone
+Effects-Fast-Kurve. Die übrigen Spatial-/Effects-Springs bleiben unverändert.
+Klickziel und Fokusring stehen still; nur Oberfläche und Inhalt skalieren.
+Selected-Formen wechseln diskret zwischen den vorhandenen Shape-Endpunkten.
+State-Layer erbt den Radius der Oberfläche und bleibt innerhalb ihrer Rundung.
+Vertrag und Messnachweise: [COMPONENTS](COMPONENTS.md), [AP41](AP41.md).

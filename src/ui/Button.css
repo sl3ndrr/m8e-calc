@@ -10,42 +10,61 @@
   padding: 0.75rem 1.5rem;
   border: 1px solid transparent;
   border-radius: var(--md-sys-shape-full);
-  background: var(--md-sys-color-primary);
+  --ui-button-background: var(--md-sys-color-primary);
+  --ui-button-border: transparent;
+  --ui-button-shadow: none;
+  --ui-button-press-transform: none;
+  background: transparent;
   color: var(--md-sys-color-on-primary);
   font-size: var(--md-sys-typescale-label-large-size);
   font-weight: var(--md-sys-typescale-label-large-emphasized-weight);
-  transition:
-    border-radius var(--md-sys-motion-spatial-fast-duration)
-      var(--md-sys-motion-spatial-fast-easing),
-    transform var(--md-sys-motion-spatial-fast-duration)
-      var(--md-sys-motion-spatial-fast-easing),
-    flex-grow var(--md-sys-motion-spatial-fast-duration)
-      var(--md-sys-motion-spatial-fast-easing);
+  /* The native button is the stable hit target and owns the focus ring.
+     Only its paint surface and content respond to press. */
+}
+.ui-button-surface {
+  position: absolute;
+  inset: -1px;
+  border: inherit;
+  border-color: var(--ui-button-border);
+  border-radius: inherit;
+  background: var(--ui-button-background);
+  box-shadow: var(--ui-button-shadow);
+  overflow: clip;
+  pointer-events: none;
+}
+.ui-button-surface,
+.ui-button-content {
+  transform: var(--ui-button-press-transform);
+  transform-origin: center;
+  transition: transform var(--md-sys-motion-button-press-duration)
+    var(--md-sys-motion-button-press-easing);
 }
 .ui-button-content {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  border-radius: inherit;
   pointer-events: none;
 }
 .ui-button[data-variant='tonal'] {
-  background: var(--md-sys-color-secondary-container);
+  --ui-button-background: var(--md-sys-color-secondary-container);
   color: var(--md-sys-color-on-secondary-container);
 }
 .ui-button[data-variant='elevated'] {
-  background: var(--md-sys-color-surface-container-low);
+  --ui-button-background: var(--md-sys-color-surface-container-low);
   color: var(--md-sys-color-primary);
-  box-shadow: 0 2px 5px
+  --ui-button-shadow: 0 2px 5px
     color-mix(in srgb, var(--md-sys-color-shadow) 20%, transparent);
 }
 .ui-button[data-variant='outlined'],
 .ui-button[data-variant='text'] {
-  background: transparent;
+  --ui-button-background: transparent;
   color: var(--md-sys-color-primary);
 }
 .ui-button[data-variant='outlined'] {
-  border-color: var(--md-sys-color-outline);
+  --ui-button-border: var(--md-sys-color-outline);
 }
 .ui-button[data-size='xs'] {
   padding: 0.35rem 0.75rem;
@@ -69,33 +88,31 @@
 }
 .ui-button[data-selected] {
   border-radius: var(--md-sys-shape-large);
-  background: var(--md-sys-color-tertiary-container);
+  --ui-button-background: var(--md-sys-color-tertiary-container);
   color: var(--md-sys-color-on-tertiary-container);
 }
 .ui-button[data-shape='square'][data-selected] {
   border-radius: var(--md-sys-shape-full);
 }
-.ui-button:where([data-pressed], .ui-state-pressed) {
-  border-radius: var(--md-sys-shape-small);
-  transform: scale(var(--md-sys-motion-press-scale));
+.ui-button:where([data-pressed], .ui-state-pressed):not([data-disabled]) {
+  --ui-button-press-transform: scale(var(--md-sys-motion-button-press-scale));
 }
 .ui-button[data-disabled] {
-  background: color-mix(
+  --ui-button-background: color-mix(
     in srgb,
     var(--md-sys-color-on-surface) 12%,
     transparent
   );
   color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
-  box-shadow: none;
+  --ui-button-shadow: none;
   cursor: default;
 }
-:root[data-motion='reduced']
-  .ui-button:where([data-pressed], .ui-state-pressed),
-:root[data-motion='off'] .ui-button:where([data-pressed], .ui-state-pressed) {
-  transform: none;
+:root[data-motion='reduced'] .ui-button,
+:root[data-motion='off'] .ui-button {
+  --ui-button-press-transform: none !important;
 }
 @media (prefers-reduced-motion: reduce) {
-  .ui-button:where([data-pressed], .ui-state-pressed) {
-    transform: none;
+  .ui-button {
+    --ui-button-press-transform: none !important;
   }
 }

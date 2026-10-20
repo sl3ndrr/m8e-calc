@@ -17,9 +17,9 @@
 
 | Bausteine                             | Verhalten und Varianten                                                                                                                                                                                                                                                                          |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Button                                | filled, tonal, elevated, outlined, text; xs/sm/md/lg/xl; round/square; Enter und Leertaste. Toggle über `isSelected`/`defaultSelected` und `onSelectedChange`. Radius und leichte Skalierung beim Drücken; ausgewählte Toggle-Form invertiert round/square.                                      |
+| Button                                | filled, tonal, elevated, outlined, text; xs/sm/md/lg/xl; round/square; Enter und Leertaste. Toggle über `isSelected`/`defaultSelected` und `onSelectedChange`. Konstante Press-Grundform, leichte Skalierung der internen Oberfläche; ausgewählte Toggle-Form invertiert round/square ohne Radiusinterpolation.                                      |
 | IconButton, Icon                      | IconButton nutzt Button-Verhalten; lokale Material Symbols mit interpolierter FILL-Achse. Zwanzig vorhandene Glyphen als `IconName`-Union. Neue Glyphen zuerst in `scripts/subset-fonts.py` aufnehmen und lokal neu generieren.                                                                  |
-| ButtonGroup                           | React-Aria-Toolbar mit einem Tab-Einstieg und Pfeilnavigation. `connected` teilt eine feste Breite: gedrückte Aktion wächst, Nachbarn schrumpfen mit Spatial Fast.                                                                                                                               |
+| ButtonGroup                           | React-Aria-Toolbar mit einem Tab-Einstieg und Pfeilnavigation. `connected` teilt eine feste Breite: Press verändert weder Zielbreite noch Nachbarlayout.                                                                                                                               |
 | SegmentedControl                      | Native Radios über React Aria, ein Tab-Stopp, Pfeile mit Wraparound und Überspringen deaktivierter Optionen; Home/End zum ersten/letzten aktivierten Segment.                                                                                                                                    |
 | Fab, ExtendedFab, FabMenu             | FABs verwenden Button-Press-Verhalten; FAB-Menü verwendet MenuTrigger, Pfeile/Enter und Escape mit Fokus-Rückgabe.                                                                                                                                                                               |
 | NavigationRail                        | Links in zugeklappter/aufgeklappter Rail, `aria-current`, Textbadge und JS-Spring-Aktivpille; Tab/Enter für Navigation.                                                                                                                                                                          |
@@ -140,3 +140,22 @@ Indikator. Tests und Bildreproduktion: [AP20.md](AP20.md).
 
 Die Komponentenbibliothek bleibt erhalten; nur das Lab wird aus der normalen
 Auslieferung ausgeschlossen. Getrennte Build-/QA-Nachweise: [AP23.md](AP23.md).
+
+## AP41 · Gemeinsamer Buttonvertrag
+
+Button, IconButton und ihre Ableitungen behalten beim normalen Press/Release
+ihre rollenbezogene Rundung. Der native Button bleibt untransformiertes,
+unverändertes Klickziel (mindestens 48×48 px) mit äußerem Fokusring. Eine interne,
+inert dekorative Oberfläche trägt Hintergrund, Rand, Schatten und den geclippten
+State-Layer; sie und der Inhalt skalieren zentral mit Button-Press-Tokens.
+Paint-Anpassungen verwenden `--ui-button-background`, `--ui-button-border` und
+`--ui-button-shadow`; die Form kommt weiterhin vom Radius des Buttons.
+Connected-Gruppen ändern beim Press keine Flexbreiten.
+
+Selected invertiert weiterhin round/square, setzt den Zielradius aber unmittelbar.
+Es gibt keinen Spring zwischen Full und einem kleinen Radius. CSS-Transitions
+setzen Press/Release vom aktuellen sichtbaren Wert fort, ohne Timer, Mindesthold
+oder Verzögerung von React-Aria-Aktionen. Globale Keypad-Kürzel nutzen denselben
+visuellen Pfad. Reduced/Off und OS-Reduktion unterdrücken die Skalierung und
+beenden laufende CSS-Bewegung; Entfernen aus dem DOM beendet deren Animationen.
+Details, gemessene Grenzen und Reproduktion: [AP41](AP41.md).

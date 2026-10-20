@@ -40,7 +40,7 @@ test('keyboard focus, expressive press, connected group and slider use real brow
   await page.waitForTimeout(350);
   expect(
     await button.evaluate((e) => getComputedStyle(e).borderRadius),
-  ).not.toBe(initial);
+  ).toBe(initial);
   await page.keyboard.up('Space');
   const group = page.locator(
     '[data-component="ButtonGroup"] [data-state="default"]',
@@ -51,12 +51,11 @@ test('keyboard focus, expressive press, connected group and slider use real brow
   await first.focus();
   await page.keyboard.down('Space');
   await page.waitForTimeout(350);
-  expect((await first.boundingBox())?.width).toBeGreaterThan(
+  expect((await first.boundingBox())?.width).toBeCloseTo(
     (await neighbor.boundingBox())?.width ?? 0,
+    1,
   );
-  expect((await neighbor.boundingBox())?.width).toBeLessThan(
-    before?.width ?? 0,
-  );
+  expect(await neighbor.boundingBox()).toEqual(before);
   await page.keyboard.up('Space');
   const slider = page
     .locator('[data-component="Slider"] [data-state="default"]')

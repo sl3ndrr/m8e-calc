@@ -113,3 +113,74 @@ export async function calculatorInkPixels(
     return count;
   }, png.toString('base64'));
 }
+
+export async function recordFrames(
+  button: Locator,
+  event: 'pointerdown' | 'pointerup' | 'keydown' | 'keyup' | null,
+  count = 12,
+) {
+  // Arm the browser-side recorder before input. Resolving a Locator after the
+  // event can consume most of the 421-ms transition on a loaded CI runner.
+  return button.evaluateHandle(
+    (node, { event, count }) => {
+      const samples = (async () => {
+        if (event)
+          await new Promise<void>((resolve) =>
+            node.addEventListener(event, () => resolve(), { once: true }),
+          );
+        const result = [];
+        for (let frame = 0; frame < count; frame++) {
+          await new Promise(requestAnimationFrame);
+          const surface = node.querySelector('.ui-button-surface') ?? node;
+          const style = getComputedStyle(surface);
+          const host = getComputedStyle(node);
+          const layer = node.querySelector('.ui-state-layer');
+          const content = node.querySelector('.ui-button-content');
+          const box = node.getBoundingClientRect();
+          const hit = document.elementFromPoint(box.left + 1, box.top + box.height / 2);
+          const corners = (element: Element) => {
+            const s = getComputedStyle(element);
+            return [s.borderTopLeftRadius, s.borderTopRightRadius,
+              s.borderBottomRightRadius, s.borderBottomLeftRadius];
+          };
+          result.push({
+            time: performance.now(),
+            radius: style.borderRadius,
+            corners: corners(surface),
+            hostCorners: corners(node),
+            layerCorners: layer ? corners(layer) : [],
+            contentCorners: content ? corners(content) : [],
+            contentTransform: content ? getComputedStyle(content).transform : 'none',
+            layerOpacity: layer ? Number(getComputedStyle(layer).opacity) : 0,
+            clip: style.overflow,
+            hostTransform: host.transform,
+            box: { x: box.x, y: box.y, width: box.width, height: box.height },
+            hit: hit === node || (hit !== null && node.contains(hit)),
+            selected: node.hasAttribute('data-selected'),
+            pressed: node.hasAttribute('data-pressed'),
+            transform: style.transform,
+            width: (node as HTMLElement).offsetWidth,
+            height: (node as HTMLElement).offsetHeight,
+            outline: host.outlineStyle,
+            outlineOffset: host.outlineOffset,
+            background: style.backgroundColor,
+          });
+        }
+        return result;
+      })();
+      return { samples };
+    },
+    { event, count },
+  );
+}
+export async function readFrames(recording: Awaited<ReturnType<typeof recordFrames>>) {
+  try {
+    return await recording.evaluate(({ samples }) => samples);
+  } finally {
+    await recording.dispose();
+  }
+}
+export async function frames(button: Locator, count = 12) {
+  return readFrames(await recordFrames(button, null, count));
+}
+
