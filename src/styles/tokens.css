@@ -248,9 +248,9 @@
   --md-sys-motion-press-scale: 0.96;
   --md-sys-motion-button-press-scale: 0.97;
   --md-sys-motion-button-press-duration: var(
-    --md-sys-motion-effects-fast-duration
+    --md-sys-motion-spatial-fast-duration
   );
-  --md-sys-motion-button-press-easing: var(--md-sys-motion-effects-fast-easing);
+  --md-sys-motion-button-press-easing: var(--md-sys-motion-spatial-fast-easing);
   --md-sys-motion-spatial-fast-duration: 421ms;
   --md-sys-motion-spatial-fast-easing: linear(
     0,

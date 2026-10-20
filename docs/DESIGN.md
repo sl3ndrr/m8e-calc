@@ -155,8 +155,10 @@ Indikator. Tests und Bildreproduktion: [AP20.md](AP20.md).
 ## AP42 · Press ohne Formverlust
 
 Normales Button-Feedback verändert keine Shape-Geometrie. Die zentralen
-`--md-sys-motion-button-press-*`-Tokens koppeln 0,97 Skalierung an die monotone
-Effects-Fast-Kurve. Die übrigen Spatial-/Effects-Springs bleiben unverändert.
+`--md-sys-motion-button-press-*`-Tokens koppeln 0,97 Skalierung an den vorhandenen
+Spatial-Fast-Spring (421ms). Sein Scale-Überschwingen bleibt zwischen 0,965 und
+1,005; kein Radius verwendet diese Kurve. State-Layer nutzt Effects Fast.
+Die globalen Spatial-/Effects-Springs bleiben unverändert.
 Klickziel und Fokusring stehen still; eine gemeinsame Oberfläche mitsamt Inhalt skaliert.
 Selected-Formen wechseln diskret zwischen den vorhandenen Shape-Endpunkten.
 State-Layer erbt den Radius der Oberfläche und bleibt innerhalb ihrer Rundung.

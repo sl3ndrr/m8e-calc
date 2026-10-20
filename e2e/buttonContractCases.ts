@@ -11,6 +11,12 @@ import { attach, held, holdNext, idle, picture, resume } from './ap36Capture';
 type Frame = Awaited<ReturnType<typeof frames>>[number];
 function stable(samples: Frame[], rest: Frame) {
   for (const f of samples) {
+    const scale =
+      f.transform === 'none'
+        ? 1
+        : Number(f.transform.match(/^matrix\(([^,]+)/)?.[1]);
+    expect(scale).toBeGreaterThan(0.965);
+    expect(scale).toBeLessThan(1.005);
     expect(f.corners).toEqual(rest.corners);
     expect(f.hostCorners).toEqual(rest.hostCorners);
     expect(f.layerCorners).toEqual(rest.corners);

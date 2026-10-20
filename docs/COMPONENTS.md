@@ -147,7 +147,10 @@ Button, IconButton und ihre Ableitungen behalten beim normalen Press/Release
 ihre rollenbezogene Rundung. Der native Button bleibt untransformiertes,
 unverändertes Klickziel (mindestens 48×48 px) mit äußerem Fokusring. Eine interne
 Oberfläche enthält Hintergrund, Rand, Schatten, den geclippten State-Layer und
-Inhalt. Ein einziger Transform skaliert sie synchron mit Button-Press-Tokens.
+Inhalt. Ein einziger Transform skaliert sie synchron mit Button-Press-Tokens:
+0,97 und vorhandenes Spatial Fast (421ms), einschließlich kleinem, geprüftem
+Scale-Überschwingen (0,965 < Scale < 1,005). State-Layer nutzt Effects Fast;
+kein Radius wird mit einem Spring interpoliert.
 Paint-Anpassungen verwenden `--ui-button-background`, `--ui-button-border` und
 `--ui-button-shadow`; die Form kommt weiterhin vom Radius des Buttons.
 Abstände setzen `--ui-button-padding-block/inline`, die Randbreite

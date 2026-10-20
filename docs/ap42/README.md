@@ -1,5 +1,9 @@
 # AP42 · Native Build- und Frame-Belege
 
+Diese archivierten Bilder/Frames gehören zur vorherigen Effects-Fast-Variante,
+nicht zur aktuellen Spatial-Fast-Skalierung. Neue Abschlussbelege folgen nach
+bestehenden Gates; die Rollenradien bleiben in beiden Varianten konstant.
+
 Produkt-/Test-SHA `6eca7c7070f0f041bfd72d24c13ffb73d82eb538`,
 main-Gegenprobe `65ce593bc2fe7065c3f43d29502f2023b49cf58b`.
 [Erfolgreicher Lauf](https://github.com/sl3ndrr/m8e-calc/actions/runs/39439567310)

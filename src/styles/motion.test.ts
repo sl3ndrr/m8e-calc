@@ -12,10 +12,10 @@ describe('springToLinear', () => {
       'effects-slow': { stiffness: 800, damping: 1 },
     });
     expect(motionProperties['--md-sys-motion-button-press-duration']).toBe(
-      'var(--md-sys-motion-effects-fast-duration)',
+      'var(--md-sys-motion-spatial-fast-duration)',
     );
     expect(motionProperties['--md-sys-motion-button-press-easing']).toBe(
-      'var(--md-sys-motion-effects-fast-easing)',
+      'var(--md-sys-motion-spatial-fast-easing)',
     );
     expect(
       Number(motionProperties['--md-sys-motion-button-press-scale']),
@@ -23,6 +23,21 @@ describe('springToLinear', () => {
     expect(
       Number(motionProperties['--md-sys-motion-button-press-scale']),
     ).toBeLessThan(1);
+    // The expressive scale spring is bounded even at its overshoot; radius
+    // never uses this curve. Keep the clickable native button untransformed.
+    const scale = Number(
+      motionProperties['--md-sys-motion-button-press-scale'],
+    );
+    const progress = springToLinear(
+      springs['spatial-fast'].stiffness,
+      springs['spatial-fast'].damping,
+    ).samples;
+    for (const value of progress) {
+      expect(1 + (scale - 1) * value).toBeGreaterThan(0.965);
+      expect(1 + (scale - 1) * value).toBeLessThanOrEqual(1);
+      expect(scale + (1 - scale) * value).toBeGreaterThanOrEqual(scale);
+      expect(scale + (1 - scale) * value).toBeLessThan(1.005);
+    }
     for (const [name, spring] of Object.entries(springs)) {
       const result = springToLinear(spring.stiffness, spring.damping);
       expect(result.samples[0]).toBe(0);
