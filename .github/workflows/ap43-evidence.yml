@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       AP43_HEAD: ${{ github.event.pull_request.head.sha }}
+      AP28_HEAD: ${{ github.event.pull_request.head.sha }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -35,7 +36,9 @@ jobs:
         run: |
           npx prettier --write src/features/graph/GraphCanvas.tsx src/features/graph/GraphMode.tsx src/features/graph/FunctionPanel.tsx src/features/graph/renderer.ts src/features/graph/workerProtocol.ts src/features/graph/presentation.ts src/features/graph/presentation.test.ts src/features/graph/samplingQueue.ts src/features/graph/samplingQueue.test.ts e2e/graphParameterProbe.ts e2e/graph-parameters.spec.ts playwright.config.ts docs/AP43.md docs/GRAPH_MODE.md docs/GRAPH.md docs/AP27.md docs/ROADMAP.md AGENTS.md scripts/ap43-report.mjs .github/workflows/ap43-evidence.yml
           git diff --exit-code
-      - run: npm run check
+      - run: |
+          export GITHUB_SHA="$AP43_HEAD"
+          npm run check
       - run: npx playwright install --with-deps chromium
       - name: Original main must expose the defect with the same frame collector
         env:

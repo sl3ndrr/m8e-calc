@@ -187,6 +187,7 @@ test('Full slow Worker over 50 ms presents ongoing geometry, keeps export pendin
       'Die neue Kurve wird noch berechnet. PNG-Export anschließend erneut starten.',
     ),
   ).toBeVisible();
+  await page.getByRole('alertdialog').getByRole('button').click();
   await page.waitForTimeout(2000);
   await page.getByRole('button', { name: 'Parameter a anhalten' }).click();
   const final = await finalValue(page);
