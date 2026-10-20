@@ -21,7 +21,12 @@ export interface ParameterProbe {
   start: () => void;
   stop: () => void;
 }
-export type ProbeWindow = Window & { __parameterProbe: ParameterProbe };
+declare global {
+  interface Window {
+    __parameterProbe: ParameterProbe;
+  }
+}
+export type ProbeWindow = Window;
 
 /** Observe real Path2D strokes and clears, including frames with no curve ink.
  * No fake clock, synthetic geometry, screenshots or readback in the rAF loop.
