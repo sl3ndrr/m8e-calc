@@ -1,28 +1,26 @@
 # AP42 · Native Build- und Frame-Belege
 
-Diese archivierten Bilder/Frames gehören zur vorherigen Effects-Fast-Variante,
-nicht zur aktuellen Spatial-Fast-Skalierung. Neue Abschlussbelege folgen nach
-bestehenden Gates; die Rollenradien bleiben in beiden Varianten konstant.
-
-Produkt-/Test-SHA `6eca7c7070f0f041bfd72d24c13ffb73d82eb538`,
+Produkt-/Test-SHA `47315f82df03a82048bcfef9cb388a091ed1fd47`,
 main-Gegenprobe `65ce593bc2fe7065c3f43d29502f2023b49cf58b`.
-[Erfolgreicher Lauf](https://github.com/sl3ndrr/m8e-calc/actions/runs/39439567310)
+[Erfolgreicher Lauf](https://github.com/sl3ndrr/m8e-calc/actions/runs/39447316474)
 mit 24 Gegenproben, 120 Kandidatenfällen und 59 AP19-/Rechnerfällen;
-[Originalartefakt 12274266536](https://github.com/sl3ndrr/m8e-calc/actions/runs/39439567310#artifacts).
+[Originallauf mit Artefakt 12277606822](https://github.com/sl3ndrr/m8e-calc/actions/runs/39447316474#artifacts).
 Beide `build-info.json` nennen diesen Produkt-SHA und das passende Buildziel.
-24 Vorherfälle enthalten 211 Nullradius-Frames, 24 Nachherfälle keinen.
+24 Vorherfälle enthalten 204 Nullradius-Frames, 24 Nachherfälle keinen.
 Die Kernfälle enthalten jeweils 30 laufende Press- und 18 Release-Frames;
-der erste Press zeigt 4–11, Release 6–11 verschiedene Transformwerte.
-198 weitere Attachments halten unter anderem den zweiten Press, Unterbrechungen
-und Fokus-Pixelgegenproben fest. Diese Dateien bleiben nach Ablauf des
-14-Tage-Actions-Artefakts reviewbar. Der abschließende PR-Head und
-seine Gates werden gesondert im [PR #63](https://github.com/sl3ndrr/m8e-calc/pull/63) genannt.
+der erste Press zeigt 13–27, Release 10–18 verschiedene Transformwerte.
+Gemessene Skalierung: 0,967171 bis 1,002839. Die strengen Scale-, Radius-, Hit-
+und Clippingassertions gelten unverändert für erste und wiederholte Eingabe.
+198 weitere Attachments halten unter anderem zweiten Press, Unterbrechungen,
+reine Tastatur und Fokus-Pixelgegenproben fest. Diese Dateien bleiben nach Ablauf
+des 14-Tage-Actions-Artefakts reviewbar. Der abschließende Dokumentations-Head
+und seine Gates werden im [PR #63](https://github.com/sl3ndrr/m8e-calc/pull/63) genannt.
 
 ## Laufende Frames und Zwischenbilder
 
 Die PNGs sind unveränderte Playwright-Aufnahmen aus den getrennten Produktions-
 und Galeriebauten. Die Press-Bilder halten separat eine echte native CSS-Transition
-bei 120ms fest (Effects Fast: 151ms; main Spatial Fast: 421ms). Die vorher erfassten
+bei 120ms fest (Spatial Fast: 421ms in beiden Builds). Die vorher erfassten
 30 Press- und 18 Release-rAFs pro Fall bleiben unpausiert und sind der laufende
 Bewegungsnachweis. Fokusbilder zeigen zusätzlich den vollständig sichtbaren Ring.
 

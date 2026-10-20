@@ -1,5 +1,5 @@
 {
-  "sha": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+  "sha": "47315f82df03a82048bcfef9cb388a091ed1fd47",
   "node": "v24.22.0",
   "zlib": "1.3.2.1-motley-285e94b",
   "lockSha256": "58692235db9049c660fb9fc6cc43c68b02448ffedbbae9a3678773eb8ce44016",
@@ -8,14 +8,14 @@
   "directory": "dist",
   "initialJavaScript": {
     "raw": 575142,
-    "gzip": 189085
+    "gzip": 189077
   },
   "artifact": {
     "raw": 3239690,
-    "gzip": 1756176
+    "gzip": 1756156
   },
   "initialChunks": [
-    "assets/index-DNRdYDao.js",
+    "assets/index-Cu4FbKMd.js",
     "assets/jsx-runtime-Dk72oS4N.js",
     "assets/Button-BO9S851Z.js",
     "assets/i18n-DFLGf4G8.js",
@@ -23,26 +23,26 @@
     "assets/FocusScope-CCqqZsct.js",
     "assets/useFormValidation-BJqneZKK.js",
     "assets/useSlot-VE8jVIIV.js",
-    "assets/snackbarQueue-CU1MXNwb.js",
-    "assets/IconButton-Dywimf7W.js",
-    "assets/useSpring-D3H5UTvG.js",
+    "assets/snackbarQueue-C-jNNzfe.js",
+    "assets/IconButton-CqgEVljE.js",
+    "assets/useSpring-Cn8bEcaz.js",
     "assets/browserMotion-CDweiHa2.js",
-    "assets/SimpleMode-DyVeo4FY.js",
+    "assets/SimpleMode-7y2hmzqF.js",
     "assets/evaluate-DNTCZB-Z.js",
-    "assets/useModeHistory-CuynDwgE.js",
-    "assets/CopyLinkButton-v3MUa89n.js",
+    "assets/useModeHistory-DJQ-xsa8.js",
+    "assets/CopyLinkButton-B2Tzip1O.js",
     "assets/Keypad-BXHyuaOQ.js"
   ],
   "files": [
     {
       "file": ".vite/manifest.json",
       "raw": 31997,
-      "gzip": 3771
+      "gzip": 3775
     },
     {
-      "file": "assets/AccentPanel-DX5vgMVK.js",
+      "file": "assets/AccentPanel-DsNfpLM4.js",
       "raw": 3417,
-      "gzip": 1347
+      "gzip": 1346
     },
     {
       "file": "assets/Button-BO9S851Z.js",
@@ -70,12 +70,12 @@
       "gzip": 611
     },
     {
-      "file": "assets/Checkbox-Calj66Hm.js",
+      "file": "assets/Checkbox-D7kFfwLP.js",
       "raw": 4193,
       "gzip": 1638
     },
     {
-      "file": "assets/CommandPalette-CPxVY4LV.js",
+      "file": "assets/CommandPalette-D77xX64C.js",
       "raw": 3768,
       "gzip": 1764
     },
@@ -85,19 +85,19 @@
       "gzip": 1845
     },
     {
-      "file": "assets/ConvertMode-kF1-cEER.js",
+      "file": "assets/ConvertMode-DpEFLFPP.js",
       "raw": 21426,
-      "gzip": 7431
+      "gzip": 7434
+    },
+    {
+      "file": "assets/CopyLinkButton-B2Tzip1O.js",
+      "raw": 811,
+      "gzip": 499
     },
     {
       "file": "assets/CopyLinkButton-CzVs3g7c.css",
       "raw": 152,
       "gzip": 136
-    },
-    {
-      "file": "assets/CopyLinkButton-v3MUa89n.js",
-      "raw": 811,
-      "gzip": 499
     },
     {
       "file": "assets/Dialog-BgffhQ21.css",
@@ -115,9 +115,9 @@
       "gzip": 1929
     },
     {
-      "file": "assets/ExpressionEditor-BCOwB9l_.js",
+      "file": "assets/ExpressionEditor-Dm8Qh9Dp.js",
       "raw": 354786,
-      "gzip": 113882
+      "gzip": 113883
     },
     {
       "file": "assets/FocusScope-CCqqZsct.js",
@@ -125,22 +125,22 @@
       "gzip": 4376
     },
     {
+      "file": "assets/GraphMode-B393K9ht.js",
+      "raw": 86570,
+      "gzip": 29979
+    },
+    {
       "file": "assets/GraphMode-CPEJlQ_S.css",
       "raw": 6640,
       "gzip": 1639
     },
     {
-      "file": "assets/GraphMode-D8CqIXdX.js",
-      "raw": 86570,
-      "gzip": 29983
-    },
-    {
-      "file": "assets/HistorySheet-DCM82Kf-.js",
+      "file": "assets/HistorySheet-DEdESIP2.js",
       "raw": 66733,
       "gzip": 24091
     },
     {
-      "file": "assets/IconButton-Dywimf7W.js",
+      "file": "assets/IconButton-CqgEVljE.js",
       "raw": 3457,
       "gzip": 1613
     },
@@ -465,9 +465,9 @@
       "gzip": 7889
     },
     {
-      "file": "assets/ScientificMode-CWC9rdK5.js",
+      "file": "assets/ScientificMode-DLsvMsec.js",
       "raw": 26050,
-      "gzip": 8222
+      "gzip": 8218
     },
     {
       "file": "assets/ScientificMode-NBn4f-zE.css",
@@ -475,9 +475,9 @@
       "gzip": 2332
     },
     {
-      "file": "assets/Select-W6Hfrqro.js",
+      "file": "assets/Select-C-sMTHeA.js",
       "raw": 40192,
-      "gzip": 12481
+      "gzip": 12482
     },
     {
       "file": "assets/Select-zbWAXGec.css",
@@ -485,12 +485,12 @@
       "gzip": 431
     },
     {
-      "file": "assets/SettingsDialog-BnQzZyMP.js",
+      "file": "assets/SettingsDialog-B64_luQM.js",
       "raw": 4688,
-      "gzip": 1658
+      "gzip": 1659
     },
     {
-      "file": "assets/ShortcutDialog-BhXS1Zvu.js",
+      "file": "assets/ShortcutDialog-BsSYfqCc.js",
       "raw": 1100,
       "gzip": 507
     },
@@ -505,14 +505,14 @@
       "gzip": 251
     },
     {
+      "file": "assets/SimpleMode-7y2hmzqF.js",
+      "raw": 16308,
+      "gzip": 5614
+    },
+    {
       "file": "assets/SimpleMode-Cz3UFmRX.css",
       "raw": 3428,
       "gzip": 1129
-    },
-    {
-      "file": "assets/SimpleMode-DyVeo4FY.js",
-      "raw": 16308,
-      "gzip": 5615
     },
     {
       "file": "assets/Slider-CmZSN9rw.css",
@@ -545,7 +545,7 @@
       "gzip": 520
     },
     {
-      "file": "assets/VisuallyHidden-D7u6X-GC.js",
+      "file": "assets/VisuallyHidden-ZULK9h6M.js",
       "raw": 184,
       "gzip": 164
     },
@@ -585,14 +585,14 @@
       "gzip": 3783
     },
     {
-      "file": "assets/index-DNRdYDao.js",
-      "raw": 259714,
-      "gzip": 80947
+      "file": "assets/index-CpTuavC4.css",
+      "raw": 66103,
+      "gzip": 10895
     },
     {
-      "file": "assets/index-rZB3Fp3s.css",
-      "raw": 66103,
-      "gzip": 10903
+      "file": "assets/index-Cu4FbKMd.js",
+      "raw": 259714,
+      "gzip": 80944
     },
     {
       "file": "assets/jsx-runtime-Dk72oS4N.js",
@@ -640,9 +640,9 @@
       "gzip": 218
     },
     {
-      "file": "assets/snackbarQueue-CU1MXNwb.js",
+      "file": "assets/snackbarQueue-C-jNNzfe.js",
       "raw": 10851,
-      "gzip": 4304
+      "gzip": 4303
     },
     {
       "file": "assets/units-Lj6SzZSx.js",
@@ -655,9 +655,9 @@
       "gzip": 1951
     },
     {
-      "file": "assets/useModeHistory-CuynDwgE.js",
+      "file": "assets/useModeHistory-DJQ-xsa8.js",
       "raw": 1193,
-      "gzip": 604
+      "gzip": 602
     },
     {
       "file": "assets/useSlot-VE8jVIIV.js",
@@ -665,9 +665,9 @@
       "gzip": 260
     },
     {
-      "file": "assets/useSpring-D3H5UTvG.js",
+      "file": "assets/useSpring-Cn8bEcaz.js",
       "raw": 940,
-      "gzip": 536
+      "gzip": 535
     },
     {
       "file": "assets/useTextField-DBjo9HdV.js",
@@ -712,7 +712,7 @@
     {
       "file": "index.html",
       "raw": 9673,
-      "gzip": 2573
+      "gzip": 2570
     },
     {
       "file": "manifest.webmanifest",
@@ -722,12 +722,12 @@
     {
       "file": "sw.js",
       "raw": 7971,
-      "gzip": 2475
+      "gzip": 2473
     }
   ],
   "initialGraph": [
     {
-      "file": "assets/index-DNRdYDao.js",
+      "file": "assets/index-Cu4FbKMd.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js",
@@ -735,19 +735,19 @@
         "assets/FocusScope-CCqqZsct.js",
         "assets/useFormValidation-BJqneZKK.js",
         "assets/useSlot-VE8jVIIV.js",
-        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/snackbarQueue-C-jNNzfe.js",
         "assets/i18n-DFLGf4G8.js",
-        "assets/IconButton-Dywimf7W.js",
-        "assets/useSpring-D3H5UTvG.js",
+        "assets/IconButton-CqgEVljE.js",
+        "assets/useSpring-Cn8bEcaz.js",
         "assets/browserMotion-CDweiHa2.js"
       ],
       "dynamicImports": [
-        "assets/AccentPanel-DX5vgMVK.js",
+        "assets/AccentPanel-DsNfpLM4.js",
         "assets/buildScheme-DzN2F7dg.js",
-        "assets/HistorySheet-DCM82Kf-.js",
-        "assets/SettingsDialog-BnQzZyMP.js",
-        "assets/CommandPalette-CPxVY4LV.js",
-        "assets/ShortcutDialog-BhXS1Zvu.js",
+        "assets/HistorySheet-DEdESIP2.js",
+        "assets/SettingsDialog-B64_luQM.js",
+        "assets/CommandPalette-D77xX64C.js",
+        "assets/ShortcutDialog-BsSYfqCc.js",
         "assets/model-D5tbButu.js"
       ],
       "modules": [
@@ -801,7 +801,7 @@
         "src/main.tsx"
       ],
       "raw": 259714,
-      "gzip": 80947
+      "gzip": 80944
     },
     {
       "file": "assets/Button-BO9S851Z.js",
@@ -897,13 +897,13 @@
       "gzip": 24084
     },
     {
-      "file": "assets/CopyLinkButton-v3MUa89n.js",
+      "file": "assets/CopyLinkButton-B2Tzip1O.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
-        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/snackbarQueue-C-jNNzfe.js",
         "assets/i18n-DFLGf4G8.js",
-        "assets/IconButton-Dywimf7W.js",
-        "assets/index-DNRdYDao.js"
+        "assets/IconButton-CqgEVljE.js",
+        "assets/index-Cu4FbKMd.js"
       ],
       "dynamicImports": [],
       "modules": ["src/app/CopyLinkButton.tsx"],
@@ -1011,7 +1011,7 @@
       "gzip": 4376
     },
     {
-      "file": "assets/IconButton-Dywimf7W.js",
+      "file": "assets/IconButton-CqgEVljE.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js"
@@ -1038,16 +1038,16 @@
       "gzip": 362
     },
     {
-      "file": "assets/SimpleMode-DyVeo4FY.js",
+      "file": "assets/SimpleMode-7y2hmzqF.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js",
-        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/snackbarQueue-C-jNNzfe.js",
         "assets/i18n-DFLGf4G8.js",
-        "assets/index-DNRdYDao.js",
+        "assets/index-Cu4FbKMd.js",
         "assets/evaluate-DNTCZB-Z.js",
-        "assets/useModeHistory-CuynDwgE.js",
-        "assets/CopyLinkButton-v3MUa89n.js",
+        "assets/useModeHistory-DJQ-xsa8.js",
+        "assets/CopyLinkButton-B2Tzip1O.js",
         "assets/Keypad-BXHyuaOQ.js"
       ],
       "dynamicImports": [],
@@ -1061,7 +1061,7 @@
         "src/features/simple/SimpleMode.tsx"
       ],
       "raw": 16308,
-      "gzip": 5615
+      "gzip": 5614
     },
     {
       "file": "assets/browserMotion-CDweiHa2.js",
@@ -1125,18 +1125,18 @@
       "gzip": 3328
     },
     {
-      "file": "assets/snackbarQueue-CU1MXNwb.js",
+      "file": "assets/snackbarQueue-C-jNNzfe.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js",
         "assets/i18n-DFLGf4G8.js",
-        "assets/IconButton-Dywimf7W.js"
+        "assets/IconButton-CqgEVljE.js"
       ],
       "dynamicImports": [
-        "assets/SimpleMode-DyVeo4FY.js",
-        "assets/ScientificMode-CWC9rdK5.js",
-        "assets/ConvertMode-kF1-cEER.js",
-        "assets/GraphMode-D8CqIXdX.js"
+        "assets/SimpleMode-7y2hmzqF.js",
+        "assets/ScientificMode-DLsvMsec.js",
+        "assets/ConvertMode-DpEFLFPP.js",
+        "assets/GraphMode-B393K9ht.js"
       ],
       "modules": [
         "node_modules/react-stately/dist/private/toast/useToastState.mjs",
@@ -1149,7 +1149,7 @@
         "src/ui/snackbarQueue.ts"
       ],
       "raw": 10851,
-      "gzip": 4304
+      "gzip": 4303
     },
     {
       "file": "assets/useFormValidation-BJqneZKK.js",
@@ -1171,10 +1171,10 @@
       "gzip": 1951
     },
     {
-      "file": "assets/useModeHistory-CuynDwgE.js",
+      "file": "assets/useModeHistory-DJQ-xsa8.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
-        "assets/snackbarQueue-CU1MXNwb.js"
+        "assets/snackbarQueue-C-jNNzfe.js"
       ],
       "dynamicImports": [],
       "modules": [
@@ -1183,7 +1183,7 @@
         "src/shared/useModeHistory.ts"
       ],
       "raw": 1193,
-      "gzip": 604
+      "gzip": 602
     },
     {
       "file": "assets/useSlot-VE8jVIIV.js",
@@ -1197,22 +1197,22 @@
       "gzip": 260
     },
     {
-      "file": "assets/useSpring-D3H5UTvG.js",
+      "file": "assets/useSpring-Cn8bEcaz.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js",
-        "assets/snackbarQueue-CU1MXNwb.js",
-        "assets/IconButton-Dywimf7W.js"
+        "assets/snackbarQueue-C-jNNzfe.js",
+        "assets/IconButton-CqgEVljE.js"
       ],
       "dynamicImports": [],
       "modules": ["src/ui/useSpring.ts"],
       "raw": 940,
-      "gzip": 536
+      "gzip": 535
     }
   ],
   "graph": [
     {
-      "file": "assets/index-DNRdYDao.js",
+      "file": "assets/index-Cu4FbKMd.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js",
@@ -1220,19 +1220,19 @@
         "assets/FocusScope-CCqqZsct.js",
         "assets/useFormValidation-BJqneZKK.js",
         "assets/useSlot-VE8jVIIV.js",
-        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/snackbarQueue-C-jNNzfe.js",
         "assets/i18n-DFLGf4G8.js",
-        "assets/IconButton-Dywimf7W.js",
-        "assets/useSpring-D3H5UTvG.js",
+        "assets/IconButton-CqgEVljE.js",
+        "assets/useSpring-Cn8bEcaz.js",
         "assets/browserMotion-CDweiHa2.js"
       ],
       "dynamicImports": [
-        "assets/AccentPanel-DX5vgMVK.js",
+        "assets/AccentPanel-DsNfpLM4.js",
         "assets/buildScheme-DzN2F7dg.js",
-        "assets/HistorySheet-DCM82Kf-.js",
-        "assets/SettingsDialog-BnQzZyMP.js",
-        "assets/CommandPalette-CPxVY4LV.js",
-        "assets/ShortcutDialog-BhXS1Zvu.js",
+        "assets/HistorySheet-DEdESIP2.js",
+        "assets/SettingsDialog-B64_luQM.js",
+        "assets/CommandPalette-D77xX64C.js",
+        "assets/ShortcutDialog-BsSYfqCc.js",
         "assets/model-D5tbButu.js"
       ],
       "modules": [
@@ -1287,15 +1287,15 @@
       ]
     },
     {
-      "file": "assets/AccentPanel-DX5vgMVK.js",
+      "file": "assets/AccentPanel-DsNfpLM4.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js",
         "assets/Dialog-BqCl1V51.js",
-        "assets/Select-W6Hfrqro.js",
+        "assets/Select-C-sMTHeA.js",
         "assets/Slider-oKMdNTqv.js",
-        "assets/IconButton-Dywimf7W.js",
-        "assets/index-DNRdYDao.js",
+        "assets/IconButton-CqgEVljE.js",
+        "assets/index-Cu4FbKMd.js",
         "assets/extended-B2oEldXH.js",
         "assets/seeds-DdxXycSJ.js",
         "assets/graphPalette-DTsoAoAA.js",
@@ -1402,14 +1402,14 @@
       "modules": ["src/ui/Card.tsx"]
     },
     {
-      "file": "assets/Checkbox-Calj66Hm.js",
+      "file": "assets/Checkbox-D7kFfwLP.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js",
         "assets/FocusScope-CCqqZsct.js",
         "assets/useFormValidation-BJqneZKK.js",
         "assets/useToggle-zHC1VABP.js",
-        "assets/IconButton-Dywimf7W.js"
+        "assets/IconButton-CqgEVljE.js"
       ],
       "dynamicImports": [],
       "modules": [
@@ -1421,12 +1421,12 @@
       ]
     },
     {
-      "file": "assets/CommandPalette-CPxVY4LV.js",
+      "file": "assets/CommandPalette-D77xX64C.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js",
         "assets/Dialog-D8GWA0Uh.js",
-        "assets/index-DNRdYDao.js",
+        "assets/index-Cu4FbKMd.js",
         "assets/extended-B2oEldXH.js",
         "assets/units-Lj6SzZSx.js",
         "assets/registry-D_GYSTzU.js",
@@ -1440,25 +1440,25 @@
       ]
     },
     {
-      "file": "assets/ConvertMode-kF1-cEER.js",
+      "file": "assets/ConvertMode-DpEFLFPP.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js",
-        "assets/Select-W6Hfrqro.js",
-        "assets/Checkbox-Calj66Hm.js",
+        "assets/Select-C-sMTHeA.js",
+        "assets/Checkbox-D7kFfwLP.js",
         "assets/Slider-oKMdNTqv.js",
         "assets/TextField-BMm3fn53.js",
-        "assets/snackbarQueue-CU1MXNwb.js",
-        "assets/IconButton-Dywimf7W.js",
-        "assets/useSpring-D3H5UTvG.js",
-        "assets/index-DNRdYDao.js",
+        "assets/snackbarQueue-C-jNNzfe.js",
+        "assets/IconButton-CqgEVljE.js",
+        "assets/useSpring-Cn8bEcaz.js",
+        "assets/index-Cu4FbKMd.js",
         "assets/extended-B2oEldXH.js",
         "assets/units-Lj6SzZSx.js",
-        "assets/useModeHistory-CuynDwgE.js",
+        "assets/useModeHistory-DJQ-xsa8.js",
         "assets/Card-CpJeSsLo.js",
-        "assets/VisuallyHidden-D7u6X-GC.js",
+        "assets/VisuallyHidden-ZULK9h6M.js",
         "assets/model-D5tbButu.js",
-        "assets/CopyLinkButton-v3MUa89n.js"
+        "assets/CopyLinkButton-B2Tzip1O.js"
       ],
       "dynamicImports": [],
       "modules": [
@@ -1474,13 +1474,13 @@
       ]
     },
     {
-      "file": "assets/CopyLinkButton-v3MUa89n.js",
+      "file": "assets/CopyLinkButton-B2Tzip1O.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
-        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/snackbarQueue-C-jNNzfe.js",
         "assets/i18n-DFLGf4G8.js",
-        "assets/IconButton-Dywimf7W.js",
-        "assets/index-DNRdYDao.js"
+        "assets/IconButton-CqgEVljE.js",
+        "assets/index-Cu4FbKMd.js"
       ],
       "dynamicImports": [],
       "modules": ["src/app/CopyLinkButton.tsx"]
@@ -1581,10 +1581,10 @@
       ]
     },
     {
-      "file": "assets/ExpressionEditor-BCOwB9l_.js",
+      "file": "assets/ExpressionEditor-Dm8Qh9Dp.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
-        "assets/index-DNRdYDao.js",
+        "assets/index-Cu4FbKMd.js",
         "assets/extended-B2oEldXH.js",
         "assets/evaluate-DNTCZB-Z.js",
         "assets/engine-BxLhPFcY.js",
@@ -1626,32 +1626,32 @@
       ]
     },
     {
-      "file": "assets/GraphMode-D8CqIXdX.js",
+      "file": "assets/GraphMode-B393K9ht.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js",
         "assets/Dialog-BqCl1V51.js",
         "assets/FocusScope-CCqqZsct.js",
-        "assets/Select-W6Hfrqro.js",
+        "assets/Select-C-sMTHeA.js",
         "assets/useFormValidation-BJqneZKK.js",
-        "assets/Checkbox-Calj66Hm.js",
+        "assets/Checkbox-D7kFfwLP.js",
         "assets/Slider-oKMdNTqv.js",
         "assets/useTextField-DBjo9HdV.js",
         "assets/Dialog-D8GWA0Uh.js",
         "assets/TextField-BMm3fn53.js",
-        "assets/snackbarQueue-CU1MXNwb.js",
-        "assets/IconButton-Dywimf7W.js",
-        "assets/index-DNRdYDao.js",
+        "assets/snackbarQueue-C-jNNzfe.js",
+        "assets/IconButton-CqgEVljE.js",
+        "assets/index-Cu4FbKMd.js",
         "assets/extended-B2oEldXH.js",
         "assets/evaluate-DNTCZB-Z.js",
         "assets/engine-BxLhPFcY.js",
         "assets/SideSheet-DHggJpdY.js",
-        "assets/useModeHistory-CuynDwgE.js",
-        "assets/VisuallyHidden-D7u6X-GC.js",
-        "assets/CopyLinkButton-v3MUa89n.js",
+        "assets/useModeHistory-DJQ-xsa8.js",
+        "assets/VisuallyHidden-ZULK9h6M.js",
+        "assets/CopyLinkButton-B2Tzip1O.js",
         "assets/graphPalette-DTsoAoAA.js"
       ],
-      "dynamicImports": ["assets/ExpressionEditor-BCOwB9l_.js"],
+      "dynamicImports": ["assets/ExpressionEditor-Dm8Qh9Dp.js"],
       "modules": [
         "node_modules/react-aria/dist/private/intl/searchfield/de-DE.mjs",
         "node_modules/react-aria/dist/private/intl/searchfield/en-US.mjs",
@@ -1688,17 +1688,17 @@
       ]
     },
     {
-      "file": "assets/HistorySheet-DCM82Kf-.js",
+      "file": "assets/HistorySheet-DEdESIP2.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js",
         "assets/TextField-BMm3fn53.js",
-        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/snackbarQueue-C-jNNzfe.js",
         "assets/i18n-DFLGf4G8.js",
-        "assets/IconButton-Dywimf7W.js",
-        "assets/index-DNRdYDao.js",
+        "assets/IconButton-CqgEVljE.js",
+        "assets/index-Cu4FbKMd.js",
         "assets/SideSheet-DHggJpdY.js",
-        "assets/useModeHistory-CuynDwgE.js"
+        "assets/useModeHistory-DJQ-xsa8.js"
       ],
       "dynamicImports": [],
       "modules": [
@@ -1861,7 +1861,7 @@
       ]
     },
     {
-      "file": "assets/IconButton-Dywimf7W.js",
+      "file": "assets/IconButton-CqgEVljE.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js"
@@ -1893,7 +1893,7 @@
       ]
     },
     {
-      "file": "assets/ScientificMode-CWC9rdK5.js",
+      "file": "assets/ScientificMode-DLsvMsec.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js",
@@ -1901,22 +1901,22 @@
         "assets/Slider-oKMdNTqv.js",
         "assets/Switch-Rbz6jofS.js",
         "assets/TextField-BMm3fn53.js",
-        "assets/snackbarQueue-CU1MXNwb.js",
-        "assets/IconButton-Dywimf7W.js",
-        "assets/useSpring-D3H5UTvG.js",
-        "assets/index-DNRdYDao.js",
+        "assets/snackbarQueue-C-jNNzfe.js",
+        "assets/IconButton-CqgEVljE.js",
+        "assets/useSpring-Cn8bEcaz.js",
+        "assets/index-Cu4FbKMd.js",
         "assets/extended-B2oEldXH.js",
         "assets/evaluate-DNTCZB-Z.js",
         "assets/engine-BxLhPFcY.js",
-        "assets/useModeHistory-CuynDwgE.js",
+        "assets/useModeHistory-DJQ-xsa8.js",
         "assets/Card-CpJeSsLo.js",
-        "assets/VisuallyHidden-D7u6X-GC.js",
-        "assets/CopyLinkButton-v3MUa89n.js",
+        "assets/VisuallyHidden-ZULK9h6M.js",
+        "assets/CopyLinkButton-B2Tzip1O.js",
         "assets/model-D70ir4L7.js",
         "assets/Keypad-BXHyuaOQ.js"
       ],
       "dynamicImports": [
-        "assets/ExpressionEditor-BCOwB9l_.js",
+        "assets/ExpressionEditor-Dm8Qh9Dp.js",
         "assets/MathDisplay-DNoLnrT1.js"
       ],
       "modules": [
@@ -1933,7 +1933,7 @@
       ]
     },
     {
-      "file": "assets/Select-W6Hfrqro.js",
+      "file": "assets/Select-C-sMTHeA.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js",
@@ -1941,7 +1941,7 @@
         "assets/FocusScope-CCqqZsct.js",
         "assets/useFormValidation-BJqneZKK.js",
         "assets/useTextField-DBjo9HdV.js",
-        "assets/index-DNRdYDao.js"
+        "assets/index-Cu4FbKMd.js"
       ],
       "dynamicImports": [],
       "modules": [
@@ -1973,31 +1973,31 @@
       ]
     },
     {
-      "file": "assets/SettingsDialog-BnQzZyMP.js",
+      "file": "assets/SettingsDialog-B64_luQM.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js",
-        "assets/Select-W6Hfrqro.js",
+        "assets/Select-C-sMTHeA.js",
         "assets/Slider-oKMdNTqv.js",
         "assets/Dialog-D8GWA0Uh.js",
         "assets/Switch-Rbz6jofS.js",
         "assets/TextField-BMm3fn53.js",
-        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/snackbarQueue-C-jNNzfe.js",
         "assets/i18n-DFLGf4G8.js",
-        "assets/index-DNRdYDao.js",
+        "assets/index-Cu4FbKMd.js",
         "assets/extended-B2oEldXH.js",
-        "assets/HistorySheet-DCM82Kf-.js"
+        "assets/HistorySheet-DEdESIP2.js"
       ],
       "dynamicImports": [],
       "modules": ["src/app/SettingsDialog.tsx"]
     },
     {
-      "file": "assets/ShortcutDialog-BhXS1Zvu.js",
+      "file": "assets/ShortcutDialog-BsSYfqCc.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js",
         "assets/Dialog-D8GWA0Uh.js",
-        "assets/index-DNRdYDao.js",
+        "assets/index-Cu4FbKMd.js",
         "assets/extended-B2oEldXH.js"
       ],
       "dynamicImports": [],
@@ -2013,16 +2013,16 @@
       "modules": ["src/ui/SideSheet.tsx"]
     },
     {
-      "file": "assets/SimpleMode-DyVeo4FY.js",
+      "file": "assets/SimpleMode-7y2hmzqF.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js",
-        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/snackbarQueue-C-jNNzfe.js",
         "assets/i18n-DFLGf4G8.js",
-        "assets/index-DNRdYDao.js",
+        "assets/index-Cu4FbKMd.js",
         "assets/evaluate-DNTCZB-Z.js",
-        "assets/useModeHistory-CuynDwgE.js",
-        "assets/CopyLinkButton-v3MUa89n.js",
+        "assets/useModeHistory-DJQ-xsa8.js",
+        "assets/CopyLinkButton-B2Tzip1O.js",
         "assets/Keypad-BXHyuaOQ.js"
       ],
       "dynamicImports": [],
@@ -2087,11 +2087,11 @@
       ]
     },
     {
-      "file": "assets/VisuallyHidden-D7u6X-GC.js",
+      "file": "assets/VisuallyHidden-ZULK9h6M.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/FocusScope-CCqqZsct.js",
-        "assets/index-DNRdYDao.js"
+        "assets/index-Cu4FbKMd.js"
       ],
       "dynamicImports": [],
       "modules": ["src/ui/VisuallyHidden.tsx"]
@@ -2235,18 +2235,18 @@
       "modules": ["src/styles/seeds.ts"]
     },
     {
-      "file": "assets/snackbarQueue-CU1MXNwb.js",
+      "file": "assets/snackbarQueue-C-jNNzfe.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js",
         "assets/i18n-DFLGf4G8.js",
-        "assets/IconButton-Dywimf7W.js"
+        "assets/IconButton-CqgEVljE.js"
       ],
       "dynamicImports": [
-        "assets/SimpleMode-DyVeo4FY.js",
-        "assets/ScientificMode-CWC9rdK5.js",
-        "assets/ConvertMode-kF1-cEER.js",
-        "assets/GraphMode-D8CqIXdX.js"
+        "assets/SimpleMode-7y2hmzqF.js",
+        "assets/ScientificMode-DLsvMsec.js",
+        "assets/ConvertMode-DpEFLFPP.js",
+        "assets/GraphMode-B393K9ht.js"
       ],
       "modules": [
         "node_modules/react-stately/dist/private/toast/useToastState.mjs",
@@ -2288,10 +2288,10 @@
       ]
     },
     {
-      "file": "assets/useModeHistory-CuynDwgE.js",
+      "file": "assets/useModeHistory-DJQ-xsa8.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
-        "assets/snackbarQueue-CU1MXNwb.js"
+        "assets/snackbarQueue-C-jNNzfe.js"
       ],
       "dynamicImports": [],
       "modules": [
@@ -2310,12 +2310,12 @@
       "modules": ["node_modules/react-aria/dist/private/utils/useSlot.mjs"]
     },
     {
-      "file": "assets/useSpring-D3H5UTvG.js",
+      "file": "assets/useSpring-Cn8bEcaz.js",
       "imports": [
         "assets/jsx-runtime-Dk72oS4N.js",
         "assets/Button-BO9S851Z.js",
-        "assets/snackbarQueue-CU1MXNwb.js",
-        "assets/IconButton-Dywimf7W.js"
+        "assets/snackbarQueue-C-jNNzfe.js",
+        "assets/IconButton-CqgEVljE.js"
       ],
       "dynamicImports": [],
       "modules": ["src/ui/useSpring.ts"]
@@ -2371,8 +2371,8 @@
       "file": "assets/Checkbox-CaWe_hBO.css",
       "src": "_Checkbox-CaWe_hBO.css"
     },
-    "_Checkbox-Calj66Hm.js": {
-      "file": "assets/Checkbox-Calj66Hm.js",
+    "_Checkbox-D7kFfwLP.js": {
+      "file": "assets/Checkbox-D7kFfwLP.js",
       "name": "Checkbox",
       "imports": [
         "_jsx-runtime-Dk72oS4N.js",
@@ -2380,25 +2380,25 @@
         "_FocusScope-CCqqZsct.js",
         "_useFormValidation-BJqneZKK.js",
         "_useToggle-zHC1VABP.js",
-        "_IconButton-Dywimf7W.js"
+        "_IconButton-CqgEVljE.js"
       ],
       "css": ["assets/Checkbox-CaWe_hBO.css"]
+    },
+    "_CopyLinkButton-B2Tzip1O.js": {
+      "file": "assets/CopyLinkButton-B2Tzip1O.js",
+      "name": "CopyLinkButton",
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_snackbarQueue-C-jNNzfe.js",
+        "_i18n-DFLGf4G8.js",
+        "_IconButton-CqgEVljE.js",
+        "index.html"
+      ],
+      "css": ["assets/CopyLinkButton-CzVs3g7c.css"]
     },
     "_CopyLinkButton-CzVs3g7c.css": {
       "file": "assets/CopyLinkButton-CzVs3g7c.css",
       "src": "_CopyLinkButton-CzVs3g7c.css"
-    },
-    "_CopyLinkButton-v3MUa89n.js": {
-      "file": "assets/CopyLinkButton-v3MUa89n.js",
-      "name": "CopyLinkButton",
-      "imports": [
-        "_jsx-runtime-Dk72oS4N.js",
-        "_snackbarQueue-CU1MXNwb.js",
-        "_i18n-DFLGf4G8.js",
-        "_IconButton-Dywimf7W.js",
-        "index.html"
-      ],
-      "css": ["assets/CopyLinkButton-CzVs3g7c.css"]
     },
     "_Dialog-BgffhQ21.css": {
       "file": "assets/Dialog-BgffhQ21.css",
@@ -2428,8 +2428,8 @@
       "name": "FocusScope",
       "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-BO9S851Z.js"]
     },
-    "_IconButton-Dywimf7W.js": {
-      "file": "assets/IconButton-Dywimf7W.js",
+    "_IconButton-CqgEVljE.js": {
+      "file": "assets/IconButton-CqgEVljE.js",
       "name": "IconButton",
       "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-BO9S851Z.js"],
       "css": ["assets/IconButton-h8-ZNqqk.css"]
@@ -2448,8 +2448,8 @@
       "file": "assets/Keypad-DUGiORd-.css",
       "src": "_Keypad-DUGiORd-.css"
     },
-    "_Select-W6Hfrqro.js": {
-      "file": "assets/Select-W6Hfrqro.js",
+    "_Select-C-sMTHeA.js": {
+      "file": "assets/Select-C-sMTHeA.js",
       "name": "Select",
       "imports": [
         "_jsx-runtime-Dk72oS4N.js",
@@ -2522,8 +2522,8 @@
       "file": "assets/TextField-Bia33xUx.css",
       "src": "_TextField-Bia33xUx.css"
     },
-    "_VisuallyHidden-D7u6X-GC.js": {
-      "file": "assets/VisuallyHidden-D7u6X-GC.js",
+    "_VisuallyHidden-ZULK9h6M.js": {
+      "file": "assets/VisuallyHidden-ZULK9h6M.js",
       "name": "VisuallyHidden",
       "imports": [
         "_jsx-runtime-Dk72oS4N.js",
@@ -2575,14 +2575,14 @@
       "file": "assets/seeds-DdxXycSJ.js",
       "name": "seeds"
     },
-    "_snackbarQueue-CU1MXNwb.js": {
-      "file": "assets/snackbarQueue-CU1MXNwb.js",
+    "_snackbarQueue-C-jNNzfe.js": {
+      "file": "assets/snackbarQueue-C-jNNzfe.js",
       "name": "snackbarQueue",
       "imports": [
         "_jsx-runtime-Dk72oS4N.js",
         "_Button-BO9S851Z.js",
         "_i18n-DFLGf4G8.js",
-        "_IconButton-Dywimf7W.js"
+        "_IconButton-CqgEVljE.js"
       ],
       "dynamicImports": [
         "src/features/simple/SimpleMode.tsx",
@@ -2605,24 +2605,24 @@
         "_FocusScope-CCqqZsct.js"
       ]
     },
-    "_useModeHistory-CuynDwgE.js": {
-      "file": "assets/useModeHistory-CuynDwgE.js",
+    "_useModeHistory-DJQ-xsa8.js": {
+      "file": "assets/useModeHistory-DJQ-xsa8.js",
       "name": "useModeHistory",
-      "imports": ["_jsx-runtime-Dk72oS4N.js", "_snackbarQueue-CU1MXNwb.js"]
+      "imports": ["_jsx-runtime-Dk72oS4N.js", "_snackbarQueue-C-jNNzfe.js"]
     },
     "_useSlot-VE8jVIIV.js": {
       "file": "assets/useSlot-VE8jVIIV.js",
       "name": "useSlot",
       "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-BO9S851Z.js"]
     },
-    "_useSpring-D3H5UTvG.js": {
-      "file": "assets/useSpring-D3H5UTvG.js",
+    "_useSpring-Cn8bEcaz.js": {
+      "file": "assets/useSpring-Cn8bEcaz.js",
       "name": "useSpring",
       "imports": [
         "_jsx-runtime-Dk72oS4N.js",
         "_Button-BO9S851Z.js",
-        "_snackbarQueue-CU1MXNwb.js",
-        "_IconButton-Dywimf7W.js"
+        "_snackbarQueue-C-jNNzfe.js",
+        "_IconButton-CqgEVljE.js"
       ]
     },
     "_useTextField-DBjo9HdV.js": {
@@ -2645,7 +2645,7 @@
       ]
     },
     "index.html": {
-      "file": "assets/index-DNRdYDao.js",
+      "file": "assets/index-Cu4FbKMd.js",
       "name": "index",
       "src": "index.html",
       "isEntry": true,
@@ -2656,10 +2656,10 @@
         "_FocusScope-CCqqZsct.js",
         "_useFormValidation-BJqneZKK.js",
         "_useSlot-VE8jVIIV.js",
-        "_snackbarQueue-CU1MXNwb.js",
+        "_snackbarQueue-C-jNNzfe.js",
         "_i18n-DFLGf4G8.js",
-        "_IconButton-Dywimf7W.js",
-        "_useSpring-D3H5UTvG.js",
+        "_IconButton-CqgEVljE.js",
+        "_useSpring-Cn8bEcaz.js",
         "_browserMotion-CDweiHa2.js"
       ],
       "dynamicImports": [
@@ -2671,7 +2671,7 @@
         "src/app/ShortcutDialog.tsx",
         "src/features/convert/model.ts"
       ],
-      "css": ["assets/index-rZB3Fp3s.css"],
+      "css": ["assets/index-CpTuavC4.css"],
       "assets": [
         "assets/roboto-flex-latin-DlhILaPV.woff2",
         "assets/roboto-mono-latin-CZtBPCCa.woff2",
@@ -2915,7 +2915,7 @@
       "src": "node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.woff2"
     },
     "src/app/CommandPalette.tsx": {
-      "file": "assets/CommandPalette-CPxVY4LV.js",
+      "file": "assets/CommandPalette-D77xX64C.js",
       "name": "CommandPalette",
       "src": "src/app/CommandPalette.tsx",
       "isDynamicEntry": true,
@@ -2931,7 +2931,7 @@
       ]
     },
     "src/app/HistorySheet.tsx": {
-      "file": "assets/HistorySheet-DCM82Kf-.js",
+      "file": "assets/HistorySheet-DEdESIP2.js",
       "name": "HistorySheet",
       "src": "src/app/HistorySheet.tsx",
       "isDynamicEntry": true,
@@ -2939,28 +2939,28 @@
         "_jsx-runtime-Dk72oS4N.js",
         "_Button-BO9S851Z.js",
         "_TextField-BMm3fn53.js",
-        "_snackbarQueue-CU1MXNwb.js",
+        "_snackbarQueue-C-jNNzfe.js",
         "_i18n-DFLGf4G8.js",
-        "_IconButton-Dywimf7W.js",
+        "_IconButton-CqgEVljE.js",
         "index.html",
         "_SideSheet-DHggJpdY.js",
-        "_useModeHistory-CuynDwgE.js"
+        "_useModeHistory-DJQ-xsa8.js"
       ]
     },
     "src/app/SettingsDialog.tsx": {
-      "file": "assets/SettingsDialog-BnQzZyMP.js",
+      "file": "assets/SettingsDialog-B64_luQM.js",
       "name": "SettingsDialog",
       "src": "src/app/SettingsDialog.tsx",
       "isDynamicEntry": true,
       "imports": [
         "_jsx-runtime-Dk72oS4N.js",
         "_Button-BO9S851Z.js",
-        "_Select-W6Hfrqro.js",
+        "_Select-C-sMTHeA.js",
         "_Slider-oKMdNTqv.js",
         "_Dialog-D8GWA0Uh.js",
         "_Switch-Rbz6jofS.js",
         "_TextField-BMm3fn53.js",
-        "_snackbarQueue-CU1MXNwb.js",
+        "_snackbarQueue-C-jNNzfe.js",
         "_i18n-DFLGf4G8.js",
         "index.html",
         "_extended-B2oEldXH.js",
@@ -2968,7 +2968,7 @@
       ]
     },
     "src/app/ShortcutDialog.tsx": {
-      "file": "assets/ShortcutDialog-BhXS1Zvu.js",
+      "file": "assets/ShortcutDialog-BsSYfqCc.js",
       "name": "ShortcutDialog",
       "src": "src/app/ShortcutDialog.tsx",
       "isDynamicEntry": true,
@@ -2981,28 +2981,28 @@
       ]
     },
     "src/features/convert/ConvertMode.tsx": {
-      "file": "assets/ConvertMode-kF1-cEER.js",
+      "file": "assets/ConvertMode-DpEFLFPP.js",
       "name": "ConvertMode",
       "src": "src/features/convert/ConvertMode.tsx",
       "isDynamicEntry": true,
       "imports": [
         "_jsx-runtime-Dk72oS4N.js",
         "_Button-BO9S851Z.js",
-        "_Select-W6Hfrqro.js",
-        "_Checkbox-Calj66Hm.js",
+        "_Select-C-sMTHeA.js",
+        "_Checkbox-D7kFfwLP.js",
         "_Slider-oKMdNTqv.js",
         "_TextField-BMm3fn53.js",
-        "_snackbarQueue-CU1MXNwb.js",
-        "_IconButton-Dywimf7W.js",
-        "_useSpring-D3H5UTvG.js",
+        "_snackbarQueue-C-jNNzfe.js",
+        "_IconButton-CqgEVljE.js",
+        "_useSpring-Cn8bEcaz.js",
         "index.html",
         "_extended-B2oEldXH.js",
         "_units-Lj6SzZSx.js",
-        "_useModeHistory-CuynDwgE.js",
+        "_useModeHistory-DJQ-xsa8.js",
         "_Card-CpJeSsLo.js",
-        "_VisuallyHidden-D7u6X-GC.js",
+        "_VisuallyHidden-ZULK9h6M.js",
         "src/features/convert/model.ts",
-        "_CopyLinkButton-v3MUa89n.js"
+        "_CopyLinkButton-B2Tzip1O.js"
       ],
       "css": ["assets/ConvertMode-C-rZJdia.css"]
     },
@@ -3018,7 +3018,7 @@
       ]
     },
     "src/features/graph/GraphMode.tsx": {
-      "file": "assets/GraphMode-D8CqIXdX.js",
+      "file": "assets/GraphMode-B393K9ht.js",
       "name": "GraphMode",
       "src": "src/features/graph/GraphMode.tsx",
       "isDynamicEntry": true,
@@ -3027,23 +3027,23 @@
         "_Button-BO9S851Z.js",
         "_Dialog-BqCl1V51.js",
         "_FocusScope-CCqqZsct.js",
-        "_Select-W6Hfrqro.js",
+        "_Select-C-sMTHeA.js",
         "_useFormValidation-BJqneZKK.js",
-        "_Checkbox-Calj66Hm.js",
+        "_Checkbox-D7kFfwLP.js",
         "_Slider-oKMdNTqv.js",
         "_useTextField-DBjo9HdV.js",
         "_Dialog-D8GWA0Uh.js",
         "_TextField-BMm3fn53.js",
-        "_snackbarQueue-CU1MXNwb.js",
-        "_IconButton-Dywimf7W.js",
+        "_snackbarQueue-C-jNNzfe.js",
+        "_IconButton-CqgEVljE.js",
         "index.html",
         "_extended-B2oEldXH.js",
         "_evaluate-DNTCZB-Z.js",
         "_engine-BxLhPFcY.js",
         "_SideSheet-DHggJpdY.js",
-        "_useModeHistory-CuynDwgE.js",
-        "_VisuallyHidden-D7u6X-GC.js",
-        "_CopyLinkButton-v3MUa89n.js",
+        "_useModeHistory-DJQ-xsa8.js",
+        "_VisuallyHidden-ZULK9h6M.js",
+        "_CopyLinkButton-B2Tzip1O.js",
         "_graphPalette-DTsoAoAA.js"
       ],
       "dynamicImports": ["src/features/scientific/ExpressionEditor.tsx"],
@@ -3051,7 +3051,7 @@
       "assets": ["assets/sampling.worker-DdpY2KL0.js"]
     },
     "src/features/scientific/ExpressionEditor.tsx": {
-      "file": "assets/ExpressionEditor-BCOwB9l_.js",
+      "file": "assets/ExpressionEditor-Dm8Qh9Dp.js",
       "name": "ExpressionEditor",
       "src": "src/features/scientific/ExpressionEditor.tsx",
       "isDynamicEntry": true,
@@ -3135,7 +3135,7 @@
       ]
     },
     "src/features/scientific/ScientificMode.tsx": {
-      "file": "assets/ScientificMode-CWC9rdK5.js",
+      "file": "assets/ScientificMode-DLsvMsec.js",
       "name": "ScientificMode",
       "src": "src/features/scientific/ScientificMode.tsx",
       "isDynamicEntry": true,
@@ -3146,17 +3146,17 @@
         "_Slider-oKMdNTqv.js",
         "_Switch-Rbz6jofS.js",
         "_TextField-BMm3fn53.js",
-        "_snackbarQueue-CU1MXNwb.js",
-        "_IconButton-Dywimf7W.js",
-        "_useSpring-D3H5UTvG.js",
+        "_snackbarQueue-C-jNNzfe.js",
+        "_IconButton-CqgEVljE.js",
+        "_useSpring-Cn8bEcaz.js",
         "index.html",
         "_extended-B2oEldXH.js",
         "_evaluate-DNTCZB-Z.js",
         "_engine-BxLhPFcY.js",
-        "_useModeHistory-CuynDwgE.js",
+        "_useModeHistory-DJQ-xsa8.js",
         "_Card-CpJeSsLo.js",
-        "_VisuallyHidden-D7u6X-GC.js",
-        "_CopyLinkButton-v3MUa89n.js",
+        "_VisuallyHidden-ZULK9h6M.js",
+        "_CopyLinkButton-B2Tzip1O.js",
         "_model-D70ir4L7.js",
         "_Keypad-BXHyuaOQ.js"
       ],
@@ -3167,19 +3167,19 @@
       "css": ["assets/ScientificMode-NBn4f-zE.css"]
     },
     "src/features/simple/SimpleMode.tsx": {
-      "file": "assets/SimpleMode-DyVeo4FY.js",
+      "file": "assets/SimpleMode-7y2hmzqF.js",
       "name": "SimpleMode",
       "src": "src/features/simple/SimpleMode.tsx",
       "isDynamicEntry": true,
       "imports": [
         "_jsx-runtime-Dk72oS4N.js",
         "_Button-BO9S851Z.js",
-        "_snackbarQueue-CU1MXNwb.js",
+        "_snackbarQueue-C-jNNzfe.js",
         "_i18n-DFLGf4G8.js",
         "index.html",
         "_evaluate-DNTCZB-Z.js",
-        "_useModeHistory-CuynDwgE.js",
-        "_CopyLinkButton-v3MUa89n.js",
+        "_useModeHistory-DJQ-xsa8.js",
+        "_CopyLinkButton-B2Tzip1O.js",
         "_Keypad-BXHyuaOQ.js"
       ],
       "css": ["assets/SimpleMode-Cz3UFmRX.css"]
@@ -3204,7 +3204,7 @@
       "src": "src/styles/fonts/roboto-mono-latin.woff2"
     },
     "src/ui/AccentPanel.tsx": {
-      "file": "assets/AccentPanel-DX5vgMVK.js",
+      "file": "assets/AccentPanel-DsNfpLM4.js",
       "name": "AccentPanel",
       "src": "src/ui/AccentPanel.tsx",
       "isDynamicEntry": true,
@@ -3212,9 +3212,9 @@
         "_jsx-runtime-Dk72oS4N.js",
         "_Button-BO9S851Z.js",
         "_Dialog-BqCl1V51.js",
-        "_Select-W6Hfrqro.js",
+        "_Select-C-sMTHeA.js",
         "_Slider-oKMdNTqv.js",
-        "_IconButton-Dywimf7W.js",
+        "_IconButton-CqgEVljE.js",
         "index.html",
         "_extended-B2oEldXH.js",
         "_seeds-DdxXycSJ.js",
@@ -3227,8 +3227,8 @@
     {
       "url": "/m8e-calc/index.html",
       "raw": 9673,
-      "gzip": 2573,
-      "sha256": "aa534ca5dd1e57d729604931e8bfe31f0314e3ab97e57cdeec417e83440ab059"
+      "gzip": 2570,
+      "sha256": "a5158a974d48e1c1edd3922d4c12776a763e958db6145f342eb21c71686314ca"
     },
     {
       "url": "/m8e-calc/manifest.webmanifest",
@@ -3261,16 +3261,16 @@
       "sha256": "6e243b440ed666636f6c6e8900156951ea9c38261328396d8334222d5ef7de76"
     },
     {
-      "url": "/m8e-calc/assets/index-DNRdYDao.js",
+      "url": "/m8e-calc/assets/index-Cu4FbKMd.js",
       "raw": 259714,
-      "gzip": 80947,
-      "sha256": "1bb71cd97ea56d27ba609e4edfe0009c00df9b668cb3f3c1c5bb1b925c29d51f"
+      "gzip": 80944,
+      "sha256": "b6148d889142020c25a5cbf29e405a441595202538fd0a79916da6680e166853"
     },
     {
-      "url": "/m8e-calc/assets/AccentPanel-DX5vgMVK.js",
+      "url": "/m8e-calc/assets/AccentPanel-DsNfpLM4.js",
       "raw": 3417,
-      "gzip": 1347,
-      "sha256": "1aa1c4211148fb8c5962044d7fd04e9ebb84d34fa8a31fbb1810a944a7402005"
+      "gzip": 1346,
+      "sha256": "31ad2271f35149afcf41268347a1c6a4716be496f377ca1a344f4ba91a481df4"
     },
     {
       "url": "/m8e-calc/assets/Button-BO9S851Z.js",
@@ -3285,28 +3285,28 @@
       "sha256": "6962c57466d53bb6890cb5ac8a2ef41561e2378709eb62c107303f2e4c8516d0"
     },
     {
-      "url": "/m8e-calc/assets/Checkbox-Calj66Hm.js",
+      "url": "/m8e-calc/assets/Checkbox-D7kFfwLP.js",
       "raw": 4193,
       "gzip": 1638,
-      "sha256": "d011a50672a50ab549e15e3f76ffb60425e8e64950a1447306639395dae2e823"
+      "sha256": "1871b9d5d40a716ea753c6d9493ef18d26e8cfe5bcd882f89fcc0b5a5bdbaeb0"
     },
     {
-      "url": "/m8e-calc/assets/CommandPalette-CPxVY4LV.js",
+      "url": "/m8e-calc/assets/CommandPalette-D77xX64C.js",
       "raw": 3768,
       "gzip": 1764,
-      "sha256": "638f6c1ef003f1ddd2c479eec3601877c115f995924fb887dd6ce5ca5ef90e39"
+      "sha256": "574589c605f5f462692d1e5495a157a7e8f14652281e901b5561540a3aa612c4"
     },
     {
-      "url": "/m8e-calc/assets/ConvertMode-kF1-cEER.js",
+      "url": "/m8e-calc/assets/ConvertMode-DpEFLFPP.js",
       "raw": 21426,
-      "gzip": 7431,
-      "sha256": "afb7569d5af1ed54730653a7537a58de5d8436857795067021ed278abb44d355"
+      "gzip": 7434,
+      "sha256": "1102291c7564dd99aaee3130b23a283c923a5fcca5f8b8686521be630e3c4cba"
     },
     {
-      "url": "/m8e-calc/assets/CopyLinkButton-v3MUa89n.js",
+      "url": "/m8e-calc/assets/CopyLinkButton-B2Tzip1O.js",
       "raw": 811,
       "gzip": 499,
-      "sha256": "0cd13754991356bda0ed33e7747c6726cddec82b6c8b00398ca119c7c8c0fb2d"
+      "sha256": "0bae8f6b01e53fa02020b6a82f67d5de5babc09a4315872e886d8f949b09bc37"
     },
     {
       "url": "/m8e-calc/assets/Dialog-BqCl1V51.js",
@@ -3321,10 +3321,10 @@
       "sha256": "d0984e2ebe5745f4a53adcd2123cbd66ac9850f35476b727b936f3b73d5f0b55"
     },
     {
-      "url": "/m8e-calc/assets/ExpressionEditor-BCOwB9l_.js",
+      "url": "/m8e-calc/assets/ExpressionEditor-Dm8Qh9Dp.js",
       "raw": 354786,
-      "gzip": 113882,
-      "sha256": "77959ade15dca722498098a0764e8ccb367c1b58307f0b623e8874706433c0d1"
+      "gzip": 113883,
+      "sha256": "2aee22e62b84205d78fe02936836200b93a106ee52334d27beb9fd46ca5bf7bf"
     },
     {
       "url": "/m8e-calc/assets/FocusScope-CCqqZsct.js",
@@ -3333,22 +3333,22 @@
       "sha256": "62b1fc263cbbcd2dd1817e705f7c985792674dc4ca1c5d5586a9835dfc90d14b"
     },
     {
-      "url": "/m8e-calc/assets/GraphMode-D8CqIXdX.js",
+      "url": "/m8e-calc/assets/GraphMode-B393K9ht.js",
       "raw": 86570,
-      "gzip": 29983,
-      "sha256": "a698539cbc86e73a952fec5dc9fe7450a6096dd9a16aefcdca44572c3e08ed32"
+      "gzip": 29979,
+      "sha256": "f231cc1037d38a4928f0d5b40ce32eee2379b511ef683def100a95a92f921a43"
     },
     {
-      "url": "/m8e-calc/assets/HistorySheet-DCM82Kf-.js",
+      "url": "/m8e-calc/assets/HistorySheet-DEdESIP2.js",
       "raw": 66733,
       "gzip": 24091,
-      "sha256": "d0b0c69e91f4385de9a7a96451eebe33b7ff7dc5e5f9c03a40710135c2327aef"
+      "sha256": "64dab540c5dca89c16266800022eecd9cfd1497a28d10a3604322d4a41b4c842"
     },
     {
-      "url": "/m8e-calc/assets/IconButton-Dywimf7W.js",
+      "url": "/m8e-calc/assets/IconButton-CqgEVljE.js",
       "raw": 3457,
       "gzip": 1613,
-      "sha256": "aff593a646a21f0ff3375b27c46bcd7928c6664164d8331cf47a0c7d96d7dacd"
+      "sha256": "4dff83c68c46f4447d010529242c0da37a29e15745bf2da40efede4ceef90244"
     },
     {
       "url": "/m8e-calc/assets/Keypad-BXHyuaOQ.js",
@@ -3363,28 +3363,28 @@
       "sha256": "179f9e506684cd202bf6a471fa274a65be0f2f26c98e0517ad0126562b7d5d62"
     },
     {
-      "url": "/m8e-calc/assets/ScientificMode-CWC9rdK5.js",
+      "url": "/m8e-calc/assets/ScientificMode-DLsvMsec.js",
       "raw": 26050,
-      "gzip": 8222,
-      "sha256": "dd17f7f795d9705beec1117f1dee5bc92763feb2e4bd2c2ac2111d2a2f0e6d29"
+      "gzip": 8218,
+      "sha256": "aa35f3cfc66c6652f4512ff2b3c668571ae171b74049ce16aca3a68ae2c0a6cb"
     },
     {
-      "url": "/m8e-calc/assets/Select-W6Hfrqro.js",
+      "url": "/m8e-calc/assets/Select-C-sMTHeA.js",
       "raw": 40192,
-      "gzip": 12481,
-      "sha256": "c08c9240a5e957273004584e1bb3339efae514708ffdaf1f97a75567cdbfd024"
+      "gzip": 12482,
+      "sha256": "76fb3234c29fa80c82e545167decc6a873def20402b8c6a7f80722cbab9eba88"
     },
     {
-      "url": "/m8e-calc/assets/SettingsDialog-BnQzZyMP.js",
+      "url": "/m8e-calc/assets/SettingsDialog-B64_luQM.js",
       "raw": 4688,
-      "gzip": 1658,
-      "sha256": "827c30da3f11335aeb27c85a8ed3cfe522f9cce526f503110c67f9bdf46b265d"
+      "gzip": 1659,
+      "sha256": "0b5ed0dbcf04fc7809b53d1e1de4b25b77a58a1087a991b476be5631400d4ffe"
     },
     {
-      "url": "/m8e-calc/assets/ShortcutDialog-BhXS1Zvu.js",
+      "url": "/m8e-calc/assets/ShortcutDialog-BsSYfqCc.js",
       "raw": 1100,
       "gzip": 507,
-      "sha256": "181b4f84dd965dcc90081abd93d7556f35fad4deb787abd3f1d4ada1a7588801"
+      "sha256": "ea94410a54ff5877f0d32c5ca9c0b68f4fa614f106d91c77152036cffde467f2"
     },
     {
       "url": "/m8e-calc/assets/SideSheet-DHggJpdY.js",
@@ -3393,10 +3393,10 @@
       "sha256": "28bd37f4f98bde7d95fee3bd5ecc6cadb62206e3b7f8f0731a083709c83005e4"
     },
     {
-      "url": "/m8e-calc/assets/SimpleMode-DyVeo4FY.js",
+      "url": "/m8e-calc/assets/SimpleMode-7y2hmzqF.js",
       "raw": 16308,
-      "gzip": 5615,
-      "sha256": "c721319c60ca68c861634f285076c83aba2c41aac6b32d4ec361500ec9ddbb16"
+      "gzip": 5614,
+      "sha256": "a21f68a454c181eab8cac3a9fdd8193183dced3b8583bb60bed49f4cb0ab79a7"
     },
     {
       "url": "/m8e-calc/assets/Slider-oKMdNTqv.js",
@@ -3417,10 +3417,10 @@
       "sha256": "0406aba00be231a0a5e602da39cfc923a04dc7a47b459aa56e3903f23d4d71ef"
     },
     {
-      "url": "/m8e-calc/assets/VisuallyHidden-D7u6X-GC.js",
+      "url": "/m8e-calc/assets/VisuallyHidden-ZULK9h6M.js",
       "raw": 184,
       "gzip": 164,
-      "sha256": "2936157bf24022817244676bdd18a82b5b1b5a0fb07914039f9477e26c664f30"
+      "sha256": "55cb7ef0a142e1757f9f3fd3910aab81e967dc66e7a9f675d8ed0ec0e720416c"
     },
     {
       "url": "/m8e-calc/assets/browserMotion-CDweiHa2.js",
@@ -3495,10 +3495,10 @@
       "sha256": "8cda8dac4470852dd9b71f0b2108c8bbd31c7974a8377227b5012fed32abe9df"
     },
     {
-      "url": "/m8e-calc/assets/snackbarQueue-CU1MXNwb.js",
+      "url": "/m8e-calc/assets/snackbarQueue-C-jNNzfe.js",
       "raw": 10851,
-      "gzip": 4304,
-      "sha256": "d8f00848729aa29ac23f52287de0b208369b5e6fdffb69663d2c7cb6f3719840"
+      "gzip": 4303,
+      "sha256": "fac27b7cad06f1528e7f51730c90cd49542efe4d5fdb2067af576a3a72abaa08"
     },
     {
       "url": "/m8e-calc/assets/units-Lj6SzZSx.js",
@@ -3513,10 +3513,10 @@
       "sha256": "d8a2d83d9a9293b7f0368001df70a58933623243da62175a29c112e4a6005825"
     },
     {
-      "url": "/m8e-calc/assets/useModeHistory-CuynDwgE.js",
+      "url": "/m8e-calc/assets/useModeHistory-DJQ-xsa8.js",
       "raw": 1193,
-      "gzip": 604,
-      "sha256": "24a89af64623b7eaf0a699cacccf0fa3b6a9b12b422f711ce16f67fdcb1c670e"
+      "gzip": 602,
+      "sha256": "3f5d2ee110835c953ada1a96bba7784947b359f7acc1b5a60d7dd2039fcc77c7"
     },
     {
       "url": "/m8e-calc/assets/useSlot-VE8jVIIV.js",
@@ -3525,10 +3525,10 @@
       "sha256": "7c5f50b0d20757aafb96dffd71f2ccef8c19b2900a6e1ed6ff3ddaf941b15a1d"
     },
     {
-      "url": "/m8e-calc/assets/useSpring-D3H5UTvG.js",
+      "url": "/m8e-calc/assets/useSpring-Cn8bEcaz.js",
       "raw": 940,
-      "gzip": 536,
-      "sha256": "5763f21b2608d99a63f1b88849ba5266305b715ffb453f6bf5768ea3ce1a1496"
+      "gzip": 535,
+      "sha256": "451c4e38114af3744df6bd358c439c07f57cdf878f602b10a4666767e4a21de7"
     },
     {
       "url": "/m8e-calc/assets/useTextField-DBjo9HdV.js",
@@ -3999,10 +3999,10 @@
       "sha256": "29909fb9b6a17d224e1f3241455da407d6c27e378f7405363f9f00369e195740"
     },
     {
-      "url": "/m8e-calc/assets/index-rZB3Fp3s.css",
+      "url": "/m8e-calc/assets/index-CpTuavC4.css",
       "raw": 66103,
-      "gzip": 10903,
-      "sha256": "5f49031c94f73e573810b6376ea5cac8d0db6c29be7a023174fa61cdc3904cd3"
+      "gzip": 10895,
+      "sha256": "32c89b71bb734dd1f8ceeaef0cabc9026efdd014a9b5615e271d962a507cdba7"
     },
     {
       "url": "/m8e-calc/assets/material-symbols-rounded-17-fZmEE.woff2",
@@ -4037,6 +4037,6 @@
   ],
   "offlinePrecache": {
     "raw": 3199627,
-    "gzip": 1749823
+    "gzip": 1749801
   }
 }
