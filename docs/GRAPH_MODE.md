@@ -16,7 +16,9 @@ den Plot-Satz-Reducer; neue Plot-Sätze werden nach drei Sekunden Ruhe im
 AP4-Verlauf gespeichert. Parameter-Playback pausiert die Speicherung.
 
 Sampling läuft im lokalen Modul-Web-Worker. Es gibt höchstens einen laufenden
-und einen ersetzbaren nächsten Auftrag. Veraltete Antworten werden verworfen.
+und einen ersetzbaren nächsten Auftrag. Strukturell veraltete Antworten werden
+verworfen; AP43 erlaubt bei identischer Funktion und Samplingansicht kompatible
+abgeschlossene Parameterzwischenstände, ohne sie als aktuelle Daten auszugeben.
 Path2D-Pfade werden pro Antwort aufgebaut; Pan und Zoom transformieren diese
 Pfade während der nächsten Berechnung. AP28 bündelt Sampling während eines
 Pointer-Drags auf eine feste 90-ms-Frist (wie bei animierter Navigation), während
@@ -34,6 +36,11 @@ Ziehen, Trägheit, Radzoom am Mauszeiger, Doppelklick, +/−, Anpassen, 1:1 und
 Presets verwenden AP12-Viewport-Operationen. Springs verwenden zentrale
 Expressive-Motion-Tokens und respektieren Reduced/Off. Neue Kurven werden über
 Strichfortschritt eingeblendet. Parameterslider verändern vorhandene Kurven sofort.
+Während Parameterberechnungen bleibt die letzte akzeptierte Geometrie sichtbar;
+der atomare Ersatz erhält den Reveal-Lebenszyklus der Funktion. Entfernen,
+Verbergen, ungültige Eingabe und Strukturwechsel entfernen alte Inhalte sofort.
+Pending-Export und Diagnosen verlangen weiterhin aktuelle vollständige Signaturen.
+Auftrags-/Latenzvertrag, echte Frameprobe und Abnahme: [AP43.md](AP43.md).
 Die Seitenverhältnissperre bedeutet gleiche Welteinheiten pro Pixel; 1:1 setzt
 auf den Standardbereich zurück. π-Ticks gelten für die x-Achse. Grobe und feine
 Gitter verwenden die adaptive AP12-Tickliste.
@@ -211,3 +218,34 @@ zwei Randaufträgen sowie mindestens sechs Aufträge während des langen Drags.
 Das prüft Bündelung und Fortschritt, nicht nur ein zufällig grünes FPS-Fenster.
 Headless-Komposition und schnelle Canvas-Aufrufe beweisen keine physische
 4K-/60-Hz-GPU-Abnahme. Rohdaten, Vergleich und Grenzen: [AP28.md](AP28.md).
+
+## AP43 · Gemessene Parameterkontinuität
+
+Der vollständige Fünf-Kurven-Vergleich auf `025ea1e` bestätigt beim Kandidaten
+0 Leer-/erneute Reveal-Frames bei tatsächlich wechselnden akzeptierten Pfaden.
+Der alte main zeigt bei denselben Bedienabläufen beide Fehler. Ein separater
+180-ms-Workerfall bestätigt Zwischenfortschritt und den aktuellen Endwert nach
+Pause. Die 4K-/Mixed-Gates des AP43-Laufs bestehen; ein separater AP28-Lauf
+bleibt mit 48,00384 <55 FPS rot. Deshalb keine pauschale Performancefreigabe
+oder Schließung von #43. Rohbelege, Zeit-/Latenzgrenzen und echte Laufzuordnung:
+[AP43.md](AP43.md).
+
+`df91629` bestätigt alle zwölf neuen Fälle in Chromium/Firefox und den
+erweiterten Pending-Cleanup sowie einen grünen eigenständigen AP28-Lauf.
+WebKit benötigt nach Korrektur der Beobachtungsdauer/Slideranzeige eigene
+neue Ergebnisse; ein HTTP-502 im Quellencheck blockiert zusätzlich die CI.
+Das rote AP28-Artefakt bleibt samt aller Rohfenster dauerhaft erhalten.
+
+`68b8c1d` besteht check, Chromium/Firefox und den unabhängigen AP28-Vergleich.
+Der AP28-Pflichtjob desselben Stands bleibt mit 48,98223 FPS rot; der
+Quellencheck ist dort grün. Zwei weitere WebKit-Harnessprobleme und die
+begrenzte Korrektur sind in AP43 dokumentiert; keine Performancefreigabe.
+
+Abschließender Produkt-/Prüfstand `dff1e16`: zwölf neue Fälle jeweils in
+Chromium und WebKit bestanden, alle fünf Kurven mit 0 Leer-/Reveal-Frames.
+Die volle Browsermatrix besteht mit 176 Chromium-, 150 Firefox- und
+150 WebKitfällen; zwei bestehende WebKit-Skips bleiben erhalten.
+Aktueller AP28-Pflichtjob und 4K/Mixed-Gates grün (60,00348 FPS / 0,4 ms).
+Ein bestehender Galerie-Theme-Timeout sperrt die Gesamt-CI; kein Graphgate
+wurde dafür verändert. Alle 17 aktuellen Frameberichte und Zeitrohwerte sind
+dauerhaft in [AP43.md](AP43.md) verlinkt. Frühere rote Fenster bleiben erhalten.

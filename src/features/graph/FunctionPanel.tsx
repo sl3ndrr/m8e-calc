@@ -140,7 +140,8 @@ function CurveRow({
   const id = `graph-error-${row.id}`,
     help = `graph-help-${row.id}`;
   const sampled = props.samples?.find(
-    (c) => c.id === row.id && c.signature === JSON.stringify(curve),
+    (c) =>
+      row.visible && c.id === row.id && c.signature === JSON.stringify(curve),
   );
   const [menuKind, setMenuKind] = useState<AnalysisKind | null>(null);
   return (

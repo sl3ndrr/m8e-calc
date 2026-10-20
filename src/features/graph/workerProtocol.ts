@@ -260,7 +260,7 @@ export function isSampleResponse(v: unknown): v is SampleResponse {
     );
   });
 }
-/** Compare against the last *requested* state, never only the running job. */
+/** Exact protocol identity. Freshness always checks the latest request. */
 export function matchesRequest(
   result: SampleResponse,
   request: SampleRequest,

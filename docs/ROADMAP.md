@@ -195,3 +195,31 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       Prüfstatus und dauerhafte native Frame-/Bildbelege: [AP42](AP42.md),
       Umsetzung in [PR #63](https://github.com/sl3ndrr/m8e-calc/pull/63).
       Keine Dependency-Updates oder Veröffentlichung.
+
+- [ ] 43 Stetige Parameterkurven — `feat/ap43-graph-parameter-continuity`,
+      ab main `63fdc9c`: einmaliger Full-Reveal pro sichtbarer gültiger Funktion,
+      erhaltene Geometrie bei Pending, atomarer Ersatz und begrenzte
+      koaleszierte Workeraufträge mit kompatiblem Zwischenfortschritt.
+      PNG/Diagnosen behalten ehrliche Aktualität. Verträge, Framevergleich und
+      tatsächlicher Prüfstatus: [AP43](AP43.md). AP42 ist bereits belegt;
+      #43 bleibt ein eigener historischer Performancebefund.
+      Keine Dependency-Migration, kein Merge oder Deploy.
+
+  AP43-Prüfstand `025ea1e`: fünf echte negative Vorher-Gegenproben,
+  12/12 neue Chromiumfälle, check und bestehende 4K/Mixed-Gates bestanden.
+  Framebelege sind dauerhaft gespeichert. Ein separater AP28-Vergleich auf
+  `6662ec5` bleibt bei 48,00384 <55 FPS rot; Ursache/Performancefreigabe offen.
+  Der abschließende PR-Head benötigt seine eigenen Pflichtchecks.
+  `df91629`: zwölf neue Chromium-/Firefoxfälle und eigenständiger AP28-Lauf
+  bestanden. WebKit-Messfenster/Slideranzeige werden korrigiert; vollständige
+  CI bleibt zusätzlich am HTTP-502 eines historischen Quellenlinks blockiert.
+  Der frühere rote AP28-Lauf ist samt Pan-/Hidden-Pan-Rohfenstern erhalten.
+  `68b8c1d`: check und volle Chromium-/Firefoxmatrix bestanden, Quellencheck
+  grün. AP28-Pflichtjob rot (48,98223 FPS), unabhängiger AP28-Lauf grün.
+  WebKit erhält nach kaltem Seitenstart und einer nicht beobachtbaren
+  Dialogsekunde eine gezielte Harnesskorrektur bei unveränderten Graphgates.
+  Abschließender Prüfstand `dff1e16`: zwölf Fälle in Chromium und WebKit grün,
+  volle Matrix 176 Chromium / 150 Firefox / 150 WebKit (zwei bestehende Skips),
+  alter main bei allen fünf Kurventypen negativ. Aktuelle AP28-/4K-/Mixed-Gates
+  grün; früheres Performance-Rot bleibt dokumentiert und #43 offen.
+  Ein bestehender Galerie-Theme-Timeout blockiert die Gesamt-CI; kein Merge.

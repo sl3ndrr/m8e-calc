@@ -33,6 +33,7 @@ export function cachePaths(
   result: SampleResponse,
   previous: Map<string, CachedPath>,
   now: number,
+  births?: ReadonlyMap<string, number>,
 ): Map<string, CachedPath> {
   const viewport = new Viewport(result.bounds, result.size);
   return new Map(
@@ -59,7 +60,7 @@ export function cachePaths(
           path,
           length,
           viewport,
-          born: old?.born ?? now,
+          born: births?.get(c.id) ?? old?.born ?? now,
           truncated: c.truncated,
         },
       ];

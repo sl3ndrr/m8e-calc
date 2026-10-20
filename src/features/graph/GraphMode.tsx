@@ -127,7 +127,11 @@ export default function GraphMode() {
             : null;
         });
       }
-      if (action.type !== 'view' && action.type !== 'options') clearAnalysis();
+      if (action.type !== 'view' && action.type !== 'options') {
+        lastTrace.current = null;
+        setContext(null);
+        clearAnalysis();
+      }
       dispatch(action);
     },
     [clearAnalysis],
