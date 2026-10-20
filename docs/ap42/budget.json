@@ -1,0 +1,4042 @@
+{
+  "sha": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+  "node": "v24.22.0",
+  "zlib": "1.3.2.1-motley-285e94b",
+  "lockSha256": "58692235db9049c660fb9fc6cc43c68b02448ffedbbae9a3678773eb8ce44016",
+  "measurementSha256": "fba30658525715f0a232c32f65701c70234a14c9b9bc1a785bb738bf17804cbf",
+  "reportSha256": "e2b686e6ea75119b47c2b0d2355f8df01223cae33aebf6eaa336dc905543855f",
+  "directory": "dist",
+  "initialJavaScript": {
+    "raw": 575142,
+    "gzip": 189085
+  },
+  "artifact": {
+    "raw": 3239690,
+    "gzip": 1756176
+  },
+  "initialChunks": [
+    "assets/index-DNRdYDao.js",
+    "assets/jsx-runtime-Dk72oS4N.js",
+    "assets/Button-BO9S851Z.js",
+    "assets/i18n-DFLGf4G8.js",
+    "assets/Dialog-BqCl1V51.js",
+    "assets/FocusScope-CCqqZsct.js",
+    "assets/useFormValidation-BJqneZKK.js",
+    "assets/useSlot-VE8jVIIV.js",
+    "assets/snackbarQueue-CU1MXNwb.js",
+    "assets/IconButton-Dywimf7W.js",
+    "assets/useSpring-D3H5UTvG.js",
+    "assets/browserMotion-CDweiHa2.js",
+    "assets/SimpleMode-DyVeo4FY.js",
+    "assets/evaluate-DNTCZB-Z.js",
+    "assets/useModeHistory-CuynDwgE.js",
+    "assets/CopyLinkButton-v3MUa89n.js",
+    "assets/Keypad-BXHyuaOQ.js"
+  ],
+  "files": [
+    {
+      "file": ".vite/manifest.json",
+      "raw": 31997,
+      "gzip": 3771
+    },
+    {
+      "file": "assets/AccentPanel-DX5vgMVK.js",
+      "raw": 3417,
+      "gzip": 1347
+    },
+    {
+      "file": "assets/Button-BO9S851Z.js",
+      "raw": 70996,
+      "gzip": 24084
+    },
+    {
+      "file": "assets/Button-BoVqgmZx.css",
+      "raw": 4971,
+      "gzip": 1236
+    },
+    {
+      "file": "assets/Card-CpJeSsLo.js",
+      "raw": 200,
+      "gzip": 177
+    },
+    {
+      "file": "assets/Card-DD1MZGf1.css",
+      "raw": 454,
+      "gzip": 233
+    },
+    {
+      "file": "assets/Checkbox-CaWe_hBO.css",
+      "raw": 1903,
+      "gzip": 611
+    },
+    {
+      "file": "assets/Checkbox-Calj66Hm.js",
+      "raw": 4193,
+      "gzip": 1638
+    },
+    {
+      "file": "assets/CommandPalette-CPxVY4LV.js",
+      "raw": 3768,
+      "gzip": 1764
+    },
+    {
+      "file": "assets/ConvertMode-C-rZJdia.css",
+      "raw": 7553,
+      "gzip": 1845
+    },
+    {
+      "file": "assets/ConvertMode-kF1-cEER.js",
+      "raw": 21426,
+      "gzip": 7431
+    },
+    {
+      "file": "assets/CopyLinkButton-CzVs3g7c.css",
+      "raw": 152,
+      "gzip": 136
+    },
+    {
+      "file": "assets/CopyLinkButton-v3MUa89n.js",
+      "raw": 811,
+      "gzip": 499
+    },
+    {
+      "file": "assets/Dialog-BgffhQ21.css",
+      "raw": 739,
+      "gzip": 422
+    },
+    {
+      "file": "assets/Dialog-BqCl1V51.js",
+      "raw": 84918,
+      "gzip": 25407
+    },
+    {
+      "file": "assets/Dialog-D8GWA0Uh.js",
+      "raw": 4872,
+      "gzip": 1929
+    },
+    {
+      "file": "assets/ExpressionEditor-BCOwB9l_.js",
+      "raw": 354786,
+      "gzip": 113882
+    },
+    {
+      "file": "assets/FocusScope-CCqqZsct.js",
+      "raw": 14292,
+      "gzip": 4376
+    },
+    {
+      "file": "assets/GraphMode-CPEJlQ_S.css",
+      "raw": 6640,
+      "gzip": 1639
+    },
+    {
+      "file": "assets/GraphMode-D8CqIXdX.js",
+      "raw": 86570,
+      "gzip": 29983
+    },
+    {
+      "file": "assets/HistorySheet-DCM82Kf-.js",
+      "raw": 66733,
+      "gzip": 24091
+    },
+    {
+      "file": "assets/IconButton-Dywimf7W.js",
+      "raw": 3457,
+      "gzip": 1613
+    },
+    {
+      "file": "assets/IconButton-h8-ZNqqk.css",
+      "raw": 413,
+      "gzip": 247
+    },
+    {
+      "file": "assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
+      "raw": 28076,
+      "gzip": 28104
+    },
+    {
+      "file": "assets/KaTeX_AMS-Regular-DMm9YOAa.woff",
+      "raw": 33516,
+      "gzip": 33536
+    },
+    {
+      "file": "assets/KaTeX_AMS-Regular-DRggAlZN.ttf",
+      "raw": 63632,
+      "gzip": 34709
+    },
+    {
+      "file": "assets/KaTeX_Caligraphic-Bold-ATXxdsX0.ttf",
+      "raw": 12368,
+      "gzip": 7854
+    },
+    {
+      "file": "assets/KaTeX_Caligraphic-Bold-BEiXGLvX.woff",
+      "raw": 7716,
+      "gzip": 7677
+    },
+    {
+      "file": "assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2",
+      "raw": 6912,
+      "gzip": 6935
+    },
+    {
+      "file": "assets/KaTeX_Caligraphic-Regular-CTRA-rTL.woff",
+      "raw": 7656,
+      "gzip": 7621
+    },
+    {
+      "file": "assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2",
+      "raw": 6908,
+      "gzip": 6931
+    },
+    {
+      "file": "assets/KaTeX_Caligraphic-Regular-wX97UBjC.ttf",
+      "raw": 12344,
+      "gzip": 7795
+    },
+    {
+      "file": "assets/KaTeX_Fraktur-Bold-BdnERNNW.ttf",
+      "raw": 19584,
+      "gzip": 13494
+    },
+    {
+      "file": "assets/KaTeX_Fraktur-Bold-BsDP51OF.woff",
+      "raw": 13296,
+      "gzip": 13279
+    },
+    {
+      "file": "assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2",
+      "raw": 11348,
+      "gzip": 11371
+    },
+    {
+      "file": "assets/KaTeX_Fraktur-Regular-CB_wures.ttf",
+      "raw": 19572,
+      "gzip": 13431
+    },
+    {
+      "file": "assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2",
+      "raw": 11316,
+      "gzip": 11339
+    },
+    {
+      "file": "assets/KaTeX_Fraktur-Regular-Dxdc4cR9.woff",
+      "raw": 13208,
+      "gzip": 13192
+    },
+    {
+      "file": "assets/KaTeX_Main-Bold-Cx986IdX.woff2",
+      "raw": 25324,
+      "gzip": 25352
+    },
+    {
+      "file": "assets/KaTeX_Main-Bold-Jm3AIy58.woff",
+      "raw": 29912,
+      "gzip": 29940
+    },
+    {
+      "file": "assets/KaTeX_Main-Bold-waoOVXN0.ttf",
+      "raw": 51336,
+      "gzip": 30802
+    },
+    {
+      "file": "assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2",
+      "raw": 16780,
+      "gzip": 16808
+    },
+    {
+      "file": "assets/KaTeX_Main-BoldItalic-DzxPMmG6.ttf",
+      "raw": 32968,
+      "gzip": 19673
+    },
+    {
+      "file": "assets/KaTeX_Main-BoldItalic-SpSLRI95.woff",
+      "raw": 19412,
+      "gzip": 19405
+    },
+    {
+      "file": "assets/KaTeX_Main-Italic-3WenGoN9.ttf",
+      "raw": 33580,
+      "gzip": 19924
+    },
+    {
+      "file": "assets/KaTeX_Main-Italic-BMLOBm91.woff",
+      "raw": 19676,
+      "gzip": 19665
+    },
+    {
+      "file": "assets/KaTeX_Main-Italic-NWA7e6Wa.woff2",
+      "raw": 16988,
+      "gzip": 17016
+    },
+    {
+      "file": "assets/KaTeX_Main-Regular-B22Nviop.woff2",
+      "raw": 26272,
+      "gzip": 26300
+    },
+    {
+      "file": "assets/KaTeX_Main-Regular-Dr94JaBh.woff",
+      "raw": 30772,
+      "gzip": 30795
+    },
+    {
+      "file": "assets/KaTeX_Main-Regular-ypZvNtVU.ttf",
+      "raw": 53580,
+      "gzip": 31719
+    },
+    {
+      "file": "assets/KaTeX_Math-BoldItalic-B3XSjfu4.ttf",
+      "raw": 31196,
+      "gzip": 19003
+    },
+    {
+      "file": "assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2",
+      "raw": 16400,
+      "gzip": 16423
+    },
+    {
+      "file": "assets/KaTeX_Math-BoldItalic-iY-2wyZ7.woff",
+      "raw": 18668,
+      "gzip": 18647
+    },
+    {
+      "file": "assets/KaTeX_Math-Italic-DA0__PXp.woff",
+      "raw": 18748,
+      "gzip": 18738
+    },
+    {
+      "file": "assets/KaTeX_Math-Italic-flOr_0UB.ttf",
+      "raw": 31308,
+      "gzip": 19077
+    },
+    {
+      "file": "assets/KaTeX_Math-Italic-t53AETM-.woff2",
+      "raw": 16440,
+      "gzip": 16468
+    },
+    {
+      "file": "assets/KaTeX_SansSerif-Bold-CFMepnvq.ttf",
+      "raw": 24504,
+      "gzip": 14775
+    },
+    {
+      "file": "assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2",
+      "raw": 12216,
+      "gzip": 12239
+    },
+    {
+      "file": "assets/KaTeX_SansSerif-Bold-DbIhKOiC.woff",
+      "raw": 14408,
+      "gzip": 14398
+    },
+    {
+      "file": "assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2",
+      "raw": 12028,
+      "gzip": 12051
+    },
+    {
+      "file": "assets/KaTeX_SansSerif-Italic-DN2j7dab.woff",
+      "raw": 14112,
+      "gzip": 14087
+    },
+    {
+      "file": "assets/KaTeX_SansSerif-Italic-YYjJ1zSn.ttf",
+      "raw": 22364,
+      "gzip": 14433
+    },
+    {
+      "file": "assets/KaTeX_SansSerif-Regular-BNo7hRIc.ttf",
+      "raw": 19436,
+      "gzip": 12546
+    },
+    {
+      "file": "assets/KaTeX_SansSerif-Regular-CS6fqUqJ.woff",
+      "raw": 12316,
+      "gzip": 12298
+    },
+    {
+      "file": "assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2",
+      "raw": 10344,
+      "gzip": 10367
+    },
+    {
+      "file": "assets/KaTeX_Script-Regular-C5JkGWo-.ttf",
+      "raw": 16648,
+      "gzip": 10808
+    },
+    {
+      "file": "assets/KaTeX_Script-Regular-D3wIWfF6.woff2",
+      "raw": 9644,
+      "gzip": 9667
+    },
+    {
+      "file": "assets/KaTeX_Script-Regular-D5yQViql.woff",
+      "raw": 10588,
+      "gzip": 10550
+    },
+    {
+      "file": "assets/KaTeX_Size1-Regular-C195tn64.woff",
+      "raw": 6496,
+      "gzip": 6465
+    },
+    {
+      "file": "assets/KaTeX_Size1-Regular-Dbsnue_I.ttf",
+      "raw": 12228,
+      "gzip": 6540
+    },
+    {
+      "file": "assets/KaTeX_Size1-Regular-mCD8mA8B.woff2",
+      "raw": 5468,
+      "gzip": 5491
+    },
+    {
+      "file": "assets/KaTeX_Size2-Regular-B7gKUWhC.ttf",
+      "raw": 11508,
+      "gzip": 6241
+    },
+    {
+      "file": "assets/KaTeX_Size2-Regular-Dy4dx90m.woff2",
+      "raw": 5208,
+      "gzip": 5231
+    },
+    {
+      "file": "assets/KaTeX_Size2-Regular-oD1tc_U0.woff",
+      "raw": 6188,
+      "gzip": 6161
+    },
+    {
+      "file": "assets/KaTeX_Size3-Regular-CTq5MqoE.woff",
+      "raw": 4420,
+      "gzip": 4380
+    },
+    {
+      "file": "assets/KaTeX_Size3-Regular-DgpXs0kz.ttf",
+      "raw": 7588,
+      "gzip": 4389
+    },
+    {
+      "file": "assets/KaTeX_Size4-Regular-BF-4gkZK.woff",
+      "raw": 5980,
+      "gzip": 5944
+    },
+    {
+      "file": "assets/KaTeX_Size4-Regular-DWFBv043.ttf",
+      "raw": 10364,
+      "gzip": 6061
+    },
+    {
+      "file": "assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2",
+      "raw": 4928,
+      "gzip": 4951
+    },
+    {
+      "file": "assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff",
+      "raw": 16028,
+      "gzip": 16010
+    },
+    {
+      "file": "assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2",
+      "raw": 13568,
+      "gzip": 13591
+    },
+    {
+      "file": "assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf",
+      "raw": 27556,
+      "gzip": 16479
+    },
+    {
+      "file": "assets/Keypad-BXHyuaOQ.js",
+      "raw": 605,
+      "gzip": 362
+    },
+    {
+      "file": "assets/Keypad-DUGiORd-.css",
+      "raw": 2028,
+      "gzip": 549
+    },
+    {
+      "file": "assets/MathDisplay-DNoLnrT1.js",
+      "raw": 259336,
+      "gzip": 76596
+    },
+    {
+      "file": "assets/MathDisplay-fV8fYLk0.css",
+      "raw": 30333,
+      "gzip": 7889
+    },
+    {
+      "file": "assets/ScientificMode-CWC9rdK5.js",
+      "raw": 26050,
+      "gzip": 8222
+    },
+    {
+      "file": "assets/ScientificMode-NBn4f-zE.css",
+      "raw": 10971,
+      "gzip": 2332
+    },
+    {
+      "file": "assets/Select-W6Hfrqro.js",
+      "raw": 40192,
+      "gzip": 12481
+    },
+    {
+      "file": "assets/Select-zbWAXGec.css",
+      "raw": 1214,
+      "gzip": 431
+    },
+    {
+      "file": "assets/SettingsDialog-BnQzZyMP.js",
+      "raw": 4688,
+      "gzip": 1658
+    },
+    {
+      "file": "assets/ShortcutDialog-BhXS1Zvu.js",
+      "raw": 1100,
+      "gzip": 507
+    },
+    {
+      "file": "assets/SideSheet-BZfUtJea.css",
+      "raw": 335,
+      "gzip": 219
+    },
+    {
+      "file": "assets/SideSheet-DHggJpdY.js",
+      "raw": 354,
+      "gzip": 251
+    },
+    {
+      "file": "assets/SimpleMode-Cz3UFmRX.css",
+      "raw": 3428,
+      "gzip": 1129
+    },
+    {
+      "file": "assets/SimpleMode-DyVeo4FY.js",
+      "raw": 16308,
+      "gzip": 5615
+    },
+    {
+      "file": "assets/Slider-CmZSN9rw.css",
+      "raw": 1384,
+      "gzip": 535
+    },
+    {
+      "file": "assets/Slider-oKMdNTqv.js",
+      "raw": 13216,
+      "gzip": 4677
+    },
+    {
+      "file": "assets/Switch-Dhw6gmOR.css",
+      "raw": 1313,
+      "gzip": 451
+    },
+    {
+      "file": "assets/Switch-Rbz6jofS.js",
+      "raw": 2175,
+      "gzip": 978
+    },
+    {
+      "file": "assets/TextField-BMm3fn53.js",
+      "raw": 2124,
+      "gzip": 1027
+    },
+    {
+      "file": "assets/TextField-Bia33xUx.css",
+      "raw": 1424,
+      "gzip": 520
+    },
+    {
+      "file": "assets/VisuallyHidden-D7u6X-GC.js",
+      "raw": 184,
+      "gzip": 164
+    },
+    {
+      "file": "assets/browserMotion-CDweiHa2.js",
+      "raw": 158,
+      "gzip": 136
+    },
+    {
+      "file": "assets/buildScheme-DzN2F7dg.js",
+      "raw": 1677,
+      "gzip": 795
+    },
+    {
+      "file": "assets/engine-BxLhPFcY.js",
+      "raw": 3563,
+      "gzip": 1644
+    },
+    {
+      "file": "assets/evaluate-DNTCZB-Z.js",
+      "raw": 85604,
+      "gzip": 31280
+    },
+    {
+      "file": "assets/extended-B2oEldXH.js",
+      "raw": 35217,
+      "gzip": 10930
+    },
+    {
+      "file": "assets/graphPalette-DTsoAoAA.js",
+      "raw": 40169,
+      "gzip": 12442
+    },
+    {
+      "file": "assets/i18n-DFLGf4G8.js",
+      "raw": 11056,
+      "gzip": 3783
+    },
+    {
+      "file": "assets/index-DNRdYDao.js",
+      "raw": 259714,
+      "gzip": 80947
+    },
+    {
+      "file": "assets/index-rZB3Fp3s.css",
+      "raw": 66103,
+      "gzip": 10903
+    },
+    {
+      "file": "assets/jsx-runtime-Dk72oS4N.js",
+      "raw": 8774,
+      "gzip": 3328
+    },
+    {
+      "file": "assets/material-symbols-rounded-17-fZmEE.woff2",
+      "raw": 29976,
+      "gzip": 30004
+    },
+    {
+      "file": "assets/model-D5tbButu.js",
+      "raw": 4189,
+      "gzip": 1706
+    },
+    {
+      "file": "assets/model-D70ir4L7.js",
+      "raw": 2746,
+      "gzip": 1304
+    },
+    {
+      "file": "assets/registry-D_GYSTzU.js",
+      "raw": 713,
+      "gzip": 440
+    },
+    {
+      "file": "assets/roboto-flex-latin-DlhILaPV.woff2",
+      "raw": 194648,
+      "gzip": 194713
+    },
+    {
+      "file": "assets/roboto-mono-latin-CZtBPCCa.woff2",
+      "raw": 32796,
+      "gzip": 32826
+    },
+    {
+      "file": "assets/sampling.worker-DdpY2KL0.js",
+      "raw": 82754,
+      "gzip": 31414
+    },
+    {
+      "file": "assets/seeds-DdxXycSJ.js",
+      "raw": 339,
+      "gzip": 218
+    },
+    {
+      "file": "assets/snackbarQueue-CU1MXNwb.js",
+      "raw": 10851,
+      "gzip": 4304
+    },
+    {
+      "file": "assets/units-Lj6SzZSx.js",
+      "raw": 25895,
+      "gzip": 9748
+    },
+    {
+      "file": "assets/useFormValidation-BJqneZKK.js",
+      "raw": 5112,
+      "gzip": 1951
+    },
+    {
+      "file": "assets/useModeHistory-CuynDwgE.js",
+      "raw": 1193,
+      "gzip": 604
+    },
+    {
+      "file": "assets/useSlot-VE8jVIIV.js",
+      "raw": 353,
+      "gzip": 260
+    },
+    {
+      "file": "assets/useSpring-D3H5UTvG.js",
+      "raw": 940,
+      "gzip": 536
+    },
+    {
+      "file": "assets/useTextField-DBjo9HdV.js",
+      "raw": 2523,
+      "gzip": 1136
+    },
+    {
+      "file": "assets/useToggle-zHC1VABP.js",
+      "raw": 2173,
+      "gzip": 975
+    },
+    {
+      "file": "build-info.json",
+      "raw": 95,
+      "gzip": 107
+    },
+    {
+      "file": "build-target.json",
+      "raw": 19,
+      "gzip": 39
+    },
+    {
+      "file": "icons/app-192.png",
+      "raw": 6345,
+      "gzip": 6274
+    },
+    {
+      "file": "icons/app-512.png",
+      "raw": 20919,
+      "gzip": 18590
+    },
+    {
+      "file": "icons/app-maskable-512.png",
+      "raw": 16684,
+      "gzip": 12999
+    },
+    {
+      "file": "icons/app.svg",
+      "raw": 1198,
+      "gzip": 429
+    },
+    {
+      "file": "index.html",
+      "raw": 9673,
+      "gzip": 2573
+    },
+    {
+      "file": "manifest.webmanifest",
+      "raw": 579,
+      "gzip": 233
+    },
+    {
+      "file": "sw.js",
+      "raw": 7971,
+      "gzip": 2475
+    }
+  ],
+  "initialGraph": [
+    {
+      "file": "assets/index-DNRdYDao.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/Dialog-BqCl1V51.js",
+        "assets/FocusScope-CCqqZsct.js",
+        "assets/useFormValidation-BJqneZKK.js",
+        "assets/useSlot-VE8jVIIV.js",
+        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/i18n-DFLGf4G8.js",
+        "assets/IconButton-Dywimf7W.js",
+        "assets/useSpring-D3H5UTvG.js",
+        "assets/browserMotion-CDweiHa2.js"
+      ],
+      "dynamicImports": [
+        "assets/AccentPanel-DX5vgMVK.js",
+        "assets/buildScheme-DzN2F7dg.js",
+        "assets/HistorySheet-DCM82Kf-.js",
+        "assets/SettingsDialog-BnQzZyMP.js",
+        "assets/CommandPalette-CPxVY4LV.js",
+        "assets/ShortcutDialog-BhXS1Zvu.js",
+        "assets/model-D5tbButu.js"
+      ],
+      "modules": [
+        "\u0000vite/modulepreload-polyfill.js",
+        "node_modules/scheduler/cjs/scheduler.production.js",
+        "node_modules/scheduler/index.js",
+        "node_modules/react-dom/cjs/react-dom-client.production.js",
+        "node_modules/react-dom/client.js",
+        "node_modules/react-aria/dist/private/link/useLink.mjs",
+        "node_modules/react-aria-components/dist/private/Link.mjs",
+        "node_modules/react-stately/dist/private/tooltip/useTooltipTriggerState.mjs",
+        "node_modules/react-aria/dist/private/radio/utils.mjs",
+        "node_modules/react-aria/dist/private/radio/useRadio.mjs",
+        "node_modules/react-aria/dist/private/radio/useRadioGroup.mjs",
+        "node_modules/react-stately/dist/private/radio/useRadioGroupState.mjs",
+        "node_modules/react-aria-components/dist/private/RadioGroup.mjs",
+        "node_modules/react-aria/dist/private/intl/toast/de-DE.mjs",
+        "node_modules/react-aria/dist/private/intl/toast/en-US.mjs",
+        "node_modules/react-aria/dist/private/toast/intlStrings.mjs",
+        "node_modules/react-aria/dist/private/toast/useToast.mjs",
+        "node_modules/react-aria/dist/private/landmark/useLandmark.mjs",
+        "node_modules/react-aria/dist/private/toast/useToastRegion.mjs",
+        "node_modules/react-aria-components/dist/private/Toast.mjs",
+        "node_modules/react-aria/dist/private/overlays/useModal.mjs",
+        "node_modules/react-aria/dist/private/tooltip/useTooltip.mjs",
+        "node_modules/react-aria/dist/private/tooltip/useTooltipTrigger.mjs",
+        "node_modules/react-aria-components/dist/private/Tooltip.mjs",
+        "src/app/routing.ts",
+        "src/ui/loadingShapes.ts",
+        "src/ui/LoadingIndicator.tsx",
+        "src/ui/Popover.tsx",
+        "src/ui/AccentPicker.tsx",
+        "src/ui/NavigationRail.tsx",
+        "src/ui/Snackbar.tsx",
+        "src/app/theme.ts",
+        "src/ui/SegmentedControl.tsx",
+        "src/ui/ThemeSwitch.tsx",
+        "src/ui/Tooltip.tsx",
+        "src/ui/animateElement.ts",
+        "src/app/reloadMode.ts",
+        "src/app/ModeStage.tsx",
+        "src/app/shortcuts.ts",
+        "src/app/scientificInsertion.ts",
+        "src/shared/linkCodec.ts",
+        "src/app/permalinks.ts",
+        "src/app/fileTransfer.ts",
+        "src/app/pwa.ts",
+        "src/app/App.tsx",
+        "src/app/AppErrorBoundary.tsx",
+        "src/app/globalErrors.ts",
+        "src/main.tsx"
+      ],
+      "raw": 259714,
+      "gzip": 80947
+    },
+    {
+      "file": "assets/Button-BO9S851Z.js",
+      "imports": ["assets/jsx-runtime-Dk72oS4N.js", "assets/i18n-DFLGf4G8.js"],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/react-dom/cjs/react-dom.production.js",
+        "node_modules/react-dom/index.js",
+        "node_modules/react-aria/dist/private/utils/chain.mjs",
+        "node_modules/react-aria/dist/private/utils/useLayoutEffect.mjs",
+        "node_modules/react-aria/dist/private/ssr/SSRProvider.mjs",
+        "node_modules/react-aria/dist/private/utils/useValueEffect.mjs",
+        "node_modules/react-aria/dist/private/utils/useId.mjs",
+        "node_modules/react-aria/dist/private/utils/mergeRefs.mjs",
+        "node_modules/clsx/dist/clsx.mjs",
+        "node_modules/react-aria/dist/private/utils/mergeProps.mjs",
+        "node_modules/react-aria/dist/private/utils/useObjectRef.mjs",
+        "node_modules/react-aria-components/dist/private/utils.mjs",
+        "node_modules/react-aria/dist/private/utils/domHelpers.mjs",
+        "node_modules/react-stately/dist/private/flags/flags.mjs",
+        "node_modules/react-aria/dist/private/utils/shadowdom/DOMFunctions.mjs",
+        "node_modules/react-aria/dist/private/utils/focusWithoutScrolling.mjs",
+        "node_modules/react-aria/dist/private/utils/isElementVisible.mjs",
+        "node_modules/react-aria/dist/private/utils/isFocusable.mjs",
+        "node_modules/react-aria/dist/private/interactions/utils.mjs",
+        "node_modules/react-aria/dist/private/utils/platform.mjs",
+        "node_modules/react-aria/dist/private/utils/isVirtualEvent.mjs",
+        "node_modules/react-aria/dist/private/utils/openLink.mjs",
+        "node_modules/react-aria/dist/private/interactions/useFocusVisible.mjs",
+        "node_modules/react-aria/dist/private/utils/getMetaValue.mjs",
+        "node_modules/react-aria/dist/private/utils/useEffectEvent.mjs",
+        "node_modules/react-aria/dist/private/utils/useLabels.mjs",
+        "node_modules/react-aria/dist/private/i18n/utils.mjs",
+        "node_modules/react-aria/dist/private/i18n/useDefaultLocale.mjs",
+        "node_modules/react-aria/dist/private/i18n/I18nProvider.mjs",
+        "node_modules/react-stately/dist/private/utils/useControlledState.mjs",
+        "node_modules/react-aria/dist/private/utils/runAfterTransition.mjs",
+        "node_modules/react-aria/dist/private/interactions/focusSafely.mjs",
+        "node_modules/react-aria/dist/private/interactions/useFocus.mjs",
+        "node_modules/react-aria/dist/private/interactions/createEventHandler.mjs",
+        "node_modules/react-aria/dist/private/interactions/createKeyboardShortcutHandler.mjs",
+        "node_modules/react-aria/dist/private/interactions/useKeyboard.mjs",
+        "node_modules/react-aria/dist/private/utils/useSyncRef.mjs",
+        "node_modules/react-aria/dist/private/interactions/useFocusable.mjs",
+        "node_modules/react-aria/dist/private/collections/Hidden.mjs",
+        "node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.production.js",
+        "node_modules/use-sync-external-store/shim/index.js",
+        "node_modules/react-aria/dist/private/utils/filterDOMProps.mjs",
+        "node_modules/react-aria/dist/private/interactions/textSelection.mjs",
+        "node_modules/react-aria/dist/private/utils/getNonce.mjs",
+        "node_modules/react-aria/dist/private/interactions/context.mjs",
+        "node_modules/react-aria/dist/private/utils/useGlobalListeners.mjs",
+        "node_modules/react-aria/dist/private/interactions/usePress.mjs",
+        "node_modules/react-aria/dist/private/interactions/useFocusWithin.mjs",
+        "node_modules/react-aria/dist/private/focus/useFocusRing.mjs",
+        "node_modules/react-aria/dist/private/interactions/useHover.mjs",
+        "node_modules/react-aria-components/dist/private/Label.mjs",
+        "node_modules/react-aria/dist/private/label/useLabel.mjs",
+        "node_modules/@internationalized/number/dist/private/NumberFormatter.mjs",
+        "node_modules/react-aria/dist/private/i18n/useNumberFormatter.mjs",
+        "node_modules/react-stately/dist/private/utils/number.mjs",
+        "node_modules/react-aria/dist/private/progress/useProgressBar.mjs",
+        "node_modules/react-aria-components/dist/private/ProgressBar.mjs",
+        "node_modules/react-aria/dist/private/live-announcer/LiveAnnouncer.mjs",
+        "node_modules/react-aria/dist/private/button/useButton.mjs",
+        "node_modules/react-aria-components/dist/private/Button.mjs",
+        "node_modules/react-stately/dist/private/toggle/useToggleState.mjs",
+        "node_modules/react-aria-components/dist/private/SelectionIndicator.mjs",
+        "node_modules/react-aria-components/dist/private/OverlayArrow.mjs",
+        "node_modules/react-aria/dist/private/overlays/calculatePosition.mjs",
+        "node_modules/react-aria/dist/private/overlays/useCloseOnScroll.mjs",
+        "node_modules/react-aria/dist/private/utils/useResizeObserver.mjs",
+        "node_modules/react-aria/dist/private/overlays/useOverlayPosition.mjs",
+        "node_modules/react-aria/dist/private/overlays/PortalProvider.mjs",
+        "node_modules/react-stately/dist/private/overlays/useOverlayTriggerState.mjs",
+        "node_modules/react-aria/dist/private/utils/animation.mjs",
+        "node_modules/react-aria/dist/private/button/useToggleButton.mjs",
+        "node_modules/react-aria/dist/private/button/useToggleButtonGroup.mjs",
+        "node_modules/react-aria-components/dist/private/ToggleButtonGroup.mjs",
+        "node_modules/react-aria-components/dist/private/ToggleButton.mjs",
+        "node_modules/zustand/esm/vanilla.mjs",
+        "node_modules/zustand/esm/react.mjs",
+        "node_modules/zustand/esm/middleware.mjs",
+        "src/styles/colorSettings.ts",
+        "src/shared/settings.ts",
+        "src/shared/settingsStore.ts",
+        "src/shared/modes.ts",
+        "src/shared/store.ts",
+        "src/ui/StateLayer.tsx",
+        "src/ui/Button.tsx"
+      ],
+      "raw": 70996,
+      "gzip": 24084
+    },
+    {
+      "file": "assets/CopyLinkButton-v3MUa89n.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/i18n-DFLGf4G8.js",
+        "assets/IconButton-Dywimf7W.js",
+        "assets/index-DNRdYDao.js"
+      ],
+      "dynamicImports": [],
+      "modules": ["src/app/CopyLinkButton.tsx"],
+      "raw": 811,
+      "gzip": 499
+    },
+    {
+      "file": "assets/Dialog-BqCl1V51.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/FocusScope-CCqqZsct.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/react-aria/dist/private/utils/constants.mjs",
+        "node_modules/react-aria/dist/private/focus/virtualFocus.mjs",
+        "node_modules/react-aria/dist/private/utils/keyboard.mjs",
+        "node_modules/react-aria/dist/private/utils/useEvent.mjs",
+        "node_modules/@internationalized/string/dist/private/LocalizedStringDictionary.mjs",
+        "node_modules/@internationalized/string/dist/private/LocalizedStringFormatter.mjs",
+        "node_modules/react-aria/dist/private/i18n/useLocalizedStringFormatter.mjs",
+        "node_modules/react-aria/dist/private/collections/BaseCollection.mjs",
+        "node_modules/react-aria/dist/private/collections/Document.mjs",
+        "node_modules/react-aria/dist/private/collections/useCachedChildren.mjs",
+        "node_modules/react-aria/dist/private/collections/CollectionBuilder.mjs",
+        "node_modules/react-aria-components/dist/private/Collection.mjs",
+        "node_modules/react-aria-components/dist/private/Heading.mjs",
+        "node_modules/react-aria/dist/private/utils/isScrollable.mjs",
+        "node_modules/react-aria/dist/private/utils/getScrollParent.mjs",
+        "node_modules/react-aria/dist/private/utils/getScrollParents.mjs",
+        "node_modules/react-aria/dist/private/utils/scrollIntoView.mjs",
+        "node_modules/react-aria/dist/private/utils/useDescription.mjs",
+        "node_modules/react-aria-components/dist/private/Header.mjs",
+        "node_modules/react-aria-components/dist/private/Separator.mjs",
+        "node_modules/react-aria/dist/private/selection/utils.mjs",
+        "node_modules/react-aria/dist/private/selection/useTypeSelect.mjs",
+        "node_modules/react-aria/dist/private/utils/useUpdateLayoutEffect.mjs",
+        "node_modules/react-aria/dist/private/selection/useSelectableCollection.mjs",
+        "node_modules/react-aria/dist/private/selection/DOMLayoutDelegate.mjs",
+        "node_modules/react-aria/dist/private/selection/ListKeyboardDelegate.mjs",
+        "node_modules/react-aria/dist/private/i18n/useCollator.mjs",
+        "node_modules/react-aria/dist/private/selection/useSelectableList.mjs",
+        "node_modules/react-aria/dist/private/interactions/useLongPress.mjs",
+        "node_modules/react-aria/dist/private/selection/useSelectableItem.mjs",
+        "node_modules/react-stately/dist/private/collections/getChildNodes.mjs",
+        "node_modules/react-stately/dist/private/collections/getItemCount.mjs",
+        "node_modules/react-aria/dist/private/utils/inertValue.mjs",
+        "node_modules/react-stately/dist/private/selection/Selection.mjs",
+        "node_modules/react-stately/dist/private/selection/useMultipleSelectionState.mjs",
+        "node_modules/react-stately/dist/private/selection/SelectionManager.mjs",
+        "node_modules/react-stately/dist/private/collections/CollectionBuilder.mjs",
+        "node_modules/react-stately/dist/private/collections/useCollection.mjs",
+        "node_modules/react-aria/dist/private/utils/useLoadMoreSentinel.mjs",
+        "node_modules/react-aria/dist/private/overlays/ariaHideOutside.mjs",
+        "node_modules/react-aria/dist/private/interactions/useInteractOutside.mjs",
+        "node_modules/react-aria/dist/private/overlays/useOverlay.mjs",
+        "node_modules/react-aria/dist/private/utils/runAfterKeyboard.mjs",
+        "node_modules/react-aria/dist/private/overlays/usePreventScroll.mjs",
+        "node_modules/react-aria/dist/private/overlays/usePopover.mjs",
+        "node_modules/react-aria/dist/private/intl/overlays/de-DE.mjs",
+        "node_modules/react-aria/dist/private/intl/overlays/en-US.mjs",
+        "node_modules/react-aria/dist/private/overlays/intlStrings.mjs",
+        "node_modules/react-aria/dist/private/overlays/DismissButton.mjs",
+        "node_modules/react-aria/dist/private/interactions/PressResponder.mjs",
+        "node_modules/react-aria/dist/private/overlays/Overlay.mjs",
+        "node_modules/react-aria-components/dist/private/Popover.mjs",
+        "node_modules/react-aria-components/dist/private/Keyboard.mjs",
+        "node_modules/react-aria/dist/private/intl/menu/de-DE.mjs",
+        "node_modules/react-aria/dist/private/intl/menu/en-US.mjs",
+        "node_modules/react-aria/dist/private/menu/intlStrings.mjs",
+        "node_modules/react-aria/dist/private/interactions/useContextMenu.mjs",
+        "node_modules/react-aria/dist/private/overlays/useOverlayTrigger.mjs",
+        "node_modules/react-aria/dist/private/menu/useMenuTrigger.mjs",
+        "node_modules/react-aria/dist/private/menu/utils.mjs",
+        "node_modules/react-aria/dist/private/menu/useMenu.mjs",
+        "node_modules/react-aria/dist/private/menu/useMenuItem.mjs",
+        "node_modules/react-aria/dist/private/menu/useMenuSection.mjs",
+        "node_modules/react-stately/dist/private/menu/useMenuTriggerState.mjs",
+        "node_modules/react-stately/dist/private/tree/TreeCollection.mjs",
+        "node_modules/react-stately/dist/private/tree/useTreeState.mjs",
+        "node_modules/react-aria-components/dist/private/Menu.mjs",
+        "node_modules/react-aria/dist/private/dialog/useDialog.mjs",
+        "node_modules/react-aria-components/dist/private/Dialog.mjs"
+      ],
+      "raw": 84918,
+      "gzip": 25407
+    },
+    {
+      "file": "assets/FocusScope-CCqqZsct.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/react-aria-components/dist/private/Autocomplete.mjs",
+        "node_modules/react-aria-components/dist/private/Text.mjs",
+        "node_modules/react-aria/dist/private/visually-hidden/VisuallyHidden.mjs",
+        "node_modules/react-aria-components/dist/private/SharedElementTransition.mjs",
+        "node_modules/react-aria/dist/private/utils/shadowdom/ShadowTreeWalker.mjs",
+        "node_modules/react-aria/dist/private/focus/FocusScope.mjs"
+      ],
+      "raw": 14292,
+      "gzip": 4376
+    },
+    {
+      "file": "assets/IconButton-Dywimf7W.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "\u0000vite/preload-helper.js",
+        "src/ui/Icon.tsx",
+        "src/styles/motion.ts",
+        "src/ui/IconButton.tsx"
+      ],
+      "raw": 3457,
+      "gzip": 1613
+    },
+    {
+      "file": "assets/Keypad-BXHyuaOQ.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js"
+      ],
+      "dynamicImports": [],
+      "modules": ["src/ui/keypad/Keypad.tsx"],
+      "raw": 605,
+      "gzip": 362
+    },
+    {
+      "file": "assets/SimpleMode-DyVeo4FY.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/i18n-DFLGf4G8.js",
+        "assets/index-DNRdYDao.js",
+        "assets/evaluate-DNTCZB-Z.js",
+        "assets/useModeHistory-CuynDwgE.js",
+        "assets/CopyLinkButton-v3MUa89n.js",
+        "assets/Keypad-BXHyuaOQ.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "src/ui/keypad/displayFit.ts",
+        "src/ui/keypad/CalculatorDisplay.tsx",
+        "src/features/simple/model.ts",
+        "src/features/simple/format.ts",
+        "src/features/simple/keyboard.ts",
+        "src/app/simpleLinks.ts",
+        "src/features/simple/SimpleMode.tsx"
+      ],
+      "raw": 16308,
+      "gzip": 5615
+    },
+    {
+      "file": "assets/browserMotion-CDweiHa2.js",
+      "imports": [],
+      "dynamicImports": [],
+      "modules": ["src/app/browserMotion.ts"],
+      "raw": 158,
+      "gzip": 136
+    },
+    {
+      "file": "assets/evaluate-DNTCZB-Z.js",
+      "imports": [],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/decimal.js/decimal.mjs",
+        "src/engine/numeric.ts",
+        "src/engine/format.ts",
+        "src/engine/parser.ts",
+        "src/engine/programmer/index.ts",
+        "src/engine/values.ts",
+        "src/engine/trigonometry.ts",
+        "src/engine/complexFunctions.ts",
+        "src/engine/functionHelpers.ts",
+        "src/engine/scientificNumeric.ts",
+        "src/engine/quadrature.ts",
+        "src/engine/scientificFunctions.ts",
+        "src/engine/floatFunctions.ts",
+        "src/engine/functions.ts",
+        "src/engine/constants.ts",
+        "src/engine/print.ts",
+        "src/engine/environment.ts",
+        "src/engine/evaluate.ts"
+      ],
+      "raw": 85604,
+      "gzip": 31280
+    },
+    {
+      "file": "assets/i18n-DFLGf4G8.js",
+      "imports": [],
+      "dynamicImports": [],
+      "modules": [
+        "src/shared/i18n/coreDE.ts",
+        "src/shared/i18n/coreEN.ts",
+        "src/shared/i18n.ts"
+      ],
+      "raw": 11056,
+      "gzip": 3783
+    },
+    {
+      "file": "assets/jsx-runtime-Dk72oS4N.js",
+      "imports": [],
+      "dynamicImports": [],
+      "modules": [
+        "\u0000rolldown/runtime.js",
+        "node_modules/react/cjs/react.production.js",
+        "node_modules/react/index.js",
+        "node_modules/react/cjs/react-jsx-runtime.production.js",
+        "node_modules/react/jsx-runtime.js"
+      ],
+      "raw": 8774,
+      "gzip": 3328
+    },
+    {
+      "file": "assets/snackbarQueue-CU1MXNwb.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/i18n-DFLGf4G8.js",
+        "assets/IconButton-Dywimf7W.js"
+      ],
+      "dynamicImports": [
+        "assets/SimpleMode-DyVeo4FY.js",
+        "assets/ScientificMode-CWC9rdK5.js",
+        "assets/ConvertMode-kF1-cEER.js",
+        "assets/GraphMode-D8CqIXdX.js"
+      ],
+      "modules": [
+        "node_modules/react-stately/dist/private/toast/useToastState.mjs",
+        "src/shared/history.ts",
+        "src/shared/historyStore.ts",
+        "src/app/ModeErrorBoundary.tsx",
+        "src/shared/historyAdapter.ts",
+        "src/app/modeRegistry.ts",
+        "src/ui/useMediaQuery.ts",
+        "src/ui/snackbarQueue.ts"
+      ],
+      "raw": 10851,
+      "gzip": 4304
+    },
+    {
+      "file": "assets/useFormValidation-BJqneZKK.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/FocusScope-CCqqZsct.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/react-aria-components/dist/private/FieldError.mjs",
+        "node_modules/react-stately/dist/private/form/useFormValidationState.mjs",
+        "node_modules/react-aria-components/dist/private/Form.mjs",
+        "node_modules/react-aria/dist/private/label/useField.mjs",
+        "node_modules/react-aria/dist/private/utils/useFormReset.mjs",
+        "node_modules/react-aria/dist/private/form/useFormValidation.mjs"
+      ],
+      "raw": 5112,
+      "gzip": 1951
+    },
+    {
+      "file": "assets/useModeHistory-CuynDwgE.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/snackbarQueue-CU1MXNwb.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/zustand/esm/vanilla/shallow.mjs",
+        "node_modules/zustand/esm/react/shallow.mjs",
+        "src/shared/useModeHistory.ts"
+      ],
+      "raw": 1193,
+      "gzip": 604
+    },
+    {
+      "file": "assets/useSlot-VE8jVIIV.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js"
+      ],
+      "dynamicImports": [],
+      "modules": ["node_modules/react-aria/dist/private/utils/useSlot.mjs"],
+      "raw": 353,
+      "gzip": 260
+    },
+    {
+      "file": "assets/useSpring-D3H5UTvG.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/IconButton-Dywimf7W.js"
+      ],
+      "dynamicImports": [],
+      "modules": ["src/ui/useSpring.ts"],
+      "raw": 940,
+      "gzip": 536
+    }
+  ],
+  "graph": [
+    {
+      "file": "assets/index-DNRdYDao.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/Dialog-BqCl1V51.js",
+        "assets/FocusScope-CCqqZsct.js",
+        "assets/useFormValidation-BJqneZKK.js",
+        "assets/useSlot-VE8jVIIV.js",
+        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/i18n-DFLGf4G8.js",
+        "assets/IconButton-Dywimf7W.js",
+        "assets/useSpring-D3H5UTvG.js",
+        "assets/browserMotion-CDweiHa2.js"
+      ],
+      "dynamicImports": [
+        "assets/AccentPanel-DX5vgMVK.js",
+        "assets/buildScheme-DzN2F7dg.js",
+        "assets/HistorySheet-DCM82Kf-.js",
+        "assets/SettingsDialog-BnQzZyMP.js",
+        "assets/CommandPalette-CPxVY4LV.js",
+        "assets/ShortcutDialog-BhXS1Zvu.js",
+        "assets/model-D5tbButu.js"
+      ],
+      "modules": [
+        "\u0000vite/modulepreload-polyfill.js",
+        "node_modules/scheduler/cjs/scheduler.production.js",
+        "node_modules/scheduler/index.js",
+        "node_modules/react-dom/cjs/react-dom-client.production.js",
+        "node_modules/react-dom/client.js",
+        "node_modules/react-aria/dist/private/link/useLink.mjs",
+        "node_modules/react-aria-components/dist/private/Link.mjs",
+        "node_modules/react-stately/dist/private/tooltip/useTooltipTriggerState.mjs",
+        "node_modules/react-aria/dist/private/radio/utils.mjs",
+        "node_modules/react-aria/dist/private/radio/useRadio.mjs",
+        "node_modules/react-aria/dist/private/radio/useRadioGroup.mjs",
+        "node_modules/react-stately/dist/private/radio/useRadioGroupState.mjs",
+        "node_modules/react-aria-components/dist/private/RadioGroup.mjs",
+        "node_modules/react-aria/dist/private/intl/toast/de-DE.mjs",
+        "node_modules/react-aria/dist/private/intl/toast/en-US.mjs",
+        "node_modules/react-aria/dist/private/toast/intlStrings.mjs",
+        "node_modules/react-aria/dist/private/toast/useToast.mjs",
+        "node_modules/react-aria/dist/private/landmark/useLandmark.mjs",
+        "node_modules/react-aria/dist/private/toast/useToastRegion.mjs",
+        "node_modules/react-aria-components/dist/private/Toast.mjs",
+        "node_modules/react-aria/dist/private/overlays/useModal.mjs",
+        "node_modules/react-aria/dist/private/tooltip/useTooltip.mjs",
+        "node_modules/react-aria/dist/private/tooltip/useTooltipTrigger.mjs",
+        "node_modules/react-aria-components/dist/private/Tooltip.mjs",
+        "src/app/routing.ts",
+        "src/ui/loadingShapes.ts",
+        "src/ui/LoadingIndicator.tsx",
+        "src/ui/Popover.tsx",
+        "src/ui/AccentPicker.tsx",
+        "src/ui/NavigationRail.tsx",
+        "src/ui/Snackbar.tsx",
+        "src/app/theme.ts",
+        "src/ui/SegmentedControl.tsx",
+        "src/ui/ThemeSwitch.tsx",
+        "src/ui/Tooltip.tsx",
+        "src/ui/animateElement.ts",
+        "src/app/reloadMode.ts",
+        "src/app/ModeStage.tsx",
+        "src/app/shortcuts.ts",
+        "src/app/scientificInsertion.ts",
+        "src/shared/linkCodec.ts",
+        "src/app/permalinks.ts",
+        "src/app/fileTransfer.ts",
+        "src/app/pwa.ts",
+        "src/app/App.tsx",
+        "src/app/AppErrorBoundary.tsx",
+        "src/app/globalErrors.ts",
+        "src/main.tsx"
+      ]
+    },
+    {
+      "file": "assets/AccentPanel-DX5vgMVK.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/Dialog-BqCl1V51.js",
+        "assets/Select-W6Hfrqro.js",
+        "assets/Slider-oKMdNTqv.js",
+        "assets/IconButton-Dywimf7W.js",
+        "assets/index-DNRdYDao.js",
+        "assets/extended-B2oEldXH.js",
+        "assets/seeds-DdxXycSJ.js",
+        "assets/graphPalette-DTsoAoAA.js",
+        "assets/buildScheme-DzN2F7dg.js"
+      ],
+      "dynamicImports": [],
+      "modules": ["src/shared/colorInput.ts", "src/ui/AccentPanel.tsx"]
+    },
+    {
+      "file": "assets/Button-BO9S851Z.js",
+      "imports": ["assets/jsx-runtime-Dk72oS4N.js", "assets/i18n-DFLGf4G8.js"],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/react-dom/cjs/react-dom.production.js",
+        "node_modules/react-dom/index.js",
+        "node_modules/react-aria/dist/private/utils/chain.mjs",
+        "node_modules/react-aria/dist/private/utils/useLayoutEffect.mjs",
+        "node_modules/react-aria/dist/private/ssr/SSRProvider.mjs",
+        "node_modules/react-aria/dist/private/utils/useValueEffect.mjs",
+        "node_modules/react-aria/dist/private/utils/useId.mjs",
+        "node_modules/react-aria/dist/private/utils/mergeRefs.mjs",
+        "node_modules/clsx/dist/clsx.mjs",
+        "node_modules/react-aria/dist/private/utils/mergeProps.mjs",
+        "node_modules/react-aria/dist/private/utils/useObjectRef.mjs",
+        "node_modules/react-aria-components/dist/private/utils.mjs",
+        "node_modules/react-aria/dist/private/utils/domHelpers.mjs",
+        "node_modules/react-stately/dist/private/flags/flags.mjs",
+        "node_modules/react-aria/dist/private/utils/shadowdom/DOMFunctions.mjs",
+        "node_modules/react-aria/dist/private/utils/focusWithoutScrolling.mjs",
+        "node_modules/react-aria/dist/private/utils/isElementVisible.mjs",
+        "node_modules/react-aria/dist/private/utils/isFocusable.mjs",
+        "node_modules/react-aria/dist/private/interactions/utils.mjs",
+        "node_modules/react-aria/dist/private/utils/platform.mjs",
+        "node_modules/react-aria/dist/private/utils/isVirtualEvent.mjs",
+        "node_modules/react-aria/dist/private/utils/openLink.mjs",
+        "node_modules/react-aria/dist/private/interactions/useFocusVisible.mjs",
+        "node_modules/react-aria/dist/private/utils/getMetaValue.mjs",
+        "node_modules/react-aria/dist/private/utils/useEffectEvent.mjs",
+        "node_modules/react-aria/dist/private/utils/useLabels.mjs",
+        "node_modules/react-aria/dist/private/i18n/utils.mjs",
+        "node_modules/react-aria/dist/private/i18n/useDefaultLocale.mjs",
+        "node_modules/react-aria/dist/private/i18n/I18nProvider.mjs",
+        "node_modules/react-stately/dist/private/utils/useControlledState.mjs",
+        "node_modules/react-aria/dist/private/utils/runAfterTransition.mjs",
+        "node_modules/react-aria/dist/private/interactions/focusSafely.mjs",
+        "node_modules/react-aria/dist/private/interactions/useFocus.mjs",
+        "node_modules/react-aria/dist/private/interactions/createEventHandler.mjs",
+        "node_modules/react-aria/dist/private/interactions/createKeyboardShortcutHandler.mjs",
+        "node_modules/react-aria/dist/private/interactions/useKeyboard.mjs",
+        "node_modules/react-aria/dist/private/utils/useSyncRef.mjs",
+        "node_modules/react-aria/dist/private/interactions/useFocusable.mjs",
+        "node_modules/react-aria/dist/private/collections/Hidden.mjs",
+        "node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.production.js",
+        "node_modules/use-sync-external-store/shim/index.js",
+        "node_modules/react-aria/dist/private/utils/filterDOMProps.mjs",
+        "node_modules/react-aria/dist/private/interactions/textSelection.mjs",
+        "node_modules/react-aria/dist/private/utils/getNonce.mjs",
+        "node_modules/react-aria/dist/private/interactions/context.mjs",
+        "node_modules/react-aria/dist/private/utils/useGlobalListeners.mjs",
+        "node_modules/react-aria/dist/private/interactions/usePress.mjs",
+        "node_modules/react-aria/dist/private/interactions/useFocusWithin.mjs",
+        "node_modules/react-aria/dist/private/focus/useFocusRing.mjs",
+        "node_modules/react-aria/dist/private/interactions/useHover.mjs",
+        "node_modules/react-aria-components/dist/private/Label.mjs",
+        "node_modules/react-aria/dist/private/label/useLabel.mjs",
+        "node_modules/@internationalized/number/dist/private/NumberFormatter.mjs",
+        "node_modules/react-aria/dist/private/i18n/useNumberFormatter.mjs",
+        "node_modules/react-stately/dist/private/utils/number.mjs",
+        "node_modules/react-aria/dist/private/progress/useProgressBar.mjs",
+        "node_modules/react-aria-components/dist/private/ProgressBar.mjs",
+        "node_modules/react-aria/dist/private/live-announcer/LiveAnnouncer.mjs",
+        "node_modules/react-aria/dist/private/button/useButton.mjs",
+        "node_modules/react-aria-components/dist/private/Button.mjs",
+        "node_modules/react-stately/dist/private/toggle/useToggleState.mjs",
+        "node_modules/react-aria-components/dist/private/SelectionIndicator.mjs",
+        "node_modules/react-aria-components/dist/private/OverlayArrow.mjs",
+        "node_modules/react-aria/dist/private/overlays/calculatePosition.mjs",
+        "node_modules/react-aria/dist/private/overlays/useCloseOnScroll.mjs",
+        "node_modules/react-aria/dist/private/utils/useResizeObserver.mjs",
+        "node_modules/react-aria/dist/private/overlays/useOverlayPosition.mjs",
+        "node_modules/react-aria/dist/private/overlays/PortalProvider.mjs",
+        "node_modules/react-stately/dist/private/overlays/useOverlayTriggerState.mjs",
+        "node_modules/react-aria/dist/private/utils/animation.mjs",
+        "node_modules/react-aria/dist/private/button/useToggleButton.mjs",
+        "node_modules/react-aria/dist/private/button/useToggleButtonGroup.mjs",
+        "node_modules/react-aria-components/dist/private/ToggleButtonGroup.mjs",
+        "node_modules/react-aria-components/dist/private/ToggleButton.mjs",
+        "node_modules/zustand/esm/vanilla.mjs",
+        "node_modules/zustand/esm/react.mjs",
+        "node_modules/zustand/esm/middleware.mjs",
+        "src/styles/colorSettings.ts",
+        "src/shared/settings.ts",
+        "src/shared/settingsStore.ts",
+        "src/shared/modes.ts",
+        "src/shared/store.ts",
+        "src/ui/StateLayer.tsx",
+        "src/ui/Button.tsx"
+      ]
+    },
+    {
+      "file": "assets/Card-CpJeSsLo.js",
+      "imports": ["assets/jsx-runtime-Dk72oS4N.js"],
+      "dynamicImports": [],
+      "modules": ["src/ui/Card.tsx"]
+    },
+    {
+      "file": "assets/Checkbox-Calj66Hm.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/FocusScope-CCqqZsct.js",
+        "assets/useFormValidation-BJqneZKK.js",
+        "assets/useToggle-zHC1VABP.js",
+        "assets/IconButton-Dywimf7W.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/react-aria/dist/private/checkbox/utils.mjs",
+        "node_modules/react-aria/dist/private/checkbox/useCheckbox.mjs",
+        "node_modules/react-aria/dist/private/checkbox/useCheckboxGroupItem.mjs",
+        "node_modules/react-aria-components/dist/private/Checkbox.mjs",
+        "src/ui/Checkbox.tsx"
+      ]
+    },
+    {
+      "file": "assets/CommandPalette-CPxVY4LV.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/Dialog-D8GWA0Uh.js",
+        "assets/index-DNRdYDao.js",
+        "assets/extended-B2oEldXH.js",
+        "assets/units-Lj6SzZSx.js",
+        "assets/registry-D_GYSTzU.js",
+        "assets/seeds-DdxXycSJ.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "src/app/fuzzySearch.ts",
+        "src/app/paletteModel.ts",
+        "src/app/CommandPalette.tsx"
+      ]
+    },
+    {
+      "file": "assets/ConvertMode-kF1-cEER.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/Select-W6Hfrqro.js",
+        "assets/Checkbox-Calj66Hm.js",
+        "assets/Slider-oKMdNTqv.js",
+        "assets/TextField-BMm3fn53.js",
+        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/IconButton-Dywimf7W.js",
+        "assets/useSpring-D3H5UTvG.js",
+        "assets/index-DNRdYDao.js",
+        "assets/extended-B2oEldXH.js",
+        "assets/units-Lj6SzZSx.js",
+        "assets/useModeHistory-CuynDwgE.js",
+        "assets/Card-CpJeSsLo.js",
+        "assets/VisuallyHidden-D7u6X-GC.js",
+        "assets/model-D5tbButu.js",
+        "assets/CopyLinkButton-v3MUa89n.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "src/ui/Fab.css",
+        "src/ui/Fab.tsx",
+        "src/features/convert/preferences.ts",
+        "src/units/currency.ts",
+        "src/features/convert/currency/catalog.ts",
+        "src/features/convert/currency/rates.ts",
+        "src/features/convert/currency/useCurrencyRates.ts",
+        "src/features/convert/currency/CurrencyPanel.tsx",
+        "src/features/convert/ConvertMode.tsx"
+      ]
+    },
+    {
+      "file": "assets/CopyLinkButton-v3MUa89n.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/i18n-DFLGf4G8.js",
+        "assets/IconButton-Dywimf7W.js",
+        "assets/index-DNRdYDao.js"
+      ],
+      "dynamicImports": [],
+      "modules": ["src/app/CopyLinkButton.tsx"]
+    },
+    {
+      "file": "assets/Dialog-BqCl1V51.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/FocusScope-CCqqZsct.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/react-aria/dist/private/utils/constants.mjs",
+        "node_modules/react-aria/dist/private/focus/virtualFocus.mjs",
+        "node_modules/react-aria/dist/private/utils/keyboard.mjs",
+        "node_modules/react-aria/dist/private/utils/useEvent.mjs",
+        "node_modules/@internationalized/string/dist/private/LocalizedStringDictionary.mjs",
+        "node_modules/@internationalized/string/dist/private/LocalizedStringFormatter.mjs",
+        "node_modules/react-aria/dist/private/i18n/useLocalizedStringFormatter.mjs",
+        "node_modules/react-aria/dist/private/collections/BaseCollection.mjs",
+        "node_modules/react-aria/dist/private/collections/Document.mjs",
+        "node_modules/react-aria/dist/private/collections/useCachedChildren.mjs",
+        "node_modules/react-aria/dist/private/collections/CollectionBuilder.mjs",
+        "node_modules/react-aria-components/dist/private/Collection.mjs",
+        "node_modules/react-aria-components/dist/private/Heading.mjs",
+        "node_modules/react-aria/dist/private/utils/isScrollable.mjs",
+        "node_modules/react-aria/dist/private/utils/getScrollParent.mjs",
+        "node_modules/react-aria/dist/private/utils/getScrollParents.mjs",
+        "node_modules/react-aria/dist/private/utils/scrollIntoView.mjs",
+        "node_modules/react-aria/dist/private/utils/useDescription.mjs",
+        "node_modules/react-aria-components/dist/private/Header.mjs",
+        "node_modules/react-aria-components/dist/private/Separator.mjs",
+        "node_modules/react-aria/dist/private/selection/utils.mjs",
+        "node_modules/react-aria/dist/private/selection/useTypeSelect.mjs",
+        "node_modules/react-aria/dist/private/utils/useUpdateLayoutEffect.mjs",
+        "node_modules/react-aria/dist/private/selection/useSelectableCollection.mjs",
+        "node_modules/react-aria/dist/private/selection/DOMLayoutDelegate.mjs",
+        "node_modules/react-aria/dist/private/selection/ListKeyboardDelegate.mjs",
+        "node_modules/react-aria/dist/private/i18n/useCollator.mjs",
+        "node_modules/react-aria/dist/private/selection/useSelectableList.mjs",
+        "node_modules/react-aria/dist/private/interactions/useLongPress.mjs",
+        "node_modules/react-aria/dist/private/selection/useSelectableItem.mjs",
+        "node_modules/react-stately/dist/private/collections/getChildNodes.mjs",
+        "node_modules/react-stately/dist/private/collections/getItemCount.mjs",
+        "node_modules/react-aria/dist/private/utils/inertValue.mjs",
+        "node_modules/react-stately/dist/private/selection/Selection.mjs",
+        "node_modules/react-stately/dist/private/selection/useMultipleSelectionState.mjs",
+        "node_modules/react-stately/dist/private/selection/SelectionManager.mjs",
+        "node_modules/react-stately/dist/private/collections/CollectionBuilder.mjs",
+        "node_modules/react-stately/dist/private/collections/useCollection.mjs",
+        "node_modules/react-aria/dist/private/utils/useLoadMoreSentinel.mjs",
+        "node_modules/react-aria/dist/private/overlays/ariaHideOutside.mjs",
+        "node_modules/react-aria/dist/private/interactions/useInteractOutside.mjs",
+        "node_modules/react-aria/dist/private/overlays/useOverlay.mjs",
+        "node_modules/react-aria/dist/private/utils/runAfterKeyboard.mjs",
+        "node_modules/react-aria/dist/private/overlays/usePreventScroll.mjs",
+        "node_modules/react-aria/dist/private/overlays/usePopover.mjs",
+        "node_modules/react-aria/dist/private/intl/overlays/de-DE.mjs",
+        "node_modules/react-aria/dist/private/intl/overlays/en-US.mjs",
+        "node_modules/react-aria/dist/private/overlays/intlStrings.mjs",
+        "node_modules/react-aria/dist/private/overlays/DismissButton.mjs",
+        "node_modules/react-aria/dist/private/interactions/PressResponder.mjs",
+        "node_modules/react-aria/dist/private/overlays/Overlay.mjs",
+        "node_modules/react-aria-components/dist/private/Popover.mjs",
+        "node_modules/react-aria-components/dist/private/Keyboard.mjs",
+        "node_modules/react-aria/dist/private/intl/menu/de-DE.mjs",
+        "node_modules/react-aria/dist/private/intl/menu/en-US.mjs",
+        "node_modules/react-aria/dist/private/menu/intlStrings.mjs",
+        "node_modules/react-aria/dist/private/interactions/useContextMenu.mjs",
+        "node_modules/react-aria/dist/private/overlays/useOverlayTrigger.mjs",
+        "node_modules/react-aria/dist/private/menu/useMenuTrigger.mjs",
+        "node_modules/react-aria/dist/private/menu/utils.mjs",
+        "node_modules/react-aria/dist/private/menu/useMenu.mjs",
+        "node_modules/react-aria/dist/private/menu/useMenuItem.mjs",
+        "node_modules/react-aria/dist/private/menu/useMenuSection.mjs",
+        "node_modules/react-stately/dist/private/menu/useMenuTriggerState.mjs",
+        "node_modules/react-stately/dist/private/tree/TreeCollection.mjs",
+        "node_modules/react-stately/dist/private/tree/useTreeState.mjs",
+        "node_modules/react-aria-components/dist/private/Menu.mjs",
+        "node_modules/react-aria/dist/private/dialog/useDialog.mjs",
+        "node_modules/react-aria-components/dist/private/Dialog.mjs"
+      ]
+    },
+    {
+      "file": "assets/Dialog-D8GWA0Uh.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/Dialog-BqCl1V51.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/react-aria/dist/private/overlays/useModalOverlay.mjs",
+        "node_modules/react-aria/dist/private/utils/useViewportSize.mjs",
+        "node_modules/react-aria-components/dist/private/Modal.mjs",
+        "src/ui/Dialog.tsx"
+      ]
+    },
+    {
+      "file": "assets/ExpressionEditor-BCOwB9l_.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/index-DNRdYDao.js",
+        "assets/extended-B2oEldXH.js",
+        "assets/evaluate-DNTCZB-Z.js",
+        "assets/engine-BxLhPFcY.js",
+        "assets/registry-D_GYSTzU.js",
+        "assets/model-D70ir4L7.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/@marijn/find-cluster-break/src/index.js",
+        "node_modules/@codemirror/state/dist/index.js",
+        "node_modules/style-mod/src/style-mod.js",
+        "node_modules/w3c-keyname/index.js",
+        "node_modules/crelt/index.js",
+        "node_modules/@codemirror/view/dist/index.js",
+        "node_modules/@lezer/common/dist/index.js",
+        "node_modules/@lezer/highlight/dist/index.js",
+        "node_modules/@codemirror/streamparser/dist/index.js",
+        "node_modules/@codemirror/language/dist/index.js",
+        "node_modules/@codemirror/autocomplete/dist/index.js",
+        "node_modules/@codemirror/commands/dist/index.js",
+        "node_modules/@codemirror/lint/dist/index.js",
+        "src/features/scientific/ExpressionEditor.tsx"
+      ]
+    },
+    {
+      "file": "assets/FocusScope-CCqqZsct.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/react-aria-components/dist/private/Autocomplete.mjs",
+        "node_modules/react-aria-components/dist/private/Text.mjs",
+        "node_modules/react-aria/dist/private/visually-hidden/VisuallyHidden.mjs",
+        "node_modules/react-aria-components/dist/private/SharedElementTransition.mjs",
+        "node_modules/react-aria/dist/private/utils/shadowdom/ShadowTreeWalker.mjs",
+        "node_modules/react-aria/dist/private/focus/FocusScope.mjs"
+      ]
+    },
+    {
+      "file": "assets/GraphMode-D8CqIXdX.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/Dialog-BqCl1V51.js",
+        "assets/FocusScope-CCqqZsct.js",
+        "assets/Select-W6Hfrqro.js",
+        "assets/useFormValidation-BJqneZKK.js",
+        "assets/Checkbox-Calj66Hm.js",
+        "assets/Slider-oKMdNTqv.js",
+        "assets/useTextField-DBjo9HdV.js",
+        "assets/Dialog-D8GWA0Uh.js",
+        "assets/TextField-BMm3fn53.js",
+        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/IconButton-Dywimf7W.js",
+        "assets/index-DNRdYDao.js",
+        "assets/extended-B2oEldXH.js",
+        "assets/evaluate-DNTCZB-Z.js",
+        "assets/engine-BxLhPFcY.js",
+        "assets/SideSheet-DHggJpdY.js",
+        "assets/useModeHistory-CuynDwgE.js",
+        "assets/VisuallyHidden-D7u6X-GC.js",
+        "assets/CopyLinkButton-v3MUa89n.js",
+        "assets/graphPalette-DTsoAoAA.js"
+      ],
+      "dynamicImports": ["assets/ExpressionEditor-BCOwB9l_.js"],
+      "modules": [
+        "node_modules/react-aria/dist/private/intl/searchfield/de-DE.mjs",
+        "node_modules/react-aria/dist/private/intl/searchfield/en-US.mjs",
+        "node_modules/react-aria/dist/private/searchfield/intlStrings.mjs",
+        "node_modules/react-aria/dist/private/searchfield/useSearchField.mjs",
+        "node_modules/react-stately/dist/private/searchfield/useSearchFieldState.mjs",
+        "node_modules/react-aria-components/dist/private/SearchField.mjs",
+        "src/ui/Chip.tsx",
+        "src/graph/compile.ts",
+        "src/graph/parseCurveInput.ts",
+        "src/graph/parseImplicitInput.ts",
+        "src/graph/geometry.ts",
+        "src/graph/implicitMarching.ts",
+        "src/graph/sampleImplicitCurve.ts",
+        "src/graph/sampleCurve.ts",
+        "src/graph/viewport.ts",
+        "src/graph/numerical.ts",
+        "src/graph/curveAnalysis.ts",
+        "src/graph/analysis.ts",
+        "src/features/graph/viewportTransition.ts",
+        "src/features/graph/model.ts",
+        "src/features/graph/analysisAdapter.ts",
+        "src/features/graph/numbers.ts",
+        "src/features/graph/renderer.ts",
+        "src/features/graph/workerProtocol.ts",
+        "src/features/graph/sampling.ts",
+        "src/features/graph/fit.ts",
+        "src/features/graph/GraphCanvas.tsx",
+        "src/features/graph/ValueTable.tsx",
+        "src/ui/Menu.tsx",
+        "src/features/graph/samplingDiagnostics.ts",
+        "src/features/graph/FunctionPanel.tsx",
+        "src/features/graph/GraphMode.tsx"
+      ]
+    },
+    {
+      "file": "assets/HistorySheet-DCM82Kf-.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/TextField-BMm3fn53.js",
+        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/i18n-DFLGf4G8.js",
+        "assets/IconButton-Dywimf7W.js",
+        "assets/index-DNRdYDao.js",
+        "assets/SideSheet-DHggJpdY.js",
+        "assets/useModeHistory-CuynDwgE.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/motion-utils/dist/es/array.mjs",
+        "node_modules/motion-utils/dist/es/clamp.mjs",
+        "node_modules/motion-utils/dist/es/errors.mjs",
+        "node_modules/motion-utils/dist/es/global-config.mjs",
+        "node_modules/motion-utils/dist/es/is-numerical-string.mjs",
+        "node_modules/motion-utils/dist/es/is-object.mjs",
+        "node_modules/motion-utils/dist/es/is-zero-value-string.mjs",
+        "node_modules/motion-utils/dist/es/memo.mjs",
+        "node_modules/motion-utils/dist/es/noop.mjs",
+        "node_modules/motion-utils/dist/es/pipe.mjs",
+        "node_modules/motion-utils/dist/es/progress.mjs",
+        "node_modules/motion-utils/dist/es/subscription-manager.mjs",
+        "node_modules/motion-utils/dist/es/time-conversion.mjs",
+        "node_modules/motion-utils/dist/es/velocity-per-second.mjs",
+        "node_modules/motion-utils/dist/es/wrap.mjs",
+        "node_modules/motion-utils/dist/es/easing/cubic-bezier.mjs",
+        "node_modules/motion-utils/dist/es/easing/modifiers/mirror.mjs",
+        "node_modules/motion-utils/dist/es/easing/modifiers/reverse.mjs",
+        "node_modules/motion-utils/dist/es/easing/back.mjs",
+        "node_modules/motion-utils/dist/es/easing/anticipate.mjs",
+        "node_modules/motion-utils/dist/es/easing/circ.mjs",
+        "node_modules/motion-utils/dist/es/easing/ease.mjs",
+        "node_modules/motion-utils/dist/es/easing/utils/is-easing-array.mjs",
+        "node_modules/motion-utils/dist/es/easing/utils/get-easing-for-segment.mjs",
+        "node_modules/motion-utils/dist/es/easing/utils/is-bezier-definition.mjs",
+        "node_modules/motion-utils/dist/es/easing/utils/map.mjs",
+        "node_modules/motion-dom/dist/es/frameloop/frame-data.mjs",
+        "node_modules/motion-dom/dist/es/frameloop/sync-time.mjs",
+        "node_modules/motion-dom/dist/es/value/types/utils/sanitize.mjs",
+        "node_modules/motion-dom/dist/es/animation/utils/is-css-variable.mjs",
+        "node_modules/motion-dom/dist/es/value/types/numbers/index.mjs",
+        "node_modules/motion-dom/dist/es/value/types/utils/float-regex.mjs",
+        "node_modules/motion-dom/dist/es/value/types/utils/is-nullish.mjs",
+        "node_modules/motion-dom/dist/es/value/types/utils/single-color-regex.mjs",
+        "node_modules/motion-dom/dist/es/value/types/color/utils.mjs",
+        "node_modules/motion-dom/dist/es/value/types/color/rgba.mjs",
+        "node_modules/motion-dom/dist/es/value/types/color/hex.mjs",
+        "node_modules/motion-dom/dist/es/value/types/numbers/units.mjs",
+        "node_modules/motion-dom/dist/es/value/types/color/hsla.mjs",
+        "node_modules/motion-dom/dist/es/value/types/color/index.mjs",
+        "node_modules/motion-dom/dist/es/value/types/utils/color-regex.mjs",
+        "node_modules/motion-dom/dist/es/value/types/complex/index.mjs",
+        "node_modules/motion-dom/dist/es/value/types/color/hsla-to-rgba.mjs",
+        "node_modules/motion-dom/dist/es/utils/mix/immediate.mjs",
+        "node_modules/motion-dom/dist/es/utils/mix/number.mjs",
+        "node_modules/motion-dom/dist/es/utils/mix/color.mjs",
+        "node_modules/motion-dom/dist/es/utils/mix/visibility.mjs",
+        "node_modules/motion-dom/dist/es/utils/mix/complex.mjs",
+        "node_modules/motion-dom/dist/es/utils/mix/index.mjs",
+        "node_modules/motion-dom/dist/es/frameloop/order.mjs",
+        "node_modules/motion-dom/dist/es/frameloop/render-step.mjs",
+        "node_modules/motion-dom/dist/es/frameloop/batcher.mjs",
+        "node_modules/motion-dom/dist/es/frameloop/frame.mjs",
+        "node_modules/motion-dom/dist/es/animation/drivers/frame.mjs",
+        "node_modules/motion-dom/dist/es/animation/waapi/utils/linear.mjs",
+        "node_modules/motion-dom/dist/es/animation/generators/utils/calc-duration.mjs",
+        "node_modules/motion-dom/dist/es/animation/generators/utils/create-generator-easing.mjs",
+        "node_modules/motion-dom/dist/es/animation/generators/spring.mjs",
+        "node_modules/motion-dom/dist/es/animation/generators/inertia.mjs",
+        "node_modules/motion-dom/dist/es/utils/interpolate.mjs",
+        "node_modules/motion-dom/dist/es/animation/keyframes/offsets/fill.mjs",
+        "node_modules/motion-dom/dist/es/animation/keyframes/offsets/default.mjs",
+        "node_modules/motion-dom/dist/es/animation/keyframes/offsets/time.mjs",
+        "node_modules/motion-dom/dist/es/animation/generators/keyframes.mjs",
+        "node_modules/motion-dom/dist/es/animation/generators/utils/velocity.mjs",
+        "node_modules/motion-dom/dist/es/animation/keyframes/get-final.mjs",
+        "node_modules/motion-dom/dist/es/animation/utils/replace-transition-type.mjs",
+        "node_modules/motion-dom/dist/es/animation/utils/resolve-start-time.mjs",
+        "node_modules/motion-dom/dist/es/animation/utils/notify-inspector.mjs",
+        "node_modules/motion-dom/dist/es/animation/utils/WithPromise.mjs",
+        "node_modules/motion-dom/dist/es/animation/JSAnimation.mjs",
+        "node_modules/motion-dom/dist/es/value/types/complex/filter.mjs",
+        "node_modules/motion-dom/dist/es/value/types/complex/mask.mjs",
+        "node_modules/motion-dom/dist/es/value/types/int.mjs",
+        "node_modules/motion-dom/dist/es/value/types/maps/transform.mjs",
+        "node_modules/motion-dom/dist/es/value/types/maps/number.mjs",
+        "node_modules/motion-dom/dist/es/value/types/maps/defaults.mjs",
+        "node_modules/motion-dom/dist/es/value/types/utils/animatable-none.mjs",
+        "node_modules/motion-dom/dist/es/animation/keyframes/utils/fill-wildcards.mjs",
+        "node_modules/motion-dom/dist/es/render/dom/parse-transform.mjs",
+        "node_modules/motion-dom/dist/es/render/utils/keys-transform.mjs",
+        "node_modules/motion-dom/dist/es/animation/keyframes/utils/unit-conversion.mjs",
+        "node_modules/motion-dom/dist/es/animation/keyframes/KeyframesResolver.mjs",
+        "node_modules/motion-dom/dist/es/render/dom/is-css-var.mjs",
+        "node_modules/motion-dom/dist/es/render/dom/style-set.mjs",
+        "node_modules/motion-dom/dist/es/utils/supports/flags.mjs",
+        "node_modules/motion-dom/dist/es/utils/supports/memo.mjs",
+        "node_modules/motion-dom/dist/es/utils/supports/scroll-timeline.mjs",
+        "node_modules/motion-dom/dist/es/utils/supports/linear-easing.mjs",
+        "node_modules/motion-dom/dist/es/animation/waapi/easing/cubic-bezier.mjs",
+        "node_modules/motion-dom/dist/es/animation/waapi/easing/supported.mjs",
+        "node_modules/motion-dom/dist/es/animation/waapi/easing/map-easing.mjs",
+        "node_modules/motion-dom/dist/es/animation/waapi/start-waapi-animation.mjs",
+        "node_modules/motion-dom/dist/es/animation/generators/utils/is-generator.mjs",
+        "node_modules/motion-dom/dist/es/animation/waapi/utils/apply-generator.mjs",
+        "node_modules/motion-dom/dist/es/animation/NativeAnimation.mjs",
+        "node_modules/motion-dom/dist/es/animation/waapi/utils/unsupported-easing.mjs",
+        "node_modules/motion-dom/dist/es/animation/NativeAnimationExtended.mjs",
+        "node_modules/motion-dom/dist/es/animation/utils/is-animatable.mjs",
+        "node_modules/motion-dom/dist/es/animation/utils/can-animate.mjs",
+        "node_modules/motion-dom/dist/es/animation/utils/make-animation-instant.mjs",
+        "node_modules/motion-dom/dist/es/animation/waapi/utils/accelerated-values.mjs",
+        "node_modules/motion-dom/dist/es/animation/waapi/utils/is-browser-color.mjs",
+        "node_modules/motion-dom/dist/es/animation/waapi/supports/waapi.mjs",
+        "node_modules/motion-dom/dist/es/value/types/utils/get-as-type.mjs",
+        "node_modules/motion-dom/dist/es/render/html/utils/build-transform.mjs",
+        "node_modules/motion-dom/dist/es/animation/waapi/transforms/groups.mjs",
+        "node_modules/motion-dom/dist/es/animation/waapi/transforms/TransformAnimation.mjs",
+        "node_modules/motion-dom/dist/es/animation/AsyncMotionValueAnimation.mjs",
+        "node_modules/motion-dom/dist/es/animation/GroupAnimation.mjs",
+        "node_modules/motion-dom/dist/es/animation/GroupAnimationWithThen.mjs",
+        "node_modules/motion-dom/dist/es/value/index.mjs",
+        "node_modules/motion-dom/dist/es/animation/utils/resolve-transition.mjs",
+        "node_modules/motion-dom/dist/es/animation/utils/get-value-transition.mjs",
+        "node_modules/motion-dom/dist/es/animation/utils/default-transitions.mjs",
+        "node_modules/motion-dom/dist/es/animation/utils/is-transition-defined.mjs",
+        "node_modules/motion-dom/dist/es/animation/interfaces/motion-value.mjs",
+        "node_modules/motion-dom/dist/es/animation/utils/css-variables-conversion.mjs",
+        "node_modules/motion-dom/dist/es/render/utils/keys-position.mjs",
+        "node_modules/motion-dom/dist/es/value/utils/is-motion-value.mjs",
+        "node_modules/motion-dom/dist/es/render/dom/utils/camel-to-dash.mjs",
+        "node_modules/motion-dom/dist/es/value/types/auto.mjs",
+        "node_modules/motion-dom/dist/es/value/types/test.mjs",
+        "node_modules/motion-dom/dist/es/value/types/dimensions.mjs",
+        "node_modules/motion-dom/dist/es/animation/keyframes/utils/is-none.mjs",
+        "node_modules/motion-dom/dist/es/animation/keyframes/utils/make-none-animatable.mjs",
+        "node_modules/motion-dom/dist/es/animation/keyframes/DOMKeyframesResolver.mjs",
+        "node_modules/motion-dom/dist/es/animation/animate/effects.mjs",
+        "node_modules/motion-dom/dist/es/utils/is-html-element.mjs",
+        "node_modules/motion-dom/dist/es/utils/is-svg-element.mjs",
+        "node_modules/motion-dom/dist/es/utils/resolve-elements.mjs",
+        "node_modules/motion-dom/dist/es/effects/MotionValueState.mjs",
+        "node_modules/motion-dom/dist/es/effects/utils/create-effect.mjs",
+        "node_modules/motion-dom/dist/es/effects/style/transform.mjs",
+        "node_modules/motion-dom/dist/es/effects/style/index.mjs",
+        "node_modules/motion-dom/dist/es/render/svg/utils/build-attrs.mjs",
+        "node_modules/motion-dom/dist/es/effects/attr/index.mjs",
+        "node_modules/motion-dom/dist/es/effects/svg/index.mjs",
+        "node_modules/motion-dom/dist/es/projection/geometry/conversion.mjs",
+        "node_modules/motion-dom/dist/es/projection/utils/measure.mjs",
+        "node_modules/motion-dom/dist/es/animation/animate/element.mjs",
+        "node_modules/motion-dom/dist/es/effects/prop/index.mjs",
+        "node_modules/motion-dom/dist/es/animation/animate/single-value.mjs",
+        "node_modules/motion-dom/dist/es/render/store.mjs",
+        "node_modules/framer-motion/dist/es/animation/utils/is-dom-keyframes.mjs",
+        "node_modules/framer-motion/dist/es/animation/animate/resolve-subjects.mjs",
+        "node_modules/framer-motion/dist/es/animation/sequence/utils/calc-repeat-duration.mjs",
+        "node_modules/framer-motion/dist/es/animation/sequence/utils/calc-time.mjs",
+        "node_modules/framer-motion/dist/es/animation/sequence/utils/edit.mjs",
+        "node_modules/framer-motion/dist/es/animation/sequence/utils/normalize-times.mjs",
+        "node_modules/framer-motion/dist/es/animation/sequence/utils/sort.mjs",
+        "node_modules/framer-motion/dist/es/animation/sequence/create.mjs",
+        "node_modules/framer-motion/dist/es/animation/animate/subject.mjs",
+        "node_modules/framer-motion/dist/es/animation/animate/sequence.mjs",
+        "node_modules/framer-motion/dist/es/animation/animate/index.mjs",
+        "src/app/HistorySheet.tsx"
+      ]
+    },
+    {
+      "file": "assets/IconButton-Dywimf7W.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "\u0000vite/preload-helper.js",
+        "src/ui/Icon.tsx",
+        "src/styles/motion.ts",
+        "src/ui/IconButton.tsx"
+      ]
+    },
+    {
+      "file": "assets/Keypad-BXHyuaOQ.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js"
+      ],
+      "dynamicImports": [],
+      "modules": ["src/ui/keypad/Keypad.tsx"]
+    },
+    {
+      "file": "assets/MathDisplay-DNoLnrT1.js",
+      "imports": ["assets/jsx-runtime-Dk72oS4N.js"],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/katex/dist/katex.mjs",
+        "src/features/scientific/MathDisplay.tsx"
+      ]
+    },
+    {
+      "file": "assets/ScientificMode-CWC9rdK5.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/FocusScope-CCqqZsct.js",
+        "assets/Slider-oKMdNTqv.js",
+        "assets/Switch-Rbz6jofS.js",
+        "assets/TextField-BMm3fn53.js",
+        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/IconButton-Dywimf7W.js",
+        "assets/useSpring-D3H5UTvG.js",
+        "assets/index-DNRdYDao.js",
+        "assets/extended-B2oEldXH.js",
+        "assets/evaluate-DNTCZB-Z.js",
+        "assets/engine-BxLhPFcY.js",
+        "assets/useModeHistory-CuynDwgE.js",
+        "assets/Card-CpJeSsLo.js",
+        "assets/VisuallyHidden-D7u6X-GC.js",
+        "assets/CopyLinkButton-v3MUa89n.js",
+        "assets/model-D70ir4L7.js",
+        "assets/Keypad-BXHyuaOQ.js"
+      ],
+      "dynamicImports": [
+        "assets/ExpressionEditor-BCOwB9l_.js",
+        "assets/MathDisplay-DNoLnrT1.js"
+      ],
+      "modules": [
+        "node_modules/react-aria/dist/private/toolbar/useToolbar.mjs",
+        "node_modules/react-aria-components/dist/private/Toolbar.mjs",
+        "src/ui/ButtonGroup.tsx",
+        "src/features/scientific/scientificStore.ts",
+        "src/features/scientific/ScientificKeypad.tsx",
+        "src/features/scientific/ReferencePanels.tsx",
+        "src/features/scientific/programmer/model.ts",
+        "src/features/scientific/programmer/BitGrid.tsx",
+        "src/features/scientific/programmer/ProgrammerPanel.tsx",
+        "src/features/scientific/ScientificMode.tsx"
+      ]
+    },
+    {
+      "file": "assets/Select-W6Hfrqro.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/Dialog-BqCl1V51.js",
+        "assets/FocusScope-CCqqZsct.js",
+        "assets/useFormValidation-BJqneZKK.js",
+        "assets/useTextField-DBjo9HdV.js",
+        "assets/index-DNRdYDao.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/react-aria/dist/private/utils/useUpdateEffect.mjs",
+        "node_modules/react-aria-components/dist/private/intl/de-DE.mjs",
+        "node_modules/react-aria-components/dist/private/intl/en-US.mjs",
+        "node_modules/react-aria-components/dist/private/intlStrings.mjs",
+        "node_modules/react-aria-components/dist/private/DragAndDrop.mjs",
+        "node_modules/react-aria/dist/private/listbox/utils.mjs",
+        "node_modules/react-aria/dist/private/listbox/useListBox.mjs",
+        "node_modules/react-aria/dist/private/listbox/useOption.mjs",
+        "node_modules/react-aria/dist/private/listbox/useListBoxSection.mjs",
+        "node_modules/react-stately/dist/private/list/ListCollection.mjs",
+        "node_modules/react-stately/dist/private/list/useListState.mjs",
+        "node_modules/react-aria-components/dist/private/ListBox.mjs",
+        "node_modules/react-aria/dist/private/intl/combobox/de-DE.mjs",
+        "node_modules/react-aria/dist/private/intl/combobox/en-US.mjs",
+        "node_modules/react-aria/dist/private/combobox/intlStrings.mjs",
+        "node_modules/react-aria/dist/private/combobox/useComboBox.mjs",
+        "node_modules/react-stately/dist/private/combobox/useComboBoxState.mjs",
+        "node_modules/react-aria/dist/private/i18n/useFilter.mjs",
+        "node_modules/react-aria/dist/private/i18n/useListFormatter.mjs",
+        "node_modules/react-aria-components/dist/private/ComboBox.mjs",
+        "node_modules/react-aria/dist/private/select/useSelect.mjs",
+        "node_modules/react-aria/dist/private/select/HiddenSelect.mjs",
+        "node_modules/react-stately/dist/private/select/useSelectState.mjs",
+        "node_modules/react-aria-components/dist/private/Select.mjs",
+        "src/ui/Select.tsx"
+      ]
+    },
+    {
+      "file": "assets/SettingsDialog-BnQzZyMP.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/Select-W6Hfrqro.js",
+        "assets/Slider-oKMdNTqv.js",
+        "assets/Dialog-D8GWA0Uh.js",
+        "assets/Switch-Rbz6jofS.js",
+        "assets/TextField-BMm3fn53.js",
+        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/i18n-DFLGf4G8.js",
+        "assets/index-DNRdYDao.js",
+        "assets/extended-B2oEldXH.js",
+        "assets/HistorySheet-DCM82Kf-.js"
+      ],
+      "dynamicImports": [],
+      "modules": ["src/app/SettingsDialog.tsx"]
+    },
+    {
+      "file": "assets/ShortcutDialog-BhXS1Zvu.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/Dialog-D8GWA0Uh.js",
+        "assets/index-DNRdYDao.js",
+        "assets/extended-B2oEldXH.js"
+      ],
+      "dynamicImports": [],
+      "modules": ["src/app/ShortcutDialog.tsx"]
+    },
+    {
+      "file": "assets/SideSheet-DHggJpdY.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Dialog-D8GWA0Uh.js"
+      ],
+      "dynamicImports": [],
+      "modules": ["src/ui/SideSheet.tsx"]
+    },
+    {
+      "file": "assets/SimpleMode-DyVeo4FY.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/i18n-DFLGf4G8.js",
+        "assets/index-DNRdYDao.js",
+        "assets/evaluate-DNTCZB-Z.js",
+        "assets/useModeHistory-CuynDwgE.js",
+        "assets/CopyLinkButton-v3MUa89n.js",
+        "assets/Keypad-BXHyuaOQ.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "src/ui/keypad/displayFit.ts",
+        "src/ui/keypad/CalculatorDisplay.tsx",
+        "src/features/simple/model.ts",
+        "src/features/simple/format.ts",
+        "src/features/simple/keyboard.ts",
+        "src/app/simpleLinks.ts",
+        "src/features/simple/SimpleMode.tsx"
+      ]
+    },
+    {
+      "file": "assets/Slider-oKMdNTqv.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/FocusScope-CCqqZsct.js",
+        "assets/useFormValidation-BJqneZKK.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/react-aria/dist/private/interactions/useMove.mjs",
+        "node_modules/react-aria/dist/private/slider/utils.mjs",
+        "node_modules/react-aria/dist/private/slider/useSlider.mjs",
+        "node_modules/react-aria/dist/private/slider/useSliderThumb.mjs",
+        "node_modules/react-stately/dist/private/slider/useSliderState.mjs",
+        "node_modules/react-aria-components/dist/private/Slider.mjs",
+        "src/ui/Slider.tsx"
+      ]
+    },
+    {
+      "file": "assets/Switch-Rbz6jofS.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/FocusScope-CCqqZsct.js",
+        "assets/useToggle-zHC1VABP.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/react-aria/dist/private/switch/useSwitch.mjs",
+        "node_modules/react-aria-components/dist/private/Switch.mjs",
+        "src/ui/Switch.tsx"
+      ]
+    },
+    {
+      "file": "assets/TextField-BMm3fn53.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/FocusScope-CCqqZsct.js",
+        "assets/useFormValidation-BJqneZKK.js",
+        "assets/useTextField-DBjo9HdV.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/react-aria-components/dist/private/TextArea.mjs",
+        "node_modules/react-aria-components/dist/private/TextField.mjs",
+        "src/ui/TextField.tsx"
+      ]
+    },
+    {
+      "file": "assets/VisuallyHidden-D7u6X-GC.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/FocusScope-CCqqZsct.js",
+        "assets/index-DNRdYDao.js"
+      ],
+      "dynamicImports": [],
+      "modules": ["src/ui/VisuallyHidden.tsx"]
+    },
+    {
+      "file": "assets/browserMotion-CDweiHa2.js",
+      "imports": [],
+      "dynamicImports": [],
+      "modules": ["src/app/browserMotion.ts"]
+    },
+    {
+      "file": "assets/buildScheme-DzN2F7dg.js",
+      "imports": [
+        "assets/Button-BO9S851Z.js",
+        "assets/graphPalette-DTsoAoAA.js"
+      ],
+      "dynamicImports": [],
+      "modules": ["src/styles/buildScheme.ts"]
+    },
+    {
+      "file": "assets/engine-BxLhPFcY.js",
+      "imports": ["assets/evaluate-DNTCZB-Z.js"],
+      "dynamicImports": [],
+      "modules": ["src/engine/output.ts"]
+    },
+    {
+      "file": "assets/evaluate-DNTCZB-Z.js",
+      "imports": [],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/decimal.js/decimal.mjs",
+        "src/engine/numeric.ts",
+        "src/engine/format.ts",
+        "src/engine/parser.ts",
+        "src/engine/programmer/index.ts",
+        "src/engine/values.ts",
+        "src/engine/trigonometry.ts",
+        "src/engine/complexFunctions.ts",
+        "src/engine/functionHelpers.ts",
+        "src/engine/scientificNumeric.ts",
+        "src/engine/quadrature.ts",
+        "src/engine/scientificFunctions.ts",
+        "src/engine/floatFunctions.ts",
+        "src/engine/functions.ts",
+        "src/engine/constants.ts",
+        "src/engine/print.ts",
+        "src/engine/environment.ts",
+        "src/engine/evaluate.ts"
+      ]
+    },
+    {
+      "file": "assets/extended-B2oEldXH.js",
+      "imports": ["assets/i18n-DFLGf4G8.js"],
+      "dynamicImports": [],
+      "modules": [
+        "src/shared/i18n/de.ts",
+        "src/shared/i18n/en.ts",
+        "src/shared/i18n/extended.ts"
+      ]
+    },
+    {
+      "file": "assets/graphPalette-DTsoAoAA.js",
+      "imports": [],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/@material/material-color-utilities/utils/math_utils.js",
+        "node_modules/@material/material-color-utilities/utils/color_utils.js",
+        "node_modules/@material/material-color-utilities/hct/viewing_conditions.js",
+        "node_modules/@material/material-color-utilities/hct/cam16.js",
+        "node_modules/@material/material-color-utilities/hct/hct_solver.js",
+        "node_modules/@material/material-color-utilities/hct/hct.js",
+        "node_modules/@material/material-color-utilities/contrast/contrast.js",
+        "node_modules/@material/material-color-utilities/dislike/dislike_analyzer.js",
+        "node_modules/@material/material-color-utilities/dynamiccolor/dynamic_color.js",
+        "node_modules/@material/material-color-utilities/palettes/tonal_palette.js",
+        "node_modules/@material/material-color-utilities/dynamiccolor/contrast_curve.js",
+        "node_modules/@material/material-color-utilities/dynamiccolor/tone_delta_pair.js",
+        "node_modules/@material/material-color-utilities/dynamiccolor/variant.js",
+        "node_modules/@material/material-color-utilities/dynamiccolor/material_dynamic_colors.js",
+        "node_modules/@material/material-color-utilities/dynamiccolor/dynamic_scheme.js",
+        "node_modules/@material/material-color-utilities/scheme/scheme_expressive.js",
+        "node_modules/@material/material-color-utilities/scheme/scheme_neutral.js",
+        "node_modules/@material/material-color-utilities/scheme/scheme_tonal_spot.js",
+        "node_modules/@material/material-color-utilities/scheme/scheme_vibrant.js",
+        "node_modules/@material/material-color-utilities/score/score.js",
+        "node_modules/@material/material-color-utilities/utils/string_utils.js",
+        "src/styles/graphPalette.ts"
+      ]
+    },
+    {
+      "file": "assets/i18n-DFLGf4G8.js",
+      "imports": [],
+      "dynamicImports": [],
+      "modules": [
+        "src/shared/i18n/coreDE.ts",
+        "src/shared/i18n/coreEN.ts",
+        "src/shared/i18n.ts"
+      ]
+    },
+    {
+      "file": "assets/jsx-runtime-Dk72oS4N.js",
+      "imports": [],
+      "dynamicImports": [],
+      "modules": [
+        "\u0000rolldown/runtime.js",
+        "node_modules/react/cjs/react.production.js",
+        "node_modules/react/index.js",
+        "node_modules/react/cjs/react-jsx-runtime.production.js",
+        "node_modules/react/jsx-runtime.js"
+      ]
+    },
+    {
+      "file": "assets/model-D5tbButu.js",
+      "imports": [
+        "assets/evaluate-DNTCZB-Z.js",
+        "assets/units-Lj6SzZSx.js",
+        "assets/engine-BxLhPFcY.js"
+      ],
+      "dynamicImports": [],
+      "modules": ["src/features/convert/model.ts"]
+    },
+    {
+      "file": "assets/model-D70ir4L7.js",
+      "imports": ["assets/evaluate-DNTCZB-Z.js", "assets/engine-BxLhPFcY.js"],
+      "dynamicImports": [],
+      "modules": [
+        "src/features/scientific/editorModel.ts",
+        "src/features/scientific/model.ts"
+      ]
+    },
+    {
+      "file": "assets/registry-D_GYSTzU.js",
+      "imports": ["assets/evaluate-DNTCZB-Z.js", "assets/engine-BxLhPFcY.js"],
+      "dynamicImports": [],
+      "modules": ["src/features/scientific/registry.ts"]
+    },
+    {
+      "file": "assets/seeds-DdxXycSJ.js",
+      "imports": [],
+      "dynamicImports": [],
+      "modules": ["src/styles/seeds.ts"]
+    },
+    {
+      "file": "assets/snackbarQueue-CU1MXNwb.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/i18n-DFLGf4G8.js",
+        "assets/IconButton-Dywimf7W.js"
+      ],
+      "dynamicImports": [
+        "assets/SimpleMode-DyVeo4FY.js",
+        "assets/ScientificMode-CWC9rdK5.js",
+        "assets/ConvertMode-kF1-cEER.js",
+        "assets/GraphMode-D8CqIXdX.js"
+      ],
+      "modules": [
+        "node_modules/react-stately/dist/private/toast/useToastState.mjs",
+        "src/shared/history.ts",
+        "src/shared/historyStore.ts",
+        "src/app/ModeErrorBoundary.tsx",
+        "src/shared/historyAdapter.ts",
+        "src/app/modeRegistry.ts",
+        "src/ui/useMediaQuery.ts",
+        "src/ui/snackbarQueue.ts"
+      ]
+    },
+    {
+      "file": "assets/units-Lj6SzZSx.js",
+      "imports": ["assets/evaluate-DNTCZB-Z.js"],
+      "dynamicImports": [],
+      "modules": [
+        "src/units/decimal.ts",
+        "src/units/catalog.ts",
+        "src/units/types.ts",
+        "src/units/engine.ts"
+      ]
+    },
+    {
+      "file": "assets/useFormValidation-BJqneZKK.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/FocusScope-CCqqZsct.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/react-aria-components/dist/private/FieldError.mjs",
+        "node_modules/react-stately/dist/private/form/useFormValidationState.mjs",
+        "node_modules/react-aria-components/dist/private/Form.mjs",
+        "node_modules/react-aria/dist/private/label/useField.mjs",
+        "node_modules/react-aria/dist/private/utils/useFormReset.mjs",
+        "node_modules/react-aria/dist/private/form/useFormValidation.mjs"
+      ]
+    },
+    {
+      "file": "assets/useModeHistory-CuynDwgE.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/snackbarQueue-CU1MXNwb.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/zustand/esm/vanilla/shallow.mjs",
+        "node_modules/zustand/esm/react/shallow.mjs",
+        "src/shared/useModeHistory.ts"
+      ]
+    },
+    {
+      "file": "assets/useSlot-VE8jVIIV.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js"
+      ],
+      "dynamicImports": [],
+      "modules": ["node_modules/react-aria/dist/private/utils/useSlot.mjs"]
+    },
+    {
+      "file": "assets/useSpring-D3H5UTvG.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/snackbarQueue-CU1MXNwb.js",
+        "assets/IconButton-Dywimf7W.js"
+      ],
+      "dynamicImports": [],
+      "modules": ["src/ui/useSpring.ts"]
+    },
+    {
+      "file": "assets/useTextField-DBjo9HdV.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/useFormValidation-BJqneZKK.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        "node_modules/react-aria-components/dist/private/Group.mjs",
+        "node_modules/react-aria-components/dist/private/Input.mjs",
+        "node_modules/react-aria/dist/private/textfield/useTextField.mjs"
+      ]
+    },
+    {
+      "file": "assets/useToggle-zHC1VABP.js",
+      "imports": [
+        "assets/jsx-runtime-Dk72oS4N.js",
+        "assets/Button-BO9S851Z.js",
+        "assets/useFormValidation-BJqneZKK.js",
+        "assets/useSlot-VE8jVIIV.js"
+      ],
+      "dynamicImports": [],
+      "modules": ["node_modules/react-aria/dist/private/toggle/useToggle.mjs"]
+    }
+  ],
+  "manifest": {
+    "_Button-BO9S851Z.js": {
+      "file": "assets/Button-BO9S851Z.js",
+      "name": "Button",
+      "imports": ["_jsx-runtime-Dk72oS4N.js", "_i18n-DFLGf4G8.js"],
+      "css": ["assets/Button-BoVqgmZx.css"]
+    },
+    "_Button-BoVqgmZx.css": {
+      "file": "assets/Button-BoVqgmZx.css",
+      "src": "_Button-BoVqgmZx.css"
+    },
+    "_Card-CpJeSsLo.js": {
+      "file": "assets/Card-CpJeSsLo.js",
+      "name": "Card",
+      "imports": ["_jsx-runtime-Dk72oS4N.js"],
+      "css": ["assets/Card-DD1MZGf1.css"]
+    },
+    "_Card-DD1MZGf1.css": {
+      "file": "assets/Card-DD1MZGf1.css",
+      "src": "_Card-DD1MZGf1.css"
+    },
+    "_Checkbox-CaWe_hBO.css": {
+      "file": "assets/Checkbox-CaWe_hBO.css",
+      "src": "_Checkbox-CaWe_hBO.css"
+    },
+    "_Checkbox-Calj66Hm.js": {
+      "file": "assets/Checkbox-Calj66Hm.js",
+      "name": "Checkbox",
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_FocusScope-CCqqZsct.js",
+        "_useFormValidation-BJqneZKK.js",
+        "_useToggle-zHC1VABP.js",
+        "_IconButton-Dywimf7W.js"
+      ],
+      "css": ["assets/Checkbox-CaWe_hBO.css"]
+    },
+    "_CopyLinkButton-CzVs3g7c.css": {
+      "file": "assets/CopyLinkButton-CzVs3g7c.css",
+      "src": "_CopyLinkButton-CzVs3g7c.css"
+    },
+    "_CopyLinkButton-v3MUa89n.js": {
+      "file": "assets/CopyLinkButton-v3MUa89n.js",
+      "name": "CopyLinkButton",
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_snackbarQueue-CU1MXNwb.js",
+        "_i18n-DFLGf4G8.js",
+        "_IconButton-Dywimf7W.js",
+        "index.html"
+      ],
+      "css": ["assets/CopyLinkButton-CzVs3g7c.css"]
+    },
+    "_Dialog-BgffhQ21.css": {
+      "file": "assets/Dialog-BgffhQ21.css",
+      "src": "_Dialog-BgffhQ21.css"
+    },
+    "_Dialog-BqCl1V51.js": {
+      "file": "assets/Dialog-BqCl1V51.js",
+      "name": "Dialog",
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_FocusScope-CCqqZsct.js"
+      ]
+    },
+    "_Dialog-D8GWA0Uh.js": {
+      "file": "assets/Dialog-D8GWA0Uh.js",
+      "name": "Dialog",
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_Dialog-BqCl1V51.js"
+      ],
+      "css": ["assets/Dialog-BgffhQ21.css"]
+    },
+    "_FocusScope-CCqqZsct.js": {
+      "file": "assets/FocusScope-CCqqZsct.js",
+      "name": "FocusScope",
+      "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-BO9S851Z.js"]
+    },
+    "_IconButton-Dywimf7W.js": {
+      "file": "assets/IconButton-Dywimf7W.js",
+      "name": "IconButton",
+      "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-BO9S851Z.js"],
+      "css": ["assets/IconButton-h8-ZNqqk.css"]
+    },
+    "_IconButton-h8-ZNqqk.css": {
+      "file": "assets/IconButton-h8-ZNqqk.css",
+      "src": "_IconButton-h8-ZNqqk.css"
+    },
+    "_Keypad-BXHyuaOQ.js": {
+      "file": "assets/Keypad-BXHyuaOQ.js",
+      "name": "Keypad",
+      "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-BO9S851Z.js"],
+      "css": ["assets/Keypad-DUGiORd-.css"]
+    },
+    "_Keypad-DUGiORd-.css": {
+      "file": "assets/Keypad-DUGiORd-.css",
+      "src": "_Keypad-DUGiORd-.css"
+    },
+    "_Select-W6Hfrqro.js": {
+      "file": "assets/Select-W6Hfrqro.js",
+      "name": "Select",
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_Dialog-BqCl1V51.js",
+        "_FocusScope-CCqqZsct.js",
+        "_useFormValidation-BJqneZKK.js",
+        "_useTextField-DBjo9HdV.js",
+        "index.html"
+      ],
+      "css": ["assets/Select-zbWAXGec.css"]
+    },
+    "_Select-zbWAXGec.css": {
+      "file": "assets/Select-zbWAXGec.css",
+      "src": "_Select-zbWAXGec.css"
+    },
+    "_SideSheet-BZfUtJea.css": {
+      "file": "assets/SideSheet-BZfUtJea.css",
+      "src": "_SideSheet-BZfUtJea.css"
+    },
+    "_SideSheet-DHggJpdY.js": {
+      "file": "assets/SideSheet-DHggJpdY.js",
+      "name": "SideSheet",
+      "imports": ["_jsx-runtime-Dk72oS4N.js", "_Dialog-D8GWA0Uh.js"],
+      "css": ["assets/SideSheet-BZfUtJea.css"]
+    },
+    "_Slider-CmZSN9rw.css": {
+      "file": "assets/Slider-CmZSN9rw.css",
+      "src": "_Slider-CmZSN9rw.css"
+    },
+    "_Slider-oKMdNTqv.js": {
+      "file": "assets/Slider-oKMdNTqv.js",
+      "name": "Slider",
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_FocusScope-CCqqZsct.js",
+        "_useFormValidation-BJqneZKK.js"
+      ],
+      "css": ["assets/Slider-CmZSN9rw.css"]
+    },
+    "_Switch-Dhw6gmOR.css": {
+      "file": "assets/Switch-Dhw6gmOR.css",
+      "src": "_Switch-Dhw6gmOR.css"
+    },
+    "_Switch-Rbz6jofS.js": {
+      "file": "assets/Switch-Rbz6jofS.js",
+      "name": "Switch",
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_FocusScope-CCqqZsct.js",
+        "_useToggle-zHC1VABP.js"
+      ],
+      "css": ["assets/Switch-Dhw6gmOR.css"]
+    },
+    "_TextField-BMm3fn53.js": {
+      "file": "assets/TextField-BMm3fn53.js",
+      "name": "TextField",
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_FocusScope-CCqqZsct.js",
+        "_useFormValidation-BJqneZKK.js",
+        "_useTextField-DBjo9HdV.js"
+      ],
+      "css": ["assets/TextField-Bia33xUx.css"]
+    },
+    "_TextField-Bia33xUx.css": {
+      "file": "assets/TextField-Bia33xUx.css",
+      "src": "_TextField-Bia33xUx.css"
+    },
+    "_VisuallyHidden-D7u6X-GC.js": {
+      "file": "assets/VisuallyHidden-D7u6X-GC.js",
+      "name": "VisuallyHidden",
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_FocusScope-CCqqZsct.js",
+        "index.html"
+      ]
+    },
+    "_browserMotion-CDweiHa2.js": {
+      "file": "assets/browserMotion-CDweiHa2.js",
+      "name": "browserMotion"
+    },
+    "_engine-BxLhPFcY.js": {
+      "file": "assets/engine-BxLhPFcY.js",
+      "name": "engine",
+      "imports": ["_evaluate-DNTCZB-Z.js"]
+    },
+    "_evaluate-DNTCZB-Z.js": {
+      "file": "assets/evaluate-DNTCZB-Z.js",
+      "name": "evaluate"
+    },
+    "_extended-B2oEldXH.js": {
+      "file": "assets/extended-B2oEldXH.js",
+      "name": "extended",
+      "imports": ["_i18n-DFLGf4G8.js"]
+    },
+    "_graphPalette-DTsoAoAA.js": {
+      "file": "assets/graphPalette-DTsoAoAA.js",
+      "name": "graphPalette"
+    },
+    "_i18n-DFLGf4G8.js": {
+      "file": "assets/i18n-DFLGf4G8.js",
+      "name": "i18n"
+    },
+    "_jsx-runtime-Dk72oS4N.js": {
+      "file": "assets/jsx-runtime-Dk72oS4N.js",
+      "name": "jsx-runtime"
+    },
+    "_model-D70ir4L7.js": {
+      "file": "assets/model-D70ir4L7.js",
+      "name": "model",
+      "imports": ["_evaluate-DNTCZB-Z.js", "_engine-BxLhPFcY.js"]
+    },
+    "_registry-D_GYSTzU.js": {
+      "file": "assets/registry-D_GYSTzU.js",
+      "name": "registry",
+      "imports": ["_evaluate-DNTCZB-Z.js", "_engine-BxLhPFcY.js"]
+    },
+    "_seeds-DdxXycSJ.js": {
+      "file": "assets/seeds-DdxXycSJ.js",
+      "name": "seeds"
+    },
+    "_snackbarQueue-CU1MXNwb.js": {
+      "file": "assets/snackbarQueue-CU1MXNwb.js",
+      "name": "snackbarQueue",
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_i18n-DFLGf4G8.js",
+        "_IconButton-Dywimf7W.js"
+      ],
+      "dynamicImports": [
+        "src/features/simple/SimpleMode.tsx",
+        "src/features/scientific/ScientificMode.tsx",
+        "src/features/convert/ConvertMode.tsx",
+        "src/features/graph/GraphMode.tsx"
+      ]
+    },
+    "_units-Lj6SzZSx.js": {
+      "file": "assets/units-Lj6SzZSx.js",
+      "name": "units",
+      "imports": ["_evaluate-DNTCZB-Z.js"]
+    },
+    "_useFormValidation-BJqneZKK.js": {
+      "file": "assets/useFormValidation-BJqneZKK.js",
+      "name": "useFormValidation",
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_FocusScope-CCqqZsct.js"
+      ]
+    },
+    "_useModeHistory-CuynDwgE.js": {
+      "file": "assets/useModeHistory-CuynDwgE.js",
+      "name": "useModeHistory",
+      "imports": ["_jsx-runtime-Dk72oS4N.js", "_snackbarQueue-CU1MXNwb.js"]
+    },
+    "_useSlot-VE8jVIIV.js": {
+      "file": "assets/useSlot-VE8jVIIV.js",
+      "name": "useSlot",
+      "imports": ["_jsx-runtime-Dk72oS4N.js", "_Button-BO9S851Z.js"]
+    },
+    "_useSpring-D3H5UTvG.js": {
+      "file": "assets/useSpring-D3H5UTvG.js",
+      "name": "useSpring",
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_snackbarQueue-CU1MXNwb.js",
+        "_IconButton-Dywimf7W.js"
+      ]
+    },
+    "_useTextField-DBjo9HdV.js": {
+      "file": "assets/useTextField-DBjo9HdV.js",
+      "name": "useTextField",
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_useFormValidation-BJqneZKK.js"
+      ]
+    },
+    "_useToggle-zHC1VABP.js": {
+      "file": "assets/useToggle-zHC1VABP.js",
+      "name": "useToggle",
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_useFormValidation-BJqneZKK.js",
+        "_useSlot-VE8jVIIV.js"
+      ]
+    },
+    "index.html": {
+      "file": "assets/index-DNRdYDao.js",
+      "name": "index",
+      "src": "index.html",
+      "isEntry": true,
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_Dialog-BqCl1V51.js",
+        "_FocusScope-CCqqZsct.js",
+        "_useFormValidation-BJqneZKK.js",
+        "_useSlot-VE8jVIIV.js",
+        "_snackbarQueue-CU1MXNwb.js",
+        "_i18n-DFLGf4G8.js",
+        "_IconButton-Dywimf7W.js",
+        "_useSpring-D3H5UTvG.js",
+        "_browserMotion-CDweiHa2.js"
+      ],
+      "dynamicImports": [
+        "src/ui/AccentPanel.tsx",
+        "src/styles/buildScheme.ts",
+        "src/app/HistorySheet.tsx",
+        "src/app/SettingsDialog.tsx",
+        "src/app/CommandPalette.tsx",
+        "src/app/ShortcutDialog.tsx",
+        "src/features/convert/model.ts"
+      ],
+      "css": ["assets/index-rZB3Fp3s.css"],
+      "assets": [
+        "assets/roboto-flex-latin-DlhILaPV.woff2",
+        "assets/roboto-mono-latin-CZtBPCCa.woff2",
+        "assets/material-symbols-rounded-17-fZmEE.woff2"
+      ]
+    },
+    "node_modules/katex/dist/fonts/KaTeX_AMS-Regular.ttf": {
+      "file": "assets/KaTeX_AMS-Regular-DRggAlZN.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_AMS-Regular.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_AMS-Regular.woff": {
+      "file": "assets/KaTeX_AMS-Regular-DMm9YOAa.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_AMS-Regular.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_AMS-Regular.woff2": {
+      "file": "assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_AMS-Regular.woff2"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.ttf": {
+      "file": "assets/KaTeX_Caligraphic-Bold-ATXxdsX0.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.woff": {
+      "file": "assets/KaTeX_Caligraphic-Bold-BEiXGLvX.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.woff2": {
+      "file": "assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Bold.woff2"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.ttf": {
+      "file": "assets/KaTeX_Caligraphic-Regular-wX97UBjC.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.woff": {
+      "file": "assets/KaTeX_Caligraphic-Regular-CTRA-rTL.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.woff2": {
+      "file": "assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.woff2"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.ttf": {
+      "file": "assets/KaTeX_Fraktur-Bold-BdnERNNW.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.woff": {
+      "file": "assets/KaTeX_Fraktur-Bold-BsDP51OF.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.woff2": {
+      "file": "assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Fraktur-Bold.woff2"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.ttf": {
+      "file": "assets/KaTeX_Fraktur-Regular-CB_wures.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.woff": {
+      "file": "assets/KaTeX_Fraktur-Regular-Dxdc4cR9.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.woff2": {
+      "file": "assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Fraktur-Regular.woff2"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Main-Bold.ttf": {
+      "file": "assets/KaTeX_Main-Bold-waoOVXN0.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Main-Bold.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Main-Bold.woff": {
+      "file": "assets/KaTeX_Main-Bold-Jm3AIy58.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Main-Bold.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Main-Bold.woff2": {
+      "file": "assets/KaTeX_Main-Bold-Cx986IdX.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Main-Bold.woff2"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.ttf": {
+      "file": "assets/KaTeX_Main-BoldItalic-DzxPMmG6.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.woff": {
+      "file": "assets/KaTeX_Main-BoldItalic-SpSLRI95.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.woff2": {
+      "file": "assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Main-BoldItalic.woff2"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Main-Italic.ttf": {
+      "file": "assets/KaTeX_Main-Italic-3WenGoN9.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Main-Italic.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Main-Italic.woff": {
+      "file": "assets/KaTeX_Main-Italic-BMLOBm91.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Main-Italic.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Main-Italic.woff2": {
+      "file": "assets/KaTeX_Main-Italic-NWA7e6Wa.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Main-Italic.woff2"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Main-Regular.ttf": {
+      "file": "assets/KaTeX_Main-Regular-ypZvNtVU.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Main-Regular.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Main-Regular.woff": {
+      "file": "assets/KaTeX_Main-Regular-Dr94JaBh.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Main-Regular.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Main-Regular.woff2": {
+      "file": "assets/KaTeX_Main-Regular-B22Nviop.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Main-Regular.woff2"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.ttf": {
+      "file": "assets/KaTeX_Math-BoldItalic-B3XSjfu4.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.woff": {
+      "file": "assets/KaTeX_Math-BoldItalic-iY-2wyZ7.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.woff2": {
+      "file": "assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Math-BoldItalic.woff2"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Math-Italic.ttf": {
+      "file": "assets/KaTeX_Math-Italic-flOr_0UB.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Math-Italic.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Math-Italic.woff": {
+      "file": "assets/KaTeX_Math-Italic-DA0__PXp.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Math-Italic.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Math-Italic.woff2": {
+      "file": "assets/KaTeX_Math-Italic-t53AETM-.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Math-Italic.woff2"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.ttf": {
+      "file": "assets/KaTeX_SansSerif-Bold-CFMepnvq.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.woff": {
+      "file": "assets/KaTeX_SansSerif-Bold-DbIhKOiC.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.woff2": {
+      "file": "assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_SansSerif-Bold.woff2"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.ttf": {
+      "file": "assets/KaTeX_SansSerif-Italic-YYjJ1zSn.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.woff": {
+      "file": "assets/KaTeX_SansSerif-Italic-DN2j7dab.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.woff2": {
+      "file": "assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_SansSerif-Italic.woff2"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.ttf": {
+      "file": "assets/KaTeX_SansSerif-Regular-BNo7hRIc.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.woff": {
+      "file": "assets/KaTeX_SansSerif-Regular-CS6fqUqJ.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.woff2": {
+      "file": "assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_SansSerif-Regular.woff2"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Script-Regular.ttf": {
+      "file": "assets/KaTeX_Script-Regular-C5JkGWo-.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Script-Regular.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Script-Regular.woff": {
+      "file": "assets/KaTeX_Script-Regular-D5yQViql.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Script-Regular.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Script-Regular.woff2": {
+      "file": "assets/KaTeX_Script-Regular-D3wIWfF6.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Script-Regular.woff2"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Size1-Regular.ttf": {
+      "file": "assets/KaTeX_Size1-Regular-Dbsnue_I.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Size1-Regular.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Size1-Regular.woff": {
+      "file": "assets/KaTeX_Size1-Regular-C195tn64.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Size1-Regular.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Size1-Regular.woff2": {
+      "file": "assets/KaTeX_Size1-Regular-mCD8mA8B.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Size1-Regular.woff2"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Size2-Regular.ttf": {
+      "file": "assets/KaTeX_Size2-Regular-B7gKUWhC.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Size2-Regular.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Size2-Regular.woff": {
+      "file": "assets/KaTeX_Size2-Regular-oD1tc_U0.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Size2-Regular.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Size2-Regular.woff2": {
+      "file": "assets/KaTeX_Size2-Regular-Dy4dx90m.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Size2-Regular.woff2"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Size3-Regular.ttf": {
+      "file": "assets/KaTeX_Size3-Regular-DgpXs0kz.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Size3-Regular.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Size3-Regular.woff": {
+      "file": "assets/KaTeX_Size3-Regular-CTq5MqoE.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Size3-Regular.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Size4-Regular.ttf": {
+      "file": "assets/KaTeX_Size4-Regular-DWFBv043.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Size4-Regular.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Size4-Regular.woff": {
+      "file": "assets/KaTeX_Size4-Regular-BF-4gkZK.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Size4-Regular.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Size4-Regular.woff2": {
+      "file": "assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Size4-Regular.woff2"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.ttf": {
+      "file": "assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.ttf"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.woff": {
+      "file": "assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.woff"
+    },
+    "node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.woff2": {
+      "file": "assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2",
+      "src": "node_modules/katex/dist/fonts/KaTeX_Typewriter-Regular.woff2"
+    },
+    "src/app/CommandPalette.tsx": {
+      "file": "assets/CommandPalette-CPxVY4LV.js",
+      "name": "CommandPalette",
+      "src": "src/app/CommandPalette.tsx",
+      "isDynamicEntry": true,
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_Dialog-D8GWA0Uh.js",
+        "index.html",
+        "_extended-B2oEldXH.js",
+        "_units-Lj6SzZSx.js",
+        "_registry-D_GYSTzU.js",
+        "_seeds-DdxXycSJ.js"
+      ]
+    },
+    "src/app/HistorySheet.tsx": {
+      "file": "assets/HistorySheet-DCM82Kf-.js",
+      "name": "HistorySheet",
+      "src": "src/app/HistorySheet.tsx",
+      "isDynamicEntry": true,
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_TextField-BMm3fn53.js",
+        "_snackbarQueue-CU1MXNwb.js",
+        "_i18n-DFLGf4G8.js",
+        "_IconButton-Dywimf7W.js",
+        "index.html",
+        "_SideSheet-DHggJpdY.js",
+        "_useModeHistory-CuynDwgE.js"
+      ]
+    },
+    "src/app/SettingsDialog.tsx": {
+      "file": "assets/SettingsDialog-BnQzZyMP.js",
+      "name": "SettingsDialog",
+      "src": "src/app/SettingsDialog.tsx",
+      "isDynamicEntry": true,
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_Select-W6Hfrqro.js",
+        "_Slider-oKMdNTqv.js",
+        "_Dialog-D8GWA0Uh.js",
+        "_Switch-Rbz6jofS.js",
+        "_TextField-BMm3fn53.js",
+        "_snackbarQueue-CU1MXNwb.js",
+        "_i18n-DFLGf4G8.js",
+        "index.html",
+        "_extended-B2oEldXH.js",
+        "src/app/HistorySheet.tsx"
+      ]
+    },
+    "src/app/ShortcutDialog.tsx": {
+      "file": "assets/ShortcutDialog-BhXS1Zvu.js",
+      "name": "ShortcutDialog",
+      "src": "src/app/ShortcutDialog.tsx",
+      "isDynamicEntry": true,
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_Dialog-D8GWA0Uh.js",
+        "index.html",
+        "_extended-B2oEldXH.js"
+      ]
+    },
+    "src/features/convert/ConvertMode.tsx": {
+      "file": "assets/ConvertMode-kF1-cEER.js",
+      "name": "ConvertMode",
+      "src": "src/features/convert/ConvertMode.tsx",
+      "isDynamicEntry": true,
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_Select-W6Hfrqro.js",
+        "_Checkbox-Calj66Hm.js",
+        "_Slider-oKMdNTqv.js",
+        "_TextField-BMm3fn53.js",
+        "_snackbarQueue-CU1MXNwb.js",
+        "_IconButton-Dywimf7W.js",
+        "_useSpring-D3H5UTvG.js",
+        "index.html",
+        "_extended-B2oEldXH.js",
+        "_units-Lj6SzZSx.js",
+        "_useModeHistory-CuynDwgE.js",
+        "_Card-CpJeSsLo.js",
+        "_VisuallyHidden-D7u6X-GC.js",
+        "src/features/convert/model.ts",
+        "_CopyLinkButton-v3MUa89n.js"
+      ],
+      "css": ["assets/ConvertMode-C-rZJdia.css"]
+    },
+    "src/features/convert/model.ts": {
+      "file": "assets/model-D5tbButu.js",
+      "name": "model",
+      "src": "src/features/convert/model.ts",
+      "isDynamicEntry": true,
+      "imports": [
+        "_evaluate-DNTCZB-Z.js",
+        "_units-Lj6SzZSx.js",
+        "_engine-BxLhPFcY.js"
+      ]
+    },
+    "src/features/graph/GraphMode.tsx": {
+      "file": "assets/GraphMode-D8CqIXdX.js",
+      "name": "GraphMode",
+      "src": "src/features/graph/GraphMode.tsx",
+      "isDynamicEntry": true,
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_Dialog-BqCl1V51.js",
+        "_FocusScope-CCqqZsct.js",
+        "_Select-W6Hfrqro.js",
+        "_useFormValidation-BJqneZKK.js",
+        "_Checkbox-Calj66Hm.js",
+        "_Slider-oKMdNTqv.js",
+        "_useTextField-DBjo9HdV.js",
+        "_Dialog-D8GWA0Uh.js",
+        "_TextField-BMm3fn53.js",
+        "_snackbarQueue-CU1MXNwb.js",
+        "_IconButton-Dywimf7W.js",
+        "index.html",
+        "_extended-B2oEldXH.js",
+        "_evaluate-DNTCZB-Z.js",
+        "_engine-BxLhPFcY.js",
+        "_SideSheet-DHggJpdY.js",
+        "_useModeHistory-CuynDwgE.js",
+        "_VisuallyHidden-D7u6X-GC.js",
+        "_CopyLinkButton-v3MUa89n.js",
+        "_graphPalette-DTsoAoAA.js"
+      ],
+      "dynamicImports": ["src/features/scientific/ExpressionEditor.tsx"],
+      "css": ["assets/GraphMode-CPEJlQ_S.css"],
+      "assets": ["assets/sampling.worker-DdpY2KL0.js"]
+    },
+    "src/features/scientific/ExpressionEditor.tsx": {
+      "file": "assets/ExpressionEditor-BCOwB9l_.js",
+      "name": "ExpressionEditor",
+      "src": "src/features/scientific/ExpressionEditor.tsx",
+      "isDynamicEntry": true,
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "index.html",
+        "_extended-B2oEldXH.js",
+        "_evaluate-DNTCZB-Z.js",
+        "_engine-BxLhPFcY.js",
+        "_registry-D_GYSTzU.js",
+        "_model-D70ir4L7.js"
+      ]
+    },
+    "src/features/scientific/MathDisplay.tsx": {
+      "file": "assets/MathDisplay-DNoLnrT1.js",
+      "name": "MathDisplay",
+      "src": "src/features/scientific/MathDisplay.tsx",
+      "isDynamicEntry": true,
+      "imports": ["_jsx-runtime-Dk72oS4N.js"],
+      "css": ["assets/MathDisplay-fV8fYLk0.css"],
+      "assets": [
+        "assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
+        "assets/KaTeX_AMS-Regular-DMm9YOAa.woff",
+        "assets/KaTeX_AMS-Regular-DRggAlZN.ttf",
+        "assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2",
+        "assets/KaTeX_Caligraphic-Bold-BEiXGLvX.woff",
+        "assets/KaTeX_Caligraphic-Bold-ATXxdsX0.ttf",
+        "assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2",
+        "assets/KaTeX_Caligraphic-Regular-CTRA-rTL.woff",
+        "assets/KaTeX_Caligraphic-Regular-wX97UBjC.ttf",
+        "assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2",
+        "assets/KaTeX_Fraktur-Bold-BsDP51OF.woff",
+        "assets/KaTeX_Fraktur-Bold-BdnERNNW.ttf",
+        "assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2",
+        "assets/KaTeX_Fraktur-Regular-Dxdc4cR9.woff",
+        "assets/KaTeX_Fraktur-Regular-CB_wures.ttf",
+        "assets/KaTeX_Main-Bold-Cx986IdX.woff2",
+        "assets/KaTeX_Main-Bold-Jm3AIy58.woff",
+        "assets/KaTeX_Main-Bold-waoOVXN0.ttf",
+        "assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2",
+        "assets/KaTeX_Main-BoldItalic-SpSLRI95.woff",
+        "assets/KaTeX_Main-BoldItalic-DzxPMmG6.ttf",
+        "assets/KaTeX_Main-Italic-NWA7e6Wa.woff2",
+        "assets/KaTeX_Main-Italic-BMLOBm91.woff",
+        "assets/KaTeX_Main-Italic-3WenGoN9.ttf",
+        "assets/KaTeX_Main-Regular-B22Nviop.woff2",
+        "assets/KaTeX_Main-Regular-Dr94JaBh.woff",
+        "assets/KaTeX_Main-Regular-ypZvNtVU.ttf",
+        "assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2",
+        "assets/KaTeX_Math-BoldItalic-iY-2wyZ7.woff",
+        "assets/KaTeX_Math-BoldItalic-B3XSjfu4.ttf",
+        "assets/KaTeX_Math-Italic-t53AETM-.woff2",
+        "assets/KaTeX_Math-Italic-DA0__PXp.woff",
+        "assets/KaTeX_Math-Italic-flOr_0UB.ttf",
+        "assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2",
+        "assets/KaTeX_SansSerif-Bold-DbIhKOiC.woff",
+        "assets/KaTeX_SansSerif-Bold-CFMepnvq.ttf",
+        "assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2",
+        "assets/KaTeX_SansSerif-Italic-DN2j7dab.woff",
+        "assets/KaTeX_SansSerif-Italic-YYjJ1zSn.ttf",
+        "assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2",
+        "assets/KaTeX_SansSerif-Regular-CS6fqUqJ.woff",
+        "assets/KaTeX_SansSerif-Regular-BNo7hRIc.ttf",
+        "assets/KaTeX_Script-Regular-D3wIWfF6.woff2",
+        "assets/KaTeX_Script-Regular-D5yQViql.woff",
+        "assets/KaTeX_Script-Regular-C5JkGWo-.ttf",
+        "assets/KaTeX_Size1-Regular-mCD8mA8B.woff2",
+        "assets/KaTeX_Size1-Regular-C195tn64.woff",
+        "assets/KaTeX_Size1-Regular-Dbsnue_I.ttf",
+        "assets/KaTeX_Size2-Regular-Dy4dx90m.woff2",
+        "assets/KaTeX_Size2-Regular-oD1tc_U0.woff",
+        "assets/KaTeX_Size2-Regular-B7gKUWhC.ttf",
+        "assets/KaTeX_Size3-Regular-CTq5MqoE.woff",
+        "assets/KaTeX_Size3-Regular-DgpXs0kz.ttf",
+        "assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2",
+        "assets/KaTeX_Size4-Regular-BF-4gkZK.woff",
+        "assets/KaTeX_Size4-Regular-DWFBv043.ttf",
+        "assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2",
+        "assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff",
+        "assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf"
+      ]
+    },
+    "src/features/scientific/ScientificMode.tsx": {
+      "file": "assets/ScientificMode-CWC9rdK5.js",
+      "name": "ScientificMode",
+      "src": "src/features/scientific/ScientificMode.tsx",
+      "isDynamicEntry": true,
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_FocusScope-CCqqZsct.js",
+        "_Slider-oKMdNTqv.js",
+        "_Switch-Rbz6jofS.js",
+        "_TextField-BMm3fn53.js",
+        "_snackbarQueue-CU1MXNwb.js",
+        "_IconButton-Dywimf7W.js",
+        "_useSpring-D3H5UTvG.js",
+        "index.html",
+        "_extended-B2oEldXH.js",
+        "_evaluate-DNTCZB-Z.js",
+        "_engine-BxLhPFcY.js",
+        "_useModeHistory-CuynDwgE.js",
+        "_Card-CpJeSsLo.js",
+        "_VisuallyHidden-D7u6X-GC.js",
+        "_CopyLinkButton-v3MUa89n.js",
+        "_model-D70ir4L7.js",
+        "_Keypad-BXHyuaOQ.js"
+      ],
+      "dynamicImports": [
+        "src/features/scientific/ExpressionEditor.tsx",
+        "src/features/scientific/MathDisplay.tsx"
+      ],
+      "css": ["assets/ScientificMode-NBn4f-zE.css"]
+    },
+    "src/features/simple/SimpleMode.tsx": {
+      "file": "assets/SimpleMode-DyVeo4FY.js",
+      "name": "SimpleMode",
+      "src": "src/features/simple/SimpleMode.tsx",
+      "isDynamicEntry": true,
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_snackbarQueue-CU1MXNwb.js",
+        "_i18n-DFLGf4G8.js",
+        "index.html",
+        "_evaluate-DNTCZB-Z.js",
+        "_useModeHistory-CuynDwgE.js",
+        "_CopyLinkButton-v3MUa89n.js",
+        "_Keypad-BXHyuaOQ.js"
+      ],
+      "css": ["assets/SimpleMode-Cz3UFmRX.css"]
+    },
+    "src/styles/buildScheme.ts": {
+      "file": "assets/buildScheme-DzN2F7dg.js",
+      "name": "buildScheme",
+      "src": "src/styles/buildScheme.ts",
+      "isDynamicEntry": true,
+      "imports": ["_Button-BO9S851Z.js", "_graphPalette-DTsoAoAA.js"]
+    },
+    "src/styles/fonts/material-symbols-rounded.woff2": {
+      "file": "assets/material-symbols-rounded-17-fZmEE.woff2",
+      "src": "src/styles/fonts/material-symbols-rounded.woff2"
+    },
+    "src/styles/fonts/roboto-flex-latin.woff2": {
+      "file": "assets/roboto-flex-latin-DlhILaPV.woff2",
+      "src": "src/styles/fonts/roboto-flex-latin.woff2"
+    },
+    "src/styles/fonts/roboto-mono-latin.woff2": {
+      "file": "assets/roboto-mono-latin-CZtBPCCa.woff2",
+      "src": "src/styles/fonts/roboto-mono-latin.woff2"
+    },
+    "src/ui/AccentPanel.tsx": {
+      "file": "assets/AccentPanel-DX5vgMVK.js",
+      "name": "AccentPanel",
+      "src": "src/ui/AccentPanel.tsx",
+      "isDynamicEntry": true,
+      "imports": [
+        "_jsx-runtime-Dk72oS4N.js",
+        "_Button-BO9S851Z.js",
+        "_Dialog-BqCl1V51.js",
+        "_Select-W6Hfrqro.js",
+        "_Slider-oKMdNTqv.js",
+        "_IconButton-Dywimf7W.js",
+        "index.html",
+        "_extended-B2oEldXH.js",
+        "_seeds-DdxXycSJ.js",
+        "_graphPalette-DTsoAoAA.js",
+        "src/styles/buildScheme.ts"
+      ]
+    }
+  },
+  "precache": [
+    {
+      "url": "/m8e-calc/index.html",
+      "raw": 9673,
+      "gzip": 2573,
+      "sha256": "aa534ca5dd1e57d729604931e8bfe31f0314e3ab97e57cdeec417e83440ab059"
+    },
+    {
+      "url": "/m8e-calc/manifest.webmanifest",
+      "raw": 579,
+      "gzip": 233,
+      "sha256": "82fd3b212af91e4e7e424f59f24f1632b3b0ac91e70a9b076b0cf1891d563832"
+    },
+    {
+      "url": "/m8e-calc/icons/app.svg",
+      "raw": 1198,
+      "gzip": 429,
+      "sha256": "1275c302b96afd8cf6a4c21c1c70533bbe7e407b566aa4e583a89809fb9a2aa9"
+    },
+    {
+      "url": "/m8e-calc/icons/app-192.png",
+      "raw": 6345,
+      "gzip": 6274,
+      "sha256": "670159aeb105a484e7a1f35f3c499102647be4d298a4272e54a89e0c6be3836a"
+    },
+    {
+      "url": "/m8e-calc/icons/app-512.png",
+      "raw": 20919,
+      "gzip": 18590,
+      "sha256": "276e976df1aa8356a1bef27786cbc3cdb0ba9cb3600a5e6817de9da473607f1f"
+    },
+    {
+      "url": "/m8e-calc/icons/app-maskable-512.png",
+      "raw": 16684,
+      "gzip": 12999,
+      "sha256": "6e243b440ed666636f6c6e8900156951ea9c38261328396d8334222d5ef7de76"
+    },
+    {
+      "url": "/m8e-calc/assets/index-DNRdYDao.js",
+      "raw": 259714,
+      "gzip": 80947,
+      "sha256": "1bb71cd97ea56d27ba609e4edfe0009c00df9b668cb3f3c1c5bb1b925c29d51f"
+    },
+    {
+      "url": "/m8e-calc/assets/AccentPanel-DX5vgMVK.js",
+      "raw": 3417,
+      "gzip": 1347,
+      "sha256": "1aa1c4211148fb8c5962044d7fd04e9ebb84d34fa8a31fbb1810a944a7402005"
+    },
+    {
+      "url": "/m8e-calc/assets/Button-BO9S851Z.js",
+      "raw": 70996,
+      "gzip": 24084,
+      "sha256": "60006dd77f52e0b3b94444ba0ba10a081007c4795210e954ff883836419cfff8"
+    },
+    {
+      "url": "/m8e-calc/assets/Card-CpJeSsLo.js",
+      "raw": 200,
+      "gzip": 177,
+      "sha256": "6962c57466d53bb6890cb5ac8a2ef41561e2378709eb62c107303f2e4c8516d0"
+    },
+    {
+      "url": "/m8e-calc/assets/Checkbox-Calj66Hm.js",
+      "raw": 4193,
+      "gzip": 1638,
+      "sha256": "d011a50672a50ab549e15e3f76ffb60425e8e64950a1447306639395dae2e823"
+    },
+    {
+      "url": "/m8e-calc/assets/CommandPalette-CPxVY4LV.js",
+      "raw": 3768,
+      "gzip": 1764,
+      "sha256": "638f6c1ef003f1ddd2c479eec3601877c115f995924fb887dd6ce5ca5ef90e39"
+    },
+    {
+      "url": "/m8e-calc/assets/ConvertMode-kF1-cEER.js",
+      "raw": 21426,
+      "gzip": 7431,
+      "sha256": "afb7569d5af1ed54730653a7537a58de5d8436857795067021ed278abb44d355"
+    },
+    {
+      "url": "/m8e-calc/assets/CopyLinkButton-v3MUa89n.js",
+      "raw": 811,
+      "gzip": 499,
+      "sha256": "0cd13754991356bda0ed33e7747c6726cddec82b6c8b00398ca119c7c8c0fb2d"
+    },
+    {
+      "url": "/m8e-calc/assets/Dialog-BqCl1V51.js",
+      "raw": 84918,
+      "gzip": 25407,
+      "sha256": "a9cd99e96637f1e2a6b413bd4f1dde94ab01c54ab42d04db42ce4e4caf9bf683"
+    },
+    {
+      "url": "/m8e-calc/assets/Dialog-D8GWA0Uh.js",
+      "raw": 4872,
+      "gzip": 1929,
+      "sha256": "d0984e2ebe5745f4a53adcd2123cbd66ac9850f35476b727b936f3b73d5f0b55"
+    },
+    {
+      "url": "/m8e-calc/assets/ExpressionEditor-BCOwB9l_.js",
+      "raw": 354786,
+      "gzip": 113882,
+      "sha256": "77959ade15dca722498098a0764e8ccb367c1b58307f0b623e8874706433c0d1"
+    },
+    {
+      "url": "/m8e-calc/assets/FocusScope-CCqqZsct.js",
+      "raw": 14292,
+      "gzip": 4376,
+      "sha256": "62b1fc263cbbcd2dd1817e705f7c985792674dc4ca1c5d5586a9835dfc90d14b"
+    },
+    {
+      "url": "/m8e-calc/assets/GraphMode-D8CqIXdX.js",
+      "raw": 86570,
+      "gzip": 29983,
+      "sha256": "a698539cbc86e73a952fec5dc9fe7450a6096dd9a16aefcdca44572c3e08ed32"
+    },
+    {
+      "url": "/m8e-calc/assets/HistorySheet-DCM82Kf-.js",
+      "raw": 66733,
+      "gzip": 24091,
+      "sha256": "d0b0c69e91f4385de9a7a96451eebe33b7ff7dc5e5f9c03a40710135c2327aef"
+    },
+    {
+      "url": "/m8e-calc/assets/IconButton-Dywimf7W.js",
+      "raw": 3457,
+      "gzip": 1613,
+      "sha256": "aff593a646a21f0ff3375b27c46bcd7928c6664164d8331cf47a0c7d96d7dacd"
+    },
+    {
+      "url": "/m8e-calc/assets/Keypad-BXHyuaOQ.js",
+      "raw": 605,
+      "gzip": 362,
+      "sha256": "e7f91a7d1d70b87cb588711725ed723210ecd5164b202d215d505b7b271bf235"
+    },
+    {
+      "url": "/m8e-calc/assets/MathDisplay-DNoLnrT1.js",
+      "raw": 259336,
+      "gzip": 76596,
+      "sha256": "179f9e506684cd202bf6a471fa274a65be0f2f26c98e0517ad0126562b7d5d62"
+    },
+    {
+      "url": "/m8e-calc/assets/ScientificMode-CWC9rdK5.js",
+      "raw": 26050,
+      "gzip": 8222,
+      "sha256": "dd17f7f795d9705beec1117f1dee5bc92763feb2e4bd2c2ac2111d2a2f0e6d29"
+    },
+    {
+      "url": "/m8e-calc/assets/Select-W6Hfrqro.js",
+      "raw": 40192,
+      "gzip": 12481,
+      "sha256": "c08c9240a5e957273004584e1bb3339efae514708ffdaf1f97a75567cdbfd024"
+    },
+    {
+      "url": "/m8e-calc/assets/SettingsDialog-BnQzZyMP.js",
+      "raw": 4688,
+      "gzip": 1658,
+      "sha256": "827c30da3f11335aeb27c85a8ed3cfe522f9cce526f503110c67f9bdf46b265d"
+    },
+    {
+      "url": "/m8e-calc/assets/ShortcutDialog-BhXS1Zvu.js",
+      "raw": 1100,
+      "gzip": 507,
+      "sha256": "181b4f84dd965dcc90081abd93d7556f35fad4deb787abd3f1d4ada1a7588801"
+    },
+    {
+      "url": "/m8e-calc/assets/SideSheet-DHggJpdY.js",
+      "raw": 354,
+      "gzip": 251,
+      "sha256": "28bd37f4f98bde7d95fee3bd5ecc6cadb62206e3b7f8f0731a083709c83005e4"
+    },
+    {
+      "url": "/m8e-calc/assets/SimpleMode-DyVeo4FY.js",
+      "raw": 16308,
+      "gzip": 5615,
+      "sha256": "c721319c60ca68c861634f285076c83aba2c41aac6b32d4ec361500ec9ddbb16"
+    },
+    {
+      "url": "/m8e-calc/assets/Slider-oKMdNTqv.js",
+      "raw": 13216,
+      "gzip": 4677,
+      "sha256": "d858aa58a95e25592595f18c0b12a5ac847c8c3d6dc0c81641b3022fc1a19c3f"
+    },
+    {
+      "url": "/m8e-calc/assets/Switch-Rbz6jofS.js",
+      "raw": 2175,
+      "gzip": 978,
+      "sha256": "dc7b8bba827ffcb987d31e2c21aa2b6e0ffee874edae9b282ba4fb49a1379b82"
+    },
+    {
+      "url": "/m8e-calc/assets/TextField-BMm3fn53.js",
+      "raw": 2124,
+      "gzip": 1027,
+      "sha256": "0406aba00be231a0a5e602da39cfc923a04dc7a47b459aa56e3903f23d4d71ef"
+    },
+    {
+      "url": "/m8e-calc/assets/VisuallyHidden-D7u6X-GC.js",
+      "raw": 184,
+      "gzip": 164,
+      "sha256": "2936157bf24022817244676bdd18a82b5b1b5a0fb07914039f9477e26c664f30"
+    },
+    {
+      "url": "/m8e-calc/assets/browserMotion-CDweiHa2.js",
+      "raw": 158,
+      "gzip": 136,
+      "sha256": "1d232c6f91f371bea65ab84eae4fc5b9d8f83e7b0e0fda159d8e4f809284f63c"
+    },
+    {
+      "url": "/m8e-calc/assets/buildScheme-DzN2F7dg.js",
+      "raw": 1677,
+      "gzip": 795,
+      "sha256": "02eade2f9f225ee3418862250d7fa8db8b90f840850dd87f28244140cb542ae1"
+    },
+    {
+      "url": "/m8e-calc/assets/engine-BxLhPFcY.js",
+      "raw": 3563,
+      "gzip": 1644,
+      "sha256": "5b83fedf917681dc14b99bfe8f0c67470b8a3d4a98e5b62f9afbe4e2da23b540"
+    },
+    {
+      "url": "/m8e-calc/assets/evaluate-DNTCZB-Z.js",
+      "raw": 85604,
+      "gzip": 31280,
+      "sha256": "4662eaf263d7d96966e56dead2961f155d978d7db30fe7a14a5d601e90e70330"
+    },
+    {
+      "url": "/m8e-calc/assets/extended-B2oEldXH.js",
+      "raw": 35217,
+      "gzip": 10930,
+      "sha256": "53e4c1e561fcf7c03f5bd36fb7a179a54c312f5a8ee8b239cb712b08e81004cb"
+    },
+    {
+      "url": "/m8e-calc/assets/graphPalette-DTsoAoAA.js",
+      "raw": 40169,
+      "gzip": 12442,
+      "sha256": "87b9ba4fb6cfbd74d8b3eaa4cd090736ee20c789e2a7bcdde5d2553ba6bba272"
+    },
+    {
+      "url": "/m8e-calc/assets/i18n-DFLGf4G8.js",
+      "raw": 11056,
+      "gzip": 3783,
+      "sha256": "b508e70a1ee06cfc95f85e4bdc5368c1d72b9c946db87be572aa14176b22ac9c"
+    },
+    {
+      "url": "/m8e-calc/assets/jsx-runtime-Dk72oS4N.js",
+      "raw": 8774,
+      "gzip": 3328,
+      "sha256": "c5f4f8da0038e4082afc00542f93aa1bb64bc5777801d67197507865915a89b6"
+    },
+    {
+      "url": "/m8e-calc/assets/model-D5tbButu.js",
+      "raw": 4189,
+      "gzip": 1706,
+      "sha256": "cc437b491b0017f743763a929cb248869bbd851bf7011f3257701ef071dd46c9"
+    },
+    {
+      "url": "/m8e-calc/assets/model-D70ir4L7.js",
+      "raw": 2746,
+      "gzip": 1304,
+      "sha256": "1441cc3c1d3ec74d73c19027f7dd87a38d49d055bb8a5f14c341ce2a9cf86225"
+    },
+    {
+      "url": "/m8e-calc/assets/registry-D_GYSTzU.js",
+      "raw": 713,
+      "gzip": 440,
+      "sha256": "24ea49801fa327df01438e4ca0b80c84546b9a3e2a2270a99fde6e9e2831b54f"
+    },
+    {
+      "url": "/m8e-calc/assets/seeds-DdxXycSJ.js",
+      "raw": 339,
+      "gzip": 218,
+      "sha256": "8cda8dac4470852dd9b71f0b2108c8bbd31c7974a8377227b5012fed32abe9df"
+    },
+    {
+      "url": "/m8e-calc/assets/snackbarQueue-CU1MXNwb.js",
+      "raw": 10851,
+      "gzip": 4304,
+      "sha256": "d8f00848729aa29ac23f52287de0b208369b5e6fdffb69663d2c7cb6f3719840"
+    },
+    {
+      "url": "/m8e-calc/assets/units-Lj6SzZSx.js",
+      "raw": 25895,
+      "gzip": 9748,
+      "sha256": "b01cb6776d4477bcf49c90f6eca7250f181ec7c772fbd8fbf7766efb9b873abb"
+    },
+    {
+      "url": "/m8e-calc/assets/useFormValidation-BJqneZKK.js",
+      "raw": 5112,
+      "gzip": 1951,
+      "sha256": "d8a2d83d9a9293b7f0368001df70a58933623243da62175a29c112e4a6005825"
+    },
+    {
+      "url": "/m8e-calc/assets/useModeHistory-CuynDwgE.js",
+      "raw": 1193,
+      "gzip": 604,
+      "sha256": "24a89af64623b7eaf0a699cacccf0fa3b6a9b12b422f711ce16f67fdcb1c670e"
+    },
+    {
+      "url": "/m8e-calc/assets/useSlot-VE8jVIIV.js",
+      "raw": 353,
+      "gzip": 260,
+      "sha256": "7c5f50b0d20757aafb96dffd71f2ccef8c19b2900a6e1ed6ff3ddaf941b15a1d"
+    },
+    {
+      "url": "/m8e-calc/assets/useSpring-D3H5UTvG.js",
+      "raw": 940,
+      "gzip": 536,
+      "sha256": "5763f21b2608d99a63f1b88849ba5266305b715ffb453f6bf5768ea3ce1a1496"
+    },
+    {
+      "url": "/m8e-calc/assets/useTextField-DBjo9HdV.js",
+      "raw": 2523,
+      "gzip": 1136,
+      "sha256": "190fefd7f41ea33fb4833b1e36fb3e02dff1209195632fd92112a4f9b359e9fd"
+    },
+    {
+      "url": "/m8e-calc/assets/useToggle-zHC1VABP.js",
+      "raw": 2173,
+      "gzip": 975,
+      "sha256": "a71f6c2058a42a1d0881fdb75de0334338d9b6b99b9e8f0178ba41d3e8e3f973"
+    },
+    {
+      "url": "/m8e-calc/assets/Button-BoVqgmZx.css",
+      "raw": 4971,
+      "gzip": 1236,
+      "sha256": "d8a3388116d15912cef445ad7e6b679a38dedfb3e13b39775b39ae62e1226450"
+    },
+    {
+      "url": "/m8e-calc/assets/Card-DD1MZGf1.css",
+      "raw": 454,
+      "gzip": 233,
+      "sha256": "1bf89d1235fa772db2ec5c44285a55871da7bfecbffd3aa93ec10be0e0a160e9"
+    },
+    {
+      "url": "/m8e-calc/assets/Checkbox-CaWe_hBO.css",
+      "raw": 1903,
+      "gzip": 611,
+      "sha256": "9affbe5332d67f045b985c196e36ce669bcc0c23a312c91b0dc8ad13148d216f"
+    },
+    {
+      "url": "/m8e-calc/assets/ConvertMode-C-rZJdia.css",
+      "raw": 7553,
+      "gzip": 1845,
+      "sha256": "6494db4b2ab09183a6c0df3f36a819266ff4d3f4e5465032d8bd7e15d950b7e9"
+    },
+    {
+      "url": "/m8e-calc/assets/CopyLinkButton-CzVs3g7c.css",
+      "raw": 152,
+      "gzip": 136,
+      "sha256": "ffc0752ab6d774b2e8493dc35c2d22c675a5d181a0dd07411ed1eb8e5d10240d"
+    },
+    {
+      "url": "/m8e-calc/assets/Dialog-BgffhQ21.css",
+      "raw": 739,
+      "gzip": 422,
+      "sha256": "285ebcdfe1c20c07519f112efece506151a6693b8233df03f69db5386705dfce"
+    },
+    {
+      "url": "/m8e-calc/assets/GraphMode-CPEJlQ_S.css",
+      "raw": 6640,
+      "gzip": 1639,
+      "sha256": "1d1c7b544175b25096811eb893083cce4545a1b02bf746353ec1591ffc9468d2"
+    },
+    {
+      "url": "/m8e-calc/assets/IconButton-h8-ZNqqk.css",
+      "raw": 413,
+      "gzip": 247,
+      "sha256": "f5396fdc2c31eecb38f0b9ab1114e398c331a615875d77fa47a0a526cb0d914a"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
+      "raw": 28076,
+      "gzip": 28104,
+      "sha256": "0cdd387c9590a1a9f9794560022dbb59654a7d86f187aa0c81495ad42d3a7308"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_AMS-Regular-DMm9YOAa.woff",
+      "raw": 33516,
+      "gzip": 33536,
+      "sha256": "30da91e84c893f875e252689faebdc590b2871145e8adc7f9a9d4dbd8ce0b251"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_AMS-Regular-DRggAlZN.ttf",
+      "raw": 63632,
+      "gzip": 34709,
+      "sha256": "68534840bcfdd2bffb6f0e8deb48684dd01e7f04ea2813267577afb906de1d13"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Caligraphic-Bold-ATXxdsX0.ttf",
+      "raw": 12368,
+      "gzip": 7854,
+      "sha256": "07d8e303ce4fc12b4bb54f1004170dd190a1f3db45d400fe68060df3e0897268"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Caligraphic-Bold-BEiXGLvX.woff",
+      "raw": 7716,
+      "gzip": 7677,
+      "sha256": "1ae6bd7475590e97e7f145a89e09ccde322f7a6bc0b91607b1c8b8ee28290fed"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2",
+      "raw": 6912,
+      "gzip": 6935,
+      "sha256": "de7701e42cf1f4cf0b766c03fb27977207eee2f4fd5d76fa82188406da43ea4c"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Caligraphic-Regular-CTRA-rTL.woff",
+      "raw": 7656,
+      "gzip": 7621,
+      "sha256": "3398dd02302557a793f2863f88e02d96ce10df2abffa07c8e9fa90775116e65c"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2",
+      "raw": 6908,
+      "gzip": 6931,
+      "sha256": "5d53e70ad607c2352162dec9e0923fb54ecdafaccbf604cd8dcf7d00facb989b"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Caligraphic-Regular-wX97UBjC.ttf",
+      "raw": 12344,
+      "gzip": 7795,
+      "sha256": "ed0b74372feefcbb9c0666b2e210da37b7e49fa7fbbf3eeb11db5f693dacfbb7"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Fraktur-Bold-BdnERNNW.ttf",
+      "raw": 19584,
+      "gzip": 13494,
+      "sha256": "9163df9c7122432e6495b4229fa9071cf9ae86a758ae5efc4924ec2e1a6dbce1"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Fraktur-Bold-BsDP51OF.woff",
+      "raw": 13296,
+      "gzip": 13279,
+      "sha256": "9be7ceb88004ab8ad124082246fbfcca4091e36385d4ec6ed1df67375dad50fb"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2",
+      "raw": 11348,
+      "gzip": 11371,
+      "sha256": "74444efd593c005e3f4573b44524704c0af0a937fe911cca9e94068d0d140d3f"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Fraktur-Regular-CB_wures.ttf",
+      "raw": 19572,
+      "gzip": 13431,
+      "sha256": "1e6f9579e90e2cac37f8f60a597c436e075c114385652b7cbeb0dec0421291b3"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2",
+      "raw": 11316,
+      "gzip": 11339,
+      "sha256": "51814d270d06ff0255dba0799994fa4d8c84d11f09951d47595f4abb1f3602dc"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Fraktur-Regular-Dxdc4cR9.woff",
+      "raw": 13208,
+      "gzip": 13192,
+      "sha256": "5e28753be717dac97f559f49bc10be9cf3c124ddcabda6659d11cb68febc6463"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Main-Bold-Cx986IdX.woff2",
+      "raw": 25324,
+      "gzip": 25352,
+      "sha256": "0f60d1b897938ec918c8ce073092411baf9438f6739465693ff18b0f9d20b021"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Main-Bold-Jm3AIy58.woff",
+      "raw": 29912,
+      "gzip": 29940,
+      "sha256": "c76c5d696297d51b9cb1639c7da4334f0e7dec81b42b11213b5e25ef671bb822"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Main-Bold-waoOVXN0.ttf",
+      "raw": 51336,
+      "gzip": 30802,
+      "sha256": "138ac28d1663b3037e9c5f52371fa5c63d8324f4a38d22cd573e6ea3a3fd0cf8"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2",
+      "raw": 16780,
+      "gzip": 16808,
+      "sha256": "99cd42a3c072d918f2f44984a807cf7aa16e13545fd0875fc07c6c65f99e715b"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Main-BoldItalic-DzxPMmG6.ttf",
+      "raw": 32968,
+      "gzip": 19673,
+      "sha256": "70ee1f64a20f2048c21940ef46d0144fd215baa953ca69afd1e31e98544f708f"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Main-BoldItalic-SpSLRI95.woff",
+      "raw": 19412,
+      "gzip": 19405,
+      "sha256": "a6f7ec0d846ac7ad975adb8959c37ed49b94acbc4ae436db9ce9e20287e4a64c"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Main-Italic-3WenGoN9.ttf",
+      "raw": 33580,
+      "gzip": 19924,
+      "sha256": "0d85ae7cc30f23790a7f1a58c4a112fdca8aae769b6ba11429af1d98b1b6cb3a"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Main-Italic-BMLOBm91.woff",
+      "raw": 19676,
+      "gzip": 19665,
+      "sha256": "f1d6ef86f3b11a528bd5185199bd2443ecb2b0dead96d88674b5a2c12be24bdf"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Main-Italic-NWA7e6Wa.woff2",
+      "raw": 16988,
+      "gzip": 17016,
+      "sha256": "97479ca6cce906abc961ecac96faa5f9ca2e61b8e7670d475826bcdee9a7c267"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Main-Regular-B22Nviop.woff2",
+      "raw": 26272,
+      "gzip": 26300,
+      "sha256": "c2342cd8b869e01752a9321dc17213fc40d4d04c79688c1d43f2cf316abd7866"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Main-Regular-Dr94JaBh.woff",
+      "raw": 30772,
+      "gzip": 30795,
+      "sha256": "c6368d87e8a1a3a5d337623d83d8dc4b868f242a9ad476237d6f8d1e0f168cdc"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Main-Regular-ypZvNtVU.ttf",
+      "raw": 53580,
+      "gzip": 31719,
+      "sha256": "d0332f52868370fd83ae7fa46470f90c8f2eab2fcf12bc4f88080b340c95a830"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Math-BoldItalic-B3XSjfu4.ttf",
+      "raw": 31196,
+      "gzip": 19003,
+      "sha256": "f9377ab0271cda59af24bcffbd46a4d0c8a3572ffafdbb38de2ad5ea7b0d5ee5"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2",
+      "raw": 16400,
+      "gzip": 16423,
+      "sha256": "dc47344dbb6cb5b655c8460d561f4df5f501b90c804ad3c6cec65fe322351ab1"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Math-BoldItalic-iY-2wyZ7.woff",
+      "raw": 18668,
+      "gzip": 18647,
+      "sha256": "850c0af5c2238497febaf5e461d880bf458c341f42f4f330f1b1ab5698b1998e"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Math-Italic-DA0__PXp.woff",
+      "raw": 18748,
+      "gzip": 18738,
+      "sha256": "8a8d244581371912b8f3f5a23e2437cb2a59cd9bcaebb0346e722c05737a2571"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Math-Italic-flOr_0UB.ttf",
+      "raw": 31308,
+      "gzip": 19077,
+      "sha256": "08ce98e51b04d58945a301e639e02b6998af29fdfd61a7b8afdd07bbfc479d4a"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Math-Italic-t53AETM-.woff2",
+      "raw": 16440,
+      "gzip": 16468,
+      "sha256": "7af58c5ec8f132a2ddde9027c6d7814decce4d3b822a11192a42a20e2e973264"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_SansSerif-Bold-CFMepnvq.ttf",
+      "raw": 24504,
+      "gzip": 14775,
+      "sha256": "1ece03f79f95277d57dc7f6b435a74e1379b0d46104a8530286b60ff49369ea0"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2",
+      "raw": 12216,
+      "gzip": 12239,
+      "sha256": "e99ae51144bf1232efcc1bfe5add36262c6866b0faab24fa75740e1b98577a62"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_SansSerif-Bold-DbIhKOiC.woff",
+      "raw": 14408,
+      "gzip": 14398,
+      "sha256": "ece03cfd83e22c212cdef66feb8442d25a083beb988db3f1883f3f9738d750ba"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2",
+      "raw": 12028,
+      "gzip": 12051,
+      "sha256": "00b26ac825e2095056396e0553b8ac26d3f8ad158c3826e28b4c45b385c4714a"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_SansSerif-Italic-DN2j7dab.woff",
+      "raw": 14112,
+      "gzip": 14087,
+      "sha256": "91ee67500cc0129aa0ace3ac5c61ff1692102f0f31d02b69347fba35dcb75bf2"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_SansSerif-Italic-YYjJ1zSn.ttf",
+      "raw": 22364,
+      "gzip": 14433,
+      "sha256": "3931dd81faed86ba021bb2bbdc36f5bed9a38d6b4f4077aca59b265aa1b02083"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_SansSerif-Regular-BNo7hRIc.ttf",
+      "raw": 19436,
+      "gzip": 12546,
+      "sha256": "f36ea897e19f4a2e571d1e900e4e3710e438deb05a842486045ba0a3e616a4ad"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_SansSerif-Regular-CS6fqUqJ.woff",
+      "raw": 12316,
+      "gzip": 12298,
+      "sha256": "11e4dc8a6471ff6d6ee561d53d10fde8f7489e798257ff449c5d37c197435605"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2",
+      "raw": 10344,
+      "gzip": 10367,
+      "sha256": "68e8c73ef42afd3ccec58bf0fba302cce448938e7fc020a5e31f8a952eee1342"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Script-Regular-C5JkGWo-.ttf",
+      "raw": 16648,
+      "gzip": 10808,
+      "sha256": "1c67f068fea8bb09bf099c088b1cf64bd27516a6e07f4684344873564bb66a67"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Script-Regular-D3wIWfF6.woff2",
+      "raw": 9644,
+      "gzip": 9667,
+      "sha256": "036d4e95149b69ff9bcc0cd55771efeb25ffa3947293e69acd78d5ac328c684b"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Script-Regular-D5yQViql.woff",
+      "raw": 10588,
+      "gzip": 10550,
+      "sha256": "d96cdf2b3bdd4d64a8fd5f74a4c467f123a8a73931cd435889f08ffaf9bf947a"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Size1-Regular-C195tn64.woff",
+      "raw": 6496,
+      "gzip": 6465,
+      "sha256": "c943cc986384f59e86bea5fd7dc50a9c4dfe567a7c05eb40d6790720dead97c9"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Size1-Regular-Dbsnue_I.ttf",
+      "raw": 12228,
+      "gzip": 6540,
+      "sha256": "95b6d2f1a50173bfedb8c63e1d1c99b10427d0a4df4201cb44513b226951a22b"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Size1-Regular-mCD8mA8B.woff2",
+      "raw": 5468,
+      "gzip": 5491,
+      "sha256": "6b47c40166b6dbe21a5dfca7718413f2147fd2399be1ba605d8ad39cedf25dfe"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Size2-Regular-B7gKUWhC.ttf",
+      "raw": 11508,
+      "gzip": 6241,
+      "sha256": "a6b2099fb555c60e3a0db3a08842ebf1d732c6eb4e4bf44913613bed4fc4e39b"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Size2-Regular-Dy4dx90m.woff2",
+      "raw": 5208,
+      "gzip": 5231,
+      "sha256": "d04c54219f9eaec6d4d4fd42dfb28785975a4794d6b2fc71e566b9cd6db842dd"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Size2-Regular-oD1tc_U0.woff",
+      "raw": 6188,
+      "gzip": 6161,
+      "sha256": "2014c523c3210bcc166648c4d4cc57f05b747df07a24277bf71c51e67dc79e3d"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Size3-Regular-CTq5MqoE.woff",
+      "raw": 4420,
+      "gzip": 4380,
+      "sha256": "6ab6b62e9b62dae2c00dd90f791bd10950be0ecc3490d7d6045f51c2e8fe0949"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Size3-Regular-DgpXs0kz.ttf",
+      "raw": 7588,
+      "gzip": 4389,
+      "sha256": "500e04d54f0d51666332c9d2089aa803be22aa878eca539e59fa53c6e522b082"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Size4-Regular-BF-4gkZK.woff",
+      "raw": 5980,
+      "gzip": 5944,
+      "sha256": "99f9c6750b489c9462bf04900bd3f939df9b829339daaaaa99ef5495cdddea58"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Size4-Regular-DWFBv043.ttf",
+      "raw": 10364,
+      "gzip": 6061,
+      "sha256": "c647367d1dd4e162468717d020e1fc0f1dc5c26ebfdffbe55261713bf88c5877"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2",
+      "raw": 4928,
+      "gzip": 4951,
+      "sha256": "a4af7d414440a1c1790825cfb700cf9cf43b0f2c4b04f0ebc523011ad9853ec0"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff",
+      "raw": 16028,
+      "gzip": 16010,
+      "sha256": "e14fed02b1aba7ce9f5afd5844b5d0321b22351febc720e0de8b8723527609f7"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2",
+      "raw": 13568,
+      "gzip": 13591,
+      "sha256": "71d517d67827787cfabdf186914cc3358eda539e37931941f2b2fd4a21f68c0b"
+    },
+    {
+      "url": "/m8e-calc/assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf",
+      "raw": 27556,
+      "gzip": 16479,
+      "sha256": "f01f3e87d9c6a61c0c081ceb577abd864eb00a612f7ac1620dd6915fad2ef5aa"
+    },
+    {
+      "url": "/m8e-calc/assets/Keypad-DUGiORd-.css",
+      "raw": 2028,
+      "gzip": 549,
+      "sha256": "a6ce49b4e92603e5d1bf88f87003f597280d25480bf976c1d69fd2dda9397be3"
+    },
+    {
+      "url": "/m8e-calc/assets/MathDisplay-fV8fYLk0.css",
+      "raw": 30333,
+      "gzip": 7889,
+      "sha256": "1556b595c113fa3ac7e07fa3fbf7dd88efd09cd71e18bd7d29883c72e430713e"
+    },
+    {
+      "url": "/m8e-calc/assets/ScientificMode-NBn4f-zE.css",
+      "raw": 10971,
+      "gzip": 2332,
+      "sha256": "3b87d65b3c35a032f7fbc837d3c40065e2ac939b39a5c3a574f418938a8b16aa"
+    },
+    {
+      "url": "/m8e-calc/assets/Select-zbWAXGec.css",
+      "raw": 1214,
+      "gzip": 431,
+      "sha256": "7144a4e4cc56a8654008924fb33145dffe0d41be1cb95846dd0326a39993b090"
+    },
+    {
+      "url": "/m8e-calc/assets/SideSheet-BZfUtJea.css",
+      "raw": 335,
+      "gzip": 219,
+      "sha256": "8a630590b836ebaa279afc9a5a17424fd07c31271f7c7e11a740207324af310c"
+    },
+    {
+      "url": "/m8e-calc/assets/SimpleMode-Cz3UFmRX.css",
+      "raw": 3428,
+      "gzip": 1129,
+      "sha256": "52d8ae09674f60b23d29424de23046a0fe28919502f7deec14b9c724f4c99ea6"
+    },
+    {
+      "url": "/m8e-calc/assets/Slider-CmZSN9rw.css",
+      "raw": 1384,
+      "gzip": 535,
+      "sha256": "8896b8da87a6db389b74185d6fdc2921dd5484a7c09dd77a35c8fdfab62e042e"
+    },
+    {
+      "url": "/m8e-calc/assets/Switch-Dhw6gmOR.css",
+      "raw": 1313,
+      "gzip": 451,
+      "sha256": "1f205c93c9bb39b67619a0c76be14640843e628624d48f2ed2cfed3b009f201c"
+    },
+    {
+      "url": "/m8e-calc/assets/TextField-Bia33xUx.css",
+      "raw": 1424,
+      "gzip": 520,
+      "sha256": "29909fb9b6a17d224e1f3241455da407d6c27e378f7405363f9f00369e195740"
+    },
+    {
+      "url": "/m8e-calc/assets/index-rZB3Fp3s.css",
+      "raw": 66103,
+      "gzip": 10903,
+      "sha256": "5f49031c94f73e573810b6376ea5cac8d0db6c29be7a023174fa61cdc3904cd3"
+    },
+    {
+      "url": "/m8e-calc/assets/material-symbols-rounded-17-fZmEE.woff2",
+      "raw": 29976,
+      "gzip": 30004,
+      "sha256": "f01f2fe389b1145baa882ffe411b9a7a40d33362a239f1c8bc078f5fd05d11aa"
+    },
+    {
+      "url": "/m8e-calc/assets/roboto-flex-latin-DlhILaPV.woff2",
+      "raw": 194648,
+      "gzip": 194713,
+      "sha256": "64eba947f98e35fb9f31c3ff6b6881e3962fe8647ccff924f72728eca2289484"
+    },
+    {
+      "url": "/m8e-calc/assets/roboto-mono-latin-CZtBPCCa.woff2",
+      "raw": 32796,
+      "gzip": 32826,
+      "sha256": "b81cd55177300649be8f95b3b747d721ce607e8ed2856e25bd0c630cfd631faf"
+    },
+    {
+      "url": "/m8e-calc/assets/sampling.worker-DdpY2KL0.js",
+      "raw": 82754,
+      "gzip": 31414,
+      "sha256": "322d264bade5ef76740eb6d521a26ef6ba24184c679a0a8fafbbad3b066b6f1c"
+    },
+    {
+      "url": "/m8e-calc/build-target.json",
+      "raw": 19,
+      "gzip": 39,
+      "sha256": "ead9564e848cd943e289e660ec81056ef709039563a9a7f97fa0e4e9c3f06b4c"
+    }
+  ],
+  "offlinePrecache": {
+    "raw": 3199627,
+    "gzip": 1749823
+  }
+}

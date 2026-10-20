@@ -162,6 +162,8 @@ Selected-Formen wechseln diskret zwischen den vorhandenen Shape-Endpunkten.
 State-Layer erbt den Radius der Oberfläche und bleibt innerhalb ihrer Rundung.
 Die Oberfläche liegt innerhalb des isolierten Buttons unter dessen nativem
 Fokusring; das gilt auch für innen liegende Ringe in Scrollrastern.
+Full bereitet bedienbare Oberflächen vor der Eingabe mit `will-change: transform`
+vor; Disabled, Reduced, Off und OS-Reduktion entfernen den Hinweis.
 Vertrag und Messnachweise: [COMPONENTS](COMPONENTS.md), [AP42](AP42.md).
 
 Auch Radio-Segmente und der Theme-Thumb setzen ihre Selected-Radien diskret;

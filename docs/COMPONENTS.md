@@ -162,6 +162,10 @@ visuellen Pfad. Reduced/Off und OS-Reduktion unterdrücken die Skalierung und
 beenden laufende CSS-Bewegung; Entfernen aus dem DOM beendet deren Animationen.
 Details, gemessene Grenzen und Reproduktion: [AP42](AP42.md).
 
+Full verwendet für bedienbare Oberflächen schon vor der Eingabe einen
+Transform-Hinweis an den Compositor; dafür ist kein Hover-Frame erforderlich.
+Disabled, Reduced, Off und OS-Reduktion entfernen den Hinweis.
+
 Auch Radio-Segmente und der Theme-Thumb setzen ihre Selected-Radien diskret;
 die räumliche Translation des Theme-Thumbs behält ihren bisherigen Spring.
 Die AP36-Selected-Fälle prüfen deren echte Zwischenwerte bei Wiederholung.

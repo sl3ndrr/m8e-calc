@@ -1,0 +1,918 @@
+{
+  "before": [
+    {
+      "trace": "test-results/ap42/before/ap36-gallery-common-button-18837-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "gallery"
+      },
+      "kind": "Button",
+      "theme": "dark",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 0.0,
+      "maxRadius": 10933.6,
+      "zeroRadiusFrames": 10,
+      "pressTransforms": 27,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 0.8000000000029104
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-gallery-common-button-18837-eversal-cancel-and-keyboard-firefox-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "gallery"
+      },
+      "kind": "Button",
+      "theme": "dark",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 0.0,
+      "maxRadius": 10929.0,
+      "zeroRadiusFrames": 10,
+      "pressTransforms": 27,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 1
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-gallery-common-button-18837-eversal-cancel-and-keyboard-webkit-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "gallery"
+      },
+      "kind": "Button",
+      "theme": "dark",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.007813px",
+      "minRadius": 0.0,
+      "maxRadius": 10931.660156,
+      "zeroRadiusFrames": 9,
+      "pressTransforms": 23,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 2
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-gallery-common-button-9afb4-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "gallery"
+      },
+      "kind": "IconButton",
+      "theme": "light",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 0.0,
+      "maxRadius": 10933.8,
+      "zeroRadiusFrames": 10,
+      "pressTransforms": 27,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 0.8999999999941792
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-gallery-common-button-9afb4-eversal-cancel-and-keyboard-firefox-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "gallery"
+      },
+      "kind": "IconButton",
+      "theme": "light",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 0.0,
+      "maxRadius": 10929.5,
+      "zeroRadiusFrames": 10,
+      "pressTransforms": 27,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 1
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-gallery-common-button-9afb4-eversal-cancel-and-keyboard-webkit-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "gallery"
+      },
+      "kind": "IconButton",
+      "theme": "light",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.007813px",
+      "minRadius": 0.0,
+      "maxRadius": 10935.091797,
+      "zeroRadiusFrames": 9,
+      "pressTransforms": 23,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 4
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-gallery-common-button-b5e6f-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "gallery"
+      },
+      "kind": "Button",
+      "theme": "light",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 0.0,
+      "maxRadius": 10933.6,
+      "zeroRadiusFrames": 10,
+      "pressTransforms": 27,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 1
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-gallery-common-button-b5e6f-eversal-cancel-and-keyboard-firefox-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "gallery"
+      },
+      "kind": "Button",
+      "theme": "light",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 0.0,
+      "maxRadius": 10934.6,
+      "zeroRadiusFrames": 10,
+      "pressTransforms": 27,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 1
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-gallery-common-button-b5e6f-eversal-cancel-and-keyboard-webkit-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "gallery"
+      },
+      "kind": "Button",
+      "theme": "light",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.007813px",
+      "minRadius": 0.0,
+      "maxRadius": 10935.091797,
+      "zeroRadiusFrames": 10,
+      "pressTransforms": 24,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 2
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-gallery-common-button-f2ec9-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "gallery"
+      },
+      "kind": "IconButton",
+      "theme": "dark",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 0.0,
+      "maxRadius": 10933.4,
+      "zeroRadiusFrames": 10,
+      "pressTransforms": 27,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 0.8000000000174623
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-gallery-common-button-f2ec9-eversal-cancel-and-keyboard-firefox-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "gallery"
+      },
+      "kind": "IconButton",
+      "theme": "dark",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 0.0,
+      "maxRadius": 10929.2,
+      "zeroRadiusFrames": 10,
+      "pressTransforms": 27,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 1
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-gallery-common-button-f2ec9-eversal-cancel-and-keyboard-webkit-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "gallery"
+      },
+      "kind": "IconButton",
+      "theme": "dark",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.007813px",
+      "minRadius": 0.0,
+      "maxRadius": 10943.327148,
+      "zeroRadiusFrames": 10,
+      "pressTransforms": 23,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 2
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-motion-common-button--18550-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "normal"
+      },
+      "kind": "Button",
+      "theme": "light",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 0.0,
+      "maxRadius": 10933.8,
+      "zeroRadiusFrames": 10,
+      "pressTransforms": 27,
+      "releaseTransforms": 17,
+      "maxCaptureMs": 0.8000000000029104
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-motion-common-button--18550-eversal-cancel-and-keyboard-firefox-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "normal"
+      },
+      "kind": "Button",
+      "theme": "light",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 0.0,
+      "maxRadius": 10934.7,
+      "zeroRadiusFrames": 9,
+      "pressTransforms": 26,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 9
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-motion-common-button--18550-eversal-cancel-and-keyboard-webkit-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "normal"
+      },
+      "kind": "Button",
+      "theme": "light",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.007813px",
+      "minRadius": 0.0,
+      "maxRadius": 10931.484375,
+      "zeroRadiusFrames": 4,
+      "pressTransforms": 16,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 4
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-motion-common-button--c96c6-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "normal"
+      },
+      "kind": "IconButton",
+      "theme": "light",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 0.0,
+      "maxRadius": 10933.5,
+      "zeroRadiusFrames": 10,
+      "pressTransforms": 27,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 0.6999999999970896
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-motion-common-button--c96c6-eversal-cancel-and-keyboard-firefox-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "normal"
+      },
+      "kind": "IconButton",
+      "theme": "light",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 0.0,
+      "maxRadius": 10934.7,
+      "zeroRadiusFrames": 10,
+      "pressTransforms": 27,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 2
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-motion-common-button--c96c6-eversal-cancel-and-keyboard-webkit-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "normal"
+      },
+      "kind": "IconButton",
+      "theme": "light",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.007813px",
+      "minRadius": 0.0,
+      "maxRadius": 10007.152344,
+      "zeroRadiusFrames": 2,
+      "pressTransforms": 15,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 4
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-motion-common-button--ca8eb-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "normal"
+      },
+      "kind": "IconButton",
+      "theme": "dark",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 0.0,
+      "maxRadius": 10933.7,
+      "zeroRadiusFrames": 10,
+      "pressTransforms": 27,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 0.7999999999883585
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-motion-common-button--ca8eb-eversal-cancel-and-keyboard-firefox-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "normal"
+      },
+      "kind": "IconButton",
+      "theme": "dark",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 0.0,
+      "maxRadius": 10929.2,
+      "zeroRadiusFrames": 10,
+      "pressTransforms": 27,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 2
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-motion-common-button--ca8eb-eversal-cancel-and-keyboard-webkit-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "normal"
+      },
+      "kind": "IconButton",
+      "theme": "dark",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.007813px",
+      "minRadius": 0.0,
+      "maxRadius": 10927.961914,
+      "zeroRadiusFrames": 7,
+      "pressTransforms": 21,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 3
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-motion-common-button--f9437-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "normal"
+      },
+      "kind": "Button",
+      "theme": "dark",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 0.0,
+      "maxRadius": 10933.7,
+      "zeroRadiusFrames": 10,
+      "pressTransforms": 27,
+      "releaseTransforms": 17,
+      "maxCaptureMs": 0.8000000000029104
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-motion-common-button--f9437-eversal-cancel-and-keyboard-firefox-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "normal"
+      },
+      "kind": "Button",
+      "theme": "dark",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 0.0,
+      "maxRadius": 10934.7,
+      "zeroRadiusFrames": 9,
+      "pressTransforms": 26,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 8
+    },
+    {
+      "trace": "test-results/ap42/before/ap36-motion-common-button--f9437-eversal-cancel-and-keyboard-webkit-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "65ce593bc2fe7065c3f43d29502f2023b49cf58b",
+        "target": "normal"
+      },
+      "kind": "Button",
+      "theme": "dark",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.007813px",
+      "minRadius": 0.0,
+      "maxRadius": 10943.327148,
+      "zeroRadiusFrames": 2,
+      "pressTransforms": 15,
+      "releaseTransforms": 18,
+      "maxCaptureMs": 5
+    }
+  ],
+  "after": [
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-gallery-common-button-18837-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "gallery"
+      },
+      "kind": "Button",
+      "theme": "dark",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 9999.01,
+      "maxRadius": 9999.01,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 11,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 1
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-gallery-common-button-18837-eversal-cancel-and-keyboard-firefox-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "gallery"
+      },
+      "kind": "Button",
+      "theme": "dark",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 9999.01,
+      "maxRadius": 9999.01,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 11,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 1
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-gallery-common-button-9afb4-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "gallery"
+      },
+      "kind": "IconButton",
+      "theme": "light",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 9999.01,
+      "maxRadius": 9999.01,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 11,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 0.8000000000465661
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-gallery-common-button-9afb4-eversal-cancel-and-keyboard-firefox-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "gallery"
+      },
+      "kind": "IconButton",
+      "theme": "light",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 9999.01,
+      "maxRadius": 9999.01,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 11,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 1
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-gallery-common-button-b5e6f-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "gallery"
+      },
+      "kind": "Button",
+      "theme": "light",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 9999.01,
+      "maxRadius": 9999.01,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 11,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 0.9000000000232831
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-gallery-common-button-b5e6f-eversal-cancel-and-keyboard-firefox-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "gallery"
+      },
+      "kind": "Button",
+      "theme": "light",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 9999.01,
+      "maxRadius": 9999.01,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 11,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 1
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-gallery-common-button-f2ec9-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "gallery"
+      },
+      "kind": "IconButton",
+      "theme": "dark",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 9999.01,
+      "maxRadius": 9999.01,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 11,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 0.7999999999883585
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-gallery-common-button-f2ec9-eversal-cancel-and-keyboard-firefox-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "gallery"
+      },
+      "kind": "IconButton",
+      "theme": "dark",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 9999.01,
+      "maxRadius": 9999.01,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 11,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 1
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--18550-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "normal"
+      },
+      "kind": "Button",
+      "theme": "light",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 9999.01,
+      "maxRadius": 9999.01,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 11,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 0.7999999999883585
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--18550-eversal-cancel-and-keyboard-firefox-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "normal"
+      },
+      "kind": "Button",
+      "theme": "light",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 9999.01,
+      "maxRadius": 9999.01,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 11,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 9
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--18550-eversal-cancel-and-keyboard-webkit-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "normal"
+      },
+      "kind": "Button",
+      "theme": "light",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.007813px",
+      "minRadius": 9999.007813,
+      "maxRadius": 9999.007813,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 4,
+      "releaseTransforms": 6,
+      "maxCaptureMs": 5
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--c96c6-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "normal"
+      },
+      "kind": "IconButton",
+      "theme": "light",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 9999.01,
+      "maxRadius": 9999.01,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 11,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 0.9000000000232831
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--c96c6-eversal-cancel-and-keyboard-firefox-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "normal"
+      },
+      "kind": "IconButton",
+      "theme": "light",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 9999.01,
+      "maxRadius": 9999.01,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 10,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 1
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--ca8eb-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "normal"
+      },
+      "kind": "IconButton",
+      "theme": "dark",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 9999.01,
+      "maxRadius": 9999.01,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 11,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 0.8999999999650754
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--c96c6-eversal-cancel-and-keyboard-webkit-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "normal"
+      },
+      "kind": "IconButton",
+      "theme": "light",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.007813px",
+      "minRadius": 9999.007813,
+      "maxRadius": 9999.007813,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 4,
+      "releaseTransforms": 9,
+      "maxCaptureMs": 3
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--ca8eb-eversal-cancel-and-keyboard-webkit-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "normal"
+      },
+      "kind": "IconButton",
+      "theme": "dark",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.007813px",
+      "minRadius": 9999.007813,
+      "maxRadius": 9999.007813,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 4,
+      "releaseTransforms": 7,
+      "maxCaptureMs": 3
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--ca8eb-eversal-cancel-and-keyboard-firefox-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "normal"
+      },
+      "kind": "IconButton",
+      "theme": "dark",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 9999.01,
+      "maxRadius": 9999.01,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 10,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 2
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--f9437-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "normal"
+      },
+      "kind": "Button",
+      "theme": "dark",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 9999.01,
+      "maxRadius": 9999.01,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 11,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 1.2999999999883585
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--f9437-eversal-cancel-and-keyboard-firefox-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "normal"
+      },
+      "kind": "Button",
+      "theme": "dark",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.01px",
+      "minRadius": 9999.01,
+      "maxRadius": 9999.01,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 10,
+      "releaseTransforms": 10,
+      "maxCaptureMs": 9
+    },
+    {
+      "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--f9437-eversal-cancel-and-keyboard-webkit-production/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "normal"
+      },
+      "kind": "Button",
+      "theme": "dark",
+      "gallery": false,
+      "frames": 48,
+      "restRadius": "9999.007813px",
+      "minRadius": 9999.007813,
+      "maxRadius": 9999.007813,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 5,
+      "releaseTransforms": 7,
+      "maxCaptureMs": 5
+    },
+    {
+      "trace": "test-results/ap42/after/webkit-gallery/ap36-gallery-common-button-18837-eversal-cancel-and-keyboard-webkit-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "gallery"
+      },
+      "kind": "Button",
+      "theme": "dark",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.007813px",
+      "minRadius": 9999.007813,
+      "maxRadius": 9999.007813,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 8,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 3
+    },
+    {
+      "trace": "test-results/ap42/after/webkit-gallery/ap36-gallery-common-button-9afb4-eversal-cancel-and-keyboard-webkit-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "gallery"
+      },
+      "kind": "IconButton",
+      "theme": "light",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.007813px",
+      "minRadius": 9999.007813,
+      "maxRadius": 9999.007813,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 7,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 2
+    },
+    {
+      "trace": "test-results/ap42/after/webkit-gallery/ap36-gallery-common-button-b5e6f-eversal-cancel-and-keyboard-webkit-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "gallery"
+      },
+      "kind": "Button",
+      "theme": "light",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.007813px",
+      "minRadius": 9999.007813,
+      "maxRadius": 9999.007813,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 7,
+      "releaseTransforms": 9,
+      "maxCaptureMs": 2
+    },
+    {
+      "trace": "test-results/ap42/after/webkit-gallery/ap36-gallery-common-button-f2ec9-eversal-cancel-and-keyboard-webkit-gallery/trace.zip",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "6eca7c7070f0f041bfd72d24c13ffb73d82eb538",
+        "target": "gallery"
+      },
+      "kind": "IconButton",
+      "theme": "dark",
+      "gallery": true,
+      "frames": 48,
+      "restRadius": "9999.007813px",
+      "minRadius": 9999.007813,
+      "maxRadius": 9999.007813,
+      "zeroRadiusFrames": 0,
+      "pressTransforms": 7,
+      "releaseTransforms": 11,
+      "maxCaptureMs": 1
+    }
+  ]
+}

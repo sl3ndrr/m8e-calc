@@ -191,4 +191,6 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       `65ce593`: konstante rollenbezogene Press-Formen, stabile Klickziele und
       Fokusringe, zentraler Effects-Press und diskrete Selected-Formen. Erweitert
       AP19/AP36 statt einer zweiten Messinfrastruktur. Vertrag und tatsächlicher
-      Prüfstatus: [AP42](AP42.md). Keine Dependency-Updates oder Veröffentlichung.
+      Prüfstatus und dauerhafte native Frame-/Bildbelege: [AP42](AP42.md),
+      Umsetzung in [PR #63](https://github.com/sl3ndrr/m8e-calc/pull/63).
+      Keine Dependency-Updates oder Veröffentlichung.

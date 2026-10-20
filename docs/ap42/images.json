@@ -1,0 +1,200 @@
+[
+  {
+    "file": "after-gallery-button-dark-press.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-gallery-common-button-18837-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+    "attachment": "button-contract-middle",
+    "sha256": "3ab27ec19aad83598970530894b5756a4771ca194a07165af9e51aeed1c78b82"
+  },
+  {
+    "file": "after-gallery-button-dark-focus.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-gallery-common-button-18837-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+    "attachment": "button-contract-focus",
+    "sha256": "c2dfba5ea92bee259c3df535fd7ff830c23529e7b1a6cb0e941f5f1ee461ac83"
+  },
+  {
+    "file": "after-gallery-iconbutton-light-press.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-gallery-common-button-9afb4-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+    "attachment": "button-contract-middle",
+    "sha256": "2368cb1416fb820f9e070c5eb4a0db7557776f72d4834e9543557f9f083515c8"
+  },
+  {
+    "file": "after-gallery-iconbutton-light-focus.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-gallery-common-button-9afb4-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+    "attachment": "button-contract-focus",
+    "sha256": "7698e1dec79749aef41f749bc2c7bd58d1061f4f592076b9dd06986d1c6c4ca4"
+  },
+  {
+    "file": "after-gallery-button-light-press.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-gallery-common-button-b5e6f-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+    "attachment": "button-contract-middle",
+    "sha256": "547796d28c3c08f5f3b8f1402d5d1eb6799095fc19e1dadb0877eb121a5bea02"
+  },
+  {
+    "file": "after-gallery-button-light-focus.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-gallery-common-button-b5e6f-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+    "attachment": "button-contract-focus",
+    "sha256": "58fe2491a4a5838b07ee02f3d9e5eb8171d65fdc98e7f932ce3d4eeb4ed42ee5"
+  },
+  {
+    "file": "after-gallery-iconbutton-dark-press.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-gallery-common-button-f2ec9-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+    "attachment": "button-contract-middle",
+    "sha256": "6efaa5d09d08277b9db4d1294afa2b167d88699fa58dbdab01a4aa6dafd8dee3"
+  },
+  {
+    "file": "after-gallery-iconbutton-dark-focus.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-gallery-common-button-f2ec9-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+    "attachment": "button-contract-focus",
+    "sha256": "af84b9a816ef661f91e5cfd3161b64ee060c24f7eef5569cffc389db0ec32503"
+  },
+  {
+    "file": "after-app-button-light-press.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--18550-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+    "attachment": "button-contract-middle",
+    "sha256": "c95f755aa53594d0919948c1aa22634d824ae9343c89d375a051eb62c26b45a4"
+  },
+  {
+    "file": "after-app-button-light-focus.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--18550-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+    "attachment": "button-contract-focus",
+    "sha256": "f6735542beacf92ffc8e11fd3e24ec019b6d45668e3f8cf61487be3630e5d0d6"
+  },
+  {
+    "file": "after-convert-category-focus-chromium.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--41976-eep-the-complete-focus-ring-chromium-production/trace.zip",
+    "attachment": "button-contract-focus-paint-.convert-category-grid",
+    "sha256": "74f116da178369a5bcb9fbc3c735731b9b97f82a295f839ce0fa6b8010d66211"
+  },
+  {
+    "file": "counterfactual-convert-category-focus-chromium.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--41976-eep-the-complete-focus-ring-chromium-production/trace.zip",
+    "attachment": "button-contract-focus-covered",
+    "sha256": "e3da4b6ecdb12bd23fa4ce09d915bbc0fed31bb286762b5091b26940385ae09d"
+  },
+  {
+    "file": "after-convert-unit-focus-chromium.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--41976-eep-the-complete-focus-ring-chromium-production/trace.zip",
+    "attachment": "button-contract-focus-paint-.convert-unit-grid",
+    "sha256": "aa79541f25c99a27eda114d0791076627ca2b45604cc36c3604515494b70917e"
+  },
+  {
+    "file": "after-convert-category-focus-firefox.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--41976-eep-the-complete-focus-ring-firefox-production/trace.zip",
+    "attachment": "button-contract-focus-paint-.convert-category-grid",
+    "sha256": "9e394576f8a7929f597d492dba42b47423482e85e60087af0a387e53c9c4eee8"
+  },
+  {
+    "file": "counterfactual-convert-category-focus-firefox.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--41976-eep-the-complete-focus-ring-firefox-production/trace.zip",
+    "attachment": "button-contract-focus-covered",
+    "sha256": "0de42a8e4d08f2b3a44e8ddaacea5c5da914c4fdc1abf22a3d410bccf8920de6"
+  },
+  {
+    "file": "after-convert-unit-focus-firefox.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--41976-eep-the-complete-focus-ring-firefox-production/trace.zip",
+    "attachment": "button-contract-focus-paint-.convert-unit-grid",
+    "sha256": "3b6a445a28989c7c3435d2ab024ba7c59c69a2c58f88bc43347835db4b36f882"
+  },
+  {
+    "file": "after-convert-category-focus-webkit.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--41976-eep-the-complete-focus-ring-webkit-production/trace.zip",
+    "attachment": "button-contract-focus-paint-.convert-category-grid",
+    "sha256": "43ecf8dd9141f81bfdba03624061787abcbbb78b5fa66c2b0cceab9188bb72a6"
+  },
+  {
+    "file": "counterfactual-convert-category-focus-webkit.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--41976-eep-the-complete-focus-ring-webkit-production/trace.zip",
+    "attachment": "button-contract-focus-covered",
+    "sha256": "835444eb4b614d0e19db35dc6ea7778ede833ca9a58ca67c319886cf5fcc81d4"
+  },
+  {
+    "file": "after-convert-unit-focus-webkit.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--41976-eep-the-complete-focus-ring-webkit-production/trace.zip",
+    "attachment": "button-contract-focus-paint-.convert-unit-grid",
+    "sha256": "e9e5da09e9a1f9d275008583ff32d225e8bcdd04bd0aa50c2e43ed943fd42614"
+  },
+  {
+    "file": "after-app-iconbutton-light-press.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--c96c6-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+    "attachment": "button-contract-middle",
+    "sha256": "1a08838d6cafe9c280e40ae93ca86d8ae36072c0a8583adc57c89d7e44d7e44a"
+  },
+  {
+    "file": "after-app-iconbutton-light-focus.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--c96c6-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+    "attachment": "button-contract-focus",
+    "sha256": "78f480879fb709d40c0fc9c5708531b7d70f1990e22d1707638bb7d2bb1afab1"
+  },
+  {
+    "file": "after-app-iconbutton-dark-press.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--ca8eb-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+    "attachment": "button-contract-middle",
+    "sha256": "b274932be354fd676b23487eea0cc621a581394afd4918f7fd5d69e587118305"
+  },
+  {
+    "file": "after-app-iconbutton-dark-focus.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--ca8eb-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+    "attachment": "button-contract-focus",
+    "sha256": "e4e7db9cd74dbcbc084b0a26b52a81d6a9aa7012c366288c41cdb7f23f67f1d8"
+  },
+  {
+    "file": "after-app-button-dark-press.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--f9437-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+    "attachment": "button-contract-middle",
+    "sha256": "8beb688270122a6e85ac41505a4cd01d80ba69dc8f26d2b96255f62c2be6174f"
+  },
+  {
+    "file": "after-app-button-dark-focus.png",
+    "trace": "test-results/ap42/after/other-projects/ap36-motion-common-button--f9437-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+    "attachment": "button-contract-focus",
+    "sha256": "56cbbfa590b50aa9b63850c4046b4b1ad9111d0674606990b90275074ed8b021"
+  },
+  {
+    "file": "before-gallery-button-dark-press.png",
+    "trace": "test-results/ap42/before/ap36-gallery-common-button-18837-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+    "attachment": "button-contract-middle",
+    "sha256": "5fbbf012fdfa4fd437194056bd6c3d48849f17aea323815eb77e8e514f70c589"
+  },
+  {
+    "file": "before-gallery-iconbutton-light-press.png",
+    "trace": "test-results/ap42/before/ap36-gallery-common-button-9afb4-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+    "attachment": "button-contract-middle",
+    "sha256": "006082c8ab1731ba59cb078052d347fe581878261b40ccaa8f7234029c301e26"
+  },
+  {
+    "file": "before-gallery-button-light-press.png",
+    "trace": "test-results/ap42/before/ap36-gallery-common-button-b5e6f-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+    "attachment": "button-contract-middle",
+    "sha256": "be5a97abd7c3801193c1604cb68e6e2e22084c22997f3a62c21864c57a64447b"
+  },
+  {
+    "file": "before-gallery-iconbutton-dark-press.png",
+    "trace": "test-results/ap42/before/ap36-gallery-common-button-f2ec9-eversal-cancel-and-keyboard-chromium-gallery/trace.zip",
+    "attachment": "button-contract-middle",
+    "sha256": "96b949ad20ff2b1c9ca3597659f8084767a5556aed1020955f8e2953be31a69a"
+  },
+  {
+    "file": "before-app-button-light-press.png",
+    "trace": "test-results/ap42/before/ap36-motion-common-button--18550-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+    "attachment": "button-contract-middle",
+    "sha256": "11ef1aaa68e8bace342dc2c7dba9ae0de9c829089567d23f54c5a559862e26de"
+  },
+  {
+    "file": "before-app-iconbutton-light-press.png",
+    "trace": "test-results/ap42/before/ap36-motion-common-button--c96c6-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+    "attachment": "button-contract-middle",
+    "sha256": "39a6dfdedc8167368fd1e724cb4a079422226f3dbf293df8a40a5f69540b79ad"
+  },
+  {
+    "file": "before-app-iconbutton-dark-press.png",
+    "trace": "test-results/ap42/before/ap36-motion-common-button--ca8eb-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+    "attachment": "button-contract-middle",
+    "sha256": "1c8fc2ab5d70d1c3ae7e6efb64936db80213d1fb09b02ab7b287f2a598811ec9"
+  },
+  {
+    "file": "before-app-button-dark-press.png",
+    "trace": "test-results/ap42/before/ap36-motion-common-button--f9437-eversal-cancel-and-keyboard-chromium-production/trace.zip",
+    "attachment": "button-contract-middle",
+    "sha256": "3236d5e2809d45cbcf7e15b2c7d4526f794038be6e829c54027d2aaf67f45394"
+  }
+]
