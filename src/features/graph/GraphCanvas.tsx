@@ -773,7 +773,9 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
           if (presentation.configure(next.rows)) queue.invalidate(true);
           element.dataset.curveCount = String(presentation.paths.size);
           updateTrace(null);
-          resample();
+          // Parameter snapshots enter the bounded queue immediately. A timer
+          // gap here could discard every reply aligned with a playback tick.
+          requestSamples();
         }
         readColors();
         invalidate();
