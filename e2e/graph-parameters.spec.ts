@@ -356,7 +356,9 @@ test('pending geometry never supplies stale values to trace, analysis, table or 
   await canvas.focus();
   await canvas.press('ArrowRight');
   await expect(page.locator('.graph-trace')).toContainText('y = 2');
-  await page.getByRole('button', { name: 'PNG exportieren', exact: true }).click();
+  await page
+    .getByRole('button', { name: 'PNG exportieren', exact: true })
+    .click();
   await expect(
     page.getByText(
       'Die neue Kurve wird noch berechnet. PNG-Export anschließend erneut starten.',
