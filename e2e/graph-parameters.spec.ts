@@ -34,8 +34,12 @@ async function range(page: Page, min: string, max: string) {
   const details = control.locator('details');
   if (!(await details.evaluate((element) => element.hasAttribute('open'))))
     await details.locator('summary').click();
-  await control.getByRole('textbox', { name: 'Minimum', exact: true }).fill(min);
-  await control.getByRole('textbox', { name: 'Maximum', exact: true }).fill(max);
+  await control
+    .getByRole('textbox', { name: 'Minimum', exact: true })
+    .fill(min);
+  await control
+    .getByRole('textbox', { name: 'Maximum', exact: true })
+    .fill(max);
   await control.getByRole('button', { name: 'Anwenden', exact: true }).click();
 }
 async function finalValue(page: Page) {
@@ -53,9 +57,7 @@ async function finalValue(page: Page) {
   expect(snapshot.rendered[0]?.signature).toBe(
     snapshot.requested.curves[0]?.signature,
   );
-  expect(snapshot.accepted[0]?.signature).toBe(
-    snapshot.rendered[0]?.signature,
-  );
+  expect(snapshot.accepted[0]?.signature).toBe(snapshot.rendered[0]?.signature);
   expect(JSON.parse(snapshot.rendered[0].signature).params.a).toBe(value);
   expect(snapshot.rendered[0]?.length).toBeGreaterThan(0);
   return snapshot;
@@ -134,7 +136,9 @@ for (const input of [
       expect(revealedAgain).toHaveLength(0);
       const final = await finalValue(page);
       const births = new Set(
-        probe.frames.flatMap((frame) => frame.rendered.map((path) => path.born)),
+        probe.frames.flatMap((frame) =>
+          frame.rendered.map((path) => path.born),
+        ),
       );
       expect(births.size).toBe(1);
       expect(final.rendered[0]?.born).toBe([...births][0]);
@@ -159,10 +163,12 @@ test('Full slow Worker over 50 ms presents ongoing geometry, keeps export pendin
   await range(page, '0,5', '3');
   await ready(page);
   await page.waitForTimeout(1000);
-  const initialBirth = await page.locator('canvas.graph-canvas').evaluate(
-    (element: HTMLCanvasElement) =>
-      JSON.parse(element.dataset.renderedResult ?? '[]')[0]?.born,
-  );
+  const initialBirth = await page
+    .locator('canvas.graph-canvas')
+    .evaluate(
+      (element: HTMLCanvasElement) =>
+        JSON.parse(element.dataset.renderedResult ?? '[]')[0]?.born,
+    );
   await page.evaluate(() => {
     (window as ProbeWindow).__parameterProbe.delay = 180;
   });
@@ -173,7 +179,9 @@ test('Full slow Worker over 50 ms presents ongoing geometry, keeps export pendin
     'data-sampling',
     'true',
   );
-  await page.getByRole('button', { name: 'PNG exportieren', exact: true }).click();
+  await page
+    .getByRole('button', { name: 'PNG exportieren', exact: true })
+    .click();
   await expect(
     page.getByText(
       'Die neue Kurve wird noch berechnet. PNG-Export anschließend erneut starten.',
@@ -221,7 +229,9 @@ test('Full slow Worker over 50 ms presents ongoing geometry, keeps export pendin
   const elapsed = (probe.frames.at(-1)?.at ?? start) - start;
   expect(delayedPosts.length).toBeLessThanOrEqual(Math.ceil(elapsed / 180) + 2);
   const download = page.waitForEvent('download');
-  await page.getByRole('button', { name: 'PNG exportieren', exact: true }).click();
+  await page
+    .getByRole('button', { name: 'PNG exportieren', exact: true })
+    .click();
   await (await download).saveAs(info.outputPath('latest-paused.png'));
   await page.goto('/m8e-calc/#/simple');
   await expect
@@ -230,7 +240,9 @@ test('Full slow Worker over 50 ms presents ongoing geometry, keeps export pendin
     )
     .toBe(1);
   expect(
-    await page.evaluate(() => (window as ProbeWindow).__parameterProbe.inFlight),
+    await page.evaluate(
+      () => (window as ProbeWindow).__parameterProbe.inFlight,
+    ),
   ).toBe(0);
 });
 
@@ -245,20 +257,26 @@ test('updates before first reveal finishes keep its birth and a running old func
   await add(page, 'a*sin(x)');
   await ready(page);
   const canvas = page.locator('canvas.graph-canvas');
-  const birth = await canvas.evaluate((element: HTMLCanvasElement) =>
-    JSON.parse(element.dataset.renderedResult ?? '[]')[0]?.born,
+  const birth = await canvas.evaluate(
+    (element: HTMLCanvasElement) =>
+      JSON.parse(element.dataset.renderedResult ?? '[]')[0]?.born,
   );
-  await page.getByRole('slider', { name: 'a', exact: true }).press('ArrowRight');
+  await page
+    .getByRole('slider', { name: 'a', exact: true })
+    .press('ArrowRight');
   await finalValue(page);
   expect(
-    await canvas.evaluate((element: HTMLCanvasElement) =>
-      JSON.parse(element.dataset.renderedResult ?? '[]')[0]?.born,
+    await canvas.evaluate(
+      (element: HTMLCanvasElement) =>
+        JSON.parse(element.dataset.renderedResult ?? '[]')[0]?.born,
     ),
   ).toBe(birth);
   await page.evaluate(() => {
     (window as ProbeWindow).__parameterProbe.delay = 400;
   });
-  await page.getByRole('slider', { name: 'a', exact: true }).press('ArrowRight');
+  await page
+    .getByRole('slider', { name: 'a', exact: true })
+    .press('ArrowRight');
   await expect
     .poll(() =>
       page.evaluate(() => (window as ProbeWindow).__parameterProbe.inFlight),
@@ -269,7 +287,11 @@ test('updates before first reveal finishes keep its birth and a running old func
     'a*x^2-1',
   );
   await expect
-    .poll(async () => JSON.parse((await canvas.getAttribute('data-rendered-result')) ?? '[]').length)
+    .poll(
+      async () =>
+        JSON.parse((await canvas.getAttribute('data-rendered-result')) ?? '[]')
+          .length,
+    )
     .toBe(0);
   await ready(page);
   const final = await finalValue(page);
@@ -290,13 +312,22 @@ test('current Worker error removes old implicit ink, reports failure and release
   await page.evaluate(() => {
     (window as ProbeWindow).__parameterProbe.errorNext = true;
   });
-  await page.getByRole('slider', { name: 'a', exact: true }).press('ArrowRight');
+  await page
+    .getByRole('slider', { name: 'a', exact: true })
+    .press('ArrowRight');
   await ready(page);
   const canvas = page.locator('canvas.graph-canvas');
-  const result = JSON.parse((await canvas.getAttribute('data-sample-result')) ?? '[]');
-  expect(result[0]).toMatchObject({ error: 'worker', evaluations: 0, components: 0 });
+  const result = JSON.parse(
+    (await canvas.getAttribute('data-sample-result')) ?? '[]',
+  );
+  expect(result[0]).toMatchObject({
+    error: 'worker',
+    evaluations: 0,
+    components: 0,
+  });
   expect(
-    JSON.parse((await canvas.getAttribute('data-rendered-result')) ?? '[]')[0]?.length,
+    JSON.parse((await canvas.getAttribute('data-rendered-result')) ?? '[]')[0]
+      ?.length,
   ).toBe(0);
   await expect(page.locator('.graph-sampling-status')).toContainText(
     'Sampling-Worker ist nicht verfügbar',
@@ -305,3 +336,65 @@ test('current Worker error removes old implicit ink, reports failure and release
   expect(probe.inFlight).toBe(0);
   expect(probe.terminated).toBe(1);
 });
+
+test('pending geometry never supplies stale values to trace, analysis, table or PNG', async ({
+  page,
+}) => {
+  await page.goto('/m8e-calc/#/graph');
+  await add(page, 'a');
+  await ready(page);
+  await page.evaluate(() => {
+    (window as ProbeWindow).__parameterProbe.delay = 1200;
+  });
+  await range(page, '2', '3');
+  const canvas = page.locator('canvas.graph-canvas');
+  await expect(canvas).toHaveAttribute('data-sampling', 'true');
+  await page.getByRole('button', { name: 'Wertetabelle', exact: true }).click();
+  await expect(
+    page.locator('.graph-table-section tbody tr').first().locator('td').last(),
+  ).toHaveText('2');
+  await canvas.focus();
+  await canvas.press('ArrowRight');
+  await expect(page.locator('.graph-trace')).toContainText('y = 2');
+  await page.getByRole('button', { name: 'PNG exportieren', exact: true }).click();
+  await expect(
+    page.getByText(
+      'Die neue Kurve wird noch berechnet. PNG-Export anschließend erneut starten.',
+    ),
+  ).toBeVisible();
+  await page.getByRole('button', { name: 'Aktionen für Funktion 1' }).click();
+  await page.getByRole('menuitem', { name: 'Tangente', exact: true }).click();
+  await expect(page.locator('.graph-results .ui-chip')).toContainText(', 2)');
+  await page
+    .getByRole('slider', { name: 'a', exact: true })
+    .press('ArrowRight');
+  await expect(page.locator('.graph-results .ui-chip')).toHaveCount(0);
+  await expect(
+    page.locator('.graph-table-section tbody tr').first().locator('td').last(),
+  ).toHaveText('2,1');
+  await finalValue(page);
+});
+
+for (const [level, os] of [
+  ['reduced', 'no-preference'],
+  ['off', 'no-preference'],
+  ['full', 'reduce'],
+] as const) {
+  test(`parameter geometry respects ${level} / OS ${os}`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: os });
+    await page.addInitScript((motionLevel) => {
+      localStorage.setItem(
+        'm8e-calc.settings',
+        JSON.stringify({ version: 4, state: { motionLevel } }),
+      );
+    }, level);
+    await page.goto('/m8e-calc/#/graph');
+    await add(page, 'a*sin(x)');
+    await ready(page);
+    await page
+      .getByRole('slider', { name: 'a', exact: true })
+      .press('ArrowRight');
+    await finalValue(page);
+    expect((await readProbe(page)).revealsSeen).toBe(0);
+  });
+}

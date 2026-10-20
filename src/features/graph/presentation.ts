@@ -5,10 +5,7 @@ import type { SampleResponse } from './workerProtocol';
 /** Parameter values are geometry, not the identity of a visible function. */
 export function curveIdentity(row: ParsedRow): string | null {
   if (!row.curve || !row.row.visible) return null;
-  return JSON.stringify([
-    row.row.input,
-    { ...row.curve, params: undefined },
-  ]);
+  return JSON.stringify([row.row.input, { ...row.curve, params: undefined }]);
 }
 
 /** Reveal lifetime and last accepted geometry are deliberately independent. */
@@ -36,9 +33,7 @@ export class CurvePresentation {
     );
     const changed = key !== this.key;
     this.paths = new Map(
-      [...this.paths].filter(
-        ([id]) => next.get(id) === this.lifetimes.get(id),
-      ),
+      [...this.paths].filter(([id]) => next.get(id) === this.lifetimes.get(id)),
     );
     this.lifetimes = next;
     this.key = key;

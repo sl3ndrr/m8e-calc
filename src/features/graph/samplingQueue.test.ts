@@ -29,7 +29,12 @@ function response(req: SampleRequest): SampleResponse {
     curves: req.curves.map(({ id, signature }) => ({
       id,
       signature,
-      segments: [[{ x: 0, y: req.id }, { x: 1, y: req.id }]],
+      segments: [
+        [
+          { x: 0, y: req.id },
+          { x: 1, y: req.id },
+        ],
+      ],
       evaluations: 2,
       truncated: false,
     })),

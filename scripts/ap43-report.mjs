@@ -5,9 +5,7 @@ async function walk(root) {
   for (const entry of await readdir(root, { withFileTypes: true })) {
     const path = join(root, entry.name);
     if (entry.isDirectory()) await walk(path);
-    else if (
-      ['frames.json', 'slow-worker-frames.json'].includes(entry.name)
-    ) {
+    else if (['frames.json', 'slow-worker-frames.json'].includes(entry.name)) {
       const report = JSON.parse(await readFile(path, 'utf8'));
       const frames = report.frames;
       const signatures = new Map();
@@ -56,7 +54,9 @@ for (const path of [
   'test-results/graph-implicit-ui-performance.json',
 ]) {
   try {
-    console.log('AP43_PERFORMANCE ' + (await readFile(path, 'utf8')).replace(/\n/g, ''));
+    console.log(
+      'AP43_PERFORMANCE ' + (await readFile(path, 'utf8')).replace(/\n/g, ''),
+    );
   } catch (error) {
     if (error.code !== 'ENOENT') throw error;
   }

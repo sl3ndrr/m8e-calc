@@ -828,7 +828,8 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
           visibleRows().some(
             (r) =>
               r.curve &&
-              presentation.paths.get(r.row.id)?.signature !== JSON.stringify(r.curve),
+              presentation.paths.get(r.row.id)?.signature !==
+                JSON.stringify(r.curve),
           )
         )
           throw new Error('GraphSamplingPending');
