@@ -147,6 +147,8 @@ export async function recordFrames(
         style.borderBottomLeftRadius,
       ];
       let inputTime: number | null = null;
+      let inputDispatchTime: number | null = null;
+      let inputMicrotaskTime: number | null = null;
       const sample = (frameTime: number) => {
         const started = performance.now();
         // Reuse each computed style in this sample. Re-querying animated
@@ -227,7 +229,13 @@ export async function recordFrames(
               contentBox.bottom <= visualBox.bottom + 1),
           background: style.backgroundColor,
         };
-        return { ...sample, inputTime, captureMs: performance.now() - started };
+        return {
+          ...sample,
+          inputTime,
+          inputDispatchTime,
+          inputMicrotaskTime,
+          captureMs: performance.now() - started,
+        };
       };
       const samples = new Promise<ReturnType<typeof sample>[]>(
         (resolve, reject) => {
@@ -248,6 +256,10 @@ export async function recordFrames(
               event,
               (input) => {
                 inputTime = input.timeStamp;
+                inputDispatchTime = performance.now();
+                queueMicrotask(() => {
+                  inputMicrotaskTime = performance.now();
+                });
                 requestAnimationFrame(capture);
               },
               { once: true },

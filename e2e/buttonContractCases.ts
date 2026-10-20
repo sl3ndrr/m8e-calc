@@ -118,6 +118,18 @@ export function buttonContractCases(gallery: boolean) {
           up,
         });
 
+        // Compare the first press with another real press in the same UI.
+        // Retain the original first-press assertions; warming must not hide a
+        // cold-input failure. Both recordings use the same native recorder.
+        await settle(button);
+        const warmDownRecording = await recordFrames(button, 'pointerdown', 30);
+        await page.mouse.down();
+        const warmDown = await readFrames(warmDownRecording);
+        const warmUpRecording = await recordFrames(button, 'pointerup', 18);
+        await page.mouse.up();
+        const warmUp = await readFrames(warmUpRecording);
+        await attach(info, 'button-contract-warm-live', { warmDown, warmUp });
+
         // A separate real transition is held for a readable intermediate image.
         // The preceding unpaused rAF sequence is the moving-frame proof.
         await settle(button);
@@ -150,11 +162,15 @@ export function buttonContractCases(gallery: boolean) {
             'Pinned main animates full radius to small with spatial-fast and hits a zero-radius intermediate frame.',
           );
         }
-        stable([...down, ...up], rest);
+        stable([...down, ...up, ...warmDown, ...warmUp], rest);
         if (process.env.AP42_PHASE !== 'before')
           expect(rest.willChange).toBe('transform');
         expect(new Set(down.map((f) => f.transform)).size).toBeGreaterThan(2);
         expect(new Set(up.map((f) => f.transform)).size).toBeGreaterThan(2);
+        expect(new Set(warmDown.map((f) => f.transform)).size).toBeGreaterThan(
+          2,
+        );
+        expect(new Set(warmUp.map((f) => f.transform)).size).toBeGreaterThan(2);
         expect(down.some((f) => f.layerOpacity > 0)).toBe(true);
 
         // Interrupt release at real rAF boundaries, then press again before it

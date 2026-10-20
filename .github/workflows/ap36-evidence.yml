@@ -57,10 +57,30 @@ jobs:
           npm run check
           node scripts/ap30-measure.mjs test-results/ap42/budget
           npm run build:gallery
-      - name: Existing AP36 cases plus common button regressions in three engines
+      - name: Existing AP36 WebKit gallery cases first
+        id: webkit_gallery
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: npx playwright test --config=playwright.ap36.config.ts --project=webkit-gallery --reporter=list --output=test-results/ap42/after/webkit-gallery
+      - uses: actions/upload-artifact@v7
+        if: ${{ always() && steps.build.outcome == 'success' }}
+        with:
+          name: ap42-webkit-gallery
+          path: |
+            test-results/ap42/after/webkit-gallery/
+            test-results/ap42/budget/
+            dist/build-info.json
+            dist-gallery/build-info.json
+          include-hidden-files: true
+          retention-days: 14
+      - name: Remaining existing AP36 browser projects without duplicate cases
         id: browsers
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
-        run: npx playwright test --config=playwright.ap36.config.ts --reporter=list --output=test-results/ap42/after
+        run: |
+          npx playwright test --config=playwright.ap36.config.ts \
+            --project=chromium-production --project=chromium-gallery \
+            --project=firefox-production --project=firefox-gallery \
+            --project=webkit-production --reporter=list \
+            --output=test-results/ap42/after/other-projects
       - name: AP19 real frames, glyphs, native zoom and calculator behavior
         id: rendering
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
@@ -71,12 +91,14 @@ jobs:
           FORMATTING: ${{ steps.formatting.outcome }}
           BEFORE: ${{ steps.before.outcome }}
           BUILD: ${{ steps.build.outcome }}
+          WEBKIT_GALLERY: ${{ steps.webkit_gallery.outcome }}
           BROWSERS: ${{ steps.browsers.outcome }}
           RENDERING: ${{ steps.rendering.outcome }}
         run: |
           test "$FORMATTING" = success
           test "$BEFORE" = success
           test "$BUILD" = success
+          test "$WEBKIT_GALLERY" = success
           test "$BROWSERS" = success
           test "$RENDERING" = success
       - uses: actions/upload-artifact@v7
