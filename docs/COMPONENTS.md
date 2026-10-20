@@ -168,7 +168,9 @@ Die AP36-Selected-Fälle prüfen deren echte Zwischenwerte bei Wiederholung.
 
 Bei flächenfüllenden Umrechner-Aktionen in Scrollrastern liegt derselbe
 Fokusring mit −4px Offset innerhalb der Karte, damit der Scrollclip ihn nicht
-abschneidet. Der native Button trägt auch dort den Ring.
+abschneidet. Der native Button trägt auch dort den Ring; seine isolierte
+Stapelreihenfolge hält die gesamte animierte Oberfläche unter dem Fokusring.
+AP19s gemeinsamer Bilddecoder prüft zusätzlich dessen tatsächliche Farbfläche.
 
 Ein während Press/Release deaktivierter Button beendet auch die internen
 Transitions unmittelbar und zeigt den neutralen Disabled-Zustand.

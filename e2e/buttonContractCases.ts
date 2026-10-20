@@ -294,7 +294,10 @@ export function buttonContractCases(gallery: boolean) {
         await picture(info, 'scrolled-card-focus', button.locator('..'));
         const box = await button.boundingBox();
         if (!box) throw Error('Missing focused card bounds');
-        const png = await button.screenshot({ animations: 'allow' });
+        const png = await button.screenshot({
+          animations: 'allow',
+          scale: 'css',
+        });
         const focusSelector = `${selector} .ui-button[data-focus-visible]`;
         const pixels = await paintedColorPixels(
           page,
@@ -302,30 +305,50 @@ export function buttonContractCases(gallery: boolean) {
           focusSelector,
           'outlineColor',
         );
+        // Count CSS pixels in every engine, including Safari's HiDPI profile.
+        // Save the exact decoder input as well as the full context image.
+        await info.attach(`button-contract-focus-paint-${selector}`, {
+          body: png,
+          contentType: 'image/png',
+        });
         // A rounded 3px ring must paint substantially more than a 1px edge.
         const minimum = 2 * (box.width + box.height) * 2;
-        expect(pixels).toBeGreaterThan(minimum);
+        let covered: number | null = null;
         if (selector === '.convert-category-grid') {
           const surface = button.locator('.ui-button-surface');
           await surface.evaluate((node) => {
             (node as HTMLElement).style.zIndex = 'auto';
           });
-          const covered = await paintedColorPixels(
-            page,
-            await button.screenshot({ animations: 'allow' }),
-            focusSelector,
-            'outlineColor',
-          );
-          expect(covered).toBeLessThan(minimum);
-          await surface.evaluate((node) => {
-            (node as HTMLElement).style.zIndex = '';
-          });
-          await attach(info, 'button-contract-focus-pixels', {
-            pixels,
-            covered,
-            minimum,
-          });
+          try {
+            const counterfactual = await button.screenshot({
+              animations: 'allow',
+              scale: 'css',
+            });
+            covered = await paintedColorPixels(
+              page,
+              counterfactual,
+              focusSelector,
+              'outlineColor',
+            );
+            await info.attach('button-contract-focus-covered', {
+              body: counterfactual,
+              contentType: 'image/png',
+            });
+          } finally {
+            await surface.evaluate((node) => {
+              (node as HTMLElement).style.zIndex = '';
+            });
+          }
         }
+        await attach(info, `button-contract-focus-pixels-${selector}`, {
+          pixels,
+          covered,
+          minimum,
+          box,
+          scale: 'css',
+        });
+        expect(pixels).toBeGreaterThan(minimum);
+        if (covered !== null) expect(covered).toBeLessThan(minimum);
         await page.keyboard.up('Space');
         await attach(info, `button-contract-focus-${selector}`, pressed);
       }

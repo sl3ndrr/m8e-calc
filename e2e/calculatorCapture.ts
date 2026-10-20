@@ -137,108 +137,123 @@ export async function recordFrames(
   // event can consume most of the 421-ms transition on a loaded CI runner.
   return button.evaluateHandle(
     (node, { event, count }) => {
-      const samples = (async () => {
-        if (event)
-          await new Promise<void>((resolve) =>
-            node.addEventListener(event, () => resolve(), { once: true }),
-          );
-        const result = [];
-        const surface = node.querySelector('.ui-button-surface') ?? node;
-        const layer = node.querySelector('.ui-state-layer');
-        const content = node.querySelector('.ui-button-content');
-        const corners = (style: CSSStyleDeclaration) => [
-          style.borderTopLeftRadius,
-          style.borderTopRightRadius,
-          style.borderBottomRightRadius,
-          style.borderBottomLeftRadius,
-        ];
-        for (let frame = 0; frame < count; frame++) {
-          const frameTime = await new Promise<number>((resolve) =>
-            requestAnimationFrame(resolve),
-          );
-          const started = performance.now();
-          // Reuse each computed style in this sample. Re-querying animated
-          // elements forces repeated compositor synchronization in WebKit.
-          const style = getComputedStyle(surface);
-          const host = surface === node ? style : getComputedStyle(node);
-          const layerStyle = layer ? getComputedStyle(layer) : null;
-          const contentStyle = content ? getComputedStyle(content) : null;
-          const transform = style.transform;
-          const contentLocalTransform = contentStyle?.transform ?? 'none';
-          const box = node.getBoundingClientRect();
-          const hit = document.elementFromPoint(
-            box.left + 1,
-            box.top + box.height / 2,
-          );
-          const visualBox = surface.getBoundingClientRect();
-          const contentBox = content?.getBoundingClientRect();
-          const ring =
-            parseFloat(host.outlineWidth) + parseFloat(host.outlineOffset);
-          let focusClipped = false;
-          // There is no focus ring to clip when no outline is painted. The
-          // full ancestor check still runs in every visible-focus frame.
-          for (
-            let parent =
-              host.outlineStyle === 'none' ? null : node.parentElement;
-            parent;
-            parent = parent.parentElement
-          ) {
-            const s = getComputedStyle(parent);
-            const r = parent.getBoundingClientRect();
-            if (
-              s.overflowX !== 'visible' &&
-              (box.left - ring < r.left || box.right + ring > r.right)
-            )
-              focusClipped = true;
-            if (
-              s.overflowY !== 'visible' &&
-              (box.top - ring < r.top || box.bottom + ring > r.bottom)
-            )
-              focusClipped = true;
-          }
-          const sample = {
-            frameTime,
-            time: performance.now(),
-            radius: style.borderRadius,
-            corners: corners(style),
-            hostCorners: corners(host),
-            layerCorners: layerStyle ? corners(layerStyle) : [],
-            contentCorners: contentStyle ? corners(contentStyle) : [],
-            contentSharesSurface: content?.parentElement === surface,
-            contentLocalTransform,
-            // An untransformed direct child receives precisely its parent's
-            // transform. Keep the browser's sampled serialization: multiplying
-            // an identity DOMMatrix in Firefox converts it to float32.
-            contentTransform:
-              content?.parentElement === surface &&
-              contentLocalTransform === 'none'
-                ? transform
-                : contentLocalTransform,
-            layerOpacity: layerStyle ? Number(layerStyle.opacity) : 0,
-            clip: style.overflow,
-            hostTransform: host.transform,
-            box: { x: box.x, y: box.y, width: box.width, height: box.height },
-            hit: hit === node || (hit !== null && node.contains(hit)),
-            selected: node.hasAttribute('data-selected'),
-            pressed: node.hasAttribute('data-pressed'),
-            transform,
-            width: (node as HTMLElement).offsetWidth,
-            height: (node as HTMLElement).offsetHeight,
-            outline: host.outlineStyle,
-            outlineOffset: host.outlineOffset,
-            focusClipped,
-            contentInsideSurface:
-              !contentBox ||
-              (contentBox.left >= visualBox.left - 1 &&
-                contentBox.right <= visualBox.right + 1 &&
-                contentBox.top >= visualBox.top - 1 &&
-                contentBox.bottom <= visualBox.bottom + 1),
-            background: style.backgroundColor,
-          };
-          result.push({ ...sample, captureMs: performance.now() - started });
+      const surface = node.querySelector('.ui-button-surface') ?? node;
+      const layer = node.querySelector('.ui-state-layer');
+      const content = node.querySelector('.ui-button-content');
+      const corners = (style: CSSStyleDeclaration) => [
+        style.borderTopLeftRadius,
+        style.borderTopRightRadius,
+        style.borderBottomRightRadius,
+        style.borderBottomLeftRadius,
+      ];
+      let inputTime: number | null = null;
+      const sample = (frameTime: number) => {
+        const started = performance.now();
+        // Reuse each computed style in this sample. Re-querying animated
+        // elements forces repeated compositor synchronization in WebKit.
+        const style = getComputedStyle(surface);
+        const host = surface === node ? style : getComputedStyle(node);
+        const layerStyle = layer ? getComputedStyle(layer) : null;
+        const contentStyle = content ? getComputedStyle(content) : null;
+        const transform = style.transform;
+        const contentLocalTransform = contentStyle?.transform ?? 'none';
+        const box = node.getBoundingClientRect();
+        const hit = document.elementFromPoint(
+          box.left + 1,
+          box.top + box.height / 2,
+        );
+        const visualBox = surface.getBoundingClientRect();
+        const contentBox = content?.getBoundingClientRect();
+        const ring =
+          parseFloat(host.outlineWidth) + parseFloat(host.outlineOffset);
+        let focusClipped = false;
+        // There is no focus ring to clip when no outline is painted. The
+        // full ancestor check still runs in every visible-focus frame.
+        for (
+          let parent = host.outlineStyle === 'none' ? null : node.parentElement;
+          parent;
+          parent = parent.parentElement
+        ) {
+          const s = getComputedStyle(parent);
+          const r = parent.getBoundingClientRect();
+          if (
+            s.overflowX !== 'visible' &&
+            (box.left - ring < r.left || box.right + ring > r.right)
+          )
+            focusClipped = true;
+          if (
+            s.overflowY !== 'visible' &&
+            (box.top - ring < r.top || box.bottom + ring > r.bottom)
+          )
+            focusClipped = true;
         }
-        return result;
-      })();
+        const sample = {
+          frameTime,
+          time: performance.now(),
+          radius: style.borderRadius,
+          corners: corners(style),
+          hostCorners: corners(host),
+          layerCorners: layerStyle ? corners(layerStyle) : [],
+          contentCorners: contentStyle ? corners(contentStyle) : [],
+          contentSharesSurface: content?.parentElement === surface,
+          contentLocalTransform,
+          // An untransformed direct child receives precisely its parent's
+          // transform. Keep the browser's sampled serialization: multiplying
+          // an identity DOMMatrix in Firefox converts it to float32.
+          contentTransform:
+            content?.parentElement === surface &&
+            contentLocalTransform === 'none'
+              ? transform
+              : contentLocalTransform,
+          layerOpacity: layerStyle ? Number(layerStyle.opacity) : 0,
+          clip: style.overflow,
+          hostTransform: host.transform,
+          box: { x: box.x, y: box.y, width: box.width, height: box.height },
+          hit: hit === node || (hit !== null && node.contains(hit)),
+          selected: node.hasAttribute('data-selected'),
+          pressed: node.hasAttribute('data-pressed'),
+          transform,
+          width: (node as HTMLElement).offsetWidth,
+          height: (node as HTMLElement).offsetHeight,
+          outline: host.outlineStyle,
+          outlineOffset: host.outlineOffset,
+          focusClipped,
+          contentInsideSurface:
+            !contentBox ||
+            (contentBox.left >= visualBox.left - 1 &&
+              contentBox.right <= visualBox.right + 1 &&
+              contentBox.top >= visualBox.top - 1 &&
+              contentBox.bottom <= visualBox.bottom + 1),
+          background: style.backgroundColor,
+        };
+        return { ...sample, inputTime, captureMs: performance.now() - started };
+      };
+      const samples = new Promise<ReturnType<typeof sample>[]>(
+        (resolve, reject) => {
+          const result: ReturnType<typeof sample>[] = [];
+          const capture = (frameTime: number) => {
+            try {
+              result.push(sample(frameTime));
+              if (result.length === count) resolve(result);
+              else requestAnimationFrame(capture);
+            } catch (error) {
+              reject(error);
+            }
+          };
+          // Read in the native callback, rather than a Promise microtask after
+          // it. The input and every frame retain the real document timeline.
+          if (event)
+            node.addEventListener(
+              event,
+              (input) => {
+                inputTime = input.timeStamp;
+                requestAnimationFrame(capture);
+              },
+              { once: true },
+            );
+          else requestAnimationFrame(capture);
+        },
+      );
       return { samples };
     },
     { event, count },

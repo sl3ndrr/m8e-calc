@@ -160,6 +160,8 @@ Effects-Fast-Kurve. Die übrigen Spatial-/Effects-Springs bleiben unverändert.
 Klickziel und Fokusring stehen still; eine gemeinsame Oberfläche mitsamt Inhalt skaliert.
 Selected-Formen wechseln diskret zwischen den vorhandenen Shape-Endpunkten.
 State-Layer erbt den Radius der Oberfläche und bleibt innerhalb ihrer Rundung.
+Die Oberfläche liegt innerhalb des isolierten Buttons unter dessen nativem
+Fokusring; das gilt auch für innen liegende Ringe in Scrollrastern.
 Vertrag und Messnachweise: [COMPONENTS](COMPONENTS.md), [AP42](AP42.md).
 
 Auch Radio-Segmente und der Theme-Thumb setzen ihre Selected-Radien diskret;
