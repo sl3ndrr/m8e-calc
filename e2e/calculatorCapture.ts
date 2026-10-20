@@ -213,6 +213,7 @@ export async function recordFrames(
           selected: node.hasAttribute('data-selected'),
           pressed: node.hasAttribute('data-pressed'),
           transform,
+          willChange: style.willChange,
           width: (node as HTMLElement).offsetWidth,
           height: (node as HTMLElement).offsetHeight,
           outline: host.outlineStyle,

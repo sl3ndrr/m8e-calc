@@ -261,7 +261,12 @@ export function buttonContractCases(gallery: boolean) {
       await expect(button).toBeDisabled();
       const up = await readFrames(release);
       expect(
-        up.every((f) => f.transform === 'none' && f.layerOpacity === 0),
+        up.every(
+          (f) =>
+            f.transform === 'none' &&
+            f.layerOpacity === 0 &&
+            f.willChange === 'auto',
+        ),
       ).toBe(true);
       expect(
         await button.evaluate(
@@ -392,6 +397,12 @@ export function buttonContractCases(gallery: boolean) {
         await page.mouse.up();
         const up = await frames(button);
         stable([...down, ...up], rest);
+        expect(
+          [...down, ...up].every(
+            (f) =>
+              f.willChange === (level === 'full' && !os ? 'transform' : 'auto'),
+          ),
+        ).toBe(true);
         if (level !== 'full' || os)
           expect([...down, ...up].every((f) => f.transform === 'none')).toBe(
             true,
@@ -415,7 +426,9 @@ export function buttonContractCases(gallery: boolean) {
           await page.getByLabel('Animationsstufe').selectOption('off');
         else await page.emulateMedia({ reducedMotion: 'reduce' });
         const after = await frames(button);
-        expect(after.every((f) => f.transform === 'none')).toBe(true);
+        expect(
+          after.every((f) => f.transform === 'none' && f.willChange === 'auto'),
+        ).toBe(true);
         expect(
           await button.evaluate(
             (node) => node.getAnimations({ subtree: true }).length,

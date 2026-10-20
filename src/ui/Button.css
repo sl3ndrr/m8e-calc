@@ -60,6 +60,16 @@
   border-radius: inherit;
   pointer-events: none;
 }
+/* Prepare only the currently hovered/focused surface, so the first short
+   press need not also pay for compositor promotion. Do not retain a layer
+   for every button, or for disabled/reduced-motion controls. */
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-motion='full']
+    .ui-button:where([data-hovered], [data-focus-visible]):not([data-disabled])
+    > .ui-button-surface {
+    will-change: transform;
+  }
+}
 .ui-button[data-variant='tonal'] {
   --ui-button-background: var(--md-sys-color-secondary-container);
   color: var(--md-sys-color-on-secondary-container);
