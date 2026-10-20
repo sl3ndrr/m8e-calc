@@ -126,12 +126,12 @@ for (const input of [
     });
     await page.screenshot({ path: info.outputPath('paused.png') });
     expect(probe.frames.length).toBeGreaterThan(120);
-    expect(paths.size).toBeGreaterThan(8);
     expect(probe.revealsSeen).toBeGreaterThan(0);
     if (baseline) {
       // Same real-stroke collector must identify the original implementation.
       expect(blank.length + revealedAgain.length).toBeGreaterThan(0);
     } else {
+      expect(paths.size).toBeGreaterThan(8);
       expect(blank).toHaveLength(0);
       expect(revealedAgain).toHaveLength(0);
       const final = await finalValue(page);

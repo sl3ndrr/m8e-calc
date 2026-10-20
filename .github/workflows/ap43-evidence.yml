@@ -55,7 +55,7 @@ jobs:
           export AP43_HEAD="$GITHUB_SHA"
           npm run build
           status=0
-          npx playwright test e2e/graph-parameters.spec.ts --project=chromium --workers=1 --retries=0 --grep 'Full continuity: a' --reporter=list,json --output=test-results/ap43-before/browser || status=$?
+          npx playwright test e2e/graph-parameters.spec.ts --project=chromium --workers=1 --retries=0 --grep 'Full continuity:' --reporter=list,json --output=test-results/ap43-before/browser || status=$?
           node "$GITHUB_WORKSPACE/scripts/ap43-report.mjs" test-results/ap43-before/browser
           mkdir -p "$GITHUB_WORKSPACE/test-results/ap43-before"
           cp -R test-results/ap43-before/. "$GITHUB_WORKSPACE/test-results/ap43-before/"
