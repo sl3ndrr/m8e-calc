@@ -1,11 +1,11 @@
-name: AP49 bounded native-source raster comparison
+name: AP49 official source preflight
 on:
   push:
     branches: [feat/ap47-bounded-diagnosis]
 permissions:
   contents: read
 jobs:
-  compare:
+  source:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -15,32 +15,35 @@ jobs:
         with:
           node-version-file: .nvmrc
           check-latest: true
-          cache: npm
-      - run: npm install --global npm@11.19.0
-      - run: npm ci --engine-strict
-      - run: npx playwright install --with-deps chromium firefox webkit
-      - name: Native pixel parity, full check, fixed original then bounded raster
+      - name: Two published IAU sources, one request each, unchanged thirty-second bound
         run: |
-          npm run build || exit 1
-          npx playwright test --config=playwright.ap49-raster.config.ts --workers=1 --retries=0 --reporter=list --output=test-results/ap49-bounded-pixels || exit 1
-          npm run check || exit 1
-          status=0
-          cp src/features/graph/renderer.ts "$RUNNER_TEMP/ap49-renderer.ts"
-          for ap49_variant in original bounded; do
-            if [ "$ap49_variant" = original ]; then
-              cp diagnostics/ap49-renderer-before.txt src/features/graph/renderer.ts
-            else
-              cp "$RUNNER_TEMP/ap49-renderer.ts" src/features/graph/renderer.ts
-            fi
-            npm run build || exit 1
-            AP49_GRID_VARIANT="$ap49_variant" npx playwright test --config=playwright.ap28.config.ts --workers=1 --retries=0 --reporter=list --output="test-results/ap49/$ap49_variant" || status=1
-            mkdir -p "test-results/ap49/$ap49_variant/raw"
-            cp test-results/ap28/* "test-results/ap49/$ap49_variant/raw/"
-          done
-          exit "$status"
+          mkdir -p test-results
+          node --input-type=module <<'JS'
+          import {writeFileSync} from 'node:fs';
+          import {createHash} from 'node:crypto';
+          const urls=['https://iauarchive.eso.org/publications/proceedings_rules/units/','https://iauarchive.eso.org/static/publications/stylemanual1989.pdf'];
+          const results=[];
+          for(const url of urls) {
+            const result={url,attempt:1,timeoutMs:30000,checkedAt:new Date().toISOString()};
+            try {
+              const response=await fetch(url,{signal:AbortSignal.timeout(30000)});
+              const body=Buffer.from(await response.arrayBuffer());
+              Object.assign(result,{status:response.status,finalUrl:response.url,contentType:response.headers.get('content-type'),bytes:body.length,sha256:createHash('sha256').update(body).digest('hex')});
+              if(response.headers.get('content-type')?.includes('text/html')) {
+                const text=body.toString('utf8').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ');
+                result.julianYear365_25=text.includes('365.25');
+                result.year31_5576Ms=text.includes('31.5576');
+                result.day86400=/86\s*400/.test(text);
+              }
+            } catch(error) {Object.assign(result,{error:error.message,cause:error.cause?.message,code:error.cause?.code});}
+            results.push(result);
+          }
+          writeFileSync('test-results/official-source.json',JSON.stringify({source:process.env.GITHUB_SHA,node:process.version,runner:process.env.ImageVersion,results},null,2)+'\n');
+          console.log(JSON.stringify(results,null,2));
+          JS
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: ap49-bounded-raster-comparison
+          name: ap49-official-source-preflight
           path: test-results/
           retention-days: 14

@@ -278,7 +278,6 @@ test('AP28 fixed graph references and regression controls', async ({
         browser: browser.version(),
         project: info.project.name,
         graphics,
-        diagnosticGridVariant: process.env.AP49_GRID_VARIANT,
         runner: {
           os: platform(),
           release: release(),
@@ -296,7 +295,7 @@ test('AP28 fixed graph references and regression controls', async ({
   );
   const traceSession = await page.context().newCDPSession(page);
   await traceSession.send('Tracing.start', {
-    categories: 'devtools.timeline,v8,blink,cc,gpu,disabled-by-default-skia',
+    categories: 'devtools.timeline,v8,blink,cc,gpu',
     transferMode: 'ReturnAsStream',
   });
   await windowMeasurement(page, true, 0, 60);
