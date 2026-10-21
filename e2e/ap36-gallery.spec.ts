@@ -363,6 +363,30 @@ for (const component of ['Dialog', 'Menu', 'SideSheet'] as const) {
     await page.evaluate(() => {
       Reflect.get(window, 'ap36Probe').selector = '';
     });
+    const liveReversal = await overlay.evaluateHandle((node) => {
+      const done = new Promise<{ time: number; opacity: number }[]>(
+        (resolve) => {
+          document.addEventListener(
+            'pointerdown',
+            () => {
+              const frames: { time: number; opacity: number }[] = [];
+              const tick = () => {
+                frames.push({
+                  time: performance.now(),
+                  opacity: Number(getComputedStyle(node).opacity),
+                });
+                if (frames.length === 12) resolve(frames);
+                else requestAnimationFrame(tick);
+              };
+              // Capture before React Aria opens, then on the real document timeline.
+              tick();
+            },
+            { capture: true, once: true },
+          );
+        },
+      );
+      return { done };
+    });
     await trigger.click();
     expect(
       await overlay.evaluate((node, original) => node === original, original),
@@ -373,11 +397,24 @@ for (const component of ['Dialog', 'Menu', 'SideSheet'] as const) {
         overlay.evaluate((node) => node.contains(document.activeElement)),
       )
       .toBe(true);
-    const reversal = await sampleFrames(overlay, 8);
-    expect(reversal[0]?.opacity).toBeGreaterThan(exit[0]?.opacity ?? 0);
-    expect(reversal.at(-1)?.opacity).toBeGreaterThanOrEqual(
-      reversal[0]?.opacity ?? 0,
-    );
+    const reversal = await liveReversal.evaluate(({ done }) => done);
+    await liveReversal.dispose();
+    expect(
+      Math.abs((reversal[0]?.opacity ?? 0) - (exit[0]?.opacity ?? 0)),
+    ).toBeLessThan(0.002);
+    expect(
+      reversal.some(
+        (frame) => frame.opacity > (exit[0]?.opacity ?? 0) && frame.opacity < 1,
+      ),
+    ).toBe(true);
+    expect(
+      reversal.every(
+        (frame, index) =>
+          index === 0 ||
+          frame.opacity >= (reversal[index - 1]?.opacity ?? 0) - 0.002,
+      ),
+    ).toBe(true);
+    expect(reversal.at(-1)?.opacity).toBeGreaterThan(0.999);
     await attach(info, `${component}-reversal-frames`, reversal);
     await resume(page);
     await idle(page, true);
