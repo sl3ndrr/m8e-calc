@@ -267,6 +267,7 @@ jobs:
         id: cold
         run: npx playwright test e2e/settings-actions.spec.ts --grep 'nested Escape|AP45 Escape|AP45 a new native' --repeat-each=3 --project=chromium --project=firefox --project=webkit --workers=1 --retries=0 --reporter=list --output=test-results/ap45/cold
       - name: Native retarget regression first
+        if: ${{ !cancelled() && steps.candidate.outcome == 'success' }}
         run: npx playwright test --config=playwright.ap36.config.ts --grep 'AP45 .*real exit frames' --reporter=list --output=test-results/ap45/retarget
       - name: Existing AP36 native frames and interruption cases in three engines
         run: npx playwright test --config=playwright.ap36.config.ts --reporter=list --output=test-results/ap45/ap36

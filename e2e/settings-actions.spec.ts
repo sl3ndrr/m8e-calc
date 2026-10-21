@@ -320,7 +320,44 @@ test('AP45 Escape cancels a cold settings request before its controller mounts',
 
 test('AP45 a new native selection owns focus while the accent exit completes', async ({
   page,
-}) => {
+}, info) => {
+  await page.addInitScript(() => {
+    const events: unknown[] = [];
+    Object.assign(window, { ap45FocusEvents: events });
+    const describe = (node: Element | null) =>
+      node && {
+        tag: node.tagName,
+        id: node.id,
+        label: node.getAttribute('aria-label'),
+        text: node.textContent?.slice(0, 60),
+        className: node.className,
+        inert: Boolean(node.closest('[inert]')),
+        exiting: Boolean(node.closest('[data-exiting]')),
+      };
+    const record = (kind: string, target: Element | null) => {
+      if (events.length < 500)
+        events.push({
+          time: performance.now(),
+          kind,
+          target: describe(target),
+          active: describe(document.activeElement),
+        });
+    };
+    const focus = HTMLElement.prototype.focus;
+    HTMLElement.prototype.focus = function (options) {
+      record('focus-call-before', this);
+      focus.call(this, options);
+      record('focus-call-after', this);
+    };
+    for (const name of ['focusin', 'focusout', 'keydown', 'pointerdown'])
+      document.addEventListener(
+        name,
+        (event) => {
+          record(name, event.target instanceof Element ? event.target : null);
+        },
+        true,
+      );
+  });
   await installMotionProbe(page);
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/m8e-calc/#/simple');
@@ -348,7 +385,16 @@ test('AP45 a new native selection owns focus while the accent exit completes', a
     .poll(() => list.evaluate((node) => node.contains(document.activeElement)))
     .toBe(true);
   await page.keyboard.press('Escape');
-  await expect(
-    page.getByRole('button', { name: /Animationsstufe/ }),
-  ).toBeFocused();
+  try {
+    await expect(
+      page.getByRole('button', { name: /Animationsstufe/ }),
+    ).toBeFocused();
+  } finally {
+    await info.attach('native-focus-ownership', {
+      contentType: 'application/json',
+      body: JSON.stringify(
+        await page.evaluate(() => Reflect.get(window, 'ap45FocusEvents')),
+      ),
+    });
+  }
 });
