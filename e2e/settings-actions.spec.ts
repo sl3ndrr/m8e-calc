@@ -33,7 +33,7 @@ test('shell keeps theme; settings own nested color selection and persistence', a
     name: 'Akzentfarbe anpassen',
   });
   await info.attach('settings-1280', {
-    body: await page.screenshot(),
+    body: await page.screenshot({ path: info.outputPath('settings-1280.png') }),
     contentType: 'image/png',
   });
   await trigger.click();
@@ -44,7 +44,7 @@ test('shell keeps theme; settings own nested color selection and persistence', a
   await picker.getByRole('button', { name: 'Koralle', exact: true }).click();
   const variant = picker.getByRole('button', { name: /Schema-Variante/ });
   await info.attach('nested-accent-1280', {
-    body: await page.screenshot(),
+    body: await page.screenshot({ path: info.outputPath('accent-1280.png') }),
     contentType: 'image/png',
   });
   await variant.click();

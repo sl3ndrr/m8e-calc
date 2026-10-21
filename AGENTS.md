@@ -344,3 +344,12 @@ entwertet alte Aufträge. Aktuell sind ausschließlich die vollständig passende
 tatsächlich gerenderten neuesten Daten; PNG und Diagnosen beachten Pending.
 AP21/AP27/AP28, deterministische Budgets, Dirty-Rendering und Idle bleiben
 bindend. Vertrag, Latenzgrenzen und tatsächliche Nachweise: [docs/AP43.md](docs/AP43.md).
+
+## AP44 · Einstellungsaktionen
+
+Die normale Shell behält ThemeSwitch; AccentPicker liegt unter Einstellungen →
+Erscheinungsbild, die Installation unter App nur mit Browserprompt. `usePwa`
+bleibt zentral in App; SettingsDialog erhält nur `PwaInstallation`. SettingsDialog
+und AccentPanel bleiben lazy. Stabile Akzent-Refs stellen den Fokus nach kaltem
+Overlaywechsel und verbrauchtem Prompt wieder her, ohne zusätzliche Fokusfalle.
+Navigation, Kaltstart, Offlinezugriff und echter Tabzoom: [docs/AP44.md](docs/AP44.md).

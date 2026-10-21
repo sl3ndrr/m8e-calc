@@ -94,7 +94,9 @@ test('settings and nested accent fit narrow desktop at native 100/200% zoom', as
       await opener.click();
       await fits(page, '.settings-dialog');
       await info.attach(`settings-zoom-${zoom}`, {
-        body: await page.screenshot(),
+        body: await page.screenshot({
+          path: info.outputPath(`settings-zoom-${zoom}.png`),
+        }),
         contentType: 'image/png',
       });
       const trigger = page.getByRole('button', {
@@ -104,7 +106,9 @@ test('settings and nested accent fit narrow desktop at native 100/200% zoom', as
       await expect(page.getByRole('button', { name: 'Iris' })).toBeFocused();
       await fits(page, '.accent-popover');
       await info.attach(`accent-zoom-${zoom}`, {
-        body: await page.screenshot(),
+        body: await page.screenshot({
+          path: info.outputPath(`accent-zoom-${zoom}.png`),
+        }),
         contentType: 'image/png',
       });
       await page.getByRole('button', { name: /Schema-Variante/ }).click();

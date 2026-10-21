@@ -184,10 +184,12 @@ Transitions unmittelbar und zeigt den neutralen Disabled-Zustand.
 
 ## AP44 · Verschachtelter AccentPicker
 
-AccentPicker wird unverändert innerhalb des Einstellungsdialogs verwendet.
+Der bestehende AccentPicker wird innerhalb des Einstellungsdialogs verwendet.
 React Aria verwaltet den Overlaystapel und suspendiert den äußeren Fokusbereich
 für das aktive Kind; es gibt keine zweite manuelle Fokusfalle. Der montierte
 Popover-Rahmen enthält beim kalten Import einen benannten Ladedialog mit
 Progressbar. Escape und Fokus-Rückgabe gelten auch dort, danach für Select,
-Farbpanel und Einstellungen jeweils einzeln. [AP44](AP44.md) dokumentiert
+Farbpanel und Einstellungen jeweils einzeln. `triggerRef` erlaubt dem
+Einstellungsdialog dieselbe stabile Fokusadresse nach einem verbrauchten
+Installationsprompt; geplante Rückgaben werden beim Unmount abgebrochen. [AP44](AP44.md) dokumentiert
 Produktzugänge und Prüfgrenzen.
