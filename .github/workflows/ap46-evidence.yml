@@ -52,7 +52,7 @@ jobs:
       - name: Verify the original producer identity and every production byte
         run: |
           GITHUB_SHA=c95f183aac8bc643561bd440652a0ac5edad8c6b GITHUB_REF=refs/heads/main GITHUB_EVENT_NAME=push GITHUB_RUN_ID=39628007681 GITHUB_RUN_ATTEMPT=1 node scripts/ci/build-proof.mjs verify
-          node scripts/check-build-target.mjs dist normal
+          GITHUB_SHA=c95f183aac8bc643561bd440652a0ac5edad8c6b node scripts/check-build-target.mjs dist normal
       - name: Separate gallery from the same integrated product
         id: gallery
         env:
