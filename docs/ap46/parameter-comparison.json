@@ -1,0 +1,11 @@
+{
+  "run": 39637195880,
+  "head": "bfbca7275b601b77b49fe0743dacdf453599fc0f",
+  "artifact": 12363532161,
+  "baselineSource": "63fdc9c7f0ddfc596eb8b04e7f09e426d57962f6",
+  "baselineNegativeCasesPassed": 5,
+  "candidateChromiumPassed": 12,
+  "candidateWebKitPassed": 12,
+  "retries": 0,
+  "note": "Separate fresh production builds, not the sealed c95f183 main artifact. Current-main artifact is checked separately by AP46."
+}

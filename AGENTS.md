@@ -1,6 +1,8 @@
 # Projektgedächtnis: m8e-calc
 
-Aktuelle Ausgangslage: [docs/AP40.md](docs/AP40.md). Live-Abnahme und
+Aktuelle integrierte Produktabnahme: [docs/AP46.md](docs/AP46.md), nach
+AP42–AP45 auf main `c95f183a`. Historische Ausgangslage: [docs/AP40.md](docs/AP40.md).
+Live-Abnahme und
 Releaseentscheidung: [docs/AP39.md](docs/AP39.md) (blockiert);
 vorheriger Integrationsbericht: [docs/AP38.md](docs/AP38.md).
 Paketnachweise behalten ihre historischen SHAs; PR-Head, geprüfter Produkt-SHA
@@ -362,3 +364,15 @@ Overlays nicht vor ihrer Exitphase. Exit-Inhalte sind inert/pointerdurchlässig;
 Motion-/OS-Cancel darf keinen geschlossenen Scope zurücklassen. Overlay-Opacity
 und Controls-Farben verwenden Effects Fast; Selected-Radien bleiben diskret,
 Sliderpositionen folgen direkt. AP20/AP36/Galerie bleiben die Prüfinfrastruktur.
+
+## AP46 · Integrierte Abnahme
+
+Bestehende native AP19/AP20/AP36-Recorder bleiben die Bewegungsnachweise;
+Graphparameterfälle prüfen mindestens zehn Sekunden reales Playback und sichern
+Zwischenbilder sowie vollständige Pause-Signaturen. AP46 liest für die gezielte
+main-Abnahme das versiegelte Artefakt 12356744938 aus Lauf 39628007681, mit festem
+ursprünglichem Kontext/Fingerprint vor und nach den Tests. Dieser reine
+Abnahmeverbraucher hat keine Veröffentlichungsrechte und liefert niemals Bytes
+an den regulären Freigabe-/Deploypfad. Dessen strikte Same-Run-Bindung bleibt
+unverändert. PR-Head, main-/Produkt-SHA und aktive Live-Clientfassung weiterhin
+trennen; die letzte bleibt bei einer Umgebungssperre ausdrücklich unbekannt.

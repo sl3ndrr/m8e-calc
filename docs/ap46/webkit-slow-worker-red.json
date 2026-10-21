@@ -1,0 +1,22 @@
+{
+  "run": 39637195764,
+  "job": 119353078605,
+  "artifact": 12365261569,
+  "head": "bfbca7275b601b77b49fe0743dacdf453599fc0f",
+  "actualBuild": "433584b860d4a70f707a144a62c390ed945b5379",
+  "expectedFrameCount": ">120",
+  "received": 118,
+  "pollBudgetMs": 15000,
+  "assertion": "graph-parameters.spec.ts:228",
+  "tracePath": "graph-parameters-Full-slow-7f9f2--drains-pause-and-cleans-up-webkit/trace.zip",
+  "lastScreenshot": {
+    "type": "screencast-frame",
+    "pageId": "page@07e4dedfe34a6da6aac0c6215a45780c",
+    "file": "screencast/page@07e4dedfe34a6da6aac0c6215a45780c-1792601585120.jpeg",
+    "width": 3200,
+    "height": 2000,
+    "timestamp": 292209.548,
+    "frameSwapWallTime": 1792601585116.7769
+  },
+  "productCause": "unknown"
+}
