@@ -395,3 +395,16 @@ für Galerie, Helper und Producerprüfung aus. Bei späteren Produktreparaturen
 niemals neuen PR-Quellcode als unveränderten c95-Quellcode ausgeben oder die
 Gleichheitsprüfung lockern. Neue Produktbuilds werden separat in ihrer eigenen
 aktuellen CI abgenommen.
+
+## AP49 · Begrenztes feines Gitterraster
+
+[docs/AP49.md](docs/AP49.md) bindet den festen Original-/Kandidatenvergleich.
+Nur dichte große, deckende periodische Feingitter mit regulärem DPR bis 1,5
+verwenden eine begrenzte native Rasterzelle; volle Quellabmessungen erhalten
+WebKit-Coverage. Andere Fälle behalten die ursprünglichen nativen Pfade.
+Keine DPR-/Geometrie-/Samplingverringerung. Quellenfläche und Perioden bleiben
+begrenzt; cacheweise WeakMap-Wiederverwendung ändert keine Idle-Steuerung.
+Die normale Drei-Engine-Pixelregression prüft Hell/Dunkel, Phasen, Resize und
+native DPR-Rückfälle. Maßgeblich bleiben alle ursprünglichen Performancegates
+und die abschließende Produkt-CI; ein insgesamt roter kontrollierter Vergleich
+mit nachgewiesen rotem Original darf nicht als grüner Workflow bezeichnet werden.

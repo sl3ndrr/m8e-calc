@@ -261,3 +261,11 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       zusätzlicher kalter/warmer Produktionsbrowserfall während echten Exits.
       Umsetzung in #69, finale CI maßgeblich. Historische Ursache nicht erfunden;
       keine längeren Timeouts oder ersetzte Benutzerklicks. [AP47](AP47.md).
+
+- [ ] 49 Dichtes 4K-Feingitter begrenzt rasterisieren — #43, Umsetzung in #69.
+      Fester Original-/Kandidatenvergleich: 49,659–51,801 → 58,540–59,021 FPS,
+      31,8 % weniger DoUpdateLayers-Zeit pro Aufruf; Pixelmatrix in drei Engines.
+      Originalvariante bleibt rot. Native Rückfälle oberhalb DPR 1,5 und für
+      ungeeignete Geometrie erhalten. Bericht und verworfene Versuche: [AP49](AP49.md).
+      Finale Produkt-CI, echte Zwischenbilder und automatische main-/Pages-Kette
+      sind getrennt zu belegen; AP39-/Handpunkte bleiben bei Sperre offen.
