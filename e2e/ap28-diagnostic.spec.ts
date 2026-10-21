@@ -102,6 +102,7 @@ async function setup(page: Page) {
     css: { width: e.clientWidth, height: e.clientHeight },
     backing: { width: e.width, height: e.height },
     dpr: devicePixelRatio,
+    contextAttributes: e.getContext('2d')?.getContextAttributes(),
     samples: JSON.parse(e.dataset.sampleResult ?? '[]') as {
       components: number;
       error?: string;
