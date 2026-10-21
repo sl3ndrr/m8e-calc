@@ -103,8 +103,8 @@ export function drawGraph(
   };
   function grid(minor: boolean): void {
     ctx.beginPath();
-    ctx.fillStyle = c.grid;
-    const width = minor ? 0.5 : 1;
+    ctx.strokeStyle = c.grid;
+    ctx.lineWidth = minor ? 0.5 : 1;
     ctx.globalAlpha = minor ? 0.4 : 0.8;
     for (const [ticks, axis] of [
       [xt, 'x'],
@@ -125,11 +125,11 @@ export function drawGraph(
         const p = v.worldToScreen(
           axis === 'x' ? { x: value, y: 0 } : { x: 0, y: value },
         );
-        if (axis === 'x') ctx.rect(p.x - width / 2, 0, width, h);
-        else ctx.rect(0, p.y - width / 2, w, width);
+        if (axis === 'x') line(p.x, 0, p.x, h);
+        else line(0, p.y, w, p.y);
       }
     }
-    ctx.fill();
+    ctx.stroke();
     ctx.globalAlpha = 1;
   }
   if (options.fine) grid(true);
