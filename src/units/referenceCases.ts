@@ -125,7 +125,7 @@ export const referenceCases: readonly (readonly [
     'ly',
     'm',
     '9460730472580800',
-    'https://ssd.jpl.nasa.gov/astro_par.html',
+    'https://www.iausofa.org/s/sofa_ts_f.pdf (Julian year; exact c: BIPM SI Brochure)',
   ],
   [
     '1',
@@ -519,20 +519,20 @@ export const referenceCases: readonly (readonly [
     '604800',
     'https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b8',
   ],
-  ['1', 'year', 's', '31557600', 'https://ssd.jpl.nasa.gov/astro_par.html'],
+  ['1', 'year', 's', '31557600', 'https://www.iausofa.org/s/sofa_ts_f.pdf'],
   [
     '1',
     'decade',
     's',
     '315576000',
-    'https://ssd.jpl.nasa.gov/astro_par.html (10 Julian years)',
+    'https://www.iausofa.org/s/sofa_ts_f.pdf (10 Julian years)',
   ],
   [
     '1',
     'century',
     's',
     '3155760000',
-    'https://ssd.jpl.nasa.gov/astro_par.html (100 Julian years)',
+    'https://www.iausofa.org/s/sofa_ts_f.pdf (100 Julian years)',
   ],
   [
     '0',

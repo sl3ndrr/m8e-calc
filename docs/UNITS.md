@@ -181,16 +181,27 @@ Alle anderen Kategorien haben mindestens sechs Einheiten.
   Seite 3: au = exakt 149597870700 m.
 - [IAU 2015 Resolution B2](https://drive.google.com/file/d/1vL1vXyzFUWjY083Yb5s67dDsc_rxTWWZ/view),
   Seite 5, Anmerkung 4: Parsec = exakt (648000 / π) au.
-- [NASA/JPL Astrodynamic Parameters](https://ssd.jpl.nasa.gov/astro_par.html):
-  Julianisches Jahr = 365,25 Tage, Tag = 86400 s und c = 299792458 m/s.
-  Daraus folgt für das Lichtjahr c × Julianisches Jahr = 9460730472580800 m.
-  Die beiden IAU-Resolutionen und die JPL-Tabelle wurden am 18.10.2026 inhaltlich
-  geprüft; sie ersetzen die im CI-Client mit HTTP 400 antwortenden IAU-Übersichtsseiten
-  (Issue #51). Am 19.10.2026 antworteten auch die damaligen Archiv-PDFs mit
-  HTTP 400. Die Links folgen jetzt den identischen englischen PDFs auf der
-  [aktuellen offiziellen IAU-Resolutionsliste](https://iau.org/Iau/Publications/List-of-Resolutions).
-  Anonymer Download und PDF-Text wurden im AP36-Lauf geprüft. Die Werte und
-  Rechenregeln bleiben unverändert; Details und Laufbeleg: [AP36](AP36.md).
+- [IAU SOFA, Time Scale and Calendar Tools](https://www.iausofa.org/s/sofa_ts_f.pdf),
+  Revision 1.63 (31.05.2023), Abschnitt 2.2 / PDF-Seite 9:
+  julianisches Jahr = exakt 365,25 Tage, julianisches Jahrhundert = 36525 Tage.
+  BIPM SI Brochure §2.2 / Tabelle 8 belegt c = exakt 299792458 m/s und
+  Tag = 86400 s. Daraus folgen 31557600 s/Jahr und
+  c × julianisches Jahr = 9460730472580800 m/Lichtjahr.
+  Die frühere JPL-Tabelle bleibt als historischer Quellenbezug in AP37 erhalten.
+  Nach zwei CI-Verbindungstimeouts am 21.10.2026 ersetzt diese fachlich geprüfte
+  IAU-Publikation den aktiven Jahresbeleg. Einmaliger Runnerabruf: HTTP 200,
+  [39685176515](https://github.com/sl3ndrr/m8e-calc/actions/runs/39685176515).
+  Keine Zahlen-, Rechenregel- oder Checkeränderung.
+
+Die IAU-Resolutionen und die damalige JPL-Tabelle wurden am 18.10.2026 inhaltlich
+geprüft; sie ersetzten damals die im CI-Client mit HTTP 400 antwortenden
+IAU-Übersichtsseiten (Issue #51). Am 19.10.2026 antworteten auch die damaligen
+Archiv-PDFs mit HTTP 400. Die Resolutionen folgen weiterhin den identischen
+englischen PDFs auf der
+[offiziellen IAU-Resolutionsliste](https://iau.org/Iau/Publications/List-of-Resolutions).
+Anonymer Download und PDF-Text wurden im AP36-Lauf geprüft. Die Werte und
+Rechenregeln bleiben unverändert; Details und Laufbeleg: [AP36](AP36.md).
+
 - [NIST CODATA 2022](https://physics.nist.gov/cuu/pdf/all.pdf): atomare Masseneinheit.
 - [NIST binary prefixes](https://physics.nist.gov/cuu/Units/binary.html): IEC-Binärpräfixe.
 - [ISO 2533:1975](https://www.iso.org/standard/7472.html): ISA-Modell und
