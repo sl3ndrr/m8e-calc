@@ -1,4 +1,4 @@
-import { fillGridSegments } from './gridRaster';
+import { strokeGridAxes } from './gridRaster';
 import { Viewport, type Point } from '../../graph';
 import type { Trace } from './model';
 import type { SampleResponse } from './workerProtocol';
@@ -138,7 +138,7 @@ export function drawGraph(
       w * h * ratio * ratio > 2 * 1024 * 1024 &&
       xs.length + ys.length >= 128
     )
-      fillGridSegments(ctx, xs, ys, w, h);
+      strokeGridAxes(ctx, xs, ys, w, h);
     else {
       for (const x of xs) line(x, 0, x, h);
       for (const y of ys) line(0, y, w, y);

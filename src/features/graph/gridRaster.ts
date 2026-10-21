@@ -1,17 +1,21 @@
-/** The fine grid consists of open, axis-aligned segments with butt caps. */
-export function fillGridSegments(
+/** Keep parallel fine-grid segments in separate native paths for each axis. */
+export function strokeGridAxes(
   ctx: CanvasRenderingContext2D,
   xs: readonly number[],
   ys: readonly number[],
   width: number,
   height: number,
 ): void {
-  const half = ctx.lineWidth / 2;
   ctx.beginPath();
-  for (const x of xs) ctx.rect(x - half, 0, ctx.lineWidth, height);
-  for (const y of ys) ctx.rect(0, y - half, width, ctx.lineWidth);
-  ctx.save();
-  ctx.fillStyle = ctx.strokeStyle;
-  ctx.fill();
-  ctx.restore();
+  for (const x of xs) {
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, height);
+  }
+  ctx.stroke();
+  ctx.beginPath();
+  for (const y of ys) {
+    ctx.moveTo(0, y);
+    ctx.lineTo(width, y);
+  }
+  ctx.stroke();
 }
