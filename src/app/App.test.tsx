@@ -78,7 +78,5 @@ it('keeps theme in the shell and places accent only in settings', async () => {
   expect(
     screen.getByRole('button', { name: 'Akzentfarbe anpassen' }),
   ).toBeVisible();
-  expect(
-    screen.queryByRole('button', { name: 'App installieren' }),
-  ).toBeNull();
+  expect(screen.queryByRole('button', { name: 'App installieren' })).toBeNull();
 });
