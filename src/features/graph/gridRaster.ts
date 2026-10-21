@@ -7,24 +7,36 @@ export function drawFinePattern(
   width: number,
   height: number,
 ): boolean {
-  const dpr = ctx.getTransform().a;
+  const matrix = ctx.getTransform();
+  const dpr = matrix.a;
+  if (
+    !Number.isFinite(dpr) ||
+    dpr <= 0 ||
+    matrix.b !== 0 ||
+    matrix.c !== 0 ||
+    matrix.d !== dpr ||
+    matrix.e !== 0 ||
+    matrix.f !== 0
+  )
+    return false;
   if (
     !(dpr > 0) ||
     !/^(#[0-9a-f]{3}(?:[0-9a-f]{3})?|rgb\([^/]+\))$/i.test(colors.background)
   )
     return false;
   const axis = (positions: number[], extent: number) => {
-    if (positions.length < 2) return null;
+    if (positions.length < 2 || !positions.every(Number.isFinite)) return null;
     const values = positions.map((p) => p * dpr).sort((a, b) => a - b);
-    const step = values[1]! - values[0]!;
+    const [first, second] = values;
+    const last = values.at(-1);
+    if (first === undefined || second === undefined || last === undefined)
+      return null;
+    const step = second - first;
     if (!(step > 1)) return null;
-    if (values.some((p, i) => Math.abs(p - (values[0]! + i * step)) > 1e-7))
+    if (values.some((p, i) => Math.abs(p - (first + i * step)) > 1e-7))
       return null;
     const half = 0.25 * dpr;
-    if (
-      values[0]! - step + half > 0 ||
-      values.at(-1)! + step - half < extent * dpr
-    )
+    if (first - step + half > 0 || last + step - half < extent * dpr)
       return null;
     for (let n = 1; n <= 256; n++) {
       const period = Math.round(step * n);
@@ -33,7 +45,7 @@ export function drawFinePattern(
         return {
           step,
           period,
-          phase: ((values[0]! % period) + period) % period,
+          phase: ((first % period) + period) % period,
         };
     }
     return null;
@@ -54,20 +66,21 @@ export function drawFinePattern(
     layer.canvas.height = y.period;
   }
   const tile = layer.context;
+  tile.setTransform(dpr, 0, 0, dpr, 0, 0);
   tile.globalAlpha = 1;
   tile.fillStyle = colors.background;
-  tile.fillRect(0, 0, x.period, y.period);
+  tile.fillRect(0, 0, x.period / dpr, y.period / dpr);
   tile.beginPath();
   tile.strokeStyle = colors.grid;
-  tile.lineWidth = 0.5 * dpr;
+  tile.lineWidth = 0.5;
   tile.globalAlpha = 0.4;
   for (let p = x.phase - x.step; p <= x.period + 0.5 * dpr; p += x.step) {
-    tile.moveTo(p, 0);
-    tile.lineTo(p, y.period);
+    tile.moveTo(p / dpr, 0);
+    tile.lineTo(p / dpr, y.period / dpr);
   }
   for (let p = y.phase - y.step; p <= y.period + 0.5 * dpr; p += y.step) {
-    tile.moveTo(0, p);
-    tile.lineTo(x.period, p);
+    tile.moveTo(0, p / dpr);
+    tile.lineTo(x.period / dpr, p / dpr);
   }
   tile.stroke();
   const pattern = ctx.createPattern(layer.canvas, 'repeat');

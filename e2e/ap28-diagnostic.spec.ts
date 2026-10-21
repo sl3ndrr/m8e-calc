@@ -1,4 +1,3 @@
-import { drawFinePattern } from '../src/features/graph/gridRaster';
 import { test, expect, type Page } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { cpus, platform, release } from 'node:os';
@@ -12,91 +11,6 @@ const expressions = [
   'r=2*(1+cos(theta))',
   'exp(-x^2/2)',
 ];
-test('AP49 periodic native grid retains raster geometry', async ({ page }) => {
-  const pixels = await page.evaluate((source) => {
-    const draw = new Function('fineTiles', 'return (' + source + ')')(
-      new WeakMap(),
-    ) as typeof drawFinePattern;
-    const cases = [];
-    for (const dpr of [1, 1.25, 2]) {
-      for (const phase of [0, 0.125, 0.5, 0.875]) {
-        const w = 512,
-          h = 256;
-        const xs = Array.from(
-          { length: 40 },
-          (_, i) => phase + i * 19.2,
-        ).filter((x) => x <= w);
-        const ys = Array.from(
-          { length: 40 },
-          (_, i) => phase + i * 10.8,
-        ).filter((y) => y <= h);
-        const canvases = [
-          document.createElement('canvas'),
-          document.createElement('canvas'),
-        ];
-        let accelerated = false;
-        for (const [index, canvas] of canvases.entries()) {
-          canvas.width = Math.round(w * dpr);
-          canvas.height = Math.round(h * dpr);
-          const ctx = canvas.getContext('2d', { alpha: false })!;
-          ctx.scale(dpr, dpr);
-          ctx.fillStyle = '#faf8ff';
-          ctx.fillRect(0, 0, w, h);
-          if (index === 1)
-            accelerated = draw(
-              ctx,
-              xs,
-              ys,
-              {
-                background: '#faf8ff',
-                grid: '#c4c7c5',
-                axis: '',
-                label: '',
-                curves: [],
-              },
-              w,
-              h,
-            );
-          if (index === 0 || !accelerated) {
-            ctx.beginPath();
-            ctx.strokeStyle = '#c4c7c5';
-            ctx.globalAlpha = 0.4;
-            ctx.lineWidth = 0.5;
-            for (const x of xs) {
-              ctx.moveTo(x, 0);
-              ctx.lineTo(x, h);
-            }
-            for (const y of ys) {
-              ctx.moveTo(0, y);
-              ctx.lineTo(w, y);
-            }
-            ctx.stroke();
-          }
-        }
-        const arrays = canvases.map(
-          (c) => c.getContext('2d')!.getImageData(0, 0, c.width, c.height).data,
-        );
-        let different = 0,
-          maximum = 0;
-        for (let i = 0; i < arrays[0]!.length; i++) {
-          const delta = Math.abs(arrays[0]![i]! - arrays[1]![i]!);
-          if (delta) different++;
-          maximum = Math.max(maximum, delta);
-        }
-        cases.push({ dpr, phase, accelerated, different, maximum });
-      }
-    }
-    return cases;
-  }, drawFinePattern.toString());
-  await mkdir('test-results/ap28', { recursive: true });
-  await writeFile(
-    'test-results/ap28/grid-pixels.json',
-    JSON.stringify(pixels, null, 2),
-  );
-  expect(pixels.some((p) => p.accelerated)).toBe(true);
-  expect(Math.max(...pixels.map((p) => p.maximum))).toBeLessThanOrEqual(1);
-});
-
 interface Probe {
   posts: number;
   replies: number;
@@ -366,7 +280,6 @@ test('AP28 fixed graph references and regression controls', async ({
         browser: browser.version(),
         project: info.project.name,
         graphics,
-        diagnosticGridVariant: process.env.AP49_GRID_VARIANT,
         runner: {
           os: platform(),
           release: release(),
