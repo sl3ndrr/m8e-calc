@@ -2,6 +2,8 @@ import {
   lazy,
   Suspense,
   useEffect,
+  useEffectEvent,
+  useLayoutEffect,
   useRef,
   useState,
   useSyncExternalStore,
@@ -213,62 +215,65 @@ export function App() {
       }
     }
   }
-  useEffect(() => {
-    function shortcut(event: KeyboardEvent): void {
-      if (
-        event.defaultPrevented ||
-        event.isComposing ||
-        event.repeat ||
-        route === 'design'
-      )
-        return;
-      const activeOverlay = Array.from(
-        document.querySelectorAll(
-          '[role="dialog"], [role="menu"], [role="listbox"]',
-        ),
-      ).some((node) => !node.closest('[inert], [data-exiting]'));
-      // A cold lazy controller has no React Aria scope yet. Escape still closes
-      // its pending request; a late module resolution must not reopen it.
-      if (
-        event.key === 'Escape' &&
-        !activeOverlay &&
-        (overlayRequests.current.settings ||
-          overlayRequests.current.help ||
-          overlayRequests.current.palette)
-      ) {
-        event.preventDefault();
-        setSettingsOpen(false);
-        setHelpOpen(false);
-        setPaletteOpen(false);
-        return;
-      }
-      const item = findGlobalShortcut(event, isInputTarget(event.target));
-      if (!item) return;
-      if (paletteOpen) {
-        if (item.id === 'palette') {
-          event.preventDefault();
-          event.stopPropagation();
-          setPaletteOpen(false);
-        }
-        return;
-      }
-      // Existing modal/menu scopes own all keys except the explicitly global palette opener.
-      if (settingsOpen || helpOpen || activeOverlay) {
-        if (item.id !== 'palette' || settingsOpen || helpOpen) return;
-      }
+  const shortcut = useEffectEvent((event: KeyboardEvent): void => {
+    if (
+      event.defaultPrevented ||
+      event.isComposing ||
+      event.repeat ||
+      route === 'design'
+    )
+      return;
+    const activeOverlay = Array.from(
+      document.querySelectorAll(
+        '[role="dialog"], [role="menu"], [role="listbox"]',
+      ),
+    ).some((node) => !node.closest('[inert], [data-exiting]'));
+    // A cold lazy controller has no React Aria scope yet. Escape still closes
+    // its pending request; a late module resolution must not reopen it.
+    if (
+      event.key === 'Escape' &&
+      !activeOverlay &&
+      (overlayRequests.current.settings ||
+        overlayRequests.current.help ||
+        overlayRequests.current.palette)
+    ) {
       event.preventDefault();
-      event.stopPropagation();
-      if (item.id === 'palette') setPaletteOpen(true);
-      else if (item.id === 'help') setHelpOpen(true);
-      else if (item.id === 'history') toggleHistory();
-      else if (item.id === 'presentation') setPresentation((value) => !value);
-      else if (item.id === 'settings') setSettingsOpen(true);
-      else if (item.id.startsWith('mode.'))
-        window.location.hash = `#/${item.id.slice(5)}`;
+      event.stopImmediatePropagation();
+      setSettingsOpen(false);
+      setHelpOpen(false);
+      setPaletteOpen(false);
+      return;
     }
+    const item = findGlobalShortcut(event, isInputTarget(event.target));
+    if (!item) return;
+    if (paletteOpen) {
+      if (item.id === 'palette') {
+        event.preventDefault();
+        event.stopPropagation();
+        setPaletteOpen(false);
+      }
+      return;
+    }
+    // Existing modal/menu scopes own all keys except the explicitly global palette opener.
+    if (settingsOpen || helpOpen || activeOverlay) {
+      if (item.id !== 'palette' || settingsOpen || helpOpen) return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    if (item.id === 'palette') setPaletteOpen(true);
+    else if (item.id === 'help') setHelpOpen(true);
+    else if (item.id === 'history') toggleHistory();
+    else if (item.id === 'presentation') setPresentation((value) => !value);
+    else if (item.id === 'settings') setSettingsOpen(true);
+    else if (item.id.startsWith('mode.'))
+      window.location.hash = `#/${item.id.slice(5)}`;
+  });
+  useLayoutEffect(() => {
+    // Install once before lazy feature effects. Pending overlay Escape belongs
+    // to the shell, before calculator key handlers can consume it.
     window.addEventListener('keydown', shortcut, true);
     return () => window.removeEventListener('keydown', shortcut, true);
-  });
+  }, []);
   const personalization = (
     <div
       className="shell-personalization"

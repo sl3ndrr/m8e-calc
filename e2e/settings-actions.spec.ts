@@ -279,6 +279,9 @@ test('AP45 Escape cancels a cold settings request before its controller mounts',
   const settings = await holdChunk(page, 'SettingsDialog');
   try {
     await page.goto('/m8e-calc/#/simple');
+    await expect(page.locator('.calculator-announcement')).toHaveText('0');
+    await page.keyboard.press('7');
+    await expect(page.locator('.calculator-announcement')).toHaveText('7');
     const opener = page.getByRole('button', {
       name: 'Einstellungen',
       exact: true,
@@ -300,6 +303,7 @@ test('AP45 Escape cancels a cold settings request before its controller mounts',
       return frames;
     });
     expect(presence.every((count) => count === 0)).toBe(true);
+    await expect(page.locator('.calculator-announcement')).toHaveText('7');
     await expect(page.getByRole('dialog')).toHaveCount(0);
     await expect(opener).toBeFocused();
     await opener.click();
