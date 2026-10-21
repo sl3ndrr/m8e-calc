@@ -137,7 +137,11 @@ for (const outcome of ['accepted', 'dismissed', 'rejected'] as const) {
     ).toBe(1);
     await page.evaluate(() => Reflect.get(window, 'installTest').finish());
     await expect(install).toHaveCount(0);
+    await expect(
+      page.getByRole('button', { name: 'Akzentfarbe anpassen' }),
+    ).toBeFocused();
     await page.keyboard.press('Escape');
+    await expect(opener).toBeFocused();
     await opener.click();
     await expect(install).toHaveCount(0);
     await expect(

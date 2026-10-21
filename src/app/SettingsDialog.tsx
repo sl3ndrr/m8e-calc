@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { PwaInstallation } from './pwa';
 import { AccentPicker } from '../ui/AccentPicker';
 import { Button } from '../ui/Button';
@@ -31,6 +31,15 @@ export function SettingsDialog({
   const locale = useAppStore((state) => state.locale);
   const settings = useSettingsStore();
   const input = useRef<HTMLInputElement>(null);
+  const accentTrigger = useRef<HTMLButtonElement>(null);
+  const requestedInstall = useRef(false);
+  useEffect(() => {
+    if (installation.canInstall || !requestedInstall.current) return;
+    requestedInstall.current = false;
+    // Consuming a browser prompt removes its button; keep focus in settings.
+    const frame = requestAnimationFrame(() => accentTrigger.current?.focus());
+    return () => cancelAnimationFrame(frame);
+  }, [installation.canInstall]);
   const [confirmReset, setConfirmReset] = useState(false);
   const languageOptions = (['auto', 'de', 'en'] as const).map((id) => ({
     id,
@@ -64,7 +73,7 @@ export function SettingsDialog({
       <div className="settings-sections">
         <section aria-label={t('settings.appearance', locale)}>
           <h3>{t('settings.appearance', locale)}</h3>
-          <AccentPicker />
+          <AccentPicker triggerRef={accentTrigger} />
           <Slider
             label={t('comfort.uiSize', locale)}
             minValue={80}
@@ -87,7 +96,13 @@ export function SettingsDialog({
         {installation.canInstall && (
           <section aria-label={t('settings.app', locale)}>
             <h3>{t('settings.app', locale)}</h3>
-            <Button variant="outlined" onPress={installation.install}>
+            <Button
+              variant="outlined"
+              onPress={() => {
+                requestedInstall.current = true;
+                installation.install();
+              }}
+            >
               {t('comfort.install', locale)}
             </Button>
           </section>

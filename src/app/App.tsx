@@ -13,6 +13,7 @@ import { useHistoryStore } from '../shared/historyStore';
 import { useSettingsStore } from '../shared/settingsStore';
 import { parseHash } from './routing';
 import { modeRegistry } from './modeRegistry';
+import { AccentPicker } from '../ui/AccentPicker';
 import { Button } from '../ui/Button';
 import { Icon } from '../ui/Icon';
 import { IconButton } from '../ui/IconButton';
@@ -52,14 +53,7 @@ import { exportHistory } from '../shared/history';
 import { usePwa } from './pwa';
 if (__INTERNAL_DESIGN_LAB__) void import('./internalLabLink.css');
 
-// Compile-time boundary: the normal build never retains these imports.
-const LabAccentPicker = __INTERNAL_DESIGN_LAB__
-  ? lazy(() =>
-      import('../ui/AccentPicker').then((module) => ({
-        default: module.AccentPicker,
-      })),
-    )
-  : null;
+// Compile-time boundary: the normal build never retains this import.
 const DesignLab = __INTERNAL_DESIGN_LAB__
   ? lazy(() =>
       import('./DesignLab').then((module) => ({ default: module.DesignLab })),
@@ -236,11 +230,7 @@ export function App() {
       aria-label={t('design.controls', locale)}
     >
       <ThemeSwitch />
-      {route === 'design' && LabAccentPicker && (
-        <Suspense fallback={null}>
-          <LabAccentPicker />
-        </Suspense>
-      )}
+      {__INTERNAL_DESIGN_LAB__ && route === 'design' && <AccentPicker />}
     </div>
   );
   const notifications = (

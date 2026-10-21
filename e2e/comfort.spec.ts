@@ -275,7 +275,16 @@ test('PWA installability and all four modes offline after only the first load', 
   await picker.getByRole('button', { name: 'Koralle', exact: true }).click();
   await expect(picker.getByLabel('Eigene Farbe')).toHaveValue('#e2675a');
   await page.keyboard.press('Escape');
+  await expect(
+    page.getByRole('button', { name: 'Akzentfarbe anpassen' }),
+  ).toBeFocused();
   await page.keyboard.press('Escape');
+  await expect(
+    page.getByRole('button', { name: 'Einstellungen', exact: true }),
+  ).toBeFocused();
+  await expect(
+    page.getByRole('dialog', { name: 'Einstellungen', exact: true }),
+  ).toBeHidden();
   await page.keyboard.type('2+3=');
   await expect(page.locator('.calculator-announcement')).toHaveText('5');
   await page.goto('/m8e-calc/#/scientific');

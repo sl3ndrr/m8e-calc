@@ -19,6 +19,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   evidence:
+    if: github.head_ref == 'feat/ap44-settings-actions'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -34,13 +35,16 @@ jobs:
       - run: npm ci --engine-strict
       - name: Formatting diagnostics without accepting generated changes
         run: |
-          npx prettier --write src/app/App.tsx src/app/SettingsDialog.tsx src/app/pwa.ts src/shared/i18n/de.ts src/shared/i18n/en.ts e2e/smoke.spec.ts e2e/graph.spec.ts e2e/accent-picker.spec.ts src/app/App.test.tsx e2e/settings-actions.spec.ts e2e/settings-native-zoom.spec.ts e2e/accentLoading.ts e2e/comfort.spec.ts e2e/startup-budget.spec.ts src/app/pwa.test.ts playwright.config.ts docs/ROADMAP.md docs/AP44.md docs/COMFORT.md docs/DESIGN.md docs/COMPONENTS.md .github/workflows/ap44-evidence.yml
+          npx prettier --write src/app/App.tsx src/app/SettingsDialog.tsx src/app/pwa.ts src/ui/AccentPicker.tsx src/shared/i18n/de.ts src/shared/i18n/en.ts e2e/smoke.spec.ts e2e/graph.spec.ts e2e/accent-picker.spec.ts src/app/App.test.tsx e2e/settings-actions.spec.ts e2e/settings-native-zoom.spec.ts e2e/accentLoading.ts e2e/comfort.spec.ts e2e/startup-budget.spec.ts src/app/pwa.test.ts playwright.config.ts docs/ROADMAP.md docs/AP44.md docs/COMFORT.md docs/DESIGN.md docs/COMPONENTS.md .github/workflows/ap44-evidence.yml
           git diff --exit-code
-      - run: npm run check
+      - run: |
+          export GITHUB_SHA="${{ github.event.pull_request.head.sha }}"
+          npm run check
       - run: npx playwright install --with-deps chromium firefox webkit
       - name: Product navigation and PWA contracts, no retries
         run: npx playwright test e2e/settings-actions.spec.ts e2e/app-shell.spec.ts e2e/comfort.spec.ts e2e/pwa-update.spec.ts e2e/startup-budget.spec.ts --project=chromium --project=firefox --project=webkit --workers=1 --retries=0 --reporter=list --output=test-results/ap44
       - name: Native narrow desktop browser zoom, no retries
+        if: ${{ !cancelled() }}
         run: npx playwright test e2e/settings-native-zoom.spec.ts --project=chromium --workers=1 --retries=0 --reporter=list --output=test-results/ap44-zoom
       - uses: actions/upload-artifact@v7
         if: always()
