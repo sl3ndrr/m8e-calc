@@ -28,8 +28,18 @@ jobs:
           cache: npm
       - run: npm install --global npm@11.19.0
       - run: npm ci --engine-strict
+      - name: Preserve the installed formatter for local report verification
+        run: |
+          mkdir -p test-results/ap46
+          tar -C node_modules -czf test-results/ap46/prettier.tgz prettier
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ap46-formatter
+          path: test-results/ap46/prettier.tgz
+          retention-days: 3
       - name: Require the unchanged integrated product and measurement helpers
         run: |
+          git fetch --depth=1 origin c95f183aac8bc643561bd440652a0ac5edad8c6b
           git diff --exit-code c95f183aac8bc643561bd440652a0ac5edad8c6b -- src public scripts package.json package-lock.json vite.config.ts playwright.ap36.config.ts e2e/ap36* e2e/buttonContractCases.ts e2e/calculatorCapture.ts e2e/graphParameterProbe.ts
       # Read-only reuse of the successful main producer; never a deploy input.
       - uses: actions/download-artifact@v8
@@ -44,6 +54,7 @@ jobs:
           GITHUB_SHA=c95f183aac8bc643561bd440652a0ac5edad8c6b GITHUB_REF=refs/heads/main GITHUB_EVENT_NAME=push GITHUB_RUN_ID=39628007681 GITHUB_RUN_ATTEMPT=1 node scripts/ci/build-proof.mjs verify
           node scripts/check-build-target.mjs dist normal
       - name: Separate gallery from the same integrated product
+        id: gallery
         env:
           GITHUB_SHA: c95f183aac8bc643561bd440652a0ac5edad8c6b
         run: npm run build:gallery
@@ -53,12 +64,12 @@ jobs:
           GITHUB_SHA: c95f183aac8bc643561bd440652a0ac5edad8c6b
         run: npx playwright test --config=playwright.ap36.config.ts --retries=0 --reporter=list --output=test-results/ap46/native
       - name: Ten-second playback and exact paused geometry in three engines
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.gallery.outcome == 'success' }}
         env:
           GITHUB_SHA: c95f183aac8bc643561bd440652a0ac5edad8c6b
         run: npx playwright test e2e/graph-parameters.spec.ts --project=chromium --project=firefox --project=webkit --workers=1 --retries=0 --reporter=list --output=test-results/ap46/graph
       - name: Verify original normal bytes after all interaction probes
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.gallery.outcome == 'success' }}
         run: GITHUB_SHA=c95f183aac8bc643561bd440652a0ac5edad8c6b GITHUB_REF=refs/heads/main GITHUB_EVENT_NAME=push GITHUB_RUN_ID=39628007681 GITHUB_RUN_ATTEMPT=1 node scripts/ci/build-proof.mjs verify
       - uses: actions/upload-artifact@v7
         if: always()
