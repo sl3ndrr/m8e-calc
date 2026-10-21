@@ -129,20 +129,7 @@ export function drawGraph(
         else line(0, p.y, w, p.y);
       }
     }
-    // Keep the native stroke and all intersections, but bound each raster pass.
-    // Clips meet on device-pixel edges: every output pixel is painted once.
-    const ratio = ctx.getTransform().a;
-    const tile = 512 / ratio;
-    for (let y = 0; y < h; y += tile) {
-      for (let x = 0; x < w; x += tile) {
-        const clip = new Path2D();
-        clip.rect(x, y, tile, tile);
-        ctx.save();
-        ctx.clip(clip);
-        ctx.stroke();
-        ctx.restore();
-      }
-    }
+    ctx.stroke();
     ctx.globalAlpha = 1;
   }
   if (options.fine) grid(true);
