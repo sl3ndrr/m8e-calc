@@ -261,14 +261,15 @@ jobs:
           node scripts/qa-contrast.mjs
       - run: npx playwright install --with-deps chromium firefox webkit
       - name: Cold Escape and focus regressions first
+        id: cold
         run: npx playwright test e2e/settings-actions.spec.ts --grep 'nested Escape|AP45 Escape' --project=chromium --project=firefox --project=webkit --workers=1 --retries=0 --reporter=list --output=test-results/ap45/cold
       - name: Existing AP36 native frames and interruption cases in three engines
         run: npx playwright test --config=playwright.ap36.config.ts --reporter=list --output=test-results/ap45/ap36
       - name: Existing AP20 and gallery accessibility cases in three engines
-        if: ${{ !cancelled() && steps.candidate.outcome == 'success' }}
-        run: npm run test:e2e:gallery -- --workers=1 --retries=0 --reporter=list --output=test-results/ap45/gallery
+        if: ${{ !cancelled() && steps.candidate.outcome == 'success' && steps.cold.outcome == 'success' }}
+        run: npm run test:e2e:gallery -- --workers=1 --retries=0 --trace=on --reporter=list --output=test-results/ap45/gallery
       - name: Settings cold loading, native input, PWA and lazy budget
-        if: ${{ !cancelled() && steps.candidate.outcome == 'success' }}
+        if: ${{ !cancelled() && steps.candidate.outcome == 'success' && steps.cold.outcome == 'success' }}
         run: npx playwright test e2e/settings-actions.spec.ts e2e/settings-native-zoom.spec.ts e2e/comfort.spec.ts e2e/startup-budget.spec.ts --project=chromium --project=firefox --project=webkit --workers=1 --retries=0 --reporter=list --output=test-results/ap45/product
       - uses: actions/upload-artifact@v7
         if: always()
