@@ -7,6 +7,7 @@ import {
   type ModalOverlayProps,
 } from 'react-aria-components';
 import { Button } from './Button';
+import { useOverlayTransition } from './useOverlayTransition';
 import './Dialog.css';
 export interface DialogProps extends Omit<
   ModalOverlayProps,
@@ -24,14 +25,18 @@ export function Dialog({
   className = '',
   ...props
 }: DialogProps) {
+  const transition = useOverlayTransition();
   return (
     <ModalOverlay
       {...props}
+      key={transition.key}
+      onTransitionCancel={transition.onTransitionCancel}
       isDismissable={props.isDismissable ?? true}
       className="ui-modal-overlay"
     >
       <Modal className={`ui-modal ${className}`}>
-        <AriaDialog className="ui-dialog">
+        {({ isExiting }) => (
+        <AriaDialog className="ui-dialog" inert={isExiting}>
           {({ close }) => (
             <>
               <Heading slot="title">{title}</Heading>
@@ -42,6 +47,7 @@ export function Dialog({
             </>
           )}
         </AriaDialog>
+        )}
       </Modal>
     </ModalOverlay>
   );

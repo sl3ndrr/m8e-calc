@@ -20,12 +20,15 @@ import { IconButton } from './IconButton';
 import { Slider } from './Slider';
 import { Select } from './Select';
 import './AccentPicker.css';
-export default function AccentPanel({ onClose }: { onClose: () => void }) {
+export default function AccentPanel({ isOpen = true, onClose }: {
+  isOpen?: boolean;
+  onClose: () => void;
+}) {
   const id = useId();
   const firstSeed = useRef<HTMLButtonElement>(null);
   useEffect(() => {
-    firstSeed.current?.focus();
-  }, []);
+    if (isOpen) firstSeed.current?.focus();
+  }, [isOpen]);
   const settings = useSettingsStore();
   const locale = useAppStore((state) => state.locale);
   const isDark = resolveDark(settings.themeMode, useSystemDark());

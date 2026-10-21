@@ -230,3 +230,46 @@ jobs:
             test-results/graph-performance.json
             test-results/graph-implicit-ui-performance.json
           retention-days: 14
+  overlay-effects:
+    name: AP45 overlay and effects evidence
+    if: github.head_ref == 'feat/ap45-overlay-motion'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          check-latest: true
+          cache: npm
+      - run: npm install --global npm@11.19.0
+      - run: npm ci --engine-strict
+      - name: Formatting diagnostics, never accept generated changes
+        run: |
+          npx prettier --write src/app/App.tsx src/app/CommandPalette.tsx src/app/ShortcutDialog.tsx src/ui/AccentPanel.tsx src/ui/AccentPicker.tsx src/ui/AccentPicker.css src/ui/Dialog.tsx src/ui/Dialog.css src/ui/Popover.tsx src/ui/Popover.css src/ui/useOverlayTransition.ts src/ui/useOverlayTransition.test.tsx src/ui/Switch.css src/ui/SegmentedControl.css src/ui/Slider.css e2e/ap36-gallery.spec.ts e2e/ap36-motion.spec.ts e2e/controls-polish.spec.ts docs/AP45.md docs/DESIGN.md docs/COMPONENTS.md docs/ROADMAP.md AGENTS.md .github/workflows/ap36-evidence.yml
+          mkdir -p test-results/ap45
+          git diff > test-results/ap45/formatting.patch
+          git diff --exit-code
+      - name: Candidate checks and separate gallery
+        run: |
+          npm run check
+          npm run build:gallery
+          node scripts/qa-bundle.mjs
+          node scripts/qa-contrast.mjs
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Existing AP36 native frames and interruption cases in three engines
+        run: npx playwright test --config=playwright.ap36.config.ts --reporter=list --output=test-results/ap45/ap36
+      - name: Existing AP20 and gallery accessibility cases in three engines
+        if: ${{ !cancelled() }}
+        run: npm run test:e2e:gallery -- --workers=1 --retries=0 --reporter=list --output=test-results/ap45/gallery
+      - name: Settings cold loading, native input, PWA and lazy budget
+        if: ${{ !cancelled() }}
+        run: npx playwright test e2e/settings-actions.spec.ts e2e/settings-native-zoom.spec.ts e2e/comfort.spec.ts e2e/startup-budget.spec.ts --project=chromium --project=firefox --project=webkit --workers=1 --retries=0 --reporter=list --output=test-results/ap45/product
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap45-overlay-effects
+          path: test-results/
+          retention-days: 14

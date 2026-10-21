@@ -193,3 +193,15 @@ Farbpanel und Einstellungen jeweils einzeln. `triggerRef` erlaubt dem
 Einstellungsdialog dieselbe stabile Fokusadresse nach einem verbrauchten
 Installationsprompt; geplante Rückgaben werden beim Unmount abgebrochen. [AP44](AP44.md) dokumentiert
 Produktzugänge und Prüfgrenzen.
+
+## AP45 · Overlaypräsenz und Effects
+
+Dialog und Popover müssen beim Schließen montiert bleiben; `isOpen` steuert
+React Aria, kein äußeres `isOpen &&` darf die Exitphase entfernen. Lazy Controller
+können erst beim ersten Öffnen geladen werden und danach geschlossen montiert
+bleiben. React Aria entfernt Portal und FocusScope nach der nativen Transition;
+Exit-Inhalt ist inert und pointerdurchlässig. Motionbedingtes Transition-Cancel
+verwirft ausschließlich den geschlossenen Scope, gewöhnliche Umkehr erhält ihn.
+Popover rendert Children/Renderprop innerhalb eines `display: contents`-Wrappers.
+Die vorhandenen Fokus-/Escape-/Light-Dismiss-Verträge bleiben erhalten.
+[AP45](AP45.md) enthält die verbindliche Matrix und Prüfgrenzen.

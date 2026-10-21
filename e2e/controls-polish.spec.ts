@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { attach, held, holdNext, idle, installMotionProbe, picture, resume } from './ap36Capture';
 import {
   defaultSettings,
   SETTINGS_KEY,
@@ -174,4 +175,90 @@ for (const language of ['de', 'en'] as const) {
     ).toBeChecked();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   });
+}
+
+for (const theme of ['light', 'dark'] as const) {
+  for (const [policy, os] of [['full', false], ['reduced', false], ['off', false], ['full', true]] as const) {
+    test(`AP45 effects ${theme} ${policy} OS ${os}: native controls and direct slider input`, async ({ page }, info) => {
+      await installMotionProbe(page);
+      await page.emulateMedia({ colorScheme: theme, reducedMotion: os ? 'reduce' : 'no-preference' });
+      await page.goto('/m8e-calc/#/design');
+      await page.getByLabel('Animationsstufe').selectOption(policy);
+      const full = policy === 'full' && !os;
+      const switchRow = page.locator('[data-component="Switch"] [data-state="default"]');
+      const input = switchRow.getByRole('switch');
+      const track = switchRow.locator('.ui-switch-track');
+      const before = await track.evaluate((node) => getComputedStyle(node).backgroundColor);
+      if (full) await holdNext(page, '.ui-switch-track');
+      await input.press('Space');
+      await expect(input).toBeChecked();
+      await expect(switchRow.locator('.ui-switch')).toHaveAttribute('data-focus-visible');
+      if (full) {
+        await expect.poll(async () => (await held(page)).length).toBeGreaterThan(0);
+        const middle = await track.evaluate((node) => getComputedStyle(node).backgroundColor);
+        expect(middle).not.toBe(before);
+        await picture(info, 'switch-effects-middle', switchRow);
+        await resume(page);
+        await idle(page, true);
+        const after = await track.evaluate((node) => getComputedStyle(node).backgroundColor);
+        expect(middle).not.toBe(after);
+        await attach(info, 'switch-colors', { before, middle, after });
+      } else expect(await track.evaluate((node) => node.getAnimations().length)).toBe(0);
+      const segments = page.locator('[data-component="SegmentedControl"] [data-state="default"]');
+      const radios = segments.getByRole('radio');
+      if (full) await holdNext(page, '[data-component="SegmentedControl"] [data-state="default"] .ui-segment');
+      await radios.first().press('ArrowRight');
+      await expect(radios.nth(1)).toBeChecked();
+      const selected = segments.locator('.ui-segment[data-selected]');
+      const radius = await selected.evaluate((node) => ({
+        radius: getComputedStyle(node).borderRadius,
+        expected: getComputedStyle(document.documentElement).getPropertyValue('--md-sys-shape-large').trim(),
+        properties: getComputedStyle(node).transitionProperty,
+      }));
+      expect(radius.properties).not.toMatch(/all|radius/);
+      if (full) {
+        await expect.poll(async () => (await held(page)).length).toBeGreaterThan(0);
+        await picture(info, 'segments-effects-middle', segments);
+      }
+      await attach(info, 'selected-shape', radius);
+      await resume(page);
+      await idle(page, true);
+      const slider = page.locator('[data-component="Slider"] [data-state="default"]');
+      const sliderInput = slider.getByRole('slider');
+      if (full) await holdNext(page, '[data-component="Slider"] [data-state="default"] .ui-slider-bubble');
+      await sliderInput.press('ArrowRight');
+      const bubble = slider.locator('.ui-slider-bubble');
+      if (full) {
+        await expect.poll(async () => (await held(page)).length).toBeGreaterThan(0);
+        const opacity = await bubble.evaluate((node) => Number(getComputedStyle(node).opacity));
+        expect(opacity).toBeGreaterThan(0);
+        expect(opacity).toBeLessThan(1);
+        await picture(info, 'slider-bubble-middle', slider);
+      } else expect(await bubble.evaluate((node) => node.getAnimations().length)).toBe(0);
+      await resume(page);
+      const thumb = slider.locator('.ui-slider-thumb');
+      const box = await thumb.boundingBox();
+      if (!box) throw Error('Slider thumb missing');
+      await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+      await page.mouse.down();
+      const positions = [];
+      for (const delta of [24, 60, -12]) {
+        await page.mouse.move(box.x + box.width / 2 + delta, box.y + box.height / 2);
+        positions.push(await slider.evaluate((node) => {
+          const track = node.querySelector('.ui-slider-track')?.getBoundingClientRect();
+          const thumb = node.querySelector('.ui-slider-thumb')?.getBoundingClientRect();
+          const input = node.querySelector('input');
+          if (!track || !thumb || !input) throw Error('Incomplete slider');
+          const fraction = (Number(input.value) - Number(input.min)) / (Number(input.max) - Number(input.min));
+          return { value: input.value, error: Math.abs(thumb.x + thumb.width / 2 - track.x - track.width * fraction) };
+        }));
+      }
+      expect(positions.every((p) => p.error < 1)).toBe(true);
+      await page.mouse.up();
+      await attach(info, 'direct-drag-positions', positions);
+      await expect(page.locator('[data-component="Switch"] [data-state="disabled"]').getByRole('switch')).toBeDisabled();
+      await page.getByLabel('Animationsstufe').selectOption('off');
+      await idle(page, true);
+    });
+  }
 }

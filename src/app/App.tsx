@@ -89,6 +89,17 @@ export function App() {
   const [railOverride, setRailOverride] = useState<boolean | null>(null);
   const expanded = railOverride ?? wideRail;
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [loadedOverlays, setLoadedOverlays] = useState({
+    settings: false, palette: false, help: false, history: false,
+  });
+  if (settingsOpen && !loadedOverlays.settings)
+    setLoadedOverlays((value) => ({ ...value, settings: true }));
+  if (paletteOpen && !loadedOverlays.palette)
+    setLoadedOverlays((value) => ({ ...value, palette: true }));
+  if (helpOpen && !loadedOverlays.help)
+    setLoadedOverlays((value) => ({ ...value, help: true }));
+  if (visible && !loadedOverlays.history)
+    setLoadedOverlays((value) => ({ ...value, history: true }));
   const dockProgress = useSpring(
     docked && visible && route !== 'design' ? 1 : 0,
     'spatial-default',
@@ -190,6 +201,19 @@ export function App() {
         route === 'design'
       )
         return;
+      const activeOverlay = Array.from(document.querySelectorAll(
+        '[role="dialog"], [role="menu"], [role="listbox"]',
+      )).some((node) => !node.closest('[inert], [data-exiting]'));
+      // A cold lazy controller has no React Aria scope yet. Escape still closes
+      // its pending request; a late module resolution must not reopen it.
+      if (event.key === 'Escape' && !activeOverlay &&
+          (settingsOpen || helpOpen || paletteOpen)) {
+        event.preventDefault();
+        setSettingsOpen(false);
+        setHelpOpen(false);
+        setPaletteOpen(false);
+        return;
+      }
       const item = findGlobalShortcut(event, isInputTarget(event.target));
       if (!item) return;
       if (paletteOpen) {
@@ -204,9 +228,7 @@ export function App() {
       if (
         settingsOpen ||
         helpOpen ||
-        document.querySelector(
-          '[role="dialog"], [role="menu"], [role="listbox"]',
-        )
+        activeOverlay
       ) {
         if (item.id !== 'palette' || settingsOpen || helpOpen) return;
       }
@@ -402,7 +424,7 @@ export function App() {
             data-docked={docked || undefined}
             data-visible={visible || undefined}
           >
-            {visible && (
+            {(visible || (!docked && loadedOverlays.history)) && (
               <Suspense
                 fallback={<LoadingIndicator label={t('ui.loading', locale)} />}
               >
@@ -428,11 +450,12 @@ export function App() {
           </Button>
         </div>
       )}
-      {paletteOpen && (
+      {loadedOverlays.palette && (
         <Suspense
-          fallback={<LoadingIndicator label={t('ui.loading', locale)} />}
+          fallback={paletteOpen ? <LoadingIndicator label={t('ui.loading', locale)} /> : null}
         >
           <CommandPalette
+            isOpen={paletteOpen}
             onClose={() => setPaletteOpen(false)}
             onCommand={(item) => {
               void command(item).catch(() =>
@@ -442,19 +465,19 @@ export function App() {
           />
         </Suspense>
       )}
-      {helpOpen && (
+      {loadedOverlays.help && (
         <Suspense
-          fallback={<LoadingIndicator label={t('ui.loading', locale)} />}
+          fallback={helpOpen ? <LoadingIndicator label={t('ui.loading', locale)} /> : null}
         >
-          <ShortcutDialog onClose={() => setHelpOpen(false)} />
+          <ShortcutDialog isOpen={helpOpen} onClose={() => setHelpOpen(false)} />
         </Suspense>
       )}
-      {settingsOpen && (
+      {loadedOverlays.settings && (
         <Suspense
-          fallback={<LoadingIndicator label={t('ui.loading', locale)} />}
+          fallback={settingsOpen ? <LoadingIndicator label={t('ui.loading', locale)} /> : null}
         >
           <SettingsDialog
-            isOpen
+            isOpen={settingsOpen}
             onOpenChange={setSettingsOpen}
             installation={pwa}
           />

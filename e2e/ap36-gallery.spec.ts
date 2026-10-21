@@ -185,7 +185,7 @@ for (const [motion, os] of [
         .first();
       await trigger.scrollIntoViewIfNeeded();
       await idle(page, true);
-      const selector = component === 'Menu' ? '.ui-menu-popover' : '.ui-modal';
+      const selector = component === 'Menu' ? '.ui-menu-popover' : '.ui-modal-overlay';
       await holdNext(page, selector);
       await trigger.click();
       const overlay = page.locator(selector);
@@ -197,10 +197,10 @@ for (const [motion, os] of [
         await picture(info, `${component}-middle`, overlay);
       } else expect(await held(page)).toEqual([]);
       await attach(info, `${component}-held`, await held(page));
+      await resume(page);
       await page.keyboard.press('Escape');
       await expect(overlay).toHaveCount(0);
       await expect(trigger).toBeFocused();
-      await resume(page);
       await trigger.press('Enter');
       await expect(overlay).toBeVisible();
       await page.keyboard.press('Escape');
@@ -324,3 +324,70 @@ test.use({
 test.describe('common button foundation', () => {
   buttonContractCases(true);
 });
+
+for (const component of ['Dialog', 'Menu', 'SideSheet'] as const) {
+  test(`AP45 ${component}: real exit frames, reversible presence and policy cancellation`, async ({
+    page,
+  }, info) => {
+    await page.goto('/m8e-calc/#/design');
+    await page.getByLabel('Animationsstufe').selectOption('full');
+    const trigger = page.locator(
+      `[data-component="${component}"] [data-state="default"] button`,
+    ).first();
+    const selector = component === 'Menu' ? '.ui-menu-popover' : '.ui-modal-overlay';
+    const overlay = page.locator(selector);
+    await trigger.click();
+    await expect(overlay).toBeVisible();
+    await idle(page, true);
+    await holdNext(page, selector, false, 40);
+    await page.keyboard.press('Escape');
+    await expect.poll(async () => (await held(page)).length).toBeGreaterThan(0);
+    const exit = await sampleFrames(overlay, 2);
+    expect(exit.every((f) => f.connected && f.opacity > 0 && f.opacity < 1)).toBe(true);
+    expect(await overlay.evaluate((node) => getComputedStyle(node).pointerEvents)).toBe('none');
+    expect(await overlay.locator('[inert]').count()).toBeGreaterThan(0);
+    await picture(info, `${component}-exit-middle`, overlay);
+    await attach(info, `${component}-exit-frames`, { exit, animations: await held(page) });
+    const original = await overlay.elementHandle();
+    // Disarm the recorder, retaining the paused real exit. The native opener
+    // must be reachable while the closing surface is still painted.
+    await page.evaluate(() => { Reflect.get(window, 'ap36Probe').selector = ''; });
+    await trigger.click();
+    expect(await overlay.evaluate((node, original) => node === original, original)).toBe(true);
+    await expect(overlay).not.toHaveAttribute('data-exiting');
+    const reversal = await sampleFrames(overlay, 8);
+    expect(reversal[0]?.opacity).toBeGreaterThan(exit[0]?.opacity ?? 0);
+    expect(reversal.at(-1)?.opacity).toBeGreaterThanOrEqual(reversal[0]?.opacity ?? 0);
+    await attach(info, `${component}-reversal-frames`, reversal);
+    await resume(page);
+    await idle(page, true);
+    // OS changes during an actual exit must release React Aria's cancelled
+    // native transition promise, rather than retain a transparent portal.
+    await holdNext(page, selector, false, 40);
+    await page.keyboard.press('Escape');
+    await expect.poll(async () => (await held(page)).length).toBeGreaterThan(0);
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await expect(overlay).toHaveCount(0);
+    await expect(trigger).toBeFocused();
+    await resume(page);
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+    for (const policy of ['reduced', 'off'] as const) {
+      await page.getByLabel('Animationsstufe').selectOption('full');
+      await trigger.click();
+      await idle(page, true);
+      await holdNext(page, selector, false, 40);
+      await page.keyboard.press('Escape');
+      await expect.poll(async () => (await held(page)).length).toBeGreaterThan(0);
+      await page.getByLabel('Animationsstufe').selectOption(policy);
+      await expect(overlay).toHaveCount(0);
+      await resume(page);
+      await trigger.press('Enter');
+      await expect(overlay).toBeVisible();
+      expect((await sampleFrames(overlay, 2)).every((f) => f.opacity === 1 && f.animations === 0)).toBe(true);
+      await page.keyboard.press('Escape');
+      await expect(overlay).toHaveCount(0);
+    }
+    await idle(page, true);
+    await original?.dispose();
+  });
+}

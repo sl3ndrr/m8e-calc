@@ -25,17 +25,16 @@
 .ui-dialog > .ui-button {
   justify-self: end;
 }
-.ui-modal[data-entering] {
-  animation: ui-dialog-in var(--md-sys-motion-spatial-default-duration)
-    var(--md-sys-motion-spatial-default-easing);
+/* The backdrop and surface fade together; no transform changes placement. */
+.ui-modal-overlay {
+  opacity: 1;
+  transition: opacity var(--md-sys-motion-effects-fast-duration)
+    var(--md-sys-motion-effects-fast-easing);
 }
-@keyframes ui-dialog-in {
-  from {
-    opacity: 0;
-    transform: scale(0.92);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+.ui-modal-overlay:where([data-entering], [data-exiting]) {
+  opacity: 0;
+}
+.ui-modal-overlay[data-exiting],
+.ui-modal-overlay[data-exiting] * {
+  pointer-events: none !important;
 }

@@ -291,3 +291,70 @@ test.use({
 test.describe('common button foundation', () => {
   buttonContractCases(false);
 });
+
+for (const mode of ['simple', 'scientific', 'convert', 'graph'] as const) {
+  for (const theme of ['light', 'dark'] as const) {
+    test(`AP45 ${mode} ${theme}: settings and nested selection have real enter/exit frames`, async ({
+      page,
+    }, info) => {
+      await page.emulateMedia({ colorScheme: theme, reducedMotion: 'no-preference' });
+      await page.goto(`/m8e-calc/#/${mode}`);
+      const opener = page.getByRole('button', { name: 'Einstellungen', exact: true });
+      await opener.click();
+      const settings = page.locator('.settings-dialog');
+      await expect(settings).toBeVisible();
+      await idle(page);
+      const accent = settings.getByRole('button', { name: 'Akzentfarbe anpassen' });
+      await holdNext(page, '.accent-popover', false, 40);
+      await accent.click();
+      await expect(page.getByRole('button', { name: 'Iris', exact: true })).toBeFocused();
+      await expect.poll(async () => (await held(page)).length).toBeGreaterThan(0);
+      const picker = page.locator('.accent-popover');
+      const enter = await sampleFrames(picker, 2);
+      expect(enter.every((f) => f.opacity > 0 && f.opacity < 1)).toBe(true);
+      // Its fixed centering transform must survive all phases.
+      const center = await picker.boundingBox();
+      expect(Math.abs((center?.x ?? 0) + (center?.width ?? 0) / 2 - 800)).toBeLessThan(1);
+      await picture(info, 'accent-enter-middle', picker);
+      await resume(page);
+      await idle(page);
+      const variant = picker.getByRole('button', { name: /Schema-Variante/ });
+      await variant.click();
+      await expect(page.getByRole('listbox')).toBeVisible();
+      await idle(page);
+      await holdNext(page, '.ui-popover:not(.accent-popover)', false, 40);
+      await page.keyboard.press('Escape');
+      const select = page.locator('.ui-popover:not(.accent-popover)');
+      await expect.poll(async () => (await held(page)).length).toBeGreaterThan(0);
+      const selectionExit = await sampleFrames(select, 2);
+      expect(selectionExit.every((f) => f.connected && f.opacity > 0 && f.opacity < 1)).toBe(true);
+      await picture(info, 'select-exit-middle', select);
+      await resume(page);
+      await expect(select).toHaveCount(0);
+      await expect(variant).toBeFocused();
+      await expect(picker).toBeVisible();
+      await holdNext(page, '.accent-popover', false, 40);
+      await page.keyboard.press('Escape');
+      await expect.poll(async () => (await held(page)).length).toBeGreaterThan(0);
+      const exit = await sampleFrames(picker, 2);
+      expect(exit.every((f) => f.opacity > 0 && f.opacity < 1)).toBe(true);
+      await picture(info, 'accent-exit-middle', picker);
+      await attach(info, 'nested-overlay-frames', { mode, theme, enter, selectionExit, exit });
+      await resume(page);
+      await expect(picker).toHaveCount(0);
+      await expect(accent).toBeFocused();
+      await holdNext(page, '.ui-modal-overlay', false, 40);
+      await page.keyboard.press('Escape');
+      await expect.poll(async () => (await held(page)).length).toBeGreaterThan(0);
+      const backdrop = page.locator('.ui-modal-overlay');
+      const dialogExit = await sampleFrames(backdrop, 2);
+      expect(dialogExit.every((f) => f.opacity > 0 && f.opacity < 1)).toBe(true);
+      await picture(info, 'dialog-backdrop-exit-middle', backdrop);
+      await attach(info, 'dialog-backdrop-exit-frames', dialogExit);
+      await resume(page);
+      await expect(backdrop).toHaveCount(0);
+      await expect(opener).toBeFocused();
+      await idle(page);
+    });
+  }
+}

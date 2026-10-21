@@ -6,9 +6,11 @@ import { searchPalette, type PaletteCommand } from './paletteModel';
 import { shortcutHint } from './shortcuts';
 import './Comfort.css';
 export function CommandPalette({
+  isOpen = true,
   onClose,
   onCommand,
 }: {
+  isOpen?: boolean;
   onClose: () => void;
   onCommand: (command: PaletteCommand) => void;
 }) {
@@ -20,9 +22,12 @@ export function CommandPalette({
     list = useRef<HTMLUListElement>(null),
     input = useRef<HTMLInputElement>(null);
   useEffect(() => {
+    if (!isOpen) return;
+    setQuery('');
+    setActive(0);
     const frame = window.requestAnimationFrame(() => input.current?.focus());
     return () => window.cancelAnimationFrame(frame);
-  }, []);
+  }, [isOpen]);
   const selected = Math.min(active, Math.max(0, results.length - 1));
   function choose(command: PaletteCommand): void {
     onClose();
@@ -34,7 +39,7 @@ export function CommandPalette({
       title={t('comfort.palette', locale)}
       closeLabel={t('ui.close', locale)}
       className="command-palette"
-      isOpen
+      isOpen={isOpen}
       onOpenChange={(open) => {
         if (!open) onClose();
       }}
