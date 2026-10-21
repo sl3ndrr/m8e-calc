@@ -8,7 +8,15 @@ export interface ParameterFrame {
   rendered: { signature: string; born: number; length: number }[];
 }
 export interface ParameterProbe {
-  activity: { at: number; frames: number; visible: string; focused: boolean }[];
+  activity: {
+    at: number;
+    frames: number;
+    visible: string;
+    focused: boolean;
+    sampling: string | null;
+    rendered: string | null;
+  }[];
+  errors: { at: number; message: string }[];
   delay: number;
   errorNext: boolean;
   stallNext: boolean;
@@ -36,6 +44,7 @@ export async function installParameterProbe(page: Page): Promise<void> {
   await page.addInitScript(() => {
     const probe: ParameterProbe = {
       activity: [],
+      errors: [],
       delay: 0,
       errorNext: false,
       stallNext: false,
@@ -50,6 +59,9 @@ export async function installParameterProbe(page: Page): Promise<void> {
       stop: () => {},
     };
     Object.assign(window, { __parameterProbe: probe });
+    window.addEventListener('error', (event) => {
+      probe.errors.push({ at: performance.now(), message: event.message });
+    });
     const segments = new WeakMap<Path2D, number>();
     const ids = new WeakMap<Path2D, number>();
     let nextId = 0;
@@ -102,12 +114,18 @@ export async function installParameterProbe(page: Page): Promise<void> {
     probe.start = () => {
       clearInterval(heartbeat);
       probe.activity = [];
+      probe.errors = [];
       heartbeat = window.setInterval(() => {
+        const canvas = document.querySelector<HTMLCanvasElement>(
+          'canvas.graph-canvas',
+        );
         probe.activity.push({
           at: performance.now(),
           frames: probe.frames.length,
           visible: document.visibilityState,
           focused: document.hasFocus(),
+          sampling: canvas?.dataset.sampling ?? null,
+          rendered: canvas?.dataset.renderedResult ?? null,
         });
       }, 250);
       cancelAnimationFrame(frame);
@@ -191,6 +209,7 @@ export async function readProbe(page: Page) {
     probe.stop();
     return {
       activity: probe.activity,
+      errors: probe.errors,
       created: probe.created,
       terminated: probe.terminated,
       inFlight: probe.inFlight,

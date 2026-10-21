@@ -1,5 +1,6 @@
 import { test, expect, type Page } from '@playwright/test';
 import { writeFile } from 'node:fs/promises';
+import { cpus, platform, release } from 'node:os';
 import { replaceGraphExpression } from './graphEditor';
 import {
   installParameterProbe,
@@ -18,13 +19,25 @@ test.beforeEach(async ({ page, browserName }, info) => {
   await installParameterProbe(page);
 });
 
-test.afterEach(async ({ page }, info) => {
+test.afterEach(async ({ page, browser, browserName }, info) => {
   // Save the still-running recorder even when an early assertion fails.
   if (page.isClosed()) return;
   const probe = await readProbe(page);
   const report = {
     head: process.env.GITHUB_SHA,
     status: info.status,
+    browser: { name: browserName, version: browser.version() },
+    node: process.version,
+    runner: {
+      os: platform(),
+      release: release(),
+      cpu: cpus()[0]?.model,
+      cpus: cpus().length,
+      image: process.env.ImageVersion,
+    },
+    workers: info.config.workers,
+    workerIndex: info.workerIndex,
+    parallelIndex: info.parallelIndex,
     ...probe,
   };
   await writeFile(
