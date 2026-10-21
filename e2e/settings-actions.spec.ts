@@ -32,6 +32,10 @@ test('shell keeps theme; settings own nested color selection and persistence', a
   const trigger = appearance.getByRole('button', {
     name: 'Akzentfarbe anpassen',
   });
+  await expect(trigger).toBeVisible();
+  await expect(page.locator('.settings-dialog')).not.toHaveAttribute(
+    'data-entering',
+  );
   await info.attach('settings-1280', {
     body: await page.screenshot({ path: info.outputPath('settings-1280.png') }),
     contentType: 'image/png',
@@ -43,6 +47,9 @@ test('shell keeps theme; settings own nested color selection and persistence', a
   ).toBeFocused();
   await picker.getByRole('button', { name: 'Koralle', exact: true }).click();
   const variant = picker.getByRole('button', { name: /Schema-Variante/ });
+  await expect(page.locator('.accent-popover')).not.toHaveAttribute(
+    'data-entering',
+  );
   await info.attach('nested-accent-1280', {
     body: await page.screenshot({ path: info.outputPath('accent-1280.png') }),
     contentType: 'image/png',

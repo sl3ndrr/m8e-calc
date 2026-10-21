@@ -1,6 +1,24 @@
-import { chromium, expect, test, type Page } from '@playwright/test';
+import {
+  chromium,
+  expect,
+  test,
+  type CDPSession,
+  type Page,
+} from '@playwright/test';
 import { resolve } from 'node:path';
-import { rm } from 'node:fs/promises';
+import { rm, writeFile } from 'node:fs/promises';
+
+async function captureNative(cdp: CDPSession, path: string): Promise<Buffer> {
+  // Page.screenshot clips in CSS coordinates at native tab zoom. CDP without
+  // a clip captures the entire physical viewport, as required for visual QA.
+  const result = await cdp.send('Page.captureScreenshot', {
+    format: 'png',
+    captureBeyondViewport: false,
+  });
+  const data = Buffer.from(result.data, 'base64');
+  await writeFile(path, data);
+  return data;
+}
 
 async function fits(page: Page, selector: string): Promise<void> {
   await expect
@@ -93,10 +111,16 @@ test('settings and nested accent fit narrow desktop at native 100/200% zoom', as
       });
       await opener.click();
       await fits(page, '.settings-dialog');
+      await expect(page.locator('.settings-dialog')).not.toHaveAttribute(
+        'data-entering',
+      );
+      const settingsImage = await captureNative(
+        cdp,
+        info.outputPath(`settings-zoom-${zoom}.png`),
+      );
+      expect(settingsImage.readUInt32BE(16)).toBe(initial.width * initial.dpr);
       await info.attach(`settings-zoom-${zoom}`, {
-        body: await page.screenshot({
-          path: info.outputPath(`settings-zoom-${zoom}.png`),
-        }),
+        body: settingsImage,
         contentType: 'image/png',
       });
       const trigger = page.getByRole('button', {
@@ -105,10 +129,16 @@ test('settings and nested accent fit narrow desktop at native 100/200% zoom', as
       await trigger.click();
       await expect(page.getByRole('button', { name: 'Iris' })).toBeFocused();
       await fits(page, '.accent-popover');
+      await expect(page.locator('.accent-popover')).not.toHaveAttribute(
+        'data-entering',
+      );
+      const accentImage = await captureNative(
+        cdp,
+        info.outputPath(`accent-zoom-${zoom}.png`),
+      );
+      expect(accentImage.readUInt32BE(16)).toBe(initial.width * initial.dpr);
       await info.attach(`accent-zoom-${zoom}`, {
-        body: await page.screenshot({
-          path: info.outputPath(`accent-zoom-${zoom}.png`),
-        }),
+        body: accentImage,
         contentType: 'image/png',
       });
       await page.getByRole('button', { name: /Schema-Variante/ }).click();
