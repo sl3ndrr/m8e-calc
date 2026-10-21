@@ -446,3 +446,72 @@ for (const policy of ['full', 'reduced', 'off'] as const) {
     await expect(opener).toBeFocused();
   });
 }
+
+test('AP48 history exit permits a cold settings click and a warm reopen', async ({
+  page,
+}, info) => {
+  await installMotionProbe(page);
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.setViewportSize({ width: 1280, height: 800 });
+  const chunk = await holdChunk(page, 'SettingsDialog');
+  try {
+    await page.goto('/m8e-calc/#/simple');
+    await expect(page.locator('.calculator-announcement')).toHaveText('0');
+    const opener = page.getByRole('button', {
+      name: 'Einstellungen',
+      exact: true,
+    });
+    await page.keyboard.press('Control+h');
+    const history = page.getByRole('dialog', { name: 'Verlauf', exact: true });
+    await expect(history).toBeVisible();
+    await expect
+      .poll(() =>
+        page
+          .locator('.ui-modal-overlay')
+          .evaluate((node) => node.getAnimations().length),
+      )
+      .toBe(0);
+    await holdNext(page, '.ui-modal-overlay', false, 40);
+    await page.keyboard.press('Escape');
+    await expect.poll(async () => (await held(page)).length).toBeGreaterThan(0);
+    // The old scope is deliberately still mounted. A new native click owns intent.
+    await opener.click();
+    await chunk.requested;
+    await page.screenshot({
+      path: info.outputPath('history-exit-settings-loading.png'),
+    });
+    await resume(page);
+    await expect(history).toHaveCount(0);
+    const response = page.waitForResponse(
+      /\/assets\/SettingsDialog-[^/]+\.js$/,
+    );
+    chunk.release();
+    await response;
+    const settings = page.getByRole('dialog', {
+      name: 'Einstellungen',
+      exact: true,
+    });
+    await expect(settings).toBeVisible();
+    await page.screenshot({
+      path: info.outputPath('settings-after-history.png'),
+    });
+    await expect
+      .poll(() =>
+        settings.evaluate((node) => node.contains(document.activeElement)),
+      )
+      .toBe(true);
+    await page.keyboard.press('Escape');
+    await expect(opener).toBeFocused();
+    await page.keyboard.press('Control+h');
+    await expect(history).toBeVisible();
+    await page.keyboard.press('Escape');
+    await opener.click();
+    await expect(settings).toBeVisible();
+    await expect(page.getByRole('dialog')).toHaveCount(1);
+    await page.keyboard.press('Escape');
+    await expect(opener).toBeFocused();
+  } finally {
+    chunk.release();
+    await resume(page);
+  }
+});
