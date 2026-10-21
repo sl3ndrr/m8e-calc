@@ -171,8 +171,15 @@ test('no prompt and appinstalled leave no dead install action', async ({
     exact: true,
   });
   await opener.click();
+  const settings = page.getByRole('dialog', {
+    name: 'Einstellungen',
+    exact: true,
+  });
+  await expect(settings).toBeVisible();
   await expect(install).toHaveCount(0);
   await page.keyboard.press('Escape');
+  await expect(settings).toBeHidden();
+  await expect(opener).toBeFocused();
   await page.evaluate(() => {
     window.dispatchEvent(
       Object.assign(new Event('beforeinstallprompt', { cancelable: true }), {
@@ -185,6 +192,7 @@ test('no prompt and appinstalled leave no dead install action', async ({
     window.dispatchEvent(new Event('appinstalled'));
   });
   await opener.click();
+  await expect(settings).toBeVisible();
   await expect(install).toHaveCount(0);
   await expect(page.locator('.shell-toolbar .accent-trigger')).toHaveCount(0);
 });
