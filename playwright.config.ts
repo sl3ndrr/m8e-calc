@@ -34,6 +34,7 @@ export default defineConfig({
       testMatch: [
         '**/qa-hardening.spec.ts',
         '**/comfort.spec.ts',
+        '**/settings-actions.spec.ts',
         '**/ap18-ui.spec.ts',
         '**/calculator-rendering.spec.ts',
         '**/simple-calculator.spec.ts',

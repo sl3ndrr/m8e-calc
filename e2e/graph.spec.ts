@@ -194,6 +194,9 @@ test('canvas reloads theme and accent tokens; PNG copies to the clipboard', asyn
   const color = await page
     .locator('.graph-color-dot')
     .evaluate((element) => getComputedStyle(element).backgroundColor);
+  await page
+    .getByRole('button', { name: 'Einstellungen', exact: true })
+    .click();
   await page.getByRole('button', { name: 'Akzentfarbe anpassen' }).click();
   await page
     .getByRole('dialog', { name: 'Deine Farbwelt' })
@@ -207,6 +210,7 @@ test('canvas reloads theme and accent tokens; PNG copies to the clipboard', asyn
         .evaluate((element) => getComputedStyle(element).backgroundColor),
     )
     .not.toBe(color);
+  await page.keyboard.press('Escape');
   // Binary OS clipboard permissions are Chromium-only; theme assertions above
   // still run in every engine.
   if (context.browser()?.browserType().name() !== 'chromium') return;

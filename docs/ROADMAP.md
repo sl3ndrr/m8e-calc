@@ -223,3 +223,10 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
   alter main bei allen fünf Kurventypen negativ. Aktuelle AP28-/4K-/Mixed-Gates
   grün; früheres Performance-Rot bleibt dokumentiert und #43 offen.
   Ein bestehender Galerie-Theme-Timeout blockiert die Gesamt-CI; kein Merge.
+
+- [ ] 44 Akzent und Installation in Einstellungen — `feat/ap44-settings-actions`,
+      ab main `aa8ed101`: vorhandener AccentPicker unter Erscheinungsbild,
+      Installation unter App ausschließlich mit Browserprompt; ThemeSwitch bleibt
+      in der Shell. Zentraler PWA-Lifecycle und Lazy-Grenzen bleiben erhalten.
+      Prüfstatus und Grenzen: [AP44](AP44.md).
+      Weitere Overlay-/Controls-Animationen bleiben einem eigenen Paket vorbehalten.

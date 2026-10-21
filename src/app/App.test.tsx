@@ -57,3 +57,26 @@ it('opens history from the shortcut, retains visibility by mode and opens settin
     await screen.findByRole('dialog', { name: t('shell.settings') }),
   ).toBeVisible();
 });
+
+it('keeps theme in the shell and places accent only in settings', async () => {
+  const user = userEvent.setup();
+  render(<App />);
+  await screen.findByRole('heading', { name: t('mode.simple') });
+  expect(
+    screen.getByRole('radiogroup', { name: 'Erscheinungsbild' }),
+  ).toBeVisible();
+  expect(
+    screen.queryByRole('button', { name: 'Akzentfarbe anpassen' }),
+  ).toBeNull();
+  expect(
+    screen.queryByRole('button', { name: 'App installieren', hidden: true }),
+  ).toBeNull();
+  await user.click(screen.getByRole('button', { name: t('shell.settings') }));
+  expect(
+    await screen.findByRole('region', { name: 'Erscheinungsbild' }),
+  ).toBeVisible();
+  expect(
+    screen.getByRole('button', { name: 'Akzentfarbe anpassen' }),
+  ).toBeVisible();
+  expect(screen.queryByRole('button', { name: 'App installieren' })).toBeNull();
+});

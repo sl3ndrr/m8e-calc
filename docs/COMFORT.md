@@ -167,3 +167,14 @@ der scrollenden Modusbühne. Sein Öffnen darf deren Scrollbreite nicht verände
 oder einen ResizeObserver-Fehler erzeugen; die de/en-Tastaturregression prüft dies.
 Umrechner-Referenzen warten auf den abgeschlossenen Ruheverlauf und das zuletzt
 genutzte Paar, damit Timer keinen wechselnden Screenshotzustand erzeugen.
+
+## AP44 · Einstellungen als Produktzugang
+
+Akzentfarbe liegt direkt unter Einstellungen → Erscheinungsbild; die Shell
+behält den Hell/System/Dunkel-Schalter. Einstellungen → App enthält die
+Installation ausschließlich bei vorhandenem Browserprompt. Es bleiben keine
+unsichtbaren Werkzeugleisten-Platzhalter zurück. `usePwa` bleibt zentral in App
+aktiv und übergibt nur `PwaInstallation` an den lazy geladenen Dialog; frühe
+Installationsereignisse sowie Update-/Worker-Lifecycle bleiben erhalten.
+Verschachtelte Auswahl und Farbpanel schließen mit je einem Escape und geben
+Fokus stufenweise zurück. Prüfstatus und Grenzen: [AP44](AP44.md).

@@ -5,7 +5,11 @@ interface InstallPrompt extends Event {
   prompt(): Promise<void>;
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
 }
-export function usePwa(): { canInstall: boolean; install: () => void } {
+export interface PwaInstallation {
+  canInstall: boolean;
+  install: () => void;
+}
+export function usePwa(): PwaInstallation {
   const [prompt, setPrompt] = useState<InstallPrompt | null>(null);
   useEffect(() => {
     if (!import.meta.env.PROD || !('serviceWorker' in navigator)) return;

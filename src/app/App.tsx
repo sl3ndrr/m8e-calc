@@ -230,7 +230,7 @@ export function App() {
       aria-label={t('design.controls', locale)}
     >
       <ThemeSwitch />
-      <AccentPicker />
+      {__INTERNAL_DESIGN_LAB__ && route === 'design' && <AccentPicker />}
     </div>
   );
   const notifications = (
@@ -362,14 +362,6 @@ export function App() {
                   {t('comfort.presentation', locale)} ·{' '}
                   {shortcutHint('presentation')}
                 </Tooltip>
-                <Button
-                  variant="text"
-                  onPress={pwa.install}
-                  style={{ visibility: pwa.canInstall ? 'visible' : 'hidden' }}
-                  aria-hidden={!pwa.canInstall || undefined}
-                >
-                  {t('comfort.install', locale)}
-                </Button>
                 <IconButton
                   icon="settings"
                   variant="text"
@@ -461,7 +453,11 @@ export function App() {
         <Suspense
           fallback={<LoadingIndicator label={t('ui.loading', locale)} />}
         >
-          <SettingsDialog isOpen onOpenChange={setSettingsOpen} />
+          <SettingsDialog
+            isOpen
+            onOpenChange={setSettingsOpen}
+            installation={pwa}
+          />
         </Suspense>
       )}
       {route !== 'design' && notifications}

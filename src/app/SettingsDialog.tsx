@@ -1,4 +1,6 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import type { PwaInstallation } from './pwa';
+import { AccentPicker } from '../ui/AccentPicker';
 import { Button } from '../ui/Button';
 import { Dialog } from '../ui/Dialog';
 import { Select } from '../ui/Select';
@@ -20,13 +22,24 @@ import { downloadFile, exportSettings, importSettings } from './fileTransfer';
 export function SettingsDialog({
   isOpen,
   onOpenChange,
+  installation,
 }: {
   isOpen: boolean;
+  installation: PwaInstallation;
   onOpenChange: (open: boolean) => void;
 }) {
   const locale = useAppStore((state) => state.locale);
   const settings = useSettingsStore();
   const input = useRef<HTMLInputElement>(null);
+  const accentTrigger = useRef<HTMLButtonElement>(null);
+  const requestedInstall = useRef(false);
+  useEffect(() => {
+    if (installation.canInstall || !requestedInstall.current) return;
+    requestedInstall.current = false;
+    // Consuming a browser prompt removes its button; keep focus in settings.
+    const frame = requestAnimationFrame(() => accentTrigger.current?.focus());
+    return () => cancelAnimationFrame(frame);
+  }, [installation.canInstall]);
   const [confirmReset, setConfirmReset] = useState(false);
   const languageOptions = (['auto', 'de', 'en'] as const).map((id) => ({
     id,
@@ -58,15 +71,42 @@ export function SettingsDialog({
       }}
     >
       <div className="settings-sections">
-        <Slider
-          label={t('comfort.uiSize', locale)}
-          minValue={80}
-          maxValue={150}
-          step={5}
-          value={settings.uiSize}
-          formatOptions={{ style: 'unit', unit: 'percent' }}
-          onChange={(uiSize) => settings.updateSettings({ uiSize })}
-        />
+        <section aria-label={t('settings.appearance', locale)}>
+          <h3>{t('settings.appearance', locale)}</h3>
+          <AccentPicker triggerRef={accentTrigger} />
+          <Slider
+            label={t('comfort.uiSize', locale)}
+            minValue={80}
+            maxValue={150}
+            step={5}
+            value={settings.uiSize}
+            formatOptions={{ style: 'unit', unit: 'percent' }}
+            onChange={(uiSize) => settings.updateSettings({ uiSize })}
+          />
+          <Select
+            label={t('design.motionLevel', locale)}
+            options={motionOptions}
+            selectedKey={settings.motionLevel}
+            onSelectionChange={(key) => {
+              const motionLevel = motionLevels.find((level) => level === key);
+              if (motionLevel) settings.updateSettings({ motionLevel });
+            }}
+          />
+        </section>
+        {installation.canInstall && (
+          <section aria-label={t('settings.app', locale)}>
+            <h3>{t('settings.app', locale)}</h3>
+            <Button
+              variant="outlined"
+              onPress={() => {
+                requestedInstall.current = true;
+                installation.install();
+              }}
+            >
+              {t('comfort.install', locale)}
+            </Button>
+          </section>
+        )}
         <Switch
           isSelected={settings.presentationHistory}
           onChange={(presentationHistory) =>
@@ -122,15 +162,6 @@ export function SettingsDialog({
             </output>
           </p>
         </section>
-        <Select
-          label={t('design.motionLevel', locale)}
-          options={motionOptions}
-          selectedKey={settings.motionLevel}
-          onSelectionChange={(key) => {
-            const motionLevel = motionLevels.find((level) => level === key);
-            if (motionLevel) settings.updateSettings({ motionLevel });
-          }}
-        />
         <section aria-label={t('history.title', locale)}>
           <h3>{t('history.title', locale)}</h3>
           <TextField

@@ -29,6 +29,12 @@ for (const locale of ['de-DE', 'en-US']) {
       if (!entry || !simple) throw Error('Missing startup entry');
       visit(entry);
       visit(simple);
+      const settingsKey = 'src/app/SettingsDialog.tsx';
+      const accentKey = 'src/ui/AccentPanel.tsx';
+      for (const key of [settingsKey, accentKey]) {
+        expect(manifest[key]).toBeDefined();
+        expect(expected.has(manifest[key]?.file ?? '')).toBe(false);
+      }
       const scripts = new Set<string>();
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
@@ -88,6 +94,15 @@ for (const locale of ['de-DE', 'en-US']) {
           name: locale === 'de-DE' ? 'Online-Kurse laden' : 'Load online rates',
         }),
       ).toBeVisible();
+      const accentFile = manifest[accentKey]?.file ?? '';
+      expect(scripts.has(accentFile)).toBe(false);
+      await page.locator('.settings-dialog .accent-trigger').click();
+      await expect(page.locator('.accent-popover .seed').first()).toBeFocused();
+      expect(scripts.has(accentFile)).toBe(true);
+      await page.keyboard.press('Escape');
+      await expect(
+        page.locator('.settings-dialog .accent-trigger'),
+      ).toBeFocused();
       await page.keyboard.press('Escape');
       await expect(
         page.getByRole('button', { name: settingsName, exact: true }),
