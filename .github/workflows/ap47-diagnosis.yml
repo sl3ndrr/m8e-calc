@@ -1,4 +1,4 @@
-name: AP49 culled native tile comparison
+name: AP49 equivalent rectangle geometry comparison
 on:
   push:
     branches: [feat/ap47-bounded-diagnosis]
@@ -19,13 +19,13 @@ jobs:
       - run: npm install --global npm@11.19.0
       - run: npm ci --engine-strict
       - run: npx playwright install --with-deps chromium firefox webkit
-      - run: npm run check
-      - name: Native raster parity and fixed original then culled native grid
+      - name: Native raster parity, full check, fixed original then rectangle grid
         run: |
           status=0
-          npx playwright test --config=playwright.ap49-raster.config.ts --workers=1 --retries=0 --reporter=list --output=test-results/ap49-raster || status=1
+          npx playwright test --config=playwright.ap49-raster.config.ts --workers=1 --retries=0 --reporter=list --output=test-results/ap49-raster || exit 1
+          npm run check || exit 1
           cp src/features/graph/renderer.ts "$RUNNER_TEMP/ap49-renderer.ts"
-          for ap49_variant in original clipped; do
+          for ap49_variant in original rectangles; do
             if [ "$ap49_variant" = original ]; then
               cp diagnostics/ap49-renderer-before.txt src/features/graph/renderer.ts
             else
@@ -40,6 +40,6 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: ap49-culled-native-comparison
+          name: ap49-rectangle-comparison
           path: test-results/
           retention-days: 14
