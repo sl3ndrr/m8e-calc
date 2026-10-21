@@ -1,6 +1,7 @@
 import {
   useCallback,
   useContext,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -19,6 +20,7 @@ export function useOverlayTransition(
   const trigger = useRef(triggerRef);
   const mounted = useRef(true);
   const returnTarget = useRef<HTMLElement | null>(null);
+  const returnOrigin = useRef<Element | null>(null);
   const returnFrame = useRef(0);
   const cancelReturn = useRef<(() => void) | null>(null);
   const stopReturn = useCallback(() => {
@@ -28,6 +30,41 @@ export function useOverlayTransition(
     cancelReturn.current = null;
     returnTarget.current = null;
   }, []);
+  const captureReturn = useCallback(
+    (target: Element | null, node: HTMLElement) => {
+      if (
+        !(target instanceof HTMLElement) ||
+        !target.isConnected ||
+        node.contains(target)
+      )
+        return;
+      returnTarget.current = target;
+      window.addEventListener('pointerdown', stopReturn, true);
+      window.addEventListener('keydown', stopReturn, true);
+      cancelReturn.current = () => {
+        window.removeEventListener('pointerdown', stopReturn, true);
+        window.removeEventListener('keydown', stopReturn, true);
+      };
+    },
+    [stopReturn],
+  );
+  const restorePending = useCallback(() => {
+    const target = returnTarget.current;
+    const active = document.activeElement;
+    if (
+      mounted.current &&
+      target?.isConnected &&
+      !target.closest('[inert]') &&
+      active !== target &&
+      (active === document.body || active === target.closest('[role="dialog"]'))
+    )
+      target.focus({ preventScroll: true });
+  }, []);
+  // Child Aria isolation cleans up in passive effects. Return focus before the
+  // next native key, while retaining the single post-exit cold-load fallback.
+  useEffect(() => {
+    restorePending();
+  });
   useLayoutEffect(() => {
     mounted.current = true;
     return () => {
@@ -55,22 +92,22 @@ export function useOverlayTransition(
       synchronize.current = null;
       currentElement.current = node;
       if (!node) {
-        if (mounted.current && previous?.hasAttribute('data-exiting')) {
+        if (mounted.current && previous) {
+          // Reduced/off can remove the scope without ever publishing exiting.
+          if (
+            !returnTarget.current &&
+            previous.contains(document.activeElement)
+          )
+            captureReturn(
+              trigger.current?.current ?? returnOrigin.current,
+              previous,
+            );
           const target = returnTarget.current;
           if (target)
             returnFrame.current = requestAnimationFrame(() => {
               returnFrame.current = 0;
-              const active = document.activeElement;
-              const restore =
-                mounted.current &&
-                returnTarget.current === target &&
-                target.isConnected &&
-                !target.closest('[inert]') &&
-                (active === document.body ||
-                  active === target ||
-                  active === target.closest('[role="dialog"]'));
+              restorePending();
               stopReturn();
-              if (restore) target.focus({ preventScroll: true });
             });
           afterClose.current?.();
         }
@@ -80,6 +117,7 @@ export function useOverlayTransition(
       let wasExiting = false;
       let lastFocused: HTMLElement | null = null;
       const previousFocus = document.activeElement;
+      returnOrigin.current = previousFocus;
       const rememberFocus = (event: FocusEvent) => {
         if (event.target instanceof HTMLElement) lastFocused = event.target;
       };
@@ -92,21 +130,8 @@ export function useOverlayTransition(
         // actual scope removal, after Aria's own cleanup. New input owns focus.
         if (exiting && !wasExiting && node.contains(document.activeElement)) {
           const target = trigger.current?.current ?? previousFocus;
-          if (
-            target instanceof HTMLElement &&
-            target.isConnected &&
-            !node.contains(target)
-          ) {
-            returnTarget.current = target;
-            window.addEventListener('pointerdown', stopReturn, true);
-            window.addEventListener('keydown', stopReturn, true);
-            cancelReturn.current = () => {
-              window.removeEventListener('pointerdown', stopReturn, true);
-              window.removeEventListener('keydown', stopReturn, true);
-            };
-            if (!target.closest('[inert]'))
-              target.focus({ preventScroll: true });
-          }
+          captureReturn(target, node);
+          restorePending();
         }
         if (!exiting && wasExiting) stopReturn();
         node.inert = exiting;
@@ -145,7 +170,7 @@ export function useOverlayTransition(
         node.removeEventListener('transitioncancel', cancel);
       };
     },
-    [stopReturn],
+    [stopReturn, captureReturn, restorePending],
   );
   return [key, ref] as const;
 }

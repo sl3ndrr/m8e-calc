@@ -214,8 +214,10 @@ stattdessen alle geplanten Rückgaben ab.
 Der Adapter erfasst noch selbst gehaltenen Fokus beim logischen Close vor
 Inertheit. Popover verwendet den slotted React-Aria-Triggerref, Dialog das vor
 seinem Mount aktive Ziel. Da Aria-Outside-Isolation den Trigger noch inert
-halten kann, prüft der gemeinsame Kaltstartfallback nach Scope-Entfernung genau
-einen rAF. Er ersetzt ausschließlich Body, das Ziel selbst oder den umgebenden
+halten kann, gibt er nach dem passiven Isolation-Cleanup Fokus zurück, damit
+der nächste native Key den übergeordneten Scope erreicht. Nach Scope-Entfernung
+prüft der gemeinsame Kaltstartfallback zusätzlich genau einen rAF. Reduced/Off
+erfassen die eigene Rückgabe auch ohne data-exiting bei sofortiger Entfernung. Er ersetzt ausschließlich Body, das Ziel selbst oder den umgebenden
 Dialog. Neuer nativer Input, Wiederöffnen und Komponenten-Unmount brechen Frame
 und Listener ab. Neuer aktiver Fokus bleibt erhalten. React Aria verwaltet
 weiterhin Containment, Overlaystapel und reguläre Rückgabe.

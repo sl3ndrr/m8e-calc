@@ -174,3 +174,21 @@ it('cancels pending return on native input, reopen and component unmount', () =>
   opener.remove();
   next.remove();
 });
+
+it('returns focus after passive isolation cleanup before another Escape', () => {
+  const opener = document.createElement('button');
+  document.body.append(opener);
+  opener.focus();
+  const { rerender, unmount } = render(<Subject exiting={false} />);
+  const child = screen.getByTestId('child');
+  child.focus();
+  opener.setAttribute('inert', '');
+  rerender(<Subject />);
+  expect(opener).not.toHaveFocus();
+  child.blur();
+  opener.removeAttribute('inert');
+  rerender(<Subject />);
+  expect(opener).toHaveFocus();
+  unmount();
+  opener.remove();
+});

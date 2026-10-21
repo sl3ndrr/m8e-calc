@@ -410,3 +410,39 @@ test('AP45 a new native selection owns focus while the accent exit completes', a
     });
   }
 });
+
+for (const policy of ['full', 'reduced', 'off'] as const) {
+  test(`AP45 rapid Escape traverses closing selections: ${policy}`, async ({
+    page,
+  }) => {
+    await page.addInitScript(
+      (motionLevel) =>
+        localStorage.setItem(
+          'm8e-calc.settings',
+          JSON.stringify({ version: 4, state: { motionLevel } }),
+        ),
+      policy,
+    );
+    await page.goto('/m8e-calc/#/simple');
+    const opener = page.getByRole('button', {
+      name: 'Einstellungen',
+      exact: true,
+    });
+    await opener.click();
+    const accent = page.getByRole('button', { name: 'Akzentfarbe anpassen' });
+    await accent.click();
+    const picker = page.getByRole('dialog', { name: 'Deine Farbwelt' });
+    await expect(
+      picker.getByRole('button', { name: 'Iris', exact: true }),
+    ).toBeFocused();
+    await picker.getByRole('button', { name: /Schema-Variante/ }).click();
+    await page.getByRole('option', { name: 'Lebendig', exact: true }).click();
+    await picker.getByRole('button', { name: /Kontrast/ }).click();
+    await page.getByRole('option', { name: 'Mittel', exact: true }).click();
+    // No intervening focus/exit wait: the next native key belongs to the parent.
+    await page.keyboard.press('Escape');
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(opener).toBeFocused();
+  });
+}
