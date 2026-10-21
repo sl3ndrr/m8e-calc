@@ -358,11 +358,10 @@ for (const component of ['Dialog', 'Menu', 'SideSheet'] as const) {
       animations: await held(page),
     });
     const original = await overlay.elementHandle();
-    // Disarm the recorder, retaining the paused real exit. The native opener
-    // must be reachable while the closing surface is still painted.
-    await page.evaluate(() => {
-      Reflect.get(window, 'ap36Probe').selector = '';
-    });
+    // Keep the paused real exit, and arm the same native recorder for the
+    // replacement transition. WebKit can omit an entire 151ms live window
+    // during driver input; a native held frame also proves its retarget start.
+    await holdNext(page, selector, false, 40);
     const liveReversal = await overlay.evaluateHandle((node) => {
       const done = new Promise<{ time: number; opacity: number }[]>(
         (resolve) => {
@@ -414,10 +413,24 @@ for (const component of ['Dialog', 'Menu', 'SideSheet'] as const) {
           frame.opacity >= (reversal[index - 1]?.opacity ?? 0) - 0.002,
       ),
     ).toBe(true);
-    expect(reversal.at(-1)?.opacity).toBeGreaterThan(0.999);
-    await attach(info, `${component}-reversal-frames`, reversal);
+    const retarget = await held(page);
+    const fade = retarget.find((animation) =>
+      animation.frames.some((frame) => frame.opacity !== undefined),
+    );
+    if (!fade) throw Error('Native retarget transition missing');
+    expect(
+      Math.abs(Number(fade.frames[0]?.opacity) - (exit[0]?.opacity ?? 0)),
+    ).toBeLessThan(0.002);
+    expect(Number(fade.frames.at(-1)?.opacity)).toBe(1);
+    await picture(info, `${component}-reversal-middle`, overlay);
+    await attach(info, `${component}-reversal-frames`, { reversal, retarget });
     await resume(page);
+    const tail = await sampleFrames(overlay, 12);
+    await attach(info, `${component}-reversal-live-tail`, tail);
     await idle(page, true);
+    expect(
+      await overlay.evaluate((node) => Number(getComputedStyle(node).opacity)),
+    ).toBe(1);
     // OS changes during an actual exit must release React Aria's cancelled
     // native transition promise, rather than retain a transparent portal.
     await holdNext(page, selector, false, 40);
