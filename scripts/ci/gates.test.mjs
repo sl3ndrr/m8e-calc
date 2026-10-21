@@ -120,6 +120,10 @@ test('production proof binds all files, source, target, repository and run; reje
     const check = (ctx = context, fingerprint = proof.fingerprint) =>
       verify(directory, proof, ctx, fingerprint);
     assert.doesNotThrow(() => check());
+    assert.throws(() => check({ ...context, GITHUB_RUN_ATTEMPT: '2' }), {
+      code: 'ERR_ASSERTION',
+      message: /different attempt.*Re-run all jobs.*Production build/s,
+    });
     for (const override of [
       { GITHUB_SHA: 'b'.repeat(40) },
       { GITHUB_REPOSITORY: 'fork/m8e-calc' },

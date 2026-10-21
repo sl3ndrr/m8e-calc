@@ -87,6 +87,12 @@ export function verify(directory, proof, context, expectedFingerprint) {
     'Producer fingerprint required',
   );
   assert.equal(proof.fingerprint, expectedFingerprint);
+  if (proof.identity?.GITHUB_RUN_ID === context.GITHUB_RUN_ID)
+    assert.equal(
+      proof.identity?.GITHUB_RUN_ATTEMPT,
+      context.GITHUB_RUN_ATTEMPT,
+      'Build artifact is from a different attempt of this run. Re-run all jobs, including Production build; do not re-run only failed jobs.',
+    );
   assert.deepEqual(
     proof,
     seal(directory, context),

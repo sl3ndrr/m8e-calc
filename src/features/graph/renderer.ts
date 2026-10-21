@@ -90,11 +90,6 @@ export function drawGraph(
 ): boolean {
   const { viewport: v, colors: c } = options,
     { width: w, height: h } = v.pixelSize;
-  if (options.transparent) ctx.clearRect(0, 0, w, h);
-  if (!options.transparent) {
-    ctx.fillStyle = c.background;
-    ctx.fillRect(0, 0, w, h);
-  }
   const xt = v.ticks('x', { spacing: options.fontSize * 6, pi: options.pi }),
     yt = v.ticks('y', { spacing: options.fontSize * 4 });
   const origin = v.worldToScreen({ x: 0, y: 0 });
@@ -102,11 +97,7 @@ export function drawGraph(
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
   };
-  function grid(minor: boolean): void {
-    ctx.beginPath();
-    ctx.strokeStyle = c.grid;
-    ctx.lineWidth = minor ? 0.5 : 1;
-    ctx.globalAlpha = minor ? 0.4 : 0.8;
+  function gridLines(minor: boolean) {
     const xs: number[] = [],
       ys: number[] = [];
     for (const [ticks, axis] of [
@@ -132,15 +123,33 @@ export function drawGraph(
         else ys.push(p.y);
       }
     }
-    if (minor && !options.transparent && drawFinePattern(ctx, xs, ys, c, w, h))
-      return;
-    for (const x of xs) line(x, 0, x, h);
-    for (const y of ys) line(0, y, w, y);
+    return { xs, ys };
+  }
+  function grid(minor: boolean, lines: { xs: number[]; ys: number[] }): void {
+    ctx.beginPath();
+    ctx.strokeStyle = c.grid;
+    ctx.lineWidth = minor ? 0.5 : 1;
+    ctx.globalAlpha = minor ? 0.4 : 0.8;
+    for (const x of lines.xs) line(x, 0, x, h);
+    for (const y of lines.ys) line(0, y, w, y);
     ctx.stroke();
     ctx.globalAlpha = 1;
   }
-  if (options.fine) grid(true);
-  grid(false);
+  const fine = options.fine ? gridLines(true) : null;
+  const patterned =
+    fine &&
+    !options.transparent &&
+    drawFinePattern(ctx, fine.xs, fine.ys, c, w, h);
+  if (!patterned) {
+    if (options.transparent) ctx.clearRect(0, 0, w, h);
+    if (!options.transparent) {
+      ctx.fillStyle = c.background;
+      ctx.fillRect(0, 0, w, h);
+    }
+
+    if (fine) grid(true, fine);
+  }
+  grid(false, gridLines(false));
   ctx.beginPath();
   ctx.strokeStyle = c.axis;
   ctx.lineWidth = 1.5;

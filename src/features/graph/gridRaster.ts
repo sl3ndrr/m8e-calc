@@ -73,9 +73,12 @@ export function drawFinePattern(
   const pattern = ctx.createPattern(layer.canvas, 'repeat');
   if (!pattern) return false;
   pattern.setTransform({ a: 1 / dpr, b: 0, c: 0, d: 1 / dpr, e: 0, f: 0 });
+  ctx.save();
+  ctx.imageSmoothingEnabled = false;
   ctx.globalAlpha = 1;
   ctx.fillStyle = pattern;
   ctx.fillRect(0, 0, width, height);
+  ctx.restore();
   return true;
 }
 const fineTiles = new WeakMap<

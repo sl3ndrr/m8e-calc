@@ -147,7 +147,9 @@ async function setup(page: Page) {
     CanvasRenderingContext2D.prototype.fillRect = function (
       ...args: Parameters<typeof fill>
     ) {
-      const until = performance.now() + probe.delayRender;
+      const until =
+        performance.now() +
+        (this.canvas.matches('canvas.graph-canvas') ? probe.delayRender : 0);
       while (performance.now() < until) {
         /* deliberate regression control */
       }
