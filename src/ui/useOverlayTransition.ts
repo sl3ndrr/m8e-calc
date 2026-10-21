@@ -12,7 +12,7 @@ import { OverlayTriggerStateContext } from 'react-aria-components';
  * needs a fresh closed scope: its rejected native promise cannot finish exit. */
 export function useOverlayTransition(
   onAfterClose?: () => void,
-  triggerRef?: RefObject<HTMLElement | null>,
+  triggerRef?: RefObject<Element | null>,
 ): readonly [number, (node: HTMLElement | null) => void] {
   const afterClose = useRef(onAfterClose);
   const currentElement = useRef<HTMLElement | null>(null);
