@@ -260,6 +260,8 @@ jobs:
           node scripts/qa-bundle.mjs
           node scripts/qa-contrast.mjs
       - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Cold Escape and focus regressions first
+        run: npx playwright test e2e/settings-actions.spec.ts --grep 'nested Escape|AP45 Escape' --project=chromium --project=firefox --project=webkit --workers=1 --retries=0 --reporter=list --output=test-results/ap45/cold
       - name: Existing AP36 native frames and interruption cases in three engines
         run: npx playwright test --config=playwright.ap36.config.ts --reporter=list --output=test-results/ap45/ap36
       - name: Existing AP20 and gallery accessibility cases in three engines
