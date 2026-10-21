@@ -1,4 +1,10 @@
-import { useCallback, useContext, useLayoutEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useContext,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { OverlayTriggerStateContext } from 'react-aria-components';
 
 /** Keep React Aria in charge of presence/focus. Only a motion-policy cancellation
@@ -44,5 +50,5 @@ export function useOverlayTransition() {
       node.removeEventListener('transitioncancel', cancel);
     };
   }, []);
-  return { key, ref };
+  return [key, ref] as const;
 }

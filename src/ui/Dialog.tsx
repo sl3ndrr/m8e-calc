@@ -25,12 +25,15 @@ export function Dialog({
   className = '',
   ...props
 }: DialogProps) {
-  const transition = useOverlayTransition();
+  const [overlayKey, overlayRef] = useOverlayTransition();
   return (
     <ModalOverlay
       {...props}
-      key={transition.key}
-      ref={transition.ref}
+      defaultOpen={
+        overlayKey > 0 && props.defaultOpen != null ? false : props.defaultOpen
+      }
+      key={overlayKey}
+      ref={overlayRef}
       isDismissable={props.isDismissable ?? true}
       className="ui-modal-overlay"
     >

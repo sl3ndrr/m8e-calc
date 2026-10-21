@@ -8,12 +8,15 @@ export interface PopoverProps extends Omit<AriaPopoverProps, 'className'> {
   className?: string;
 }
 export function Popover({ className = '', ...props }: PopoverProps) {
-  const transition = useOverlayTransition();
+  const [overlayKey, overlayRef] = useOverlayTransition();
   return (
     <AriaPopover
       {...props}
-      key={transition.key}
-      ref={transition.ref}
+      defaultOpen={
+        overlayKey > 0 && props.defaultOpen != null ? false : props.defaultOpen
+      }
+      key={overlayKey}
+      ref={overlayRef}
       className={`ui-popover ${className}`}
     />
   );

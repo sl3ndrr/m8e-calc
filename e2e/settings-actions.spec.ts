@@ -272,3 +272,30 @@ test('nested Escape during a cold load preserves focus and allows a cached reope
     panel.release();
   }
 });
+
+test('AP45 Escape cancels a cold settings request before its controller mounts', async ({
+  page,
+}) => {
+  const settings = await holdChunk(page, 'SettingsDialog');
+  try {
+    await page.goto('/m8e-calc/#/simple');
+    const opener = page.getByRole('button', {
+      name: 'Einstellungen',
+      exact: true,
+    });
+    await opener.click();
+    await settings.requested;
+    await page.keyboard.press('Escape');
+    settings.release();
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(opener).toBeFocused();
+    await opener.click();
+    await expect(
+      page.getByRole('dialog', { name: 'Einstellungen', exact: true }),
+    ).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(opener).toBeFocused();
+  } finally {
+    settings.release();
+  }
+});

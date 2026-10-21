@@ -410,5 +410,22 @@ for (const component of ['Dialog', 'Menu', 'SideSheet'] as const) {
     }
     await idle(page, true);
     await original?.dispose();
+    await page.getByLabel('Animationsstufe').selectOption('full');
+    await holdNext(page, selector, false, 40);
+    await trigger.click();
+    await expect.poll(async () => (await held(page)).length).toBeGreaterThan(0);
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await expect(overlay).toBeVisible();
+    expect(
+      (await sampleFrames(overlay, 2)).every(
+        (f) => f.opacity === 1 && f.animations === 0,
+      ),
+    ).toBe(true);
+    await expect(overlay).not.toHaveAttribute('inert');
+    await resume(page);
+    await page.mouse.click(10, 10);
+    await expect(overlay).toHaveCount(0);
+    await expect(trigger).toBeFocused();
+    await idle(page, true);
   });
 }

@@ -3,13 +3,13 @@ import { afterEach, expect, it } from 'vitest';
 import { useOverlayTransition } from './useOverlayTransition';
 
 function Subject({ exiting = true }: { exiting?: boolean }) {
-  const transition = useOverlayTransition();
+  const [overlayKey, overlayRef] = useOverlayTransition();
   return (
     <div
       data-testid="scope"
       data-exiting={exiting || undefined}
-      data-generation={transition.key}
-      ref={transition.ref}
+      data-generation={overlayKey}
+      ref={overlayRef}
     >
       <span data-testid="child" />
     </div>

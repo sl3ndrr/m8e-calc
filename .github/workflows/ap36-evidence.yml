@@ -248,9 +248,8 @@ jobs:
       - run: npm ci --engine-strict
       - name: Formatting diagnostics, never accept generated changes
         run: |
-          npx prettier --write src/app/App.tsx src/app/CommandPalette.tsx src/app/ShortcutDialog.tsx src/ui/AccentPanel.tsx src/ui/AccentPicker.tsx src/ui/AccentPicker.css src/ui/Dialog.tsx src/ui/Dialog.css src/ui/Popover.tsx src/ui/Popover.css src/ui/useOverlayTransition.ts src/ui/useOverlayTransition.test.tsx src/ui/Switch.css src/ui/SegmentedControl.css src/ui/Slider.css e2e/ap36-gallery.spec.ts e2e/ap36-motion.spec.ts e2e/controls-polish.spec.ts docs/AP45.md docs/DESIGN.md docs/COMPONENTS.md docs/ROADMAP.md AGENTS.md .github/workflows/ap36-evidence.yml
-          mkdir -p test-results/ap45/tooling
-          cp -R node_modules/prettier test-results/ap45/tooling/
+          npx prettier --write src/app/App.tsx src/app/CommandPalette.tsx src/app/ShortcutDialog.tsx src/ui/AccentPanel.tsx src/ui/AccentPicker.tsx src/ui/AccentPicker.css src/ui/Dialog.tsx src/ui/Dialog.css src/ui/Popover.tsx src/ui/Popover.css src/ui/useOverlayTransition.ts src/ui/useOverlayTransition.test.tsx src/ui/Switch.css src/ui/SegmentedControl.css src/ui/Slider.css e2e/ap36-gallery.spec.ts e2e/ap36-motion.spec.ts e2e/controls-polish.spec.ts e2e/settings-actions.spec.ts docs/AP45.md docs/DESIGN.md docs/COMPONENTS.md docs/ROADMAP.md AGENTS.md .github/workflows/ap36-evidence.yml
+          mkdir -p test-results/ap45
           git diff > test-results/ap45/formatting.patch
           git diff --exit-code
       - name: Candidate checks and separate gallery
