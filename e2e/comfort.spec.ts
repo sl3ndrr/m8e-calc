@@ -266,6 +266,16 @@ test('PWA installability and all four modes offline after only the first load', 
   await context.setOffline(true);
   await page.reload();
   await page.locator('.simple-calculator').waitFor();
+  // Neither settings nor the color panel was opened before going offline.
+  await page
+    .getByRole('button', { name: 'Einstellungen', exact: true })
+    .click();
+  await page.getByRole('button', { name: 'Akzentfarbe anpassen' }).click();
+  const picker = page.getByRole('dialog', { name: 'Deine Farbwelt' });
+  await picker.getByRole('button', { name: 'Koralle', exact: true }).click();
+  await expect(picker.getByLabel('Eigene Farbe')).toHaveValue('#e2675a');
+  await page.keyboard.press('Escape');
+  await page.keyboard.press('Escape');
   await page.keyboard.type('2+3=');
   await expect(page.locator('.calculator-announcement')).toHaveText('5');
   await page.goto('/m8e-calc/#/scientific');

@@ -97,3 +97,16 @@ it('detaches registration and installing-worker listeners after repeated mount/u
   });
   expect(snackbarQueue.visibleToasts).toHaveLength(0);
 });
+
+it('does not offer installation without service worker support', () => {
+  vi.stubEnv('PROD', true);
+  vi.stubGlobal('navigator', {});
+  const { result, unmount } = renderHook(usePwa);
+  const event = new Event('beforeinstallprompt', { cancelable: true });
+  act(() => window.dispatchEvent(event));
+  expect(event.defaultPrevented).toBe(false);
+  expect(result.current.canInstall).toBe(false);
+  act(() => result.current.install());
+  expect(result.current.canInstall).toBe(false);
+  unmount();
+});

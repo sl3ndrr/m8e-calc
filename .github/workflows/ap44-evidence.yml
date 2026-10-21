@@ -34,7 +34,7 @@ jobs:
       - run: npm ci --engine-strict
       - name: Formatting diagnostics without accepting generated changes
         run: |
-          npx prettier --write src/app/App.tsx src/app/SettingsDialog.tsx src/app/pwa.ts src/shared/i18n/de.ts src/shared/i18n/en.ts e2e/smoke.spec.ts e2e/graph.spec.ts e2e/accent-picker.spec.ts src/app/App.test.tsx e2e/settings-actions.spec.ts e2e/settings-native-zoom.spec.ts e2e/accentLoading.ts playwright.config.ts docs/ROADMAP.md docs/AP44.md docs/COMFORT.md docs/DESIGN.md docs/COMPONENTS.md .github/workflows/ap44-evidence.yml
+          npx prettier --write src/app/App.tsx src/app/SettingsDialog.tsx src/app/pwa.ts src/shared/i18n/de.ts src/shared/i18n/en.ts e2e/smoke.spec.ts e2e/graph.spec.ts e2e/accent-picker.spec.ts src/app/App.test.tsx e2e/settings-actions.spec.ts e2e/settings-native-zoom.spec.ts e2e/accentLoading.ts e2e/comfort.spec.ts e2e/startup-budget.spec.ts src/app/pwa.test.ts playwright.config.ts docs/ROADMAP.md docs/AP44.md docs/COMFORT.md docs/DESIGN.md docs/COMPONENTS.md .github/workflows/ap44-evidence.yml
           git diff --exit-code
       - run: npm run check
       - run: npx playwright install --with-deps chromium firefox webkit
