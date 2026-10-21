@@ -1,9 +1,15 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { afterEach, expect, it } from 'vitest';
+import { afterEach, expect, it, vi } from 'vitest';
 import { useOverlayTransition } from './useOverlayTransition';
 
-function Subject({ exiting = true }: { exiting?: boolean }) {
-  const [overlayKey, overlayRef] = useOverlayTransition();
+function Subject({
+  exiting = true,
+  onAfterClose,
+}: {
+  exiting?: boolean;
+  onAfterClose?: () => void;
+}) {
+  const [overlayKey, overlayRef] = useOverlayTransition(onAfterClose);
   return (
     <div
       data-testid="scope"
@@ -64,4 +70,15 @@ it('restores the retained native target only when an exit reverses', () => {
   cancel(child);
   expect(outside).toHaveFocus();
   outside.remove();
+});
+
+it('reports completed exit on scope removal, not merely an open unmount', () => {
+  const closed = vi.fn();
+  const first = render(<Subject exiting={false} onAfterClose={closed} />);
+  first.unmount();
+  expect(closed).not.toHaveBeenCalled();
+  const second = render(<Subject onAfterClose={closed} />);
+  expect(closed).not.toHaveBeenCalled();
+  second.unmount();
+  expect(closed).toHaveBeenCalledTimes(1);
 });

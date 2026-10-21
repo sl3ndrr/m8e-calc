@@ -255,6 +255,7 @@ jobs:
       - name: Candidate checks and separate gallery
         id: candidate
         run: |
+          export GITHUB_SHA="${{ github.event.pull_request.head.sha }}"
           npm run check
           npm run build:gallery
           node scripts/qa-bundle.mjs
@@ -262,7 +263,7 @@ jobs:
       - run: npx playwright install --with-deps chromium firefox webkit
       - name: Cold Escape and focus regressions first
         id: cold
-        run: npx playwright test e2e/settings-actions.spec.ts --grep 'nested Escape|AP45 Escape' --project=chromium --project=firefox --project=webkit --workers=1 --retries=0 --reporter=list --output=test-results/ap45/cold
+        run: npx playwright test e2e/settings-actions.spec.ts --grep 'nested Escape|AP45 Escape' --repeat-each=3 --project=chromium --project=firefox --project=webkit --workers=1 --retries=0 --reporter=list --output=test-results/ap45/cold
       - name: Existing AP36 native frames and interruption cases in three engines
         run: npx playwright test --config=playwright.ap36.config.ts --reporter=list --output=test-results/ap45/ap36
       - name: Existing AP20 and gallery accessibility cases in three engines

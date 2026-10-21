@@ -6,9 +6,14 @@ import { useOverlayTransition } from './useOverlayTransition';
 import './Popover.css';
 export interface PopoverProps extends Omit<AriaPopoverProps, 'className'> {
   className?: string;
+  onAfterClose?: () => void;
 }
-export function Popover({ className = '', ...props }: PopoverProps) {
-  const [overlayKey, overlayRef] = useOverlayTransition();
+export function Popover({
+  className = '',
+  onAfterClose,
+  ...props
+}: PopoverProps) {
+  const [overlayKey, overlayRef] = useOverlayTransition(onAfterClose);
   return (
     <AriaPopover
       {...props}

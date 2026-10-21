@@ -9,7 +9,14 @@ import { OverlayTriggerStateContext } from 'react-aria-components';
 
 /** Keep React Aria in charge of presence/focus. Only a motion-policy cancellation
  * needs a fresh closed scope: its rejected native promise cannot finish exit. */
-export function useOverlayTransition() {
+export function useOverlayTransition(
+  onAfterClose?: () => void,
+): readonly [number, (node: HTMLElement | null) => void] {
+  const afterClose = useRef(onAfterClose);
+  const currentElement = useRef<HTMLElement | null>(null);
+  useLayoutEffect(() => {
+    afterClose.current = onAfterClose;
+  });
   // Recheck before passive autofocus when a trigger reopens an exiting scope.
   useContext(OverlayTriggerStateContext);
   const synchronize = useRef<(() => void) | null>(null);
@@ -19,10 +26,15 @@ export function useOverlayTransition() {
   const [key, setKey] = useState(0);
   const cleanup = useRef<(() => void) | null>(null);
   const ref = useCallback((node: HTMLElement | null) => {
+    const previous = currentElement.current;
     cleanup.current?.();
     cleanup.current = null;
     synchronize.current = null;
-    if (!node) return;
+    currentElement.current = node;
+    if (!node) {
+      if (previous?.hasAttribute('data-exiting')) afterClose.current?.();
+      return;
+    }
     let wasExiting = false;
     let lastFocused: HTMLElement | null = null;
     const rememberFocus = (event: FocusEvent) => {

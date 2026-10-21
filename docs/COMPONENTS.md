@@ -206,3 +206,8 @@ Der gemeinsame Ref-Adapter setzt Inertheit am gesamten Overlay einschließlich
 der React-Aria-Dismiss-Buttons und räumt seinen lokalen Observer beim Unmount auf.
 Die vorhandenen Fokus-/Escape-/Light-Dismiss-Verträge bleiben erhalten.
 [AP45](AP45.md) enthält die verbindliche Matrix und Prüfgrenzen.
+
+`Popover.onAfterClose` meldet die tatsächliche Entfernung eines Exit-Scopes.
+AccentPicker verwendet dies für AP44s begrenzten Fokusfallback nach kaltem
+Inhaltwechsel. Neuer nativer Input oder Wiederöffnen bricht diese Rückgabe ab;
+React Aria besitzt weiterhin Fokuscontainment und reguläre Rückgabe.

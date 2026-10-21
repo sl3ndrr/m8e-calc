@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { holdChunk } from './accentLoading';
+import { held, holdNext, installMotionProbe, resume } from './ap36Capture';
 
 // Isolate the mock browser prompt and cold module requests from SW precaching.
 // These tests verify the app/browser API contract, never an OS installation.
@@ -315,4 +316,39 @@ test('AP45 Escape cancels a cold settings request before its controller mounts',
   } finally {
     settings.release();
   }
+});
+
+test('AP45 a new native selection owns focus while the accent exit completes', async ({
+  page,
+}) => {
+  await installMotionProbe(page);
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/m8e-calc/#/simple');
+  await page
+    .getByRole('button', { name: 'Einstellungen', exact: true })
+    .click();
+  const trigger = page.getByRole('button', { name: 'Akzentfarbe anpassen' });
+  await trigger.click();
+  await expect(
+    page.getByRole('button', { name: 'Iris', exact: true }),
+  ).toBeFocused();
+  const picker = page.locator('.accent-popover');
+  await expect
+    .poll(() => picker.evaluate((node) => node.getAnimations().length))
+    .toBe(0);
+  await holdNext(page, '.accent-popover', false, 40);
+  await page.keyboard.press('Escape');
+  await expect.poll(async () => (await held(page)).length).toBeGreaterThan(0);
+  await page.getByRole('button', { name: /Animationsstufe/ }).click();
+  const list = page.getByRole('listbox');
+  await expect(list).toBeVisible();
+  await resume(page);
+  await expect(picker).toHaveCount(0);
+  await expect
+    .poll(() => list.evaluate((node) => node.contains(document.activeElement)))
+    .toBe(true);
+  await page.keyboard.press('Escape');
+  await expect(
+    page.getByRole('button', { name: /Animationsstufe/ }),
+  ).toBeFocused();
 });

@@ -2,6 +2,7 @@ import {
   lazy,
   Suspense,
   useEffect,
+  useCallback,
   useRef,
   useState,
   type RefObject,
@@ -20,26 +21,48 @@ export function AccentPicker({
 }: {
   triggerRef?: RefObject<HTMLButtonElement | null>;
 } = {}) {
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, updateOpen] = useState(false);
   const ownTrigger = useRef<HTMLButtonElement>(null);
   const trigger = triggerRef ?? ownTrigger;
-  const wasOpen = useRef(false);
-  useEffect(() => {
-    if (isOpen) {
-      wasOpen.current = true;
-      return;
-    }
-    if (!wasOpen.current) return;
-    wasOpen.current = false;
-    // Keep AP44's cold-content fallback. Never pull focus from a new action;
-    // React Aria owns containment and the normal unmount return path.
-    const frame = requestAnimationFrame(() => {
-      const active = document.activeElement;
-      if (active === document.body || active?.closest('.accent-popover'))
-        trigger.current?.focus();
+  const mayRestore = useRef(false);
+  const restoreFrame = useRef(0);
+  const setOpen = useCallback((open: boolean): void => {
+    mayRestore.current = !open;
+    cancelAnimationFrame(restoreFrame.current);
+    restoreFrame.current = 0;
+    updateOpen(open);
+  }, []);
+  const afterClose = useCallback((): void => {
+    if (!mayRestore.current) return;
+    // Run after the actual exiting scope disappears, rather than before its
+    // delayed React Aria cleanup. A subsequent native action owns its focus.
+    restoreFrame.current = requestAnimationFrame(() => {
+      restoreFrame.current = 0;
+      const target = trigger.current;
+      if (
+        mayRestore.current &&
+        target?.isConnected &&
+        !target.closest('[inert]')
+      )
+        target.focus();
+      mayRestore.current = false;
     });
-    return () => cancelAnimationFrame(frame);
-  }, [isOpen, trigger]);
+  }, [trigger]);
+  useEffect(() => {
+    if (isOpen || !mayRestore.current) return;
+    const cancel = (): void => {
+      mayRestore.current = false;
+      cancelAnimationFrame(restoreFrame.current);
+      restoreFrame.current = 0;
+    };
+    window.addEventListener('pointerdown', cancel, true);
+    window.addEventListener('keydown', cancel, true);
+    return () => {
+      window.removeEventListener('pointerdown', cancel, true);
+      window.removeEventListener('keydown', cancel, true);
+    };
+  }, [isOpen]);
+  useEffect(() => () => cancelAnimationFrame(restoreFrame.current), []);
   const locale = useAppStore((state) => state.locale);
   return (
     <DialogTrigger isOpen={isOpen} onOpenChange={setOpen}>
@@ -54,7 +77,7 @@ export function AccentPicker({
         <Icon name="palette" />
         <span>{t('accent.open', locale)}</span>
       </Button>
-      <Popover className="accent-popover">
+      <Popover className="accent-popover" onAfterClose={afterClose}>
         <Suspense
           fallback={
             <AriaDialog aria-label={t('accent.open', locale)}>
