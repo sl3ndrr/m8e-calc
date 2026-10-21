@@ -236,6 +236,11 @@ export function App() {
       aria-label={t('design.controls', locale)}
     >
       <ThemeSwitch />
+      {route === 'design' && LabAccentPicker && (
+        <Suspense fallback={null}>
+          <LabAccentPicker />
+        </Suspense>
+      )}
     </div>
   );
   const notifications = (
@@ -267,11 +272,6 @@ export function App() {
             ))}
           </nav>
           {personalization}
-          {LabAccentPicker && (
-            <Suspense fallback={null}>
-              <LabAccentPicker />
-            </Suspense>
-          )}
           <Suspense
             fallback={<LoadingIndicator label={t('ui.loading', locale)} />}
           >
