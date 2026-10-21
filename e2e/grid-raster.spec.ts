@@ -1,15 +1,19 @@
 import { test, expect } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';
-import { strokeGridAxes } from '../src/features/graph/gridRaster';
-test('AP49 separate native grid axes retain original pixels', async ({
+import { drawFinePattern } from '../src/features/graph/gridRaster';
+test('AP49 bounded fine-grid raster retains original pixels and native DPR fallback', async ({
   page,
 }, info) => {
   const pixels = await page.evaluate((source) => {
-    const draw = new Function(
-      'return (' + source + ')',
-    )() as typeof strokeGridAxes;
+    const draw = new Function('fineTiles', 'return (' + source + ')')(
+      new WeakMap(),
+    ) as typeof drawFinePattern;
     const cases = [];
-    for (const dpr of [1, 1.25, 1.5, 2])
+    const canvases = [
+      document.createElement('canvas'),
+      document.createElement('canvas'),
+    ];
+    for (const dpr of [1, 1.25, 1.5, 1.75, 2, 2.5, 3])
       for (const phase of [0, 0.125, 0.5, 0.875]) {
         const w = 512,
           h = 256;
@@ -21,11 +25,7 @@ test('AP49 separate native grid axes retain original pixels', async ({
           { length: 40 },
           (_, i) => phase + i * 10.8,
         ).filter((y) => y <= h);
-        const canvases = [
-          document.createElement('canvas'),
-          document.createElement('canvas'),
-        ];
-        let tiled = false;
+        let optimized = false;
         for (const [index, canvas] of canvases.entries()) {
           canvas.width = Math.round(w * dpr);
           canvas.height = Math.round(h * dpr);
@@ -37,10 +37,22 @@ test('AP49 separate native grid axes retain original pixels', async ({
           ctx.strokeStyle = '#c4c7c5';
           ctx.globalAlpha = 0.4;
           ctx.lineWidth = 0.5;
-          if (index === 1) {
-            draw(ctx, xs, ys, w, h);
-            tiled = true;
-          } else {
+          if (index === 1)
+            optimized = draw(
+              ctx,
+              xs,
+              ys,
+              {
+                background: '#faf8ff',
+                grid: '#c4c7c5',
+                axis: '',
+                label: '',
+                curves: [],
+              },
+              w,
+              h,
+            );
+          if (index === 0 || !optimized) {
             ctx.beginPath();
             for (const x of xs) {
               ctx.moveTo(x, 0);
@@ -53,9 +65,13 @@ test('AP49 separate native grid axes retain original pixels', async ({
             ctx.stroke();
           }
         }
-        const arrays = canvases.map(
-          (c) => c.getContext('2d')!.getImageData(0, 0, c.width, c.height).data,
-        );
+        const arrays = canvases.map((canvas) => {
+          const context = canvas.getContext('2d');
+          if (!context) throw Error('Canvas unavailable');
+          return context.getImageData(0, 0, canvas.width, canvas.height).data;
+        });
+        const [before, after] = arrays;
+        if (!before || !after) throw Error('Missing comparison image');
         let different = 0,
           maximum = 0;
         const examples: {
@@ -64,27 +80,29 @@ test('AP49 separate native grid axes retain original pixels', async ({
           original: number;
           actual: number;
         }[] = [];
-        for (let i = 0; i < arrays[0]!.length; i++) {
-          const delta = Math.abs(arrays[0]![i]! - arrays[1]![i]!);
+        for (const [i, original] of before.entries()) {
+          const actual = after[i];
+          if (actual === undefined) throw Error('Comparison size mismatch');
+          const delta = Math.abs(original - actual);
           if (delta) different++;
           if (delta > 1 && examples.length < 8)
             examples.push({
               x: Math.floor(i / 4) % Math.round(w * dpr),
               y: Math.floor(Math.floor(i / 4) / Math.round(w * dpr)),
-              original: arrays[0]![i]!,
-              actual: arrays[1]![i]!,
+              original,
+              actual,
             });
           maximum = Math.max(maximum, delta);
         }
-        cases.push({ dpr, phase, tiled, different, maximum, examples });
+        cases.push({ dpr, phase, optimized, different, maximum, examples });
       }
     return cases;
-  }, strokeGridAxes.toString());
+  }, drawFinePattern.toString());
   await mkdir(info.outputDir, { recursive: true });
   await writeFile(
     info.outputPath('grid-pixels.json'),
     JSON.stringify(pixels, null, 2),
   );
-  expect(pixels.every((p) => p.tiled)).toBe(true);
+  expect(pixels.every((p) => p.optimized === p.dpr < 2)).toBe(true);
   expect(Math.max(...pixels.map((p) => p.maximum))).toBeLessThanOrEqual(1);
 });
