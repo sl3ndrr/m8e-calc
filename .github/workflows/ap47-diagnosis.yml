@@ -1,0 +1,45 @@
+name: AP47 AP48 bounded diagnosis
+on:
+  pull_request:
+    branches: [main]
+    paths: ['.github/workflows/ap47-diagnosis.yml']
+permissions:
+  contents: read
+jobs:
+  diagnosis:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --engine-strict
+      - name: Twelve predeclared App sequences, preserve every failure
+        run: |
+          mkdir -p test-results/ap48
+          status=0
+          for ap48_case in {1..12}; do
+            npx vitest run --project=ui src/app/App.test.tsx --reporter=verbose > "test-results/ap48/case-$ap48_case.log" 2>&1 || status=1
+          done
+          cat test-results/ap48/*.log
+          exit "$status"
+      - run: npm run build
+        if: ${{ !cancelled() }}
+      - run: npx playwright install --with-deps webkit
+        if: ${{ !cancelled() }}
+      - name: Fixed trace comparison, screenshots then no screenshots, original assertions
+        if: ${{ !cancelled() }}
+        run: |
+          status=0
+          AP47_SCREENSHOTS=1 npx playwright test --config=playwright.ap47.config.ts e2e/graph-parameters.spec.ts --project=webkit --workers=1 --retries=0 --grep 'Full slow Worker' --output=test-results/ap47/screenshots || status=1
+          AP47_SCREENSHOTS=0 npx playwright test --config=playwright.ap47.config.ts e2e/graph-parameters.spec.ts --project=webkit --workers=1 --retries=0 --grep 'Full slow Worker' --output=test-results/ap47/no-screenshots || status=1
+          exit "$status"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap47-ap48-diagnosis
+          path: test-results/
+          retention-days: 14

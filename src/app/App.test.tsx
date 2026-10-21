@@ -43,19 +43,48 @@ it('updates visible text and document language from settings', async () => {
   expect(document.documentElement.lang).toBe('en');
 });
 it('opens history from the shortcut, retains visibility by mode and opens settings', async () => {
-  const user = userEvent.setup();
-  render(<App />);
-  await screen.findByRole('heading', { name: t('mode.simple') });
-  await user.keyboard('{Control>}h{/Control}');
-  expect(
-    await screen.findByRole('dialog', { name: t('history.title') }),
-  ).toBeVisible();
-  await user.keyboard('{Escape}');
-  expect(useHistoryStore.getState().visibility.simple).toBe(false);
-  await user.click(screen.getByRole('button', { name: t('shell.settings') }));
-  expect(
-    await screen.findByRole('dialog', { name: t('shell.settings') }),
-  ).toBeVisible();
+  const events: unknown[] = [];
+  const record = (event: Event) =>
+    events.push({
+      type: event.type,
+      at: performance.now(),
+      target: (event.target as Element)?.outerHTML?.slice(0, 300),
+      active: document.activeElement?.outerHTML?.slice(0, 300),
+    });
+  const types = [
+    'pointerdown',
+    'mousedown',
+    'pointerup',
+    'mouseup',
+    'click',
+    'focusin',
+    'focusout',
+    'keydown',
+  ];
+  types.forEach((type) => document.addEventListener(type, record, true));
+  try {
+    const user = userEvent.setup();
+    render(<App />);
+    await screen.findByRole('heading', { name: t('mode.simple') });
+    await user.keyboard('{Control>}h{/Control}');
+    expect(
+      await screen.findByRole('dialog', { name: t('history.title') }),
+    ).toBeVisible();
+    await user.keyboard('{Escape}');
+    expect(useHistoryStore.getState().visibility.simple).toBe(false);
+    await user.click(screen.getByRole('button', { name: t('shell.settings') }));
+    expect(
+      await screen.findByRole('dialog', { name: t('shell.settings') }),
+    ).toBeVisible();
+  } catch (error) {
+    console.error(
+      'AP48 diagnostic',
+      JSON.stringify({ events, body: document.body.innerHTML }),
+    );
+    throw error;
+  } finally {
+    types.forEach((type) => document.removeEventListener(type, record, true));
+  }
 });
 
 it('keeps theme in the shell and places accent only in settings', async () => {

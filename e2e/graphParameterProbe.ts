@@ -8,6 +8,7 @@ export interface ParameterFrame {
   rendered: { signature: string; born: number; length: number }[];
 }
 export interface ParameterProbe {
+  activity: { at: number; frames: number; visible: string; focused: boolean }[];
   delay: number;
   errorNext: boolean;
   stallNext: boolean;
@@ -34,6 +35,7 @@ export type ProbeWindow = Window;
 export async function installParameterProbe(page: Page): Promise<void> {
   await page.addInitScript(() => {
     const probe: ParameterProbe = {
+      activity: [],
       delay: 0,
       errorNext: false,
       stallNext: false,
@@ -96,12 +98,26 @@ export async function installParameterProbe(page: Page): Promise<void> {
         });
       frame = requestAnimationFrame(sample);
     };
+    let heartbeat = 0;
     probe.start = () => {
+      clearInterval(heartbeat);
+      probe.activity = [];
+      heartbeat = window.setInterval(() => {
+        probe.activity.push({
+          at: performance.now(),
+          frames: probe.frames.length,
+          visible: document.visibilityState,
+          focused: document.hasFocus(),
+        });
+      }, 250);
       cancelAnimationFrame(frame);
       probe.frames = [];
       frame = requestAnimationFrame(sample);
     };
-    probe.stop = () => cancelAnimationFrame(frame);
+    probe.stop = () => {
+      cancelAnimationFrame(frame);
+      clearInterval(heartbeat);
+    };
 
     const NativeWorker = window.Worker;
     window.Worker = class extends NativeWorker {
@@ -174,6 +190,7 @@ export async function readProbe(page: Page) {
     const probe = (window as ProbeWindow).__parameterProbe;
     probe.stop();
     return {
+      activity: probe.activity,
       created: probe.created,
       terminated: probe.terminated,
       inFlight: probe.inFlight,

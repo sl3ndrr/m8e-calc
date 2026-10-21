@@ -18,6 +18,21 @@ test.beforeEach(async ({ page, browserName }, info) => {
   await installParameterProbe(page);
 });
 
+test.afterEach(async ({ page }, info) => {
+  // Save the still-running recorder even when an early assertion fails.
+  if (page.isClosed()) return;
+  const probe = await readProbe(page);
+  const report = {
+    head: process.env.GITHUB_SHA,
+    status: info.status,
+    ...probe,
+  };
+  await writeFile(
+    info.outputPath('parameter-probe-final.json'),
+    JSON.stringify(report),
+  );
+});
+
 async function add(page: Page, input: string) {
   await page.getByRole('button', { name: 'Hinzufügen', exact: true }).click();
   await replaceGraphExpression(
