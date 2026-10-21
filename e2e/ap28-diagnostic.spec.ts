@@ -11,6 +11,77 @@ const expressions = [
   'r=2*(1+cos(theta))',
   'exp(-x^2/2)',
 ];
+test('AP49 clipped grid preserves native stroked pixels', async ({ page }) => {
+  await page.goto('/m8e-calc/');
+  const comparisons = await page.evaluate(() => {
+    const results = [];
+    for (const dpr of [1, 2]) {
+      for (const width of [0.5, 1]) {
+        for (const offset of [0, 0.125, 0.5, 0.875]) {
+          const canvases = [
+            document.createElement('canvas'),
+            document.createElement('canvas'),
+          ];
+          for (const canvas of canvases) {
+            canvas.width = 256 * dpr;
+            canvas.height = 128 * dpr;
+          }
+          for (const [index, canvas] of canvases.entries()) {
+            const ctx = canvas.getContext('2d', { alpha: false })!;
+            ctx.scale(dpr, dpr);
+            ctx.fillStyle = '#212121';
+            ctx.fillRect(0, 0, 256, 128);
+            ctx.strokeStyle = '#c4c7c5';
+            ctx.globalAlpha = width === 0.5 ? 0.4 : 0.8;
+            ctx.lineWidth = width;
+            ctx.beginPath();
+            for (const x of [-10, 0, 16, 64, 69, 128, 192, 255, 266]) {
+              ctx.moveTo(x + offset, 0);
+              ctx.lineTo(x + offset, 128);
+            }
+            for (const y of [-10, 0, 32, 64, 85, 127, 138]) {
+              ctx.moveTo(0, y + offset);
+              ctx.lineTo(256, y + offset);
+            }
+            if (index === 0) ctx.stroke();
+            else {
+              const tile = 64 / dpr;
+              for (let y = 0; y < 128; y += tile) {
+                for (let x = 0; x < 256; x += tile) {
+                  const clip = new Path2D();
+                  clip.rect(x, y, tile, tile);
+                  ctx.save();
+                  ctx.clip(clip);
+                  ctx.stroke();
+                  ctx.restore();
+                }
+              }
+            }
+          }
+          const data = canvases.map(
+            (c) =>
+              c.getContext('2d')!.getImageData(0, 0, c.width, c.height).data,
+          );
+          let different = 0,
+            maximum = 0;
+          for (let i = 0; i < data[0]!.length; i++) {
+            const delta = Math.abs(data[0]![i]! - data[1]![i]!);
+            if (delta) different++;
+            maximum = Math.max(maximum, delta);
+          }
+          results.push({ dpr, width, offset, different, maximum });
+        }
+      }
+    }
+    return results;
+  });
+  await mkdir('test-results/ap28', { recursive: true });
+  await writeFile(
+    'test-results/ap28/grid-pixels.json',
+    JSON.stringify(comparisons, null, 2),
+  );
+  expect(comparisons.every((c) => c.different === 0)).toBe(true);
+});
 interface Probe {
   posts: number;
   replies: number;
@@ -278,6 +349,7 @@ test('AP28 fixed graph references and regression controls', async ({
         browser: browser.version(),
         project: info.project.name,
         graphics,
+        diagnosticGridVariant: process.env.AP49_GRID_VARIANT,
         runner: {
           os: platform(),
           release: release(),
@@ -295,7 +367,7 @@ test('AP28 fixed graph references and regression controls', async ({
   );
   const traceSession = await page.context().newCDPSession(page);
   await traceSession.send('Tracing.start', {
-    categories: 'devtools.timeline,v8,blink,cc,gpu',
+    categories: 'devtools.timeline,v8,blink,cc,gpu,disabled-by-default-skia',
     transferMode: 'ReturnAsStream',
   });
   await windowMeasurement(page, true, 0, 60);
