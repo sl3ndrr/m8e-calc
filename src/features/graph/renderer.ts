@@ -1,3 +1,4 @@
+import { drawFinePattern } from './gridRaster';
 import { Viewport, type Point } from '../../graph';
 import type { Trace } from './model';
 import type { SampleResponse } from './workerProtocol';
@@ -106,6 +107,8 @@ export function drawGraph(
     ctx.strokeStyle = c.grid;
     ctx.lineWidth = minor ? 0.5 : 1;
     ctx.globalAlpha = minor ? 0.4 : 0.8;
+    const xs: number[] = [],
+      ys: number[] = [];
     for (const [ticks, axis] of [
       [xt, 'x'],
       [yt, 'y'],
@@ -125,10 +128,14 @@ export function drawGraph(
         const p = v.worldToScreen(
           axis === 'x' ? { x: value, y: 0 } : { x: 0, y: value },
         );
-        if (axis === 'x') line(p.x, 0, p.x, h);
-        else line(0, p.y, w, p.y);
+        if (axis === 'x') xs.push(p.x);
+        else ys.push(p.y);
       }
     }
+    if (minor && !options.transparent && drawFinePattern(ctx, xs, ys, c, w, h))
+      return;
+    for (const x of xs) line(x, 0, x, h);
+    for (const y of ys) line(0, y, w, y);
     ctx.stroke();
     ctx.globalAlpha = 1;
   }

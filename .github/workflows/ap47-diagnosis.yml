@@ -1,4 +1,4 @@
-name: AP49 fixed canvas resource comparison
+name: AP49 native periodic grid comparison
 on:
   push:
     branches: [feat/ap47-bounded-diagnosis]
@@ -19,19 +19,26 @@ jobs:
       - run: npm install --global npm@11.19.0
       - run: npm ci --engine-strict
       - run: npx playwright install --with-deps chromium
-      - run: npm run build
-      - name: Fixed opaque then alpha-capable context; original windows and limits
+      - name: Fixed original then periodic native grid; original windows and limits
         run: |
+          cp src/features/graph/renderer.ts "$RUNNER_TEMP/ap49-renderer.ts"
           status=0
-          for ap49_variant in opaque alpha; do
-            AP49_CONTEXT_VARIANT="$ap49_variant" npx playwright test --config=playwright.ap28.config.ts --workers=1 --retries=0 --reporter=list --output="test-results/ap49/$ap49_variant" || status=1
+          for ap49_variant in original periodic; do
+            if [ "$ap49_variant" = original ]; then
+              cp diagnostics/ap49-renderer-before.txt src/features/graph/renderer.ts
+            else
+              cp "$RUNNER_TEMP/ap49-renderer.ts" src/features/graph/renderer.ts
+            fi
+            npm run build || exit 1
+            AP49_GRID_VARIANT="$ap49_variant" npx playwright test --config=playwright.ap28.config.ts --workers=1 --retries=0 --reporter=list --output="test-results/ap49/$ap49_variant" || status=1
             mkdir -p "test-results/ap49/$ap49_variant/raw"
             cp test-results/ap28/* "test-results/ap49/$ap49_variant/raw/"
+            sha256sum src/features/graph/renderer.ts > "test-results/ap49/$ap49_variant/renderer.sha256"
           done
           exit "$status"
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: ap49-canvas-resource-comparison
+          name: ap49-periodic-grid-comparison
           path: test-results/
           retention-days: 14
