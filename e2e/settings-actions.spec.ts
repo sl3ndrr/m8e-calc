@@ -286,7 +286,20 @@ test('AP45 Escape cancels a cold settings request before its controller mounts',
     await opener.click();
     await settings.requested;
     await page.keyboard.press('Escape');
+    const response = page.waitForResponse(
+      /\/assets\/SettingsDialog-[^/]+\.js$/,
+    );
     settings.release();
+    await response;
+    const presence = await page.evaluate(async () => {
+      const frames = [];
+      for (let i = 0; i < 12; i++) {
+        await new Promise(requestAnimationFrame);
+        frames.push(document.querySelectorAll('.ui-modal-overlay').length);
+      }
+      return frames;
+    });
+    expect(presence.every((count) => count === 0)).toBe(true);
     await expect(page.getByRole('dialog')).toHaveCount(0);
     await expect(opener).toBeFocused();
     await opener.click();

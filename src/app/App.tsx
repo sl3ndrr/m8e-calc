@@ -2,6 +2,7 @@ import {
   lazy,
   Suspense,
   useEffect,
+  useRef,
   useState,
   useSyncExternalStore,
   type CSSProperties,
@@ -73,8 +74,21 @@ export function App() {
   const mode = route === 'design' ? lastMode : route;
   const locale = useAppStore((state) => state.locale);
   const [presentation, setPresentation] = useState(false);
-  const [paletteOpen, setPaletteOpen] = useState(false);
-  const [helpOpen, setHelpOpen] = useState(false);
+  const overlayRequests = useRef({
+    settings: false,
+    palette: false,
+    help: false,
+  });
+  const [paletteOpen, updatePaletteOpen] = useState(false);
+  const [helpOpen, updateHelpOpen] = useState(false);
+  function setPaletteOpen(open: boolean) {
+    overlayRequests.current.palette = open;
+    updatePaletteOpen(open);
+  }
+  function setHelpOpen(open: boolean) {
+    overlayRequests.current.help = open;
+    updateHelpOpen(open);
+  }
   const presentationHistory = useSettingsStore((s) => s.presentationHistory);
   const uiSize = useSettingsStore((s) => s.uiSize);
   const savedVisible = useHistoryStore((state) => state.visibility[mode]);
@@ -88,7 +102,11 @@ export function App() {
   const wideRail = useMediaQuery('(min-width: 1600px)');
   const [railOverride, setRailOverride] = useState<boolean | null>(null);
   const expanded = railOverride ?? wideRail;
-  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [settingsOpen, updateSettingsOpen] = useState(false);
+  function setSettingsOpen(open: boolean) {
+    overlayRequests.current.settings = open;
+    updateSettingsOpen(open);
+  }
   const [loadedOverlays, setLoadedOverlays] = useState({
     settings: false,
     palette: false,
@@ -214,7 +232,9 @@ export function App() {
       if (
         event.key === 'Escape' &&
         !activeOverlay &&
-        (settingsOpen || helpOpen || paletteOpen)
+        (overlayRequests.current.settings ||
+          overlayRequests.current.help ||
+          overlayRequests.current.palette)
       ) {
         event.preventDefault();
         setSettingsOpen(false);

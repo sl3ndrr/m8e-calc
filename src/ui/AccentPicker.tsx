@@ -1,4 +1,11 @@
-import { lazy, Suspense, useRef, useState, type RefObject } from 'react';
+import {
+  lazy,
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+  type RefObject,
+} from 'react';
 import { Dialog as AriaDialog, DialogTrigger } from 'react-aria-components';
 import { useAppStore } from '../shared/store';
 import { t } from '../shared/i18n';
@@ -16,6 +23,23 @@ export function AccentPicker({
   const [isOpen, setOpen] = useState(false);
   const ownTrigger = useRef<HTMLButtonElement>(null);
   const trigger = triggerRef ?? ownTrigger;
+  const wasOpen = useRef(false);
+  useEffect(() => {
+    if (isOpen) {
+      wasOpen.current = true;
+      return;
+    }
+    if (!wasOpen.current) return;
+    wasOpen.current = false;
+    // Keep AP44's cold-content fallback. Never pull focus from a new action;
+    // React Aria owns containment and the normal unmount return path.
+    const frame = requestAnimationFrame(() => {
+      const active = document.activeElement;
+      if (active === document.body || active?.closest('.accent-popover'))
+        trigger.current?.focus();
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [isOpen, trigger]);
   const locale = useAppStore((state) => state.locale);
   return (
     <DialogTrigger isOpen={isOpen} onOpenChange={setOpen}>
