@@ -4,6 +4,7 @@ import {
   attach,
   held,
   holdNext,
+  holdRetarget,
   idle,
   installMotionProbe,
   picture,
@@ -361,7 +362,7 @@ for (const component of ['Dialog', 'Menu', 'SideSheet'] as const) {
     // Keep the paused real exit, and arm the same native recorder for the
     // replacement transition. WebKit can omit an entire 151ms live window
     // during driver input; a native held frame also proves its retarget start.
-    await holdNext(page, selector, false, 40);
+    await holdRetarget(page, selector, 40);
     const liveReversal = await overlay.evaluateHandle((node) => {
       const done = new Promise<{ time: number; opacity: number }[]>(
         (resolve) => {

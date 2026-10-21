@@ -1,5 +1,7 @@
+import { useContext } from 'react';
 import {
   Popover as AriaPopover,
+  PopoverContext,
   type PopoverProps as AriaPopoverProps,
 } from 'react-aria-components';
 import { useOverlayTransition } from './useOverlayTransition';
@@ -13,7 +15,11 @@ export function Popover({
   onAfterClose,
   ...props
 }: PopoverProps) {
-  const [overlayKey, overlayRef] = useOverlayTransition(onAfterClose);
+  const context = useContext(PopoverContext);
+  const [overlayKey, overlayRef] = useOverlayTransition(
+    onAfterClose,
+    props.triggerRef ?? context?.triggerRef,
+  );
   return (
     <AriaPopover
       {...props}

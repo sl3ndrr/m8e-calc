@@ -82,3 +82,21 @@ it('reports completed exit on scope removal, not merely an open unmount', () => 
   second.unmount();
   expect(closed).toHaveBeenCalledTimes(1);
 });
+
+it('releases owned focus before inert and preserves a newer native target', () => {
+  const opener = document.createElement('button');
+  const next = document.createElement('button');
+  document.body.append(opener, next);
+  opener.focus();
+  const { rerender, unmount } = render(<Subject exiting={false} />);
+  screen.getByTestId('child').focus();
+  rerender(<Subject />);
+  expect(opener).toHaveFocus();
+  rerender(<Subject exiting={false} />);
+  next.focus();
+  rerender(<Subject />);
+  expect(next).toHaveFocus();
+  unmount();
+  opener.remove();
+  next.remove();
+});

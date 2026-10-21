@@ -211,3 +211,9 @@ Die vorhandenen Fokus-/Escape-/Light-Dismiss-Verträge bleiben erhalten.
 AccentPicker verwendet dies für AP44s begrenzten Fokusfallback nach kaltem
 Inhaltwechsel. Neuer nativer Input oder Wiederöffnen bricht diese Rückgabe ab;
 React Aria besitzt weiterhin Fokuscontainment und reguläre Rückgabe.
+
+Beim logischen Schließen gibt der Adapter noch innerhalb des Exit-Scopes
+gehaltenen Fokus vor dessen Inertheit zurück. Popover verwendet dazu den
+React-Aria-Triggerref, Dialog das vor seinem Mount aktive Ziel. Bereits neuer
+nativer Fokus wird nicht ersetzt. Dies erhält die Rückgabe auch dann, wenn
+während des Exits ein weiterer Scope geöffnet und der alte entfernt wird.

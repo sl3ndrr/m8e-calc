@@ -234,6 +234,8 @@ jobs:
     name: AP45 overlay and effects evidence
     if: github.head_ref == 'feat/ap45-overlay-motion'
     runs-on: ubuntu-latest
+    env:
+      AP42_SOURCE: ${{ github.event.pull_request.head.sha }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -263,7 +265,9 @@ jobs:
       - run: npx playwright install --with-deps chromium firefox webkit
       - name: Cold Escape and focus regressions first
         id: cold
-        run: npx playwright test e2e/settings-actions.spec.ts --grep 'nested Escape|AP45 Escape' --repeat-each=3 --project=chromium --project=firefox --project=webkit --workers=1 --retries=0 --reporter=list --output=test-results/ap45/cold
+        run: npx playwright test e2e/settings-actions.spec.ts --grep 'nested Escape|AP45 Escape|AP45 a new native' --repeat-each=3 --project=chromium --project=firefox --project=webkit --workers=1 --retries=0 --reporter=list --output=test-results/ap45/cold
+      - name: Native retarget regression first
+        run: npx playwright test --config=playwright.ap36.config.ts --grep 'AP45 .*real exit frames' --reporter=list --output=test-results/ap45/retarget
       - name: Existing AP36 native frames and interruption cases in three engines
         run: npx playwright test --config=playwright.ap36.config.ts --reporter=list --output=test-results/ap45/ap36
       - name: Existing AP20 and gallery accessibility cases in three engines
