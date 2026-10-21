@@ -1,8 +1,7 @@
 name: AP47 AP48 bounded diagnosis
 on:
-  pull_request:
-    branches: [main]
-    paths: ['.github/workflows/ap47-diagnosis.yml']
+  push:
+    branches: [feat/ap47-bounded-diagnosis]
 permissions:
   contents: read
 jobs:
@@ -17,25 +16,31 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci --engine-strict
-      - name: Twelve predeclared App sequences, preserve every failure
+      - name: Two complete UI suites with lazy import and native event diagnostics
         run: |
           mkdir -p test-results/ap48
           status=0
-          for ap48_case in {1..12}; do
-            npx vitest run --project=ui src/app/App.test.tsx --reporter=verbose > "test-results/ap48/case-$ap48_case.log" 2>&1 || status=1
+          for ap48_case in {1..2}; do
+            npm run test:ui > "test-results/ap48/full-$ap48_case.log" 2>&1 || status=1
           done
           cat test-results/ap48/*.log
           exit "$status"
       - run: npm run build
         if: ${{ !cancelled() }}
-      - run: npx playwright install --with-deps webkit
+      - run: npx playwright install --with-deps chromium firefox webkit
         if: ${{ !cancelled() }}
-      - name: Fixed trace comparison, screenshots then no screenshots, original assertions
+      - name: Actual cold and warm history to settings transition in three engines
+        if: ${{ !cancelled() }}
+        run: npx playwright test e2e/settings-actions.spec.ts --project=chromium --project=firefox --project=webkit --workers=1 --retries=0 --grep 'AP48 history exit' --output=test-results/ap48/browser
+      - name: Same-run Canvas hint experiment, fixed windows and original limits
         if: ${{ !cancelled() }}
         run: |
           status=0
-          AP47_SCREENSHOTS=1 npx playwright test --config=playwright.ap47.config.ts e2e/graph-parameters.spec.ts --project=webkit --workers=1 --retries=0 --grep 'Full slow Worker' --output=test-results/ap47/screenshots || status=1
-          AP47_SCREENSHOTS=0 npx playwright test --config=playwright.ap47.config.ts e2e/graph-parameters.spec.ts --project=webkit --workers=1 --retries=0 --grep 'Full slow Worker' --output=test-results/ap47/no-screenshots || status=1
+          for ap47_hint in product synchronized; do
+            AP47_CANVAS_HINT="$ap47_hint" npx playwright test --config=playwright.ap28.config.ts --workers=1 --retries=0 --reporter=list --output="test-results/ap47/$ap47_hint" || status=1
+            mkdir -p "test-results/ap47/$ap47_hint/raw"
+            cp test-results/ap28/* "test-results/ap47/$ap47_hint/raw/"
+          done
           exit "$status"
       - uses: actions/upload-artifact@v7
         if: always()

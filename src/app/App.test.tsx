@@ -1,12 +1,38 @@
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { afterEach, expect, it } from 'vitest';
+import { afterEach, expect, it, vi } from 'vitest';
 import { snackbarQueue } from '../ui';
 import { App } from './App';
 import { t } from '../shared/i18n';
 import { useAppStore } from '../shared/store';
 import { useHistoryStore } from '../shared/historyStore';
 import { useSettingsStore } from '../shared/settingsStore';
+const lazyLoads = vi.hoisted(
+  () => [] as { name: string; start: number; end?: number }[],
+);
+vi.mock('./SettingsDialog', async (original) => {
+  const load = {
+    name: 'settings',
+    start: performance.now(),
+    end: undefined as number | undefined,
+  };
+  lazyLoads.push(load);
+  const module = await original<typeof import('./SettingsDialog')>();
+  load.end = performance.now();
+  return module;
+});
+vi.mock('./HistorySheet', async (original) => {
+  const load = {
+    name: 'history',
+    start: performance.now(),
+    end: undefined as number | undefined,
+  };
+  lazyLoads.push(load);
+  const module = await original();
+  load.end = performance.now();
+  return module;
+});
+
 afterEach(() => {
   snackbarQueue.clear();
   window.location.hash = '';
@@ -66,20 +92,25 @@ it('opens history from the shortcut, retains visibility by mode and opens settin
     const user = userEvent.setup();
     render(<App />);
     await screen.findByRole('heading', { name: t('mode.simple') });
+    events.push({ phase: 'before-history', at: performance.now() });
     await user.keyboard('{Control>}h{/Control}');
     expect(
       await screen.findByRole('dialog', { name: t('history.title') }),
     ).toBeVisible();
+    events.push({ phase: 'history-ready', at: performance.now() });
     await user.keyboard('{Escape}');
     expect(useHistoryStore.getState().visibility.simple).toBe(false);
+    events.push({ phase: 'before-settings', at: performance.now() });
     await user.click(screen.getByRole('button', { name: t('shell.settings') }));
+    events.push({ phase: 'after-settings-click', at: performance.now() });
     expect(
       await screen.findByRole('dialog', { name: t('shell.settings') }),
     ).toBeVisible();
+    console.info('AP48 phases', JSON.stringify({ lazyLoads, events }));
   } catch (error) {
     console.error(
       'AP48 diagnostic',
-      JSON.stringify({ events, body: document.body.innerHTML }),
+      JSON.stringify({ lazyLoads, events, body: document.body.innerHTML }),
     );
     throw error;
   } finally {

@@ -25,6 +25,26 @@ declare global {
   }
 }
 
+// Explicit AP47 A/B experiment only; ordinary gates always use the product hint.
+test.beforeEach(async ({ page }) => {
+  if (process.env.AP47_CANVAS_HINT !== 'synchronized') return;
+  await page.addInitScript(() => {
+    const getContext = HTMLCanvasElement.prototype.getContext;
+    Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+      value: function (
+        this: HTMLCanvasElement,
+        type: string,
+        options?: CanvasRenderingContext2DSettings,
+      ) {
+        return Reflect.apply(getContext, this, [
+          type,
+          type === '2d' ? { ...options, desynchronized: false } : options,
+        ]);
+      },
+    });
+  });
+});
+
 async function setup(page: Page) {
   await page.setViewportSize({ width: 3840, height: 2160 });
   await page.addInitScript(() => {
@@ -102,6 +122,7 @@ async function setup(page: Page) {
     css: { width: e.clientWidth, height: e.clientHeight },
     backing: { width: e.width, height: e.height },
     dpr: devicePixelRatio,
+    contextAttributes: e.getContext('2d')?.getContextAttributes(),
     samples: JSON.parse(e.dataset.sampleResult ?? '[]') as {
       components: number;
       error?: string;
@@ -277,6 +298,7 @@ test('AP28 fixed graph references and regression controls', async ({
         browser: browser.version(),
         project: info.project.name,
         graphics,
+        diagnosticCanvasHint: process.env.AP47_CANVAS_HINT ?? 'product',
         runner: {
           os: platform(),
           release: release(),
