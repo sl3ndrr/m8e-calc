@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { holdChunk } from './accentLoading';
 
 // Isolate the mock browser prompt and cold module requests from SW precaching.
 // These tests verify the app/browser API contract, never an OS installation.
@@ -206,4 +207,49 @@ test('English settings use translated appearance and install labels', async ({
   await expect(
     page.getByRole('region', { name: 'App', exact: true }).getByRole('button'),
   ).toHaveText('Install app');
+});
+
+test('nested Escape during a cold load preserves focus and allows a cached reopen', async ({
+  page,
+}) => {
+  const panel = await holdChunk(page, 'AccentPanel');
+  try {
+    await page.goto('/m8e-calc/#/simple');
+    await page
+      .getByRole('button', { name: 'Einstellungen', exact: true })
+      .click();
+
+    const trigger = page.getByRole('button', { name: 'Akzentfarbe anpassen' });
+    await trigger.focus();
+    await page.keyboard.press('Enter');
+    await panel.requested;
+    await expect(
+      page.getByRole('dialog', { name: 'Akzentfarbe anpassen' }),
+    ).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await expect(trigger).toBeFocused();
+    const response = page.waitForResponse(/\/assets\/AccentPanel-[^/]+\.js$/);
+    panel.release();
+    await response;
+    await expect(
+      page.getByRole('dialog', { name: 'Einstellungen', exact: true }),
+    ).toBeVisible();
+    await expect(page.getByRole('dialog')).toHaveCount(1);
+    await expect(trigger).toBeFocused();
+    await page.keyboard.press('Enter');
+    const picker = page.getByRole('dialog', { name: 'Deine Farbwelt' });
+    await expect(
+      picker.getByRole('button', { name: 'Iris', exact: true }),
+    ).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expect(picker).toBeHidden();
+    await expect(trigger).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expect(
+      page.getByRole('button', { name: 'Einstellungen', exact: true }),
+    ).toBeFocused();
+  } finally {
+    panel.release();
+  }
 });
