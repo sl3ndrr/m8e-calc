@@ -376,3 +376,16 @@ Abnahmeverbraucher hat keine Veröffentlichungsrechte und liefert niemals Bytes
 an den regulären Freigabe-/Deploypfad. Dessen strikte Same-Run-Bindung bleibt
 unverändert. PR-Head, main-/Produkt-SHA und aktive Live-Clientfassung weiterhin
 trennen; die letzte bleibt bei einer Umgebungssperre ausdrücklich unbekannt.
+
+## AP47 / AP48 · Reparatur der Abnahme
+
+[docs/AP47.md](docs/AP47.md) trennt den kontrollierten Canvas-Kontexthinweisvergleich,
+WebKit-Messlast und den Unit-/Browser-Overlayvertrag. Der sichtbare Graphcanvas
+verwendet den Standardkontext mit alpha=false; kein desynchronized-Hinweis.
+WebKit-Frameproben laufen im regulären Browserjob isoliert mit einem Worker,
+alle Grenzen unverändert. Rohproben auch bei frühem Fehler sichern.
+Unit-Vorbereitung und React-Abschluss ersetzen keinen kalten Produktionspfad:
+History-Exit → Settings wird mit zurückgehaltenem Modul und echtem Fokus in
+drei Engines geprüft. Merge ist durch den neuen Nutzerauftrag ausschließlich
+nach grüner finaler Pflicht-CI und relevanten Zusatzprüfungen autorisiert;
+die reale main-/Pages-Kette danach separat prüfen. Keine Tags/Releases/manuellen Deploys.

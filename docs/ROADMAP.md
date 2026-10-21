@@ -245,11 +245,19 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
 - [ ] 46 Integrierte Produktabnahme — `feat/ap46-integrated-acceptance`, #69:
       vorhandene Browser-/Framegates nach AP42–AP45, mindestens zehn Sekunden
       Parameterplayback, aktueller main-/Pages-/Clientabgleich und Issue-Empfehlungen.
-      Bericht: [AP46](AP46.md). Keine neuen Bildbaselines; kein Merge/Release/Deploy.
+      Bericht: [AP46](AP46.md), Reparaturen: [AP47](AP47.md). Keine neuen Bildbaselines.
+      Neuer Nutzerauftrag: Merge erst nach grüner finaler Pflicht-CI und relevanten
+      Zusatzprüfungen; keine Tags/Releases/manuellen Deploys.
       AP39-/AP41-Livepunkte bleiben bei Zugangssperre offen, #43 separat.
 
-- [ ] 47 WebKit-/Collector-Diagnose — [#70](https://github.com/sl3ndrr/m8e-calc/issues/70):
-      Slow-Worker-Fall bleibt in PR-CI 39637195764 bei 118 statt >120 rAF-Proben.
-      Rohdaten auch vor früher Assertion sichern; Collector, rAF-Scheduling und
-      tatsächlichen Geometriefortschritt trennen. Originalgates unverändert;
-      keine Rerun-Schleife oder behauptete Produkt-/GPU-Ursache.
+- [ ] 47 WebKit-/Collector-Diagnose und Canvas-Finalisierung — [#70](https://github.com/sl3ndrr/m8e-calc/issues/70),
+      eigener 4K-Vertrag [#43](https://github.com/sl3ndrr/m8e-calc/issues/43).
+      Belegter Kontexthinweis-Aufwand entfernt; WebKit-Frameprobe isoliert,
+      frühe Fehlerrohwerte vollständig. Umsetzung in #69; finale CI maßgeblich.
+      Originalgates und historische rote Läufe bleiben erhalten. [AP47](AP47.md).
+
+- [ ] 48 History-Exit → Einstellungen — [#71](https://github.com/sl3ndrr/m8e-calc/issues/71).
+      Unit-Vorbereitung/React-Abschluss und Fokusbereitschaft explizit;
+      zusätzlicher kalter/warmer Produktionsbrowserfall während echten Exits.
+      Umsetzung in #69, finale CI maßgeblich. Historische Ursache nicht erfunden;
+      keine längeren Timeouts oder ersetzte Benutzerklicks. [AP47](AP47.md).
