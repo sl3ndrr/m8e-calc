@@ -5,12 +5,14 @@ import { useOverlayTransition } from './useOverlayTransition';
 function Subject({
   exiting = true,
   onAfterClose,
+  present = true,
 }: {
   exiting?: boolean;
   onAfterClose?: () => void;
+  present?: boolean;
 }) {
   const [overlayKey, overlayRef] = useOverlayTransition(onAfterClose);
-  return (
+  return present ? (
     <div
       data-testid="scope"
       data-exiting={exiting || undefined}
@@ -21,7 +23,7 @@ function Subject({
         Child
       </button>
     </div>
-  );
+  ) : null;
 }
 function cancel(node: Element, propertyName = 'opacity') {
   fireEvent(
@@ -33,6 +35,7 @@ function cancel(node: Element, propertyName = 'opacity') {
 }
 afterEach(() => {
   delete document.documentElement.dataset.motion;
+  vi.unstubAllGlobals();
 });
 it('retains ordinary reversals and ignores bubbling child cancellations', () => {
   document.documentElement.dataset.motion = 'full';
@@ -79,6 +82,8 @@ it('reports completed exit on scope removal, not merely an open unmount', () => 
   expect(closed).not.toHaveBeenCalled();
   const second = render(<Subject onAfterClose={closed} />);
   expect(closed).not.toHaveBeenCalled();
+  second.rerender(<Subject present={false} onAfterClose={closed} />);
+  expect(closed).toHaveBeenCalledTimes(1);
   second.unmount();
   expect(closed).toHaveBeenCalledTimes(1);
 });
@@ -97,6 +102,75 @@ it('releases owned focus before inert and preserves a newer native target', () =
   rerender(<Subject />);
   expect(next).toHaveFocus();
   unmount();
+  opener.remove();
+  next.remove();
+});
+
+function nativeFrames() {
+  const frames = new Map<number, FrameRequestCallback>();
+  let id = 0;
+  vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) => {
+    frames.set(++id, callback);
+    return id;
+  });
+  vi.stubGlobal('cancelAnimationFrame', (id: number) => frames.delete(id));
+  return {
+    frames,
+    flush: () => {
+      const callbacks = [...frames.values()];
+      frames.clear();
+      callbacks.forEach((callback) => callback(0));
+    },
+  };
+}
+
+it('returns owned focus once after exit removal releases Aria isolation', () => {
+  const { frames, flush } = nativeFrames();
+  const opener = document.createElement('button');
+  document.body.append(opener);
+  opener.focus();
+  const { rerender, unmount } = render(<Subject exiting={false} />);
+  screen.getByTestId('child').focus();
+  opener.setAttribute('inert', '');
+  rerender(<Subject />);
+  expect(frames.size).toBe(0);
+  expect(opener).not.toHaveFocus();
+  rerender(<Subject present={false} />);
+  expect(frames.size).toBe(1);
+  opener.removeAttribute('inert');
+  flush();
+  expect(opener).toHaveFocus();
+  expect(frames.size).toBe(0);
+  unmount();
+  opener.remove();
+});
+
+it('cancels pending return on native input, reopen and component unmount', () => {
+  const { frames, flush } = nativeFrames();
+  const opener = document.createElement('button');
+  const next = document.createElement('button');
+  document.body.append(opener, next);
+  opener.focus();
+  const { rerender, unmount } = render(<Subject exiting={false} />);
+  screen.getByTestId('child').focus();
+  rerender(<Subject />);
+  rerender(<Subject present={false} />);
+  fireEvent.pointerDown(next);
+  next.focus();
+  flush();
+  expect(next).toHaveFocus();
+  expect(frames.size).toBe(0);
+  rerender(<Subject exiting={false} />);
+  screen.getByTestId('child').focus();
+  rerender(<Subject />);
+  rerender(<Subject present={false} />);
+  expect(frames.size).toBe(1);
+  rerender(<Subject exiting={false} />);
+  expect(frames.size).toBe(0);
+  screen.getByTestId('child').focus();
+  rerender(<Subject />);
+  unmount();
+  expect(frames.size).toBe(0);
   opener.remove();
   next.remove();
 });

@@ -207,13 +207,15 @@ der React-Aria-Dismiss-Buttons und räumt seinen lokalen Observer beim Unmount a
 Die vorhandenen Fokus-/Escape-/Light-Dismiss-Verträge bleiben erhalten.
 [AP45](AP45.md) enthält die verbindliche Matrix und Prüfgrenzen.
 
-`Popover.onAfterClose` meldet die tatsächliche Entfernung eines Exit-Scopes.
-AccentPicker verwendet dies für AP44s begrenzten Fokusfallback nach kaltem
-Inhaltwechsel. Neuer nativer Input oder Wiederöffnen bricht diese Rückgabe ab;
-React Aria besitzt weiterhin Fokuscontainment und reguläre Rückgabe.
+`Popover.onAfterClose` meldet die tatsächliche Entfernung eines Exit-Scopes,
+solange der Controller montiert bleibt. Externer Komponenten-Unmount bricht
+stattdessen alle geplanten Rückgaben ab.
 
-Beim logischen Schließen gibt der Adapter noch innerhalb des Exit-Scopes
-gehaltenen Fokus vor dessen Inertheit zurück. Popover verwendet dazu den
-React-Aria-Triggerref, Dialog das vor seinem Mount aktive Ziel. Bereits neuer
-nativer Fokus wird nicht ersetzt. Dies erhält die Rückgabe auch dann, wenn
-während des Exits ein weiterer Scope geöffnet und der alte entfernt wird.
+Der Adapter erfasst noch selbst gehaltenen Fokus beim logischen Close vor
+Inertheit. Popover verwendet den slotted React-Aria-Triggerref, Dialog das vor
+seinem Mount aktive Ziel. Da Aria-Outside-Isolation den Trigger noch inert
+halten kann, prüft der gemeinsame Kaltstartfallback nach Scope-Entfernung genau
+einen rAF. Er ersetzt ausschließlich Body, das Ziel selbst oder den umgebenden
+Dialog. Neuer nativer Input, Wiederöffnen und Komponenten-Unmount brechen Frame
+und Listener ab. Neuer aktiver Fokus bleibt erhalten. React Aria verwaltet
+weiterhin Containment, Overlaystapel und reguläre Rückgabe.
