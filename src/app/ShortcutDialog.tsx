@@ -2,7 +2,10 @@ import { Dialog } from '../ui/Dialog';
 import { t } from '../shared/i18n/extended';
 import { useAppStore } from '../shared/store';
 import { shortcuts } from './shortcuts';
-export function ShortcutDialog({ isOpen = true, onClose }: {
+export function ShortcutDialog({
+  isOpen = true,
+  onClose,
+}: {
   isOpen?: boolean;
   onClose: () => void;
 }) {

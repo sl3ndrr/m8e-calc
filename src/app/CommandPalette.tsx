@@ -17,14 +17,20 @@ export function CommandPalette({
   const locale = useAppStore((s) => s.locale);
   const [query, setQuery] = useState(''),
     [active, setActive] = useState(0);
+  const [wasOpen, setWasOpen] = useState(isOpen);
+  if (wasOpen !== isOpen) {
+    setWasOpen(isOpen);
+    if (isOpen) {
+      setQuery('');
+      setActive(0);
+    }
+  }
   const results = useMemo(() => searchPalette(query, locale), [query, locale]);
   const id = useId(),
     list = useRef<HTMLUListElement>(null),
     input = useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (!isOpen) return;
-    setQuery('');
-    setActive(0);
     const frame = window.requestAnimationFrame(() => input.current?.focus());
     return () => window.cancelAnimationFrame(frame);
   }, [isOpen]);

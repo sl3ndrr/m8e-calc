@@ -202,6 +202,7 @@ können erst beim ersten Öffnen geladen werden und danach geschlossen montiert
 bleiben. React Aria entfernt Portal und FocusScope nach der nativen Transition;
 Exit-Inhalt ist inert und pointerdurchlässig. Motionbedingtes Transition-Cancel
 verwirft ausschließlich den geschlossenen Scope, gewöhnliche Umkehr erhält ihn.
-Popover rendert Children/Renderprop innerhalb eines `display: contents`-Wrappers.
+Der gemeinsame Ref-Adapter setzt Inertheit am gesamten Overlay einschließlich
+der React-Aria-Dismiss-Buttons und räumt seinen lokalen Observer beim Unmount auf.
 Die vorhandenen Fokus-/Escape-/Light-Dismiss-Verträge bleiben erhalten.
 [AP45](AP45.md) enthält die verbindliche Matrix und Prüfgrenzen.

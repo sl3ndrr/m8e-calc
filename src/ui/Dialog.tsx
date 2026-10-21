@@ -30,13 +30,12 @@ export function Dialog({
     <ModalOverlay
       {...props}
       key={transition.key}
-      onTransitionCancel={transition.onTransitionCancel}
+      ref={transition.ref}
       isDismissable={props.isDismissable ?? true}
       className="ui-modal-overlay"
     >
       <Modal className={`ui-modal ${className}`}>
-        {({ isExiting }) => (
-        <AriaDialog className="ui-dialog" inert={isExiting}>
+        <AriaDialog className="ui-dialog">
           {({ close }) => (
             <>
               <Heading slot="title">{title}</Heading>
@@ -47,7 +46,6 @@ export function Dialog({
             </>
           )}
         </AriaDialog>
-        )}
       </Modal>
     </ModalOverlay>
   );

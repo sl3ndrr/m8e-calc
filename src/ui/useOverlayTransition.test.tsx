@@ -9,16 +9,23 @@ function Subject({ exiting = true }: { exiting?: boolean }) {
       data-testid="scope"
       data-exiting={exiting || undefined}
       data-generation={transition.key}
-      onTransitionCancel={transition.onTransitionCancel}
+      ref={transition.ref}
     >
       <span data-testid="child" />
     </div>
   );
 }
 function cancel(node: Element, propertyName = 'opacity') {
-  fireEvent(node, Object.assign(new Event('transitioncancel', { bubbles: true }), { propertyName }));
+  fireEvent(
+    node,
+    Object.assign(new Event('transitioncancel', { bubbles: true }), {
+      propertyName,
+    }),
+  );
 }
-afterEach(() => { delete document.documentElement.dataset.motion; });
+afterEach(() => {
+  delete document.documentElement.dataset.motion;
+});
 it('retains ordinary reversals and ignores bubbling child cancellations', () => {
   document.documentElement.dataset.motion = 'full';
   render(<Subject />);

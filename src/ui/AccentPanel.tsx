@@ -20,7 +20,10 @@ import { IconButton } from './IconButton';
 import { Slider } from './Slider';
 import { Select } from './Select';
 import './AccentPicker.css';
-export default function AccentPanel({ isOpen = true, onClose }: {
+export default function AccentPanel({
+  isOpen = true,
+  onClose,
+}: {
   isOpen?: boolean;
   onClose: () => void;
 }) {

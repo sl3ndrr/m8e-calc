@@ -22,6 +22,3 @@
 .ui-popover[data-exiting] * {
   pointer-events: none !important;
 }
-.ui-popover-content {
-  display: contents;
-}
