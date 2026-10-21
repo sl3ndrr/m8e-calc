@@ -11,7 +11,9 @@ function Subject({ exiting = true }: { exiting?: boolean }) {
       data-generation={overlayKey}
       ref={overlayRef}
     >
-      <span data-testid="child" />
+      <button type="button" data-testid="child">
+        Child
+      </button>
     </div>
   );
 }
@@ -45,4 +47,21 @@ it('does not reset an open scope when the policy cancels its entrance', () => {
   const scope = screen.getByTestId('scope');
   cancel(scope);
   expect(scope).toHaveAttribute('data-generation', '0');
+});
+
+it('restores the retained native target only when an exit reverses', () => {
+  const { rerender, unmount } = render(<Subject exiting={false} />);
+  const child = screen.getByTestId('child');
+  child.focus();
+  rerender(<Subject />);
+  const outside = document.createElement('button');
+  document.body.append(outside);
+  outside.focus();
+  rerender(<Subject exiting={false} />);
+  expect(child).toHaveFocus();
+  unmount();
+  outside.focus();
+  cancel(child);
+  expect(outside).toHaveFocus();
+  outside.remove();
 });

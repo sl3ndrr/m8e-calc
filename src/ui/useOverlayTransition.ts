@@ -12,22 +12,39 @@ import { OverlayTriggerStateContext } from 'react-aria-components';
 export function useOverlayTransition() {
   // Recheck before passive autofocus when a trigger reopens an exiting scope.
   useContext(OverlayTriggerStateContext);
-  const element = useRef<HTMLElement | null>(null);
+  const synchronize = useRef<(() => void) | null>(null);
   useLayoutEffect(() => {
-    if (element.current)
-      element.current.inert = element.current.hasAttribute('data-exiting');
+    synchronize.current?.();
   });
   const [key, setKey] = useState(0);
   const cleanup = useRef<(() => void) | null>(null);
   const ref = useCallback((node: HTMLElement | null) => {
     cleanup.current?.();
     cleanup.current = null;
-    element.current = node;
+    synchronize.current = null;
     if (!node) return;
+    let wasExiting = false;
+    let lastFocused: HTMLElement | null = null;
+    const rememberFocus = (event: FocusEvent) => {
+      if (event.target instanceof HTMLElement) lastFocused = event.target;
+    };
+    node.addEventListener('focusin', rememberFocus);
     // Include React Aria's own dismiss buttons, not only the caller's content.
     const syncInert = () => {
-      node.inert = node.hasAttribute('data-exiting');
+      const exiting = node.hasAttribute('data-exiting');
+      node.inert = exiting;
+      // React Aria autofocus runs on mount. A reversed exit keeps that mount;
+      // restore its last native target, while Aria still owns containment.
+      if (
+        !exiting &&
+        wasExiting &&
+        lastFocused?.isConnected &&
+        !node.contains(document.activeElement)
+      )
+        lastFocused.focus({ preventScroll: true });
+      wasExiting = exiting;
     };
+    synchronize.current = syncInert;
     syncInert();
     const observer = new MutationObserver(syncInert);
     observer.observe(node, {
@@ -47,6 +64,7 @@ export function useOverlayTransition() {
     node.addEventListener('transitioncancel', cancel);
     cleanup.current = () => {
       observer.disconnect();
+      node.removeEventListener('focusin', rememberFocus);
       node.removeEventListener('transitioncancel', cancel);
     };
   }, []);

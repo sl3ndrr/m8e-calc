@@ -368,6 +368,11 @@ for (const component of ['Dialog', 'Menu', 'SideSheet'] as const) {
       await overlay.evaluate((node, original) => node === original, original),
     ).toBe(true);
     await expect(overlay).not.toHaveAttribute('data-exiting');
+    await expect
+      .poll(() =>
+        overlay.evaluate((node) => node.contains(document.activeElement)),
+      )
+      .toBe(true);
     const reversal = await sampleFrames(overlay, 8);
     expect(reversal[0]?.opacity).toBeGreaterThan(exit[0]?.opacity ?? 0);
     expect(reversal.at(-1)?.opacity).toBeGreaterThanOrEqual(

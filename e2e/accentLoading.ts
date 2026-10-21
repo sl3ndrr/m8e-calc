@@ -8,7 +8,10 @@ function barrier() {
   return { promise, release: () => release?.() };
 }
 
-export async function holdChunk(page: Page, name: 'AccentPanel' | 'DesignLab') {
+export async function holdChunk(
+  page: Page,
+  name: 'AccentPanel' | 'DesignLab' | 'SettingsDialog',
+) {
   const requested = barrier();
   const held = barrier();
   await page.route(new RegExp(`/assets/${name}-[^/]+\\.js$`), async (route) => {
