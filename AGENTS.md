@@ -353,3 +353,12 @@ bleibt zentral in App; SettingsDialog erhält nur `PwaInstallation`. SettingsDia
 und AccentPanel bleiben lazy. Stabile Akzent-Refs stellen den Fokus nach kaltem
 Overlaywechsel und verbrauchtem Prompt wieder her, ohne zusätzliche Fokusfalle.
 Navigation, Kaltstart, Offlinezugriff und echter Tabzoom: [docs/AP44.md](docs/AP44.md).
+
+## AP45 · Gemeinsame Overlaybewegung
+
+Die verbindliche kurze Matrix steht in [docs/AP45.md](docs/AP45.md).
+App-/Accent-Controller übergeben Open an React Aria und entfernen geschlossene
+Overlays nicht vor ihrer Exitphase. Exit-Inhalte sind inert/pointerdurchlässig;
+Motion-/OS-Cancel darf keinen geschlossenen Scope zurücklassen. Overlay-Opacity
+und Controls-Farben verwenden Effects Fast; Selected-Radien bleiben diskret,
+Sliderpositionen folgen direkt. AP20/AP36/Galerie bleiben die Prüfinfrastruktur.

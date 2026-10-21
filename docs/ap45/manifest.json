@@ -1,0 +1,35 @@
+{
+  "source": "1a9cdf4f88260bb661199f9f261248f30d1cb32d",
+  "run": 39565656007,
+  "artifact": 12330887231,
+  "files": [
+    {
+      "path": "dialog-firefox-Dialog-exit-middle.png",
+      "sha256": "4580ba417dd0dc39ae676d2e51aed50b3552afc484b78c154752397aa0815e73"
+    },
+    {
+      "path": "frames.ndjson",
+      "sha256": "0fab2549fd3fec01bca35a5c05156003f44aa3c31ad6cda3c19b2e0205cf70c8"
+    },
+    {
+      "path": "graph-webkit-select-exit-middle.png",
+      "sha256": "d43f7fbb945cc02cdaf08213b9424a5b8ba20540e749c7dc85ad906a05c2a6d3"
+    },
+    {
+      "path": "simple-accent-enter-middle.png",
+      "sha256": "73da320a9a092ee81bad986252dcc8a8e5c60e7f8217ad3f347fc00a965fdcd4"
+    },
+    {
+      "path": "simple-accent-exit-middle.png",
+      "sha256": "44a042e41e3c70c050681b7dc712a8aac90de04b62186cb236fa4a53932cdfe1"
+    },
+    {
+      "path": "simple-dialog-backdrop-exit-middle.png",
+      "sha256": "1dc7e2629ff5b0d3c0547da30f1de74088fb137fd6b2b4c2ddea14596d14f359"
+    },
+    {
+      "path": "simple-select-exit-middle.png",
+      "sha256": "1cc491d6fb40467bb4fbce5338f7367ab1faaa37873b4b716e0897d6baed330b"
+    }
+  ]
+}

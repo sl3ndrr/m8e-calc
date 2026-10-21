@@ -230,3 +230,10 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       in der Shell. Zentraler PWA-Lifecycle und Lazy-Grenzen bleiben erhalten.
       Prüfstatus und Grenzen: [AP44](AP44.md).
       Weitere Overlay-/Controls-Animationen bleiben einem eigenen Paket vorbehalten.
+
+- [ ] 45 Gemeinsame Overlay-/Controls-Bewegung — `feat/ap45-overlay-motion`,
+      ab main `26346af2` nach AP42/AP43/AP44. AP44 ist durch Einstellungsaktionen
+      belegt, daher freie Nummer AP45. Symmetrische Effects-Übergänge,
+      React-Aria-Exitpräsenz, gezielte Switch-/Segment-/Slider-Effects; keine
+      Dependency-Migration und kein Graphsampling. Verbindliche Matrix,
+      tatsächliche Prüfläufe und Geräte-Folgepunkte: [AP45](AP45.md).

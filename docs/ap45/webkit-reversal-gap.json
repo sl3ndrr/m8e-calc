@@ -1,0 +1,165 @@
+{
+  "source": "822f55be8a96be496ae6987c889c89455a869a73",
+  "run": 39585689732,
+  "cases": [
+    {
+      "case": "ap36-gallery-AP45-Dialog-r-8af6d-nce-and-policy-cancellation-webkit-gallery",
+      "frames": [
+        {
+          "time": 3060,
+          "opacity": 0.295032
+        },
+        {
+          "time": 3068,
+          "opacity": 0.295032
+        },
+        {
+          "time": 3257,
+          "opacity": 1
+        },
+        {
+          "time": 3410,
+          "opacity": 1
+        },
+        {
+          "time": 3454,
+          "opacity": 1
+        },
+        {
+          "time": 3484,
+          "opacity": 1
+        },
+        {
+          "time": 3500,
+          "opacity": 1
+        },
+        {
+          "time": 3509,
+          "opacity": 1
+        },
+        {
+          "time": 3524,
+          "opacity": 1
+        },
+        {
+          "time": 3539,
+          "opacity": 1
+        },
+        {
+          "time": 3555,
+          "opacity": 1
+        },
+        {
+          "time": 3571,
+          "opacity": 1
+        }
+      ]
+    },
+    {
+      "case": "ap36-gallery-AP45-SideShee-5120e-nce-and-policy-cancellation-webkit-gallery",
+      "frames": [
+        {
+          "time": 3121,
+          "opacity": 0.295032
+        },
+        {
+          "time": 3134,
+          "opacity": 0.295032
+        },
+        {
+          "time": 3328,
+          "opacity": 1
+        },
+        {
+          "time": 3490,
+          "opacity": 1
+        },
+        {
+          "time": 3534,
+          "opacity": 1
+        },
+        {
+          "time": 3564,
+          "opacity": 1
+        },
+        {
+          "time": 3580,
+          "opacity": 1
+        },
+        {
+          "time": 3591,
+          "opacity": 1
+        },
+        {
+          "time": 3606,
+          "opacity": 1
+        },
+        {
+          "time": 3622,
+          "opacity": 1
+        },
+        {
+          "time": 3638,
+          "opacity": 1
+        },
+        {
+          "time": 3654,
+          "opacity": 1
+        }
+      ]
+    },
+    {
+      "case": "ap36-gallery-AP45-Menu-rea-94722-nce-and-policy-cancellation-webkit-gallery",
+      "frames": [
+        {
+          "time": 2736,
+          "opacity": 0.295032
+        },
+        {
+          "time": 2784,
+          "opacity": 0.295032
+        },
+        {
+          "time": 2951,
+          "opacity": 1
+        },
+        {
+          "time": 2985,
+          "opacity": 1
+        },
+        {
+          "time": 3001,
+          "opacity": 1
+        },
+        {
+          "time": 3017,
+          "opacity": 1
+        },
+        {
+          "time": 3033,
+          "opacity": 1
+        },
+        {
+          "time": 3049,
+          "opacity": 1
+        },
+        {
+          "time": 3065,
+          "opacity": 1
+        },
+        {
+          "time": 3081,
+          "opacity": 1
+        },
+        {
+          "time": 3097,
+          "opacity": 1
+        },
+        {
+          "time": 3113,
+          "opacity": 1
+        }
+      ]
+    }
+  ]
+}

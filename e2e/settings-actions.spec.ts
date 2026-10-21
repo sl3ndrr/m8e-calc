@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { holdChunk } from './accentLoading';
+import { held, holdNext, installMotionProbe, resume } from './ap36Capture';
 
 // Isolate the mock browser prompt and cold module requests from SW precaching.
 // These tests verify the app/browser API contract, never an OS installation.
@@ -228,47 +229,220 @@ test('English settings use translated appearance and install labels', async ({
   ).toHaveText('Install app');
 });
 
-test('nested Escape during a cold load preserves focus and allows a cached reopen', async ({
+for (const policy of ['full', 'reduced', 'off'] as const) {
+  test(`nested Escape during a cold load preserves focus and allows a cached reopen: ${policy}`, async ({
+    page,
+  }) => {
+    await page.addInitScript(
+      (motionLevel) =>
+        localStorage.setItem(
+          'm8e-calc.settings',
+          JSON.stringify({ version: 4, state: { motionLevel } }),
+        ),
+      policy,
+    );
+    const panel = await holdChunk(page, 'AccentPanel');
+    try {
+      await page.goto('/m8e-calc/#/simple');
+      await page
+        .getByRole('button', { name: 'Einstellungen', exact: true })
+        .click();
+
+      const trigger = page.getByRole('button', {
+        name: 'Akzentfarbe anpassen',
+      });
+      await trigger.focus();
+      await page.keyboard.press('Enter');
+      await panel.requested;
+      await expect(
+        page.getByRole('dialog', { name: 'Akzentfarbe anpassen' }),
+      ).toBeVisible();
+      await page.keyboard.press('Escape');
+      await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+      await expect(trigger).toBeFocused();
+      const response = page.waitForResponse(/\/assets\/AccentPanel-[^/]+\.js$/);
+      panel.release();
+      await response;
+      await expect(
+        page.getByRole('dialog', { name: 'Einstellungen', exact: true }),
+      ).toBeVisible();
+      await expect(page.getByRole('dialog')).toHaveCount(1);
+      await expect(trigger).toBeFocused();
+      await page.keyboard.press('Enter');
+      const picker = page.getByRole('dialog', { name: 'Deine Farbwelt' });
+      await expect(
+        picker.getByRole('button', { name: 'Iris', exact: true }),
+      ).toBeFocused();
+      await page.keyboard.press('Escape');
+      await expect(picker).toBeHidden();
+      await expect(trigger).toBeFocused();
+      await page.keyboard.press('Escape');
+      await expect(
+        page.getByRole('button', { name: 'Einstellungen', exact: true }),
+      ).toBeFocused();
+    } finally {
+      panel.release();
+    }
+  });
+}
+
+test('AP45 Escape cancels a cold settings request before its controller mounts', async ({
   page,
 }) => {
-  const panel = await holdChunk(page, 'AccentPanel');
+  const settings = await holdChunk(page, 'SettingsDialog');
   try {
     await page.goto('/m8e-calc/#/simple');
-    await page
-      .getByRole('button', { name: 'Einstellungen', exact: true })
-      .click();
-
-    const trigger = page.getByRole('button', { name: 'Akzentfarbe anpassen' });
-    await trigger.focus();
-    await page.keyboard.press('Enter');
-    await panel.requested;
-    await expect(
-      page.getByRole('dialog', { name: 'Akzentfarbe anpassen' }),
-    ).toBeVisible();
+    await expect(page.locator('.calculator-announcement')).toHaveText('0');
+    await page.keyboard.press('7');
+    await expect(page.locator('.calculator-announcement')).toHaveText('7');
+    const opener = page.getByRole('button', {
+      name: 'Einstellungen',
+      exact: true,
+    });
+    await opener.click();
+    await settings.requested;
     await page.keyboard.press('Escape');
-    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-    await expect(trigger).toBeFocused();
-    const response = page.waitForResponse(/\/assets\/AccentPanel-[^/]+\.js$/);
-    panel.release();
+    const response = page.waitForResponse(
+      /\/assets\/SettingsDialog-[^/]+\.js$/,
+    );
+    settings.release();
     await response;
+    const presence = await page.evaluate(async () => {
+      const frames = [];
+      for (let i = 0; i < 12; i++) {
+        await new Promise(requestAnimationFrame);
+        frames.push(document.querySelectorAll('.ui-modal-overlay').length);
+      }
+      return frames;
+    });
+    expect(presence.every((count) => count === 0)).toBe(true);
+    await expect(page.locator('.calculator-announcement')).toHaveText('7');
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(opener).toBeFocused();
+    await opener.click();
     await expect(
       page.getByRole('dialog', { name: 'Einstellungen', exact: true }),
     ).toBeVisible();
-    await expect(page.getByRole('dialog')).toHaveCount(1);
-    await expect(trigger).toBeFocused();
-    await page.keyboard.press('Enter');
+    await page.keyboard.press('Escape');
+    await expect(opener).toBeFocused();
+  } finally {
+    settings.release();
+  }
+});
+
+test('AP45 a new native selection owns focus while the accent exit completes', async ({
+  page,
+}, info) => {
+  await page.addInitScript(() => {
+    const events: unknown[] = [];
+    Object.assign(window, { ap45FocusEvents: events });
+    const describe = (node: Element | null) =>
+      node && {
+        tag: node.tagName,
+        id: node.id,
+        label: node.getAttribute('aria-label'),
+        text: node.textContent?.slice(0, 60),
+        className: node.className,
+        inert: Boolean(node.closest('[inert]')),
+        exiting: Boolean(node.closest('[data-exiting]')),
+      };
+    const record = (kind: string, target: Element | null) => {
+      if (events.length < 500)
+        events.push({
+          time: performance.now(),
+          kind,
+          target: describe(target),
+          active: describe(document.activeElement),
+        });
+    };
+    const focus = HTMLElement.prototype.focus;
+    HTMLElement.prototype.focus = function (options) {
+      record('focus-call-before', this);
+      focus.call(this, options);
+      record('focus-call-after', this);
+    };
+    for (const name of ['focusin', 'focusout', 'keydown', 'pointerdown'])
+      document.addEventListener(
+        name,
+        (event) => {
+          record(name, event.target instanceof Element ? event.target : null);
+        },
+        true,
+      );
+  });
+  await installMotionProbe(page);
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/m8e-calc/#/simple');
+  await page
+    .getByRole('button', { name: 'Einstellungen', exact: true })
+    .click();
+  const trigger = page.getByRole('button', { name: 'Akzentfarbe anpassen' });
+  await trigger.click();
+  await expect(
+    page.getByRole('button', { name: 'Iris', exact: true }),
+  ).toBeFocused();
+  const picker = page.locator('.accent-popover');
+  await expect
+    .poll(() => picker.evaluate((node) => node.getAnimations().length))
+    .toBe(0);
+  await holdNext(page, '.accent-popover', false, 40);
+  await page.keyboard.press('Escape');
+  await expect.poll(async () => (await held(page)).length).toBeGreaterThan(0);
+  await page.getByRole('button', { name: /Animationsstufe/ }).click();
+  const list = page.getByRole('listbox');
+  await expect(list).toBeVisible();
+  await resume(page);
+  await expect(picker).toHaveCount(0);
+  await expect
+    .poll(() => list.evaluate((node) => node.contains(document.activeElement)))
+    .toBe(true);
+  await page.keyboard.press('Escape');
+  try {
+    await expect(
+      page.getByRole('button', { name: /Animationsstufe/ }),
+    ).toBeFocused();
+  } finally {
+    await info.attach('native-focus-ownership', {
+      contentType: 'application/json',
+      body: JSON.stringify(
+        await page.evaluate(() => Reflect.get(window, 'ap45FocusEvents')),
+      ),
+    });
+  }
+});
+
+for (const policy of ['full', 'reduced', 'off'] as const) {
+  test(`AP45 rapid Escape traverses closing selections: ${policy}`, async ({
+    page,
+  }) => {
+    await page.addInitScript(
+      (motionLevel) =>
+        localStorage.setItem(
+          'm8e-calc.settings',
+          JSON.stringify({ version: 4, state: { motionLevel } }),
+        ),
+      policy,
+    );
+    await page.goto('/m8e-calc/#/simple');
+    const opener = page.getByRole('button', {
+      name: 'Einstellungen',
+      exact: true,
+    });
+    await opener.click();
+    const accent = page.getByRole('button', { name: 'Akzentfarbe anpassen' });
+    await accent.click();
     const picker = page.getByRole('dialog', { name: 'Deine Farbwelt' });
     await expect(
       picker.getByRole('button', { name: 'Iris', exact: true }),
     ).toBeFocused();
+    await picker.getByRole('button', { name: /Schema-Variante/ }).click();
+    await page.getByRole('option', { name: 'Lebendig', exact: true }).click();
+    await picker.getByRole('button', { name: /Kontrast/ }).click();
+    await page.getByRole('option', { name: 'Mittel', exact: true }).click();
+    // No intervening focus/exit wait: the next native key belongs to the parent.
     await page.keyboard.press('Escape');
-    await expect(picker).toBeHidden();
-    await expect(trigger).toBeFocused();
     await page.keyboard.press('Escape');
-    await expect(
-      page.getByRole('button', { name: 'Einstellungen', exact: true }),
-    ).toBeFocused();
-  } finally {
-    panel.release();
-  }
-});
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(opener).toBeFocused();
+  });
+}

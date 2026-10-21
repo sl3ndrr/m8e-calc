@@ -25,6 +25,9 @@ for (const [width, height, language, theme, accent, motionLevel] of [
   test(`AP25 integrated matrix ${width} ${language} ${theme} ${motionLevel}`, async ({
     page,
   }, info) => {
+    // Four native keyboard flows plus four 4K PNGs share this test budget.
+    // Product latency and performance assertions keep their own limits.
+    test.setTimeout(60_000);
     await page.setViewportSize({ width, height });
     await page.emulateMedia({
       colorScheme: theme,

@@ -2,6 +2,9 @@ import {
   lazy,
   Suspense,
   useEffect,
+  useEffectEvent,
+  useLayoutEffect,
+  useRef,
   useState,
   useSyncExternalStore,
   type CSSProperties,
@@ -73,8 +76,21 @@ export function App() {
   const mode = route === 'design' ? lastMode : route;
   const locale = useAppStore((state) => state.locale);
   const [presentation, setPresentation] = useState(false);
-  const [paletteOpen, setPaletteOpen] = useState(false);
-  const [helpOpen, setHelpOpen] = useState(false);
+  const overlayRequests = useRef({
+    settings: false,
+    palette: false,
+    help: false,
+  });
+  const [paletteOpen, updatePaletteOpen] = useState(false);
+  const [helpOpen, updateHelpOpen] = useState(false);
+  function setPaletteOpen(open: boolean) {
+    overlayRequests.current.palette = open;
+    updatePaletteOpen(open);
+  }
+  function setHelpOpen(open: boolean) {
+    overlayRequests.current.help = open;
+    updateHelpOpen(open);
+  }
   const presentationHistory = useSettingsStore((s) => s.presentationHistory);
   const uiSize = useSettingsStore((s) => s.uiSize);
   const savedVisible = useHistoryStore((state) => state.visibility[mode]);
@@ -88,7 +104,25 @@ export function App() {
   const wideRail = useMediaQuery('(min-width: 1600px)');
   const [railOverride, setRailOverride] = useState<boolean | null>(null);
   const expanded = railOverride ?? wideRail;
-  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [settingsOpen, updateSettingsOpen] = useState(false);
+  function setSettingsOpen(open: boolean) {
+    overlayRequests.current.settings = open;
+    updateSettingsOpen(open);
+  }
+  const [loadedOverlays, setLoadedOverlays] = useState({
+    settings: false,
+    palette: false,
+    help: false,
+    history: false,
+  });
+  if (settingsOpen && !loadedOverlays.settings)
+    setLoadedOverlays((value) => ({ ...value, settings: true }));
+  if (paletteOpen && !loadedOverlays.palette)
+    setLoadedOverlays((value) => ({ ...value, palette: true }));
+  if (helpOpen && !loadedOverlays.help)
+    setLoadedOverlays((value) => ({ ...value, help: true }));
+  if (visible && !loadedOverlays.history)
+    setLoadedOverlays((value) => ({ ...value, history: true }));
   const dockProgress = useSpring(
     docked && visible && route !== 'design' ? 1 : 0,
     'spatial-default',
@@ -181,48 +215,65 @@ export function App() {
       }
     }
   }
-  useEffect(() => {
-    function shortcut(event: KeyboardEvent): void {
-      if (
-        event.defaultPrevented ||
-        event.isComposing ||
-        event.repeat ||
-        route === 'design'
-      )
-        return;
-      const item = findGlobalShortcut(event, isInputTarget(event.target));
-      if (!item) return;
-      if (paletteOpen) {
-        if (item.id === 'palette') {
-          event.preventDefault();
-          event.stopPropagation();
-          setPaletteOpen(false);
-        }
-        return;
-      }
-      // Existing modal/menu scopes own all keys except the explicitly global palette opener.
-      if (
-        settingsOpen ||
-        helpOpen ||
-        document.querySelector(
-          '[role="dialog"], [role="menu"], [role="listbox"]',
-        )
-      ) {
-        if (item.id !== 'palette' || settingsOpen || helpOpen) return;
-      }
+  const shortcut = useEffectEvent((event: KeyboardEvent): void => {
+    if (
+      event.defaultPrevented ||
+      event.isComposing ||
+      event.repeat ||
+      route === 'design'
+    )
+      return;
+    const activeOverlay = Array.from(
+      document.querySelectorAll(
+        '[role="dialog"], [role="menu"], [role="listbox"]',
+      ),
+    ).some((node) => !node.closest('[inert], [data-exiting]'));
+    // A cold lazy controller has no React Aria scope yet. Escape still closes
+    // its pending request; a late module resolution must not reopen it.
+    if (
+      event.key === 'Escape' &&
+      !activeOverlay &&
+      (overlayRequests.current.settings ||
+        overlayRequests.current.help ||
+        overlayRequests.current.palette)
+    ) {
       event.preventDefault();
-      event.stopPropagation();
-      if (item.id === 'palette') setPaletteOpen(true);
-      else if (item.id === 'help') setHelpOpen(true);
-      else if (item.id === 'history') toggleHistory();
-      else if (item.id === 'presentation') setPresentation((value) => !value);
-      else if (item.id === 'settings') setSettingsOpen(true);
-      else if (item.id.startsWith('mode.'))
-        window.location.hash = `#/${item.id.slice(5)}`;
+      event.stopImmediatePropagation();
+      setSettingsOpen(false);
+      setHelpOpen(false);
+      setPaletteOpen(false);
+      return;
     }
+    const item = findGlobalShortcut(event, isInputTarget(event.target));
+    if (!item) return;
+    if (paletteOpen) {
+      if (item.id === 'palette') {
+        event.preventDefault();
+        event.stopPropagation();
+        setPaletteOpen(false);
+      }
+      return;
+    }
+    // Existing modal/menu scopes own all keys except the explicitly global palette opener.
+    if (settingsOpen || helpOpen || activeOverlay) {
+      if (item.id !== 'palette' || settingsOpen || helpOpen) return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    if (item.id === 'palette') setPaletteOpen(true);
+    else if (item.id === 'help') setHelpOpen(true);
+    else if (item.id === 'history') toggleHistory();
+    else if (item.id === 'presentation') setPresentation((value) => !value);
+    else if (item.id === 'settings') setSettingsOpen(true);
+    else if (item.id.startsWith('mode.'))
+      window.location.hash = `#/${item.id.slice(5)}`;
+  });
+  useLayoutEffect(() => {
+    // Install once before lazy feature effects. Pending overlay Escape belongs
+    // to the shell, before calculator key handlers can consume it.
     window.addEventListener('keydown', shortcut, true);
     return () => window.removeEventListener('keydown', shortcut, true);
-  });
+  }, []);
   const personalization = (
     <div
       className="shell-personalization"
@@ -402,7 +453,7 @@ export function App() {
             data-docked={docked || undefined}
             data-visible={visible || undefined}
           >
-            {visible && (
+            {(visible || (!docked && loadedOverlays.history)) && (
               <Suspense
                 fallback={<LoadingIndicator label={t('ui.loading', locale)} />}
               >
@@ -428,11 +479,16 @@ export function App() {
           </Button>
         </div>
       )}
-      {paletteOpen && (
+      {loadedOverlays.palette && (
         <Suspense
-          fallback={<LoadingIndicator label={t('ui.loading', locale)} />}
+          fallback={
+            paletteOpen ? (
+              <LoadingIndicator label={t('ui.loading', locale)} />
+            ) : null
+          }
         >
           <CommandPalette
+            isOpen={paletteOpen}
             onClose={() => setPaletteOpen(false)}
             onCommand={(item) => {
               void command(item).catch(() =>
@@ -442,19 +498,30 @@ export function App() {
           />
         </Suspense>
       )}
-      {helpOpen && (
+      {loadedOverlays.help && (
         <Suspense
-          fallback={<LoadingIndicator label={t('ui.loading', locale)} />}
+          fallback={
+            helpOpen ? (
+              <LoadingIndicator label={t('ui.loading', locale)} />
+            ) : null
+          }
         >
-          <ShortcutDialog onClose={() => setHelpOpen(false)} />
+          <ShortcutDialog
+            isOpen={helpOpen}
+            onClose={() => setHelpOpen(false)}
+          />
         </Suspense>
       )}
-      {settingsOpen && (
+      {loadedOverlays.settings && (
         <Suspense
-          fallback={<LoadingIndicator label={t('ui.loading', locale)} />}
+          fallback={
+            settingsOpen ? (
+              <LoadingIndicator label={t('ui.loading', locale)} />
+            ) : null
+          }
         >
           <SettingsDialog
-            isOpen
+            isOpen={settingsOpen}
             onOpenChange={setSettingsOpen}
             installation={pwa}
           />

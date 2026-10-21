@@ -7,6 +7,7 @@ import {
   type ModalOverlayProps,
 } from 'react-aria-components';
 import { Button } from './Button';
+import { useOverlayTransition } from './useOverlayTransition';
 import './Dialog.css';
 export interface DialogProps extends Omit<
   ModalOverlayProps,
@@ -24,9 +25,15 @@ export function Dialog({
   className = '',
   ...props
 }: DialogProps) {
+  const [overlayKey, overlayRef] = useOverlayTransition();
   return (
     <ModalOverlay
       {...props}
+      defaultOpen={
+        overlayKey > 0 && props.defaultOpen != null ? false : props.defaultOpen
+      }
+      key={overlayKey}
+      ref={overlayRef}
       isDismissable={props.isDismissable ?? true}
       className="ui-modal-overlay"
     >

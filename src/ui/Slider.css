@@ -55,6 +55,9 @@
   background: var(--md-sys-color-inverse-surface);
   color: var(--md-sys-color-inverse-on-surface);
   opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--md-sys-motion-effects-fast-duration)
+    var(--md-sys-motion-effects-fast-easing);
 }
 .ui-slider-thumb:where(
     [data-dragging],
@@ -70,4 +73,9 @@
 }
 .ui-slider-thumb[data-dragging] > .ui-state-layer {
   opacity: 0.1;
+}
+
+.ui-slider[data-disabled] .ui-slider-bubble {
+  opacity: 0;
+  transition: none;
 }
