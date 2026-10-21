@@ -103,6 +103,6 @@ test('AP49 bounded fine-grid raster retains original pixels and native DPR fallb
     info.outputPath('grid-pixels.json'),
     JSON.stringify(pixels, null, 2),
   );
-  expect(pixels.every((p) => p.optimized === p.dpr < 2)).toBe(true);
+  expect(pixels.every((p) => p.optimized === p.dpr <= 1.5)).toBe(true);
   expect(Math.max(...pixels.map((p) => p.maximum))).toBeLessThanOrEqual(1);
 });

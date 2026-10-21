@@ -12,7 +12,9 @@ export function drawFinePattern(
   if (
     !Number.isFinite(dpr) ||
     dpr <= 0 ||
-    dpr >= 2 ||
+    // Larger physical strokes have engine-dependent coverage when repeated.
+    // Retain the original native path above the verified subpixel range.
+    dpr > 1.5 ||
     ctx.canvas.width * ctx.canvas.height > 16 * 1024 * 1024 ||
     matrix.b !== 0 ||
     matrix.c !== 0 ||
