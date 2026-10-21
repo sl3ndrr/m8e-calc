@@ -51,12 +51,17 @@ export function useOverlayTransition(
   const restorePending = useCallback(() => {
     const target = returnTarget.current;
     const active = document.activeElement;
+    const scope = currentElement.current;
+    const ownsExitingFocus =
+      scope?.hasAttribute('data-exiting') && scope.contains(active);
     if (
       mounted.current &&
       target?.isConnected &&
       !target.closest('[inert]') &&
       active !== target &&
-      (active === document.body || active === target.closest('[role="dialog"]'))
+      (ownsExitingFocus ||
+        active === document.body ||
+        active === target.closest('[role="dialog"]'))
     )
       target.focus({ preventScroll: true });
   }, []);
