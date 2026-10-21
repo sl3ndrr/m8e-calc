@@ -1,11 +1,11 @@
-name: AP47 AP48 bounded diagnosis
+name: AP49 fixed Canvas backing comparison
 on:
   push:
     branches: [feat/ap47-bounded-diagnosis]
 permissions:
   contents: read
 jobs:
-  diagnosis:
+  compare:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -16,35 +16,22 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci --engine-strict
-      - name: Two complete UI suites with lazy import and native event diagnostics
-        run: |
-          mkdir -p test-results/ap48
-          status=0
-          for ap48_case in {1..2}; do
-            npm run test:ui > "test-results/ap48/full-$ap48_case.log" 2>&1 || status=1
-          done
-          cat test-results/ap48/*.log
-          exit "$status"
       - run: npm run build
-        if: ${{ !cancelled() }}
-      - run: npx playwright install --with-deps chromium firefox webkit
-        if: ${{ !cancelled() }}
-      - name: Actual cold and warm history to settings transition in three engines
-        if: ${{ !cancelled() }}
-        run: npx playwright test e2e/settings-actions.spec.ts --project=chromium --project=firefox --project=webkit --workers=1 --retries=0 --grep 'AP48 history exit' --output=test-results/ap48/browser
-      - name: Same-run Canvas hint experiment, fixed windows and original limits
-        if: ${{ !cancelled() }}
+      - run: npx playwright install --with-deps chromium
+      - name: Fixed product then CPU-backed context, original references and limits
         run: |
           status=0
-          for ap47_hint in product synchronized; do
-            AP47_CANVAS_HINT="$ap47_hint" npx playwright test --config=playwright.ap28.config.ts --workers=1 --retries=0 --reporter=list --output="test-results/ap47/$ap47_hint" || status=1
-            mkdir -p "test-results/ap47/$ap47_hint/raw"
-            cp test-results/ap28/* "test-results/ap47/$ap47_hint/raw/"
+          for ap49_hint in product cpu; do
+            AP49_CANVAS_HINT="$ap49_hint" npx playwright test --config=playwright.ap28.config.ts --workers=1 --retries=0 --reporter=list --output="test-results/ap49/$ap49_hint" || status=1
+            mkdir -p "test-results/ap49/$ap49_hint/raw"
+            cp test-results/ap28/* "test-results/ap49/$ap49_hint/raw/"
           done
           exit "$status"
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: ap47-ap48-diagnosis
-          path: test-results/
+          name: ap49-canvas-backing-comparison
+          path: |
+            test-results/
+            dist/build-info.json
           retention-days: 14

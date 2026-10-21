@@ -25,9 +25,8 @@ declare global {
   }
 }
 
-// Explicit AP47 A/B experiment only; ordinary gates always use the product hint.
 test.beforeEach(async ({ page }) => {
-  if (process.env.AP47_CANVAS_HINT !== 'synchronized') return;
+  if (process.env.AP49_CANVAS_HINT !== 'cpu') return;
   await page.addInitScript(() => {
     const getContext = HTMLCanvasElement.prototype.getContext;
     Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
@@ -38,7 +37,7 @@ test.beforeEach(async ({ page }) => {
       ) {
         return Reflect.apply(getContext, this, [
           type,
-          type === '2d' ? { ...options, desynchronized: false } : options,
+          type === '2d' ? { ...options, willReadFrequently: true } : options,
         ]);
       },
     });
@@ -298,7 +297,7 @@ test('AP28 fixed graph references and regression controls', async ({
         browser: browser.version(),
         project: info.project.name,
         graphics,
-        diagnosticCanvasHint: process.env.AP47_CANVAS_HINT ?? 'product',
+        diagnosticCanvasHint: process.env.AP49_CANVAS_HINT ?? 'product',
         runner: {
           os: platform(),
           release: release(),
@@ -316,7 +315,7 @@ test('AP28 fixed graph references and regression controls', async ({
   );
   const traceSession = await page.context().newCDPSession(page);
   await traceSession.send('Tracing.start', {
-    categories: 'devtools.timeline,v8,blink,cc,gpu',
+    categories: 'devtools.timeline,v8,blink,cc,gpu,disabled-by-default-skia',
     transferMode: 'ReturnAsStream',
   });
   await windowMeasurement(page, true, 0, 60);

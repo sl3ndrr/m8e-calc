@@ -1,0 +1,62 @@
+{
+  "diagnosisHead": "286b4d1c7a136419eefeccbaab6a12a41d5ebc21",
+  "diagnosisRun": 39659232972,
+  "diagnosisJob": 119427570494,
+  "diagnosisArtifact": 12373551320,
+  "requiredHead": "add28155732163068dfba69a31b8aed9cedabf79",
+  "requiredBuild": "7836c2444591f3d906423c8b460327d693ec3d01",
+  "requiredRun": 39657140106,
+  "requiredGraphJob": 119421337368,
+  "requiredGraphArtifact": 12371893375,
+  "requiredWebkitJob": 119421337656,
+  "requiredWebkitArtifact": 12373206082,
+  "files": {
+    "diagnosis-product-finalize-events.json": {
+      "bytes": 14172,
+      "sha256": "9a2f6ddc37794207b2941ddcb86d7e1208097e52dc1dbec05a51a61996d886c5"
+    },
+    "diagnosis-product.json": {
+      "bytes": 62638,
+      "sha256": "3f10197983d0547e28da2eccf69e97523b7c7bde1a9ce4912ca9b51645c49d1d"
+    },
+    "diagnosis-synchronized-finalize-events.json": {
+      "bytes": 13654,
+      "sha256": "a8227bc3dad4222c1434b3eaa27c17a76a5e967ca24ac6caf81303f989cb7622"
+    },
+    "diagnosis-synchronized.json": {
+      "bytes": 62614,
+      "sha256": "e6ca30b430f5a0c4d90897f3379fd9c95dc916250cd66dd300ec7b46dfc1d801"
+    },
+    "required-red-finalize-events.json": {
+      "bytes": 14178,
+      "sha256": "2ad81e360acf6cef95cd784139165f3bf32216f016e5efb30511606bfe5ab20f"
+    },
+    "required-red.json": {
+      "bytes": 61641,
+      "sha256": "b23810b803aefabc22510ff1899a29f5692cc5ae0f5a6ba20dd95214a745a0ad"
+    },
+    "ui-lazy-phases.json": {
+      "bytes": 18449,
+      "sha256": "9112f3e0b5a35dfd5a42f698caa6e83ec37a7f13b46dee6113b5c9ae57fbc46d"
+    },
+    "webkit-parallel.json": {
+      "bytes": 205890,
+      "sha256": "1d1665b2ced18ab8b7177c7f89b88f8798d832885d23941c07ad3c7baccb90b6"
+    }
+  },
+  "sources": {
+    "diagnosis-product": {
+      "metricsSha256": "488b510a14dc28baa45365b35705c8bc5ae2e1d10915a52a5fe4842171745e3d",
+      "traceSha256": "703571637ef193bcf6b73188894e6f135543ba2e09c5103b397bebb4fb9d6247"
+    },
+    "diagnosis-synchronized": {
+      "metricsSha256": "d1e6dfcd9067a69d061d0aae7885e71232c32fb49549095bfe58d0d7626271ac",
+      "traceSha256": "13403656b3589de62ffa5662937284f6f7fdbb1eff400a8323fee75fa935b011"
+    },
+    "required-red": {
+      "metricsSha256": "c6a641d4c60d07c710aaffbae2ab49c9b9899dca86d22192bd7c8c4506822fd5",
+      "traceSha256": "697ce7a9b0e477e9d684f35090fb5716c294f36d2a25ea81e36b49e816a31f0f"
+    }
+  },
+  "publication": "Readable metric data and exact numeric trace-event projections; full traces are not republished. Original CI artifacts retain full traces."
+}

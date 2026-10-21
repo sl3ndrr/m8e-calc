@@ -449,7 +449,7 @@ for (const policy of ['full', 'reduced', 'off'] as const) {
 
 test('AP48 history exit permits a cold settings click and a warm reopen', async ({
   page,
-}) => {
+}, info) => {
   await installMotionProbe(page);
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.setViewportSize({ width: 1280, height: 800 });
@@ -477,6 +477,9 @@ test('AP48 history exit permits a cold settings click and a warm reopen', async 
     // The old scope is deliberately still mounted. A new native click owns intent.
     await opener.click();
     await chunk.requested;
+    await page.screenshot({
+      path: info.outputPath('history-exit-settings-loading.png'),
+    });
     await resume(page);
     await expect(history).toHaveCount(0);
     const response = page.waitForResponse(
@@ -489,6 +492,9 @@ test('AP48 history exit permits a cold settings click and a warm reopen', async 
       exact: true,
     });
     await expect(settings).toBeVisible();
+    await page.screenshot({
+      path: info.outputPath('settings-after-history.png'),
+    });
     await expect
       .poll(() =>
         settings.evaluate((node) => node.contains(document.activeElement)),

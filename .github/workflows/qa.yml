@@ -110,10 +110,15 @@ jobs:
       - run: node scripts/ci/build-proof.mjs verify
       - run: node scripts/check-build-target.mjs dist normal
       - run: npx playwright install --with-deps chromium firefox webkit
+      # The WebKit real-frame recorder is a timing measurement, not a parallel
+      # browser stress test. Match the isolated AP43 run without changing limits.
       - name: Browser gates
         env:
           PLAYWRIGHT_JSON_OUTPUT_NAME: test-results/browser-results.json
-        run: npx playwright test --project=${{ matrix.project }} --reporter=list,json
+        run: |
+          ap47_workers=()
+          if [ "${{ matrix.project }}" = webkit ]; then ap47_workers=(--workers=1); fi
+          npx playwright test --project=${{ matrix.project }} "${ap47_workers[@]}" --reporter=list,json
       - run: node scripts/ci/build-proof.mjs verify
       - uses: actions/upload-artifact@v7
         if: always()

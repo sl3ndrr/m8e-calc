@@ -1,0 +1,203 @@
+{
+  "source": "286b4d1c7a136419eefeccbaab6a12a41d5ebc21",
+  "run": 39659232972,
+  "job": 119427570494,
+  "sequences": [
+    {
+      "lazyLoads": [
+        {
+          "name": "history",
+          "start": 2653.17699,
+          "end": 2783.268522
+        },
+        {
+          "name": "settings",
+          "start": 3310.008455,
+          "end": 3351.601297
+        }
+      ],
+      "events": [
+        {
+          "phase": "before-history",
+          "at": 2609.305899
+        },
+        {
+          "type": "keydown",
+          "at": 2622.295794,
+          "target": "<body><div><div class=\"app-shell\" style=\"--dock-progress: 0;\"><aside class=\"shell-rail\"><p class=\"shell-brand\">m8e-calc</p><nav aria-label=\"Rechnermodi\" class=\"ui-navigation-rail\"><span class=\"ui-rail-pill\" style=\"transform: translateY(0rem);\" aria-hidden=\"true\"></span><a class=\"ui-rail-link\" data-r",
+          "active": "<body><div><div class=\"app-shell\" style=\"--dock-progress: 0;\"><aside class=\"shell-rail\"><p class=\"shell-brand\">m8e-calc</p><nav aria-label=\"Rechnermodi\" class=\"ui-navigation-rail\"><span class=\"ui-rail-pill\" style=\"transform: translateY(0rem);\" aria-hidden=\"true\"></span><a class=\"ui-rail-link\" data-r"
+        },
+        {
+          "type": "focusin",
+          "at": 3001.096796,
+          "target": "<section class=\"ui-dialog\" data-rac=\"\" aria-labelledby=\"react-aria-_r_56_\" role=\"dialog\" tabindex=\"-1\"><h2 id=\"react-aria-_r_56_\" slot=\"title\" class=\"react-aria-Heading\">Verlauf</h2><div class=\"history-heading\"><span class=\"history-count\">0 Einträge</span></div><div data-variant=\"outlined\" class=\"ui",
+          "active": "<section class=\"ui-dialog\" data-rac=\"\" aria-labelledby=\"react-aria-_r_56_\" role=\"dialog\" tabindex=\"-1\"><h2 id=\"react-aria-_r_56_\" slot=\"title\" class=\"react-aria-Heading\">Verlauf</h2><div class=\"history-heading\"><span class=\"history-count\">0 Einträge</span></div><div data-variant=\"outlined\" class=\"ui"
+        },
+        {
+          "phase": "history-ready",
+          "at": 3046.574745
+        },
+        {
+          "type": "keydown",
+          "at": 3059.448575,
+          "target": "<section class=\"ui-dialog\" data-rac=\"\" aria-labelledby=\"react-aria-_r_56_\" role=\"dialog\" tabindex=\"-1\"><h2 id=\"react-aria-_r_56_\" slot=\"title\" class=\"react-aria-Heading\">Verlauf</h2><div class=\"history-heading\"><span class=\"history-count\">0 Einträge</span></div><div data-variant=\"outlined\" class=\"ui",
+          "active": "<section class=\"ui-dialog\" data-rac=\"\" aria-labelledby=\"react-aria-_r_56_\" role=\"dialog\" tabindex=\"-1\"><h2 id=\"react-aria-_r_56_\" slot=\"title\" class=\"react-aria-Heading\">Verlauf</h2><div class=\"history-heading\"><span class=\"history-count\">0 Einträge</span></div><div data-variant=\"outlined\" class=\"ui"
+        },
+        {
+          "phase": "before-settings",
+          "at": 3152.696903
+        },
+        {
+          "type": "pointerdown",
+          "at": 3244.021186,
+          "target": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\"><span class=\"ui-button-surfa",
+          "active": "<body><div><div class=\"app-shell\" style=\"--dock-progress: 0;\"><aside class=\"shell-rail\"><p class=\"shell-brand\">m8e-calc</p><nav aria-label=\"Rechnermodi\" class=\"ui-navigation-rail\"><span class=\"ui-rail-pill\" style=\"transform: translateY(0rem);\" aria-hidden=\"true\"></span><a class=\"ui-rail-link\" data-r"
+        },
+        {
+          "type": "mousedown",
+          "at": 3246.843314,
+          "target": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" style=\"user-select: none;\" d",
+          "active": "<body><div><div class=\"app-shell\" style=\"--dock-progress: 0;\"><aside class=\"shell-rail\"><p class=\"shell-brand\">m8e-calc</p><nav aria-label=\"Rechnermodi\" class=\"ui-navigation-rail\"><span class=\"ui-rail-pill\" style=\"transform: translateY(0rem);\" aria-hidden=\"true\"></span><a class=\"ui-rail-link\" data-r"
+        },
+        {
+          "type": "focusin",
+          "at": 3257.448104,
+          "target": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" style=\"user-select: none;\" d",
+          "active": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" style=\"user-select: none;\" d"
+        },
+        {
+          "type": "pointerup",
+          "at": 3260.489259,
+          "target": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" style=\"user-select: none;\" d",
+          "active": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" style=\"user-select: none;\" d"
+        },
+        {
+          "type": "mouseup",
+          "at": 3261.310997,
+          "target": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" style=\"user-select: none;\" d",
+          "active": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" style=\"user-select: none;\" d"
+        },
+        {
+          "type": "click",
+          "at": 3262.122897,
+          "target": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" style=\"user-select: none;\" d",
+          "active": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" style=\"user-select: none;\" d"
+        },
+        {
+          "phase": "after-settings-click",
+          "at": 3313.068545
+        },
+        {
+          "type": "focusout",
+          "at": 3627.533068,
+          "target": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" data-focused=\"true\"><span cl",
+          "active": "<body><div><div class=\"app-shell\" style=\"--dock-progress: 0;\"><aside class=\"shell-rail\"><p class=\"shell-brand\">m8e-calc</p><nav aria-label=\"Rechnermodi\" class=\"ui-navigation-rail\"><span class=\"ui-rail-pill\" style=\"transform: translateY(0rem);\" aria-hidden=\"true\"></span><a class=\"ui-rail-link\" data-r"
+        },
+        {
+          "type": "focusin",
+          "at": 3633.831911,
+          "target": "<section class=\"ui-dialog\" data-rac=\"\" aria-labelledby=\"react-aria-_r_5r_\" role=\"dialog\" tabindex=\"-1\"><h2 id=\"react-aria-_r_5r_\" slot=\"title\" class=\"react-aria-Heading\">Einstellungen</h2><div class=\"settings-sections\"><section aria-label=\"Erscheinungsbild\"><h3>Erscheinungsbild</h3><button data-vari",
+          "active": "<section class=\"ui-dialog\" data-rac=\"\" aria-labelledby=\"react-aria-_r_5r_\" role=\"dialog\" tabindex=\"-1\"><h2 id=\"react-aria-_r_5r_\" slot=\"title\" class=\"react-aria-Heading\">Einstellungen</h2><div class=\"settings-sections\"><section aria-label=\"Erscheinungsbild\"><h3>Erscheinungsbild</h3><button data-vari"
+        }
+      ]
+    },
+    {
+      "lazyLoads": [
+        {
+          "name": "history",
+          "start": 2605.638289,
+          "end": 2758.322703
+        },
+        {
+          "name": "settings",
+          "start": 3258.014823,
+          "end": 3292.59167
+        }
+      ],
+      "events": [
+        {
+          "phase": "before-history",
+          "at": 2572.134053
+        },
+        {
+          "type": "keydown",
+          "at": 2581.351918,
+          "target": "<body><div><div class=\"app-shell\" style=\"--dock-progress: 0;\"><aside class=\"shell-rail\"><p class=\"shell-brand\">m8e-calc</p><nav aria-label=\"Rechnermodi\" class=\"ui-navigation-rail\"><span class=\"ui-rail-pill\" style=\"transform: translateY(0rem);\" aria-hidden=\"true\"></span><a class=\"ui-rail-link\" data-r",
+          "active": "<body><div><div class=\"app-shell\" style=\"--dock-progress: 0;\"><aside class=\"shell-rail\"><p class=\"shell-brand\">m8e-calc</p><nav aria-label=\"Rechnermodi\" class=\"ui-navigation-rail\"><span class=\"ui-rail-pill\" style=\"transform: translateY(0rem);\" aria-hidden=\"true\"></span><a class=\"ui-rail-link\" data-r"
+        },
+        {
+          "type": "focusin",
+          "at": 2959.885196,
+          "target": "<section class=\"ui-dialog\" data-rac=\"\" aria-labelledby=\"react-aria-_r_56_\" role=\"dialog\" tabindex=\"-1\"><h2 id=\"react-aria-_r_56_\" slot=\"title\" class=\"react-aria-Heading\">Verlauf</h2><div class=\"history-heading\"><span class=\"history-count\">0 Einträge</span></div><div data-variant=\"outlined\" class=\"ui",
+          "active": "<section class=\"ui-dialog\" data-rac=\"\" aria-labelledby=\"react-aria-_r_56_\" role=\"dialog\" tabindex=\"-1\"><h2 id=\"react-aria-_r_56_\" slot=\"title\" class=\"react-aria-Heading\">Verlauf</h2><div class=\"history-heading\"><span class=\"history-count\">0 Einträge</span></div><div data-variant=\"outlined\" class=\"ui"
+        },
+        {
+          "phase": "history-ready",
+          "at": 3008.799777
+        },
+        {
+          "type": "keydown",
+          "at": 3025.70978,
+          "target": "<section class=\"ui-dialog\" data-rac=\"\" aria-labelledby=\"react-aria-_r_56_\" role=\"dialog\" tabindex=\"-1\"><h2 id=\"react-aria-_r_56_\" slot=\"title\" class=\"react-aria-Heading\">Verlauf</h2><div class=\"history-heading\"><span class=\"history-count\">0 Einträge</span></div><div data-variant=\"outlined\" class=\"ui",
+          "active": "<section class=\"ui-dialog\" data-rac=\"\" aria-labelledby=\"react-aria-_r_56_\" role=\"dialog\" tabindex=\"-1\"><h2 id=\"react-aria-_r_56_\" slot=\"title\" class=\"react-aria-Heading\">Verlauf</h2><div class=\"history-heading\"><span class=\"history-count\">0 Einträge</span></div><div data-variant=\"outlined\" class=\"ui"
+        },
+        {
+          "phase": "before-settings",
+          "at": 3098.994342
+        },
+        {
+          "type": "pointerdown",
+          "at": 3174.38596,
+          "target": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\"><span class=\"ui-button-surfa",
+          "active": "<body><div><div class=\"app-shell\" style=\"--dock-progress: 0;\"><aside class=\"shell-rail\"><p class=\"shell-brand\">m8e-calc</p><nav aria-label=\"Rechnermodi\" class=\"ui-navigation-rail\"><span class=\"ui-rail-pill\" style=\"transform: translateY(0rem);\" aria-hidden=\"true\"></span><a class=\"ui-rail-link\" data-r"
+        },
+        {
+          "type": "mousedown",
+          "at": 3177.784263,
+          "target": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" style=\"user-select: none;\" d",
+          "active": "<body><div><div class=\"app-shell\" style=\"--dock-progress: 0;\"><aside class=\"shell-rail\"><p class=\"shell-brand\">m8e-calc</p><nav aria-label=\"Rechnermodi\" class=\"ui-navigation-rail\"><span class=\"ui-rail-pill\" style=\"transform: translateY(0rem);\" aria-hidden=\"true\"></span><a class=\"ui-rail-link\" data-r"
+        },
+        {
+          "type": "focusin",
+          "at": 3195.973924,
+          "target": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" style=\"user-select: none;\" d",
+          "active": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" style=\"user-select: none;\" d"
+        },
+        {
+          "type": "pointerup",
+          "at": 3198.996515,
+          "target": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" style=\"user-select: none;\" d",
+          "active": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" style=\"user-select: none;\" d"
+        },
+        {
+          "type": "mouseup",
+          "at": 3199.839599,
+          "target": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" style=\"user-select: none;\" d",
+          "active": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" style=\"user-select: none;\" d"
+        },
+        {
+          "type": "click",
+          "at": 3200.718049,
+          "target": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" style=\"user-select: none;\" d",
+          "active": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" style=\"user-select: none;\" d"
+        },
+        {
+          "phase": "after-settings-click",
+          "at": 3265.39104
+        },
+        {
+          "type": "focusout",
+          "at": 3572.579649,
+          "target": "<button data-variant=\"text\" data-size=\"md\" data-shape=\"round\" class=\"ui-button ui-icon-button \" data-rac=\"\" type=\"button\" tabindex=\"0\" data-react-aria-pressable=\"true\" aria-label=\"Einstellungen\" id=\"react-aria-_r_2c_\" title=\"Einstellungen · Control+,\" data-hovered=\"true\" data-focused=\"true\"><span cl",
+          "active": "<body><div><div class=\"app-shell\" style=\"--dock-progress: 0;\"><aside class=\"shell-rail\"><p class=\"shell-brand\">m8e-calc</p><nav aria-label=\"Rechnermodi\" class=\"ui-navigation-rail\"><span class=\"ui-rail-pill\" style=\"transform: translateY(0rem);\" aria-hidden=\"true\"></span><a class=\"ui-rail-link\" data-r"
+        },
+        {
+          "type": "focusin",
+          "at": 3578.76874,
+          "target": "<section class=\"ui-dialog\" data-rac=\"\" aria-labelledby=\"react-aria-_r_5r_\" role=\"dialog\" tabindex=\"-1\"><h2 id=\"react-aria-_r_5r_\" slot=\"title\" class=\"react-aria-Heading\">Einstellungen</h2><div class=\"settings-sections\"><section aria-label=\"Erscheinungsbild\"><h3>Erscheinungsbild</h3><button data-vari",
+          "active": "<section class=\"ui-dialog\" data-rac=\"\" aria-labelledby=\"react-aria-_r_5r_\" role=\"dialog\" tabindex=\"-1\"><h2 id=\"react-aria-_r_5r_\" slot=\"title\" class=\"react-aria-Heading\">Einstellungen</h2><div class=\"settings-sections\"><section aria-label=\"Erscheinungsbild\"><h3>Erscheinungsbild</h3><button data-vari"
+        }
+      ]
+    }
+  ]
+}
