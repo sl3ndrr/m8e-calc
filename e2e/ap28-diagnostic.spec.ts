@@ -19,30 +19,75 @@ interface Probe {
   strokes: number;
   delayRender: number;
 }
+
+test('AP49 grid fill preserves native stroked pixels', async ({ page }) => {
+  await page.goto('/m8e-calc/');
+  const comparisons = await page.evaluate(() => {
+    const results = [];
+    for (const dpr of [1, 2]) {
+      for (const width of [0.5, 1]) {
+        for (const offset of [0, 0.125, 0.5, 0.875]) {
+          const canvases = [
+            document.createElement('canvas'),
+            document.createElement('canvas'),
+          ];
+          for (const canvas of canvases) {
+            canvas.width = 256 * dpr;
+            canvas.height = 128 * dpr;
+          }
+          for (const [index, canvas] of canvases.entries()) {
+            const ctx = canvas.getContext('2d', { alpha: false })!;
+            ctx.scale(dpr, dpr);
+            ctx.fillStyle = '#212121';
+            ctx.fillRect(0, 0, 256, 128);
+            ctx.fillStyle = ctx.strokeStyle = '#c4c7c5';
+            ctx.globalAlpha = width === 0.5 ? 0.4 : 0.8;
+            ctx.lineWidth = width;
+            ctx.beginPath();
+            for (const x of [-10, 0, 16, 69, 128, 255, 266]) {
+              if (index === 0) {
+                ctx.moveTo(x + offset, 0);
+                ctx.lineTo(x + offset, 128);
+              } else ctx.rect(x + offset - width / 2, 0, width, 128);
+            }
+            for (const y of [-10, 0, 32, 85, 127, 138]) {
+              if (index === 0) {
+                ctx.moveTo(0, y + offset);
+                ctx.lineTo(256, y + offset);
+              } else ctx.rect(0, y + offset - width / 2, 256, width);
+            }
+            if (index === 0) ctx.stroke();
+            else ctx.fill();
+          }
+          const data = canvases.map(
+            (c) =>
+              c.getContext('2d')!.getImageData(0, 0, c.width, c.height).data,
+          );
+          let different = 0,
+            maximum = 0;
+          for (let i = 0; i < data[0]!.length; i++) {
+            const delta = Math.abs(data[0]![i]! - data[1]![i]!);
+            if (delta) different++;
+            maximum = Math.max(maximum, delta);
+          }
+          results.push({ dpr, width, offset, different, maximum });
+        }
+      }
+    }
+    return results;
+  });
+  await mkdir('test-results/ap28', { recursive: true });
+  await writeFile(
+    'test-results/ap28/grid-pixels.json',
+    JSON.stringify(comparisons, null, 2),
+  );
+  expect(comparisons.every((c) => c.different === 0)).toBe(true);
+});
 declare global {
   interface Window {
     ap28Probe: Probe;
   }
 }
-
-test.beforeEach(async ({ page }) => {
-  if (process.env.AP49_CANVAS_HINT !== 'cpu') return;
-  await page.addInitScript(() => {
-    const getContext = HTMLCanvasElement.prototype.getContext;
-    Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
-      value: function (
-        this: HTMLCanvasElement,
-        type: string,
-        options?: CanvasRenderingContext2DSettings,
-      ) {
-        return Reflect.apply(getContext, this, [
-          type,
-          type === '2d' ? { ...options, willReadFrequently: true } : options,
-        ]);
-      },
-    });
-  });
-});
 
 async function setup(page: Page) {
   await page.setViewportSize({ width: 3840, height: 2160 });
@@ -297,7 +342,7 @@ test('AP28 fixed graph references and regression controls', async ({
         browser: browser.version(),
         project: info.project.name,
         graphics,
-        diagnosticCanvasHint: process.env.AP49_CANVAS_HINT ?? 'product',
+        diagnosticGridVariant: process.env.AP49_GRID_VARIANT,
         runner: {
           os: platform(),
           release: release(),
