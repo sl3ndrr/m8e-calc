@@ -22,6 +22,7 @@ jobs:
       - name: Native raster parity, full check, fixed original then rectangle grid
         run: |
           status=0
+          npm run build || exit 1
           npx playwright test --config=playwright.ap49-raster.config.ts --workers=1 --retries=0 --reporter=list --output=test-results/ap49-raster || exit 1
           npm run check || exit 1
           cp src/features/graph/renderer.ts "$RUNNER_TEMP/ap49-renderer.ts"
