@@ -61,9 +61,7 @@ async function setup(page: Page) {
     CanvasRenderingContext2D.prototype.fillRect = function (
       ...args: Parameters<typeof fill>
     ) {
-      const until =
-        performance.now() +
-        (this.canvas.matches('canvas.graph-canvas') ? probe.delayRender : 0);
+      const until = performance.now() + probe.delayRender;
       while (performance.now() < until) {
         /* deliberate regression control */
       }
@@ -280,6 +278,7 @@ test('AP28 fixed graph references and regression controls', async ({
         browser: browser.version(),
         project: info.project.name,
         graphics,
+        diagnosticGridVariant: process.env.AP49_GRID_VARIANT,
         runner: {
           os: platform(),
           release: release(),

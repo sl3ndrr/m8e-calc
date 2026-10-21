@@ -1,16 +1,15 @@
 import { test, expect } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';
-import { drawFinePattern } from '../src/features/graph/gridRaster';
-
-test('AP49 periodic native grid retains raster geometry', async ({
+import { strokeClippedGrid } from '../src/features/graph/gridRaster';
+test('AP49 native clipped grid retains original pixels at clip boundaries', async ({
   page,
 }, info) => {
   const pixels = await page.evaluate((source) => {
-    const draw = new Function('fineTiles', 'return (' + source + ')')(
+    const draw = new Function('gridClips', 'return (' + source + ')')(
       new WeakMap(),
-    ) as typeof drawFinePattern;
+    ) as typeof strokeClippedGrid;
     const cases = [];
-    for (const dpr of [1, 1.25, 2]) {
+    for (const dpr of [1, 1.25, 1.5, 2])
       for (const phase of [0, 0.125, 0.5, 0.875]) {
         const w = 512,
           h = 256;
@@ -26,34 +25,21 @@ test('AP49 periodic native grid retains raster geometry', async ({
           document.createElement('canvas'),
           document.createElement('canvas'),
         ];
-        let accelerated = false;
+        let tiled = false;
         for (const [index, canvas] of canvases.entries()) {
           canvas.width = Math.round(w * dpr);
           canvas.height = Math.round(h * dpr);
-          const ctx = canvas.getContext('2d', { alpha: false })!;
+          const ctx = canvas.getContext('2d', { alpha: false });
+          if (!ctx) throw Error('Canvas unavailable');
           ctx.scale(dpr, dpr);
           ctx.fillStyle = '#faf8ff';
           ctx.fillRect(0, 0, w, h);
-          if (index === 1)
-            accelerated = draw(
-              ctx,
-              xs,
-              ys,
-              {
-                background: '#faf8ff',
-                grid: '#c4c7c5',
-                axis: '',
-                label: '',
-                curves: [],
-              },
-              w,
-              h,
-            );
-          if (index === 0 || !accelerated) {
+          ctx.strokeStyle = '#c4c7c5';
+          ctx.globalAlpha = 0.4;
+          ctx.lineWidth = 0.5;
+          if (index === 1) tiled = draw(ctx, xs, ys, w, h, 64);
+          else {
             ctx.beginPath();
-            ctx.strokeStyle = '#c4c7c5';
-            ctx.globalAlpha = 0.4;
-            ctx.lineWidth = 0.5;
             for (const x of xs) {
               ctx.moveTo(x, 0);
               ctx.lineTo(x, h);
@@ -68,14 +54,14 @@ test('AP49 periodic native grid retains raster geometry', async ({
         const arrays = canvases.map(
           (c) => c.getContext('2d')!.getImageData(0, 0, c.width, c.height).data,
         );
+        let different = 0,
+          maximum = 0;
         const examples: {
           x: number;
           y: number;
           original: number;
           actual: number;
         }[] = [];
-        let different = 0,
-          maximum = 0;
         for (let i = 0; i < arrays[0]!.length; i++) {
           const delta = Math.abs(arrays[0]![i]! - arrays[1]![i]!);
           if (delta) different++;
@@ -88,76 +74,54 @@ test('AP49 periodic native grid retains raster geometry', async ({
             });
           maximum = Math.max(maximum, delta);
         }
-        cases.push({ dpr, phase, accelerated, different, maximum, examples });
+        cases.push({ dpr, phase, tiled, different, maximum, examples });
       }
-    }
     return cases;
-  }, drawFinePattern.toString());
+  }, strokeClippedGrid.toString());
   await mkdir(info.outputDir, { recursive: true });
   await writeFile(
     info.outputPath('grid-pixels.json'),
     JSON.stringify(pixels, null, 2),
   );
-  expect(pixels.every((p) => p.accelerated)).toBe(true);
+  expect(pixels.every((p) => p.tiled)).toBe(true);
   expect(Math.max(...pixels.map((p) => p.maximum))).toBeLessThanOrEqual(1);
 });
-
-test('AP49 retains native fallbacks and reuses a bounded tile across resize', async ({
+test('AP49 reuses native clip plans and rebuilds them on DPR resize', async ({
   page,
 }) => {
   const result = await page.evaluate((source) => {
     const cache = new WeakMap();
-    const draw = new Function('fineTiles', 'return (' + source + ')')(
+    const draw = new Function('gridClips', 'return (' + source + ')')(
       cache,
-    ) as typeof drawFinePattern;
+    ) as typeof strokeClippedGrid;
     const canvas = document.createElement('canvas');
     canvas.width = 40;
     canvas.height = 40;
-    const ctx = canvas.getContext('2d', { alpha: false });
+    const ctx = canvas.getContext('2d');
     if (!ctx) throw Error('Canvas unavailable');
-    const colors = {
-      background: '#faf8ff',
-      grid: '#c4c7c5',
-      axis: '',
-      label: '',
-      curves: [],
-    };
-    const a = [1.5, 11.5, 21.5, 31.5],
-      b = [2.5, 12.5, 22.5, 32.5];
-    const first = draw(ctx, a, a, colors, 40, 40);
-    const initial = cache.get(ctx);
-    const second = draw(ctx, b, b, colors, 40, 40);
+    const xs = [1.5, 11.5, 21.5, 31.5],
+      ys = [2.5, 12.5, 22.5, 32.5];
+    const first = draw(ctx, xs, ys, 40, 40, 16),
+      initial = cache.get(ctx);
+    const second = draw(ctx, ys, xs, 40, 40, 16),
+      reused = initial === cache.get(ctx);
     canvas.width = 80;
     canvas.height = 80;
     ctx.setTransform(2, 0, 0, 2, 0, 0);
-    const resized = draw(ctx, b, b, colors, 40, 40);
-    const retained = initial === cache.get(ctx);
-    const tile = cache.get(ctx) as { canvas: HTMLCanvasElement } | undefined;
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    const fallbacks = [
-      draw(ctx, [0], a, colors, 40, 40),
-      draw(ctx, [0, 10, 21], a, colors, 40, 40),
-      draw(ctx, [0, 10, 20], a, colors, 40, 40),
-      draw(ctx, [0, 10, Number.NaN], a, colors, 40, 40),
-      draw(ctx, a, a, { ...colors, background: 'rgba(0,0,0,0.5)' }, 40, 40),
-    ];
+    const resized = draw(ctx, xs, ys, 40, 40, 16),
+      rebuilt = initial !== cache.get(ctx);
+    const count = (cache.get(ctx) as { clips: unknown[] }).clips.length;
     ctx.translate(1, 0);
-    fallbacks.push(draw(ctx, a, a, colors, 40, 40));
-    return {
-      first,
-      second,
-      resized,
-      retained,
-      tileWidth: tile?.canvas.width,
-      tileHeight: tile?.canvas.height,
-      fallbacks,
-    };
-  }, drawFinePattern.toString());
-  expect(result.first).toBe(true);
-  expect(result.second).toBe(true);
-  expect(result.resized).toBe(true);
-  expect(result.retained).toBe(true);
-  expect(result.tileWidth).toBeLessThanOrEqual(256);
-  expect(result.tileHeight).toBeLessThanOrEqual(256);
-  expect(result.fallbacks).toEqual([false, false, false, false, false, false]);
+    const fallback = draw(ctx, xs, ys, 40, 40, 16);
+    return { first, second, resized, reused, rebuilt, count, fallback };
+  }, strokeClippedGrid.toString());
+  expect(result).toEqual({
+    first: true,
+    second: true,
+    resized: true,
+    reused: true,
+    rebuilt: true,
+    count: 25,
+    fallback: false,
+  });
 });

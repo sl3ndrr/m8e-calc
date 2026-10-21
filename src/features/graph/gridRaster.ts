@@ -1,100 +1,94 @@
-import type { GraphColors } from './renderer';
-export function drawFinePattern(
+interface GridClip {
+  left: number;
+  right: number;
+  top: number;
+  bottom: number;
+  path: Path2D;
+}
+interface GridClipCache {
+  width: number;
+  height: number;
+  ratio: number;
+  tilePixels: number;
+  clips: GridClip[];
+}
+const gridClips = new WeakMap<CanvasRenderingContext2D, GridClipCache>();
+/** Native strokes only; every clip meets on a device-pixel edge. */
+export function strokeClippedGrid(
   ctx: CanvasRenderingContext2D,
-  xs: number[],
-  ys: number[],
-  colors: GraphColors,
+  xs: readonly number[],
+  ys: readonly number[],
   width: number,
   height: number,
+  tilePixels = 1024,
 ): boolean {
-  const matrix = ctx.getTransform();
-  const dpr = matrix.a;
+  if (!Number.isSafeInteger(tilePixels) || tilePixels <= 0)
+    throw new RangeError('Grid tile size must be a positive integer');
+  const matrix = ctx.getTransform(),
+    ratio = matrix.a;
   if (
-    !Number.isFinite(dpr) ||
-    dpr <= 0 ||
+    !Number.isFinite(ratio) ||
+    ratio <= 0 ||
     matrix.b !== 0 ||
     matrix.c !== 0 ||
-    matrix.d !== dpr ||
+    matrix.d !== ratio ||
     matrix.e !== 0 ||
     matrix.f !== 0
-  )
-    return false;
-  if (
-    !(dpr > 0) ||
-    !/^(#[0-9a-f]{3}(?:[0-9a-f]{3})?|rgb\([^/]+\))$/i.test(colors.background)
-  )
-    return false;
-  const axis = (positions: number[], extent: number) => {
-    if (positions.length < 2 || !positions.every(Number.isFinite)) return null;
-    const values = positions.map((p) => p * dpr).sort((a, b) => a - b);
-    const [first, second] = values;
-    const last = values.at(-1);
-    if (first === undefined || second === undefined || last === undefined)
-      return null;
-    const step = second - first;
-    if (!(step > 1)) return null;
-    if (values.some((p, i) => Math.abs(p - (first + i * step)) > 1e-7))
-      return null;
-    const half = 0.25 * dpr;
-    if (first - step + half > 0 || last + step - half < extent * dpr)
-      return null;
-    for (let n = 1; n <= 256; n++) {
-      const period = Math.round(step * n);
-      if (period > 256) break;
-      if (period > 0 && Math.abs(step * n - period) < 1e-7)
-        return {
-          step,
-          period,
-          phase: ((first % period) + period) % period,
-        };
+  ) {
+    ctx.beginPath();
+    for (const x of xs) {
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, height);
     }
-    return null;
-  };
-  const x = axis(xs, width),
-    y = axis(ys, height);
-  if (!x || !y) return false;
-  let layer = fineTiles.get(ctx);
-  if (!layer) {
-    const canvas = document.createElement('canvas'),
-      context = canvas.getContext('2d', { alpha: false });
-    if (!context) return false;
-    layer = { canvas, context };
-    fineTiles.set(ctx, layer);
+    for (const y of ys) {
+      ctx.moveTo(0, y);
+      ctx.lineTo(width, y);
+    }
+    ctx.stroke();
+    return false;
   }
-  if (layer.canvas.width !== x.period || layer.canvas.height !== y.period) {
-    layer.canvas.width = x.period;
-    layer.canvas.height = y.period;
+  let cached = gridClips.get(ctx);
+  if (
+    !cached ||
+    cached.width !== width ||
+    cached.height !== height ||
+    cached.ratio !== ratio ||
+    cached.tilePixels !== tilePixels
+  ) {
+    const clips: GridClip[] = [];
+    const pixelsWide = Math.ceil(width * ratio),
+      pixelsHigh = Math.ceil(height * ratio);
+    for (let py = 0; py < pixelsHigh; py += tilePixels) {
+      for (let px = 0; px < pixelsWide; px += tilePixels) {
+        const left = px / ratio,
+          top = py / ratio,
+          right = Math.min(pixelsWide, px + tilePixels) / ratio,
+          bottom = Math.min(pixelsHigh, py + tilePixels) / ratio;
+        const path = new Path2D();
+        path.rect(left, top, right - left, bottom - top);
+        clips.push({ left, top, right, bottom, path });
+      }
+    }
+    cached = { width, height, ratio, tilePixels, clips };
+    gridClips.set(ctx, cached);
   }
-  const tile = layer.context;
-  tile.setTransform(dpr, 0, 0, dpr, 0, 0);
-  tile.globalAlpha = 1;
-  tile.fillStyle = colors.background;
-  tile.fillRect(0, 0, x.period / dpr, y.period / dpr);
-  tile.beginPath();
-  tile.strokeStyle = colors.grid;
-  tile.lineWidth = 0.5;
-  tile.globalAlpha = 0.4;
-  for (const p of xs) {
-    tile.moveTo(p, 0);
-    tile.lineTo(p, height);
+  const padding = ctx.lineWidth / 2 + 1 / ratio;
+  for (const clip of cached.clips) {
+    ctx.save();
+    ctx.clip(clip.path);
+    ctx.beginPath();
+    for (const x of xs)
+      if (x >= clip.left - padding && x <= clip.right + padding) {
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, height);
+      }
+    for (const y of ys)
+      if (y >= clip.top - padding && y <= clip.bottom + padding) {
+        ctx.moveTo(0, y);
+        ctx.lineTo(width, y);
+      }
+    ctx.stroke();
+    ctx.restore();
   }
-  for (const p of ys) {
-    tile.moveTo(0, p);
-    tile.lineTo(width, p);
-  }
-  tile.stroke();
-  const pattern = ctx.createPattern(layer.canvas, 'repeat');
-  if (!pattern) return false;
-  pattern.setTransform({ a: 1 / dpr, b: 0, c: 0, d: 1 / dpr, e: 0, f: 0 });
-  ctx.save();
-  ctx.imageSmoothingEnabled = false;
-  ctx.globalAlpha = 1;
-  ctx.fillStyle = pattern;
-  ctx.fillRect(0, 0, width, height);
-  ctx.restore();
   return true;
 }
-const fineTiles = new WeakMap<
-  CanvasRenderingContext2D,
-  { canvas: HTMLCanvasElement; context: CanvasRenderingContext2D }
->();
