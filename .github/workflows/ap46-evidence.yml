@@ -19,7 +19,8 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          # This consumer tests the historical sealed c95 build, not the PR candidate.
+          ref: c95f183aac8bc643561bd440652a0ac5edad8c6b
           persist-credentials: false
       - uses: actions/setup-node@v7
         with:
@@ -28,17 +29,9 @@ jobs:
           cache: npm
       - run: npm install --global npm@11.19.0
       - run: npm ci --engine-strict
-      - name: Preserve the installed formatter for local report verification
-        run: |
-          mkdir -p test-results/ap46
-          tar -C node_modules -czf test-results/ap46/prettier.tgz prettier
-      - uses: actions/upload-artifact@v7
-        with:
-          name: ap46-formatter
-          path: test-results/ap46/prettier.tgz
-          retention-days: 3
       - name: Require the unchanged integrated product and measurement helpers
         run: |
+          test "$(git rev-parse HEAD)" = "$AP42_SOURCE"
           git fetch --depth=1 origin c95f183aac8bc643561bd440652a0ac5edad8c6b
           git diff --exit-code c95f183aac8bc643561bd440652a0ac5edad8c6b -- src public scripts package.json package-lock.json vite.config.ts playwright.ap36.config.ts e2e/ap36* e2e/buttonContractCases.ts e2e/calculatorCapture.ts e2e/graphParameterProbe.ts
       # Read-only reuse of the successful main producer; never a deploy input.

@@ -389,3 +389,9 @@ History-Exit → Settings wird mit zurückgehaltenem Modul und echtem Fokus in
 drei Engines geprüft. Merge ist durch den neuen Nutzerauftrag ausschließlich
 nach grüner finaler Pflicht-CI und relevanten Zusatzprüfungen autorisiert;
 die reale main-/Pages-Kette danach separat prüfen. Keine Tags/Releases/manuellen Deploys.
+
+AP46s historischer Artefaktverbraucher checkt denselben festgelegten c95-SHA
+für Galerie, Helper und Producerprüfung aus. Bei späteren Produktreparaturen
+niemals neuen PR-Quellcode als unveränderten c95-Quellcode ausgeben oder die
+Gleichheitsprüfung lockern. Neue Produktbuilds werden separat in ihrer eigenen
+aktuellen CI abgenommen.
