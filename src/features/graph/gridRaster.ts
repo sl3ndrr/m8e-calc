@@ -74,13 +74,13 @@ export function drawFinePattern(
   tile.strokeStyle = colors.grid;
   tile.lineWidth = 0.5;
   tile.globalAlpha = 0.4;
-  for (let p = x.phase - x.step; p <= x.period + 0.5 * dpr; p += x.step) {
-    tile.moveTo(p / dpr, 0);
-    tile.lineTo(p / dpr, y.period / dpr);
+  for (const p of xs) {
+    tile.moveTo(p, 0);
+    tile.lineTo(p, height);
   }
-  for (let p = y.phase - y.step; p <= y.period + 0.5 * dpr; p += y.step) {
-    tile.moveTo(0, p / dpr);
-    tile.lineTo(x.period / dpr, p / dpr);
+  for (const p of ys) {
+    tile.moveTo(0, p);
+    tile.lineTo(width, p);
   }
   tile.stroke();
   const pattern = ctx.createPattern(layer.canvas, 'repeat');

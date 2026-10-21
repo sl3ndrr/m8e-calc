@@ -68,14 +68,27 @@ test('AP49 periodic native grid retains raster geometry', async ({
         const arrays = canvases.map(
           (c) => c.getContext('2d')!.getImageData(0, 0, c.width, c.height).data,
         );
+        const examples: {
+          x: number;
+          y: number;
+          original: number;
+          actual: number;
+        }[] = [];
         let different = 0,
           maximum = 0;
         for (let i = 0; i < arrays[0]!.length; i++) {
           const delta = Math.abs(arrays[0]![i]! - arrays[1]![i]!);
           if (delta) different++;
+          if (delta > 1 && examples.length < 8)
+            examples.push({
+              x: Math.floor(i / 4) % Math.round(w * dpr),
+              y: Math.floor(Math.floor(i / 4) / Math.round(w * dpr)),
+              original: arrays[0]![i]!,
+              actual: arrays[1]![i]!,
+            });
           maximum = Math.max(maximum, delta);
         }
-        cases.push({ dpr, phase, accelerated, different, maximum });
+        cases.push({ dpr, phase, accelerated, different, maximum, examples });
       }
     }
     return cases;
