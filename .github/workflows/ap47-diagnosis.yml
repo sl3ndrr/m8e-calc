@@ -1,4 +1,4 @@
-name: AP49 final native acceptance
+name: AP49 final native source correction
 on:
   push:
     branches: [feat/ap47-bounded-diagnosis]
@@ -36,13 +36,17 @@ jobs:
       - name: Build separate gallery from identical current sources
         env:
           GITHUB_SHA: f7292b0695b36c4c7b6d7bba998a08c391c86cd1
-        run: npm run build:gallery
+        run: |
+          export GITHUB_SHA="$AP42_SOURCE"
+          npm run build:gallery
       - run: npx playwright install --with-deps chromium firefox webkit
-      - name: Existing native buttons and overlay frames, all engines, no retries
+      - name: Twelve native button cases stopped by gallery source mismatch, no retries
         env:
           GITHUB_SHA: f7292b0695b36c4c7b6d7bba998a08c391c86cd1
           PLAYWRIGHT_JSON_OUTPUT_NAME: test-results/ap49-native/results.json
-        run: npx playwright test --config=playwright.ap36.config.ts --reporter=list,json --output=test-results/ap49-native/browser
+        run: |
+          export GITHUB_SHA="$AP42_SOURCE"
+          npx playwright test --config=playwright.ap36.config.ts --project=chromium-gallery --project=firefox-gallery --project=webkit-gallery --grep 'button contract .*: live press/release' --reporter=list,json --output=test-results/ap49-native/browser
       - name: Verify exact production bytes after probes
         run: GITHUB_SHA=f7292b0695b36c4c7b6d7bba998a08c391c86cd1 GITHUB_REF=refs/pull/69/merge GITHUB_EVENT_NAME=pull_request GITHUB_RUN_ID=39685901754 GITHUB_RUN_ATTEMPT=1 node scripts/ci/build-proof.mjs verify
       - uses: actions/upload-artifact@v7
