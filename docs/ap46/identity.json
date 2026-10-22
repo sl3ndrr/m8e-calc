@@ -1,0 +1,99 @@
+{
+  "productCommit": "c95f183aac8bc643561bd440652a0ac5edad8c6b",
+  "mainRun": 39628007681,
+  "attempt": 1,
+  "normalArtifact": 12356744938,
+  "pagesArtifact": 12357178129,
+  "normalFingerprint": "f45fa4d1e7be8ce5583a7ebf072deeb5346919754cde873b10a377e62312d8c3",
+  "pagesTarSha256": "072245682590a9171fc0098f6ade2a7a48bfd781f2c694dfff97baf3482a015f",
+  "byteComparison": {
+    "files": 143,
+    "bytes": 3250215,
+    "result": "identical"
+  },
+  "jobs": [
+    {
+      "name": "Production build",
+      "id": 119318329626,
+      "conclusion": "success"
+    },
+    {
+      "name": "Node 24 minimum",
+      "id": 119318328893,
+      "conclusion": "success"
+    },
+    {
+      "name": "Pipeline contract tests",
+      "id": 119318329345,
+      "conclusion": "success"
+    },
+    {
+      "name": "Chromium",
+      "id": 119319104198,
+      "conclusion": "success"
+    },
+    {
+      "name": "Firefox",
+      "id": 119319104087,
+      "conclusion": "success"
+    },
+    {
+      "name": "WebKit",
+      "id": 119319104362,
+      "conclusion": "success"
+    },
+    {
+      "name": "Graph performance",
+      "id": 119319103808,
+      "conclusion": "success"
+    },
+    {
+      "name": "Gallery",
+      "id": 119319104176,
+      "conclusion": "success"
+    },
+    {
+      "name": "Build provenance",
+      "id": 119319104023,
+      "conclusion": "success"
+    },
+    {
+      "name": "Visual",
+      "id": 119319104069,
+      "conclusion": "success"
+    },
+    {
+      "name": "Quality gate",
+      "id": 119326567940,
+      "conclusion": "success"
+    },
+    {
+      "name": "Deploy Pages",
+      "id": 119326709324,
+      "conclusion": "success"
+    }
+  ],
+  "activeLiveClientCommit": null,
+  "liveAttempts": [
+    {
+      "url": "https://sl3ndrr.github.io/m8e-calc/",
+      "screenshotTimeUtc": "2026-10-21T16:33:44.268Z",
+      "result": "Forbidden. Calls to this URL are not allowed.",
+      "file": "pages-blocked.jpg"
+    },
+    {
+      "url": "https://sl3ndrr.github.io/m8e-calc/build-info.json",
+      "navigationUtc": "2026-10-21T16:33:44Z",
+      "screenshotTimeUtc": "2026-10-21T16:37:34.151Z",
+      "result": "Forbidden. Calls to this URL are not allowed.",
+      "file": "build-info-blocked.jpg"
+    }
+  ],
+  "browserVersions": {
+    "chromium": "156.0.8078.4",
+    "firefox": "157.0",
+    "webkit": "27.2"
+  },
+  "mainBuildNode": "v24.22.0",
+  "npm": "11.19.0"
+}

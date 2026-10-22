@@ -1,0 +1,299 @@
+{
+  "head": "c6fa69fd8cd6c304abc2cd0be5235158d92b7a2e",
+  "run": 39678080825,
+  "job": 119493068549,
+  "artifact": 12383067602,
+  "decision": "Rejected: culled native grid slower and max4 pixel error in Chromium/Firefox; no product adoption",
+  "variants": [
+    {
+      "name": "original",
+      "runner": {
+        "os": "linux",
+        "release": "6.17.0-1022-azure",
+        "cpu": "AMD EPYC 7763 64-Core Processor",
+        "cpus": 4,
+        "image": "20261012.334.1"
+      },
+      "node": "v24.22.1",
+      "browser": "156.0.8078.4",
+      "runs": [
+        {
+          "name": "idle-reference",
+          "window": 0,
+          "observedRafFps": 60.0039002535165,
+          "renderP95Ms": 0.29999999998835847,
+          "frames": 1,
+          "curveStrokes": 6,
+          "workerPosts": 0,
+          "workerReplies": 0
+        },
+        {
+          "name": "idle-reference",
+          "window": 1,
+          "observedRafFps": 60.00300015000748,
+          "renderP95Ms": 0,
+          "frames": 0,
+          "curveStrokes": 0,
+          "workerPosts": 0,
+          "workerReplies": 0
+        },
+        {
+          "name": "idle-reference",
+          "window": 2,
+          "observedRafFps": 60.00198006534218,
+          "renderP95Ms": 0,
+          "frames": 0,
+          "curveStrokes": 0,
+          "workerPosts": 0,
+          "workerReplies": 0
+        },
+        {
+          "name": "pan",
+          "window": 0,
+          "observedRafFps": 59.02212149113487,
+          "renderP95Ms": 0.5,
+          "frames": 120,
+          "curveStrokes": 720,
+          "workerPosts": 18,
+          "workerReplies": 18
+        },
+        {
+          "name": "pan",
+          "window": 1,
+          "observedRafFps": 60.00600060006002,
+          "renderP95Ms": 0.5,
+          "frames": 120,
+          "curveStrokes": 720,
+          "workerPosts": 19,
+          "workerReplies": 19
+        },
+        {
+          "name": "pan",
+          "window": 2,
+          "observedRafFps": 60.00438031976331,
+          "renderP95Ms": 0.5,
+          "frames": 120,
+          "curveStrokes": 720,
+          "workerPosts": 18,
+          "workerReplies": 18
+        },
+        {
+          "name": "hidden-pan",
+          "window": 0,
+          "observedRafFps": 60.00300015000745,
+          "renderP95Ms": 0.5,
+          "frames": 120,
+          "curveStrokes": 720,
+          "workerPosts": 20,
+          "workerReplies": 20
+        },
+        {
+          "name": "hidden-pan",
+          "window": 1,
+          "observedRafFps": 60.005640530209796,
+          "renderP95Ms": 0.40000000002328306,
+          "frames": 120,
+          "curveStrokes": 720,
+          "workerPosts": 20,
+          "workerReplies": 19
+        },
+        {
+          "name": "hidden-pan",
+          "window": 2,
+          "observedRafFps": 60.00096001536022,
+          "renderP95Ms": 0.40000000002328306,
+          "frames": 120,
+          "curveStrokes": 720,
+          "workerPosts": 20,
+          "workerReplies": 20
+        },
+        {
+          "name": "slow-render-25ms",
+          "window": 0,
+          "observedRafFps": 26.0887940802787,
+          "renderP95Ms": 25.5,
+          "frames": 60,
+          "curveStrokes": 360,
+          "workerPosts": 14,
+          "workerReplies": 13
+        },
+        {
+          "name": "slow-main-25ms",
+          "window": 0,
+          "observedRafFps": 26.088952893786647,
+          "renderP95Ms": 0.5,
+          "frames": 60,
+          "curveStrokes": 360,
+          "workerPosts": 15,
+          "workerReplies": 14
+        }
+      ],
+      "events": {
+        "LayerTreeHost::DoUpdateLayers": {
+          "count": 66,
+          "totalMs": 1001.815,
+          "p95Ms": 20.879
+        },
+        "Canvas2DResourceProvider::ProduceCanvasResource": {
+          "count": 66,
+          "totalMs": 128.262,
+          "p95Ms": 2.594
+        },
+        "void SkCanvas::drawPath(const SkPath &, const SkPaint &)": {
+          "count": 594,
+          "totalMs": 729.305,
+          "p95Ms": 4.546
+        }
+      },
+      "rawSha256": {
+        "default.json": "610e008bd917fd1d41f1931a5c23fad57a57122133ca5e65f0df393e1fea50a8",
+        "default-trace.json": "d7e2ed911c4bb8cc6f6fc68dd1859ef353319f537bfd84996fcd14aaaac7d3ed"
+      }
+    },
+    {
+      "name": "clipped",
+      "runner": {
+        "os": "linux",
+        "release": "6.17.0-1022-azure",
+        "cpu": "AMD EPYC 7763 64-Core Processor",
+        "cpus": 4,
+        "image": "20261012.334.1"
+      },
+      "node": "v24.22.1",
+      "browser": "156.0.8078.4",
+      "runs": [
+        {
+          "name": "idle-reference",
+          "window": 0,
+          "observedRafFps": 60.00342019495112,
+          "renderP95Ms": 0,
+          "frames": 0,
+          "curveStrokes": 0,
+          "workerPosts": 0,
+          "workerReplies": 0
+        },
+        {
+          "name": "idle-reference",
+          "window": 1,
+          "observedRafFps": 60.00600060006,
+          "renderP95Ms": 0.29999999998835847,
+          "frames": 1,
+          "curveStrokes": 6,
+          "workerPosts": 0,
+          "workerReplies": 0
+        },
+        {
+          "name": "idle-reference",
+          "window": 2,
+          "observedRafFps": 60.00300015000751,
+          "renderP95Ms": 0,
+          "frames": 0,
+          "curveStrokes": 0,
+          "workerPosts": 0,
+          "workerReplies": 0
+        },
+        {
+          "name": "pan",
+          "window": 0,
+          "observedRafFps": 52.945022770771864,
+          "renderP95Ms": 0.7000000000116415,
+          "frames": 120,
+          "curveStrokes": 720,
+          "workerPosts": 19,
+          "workerReplies": 19
+        },
+        {
+          "name": "pan",
+          "window": 1,
+          "observedRafFps": 53.73532130139784,
+          "renderP95Ms": 0.5,
+          "frames": 120,
+          "curveStrokes": 720,
+          "workerPosts": 19,
+          "workerReplies": 19
+        },
+        {
+          "name": "pan",
+          "window": 2,
+          "observedRafFps": 54.13799232864651,
+          "renderP95Ms": 0.6000000000349246,
+          "frames": 120,
+          "curveStrokes": 720,
+          "workerPosts": 19,
+          "workerReplies": 19
+        },
+        {
+          "name": "hidden-pan",
+          "window": 0,
+          "observedRafFps": 60.00300015000745,
+          "renderP95Ms": 0.5,
+          "frames": 120,
+          "curveStrokes": 720,
+          "workerPosts": 18,
+          "workerReplies": 18
+        },
+        {
+          "name": "hidden-pan",
+          "window": 1,
+          "observedRafFps": 60.00396026137729,
+          "renderP95Ms": 0.5,
+          "frames": 120,
+          "curveStrokes": 720,
+          "workerPosts": 18,
+          "workerReplies": 18
+        },
+        {
+          "name": "hidden-pan",
+          "window": 2,
+          "observedRafFps": 60.00300015000745,
+          "renderP95Ms": 0.5,
+          "frames": 120,
+          "curveStrokes": 720,
+          "workerPosts": 17,
+          "workerReplies": 17
+        },
+        {
+          "name": "slow-render-25ms",
+          "window": 0,
+          "observedRafFps": 24.659979976096253,
+          "renderP95Ms": 25.400000000023283,
+          "frames": 60,
+          "curveStrokes": 360,
+          "workerPosts": 14,
+          "workerReplies": 14
+        },
+        {
+          "name": "slow-main-25ms",
+          "window": 0,
+          "observedRafFps": 24.325415680811656,
+          "renderP95Ms": 0.5,
+          "frames": 60,
+          "curveStrokes": 360,
+          "workerPosts": 16,
+          "workerReplies": 15
+        }
+      ],
+      "events": {
+        "LayerTreeHost::DoUpdateLayers": {
+          "count": 66,
+          "totalMs": 1117.664,
+          "p95Ms": 24.625
+        },
+        "Canvas2DResourceProvider::ProduceCanvasResource": {
+          "count": 66,
+          "totalMs": 113.062,
+          "p95Ms": 2.209
+        },
+        "void SkCanvas::drawPath(const SkPath &, const SkPaint &)": {
+          "count": 1320,
+          "totalMs": 871.083,
+          "p95Ms": 1.605
+        }
+      },
+      "rawSha256": {
+        "default.json": "cd1a26e9fd412e6985ec01c6144c673e8b32aff43a4253a9635fc15b36a0c497",
+        "default-trace.json": "69072270952d0b34a8bae6efced76a1410c1753a04541552499bf93fddf7830c"
+      }
+    }
+  ]
+}

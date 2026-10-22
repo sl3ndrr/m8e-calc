@@ -1,0 +1,77 @@
+name: AP46 integrated main acceptance
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: ap46-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  evidence:
+    if: github.head_ref == 'feat/ap46-integrated-acceptance'
+    runs-on: ubuntu-latest
+    env:
+      AP42_SOURCE: c95f183aac8bc643561bd440652a0ac5edad8c6b
+      AP43_HEAD: c95f183aac8bc643561bd440652a0ac5edad8c6b
+      BUILD_FINGERPRINT: f45fa4d1e7be8ce5583a7ebf072deeb5346919754cde873b10a377e62312d8c3
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # This consumer tests the historical sealed c95 build, not the PR candidate.
+          ref: c95f183aac8bc643561bd440652a0ac5edad8c6b
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          check-latest: true
+          cache: npm
+      - run: npm install --global npm@11.19.0
+      - run: npm ci --engine-strict
+      - name: Require the unchanged integrated product and measurement helpers
+        run: |
+          test "$(git rev-parse HEAD)" = "$AP42_SOURCE"
+          git fetch --depth=1 origin c95f183aac8bc643561bd440652a0ac5edad8c6b
+          git diff --exit-code c95f183aac8bc643561bd440652a0ac5edad8c6b -- src public scripts package.json package-lock.json vite.config.ts playwright.ap36.config.ts e2e/ap36* e2e/buttonContractCases.ts e2e/calculatorCapture.ts e2e/graphParameterProbe.ts
+      # Read-only reuse of the successful main producer; never a deploy input.
+      - uses: actions/download-artifact@v8
+        with:
+          github-token: ${{ github.token }}
+          repository: sl3ndrr/m8e-calc
+          run-id: 39628007681
+          artifact-ids: '12356744938'
+          merge-multiple: true
+      - name: Verify the original producer identity and every production byte
+        run: |
+          GITHUB_SHA=c95f183aac8bc643561bd440652a0ac5edad8c6b GITHUB_REF=refs/heads/main GITHUB_EVENT_NAME=push GITHUB_RUN_ID=39628007681 GITHUB_RUN_ATTEMPT=1 node scripts/ci/build-proof.mjs verify
+          GITHUB_SHA=c95f183aac8bc643561bd440652a0ac5edad8c6b node scripts/check-build-target.mjs dist normal
+      - name: Separate gallery from the same integrated product
+        id: gallery
+        env:
+          GITHUB_SHA: c95f183aac8bc643561bd440652a0ac5edad8c6b
+        run: |
+          export GITHUB_SHA="$AP42_SOURCE"
+          npm run build:gallery
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Existing native button and overlay frame contracts in three engines
+        env:
+          GITHUB_SHA: c95f183aac8bc643561bd440652a0ac5edad8c6b
+        # The other 141 native cases and all 36 graph cases passed in 39637196370.
+        # Only these 12 gallery cases stopped at the source identity assertion.
+        run: |
+          export GITHUB_SHA="$AP42_SOURCE"
+          npx playwright test --config=playwright.ap36.config.ts --project=chromium-gallery --project=firefox-gallery --project=webkit-gallery --grep 'button contract .*: live press/release' --retries=0 --reporter=list --output=test-results/ap46/native
+      - name: Verify original normal bytes after all interaction probes
+        if: ${{ !cancelled() && steps.gallery.outcome == 'success' }}
+        run: GITHUB_SHA=c95f183aac8bc643561bd440652a0ac5edad8c6b GITHUB_REF=refs/heads/main GITHUB_EVENT_NAME=push GITHUB_RUN_ID=39628007681 GITHUB_RUN_ATTEMPT=1 node scripts/ci/build-proof.mjs verify
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: ap46-integrated-main
+          path: |
+            test-results/ap46/
+            build-proof.json
+            dist/build-info.json
+            dist-gallery/build-info.json
+          retention-days: 14

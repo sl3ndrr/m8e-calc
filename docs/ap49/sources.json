@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "reason": "Two final CI source checks could not connect to the previous JPL year source. Replace the active citation with an equivalent official IAU SOFA publication and retain the former URI as historical text. No checker, timeout, retry, numerical value or conversion logic changes.",
+  "previousFailures": [
+    {
+      "head": "26132ff8842189cda2751a1cbc7c1a5480dcde50",
+      "build": "e3f97dc39e3e3a52d55b53d60fdc9260a09ae8b2",
+      "run": 39682150755,
+      "job": 119507918864,
+      "url": "https://ssd.jpl.nasa.gov/astro_par.html",
+      "result": "Connect timeout10000ms inside unchanged30000ms URL bound; also new artifact link404 subsequently corrected"
+    },
+    {
+      "head": "f8f0d03ff63633f241e25a1c979266b2d83d5b0b",
+      "build": "7172a7feb6fe42a168ed441f7eebdbd5bcf6ecb9",
+      "run": 39683429919,
+      "job": 119512899478,
+      "url": "https://ssd.jpl.nasa.gov/astro_par.html",
+      "result": "sole remaining external failure: same connect timeout; artifact link repair succeeds"
+    }
+  ],
+  "rejectedSourcePreflight": {
+    "run": 39684960876,
+    "head": "dd3b4ba3c7f1dd68e02293cb7f0332c43ea35092",
+    "job": 119516553399,
+    "artifact": 12386270567,
+    "policy": {
+      "attemptsPerUrl": 1,
+      "timeoutMs": 30000
+    },
+    "urls": [
+      "https://iauarchive.eso.org/publications/proceedings_rules/units/",
+      "https://iauarchive.eso.org/static/publications/stylemanual1989.pdf"
+    ],
+    "httpStatusEach": 502,
+    "adopted": false
+  },
+  "adoptedSource": {
+    "publisher": "International Astronomical Union, Standards of Fundamental Astronomy",
+    "title": "SOFA Time Scale and Calendar Tools",
+    "revision": "1.63,2023-05-31",
+    "section": "2.2,PDFpage9",
+    "url": "https://www.iausofa.org/s/sofa_ts_f.pdf",
+    "yearDays": "365.25",
+    "centuryDays": "36525",
+    "dayAndSpeedOfLightSource": "BIPM SI Brochure9,2026version4.01,section2.2 andtable8; existing link inUNITS.md",
+    "derivedYearSeconds": "31557600",
+    "derivedLightYearMetres": "9460730472580800",
+    "run": 39685176515,
+    "head": "0a162fd252e38afb15d84bf6d2d6a4b8c88c8e77",
+    "job": 119517286896,
+    "artifact": 12386425774,
+    "checkedAt": "2026-10-21T22:15:49.136Z",
+    "attempt": 1,
+    "timeoutMs": 30000,
+    "httpStatus": 200,
+    "finalUrl": "https://static1.squarespace.com/static/68caa251ae552a6213e8764b/t/68d3beebe8176372a8248507/1758707435977/sofa_ts_f.pdf",
+    "bytes": 393443,
+    "sha256": "08d31edd7ac35783870f4023371bfbf71f27baa3f18b9217ddd6b63fff90a8bc"
+  },
+  "referenceFixtureVerification": {
+    "unchangedRows": 274,
+    "allFirstFourFieldsIdentical": true,
+    "changedSourceRows": [16, 73, 74, 75],
+    "method": "Compare original/final typed fixture arrays after built-in TypeScript erasure; full project check still required on final commit."
+  }
+}

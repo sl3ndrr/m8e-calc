@@ -131,7 +131,6 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
     const element: HTMLCanvasElement = candidate;
     const canvasContext = element.getContext('2d', {
       alpha: false,
-      desynchronized: true,
     });
     if (!canvasContext) return;
     const ctx: CanvasRenderingContext2D = canvasContext;

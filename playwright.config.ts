@@ -42,6 +42,7 @@ export default defineConfig({
         '**/convert.spec.ts',
         '**/currency.spec.ts',
         '**/graph.spec.ts',
+        '**/grid-raster.spec.ts',
         '**/graph-implicit.spec.ts',
         '**/graph-values.spec.ts',
         '**/graph-parameters.spec.ts',

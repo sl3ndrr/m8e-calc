@@ -1,5 +1,6 @@
 import { test, expect, type Page } from '@playwright/test';
 import { writeFile } from 'node:fs/promises';
+import { cpus, platform, release } from 'node:os';
 import { replaceGraphExpression } from './graphEditor';
 import {
   installParameterProbe,
@@ -16,6 +17,33 @@ test.beforeEach(async ({ page, browserName }, info) => {
   await page.setViewportSize({ width: 1600, height: 1000 });
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await installParameterProbe(page);
+});
+
+test.afterEach(async ({ page, browser, browserName }, info) => {
+  // Save the still-running recorder even when an early assertion fails.
+  if (page.isClosed()) return;
+  const probe = await readProbe(page);
+  const report = {
+    head: process.env.GITHUB_SHA,
+    status: info.status,
+    browser: { name: browserName, version: browser.version() },
+    node: process.version,
+    runner: {
+      os: platform(),
+      release: release(),
+      cpu: cpus()[0]?.model,
+      cpus: cpus().length,
+      image: process.env.ImageVersion,
+    },
+    workers: info.config.workers,
+    workerIndex: info.workerIndex,
+    parallelIndex: info.parallelIndex,
+    ...probe,
+  };
+  await writeFile(
+    info.outputPath('parameter-probe-final.json'),
+    JSON.stringify(report),
+  );
 });
 
 async function add(page: Page, input: string) {
@@ -107,9 +135,11 @@ for (const input of [
     for (const key of ['ArrowRight', 'ArrowLeft', 'ArrowLeft', 'ArrowRight'])
       await slider.press(key);
     await page.getByRole('button', { name: 'Parameter a abspielen' }).click();
-    await page.waitForTimeout(1600);
+    await page.waitForTimeout(5200);
+    await page.screenshot({ path: info.outputPath('playback-middle.png') });
     await range(page, '1', '2,5');
-    await page.waitForTimeout(1600);
+    await page.waitForTimeout(5200);
+    await page.screenshot({ path: info.outputPath('playback-end.png') });
     await expect
       .poll(
         () =>
@@ -125,6 +155,8 @@ for (const input of [
     const blank = probe.frames.filter((frame) => frame.segments === 0);
     const revealedAgain = probe.frames.filter((frame) => frame.revealing);
     const paths = new Set(probe.frames.flatMap((frame) => frame.paths));
+    const elapsed = (probe.frames.at(-1)?.at ?? 0) - (probe.frames[0]?.at ?? 0);
+    expect(elapsed).toBeGreaterThanOrEqual(10000);
     const baseline = process.env.AP43_BASELINE === '1';
     const report = {
       head: process.env.AP43_HEAD ?? process.env.GITHUB_SHA,
@@ -152,6 +184,10 @@ for (const input of [
       expect(blank).toHaveLength(0);
       expect(revealedAgain).toHaveLength(0);
       const final = await finalValue(page);
+      await info.attach('paused-result.json', {
+        body: JSON.stringify(final),
+        contentType: 'application/json',
+      });
       const births = new Set(
         probe.frames.flatMap((frame) =>
           frame.rendered.map((path) => path.born),

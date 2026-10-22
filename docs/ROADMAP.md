@@ -1,10 +1,11 @@
 # Roadmap
 
-Aktuelle Ausgangslage für UI-PRs: [AP40](AP40.md) (20.10.2026).
-Live-Abnahme und Release bleiben in [AP39](AP39.md) blockiert;
-[AP38](AP38.md) hält den früheren Integrationsstand fest.
+Aktuelle integrierte Produktabnahme: [AP46](AP46.md), main `c95f183a`
+(21.10.2026), nach AP42–AP45. Reguläre main-CI und Pages desselben SHA
+sind erfolgreich; Live-/Clientabnahme bleibt gemäß [AP39](AP39.md) blockiert.
+[AP40](AP40.md) und [AP38](AP38.md) behalten ihre historischen Stände.
 
-Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet integriert (Merge auf `main`); manuelle Produkt-/Pages-Abnahmen sind separat dokumentiert und werden dadurch nicht als bestanden erklärt. Stand: 20.10.2026.
+Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet integriert (Merge auf `main`); manuelle Produkt-/Pages-Abnahmen sind separat dokumentiert und werden dadurch nicht als bestanden erklärt. Stand: 21.10.2026.
 
 - [x] 1 Fundament — Toolchain, Struktur, Platzhalter, CI/Pages und Projektgedächtnis.
 - [x] 2 Theming — Material 3 Expressive, Hell/System/Dunkel, Akzentwahl, Typography-/Shape-/Motion-Fundament und `#/design` (PR `feat/theming`, Details: `DESIGN.md`).
@@ -123,8 +124,8 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       Commit-/Artefakt-/Fingerprintbindung bis Pages. Pflicht-QA einschließlich
       AP28/AP29, Galerie und Release-Quellenprüfung; bedingte Paketnachweise separat.
       PR #47 ist integriert (`9180b26`). Umsetzung und tatsächliche Läufe: [AP31.md](AP31.md).
-      Erfolgreiche main-/Pages-Kette inzwischen belegt, zuletzt für `964f6b4e`;
-      aktuelles main `11865098` bleibt am Quellencheck gesperrt: [AP40](AP40.md).
+      Erfolgreiche main-/Pages-Kette für `c95f183a` belegt: [AP46](AP46.md).
+      Der frühere Quellenblocker bleibt historisch in [AP40](AP40.md).
 
 - [x] 32 Verbindlicher PR- und Qualitätsschutz — `feat/ap32-merge-protection`,
       PR #48: Ruleset `25003991` durch den Eigentümer aktiviert und lesend bestätigt.
@@ -167,7 +168,8 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       und 69 echten Browser-/Unterbrechungsfällen. Abnahme, Messungen und Bilder:
       [AP36](AP36.md). Seit 19.10.2026 integriert (main `11865098`);
       #35 ist als ersetzt geschlossen, #32/F2 erledigt. PR-Abnahme grün,
-      nachfolgende main-CI wegen externer Quellen rot; kein Motion-Deploy belegt.
+      damalige main-CI wegen externer Quellen rot. Inzwischen enthält der belegte
+      Pages-Deploy `c95f183a` auch Motion 14: [AP46](AP46.md).
 - [x] 37 Dokumentationsquellen — PR #53 integriert (`177f329`): verständliche
       Quellenfehler und dauerhafter JSON-Bericht, unverändert blockierendes Gate.
       Historische Nachweise: [AP37](AP37.md), finaler Nachweis in [AP38](AP38.md).
@@ -187,25 +189,26 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
 - 41 Live-Abnahme — in [AP40](AP40.md) für die kontrollierte Abnahme nach
   grünem main-/Pages-Nachweis vorgemerkt; nicht Teil des Button-Pakets.
 
-- [ ] 42 Gemeinsames Button-Feedback — `feat/ap41-button-feedback`, ab main
+- [x] 42 Gemeinsames Button-Feedback — `feat/ap41-button-feedback`, ab main
       `65ce593`: konstante rollenbezogene Press-Formen, stabile Klickziele und
       Fokusringe, zentrale 0,97-Spatial-Skalierung mit Effects-State-Layer und
       diskrete Selected-Formen. Erweitert
       AP19/AP36 statt einer zweiten Messinfrastruktur. Vertrag und tatsächlicher
       Prüfstatus und dauerhafte native Frame-/Bildbelege: [AP42](AP42.md),
       Umsetzung in [PR #63](https://github.com/sl3ndrr/m8e-calc/pull/63).
-      Keine Dependency-Updates oder Veröffentlichung.
+      Integriert durch #63 (`63fdc9c`); aktuelle gemeinsame Abnahme in AP46.
 
-- [ ] 43 Stetige Parameterkurven — `feat/ap43-graph-parameter-continuity`,
+- [x] 43 Stetige Parameterkurven — `feat/ap43-graph-parameter-continuity`,
       ab main `63fdc9c`: einmaliger Full-Reveal pro sichtbarer gültiger Funktion,
       erhaltene Geometrie bei Pending, atomarer Ersatz und begrenzte
       koaleszierte Workeraufträge mit kompatiblem Zwischenfortschritt.
       PNG/Diagnosen behalten ehrliche Aktualität. Verträge, Framevergleich und
       tatsächlicher Prüfstatus: [AP43](AP43.md). AP42 ist bereits belegt;
       #43 bleibt ein eigener historischer Performancebefund.
-      Keine Dependency-Migration, kein Merge oder Deploy.
+      Integriert durch #64 (`aa8ed101`); aktuelle gemeinsame Abnahme in AP46.
 
-  AP43-Prüfstand `025ea1e`: fünf echte negative Vorher-Gegenproben,
+  Historische AP43-Zwischenstände vor dem Merge (rote Läufe bleiben erhalten):
+  Prüfstand `025ea1e`: fünf echte negative Vorher-Gegenproben,
   12/12 neue Chromiumfälle, check und bestehende 4K/Mixed-Gates bestanden.
   Framebelege sind dauerhaft gespeichert. Ein separater AP28-Vergleich auf
   `6662ec5` bleibt bei 48,00384 <55 FPS rot; Ursache/Performancefreigabe offen.
@@ -224,16 +227,45 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
   grün; früheres Performance-Rot bleibt dokumentiert und #43 offen.
   Ein bestehender Galerie-Theme-Timeout blockiert die Gesamt-CI; kein Merge.
 
-- [ ] 44 Akzent und Installation in Einstellungen — `feat/ap44-settings-actions`,
+- [x] 44 Akzent und Installation in Einstellungen — `feat/ap44-settings-actions`,
       ab main `aa8ed101`: vorhandener AccentPicker unter Erscheinungsbild,
       Installation unter App ausschließlich mit Browserprompt; ThemeSwitch bleibt
       in der Shell. Zentraler PWA-Lifecycle und Lazy-Grenzen bleiben erhalten.
       Prüfstatus und Grenzen: [AP44](AP44.md).
-      Weitere Overlay-/Controls-Animationen bleiben einem eigenen Paket vorbehalten.
+      Integriert durch #67 (`26346af2`); die anschließende Overlaybewegung ist AP45.
 
-- [ ] 45 Gemeinsame Overlay-/Controls-Bewegung — `feat/ap45-overlay-motion`,
+- [x] 45 Gemeinsame Overlay-/Controls-Bewegung — `feat/ap45-overlay-motion`,
       ab main `26346af2` nach AP42/AP43/AP44. AP44 ist durch Einstellungsaktionen
       belegt, daher freie Nummer AP45. Symmetrische Effects-Übergänge,
       React-Aria-Exitpräsenz, gezielte Switch-/Segment-/Slider-Effects; keine
       Dependency-Migration und kein Graphsampling. Verbindliche Matrix,
       tatsächliche Prüfläufe und Geräte-Folgepunkte: [AP45](AP45.md).
+      Integriert durch #68 (`c95f183a`); keine physische Abnahme daraus ableiten.
+
+- [ ] 46 Integrierte Produktabnahme — `feat/ap46-integrated-acceptance`, #69:
+      vorhandene Browser-/Framegates nach AP42–AP45, mindestens zehn Sekunden
+      Parameterplayback, aktueller main-/Pages-/Clientabgleich und Issue-Empfehlungen.
+      Bericht: [AP46](AP46.md), Reparaturen: [AP47](AP47.md). Keine neuen Bildbaselines.
+      Neuer Nutzerauftrag: Merge erst nach grüner finaler Pflicht-CI und relevanten
+      Zusatzprüfungen; keine Tags/Releases/manuellen Deploys.
+      AP39-/AP41-Livepunkte bleiben bei Zugangssperre offen, #43 separat.
+
+- [ ] 47 WebKit-/Collector-Diagnose und Canvas-Finalisierung — [#70](https://github.com/sl3ndrr/m8e-calc/issues/70),
+      eigener 4K-Vertrag [#43](https://github.com/sl3ndrr/m8e-calc/issues/43).
+      Belegter Kontexthinweis-Aufwand entfernt; WebKit-Frameprobe isoliert,
+      frühe Fehlerrohwerte vollständig. Umsetzung in #69; finale CI maßgeblich.
+      Originalgates und historische rote Läufe bleiben erhalten. [AP47](AP47.md).
+
+- [ ] 48 History-Exit → Einstellungen — [#71](https://github.com/sl3ndrr/m8e-calc/issues/71).
+      Unit-Vorbereitung/React-Abschluss und Fokusbereitschaft explizit;
+      zusätzlicher kalter/warmer Produktionsbrowserfall während echten Exits.
+      Umsetzung in #69, finale CI maßgeblich. Historische Ursache nicht erfunden;
+      keine längeren Timeouts oder ersetzte Benutzerklicks. [AP47](AP47.md).
+
+- [ ] 49 Dichtes 4K-Feingitter begrenzt rasterisieren — #43, Umsetzung in #69.
+      Fester Original-/Kandidatenvergleich: 49,659–51,801 → 58,540–59,021 FPS,
+      31,8 % weniger DoUpdateLayers-Zeit pro Aufruf; Pixelmatrix in drei Engines.
+      Originalvariante bleibt rot. Native Rückfälle oberhalb DPR 1,5 und für
+      ungeeignete Geometrie erhalten. Bericht und verworfene Versuche: [AP49](AP49.md).
+      Finale Produkt-CI, echte Zwischenbilder und automatische main-/Pages-Kette
+      sind getrennt zu belegen; AP39-/Handpunkte bleiben bei Sperre offen.
