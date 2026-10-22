@@ -1,0 +1,176 @@
+{
+  "run": 39734911249,
+  "head": "84e3302fb8e6362cc08bc0770c1a5b08ec0ec55d",
+  "source": "f6b814e50e1b63bc0dd3a3792f60eaa6bb2814e7",
+  "build": "f7292b0695b36c4c7b6d7bba998a08c391c86cd1",
+  "artifact": 12406821346,
+  "stats": {
+    "startTime": "2026-10-22T06:39:46.044Z",
+    "duration": 101507.396,
+    "expected": 12,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "cases": [
+    {
+      "title": "button contract Button light: live press/release, reversal, cancel and keyboard",
+      "project": "chromium-gallery",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "f7292b0695b36c4c7b6d7bba998a08c391c86cd1",
+        "target": "gallery"
+      },
+      "frames": 96,
+      "cornersConstant": true,
+      "hitAreaConstant": true,
+      "contentInsideSurface": true
+    },
+    {
+      "title": "button contract IconButton light: live press/release, reversal, cancel and keyboard",
+      "project": "chromium-gallery",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "f7292b0695b36c4c7b6d7bba998a08c391c86cd1",
+        "target": "gallery"
+      },
+      "frames": 96,
+      "cornersConstant": true,
+      "hitAreaConstant": true,
+      "contentInsideSurface": true
+    },
+    {
+      "title": "button contract Button dark: live press/release, reversal, cancel and keyboard",
+      "project": "chromium-gallery",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "f7292b0695b36c4c7b6d7bba998a08c391c86cd1",
+        "target": "gallery"
+      },
+      "frames": 96,
+      "cornersConstant": true,
+      "hitAreaConstant": true,
+      "contentInsideSurface": true
+    },
+    {
+      "title": "button contract IconButton dark: live press/release, reversal, cancel and keyboard",
+      "project": "chromium-gallery",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "f7292b0695b36c4c7b6d7bba998a08c391c86cd1",
+        "target": "gallery"
+      },
+      "frames": 96,
+      "cornersConstant": true,
+      "hitAreaConstant": true,
+      "contentInsideSurface": true
+    },
+    {
+      "title": "button contract Button light: live press/release, reversal, cancel and keyboard",
+      "project": "firefox-gallery",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "f7292b0695b36c4c7b6d7bba998a08c391c86cd1",
+        "target": "gallery"
+      },
+      "frames": 96,
+      "cornersConstant": true,
+      "hitAreaConstant": true,
+      "contentInsideSurface": true
+    },
+    {
+      "title": "button contract IconButton light: live press/release, reversal, cancel and keyboard",
+      "project": "firefox-gallery",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "f7292b0695b36c4c7b6d7bba998a08c391c86cd1",
+        "target": "gallery"
+      },
+      "frames": 96,
+      "cornersConstant": true,
+      "hitAreaConstant": true,
+      "contentInsideSurface": true
+    },
+    {
+      "title": "button contract Button dark: live press/release, reversal, cancel and keyboard",
+      "project": "firefox-gallery",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "f7292b0695b36c4c7b6d7bba998a08c391c86cd1",
+        "target": "gallery"
+      },
+      "frames": 96,
+      "cornersConstant": true,
+      "hitAreaConstant": true,
+      "contentInsideSurface": true
+    },
+    {
+      "title": "button contract IconButton dark: live press/release, reversal, cancel and keyboard",
+      "project": "firefox-gallery",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "f7292b0695b36c4c7b6d7bba998a08c391c86cd1",
+        "target": "gallery"
+      },
+      "frames": 96,
+      "cornersConstant": true,
+      "hitAreaConstant": true,
+      "contentInsideSurface": true
+    },
+    {
+      "title": "button contract Button light: live press/release, reversal, cancel and keyboard",
+      "project": "webkit-gallery",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "f7292b0695b36c4c7b6d7bba998a08c391c86cd1",
+        "target": "gallery"
+      },
+      "frames": 96,
+      "cornersConstant": true,
+      "hitAreaConstant": true,
+      "contentInsideSurface": true
+    },
+    {
+      "title": "button contract IconButton light: live press/release, reversal, cancel and keyboard",
+      "project": "webkit-gallery",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "f7292b0695b36c4c7b6d7bba998a08c391c86cd1",
+        "target": "gallery"
+      },
+      "frames": 96,
+      "cornersConstant": true,
+      "hitAreaConstant": true,
+      "contentInsideSurface": true
+    },
+    {
+      "title": "button contract Button dark: live press/release, reversal, cancel and keyboard",
+      "project": "webkit-gallery",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "f7292b0695b36c4c7b6d7bba998a08c391c86cd1",
+        "target": "gallery"
+      },
+      "frames": 96,
+      "cornersConstant": true,
+      "hitAreaConstant": true,
+      "contentInsideSurface": true
+    },
+    {
+      "title": "button contract IconButton dark: live press/release, reversal, cancel and keyboard",
+      "project": "webkit-gallery",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "f7292b0695b36c4c7b6d7bba998a08c391c86cd1",
+        "target": "gallery"
+      },
+      "frames": 96,
+      "cornersConstant": true,
+      "hitAreaConstant": true,
+      "contentInsideSurface": true
+    }
+  ],
+  "previousRedRun": 39733546772,
+  "previousRedReason": "12 gallery source guards, diagnosisSHA2d instead of original productSHAf729; fixed explicit shell export before gallery build. Original guards/assertions unchanged.",
+  "nonOverlappingPreviousPasses": 141
+}

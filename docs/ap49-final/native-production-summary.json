@@ -1,0 +1,70 @@
+{
+  "run": 39733546772,
+  "source": "f6b814e50e1b63bc0dd3a3792f60eaa6bb2814e7",
+  "note": "Selected successful production cases; overall run failed 12 gallery source guards, retained separately.",
+  "cases": [
+    {
+      "project": "chromium-production",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "f7292b0695b36c4c7b6d7bba998a08c391c86cd1",
+        "target": "normal"
+      },
+      "case": "button contract Button dark: live press/release, reversal, cancel and keyboard",
+      "frames": 96,
+      "cornersConstant": true,
+      "hitAreaConstant": true,
+      "surfaceContainsContent": true,
+      "transforms": {
+        "down": 26,
+        "up": 17,
+        "warmDown": 27,
+        "warmUp": 17
+      },
+      "screenshot": "chromium-production-button-middle.png",
+      "screenshotSHA256": "97b95e8d1ffc62fd314abd28dfd65fefc30298d97069891bfd2702962151dda0"
+    },
+    {
+      "project": "firefox-production",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "f7292b0695b36c4c7b6d7bba998a08c391c86cd1",
+        "target": "normal"
+      },
+      "case": "button contract Button dark: live press/release, reversal, cancel and keyboard",
+      "frames": 96,
+      "cornersConstant": true,
+      "hitAreaConstant": true,
+      "surfaceContainsContent": true,
+      "transforms": {
+        "down": 25,
+        "up": 18,
+        "warmDown": 27,
+        "warmUp": 18
+      },
+      "screenshot": "firefox-production-button-middle.png",
+      "screenshotSHA256": "cf7ddde2d3c998e74903f8f546de9b23bc621f441bd25266be0f180c89c1a001"
+    },
+    {
+      "project": "webkit-production",
+      "build": {
+        "schemaVersion": 1,
+        "sourceCommit": "f7292b0695b36c4c7b6d7bba998a08c391c86cd1",
+        "target": "normal"
+      },
+      "case": "button contract Button dark: live press/release, reversal, cancel and keyboard",
+      "frames": 96,
+      "cornersConstant": true,
+      "hitAreaConstant": true,
+      "surfaceContainsContent": true,
+      "transforms": {
+        "down": 14,
+        "up": 7,
+        "warmDown": 17,
+        "warmUp": 18
+      },
+      "screenshot": "webkit-production-button-middle.png",
+      "screenshotSHA256": "eabe87930b48e7f252a454f2b2b4b7e64e16bbfa1a0647582a0e267d27d1f499"
+    }
+  ]
+}
