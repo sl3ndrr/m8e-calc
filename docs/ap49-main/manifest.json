@@ -1,0 +1,476 @@
+{
+  "build": "fad008b1045e781c8efdac961a728453fd944c11",
+  "run": 39735706918,
+  "engines": {
+    "chromium": {
+      "stats": {
+        "startTime": "2026-10-22T06:45:57.378Z",
+        "duration": 514662.745,
+        "expected": 193,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "input": "a*sin(x)",
+          "frames": 708,
+          "elapsedMs": 12608.9,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            8,
+            7,
+            7,
+            8,
+            8,
+            5,
+            5,
+            4,
+            6,
+            5
+          ],
+          "pauseValue": 1.5,
+          "pauseExactSignature": true,
+          "browser": "156.0.8078.4",
+          "node": "v24.21.0",
+          "rawSHA256": "12280d2483ed1f217bd81ba1d358fe513d198dce729e90b3460461b671d1febb"
+        },
+        {
+          "input": "(a*cos(t),a*sin(t))",
+          "frames": 652,
+          "elapsedMs": 13787.1,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            7,
+            7,
+            8,
+            7,
+            6,
+            5,
+            5,
+            4,
+            6,
+            5
+          ],
+          "pauseValue": 1.6,
+          "pauseExactSignature": true,
+          "browser": "156.0.8078.4",
+          "node": "v24.21.0",
+          "rawSHA256": "2c65a069a93d612a5637d5eb1a3e5b6fe022219773e9638d9837607c5feb0309"
+        },
+        {
+          "input": "x^2+y^2=a",
+          "frames": 653,
+          "elapsedMs": 13239.3,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            9,
+            7,
+            7,
+            7,
+            7,
+            5,
+            4,
+            5,
+            6,
+            5
+          ],
+          "pauseValue": 1.5,
+          "pauseExactSignature": true,
+          "browser": "156.0.8078.4",
+          "node": "v24.21.0",
+          "rawSHA256": "15e3170435550906ab3e101d993bcc0771732bae6ad825bc052c9b19e23b8ccc"
+        },
+        {
+          "input": "r=a*(1+cos(theta))",
+          "frames": 690,
+          "elapsedMs": 12423.4,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            8,
+            7,
+            7,
+            7,
+            8,
+            5,
+            5,
+            5,
+            5,
+            5
+          ],
+          "pauseValue": 1.5,
+          "pauseExactSignature": true,
+          "browser": "156.0.8078.4",
+          "node": "v24.21.0",
+          "rawSHA256": "cc1e549f5eab2677ba43f2439753d3628e560dd95a5442c080330954111ddb5c"
+        },
+        {
+          "input": "a*x^2-1",
+          "frames": 662,
+          "elapsedMs": 12944.8,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            8,
+            7,
+            8,
+            7,
+            8,
+            4,
+            5,
+            5,
+            6,
+            4
+          ],
+          "pauseValue": 1.5,
+          "pauseExactSignature": true,
+          "browser": "156.0.8078.4",
+          "node": "v24.21.0",
+          "rawSHA256": "c3442c940da6998be9f71b07aaffa5a89f949593e36627c32a347a194a441c13"
+        }
+      ],
+      "pixel": {
+        "pairedImages": 64,
+        "maximumRGBDifference": 1,
+        "testIdentities": 1
+      }
+    },
+    "firefox": {
+      "stats": {
+        "startTime": "2026-10-22T06:52:15.330Z",
+        "duration": 479971.40499999997,
+        "expected": 166,
+        "skipped": 2,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "input": "a*sin(x)",
+          "frames": 760,
+          "elapsedMs": 12900,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            8,
+            7,
+            7,
+            7,
+            8,
+            5,
+            5,
+            4,
+            6,
+            5
+          ],
+          "pauseValue": 1.5,
+          "pauseExactSignature": true,
+          "browser": "157.0",
+          "node": "v24.22.0",
+          "rawSHA256": "da7d2719a8dd85da2c8a7c7ed3d3bc36c39da1ab0286cd4cefce2f519142ff9f"
+        },
+        {
+          "input": "(a*cos(t),a*sin(t))",
+          "frames": 756,
+          "elapsedMs": 12683,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            8,
+            7,
+            7,
+            7,
+            7,
+            5,
+            5,
+            4,
+            6,
+            5
+          ],
+          "pauseValue": 1.5,
+          "pauseExactSignature": true,
+          "browser": "157.0",
+          "node": "v24.22.0",
+          "rawSHA256": "f86cad268162ee629df16898bf17780902ed345f43aa5168f74c3940f0d61403"
+        },
+        {
+          "input": "x^2+y^2=a",
+          "frames": 792,
+          "elapsedMs": 13451,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            8,
+            7,
+            7,
+            6,
+            8,
+            4,
+            5,
+            5,
+            5,
+            5
+          ],
+          "pauseValue": 1.5,
+          "pauseExactSignature": true,
+          "browser": "157.0",
+          "node": "v24.22.0",
+          "rawSHA256": "b01b88956bea002849062555b7cf5cf209ffe91bf1e3bed4b9682fb13657bded"
+        },
+        {
+          "input": "r=a*(1+cos(theta))",
+          "frames": 752,
+          "elapsedMs": 12767,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            9,
+            7,
+            7,
+            7,
+            7,
+            5,
+            5,
+            4,
+            5,
+            5
+          ],
+          "pauseValue": 1.5,
+          "pauseExactSignature": true,
+          "browser": "157.0",
+          "node": "v24.22.0",
+          "rawSHA256": "c70a094ded58cf31b7601334b40c863d47b94a0b1b9a7a4e8f29e82567892d23"
+        },
+        {
+          "input": "a*x^2-1",
+          "frames": 756,
+          "elapsedMs": 12736,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            8,
+            7,
+            8,
+            7,
+            7,
+            5,
+            4,
+            5,
+            6,
+            5
+          ],
+          "pauseValue": 1.5,
+          "pauseExactSignature": true,
+          "browser": "157.0",
+          "node": "v24.22.0",
+          "rawSHA256": "1f90fc369ae0d758055b097fa05248f85cd03d9b276d08325a02905dc623e1f1"
+        }
+      ],
+      "pixel": {
+        "pairedImages": 64,
+        "maximumRGBDifference": 1,
+        "testIdentities": 1
+      }
+    },
+    "webkit": {
+      "stats": {
+        "startTime": "2026-10-22T06:47:32.901Z",
+        "duration": 985360.9940000001,
+        "expected": 166,
+        "skipped": 2,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "input": "a*sin(x)",
+          "frames": 153,
+          "elapsedMs": 14615,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            6,
+            7,
+            6,
+            6,
+            4,
+            4,
+            4,
+            5,
+            4,
+            3
+          ],
+          "pauseValue": 1.8,
+          "pauseExactSignature": true,
+          "browser": "27.2",
+          "node": "v24.22.0",
+          "rawSHA256": "fd75a652e5a0adc51491cc5ebdc357957bcc485200fe958dba1d9f25d44b51ca"
+        },
+        {
+          "input": "(a*cos(t),a*sin(t))",
+          "frames": 166,
+          "elapsedMs": 14255,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            7,
+            7,
+            7,
+            5,
+            5,
+            5,
+            4,
+            4,
+            6,
+            5
+          ],
+          "pauseValue": 1.7000000000000002,
+          "pauseExactSignature": true,
+          "browser": "27.2",
+          "node": "v24.22.0",
+          "rawSHA256": "3b42b22b1f50684e89594969b656eb310e8cd1b1f02028593eced4eeef615d0e"
+        },
+        {
+          "input": "x^2+y^2=a",
+          "frames": 159,
+          "elapsedMs": 14428,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            7,
+            7,
+            7,
+            5,
+            6,
+            5,
+            4,
+            5,
+            6,
+            4
+          ],
+          "pauseValue": 1.7000000000000002,
+          "pauseExactSignature": true,
+          "browser": "27.2",
+          "node": "v24.22.0",
+          "rawSHA256": "6d3b182bd4f372c10a806720bef2c03148171d1486267076b7b3bc9399d8d28a"
+        },
+        {
+          "input": "r=a*(1+cos(theta))",
+          "frames": 168,
+          "elapsedMs": 14686,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            6,
+            7,
+            5,
+            7,
+            5,
+            5,
+            4,
+            5,
+            5,
+            5
+          ],
+          "pauseValue": 1.9,
+          "pauseExactSignature": true,
+          "browser": "27.2",
+          "node": "v24.22.0",
+          "rawSHA256": "5f580fc86c1eeecd3469ebdc884da73c9c6268e55b060eb86c79109948f3a6e6"
+        },
+        {
+          "input": "a*x^2-1",
+          "frames": 168,
+          "elapsedMs": 14645,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            7,
+            7,
+            6,
+            5,
+            5,
+            4,
+            4,
+            4,
+            5,
+            5
+          ],
+          "pauseValue": 1.8,
+          "pauseExactSignature": true,
+          "browser": "27.2",
+          "node": "v24.22.0",
+          "rawSHA256": "ec477daf7bb53a949bd73aacaa5a3cef252cb48d75cd908bdd9820d6c145fbe3"
+        }
+      ],
+      "pixel": {
+        "pairedImages": 64,
+        "maximumRGBDifference": 1,
+        "testIdentities": 1
+      }
+    }
+  },
+  "main": "fad008b1045e781c8efdac961a728453fd944c11",
+  "gitTree": "5cd65065187c9bcde0bbb24ac391effc3fc66539",
+  "CI": 39735706918,
+  "CIStatus": "success",
+  "qualityJob": 119688077920,
+  "deployJob": 119688156898,
+  "loggedPagesBuildVersion": "fad008b1045e781c8efdac961a728453fd944c11",
+  "deployReportedSuccessUTC": "2026-10-22T07:04:51.5741306Z",
+  "deployReportedSuccessBerlin": "2026-10-22T09:04:51.5741306+02:00",
+  "fingerprint": "9d361ccc39283f52e7aaf831775435b6e2a58a42f50c6adbf2e8dc0ab4a831a0",
+  "artifactProof": {
+    "build": "fad008b1045e781c8efdac961a728453fd944c11",
+    "run": "39735706918",
+    "allNormalPagesFilesIdentical": 143,
+    "bytes": 3252338,
+    "tarSha256": "24c1a8fd72a218efba22e9ae6eb4489ba3475f6925085ea1d215dc922b6e0267",
+    "filesChangedSinceF729": [
+      "build-info.json"
+    ]
+  },
+  "artifacts": {
+    "normal": 12406493695,
+    "pages": 12406947621,
+    "graph": 12407411579,
+    "chromium": 12407438039,
+    "firefox": 12407817302,
+    "webkit": 12407473510,
+    "qaAfter": 12406848083
+  },
+  "liveAttempts": [
+    {
+      "url": "https://sl3ndrr.github.io/m8e-calc/",
+      "UTC": "2026-10-22T07:05:46.544Z",
+      "Berlin": "2026-10-22T09:05:46.544+02:00",
+      "result": "Forbidden. Calls to this URL are not allowed.",
+      "screenshotUTC": "2026-10-22T07:06:59.037Z",
+      "localScreenshot": "ap49-pages-app-blocked-1792652819037.jpg"
+    },
+    {
+      "url": "https://sl3ndrr.github.io/m8e-calc/build-info.json",
+      "UTC": "2026-10-22T07:06:04.211Z",
+      "Berlin": "2026-10-22T09:06:04.211+02:00",
+      "result": "Forbidden. Calls to this URL are not allowed.",
+      "screenshotUTC": "2026-10-22T07:06:59.077Z",
+      "localScreenshot": "ap49-pages-build-info-blocked-1792652819077.jpg"
+    }
+  ],
+  "activeLiveClientVersion": null,
+  "AP39": "blocked; no bypass and no website outage inferred",
+  "lighthouse": {
+    "run": 39735706918,
+    "report": "test-results/lighthouse/127_0_0_1-m8e_calc_-2026_10_22_06_46_00.report.json",
+    "url": "#/simple",
+    "singleScore": 74,
+    "medianScore": 99,
+    "tbtMs": 537.484775,
+    "time": "2026-10-22T06:46:00.828Z",
+    "gate": "existing median contract green; no rerun or threshold change"
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "run": 39735706918,
+  "attempt": 1,
+  "source": "fad008b1045e781c8efdac961a728453fd944c11",
+  "status": "success",
+  "jobs": [
+    {
+      "id": 119680762598,
+      "name": "Production build",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119680762743,
+      "name": "Node 24 minimum",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119680762793,
+      "name": "Pipeline contract tests",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119680764093,
+      "name": "Currency source evidence",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 119681334037,
+      "name": "Graph performance",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119681334046,
+      "name": "Gallery",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119681334053,
+      "name": "Pages artifact verification",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119681334232,
+      "name": "Build provenance / evidence",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119681334234,
+      "name": "Hardening QA / browsers (firefox)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119681334237,
+      "name": "Hardening QA / visual",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119681334245,
+      "name": "Release assets / images",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119681334274,
+      "name": "Hardening QA / measure (before)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119681334285,
+      "name": "Hardening QA / browsers (chromium)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119681334323,
+      "name": "Hardening QA / browsers (webkit)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119681334331,
+      "name": "Hardening QA / measure (after)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119681334346,
+      "name": "Hardening QA / browsers (qa-performance)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119688009030,
+      "name": "Hardening QA / QA gate",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119688077920,
+      "name": "Quality gate",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119688156898,
+      "name": "Deploy Pages",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ]
+}
