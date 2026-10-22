@@ -1,40 +1,57 @@
-name: AP49 official SOFA source preflight
+name: AP49 final native acceptance
 on:
   push:
     branches: [feat/ap47-bounded-diagnosis]
 permissions:
   contents: read
+  actions: read
 jobs:
-  source:
+  native:
     runs-on: ubuntu-latest
+    env:
+      AP42_SOURCE: f7292b0695b36c4c7b6d7bba998a08c391c86cd1
+      BUILD_FINGERPRINT: fc32b6bac467ba752dde4821e53554f13d628b3ce7071748315d33752eaae092
     steps:
       - uses: actions/checkout@v7
         with:
+          ref: f6b814e50e1b63bc0dd3a3792f60eaa6bb2814e7
           persist-credentials: false
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
-          check-latest: true
-      - name: Published IAU SOFA source, one request, unchanged thirty-second bound
+          cache: npm
+      - run: npm install --global npm@11.19.0
+      - run: npm ci --engine-strict
+      - uses: actions/download-artifact@v8
+        with:
+          github-token: ${{ github.token }}
+          repository: sl3ndrr/m8e-calc
+          run-id: 39685901754
+          artifact-ids: '12386586925'
+          merge-multiple: true
+      - name: Verify exact original producer and every current production byte
         run: |
-          mkdir -p test-results
-          node --input-type=module <<'JS'
-          import {writeFileSync} from 'node:fs';
-          import {createHash} from 'node:crypto';
-          const url='https://www.iausofa.org/s/sofa_ts_f.pdf';
-          const result={url,attempt:1,timeoutMs:30000,source:process.env.GITHUB_SHA,checkedAt:new Date().toISOString()};
-          try {
-            const response=await fetch(url,{signal:AbortSignal.timeout(30000)});
-            const body=Buffer.from(await response.arrayBuffer());
-            Object.assign(result,{status:response.status,finalUrl:response.url,contentType:response.headers.get('content-type'),bytes:body.length,sha256:createHash('sha256').update(body).digest('hex')});
-          } catch(error) {Object.assign(result,{error:error.message,cause:error.cause?.message,code:error.cause?.code});}
-          writeFileSync('test-results/official-source.json',JSON.stringify(result,null,2)+'\n');
-          console.log(JSON.stringify(result,null,2));
-          if(result.status!==200||!result.contentType?.includes('application/pdf'))process.exitCode=1;
-          JS
+          test "$(git rev-parse HEAD)" = f6b814e50e1b63bc0dd3a3792f60eaa6bb2814e7
+          GITHUB_SHA=f7292b0695b36c4c7b6d7bba998a08c391c86cd1 GITHUB_REF=refs/pull/69/merge GITHUB_EVENT_NAME=pull_request GITHUB_RUN_ID=39685901754 GITHUB_RUN_ATTEMPT=1 node scripts/ci/build-proof.mjs verify
+      - name: Build separate gallery from identical current sources
+        env:
+          GITHUB_SHA: f7292b0695b36c4c7b6d7bba998a08c391c86cd1
+        run: npm run build:gallery
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Existing native buttons and overlay frames, all engines, no retries
+        env:
+          GITHUB_SHA: f7292b0695b36c4c7b6d7bba998a08c391c86cd1
+          PLAYWRIGHT_JSON_OUTPUT_NAME: test-results/ap49-native/results.json
+        run: npx playwright test --config=playwright.ap36.config.ts --reporter=list,json --output=test-results/ap49-native/browser
+      - name: Verify exact production bytes after probes
+        run: GITHUB_SHA=f7292b0695b36c4c7b6d7bba998a08c391c86cd1 GITHUB_REF=refs/pull/69/merge GITHUB_EVENT_NAME=pull_request GITHUB_RUN_ID=39685901754 GITHUB_RUN_ATTEMPT=1 node scripts/ci/build-proof.mjs verify
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: ap49-sofa-source-preflight
-          path: test-results/
+          name: ap49-final-native
+          path: |
+            test-results/ap49-native/
+            build-proof.json
+            dist/build-info.json
+            dist-gallery/build-info.json
           retention-days: 14
