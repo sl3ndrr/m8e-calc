@@ -1,0 +1,456 @@
+{
+  "build": "f7292b0695b36c4c7b6d7bba998a08c391c86cd1",
+  "run": 39685901754,
+  "engines": {
+    "chromium": {
+      "stats": {
+        "startTime": "2026-10-21T22:25:24.346Z",
+        "expected": 193,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "input": "a*sin(x)",
+          "frames": 713,
+          "elapsedMs": 12735.5,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            9,
+            7,
+            7,
+            7,
+            8,
+            4,
+            5,
+            5,
+            6,
+            4
+          ],
+          "pauseValue": 1.5,
+          "pauseExactSignature": true,
+          "browser": "156.0.8078.4",
+          "node": "v24.21.0",
+          "rawSHA256": "a23bb37327701d66a8518491698dd4ba6a21251f2fa4ad9620c16a7d58017e17"
+        },
+        {
+          "input": "(a*cos(t),a*sin(t))",
+          "frames": 665,
+          "elapsedMs": 13010.1,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            8,
+            7,
+            8,
+            7,
+            8,
+            4,
+            5,
+            5,
+            6,
+            4
+          ],
+          "pauseValue": 1.5,
+          "pauseExactSignature": true,
+          "browser": "156.0.8078.4",
+          "node": "v24.21.0",
+          "rawSHA256": "f0a4166878f9b97963681714b36294b6fe41a0e6f8bc616f27f5bc62d6cab1ef"
+        },
+        {
+          "input": "x^2+y^2=a",
+          "frames": 657,
+          "elapsedMs": 13097.5,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            8,
+            7,
+            7,
+            7,
+            8,
+            4,
+            6,
+            4,
+            6,
+            5
+          ],
+          "pauseValue": 1.5,
+          "pauseExactSignature": true,
+          "browser": "156.0.8078.4",
+          "node": "v24.21.0",
+          "rawSHA256": "b13e60a8e3ad53f516c81c1fa67adc2f277ff24cc122e20c9415785681bf0820"
+        },
+        {
+          "input": "r=a*(1+cos(theta))",
+          "frames": 707,
+          "elapsedMs": 12582.6,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            8,
+            7,
+            7,
+            8,
+            7,
+            5,
+            5,
+            5,
+            5,
+            5
+          ],
+          "pauseValue": 1.5,
+          "pauseExactSignature": true,
+          "browser": "156.0.8078.4",
+          "node": "v24.21.0",
+          "rawSHA256": "94d88060875a12f7b674d00c6c980060ce089e1ca7c8bc0827208779b6776c3a"
+        },
+        {
+          "input": "a*x^2-1",
+          "frames": 640,
+          "elapsedMs": 12835.1,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            8,
+            7,
+            7,
+            8,
+            7,
+            5,
+            5,
+            5,
+            5,
+            5
+          ],
+          "pauseValue": 1.5,
+          "pauseExactSignature": true,
+          "browser": "156.0.8078.4",
+          "node": "v24.21.0",
+          "rawSHA256": "ff9d4835fa2361744155e629ce7370a2eb72df69d6f96823ee4f7afea4749bb2"
+        }
+      ],
+      "pixel": {
+        "pairedImages": 64,
+        "maximumRGBDifference": 1,
+        "testIdentities": 1
+      }
+    },
+    "firefox": {
+      "stats": {
+        "startTime": "2026-10-21T22:25:33.122Z",
+        "expected": 166,
+        "skipped": 2,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "input": "a*sin(x)",
+          "frames": 771,
+          "elapsedMs": 13568,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            8,
+            7,
+            8,
+            7,
+            8,
+            4,
+            5,
+            5,
+            6,
+            4
+          ],
+          "pauseValue": 1.5,
+          "pauseExactSignature": true,
+          "browser": "157.0",
+          "node": "v24.22.0",
+          "rawSHA256": "e000b2a4814a084726e31f145f93d98cb491d2ed0bb2bc77567fb6be88c0a86f"
+        },
+        {
+          "input": "(a*cos(t),a*sin(t))",
+          "frames": 777,
+          "elapsedMs": 13351,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            8,
+            7,
+            7,
+            7,
+            7,
+            5,
+            5,
+            4,
+            6,
+            5
+          ],
+          "pauseValue": 1.6,
+          "pauseExactSignature": true,
+          "browser": "157.0",
+          "node": "v24.22.0",
+          "rawSHA256": "6c9622edeef2b63b17f4b516dc3806f5c5b6d0f9fa713d826701735831f51a18"
+        },
+        {
+          "input": "x^2+y^2=a",
+          "frames": 761,
+          "elapsedMs": 13352,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            7,
+            7,
+            7,
+            8,
+            8,
+            4,
+            5,
+            5,
+            5,
+            4
+          ],
+          "pauseValue": 1.5,
+          "pauseExactSignature": true,
+          "browser": "157.0",
+          "node": "v24.22.0",
+          "rawSHA256": "3a210f0bf50628d2f088d9ec5220afeaa2f237d06fade5d540f9698dd6fff665"
+        },
+        {
+          "input": "r=a*(1+cos(theta))",
+          "frames": 777,
+          "elapsedMs": 13384,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            8,
+            7,
+            7,
+            7,
+            7,
+            4,
+            5,
+            5,
+            5,
+            5
+          ],
+          "pauseValue": 1.5,
+          "pauseExactSignature": true,
+          "browser": "157.0",
+          "node": "v24.22.0",
+          "rawSHA256": "88128aab519651c6d71252e29c3bf3767c05058b18c2a0df67d2fc51e75f0fd3"
+        },
+        {
+          "input": "a*x^2-1",
+          "frames": 757,
+          "elapsedMs": 13551,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            8,
+            7,
+            8,
+            7,
+            8,
+            4,
+            5,
+            5,
+            5,
+            4
+          ],
+          "pauseValue": 1.5,
+          "pauseExactSignature": true,
+          "browser": "157.0",
+          "node": "v24.22.0",
+          "rawSHA256": "989d326936da1da6a5ab9906f47ea73e9a00f3eae422ecbe0dfd53e2f1478651"
+        }
+      ],
+      "pixel": {
+        "pairedImages": 64,
+        "maximumRGBDifference": 1,
+        "testIdentities": 1
+      }
+    },
+    "webkit": {
+      "stats": {
+        "startTime": "2026-10-21T22:25:35.805Z",
+        "expected": 166,
+        "skipped": 2,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "input": "a*sin(x)",
+          "frames": 171,
+          "elapsedMs": 13991,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            6,
+            7,
+            7,
+            5,
+            6,
+            4,
+            5,
+            5,
+            6,
+            5
+          ],
+          "pauseValue": 1.7000000000000002,
+          "pauseExactSignature": true,
+          "browser": "27.2",
+          "node": "v24.21.0",
+          "rawSHA256": "61bb9ce73b544e500b6589d768f0731a1630e6132f2a19a40d3c25b5fe5804d7"
+        },
+        {
+          "input": "(a*cos(t),a*sin(t))",
+          "frames": 171,
+          "elapsedMs": 14555,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            7,
+            7,
+            7,
+            5,
+            5,
+            4,
+            4,
+            5,
+            5,
+            3
+          ],
+          "pauseValue": 1.8,
+          "pauseExactSignature": true,
+          "browser": "27.2",
+          "node": "v24.21.0",
+          "rawSHA256": "74c349faded67d1af24f3e8a75032d99998be892e880eba27da3ee94776af769"
+        },
+        {
+          "input": "x^2+y^2=a",
+          "frames": 163,
+          "elapsedMs": 14711,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            7,
+            6,
+            8,
+            5,
+            5,
+            5,
+            4,
+            5,
+            4,
+            3
+          ],
+          "pauseValue": 1.8,
+          "pauseExactSignature": true,
+          "browser": "27.2",
+          "node": "v24.21.0",
+          "rawSHA256": "dde5722b7731ed121eb3e85e178c059c194d5a6d2ce70ca050ba68edfee9674e"
+        },
+        {
+          "input": "r=a*(1+cos(theta))",
+          "frames": 179,
+          "elapsedMs": 14562,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            7,
+            6,
+            7,
+            4,
+            4,
+            5,
+            4,
+            4,
+            5,
+            5
+          ],
+          "pauseValue": 1.7000000000000002,
+          "pauseExactSignature": true,
+          "browser": "27.2",
+          "node": "v24.21.0",
+          "rawSHA256": "48d07da3cc7a40ec00655c9a1ae08c9c224602289b57daef8243f51970672fd9"
+        },
+        {
+          "input": "a*x^2-1",
+          "frames": 173,
+          "elapsedMs": 14356,
+          "blank": 0,
+          "reveal": 0,
+          "distinctSignaturesLast10Seconds": [
+            7,
+            6,
+            7,
+            5,
+            4,
+            5,
+            4,
+            5,
+            5,
+            5
+          ],
+          "pauseValue": 1.8,
+          "pauseExactSignature": true,
+          "browser": "27.2",
+          "node": "v24.21.0",
+          "rawSHA256": "41e7220b20dd458bc59056b7eb0c7006f323ebf8d845c88aaacf510a5ecace20"
+        }
+      ],
+      "pixel": {
+        "pairedImages": 64,
+        "maximumRGBDifference": 1,
+        "testIdentities": 1
+      }
+    }
+  },
+  "sourceHead": "f6b814e50e1b63bc0dd3a3792f60eaa6bb2814e7",
+  "gitTree": "5cd65065187c9bcde0bbb24ac391effc3fc66539",
+  "fingerprint": "fc32b6bac467ba752dde4821e53554f13d628b3ce7071748315d33752eaae092",
+  "identity": {
+    "build": "f7292b0695b36c4c7b6d7bba998a08c391c86cd1",
+    "run": "39685901754",
+    "allNormalPagesFilesIdentical": 143,
+    "bytes": 3252338,
+    "tarSha256": "88772f164e3f4f4b1d123c292ce0692da940a5fed6868892d7978e71c6323cb2",
+    "filesChangedSince7172": [
+      "build-info.json"
+    ]
+  },
+  "artifacts": {
+    "chromium": 12385743996,
+    "firefox": 12386332835,
+    "webkit": 12386399926,
+    "normal": 12386586925,
+    "pages": 12387205115
+  },
+  "screenshots": {
+    "webkit-history-exit-settings-loading.png": {
+      "bytes": 190410,
+      "sha256": "e74a22f72d3069318a5c70e792f2679cf1484a2d4debc5201caa142cd0cb0f98"
+    },
+    "chromium-playback-middle.png": {
+      "bytes": 134459,
+      "sha256": "f4ef43d20d70fd8cdcc9dfa7dc10e7fbb3df48ffb4ad37ce0fdf6436db8bc9aa"
+    },
+    "firefox-paused.png": {
+      "bytes": 161530,
+      "sha256": "aa85859cae1a2fd0321c2ec9087f3d28a48226e07dfc8fa0cb135aee6e12ff9c"
+    },
+    "chromium-history-exit-settings-loading.png": {
+      "bytes": 74991,
+      "sha256": "a8f710eaf8ad7b8cf57a9444a57df2aee9f760b8ff3f932a27d2f245969be7ab"
+    },
+    "webkit-settings-after-history.png": {
+      "bytes": 243881,
+      "sha256": "a40de72abc9dd34d7930e307b501074654ffc26da635d49e0dd1373c4d354199"
+    }
+  }
+}

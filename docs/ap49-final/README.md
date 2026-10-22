@@ -1,0 +1,18 @@
+# Finaler AP49-Bild- und Framenachweis
+
+Produkthead `f6b814e50e1b63bc0dd3a3792f60eaa6bb2814e7`, tatsächlich geprüfter Produktionsbuild `f7292b0695b36c4c7b6d7bba998a08c391c86cd1`.
+Dieser separate Belegcommit verändert den PR-Produktbaum nicht und ist kein Deployment.
+
+[Pflichtlauf39685901754](https://github.com/sl3ndrr/m8e-calc/actions/runs/39685901754) erfolgreich. Manifest enthält echte Rohdatenprüfsummen, genaue Artefakt-IDs und Bilddatei-Hashes. Historische rote Läufe bleiben in PR69/AP49 erhalten.
+
+![Chromium: laufendes Playback, a=2,9](chromium-playback-middle.png)
+![Firefox: pausierte Geometrie und Endwert a=1,5](firefox-paused.png)
+![Chromium: History-Exit bei gehaltenem kalten Settings-Import](chromium-history-exit-settings-loading.png)
+![WebKit: echter History-Exit-Zwischenframe](webkit-history-exit-settings-loading.png)
+![WebKit: echter Settings-Enter-Zwischenframe](webkit-settings-after-history.png)
+
+Die transparenten Overlaybilder sind absichtlich Zwischenframes. Rollen-/Fokus-/Escape- und Warmstartassertions liegen im erfolgreichen Browserfall. Die Bilder zeigen keine Live-Pages-Fassung. Die Server-/Client-/Worker-Abnahme folgt AP39 separat.
+
+Fünf Kurvenarten in drei Engines: jeweils mehr als10s, null Leer-/Revealframes; in jedem der letzten zehn Einsekundenfenster mindestens3 tatsächlich gezeichnete Signaturen. Nach Pause stimmen angeforderte/akzeptierte/gerenderte Signaturen bytegenau überein. Die15 Kurvenfälle sind bereits Teil der Browserzahlen, keine15 zusätzlich unabhängigen Erfolge.
+
+Normal und Pages:143Dateien/3252338Bytes unabhängig identisch geprüft; genaue Produceridentität und Fingerprint im Manifest. Kein GPU-/Screenreader-/OS-Installationsnachweis.
