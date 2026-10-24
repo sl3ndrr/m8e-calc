@@ -112,7 +112,7 @@ export function CalculatorDisplay({
       <Button
         variant="text"
         className="calculator-result"
-        aria-label={copyLabel}
+        aria-label={`${value} · ${copyLabel}`}
         isDisabled={!!error}
         onPress={onCopy}
       >

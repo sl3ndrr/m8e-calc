@@ -126,7 +126,9 @@ test('invalid input and visibility do not crash the plot; complete plot sets res
     page.locator('.graph-editor [role="textbox"]'),
     'x^2',
   );
-  await page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }).click();
+  await page
+    .getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ })
+    .click();
   await page
     .getByRole('button', { name: 'Wiederherstellen: a*sin(x)' })
     .click();
@@ -495,9 +497,11 @@ test('AP21 history and permalink retain the fit basis and copy the desired anima
     )
     .toBe(true);
   await page.getByRole('button', { name: '1:1', exact: true }).click();
-  await page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }).click();
   await page
-    .getByRole('button', { name: 'Wiederherstellen: x^2', exact: true })
+    .getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ })
+    .click();
+  await page
+    .getByRole('button', { name: /^Wiederherstellen: x\^2 / })
     .first()
     .click();
   await expectSameView(page, expected);

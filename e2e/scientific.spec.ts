@@ -47,7 +47,9 @@ test('DEG, definitions, integral, errors, keyboard history and restore', async (
   await expect(editor).toHaveText('integral(x^2, x, 0, 3)');
   await editor.press('ArrowDown');
   await expect(editor).toHaveText('');
-  await page.getByRole('button', { name: t('history.toggle') }).click();
+  await page
+    .getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ })
+    .click();
   await page
     .getByRole('button', { name: t('history.restore', { input: 'a^2' }) })
     .click();
@@ -179,7 +181,9 @@ for (const [width, height] of [
       await editor.fill('integral(x^2, x, 0, 3)');
       await editor.press('Enter');
       await expect(page.locator('.scientific-result-text')).toHaveText('9');
-      await page.getByRole('button', { name: t('history.toggle') }).click();
+      await page
+        .getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ })
+        .click();
       await expect(page.locator('.shell-history[data-docked]')).toBeVisible();
       await expect(
         page.locator('.scientific-math .katex').first(),

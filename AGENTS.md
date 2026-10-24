@@ -408,3 +408,14 @@ Die normale Drei-Engine-Pixelregression prüft Hell/Dunkel, Phasen, Resize und
 native DPR-Rückfälle. Maßgeblich bleiben alle ursprünglichen Performancegates
 und die abschließende Produkt-CI; ein insgesamt roter kontrollierter Vergleich
 mit nachgewiesen rotem Original darf nicht als grüner Workflow bezeichnet werden.
+
+## P1 · Label in Name
+
+[docs/ACCESSIBILITY_LABEL_IN_NAME.md](docs/ACCESSIBILITY_LABEL_IN_NAME.md)
+trennt die historischen PR-65-Logs, axe 4.14s neue Standardregel und die
+Produktkorrekturen. Sichtbarer Text einschließlich Zähler, Ergebnis, Einheiten
+und Badges gehört in den zugänglichen Aktionsnamen. Dekorative Animationen
+ersetzen keine Beschriftung. Der fest auf de0fcd0 gepinnte Toolchainvergleich
+prüft das unreparierte Produkt separat; allein die vollständige aktuelle
+Produkt-CI gibt den reparierten PR frei. Keine Regelabschaltung oder neue
+Screenshotbaseline zur Umgehung dieses Befunds.

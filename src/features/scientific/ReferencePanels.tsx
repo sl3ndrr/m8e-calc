@@ -101,7 +101,7 @@ export function VariablesPanel({
             <Button
               variant="text"
               className="scientific-definition"
-              aria-label={t('scientific.insert', locale, { text: name })}
+              aria-label={`${definitionSource(environment, name)} · ${t('scientific.insert', locale, { text: name })}`}
               onPress={() =>
                 insert(environment.functions[name] ? `${name}(` : name)
               }

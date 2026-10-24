@@ -1,0 +1,94 @@
+name: Accessibility toolchain evidence
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/label-toolchain-evidence.yml'
+      - 'e2e/label-toolchain.evidence.ts'
+      - 'playwright.label-evidence.config.ts'
+permissions:
+  contents: read
+concurrency:
+  group: label-evidence-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  compare:
+    name: Main / Playwright ${{ matrix.playwright }} / axe ${{ matrix.axe }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        playwright: ['1.64.0', '1.64.1']
+        axe: ['4.13.0', '4.14.0']
+    env:
+      EVIDENCE_PLAYWRIGHT: ${{ matrix.playwright }}
+      EVIDENCE_AXE: ${{ matrix.axe }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          check-latest: true
+      - run: npm install --global npm@11.19.0
+      - name: Check candidate formatting and lockfile generation
+        run: |
+          npm install --package-lock-only --ignore-scripts --engine-strict
+          npm ci --engine-strict
+          npx prettier --write .
+          git diff --exit-code
+      - uses: actions/checkout@v7
+        with:
+          ref: de0fcd0a0846f56226e148c14f7b3bf5d1cb387f
+          path: .label-baseline
+          persist-credentials: false
+      - name: Copy only diagnostic harness into the unmodified main checkout
+        run: |
+          cp e2e/label-toolchain.evidence.ts .label-baseline/e2e/
+          cp playwright.label-evidence.config.ts .label-baseline/
+      - name: Install the independent toolchain combination
+        working-directory: .label-baseline
+        run: |
+          npm ci --engine-strict
+          npm install --no-save --engine-strict "@playwright/test@$EVIDENCE_PLAYWRIGHT" "playwright@$EVIDENCE_PLAYWRIGHT" "playwright-core@$EVIDENCE_PLAYWRIGHT" "@axe-core/playwright@$EVIDENCE_AXE"
+          git diff --exit-code -- package.json package-lock.json
+          npm ls @playwright/test playwright playwright-core @axe-core/playwright axe-core
+      - name: Require every other installed dependency to match main's lockfile
+        working-directory: .label-baseline
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { existsSync, readFileSync } from 'node:fs';
+          const lock = JSON.parse(readFileSync('package-lock.json', 'utf8'));
+          const toolchain = /(?:^|\/)node_modules\/(?:@axe-core\/playwright|axe-core|@playwright\/test|playwright(?:-core)?)(?:\/|$)/;
+          for (const [path, expected] of Object.entries(lock.packages)) {
+            if (!path || toolchain.test(path)) continue;
+            const file = `${path}/package.json`;
+            if (!existsSync(file) && expected.optional) continue;
+            const actual = JSON.parse(readFileSync(file, 'utf8'));
+            assert.equal(actual.version, expected.version, path);
+          }
+          NODE
+      - name: Install the matching browsers
+        working-directory: .label-baseline
+        run: |
+          npx playwright install --with-deps chromium firefox webkit
+      - name: Build the pinned product without product or gate changes
+        working-directory: .label-baseline
+        run: |
+          test "$(git rev-parse HEAD)" = de0fcd0a0846f56226e148c14f7b3bf5d1cb387f
+          git diff --exit-code -- src public scripts index.html vite.config.ts
+          export GITHUB_SHA=de0fcd0a0846f56226e148c14f7b3bf5d1cb387f
+          npm run build
+          npm run build:gallery
+      - name: Compare default and explicitly enabled label-in-name checks
+        working-directory: .label-baseline
+        run: npx playwright test --config=playwright.label-evidence.config.ts --output=test-results/label-evidence
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: label-evidence-pw-${{ matrix.playwright }}-axe-${{ matrix.axe }}
+          path: .label-baseline/test-results/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14

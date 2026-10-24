@@ -55,6 +55,7 @@ it('provides one live numeric output while visual characters are decorative', ()
     />,
   );
   expect(screen.getByRole('status')).toHaveTextContent('12,5');
+  expect(screen.getByRole('button')).toHaveAccessibleName('12,5 · Copy');
   expect(
     container.querySelectorAll('.calculator-character[aria-hidden="true"]'),
   ).toHaveLength(4);
@@ -71,6 +72,6 @@ it('disables copying in error state and announces the localized error', () => {
       onCopy={() => {}}
     />,
   );
-  expect(screen.getByRole('button', { name: 'Copy' })).toBeDisabled();
+  expect(screen.getByRole('button', { name: '0 · Copy' })).toBeDisabled();
   expect(screen.getByRole('status')).toHaveTextContent('Cannot divide by zero');
 });

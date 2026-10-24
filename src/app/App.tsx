@@ -428,12 +428,12 @@ export function App() {
                   aria-keyshortcuts="Control+H"
                   title={`${t('history.toggle', locale)} · ${shortcutHint('history')}`}
                   onPress={toggleHistory}
-                  aria-label={t('history.toggle', locale)}
+                  aria-label={t('history.toggleCount', locale, { count })}
                 >
                   <Icon name="history" />
                   <span className="history-toggle-label">
                     {t('history.title', locale)}
-                  </span>
+                  </span>{' '}
                   <span className="history-badge" aria-hidden="true">
                     {count}
                   </span>

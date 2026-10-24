@@ -18,7 +18,7 @@ it('searches, pins, restores and deletes entries through the mode adapter', asyn
   const unregister = getMode('simple').historyAdapter.register(restore);
   render(<HistorySheet mode="simple" docked visible onClose={() => {}} />);
   await user.click(
-    screen.getByRole('button', { name: 'Wiederherstellen: 2 + 3' }),
+    screen.getByRole('button', { name: 'Wiederherstellen: 2 + 3 5' }),
   );
   expect(restore).toHaveBeenCalledWith(entry);
   await user.click(screen.getByRole('button', { name: 'Anheften' }));

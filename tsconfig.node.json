@@ -19,6 +19,7 @@
     "playwright.ap28.config.ts",
     "playwright.ap29.config.ts",
     "playwright.gallery.config.ts",
+    "playwright.label-evidence.config.ts",
     "e2e"
   ]
 }

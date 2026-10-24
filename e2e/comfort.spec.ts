@@ -169,11 +169,11 @@ test('invalid links, input shortcut suppression, help, scaling and presentation'
   await expect(page.locator('.scientific-result-text')).toHaveText('0,5');
   await editor.focus();
   const before = await page
-    .getByRole('button', { name: 'Verlauf ein-/ausblenden' })
+    .getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ })
     .getAttribute('aria-expanded');
   await editor.press('Control+h');
   await expect(
-    page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }),
+    page.getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ }),
   ).toHaveAttribute('aria-expanded', before ?? 'false');
   await page.getByRole('button', { name: 'Tastenkürzel', exact: true }).focus();
   await page.keyboard.press('?');
