@@ -16,6 +16,7 @@ export async function installMotionProbe(page: Page) {
       live: [] as { time: number; transform: string; opacity: string }[],
       held: [] as Animation[],
       frames: new Set<number>(),
+      presenceObserver: null as MutationObserver | null,
     };
     Object.assign(window, { ap36Probe: probe });
     const raf = requestAnimationFrame.bind(window);
@@ -39,6 +40,7 @@ export async function installMotionProbe(page: Page) {
     };
     const hold = (element: Element, animation: Animation) => {
       if (!probe.selector || !element.matches(probe.selector)) return;
+      if (probe.held.includes(animation)) return;
       probe.held.push(animation);
       if (probe.freezeFrames) return;
       queueMicrotask(() => {
@@ -124,6 +126,7 @@ export async function installMotionProbe(page: Page) {
 }
 
 interface Probe {
+  presenceObserver: MutationObserver | null;
   selector: string;
   freezeFrames: boolean;
   holdTime: number;
@@ -142,6 +145,8 @@ export async function holdNext(
   await page.evaluate(
     ({ selector, freezeFrames, holdTime }) => {
       const probe = Reflect.get(window, 'ap36Probe') as Probe;
+      probe.presenceObserver?.disconnect();
+      probe.presenceObserver = null;
       probe.selector = selector;
       probe.holdTime = holdTime;
       probe.held = [];
@@ -162,9 +167,41 @@ export async function held(page: Page) {
     }));
   });
 }
+/** Capture a CSS retarget in the same native mutation microtask. WebKit can
+ * defer transitionrun/driver rAF delivery beyond an entire short transition. */
+export async function holdRetarget(page: Page, selector: string, time = 40) {
+  await holdNext(page, selector, false, time);
+  await page.evaluate(
+    ({ selector, time }) => {
+      const probe = Reflect.get(window, 'ap36Probe') as Probe;
+      const node = document.querySelector(selector);
+      if (!node) throw Error('Retarget subject missing');
+      const existing = new Set(node.getAnimations());
+      const observer = new MutationObserver(() => {
+        if (node.matches('[data-exiting], [data-entering]')) return;
+        const animations = node.getAnimations().filter((a) => !existing.has(a));
+        if (!animations.length) return;
+        for (const animation of animations) {
+          if (!probe.held.includes(animation)) probe.held.push(animation);
+          animation.pause();
+          animation.currentTime = time;
+        }
+        observer.disconnect();
+      });
+      probe.presenceObserver = observer;
+      observer.observe(node, {
+        attributes: true,
+        attributeFilter: ['data-entering', 'data-exiting'],
+      });
+    },
+    { selector, time },
+  );
+}
 export async function resume(page: Page) {
   await page.evaluate(() => {
     const probe = Reflect.get(window, 'ap36Probe') as Probe;
+    probe.presenceObserver?.disconnect();
+    probe.presenceObserver = null;
     probe.selector = '';
     probe.freezeFrames = false;
     for (const animation of probe.held)

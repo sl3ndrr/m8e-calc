@@ -51,7 +51,6 @@ export function NavigationRail({
         <Link
           key={item.id}
           href={item.href}
-          aria-label={item.label}
           aria-current={item.id === selectedId ? 'page' : undefined}
           className="ui-rail-link"
         >

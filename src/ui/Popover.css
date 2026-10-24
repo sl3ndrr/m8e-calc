@@ -10,17 +10,15 @@
   box-shadow: 0 8px 28px
     color-mix(in srgb, var(--md-sys-color-shadow) 20%, transparent);
 }
-.ui-popover[data-entering] {
-  animation: ui-popover-in var(--md-sys-motion-spatial-fast-duration)
-    var(--md-sys-motion-spatial-fast-easing);
+.ui-popover {
+  opacity: 1;
+  transition: opacity var(--md-sys-motion-effects-fast-duration)
+    var(--md-sys-motion-effects-fast-easing);
 }
-@keyframes ui-popover-in {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.ui-popover:where([data-entering], [data-exiting]) {
+  opacity: 0;
+}
+.ui-popover[data-exiting],
+.ui-popover[data-exiting] * {
+  pointer-events: none !important;
 }

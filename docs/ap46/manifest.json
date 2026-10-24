@@ -1,0 +1,237 @@
+{
+  "productCommit": "c95f183aac8bc643561bd440652a0ac5edad8c6b",
+  "normalRun": 39628007681,
+  "nativeAndGraphRun": 39637196370,
+  "galleryIdentityRepairRun": 39640418506,
+  "records": [
+    {
+      "file": "button-live.json",
+      "source": "test-results/ap46/native/ap36-motion-common-button--c96c6-eversal-cancel-and-keyboard-chromium-production/trace.zip#attachments/2dbea21d17847d5493fa868dac9f49d2b5c0fec5",
+      "sourceSha256": "a4cc4b9315caa6a8e07e84981e31254fb201d60660494fa8a135e9924468eb0d",
+      "artifact": 12365456430,
+      "run": 39637196370,
+      "productCommit": "c95f183aac8bc643561bd440652a0ac5edad8c6b",
+      "archivedSha256": "82d3d903331357168c2a2e1739c5c81ecd36bcb0fa89499e842f17a581d8574f",
+      "bytes": 61165
+    },
+    {
+      "file": "button-middle.png",
+      "source": "test-results/ap46/native/ap36-motion-common-button--c96c6-eversal-cancel-and-keyboard-chromium-production/trace.zip#attachments/4f38f32b920c5dec9752819260f5ee156d4728a4",
+      "sourceSha256": "9cb47c499cc0f3fb7c25f64cef255726911a130e22b709fa6ddea830cd5054c1",
+      "artifact": 12365456430,
+      "run": 39637196370,
+      "productCommit": "c95f183aac8bc643561bd440652a0ac5edad8c6b",
+      "archivedSha256": "9cb47c499cc0f3fb7c25f64cef255726911a130e22b709fa6ddea830cd5054c1",
+      "bytes": 128138
+    },
+    {
+      "file": "button-reversals.json",
+      "source": "test-results/ap46/native/ap36-motion-common-button--c96c6-eversal-cancel-and-keyboard-chromium-production/trace.zip#attachments/7ec76b1ad6af72e18edf0bd3defe174efa442859",
+      "sourceSha256": "2149824b0982106fb18acb73e8a6d3ebcde8f2ecbd1d77f8f3d90730db73f292",
+      "artifact": 12365456430,
+      "run": 39637196370,
+      "productCommit": "c95f183aac8bc643561bd440652a0ac5edad8c6b",
+      "archivedSha256": "80ab1eb8eb32f7f54f79f732c20f9d87f2fda2ef738f7c4b95a2e389d1cdfb61",
+      "bytes": 18764
+    },
+    {
+      "file": "button-focus.png",
+      "source": "test-results/ap46/native/ap36-motion-common-button--c96c6-eversal-cancel-and-keyboard-chromium-production/trace.zip#attachments/4b45eb0d6fa6ff1e0695b485920d933881148bc5",
+      "sourceSha256": "77ff57eb6bfbd1854a66f6522fa9dd826ed960cdd74ed2eb0bb082818364798b",
+      "artifact": 12365456430,
+      "run": 39637196370,
+      "productCommit": "c95f183aac8bc643561bd440652a0ac5edad8c6b",
+      "archivedSha256": "77ff57eb6bfbd1854a66f6522fa9dd826ed960cdd74ed2eb0bb082818364798b",
+      "bytes": 119372
+    },
+    {
+      "file": "accent-enter.png",
+      "source": "test-results/ap46/native/ap36-motion-AP45-simple-li-cb88b-have-real-enter-exit-frames-chromium-production/trace.zip#attachments/29d3af7fcfc9a33725b7c9585304475db530bc1b",
+      "sourceSha256": "73da320a9a092ee81bad986252dcc8a8e5c60e7f8217ad3f347fc00a965fdcd4",
+      "artifact": 12365456430,
+      "run": 39637196370,
+      "productCommit": "c95f183aac8bc643561bd440652a0ac5edad8c6b",
+      "archivedSha256": "73da320a9a092ee81bad986252dcc8a8e5c60e7f8217ad3f347fc00a965fdcd4",
+      "bytes": 80838
+    },
+    {
+      "file": "accent-exit.png",
+      "source": "test-results/ap46/native/ap36-motion-AP45-simple-li-cb88b-have-real-enter-exit-frames-chromium-production/trace.zip#attachments/58a1d9fdef5e80a793f603b36c8bc3aebcec30db",
+      "sourceSha256": "010eed290d9964b067697a0db7dd16f0c734091504ba71e782913e907aae1a19",
+      "artifact": 12365456430,
+      "run": 39637196370,
+      "productCommit": "c95f183aac8bc643561bd440652a0ac5edad8c6b",
+      "archivedSha256": "010eed290d9964b067697a0db7dd16f0c734091504ba71e782913e907aae1a19",
+      "bytes": 76584
+    },
+    {
+      "file": "overlay-frames.json",
+      "source": "test-results/ap46/native/ap36-motion-AP45-simple-li-cb88b-have-real-enter-exit-frames-chromium-production/trace.zip#attachments/164cd63fcbff2ac043411b42f815abe5697826cd",
+      "sourceSha256": "667d7adcacb14a36e9effbbe92bd702a7df0cc0df123ec9564af8ef821a0d804",
+      "artifact": 12365456430,
+      "run": 39637196370,
+      "productCommit": "c95f183aac8bc643561bd440652a0ac5edad8c6b",
+      "archivedSha256": "7b43053c0830a7ff4b6365116275fe2905032fb7b4d42f1504f7ea8d06dfdfcf",
+      "bytes": 1552
+    },
+    {
+      "file": "dialog-exit.png",
+      "source": "test-results/ap46/native/ap36-motion-AP45-simple-li-cb88b-have-real-enter-exit-frames-chromium-production/trace.zip#attachments/d018206fa014a04b7e4fc33308ff21db074ef6d5",
+      "sourceSha256": "63d6481722a8ff103089d54bf556e8af500c74753a58a0379b104341261c32ad",
+      "artifact": 12365456430,
+      "run": 39637196370,
+      "productCommit": "c95f183aac8bc643561bd440652a0ac5edad8c6b",
+      "archivedSha256": "63d6481722a8ff103089d54bf556e8af500c74753a58a0379b104341261c32ad",
+      "bytes": 121697
+    },
+    {
+      "file": "graph-middle.png",
+      "source": "test-results/ap46/graph/graph-parameters-Full-cont-0d914-ys-range-playback-and-pause-chromium/playback-middle.png",
+      "sourceSha256": "f4ef43d20d70fd8cdcc9dfa7dc10e7fbb3df48ffb4ad37ce0fdf6436db8bc9aa",
+      "artifact": 12365456430,
+      "run": 39637196370,
+      "productCommit": "c95f183aac8bc643561bd440652a0ac5edad8c6b",
+      "archivedSha256": "f4ef43d20d70fd8cdcc9dfa7dc10e7fbb3df48ffb4ad37ce0fdf6436db8bc9aa",
+      "bytes": 134459
+    },
+    {
+      "file": "graph-end.png",
+      "source": "test-results/ap46/graph/graph-parameters-Full-cont-0d914-ys-range-playback-and-pause-chromium/playback-end.png",
+      "sourceSha256": "9c6d5ce3c1af4cb98662976e74fad43d8af20a4a2c5f2a42ac255108f3235927",
+      "artifact": 12365456430,
+      "run": 39637196370,
+      "productCommit": "c95f183aac8bc643561bd440652a0ac5edad8c6b",
+      "archivedSha256": "9c6d5ce3c1af4cb98662976e74fad43d8af20a4a2c5f2a42ac255108f3235927",
+      "bytes": 125859
+    },
+    {
+      "file": "graph-paused.png",
+      "source": "test-results/ap46/graph/graph-parameters-Full-cont-0d914-ys-range-playback-and-pause-chromium/paused.png",
+      "sourceSha256": "31edb67ca84ac8791dbda54839d6c2c109e6899e886de7512d051acdeefe216a",
+      "artifact": 12365456430,
+      "run": 39637196370,
+      "productCommit": "c95f183aac8bc643561bd440652a0ac5edad8c6b",
+      "archivedSha256": "31edb67ca84ac8791dbda54839d6c2c109e6899e886de7512d051acdeefe216a",
+      "bytes": 125609
+    },
+    {
+      "file": "graph-frames.json.gz",
+      "source": "test-results/ap46/graph/graph-parameters-Full-cont-0d914-ys-range-playback-and-pause-chromium/frames.json",
+      "sourceSha256": "efa825738baee07cf79110e652f72e0e6f2e4233381fb6b1bb37a9cff718550a",
+      "artifact": 12365456430,
+      "run": 39637196370,
+      "productCommit": "c95f183aac8bc643561bd440652a0ac5edad8c6b",
+      "encoding": "gzip of exact original JSON",
+      "archivedSha256": "ba09807470492ff9ba9128ce41f095904d8d2031e25e1e7f54f527db1ae965eb",
+      "bytes": 7960
+    },
+    {
+      "file": "main-mixed-2d.json",
+      "sourceSha256": "98b57f9262175a24199545a9b3df30c78eb8b09cb2dac5fc41f82471b183024c",
+      "archivedSha256": "89bc5d93ccae4c7e19107ada41050de9719458c2bcdb7cbd3f3cc7f62be547b6",
+      "bytes": 7721
+    },
+    {
+      "file": "main-ap28.json",
+      "sourceSha256": "9a61ebb76655da381cd9414065d577584c882e601d2844cb6abba850a2ad5087",
+      "archivedSha256": "fa1977782f5d731183830ee8072eda893fba6d2d245df41993076db33d555908",
+      "bytes": 72222
+    },
+    {
+      "file": "pages-blocked.jpg",
+      "sourceSha256": "1f9b47e28ffa5e3fe0f80757fc27ba8dd8d9426baf484355f321b3498702624c",
+      "archivedSha256": "1f9b47e28ffa5e3fe0f80757fc27ba8dd8d9426baf484355f321b3498702624c",
+      "bytes": 11305
+    },
+    {
+      "file": "build-info-blocked.jpg",
+      "sourceSha256": "1f9b47e28ffa5e3fe0f80757fc27ba8dd8d9426baf484355f321b3498702624c",
+      "archivedSha256": "1f9b47e28ffa5e3fe0f80757fc27ba8dd8d9426baf484355f321b3498702624c",
+      "bytes": 11305
+    },
+    {
+      "file": "identity.json",
+      "sourceSha256": "7f260cb79c9e4dcf9e54dc8826b4139efd601f781e0e0b1ad47b10631a387dcb",
+      "archivedSha256": "fa8d61d8eb7bb239685b2ff48e0db043bd4bf863875ad5124654557c16743cbb",
+      "bytes": 2369
+    },
+    {
+      "file": "accent-native-200.png",
+      "sourceSha256": "5262053bc63cdb15ad7eb86f03475b561b90172bbd4e29ef1fb8286123df525f",
+      "archivedSha256": "5262053bc63cdb15ad7eb86f03475b561b90172bbd4e29ef1fb8286123df525f",
+      "bytes": 96982
+    },
+    {
+      "file": "main-build-proof.json",
+      "sourceSha256": "052df26e915072b6ff1ab6c4dd2f12a018974ae6c361b5ad8dd6f6fdbf3781ea",
+      "archivedSha256": "052df26e915072b6ff1ab6c4dd2f12a018974ae6c361b5ad8dd6f6fdbf3781ea",
+      "bytes": 24403
+    },
+    {
+      "file": "main-4k.json",
+      "sourceSha256": "d5ddb5c3b71a011597a54f0b6b1cd8903913197a681e87ffc279cfa14344359c",
+      "archivedSha256": "96c83c9bdbe9a5f56be68d1b3e48620c52a77caf65fd687e9414db1b91854312",
+      "bytes": 11775
+    },
+    {
+      "file": "ap28-paired-after.json",
+      "source": "ap28-current/test-results/ap28-after/default.json",
+      "archivedSha256": "0ec3e25c06e0900c158082c6e6f197148e9c42cff4d6c8789e883b11540eb1b8",
+      "bytes": 71945,
+      "sourceSha256": "4f0432c67511ec461a2733a44a5cb82878924c988b4bc5b485e972e17c3dcfc3",
+      "run": 39637196219,
+      "artifact": 12363247108,
+      "actualBuild": "433584b860d4a70f707a144a62c390ed945b5379"
+    },
+    {
+      "file": "ap28-paired-before.json",
+      "source": "ap28-current/test-results/ap28-before/default.json",
+      "archivedSha256": "c4f2ccefcba3c8a453195f72db2ef2fd256cada371e1e36d4cbe3ddb01760739",
+      "bytes": 81095,
+      "sourceSha256": "824b267cd50a04423d16f4517e7f9f9f3db8a1da6c6ae12da3a921314c62b7b6",
+      "run": 39637196219,
+      "artifact": 12363247108,
+      "actualBuild": "8eb32f105b44708da751f4bd836c01592617cedd"
+    },
+    {
+      "file": "ap28-paired-summary.json",
+      "source": "AP46 derived summary or GitHub API observation; see AP46.md",
+      "archivedSha256": "889cd972c0f72318b3bad9f9932fa9e5e737c8202459dcaff7b864c09071c20d",
+      "bytes": 365
+    },
+    {
+      "file": "graph-summary.json",
+      "source": "AP46 derived summary or GitHub API observation; see AP46.md",
+      "archivedSha256": "f79d4fff8138128fe6da7eabb0c6b8245d6fbacae8babe6bda450ec919a2f705",
+      "bytes": 5125
+    },
+    {
+      "file": "parameter-comparison.json",
+      "source": "AP46 derived summary or GitHub API observation; see AP46.md",
+      "archivedSha256": "24deb848b25fcadca6c036e1911bc79a0405547cb62b7f2288a156c03a2ab4f2",
+      "bytes": 424
+    },
+    {
+      "file": "protection.json",
+      "source": "AP46 derived summary or GitHub API observation; see AP46.md",
+      "archivedSha256": "2321a450febf5e2dde43afd0519f67a7dd20affa70b4f4ed7d1ea6e764b6c3f9",
+      "bytes": 3443
+    },
+    {
+      "file": "webkit-slow-worker-red.jpg",
+      "source": "graph-parameters-Full-slow-7f9f2--drains-pause-and-cleans-up-webkit/trace.zip#last-screencast-frame",
+      "archivedSha256": "20c22fbd92a70c16d9c10565dd2473ceb3e0f5dd2d2042ecd3637918c3cf9bd0",
+      "bytes": 40581,
+      "artifact": 12365261569,
+      "run": 39637195764,
+      "actualBuild": "433584b860d4a70f707a144a62c390ed945b5379",
+      "sourceSha256": "20c22fbd92a70c16d9c10565dd2473ceb3e0f5dd2d2042ecd3637918c3cf9bd0"
+    },
+    {
+      "file": "webkit-slow-worker-red.json",
+      "source": "AP46 derived summary or GitHub API observation; see AP46.md",
+      "archivedSha256": "be60d5ce4cf8e0c4f18f41ced047cf1bab227f8658239ddcfe7f7aed5b283b9d",
+      "bytes": 747
+    }
+  ]
+}

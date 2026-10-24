@@ -1,6 +1,8 @@
 import { coreDE } from './coreDE';
 export const de = {
   ...coreDE,
+  'settings.appearance': 'Erscheinungsbild',
+  'settings.app': 'App',
   'currency.online': 'Online-Kurse laden',
   'currency.category': 'Währung',
   'currency.privacy':

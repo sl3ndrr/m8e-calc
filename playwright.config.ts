@@ -33,7 +33,9 @@ export default defineConfig({
       name,
       testMatch: [
         '**/qa-hardening.spec.ts',
+        '**/label-in-name.spec.ts',
         '**/comfort.spec.ts',
+        '**/settings-actions.spec.ts',
         '**/ap18-ui.spec.ts',
         '**/calculator-rendering.spec.ts',
         '**/simple-calculator.spec.ts',
@@ -41,6 +43,7 @@ export default defineConfig({
         '**/convert.spec.ts',
         '**/currency.spec.ts',
         '**/graph.spec.ts',
+        '**/grid-raster.spec.ts',
         '**/graph-implicit.spec.ts',
         '**/graph-values.spec.ts',
         '**/graph-parameters.spec.ts',

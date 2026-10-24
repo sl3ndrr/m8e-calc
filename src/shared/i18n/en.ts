@@ -2,6 +2,8 @@ import { coreEN } from './coreEN';
 import type { Dictionary } from '../i18n';
 export const en: Dictionary = {
   ...coreEN,
+  'settings.appearance': 'Appearance',
+  'settings.app': 'App',
   'currency.online': 'Load online rates',
   'currency.category': 'Currency',
   'currency.privacy':

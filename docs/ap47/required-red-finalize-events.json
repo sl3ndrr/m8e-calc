@@ -1,0 +1,666 @@
+{
+  "sourceSha256": "697ce7a9b0e477e9d684f35090fb5716c294f36d2a25ea81e36b49e816a31f0f",
+  "projection": "Only FinalizeFrame complete events; numeric timing/thread fields; args omitted. Full raw trace remains in the source CI artifact.",
+  "events": [
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 201705383,
+      "tts": 22314753,
+      "dur": 10217,
+      "tdur": 10218
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 201719421,
+      "tts": 22328543,
+      "dur": 11173,
+      "tdur": 11169
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 201761528,
+      "tts": 22356699,
+      "dur": 15185,
+      "tdur": 15137
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 201779736,
+      "tts": 22374764,
+      "dur": 10721,
+      "tdur": 10710
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 201793735,
+      "tts": 22388658,
+      "dur": 13349,
+      "tdur": 13352
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 201809981,
+      "tts": 22404812,
+      "dur": 13940,
+      "tdur": 13944
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 201826916,
+      "tts": 22421660,
+      "dur": 11514,
+      "tdur": 11518
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 201843074,
+      "tts": 22436313,
+      "dur": 13798,
+      "tdur": 13800
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 201861641,
+      "tts": 22454783,
+      "dur": 13598,
+      "tdur": 13602
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 201878279,
+      "tts": 22471331,
+      "dur": 12887,
+      "tdur": 12881
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 201895390,
+      "tts": 22487690,
+      "dur": 13937,
+      "tdur": 13939
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 201912174,
+      "tts": 22504388,
+      "dur": 11182,
+      "tdur": 11186
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 201926493,
+      "tts": 22518454,
+      "dur": 9911,
+      "tdur": 9914
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 201943292,
+      "tts": 22531909,
+      "dur": 13408,
+      "tdur": 13411
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 201960966,
+      "tts": 22549488,
+      "dur": 14717,
+      "tdur": 14719
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 201978522,
+      "tts": 22566955,
+      "dur": 14201,
+      "tdur": 14202
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 201995657,
+      "tts": 22584003,
+      "dur": 15134,
+      "tdur": 16983
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202013698,
+      "tts": 22603773,
+      "dur": 9872,
+      "tdur": 9876
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202026869,
+      "tts": 22616853,
+      "dur": 10656,
+      "tdur": 10660
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202043367,
+      "tts": 22630965,
+      "dur": 11224,
+      "tdur": 11228
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202059782,
+      "tts": 22646481,
+      "dur": 13348,
+      "tdur": 13351
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202076470,
+      "tts": 22662734,
+      "dur": 14559,
+      "tdur": 14562
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202093931,
+      "tts": 22680103,
+      "dur": 10611,
+      "tdur": 10617
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202109836,
+      "tts": 22693647,
+      "dur": 11496,
+      "tdur": 11498
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202126504,
+      "tts": 22708132,
+      "dur": 13381,
+      "tdur": 13384
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202143509,
+      "tts": 22725033,
+      "dur": 11794,
+      "tdur": 11782
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202159819,
+      "tts": 22740920,
+      "dur": 14116,
+      "tdur": 14119
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202176850,
+      "tts": 22757862,
+      "dur": 10688,
+      "tdur": 10690
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202193292,
+      "tts": 22771794,
+      "dur": 13080,
+      "tdur": 13083
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202209807,
+      "tts": 22787923,
+      "dur": 11131,
+      "tdur": 11134
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202226611,
+      "tts": 22802090,
+      "dur": 10635,
+      "tdur": 10640
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202243396,
+      "tts": 22816251,
+      "dur": 11349,
+      "tdur": 11352
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202259783,
+      "tts": 22831882,
+      "dur": 13513,
+      "tdur": 13516
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202276543,
+      "tts": 22848371,
+      "dur": 14104,
+      "tdur": 14107
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202293513,
+      "tts": 22865247,
+      "dur": 14655,
+      "tdur": 14658
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202311139,
+      "tts": 22882779,
+      "dur": 10457,
+      "tdur": 10461
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202326608,
+      "tts": 22896335,
+      "dur": 14346,
+      "tdur": 14349
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202343788,
+      "tts": 22913422,
+      "dur": 13392,
+      "tdur": 13395
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202360643,
+      "tts": 22930171,
+      "dur": 15674,
+      "tdur": 15674
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202380418,
+      "tts": 22949861,
+      "dur": 13823,
+      "tdur": 13824
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202397159,
+      "tts": 22966517,
+      "dur": 10328,
+      "tdur": 10333
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202410594,
+      "tts": 22979861,
+      "dur": 11258,
+      "tdur": 11262
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202426482,
+      "tts": 22994076,
+      "dur": 14888,
+      "tdur": 14891
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202444292,
+      "tts": 23011797,
+      "dur": 11210,
+      "tdur": 11213
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202459700,
+      "tts": 23026190,
+      "dur": 11196,
+      "tdur": 11200
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202476382,
+      "tts": 23041852,
+      "dur": 14939,
+      "tdur": 14942
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202494330,
+      "tts": 23059713,
+      "dur": 15384,
+      "tdur": 18174
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202512612,
+      "tts": 23080662,
+      "dur": 12364,
+      "tdur": 12367
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202527994,
+      "tts": 23095950,
+      "dur": 12604,
+      "tdur": 12607
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202543646,
+      "tts": 23111510,
+      "dur": 12118,
+      "tdur": 12121
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202559744,
+      "tts": 23126689,
+      "dur": 19431,
+      "tdur": 19433
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202583264,
+      "tts": 23150112,
+      "dur": 11499,
+      "tdur": 11500
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202597862,
+      "tts": 23164615,
+      "dur": 12402,
+      "tdur": 12404
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202613181,
+      "tts": 23179844,
+      "dur": 14956,
+      "tdur": 14956
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202630941,
+      "tts": 23197514,
+      "dur": 15185,
+      "tdur": 15186
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202648979,
+      "tts": 23215460,
+      "dur": 14752,
+      "tdur": 14752
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202666667,
+      "tts": 23233058,
+      "dur": 15065,
+      "tdur": 15066
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202684793,
+      "tts": 23251086,
+      "dur": 16605,
+      "tdur": 16607
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202705869,
+      "tts": 23272063,
+      "dur": 11576,
+      "tdur": 11577
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202720947,
+      "tts": 23287046,
+      "dur": 13568,
+      "tdur": 13569
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202738079,
+      "tts": 23304085,
+      "dur": 12982,
+      "tdur": 12983
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202754410,
+      "tts": 23320339,
+      "dur": 11661,
+      "tdur": 11662
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202784972,
+      "tts": 23337444,
+      "dur": 10836,
+      "tdur": 10836
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202810674,
+      "tts": 23363013,
+      "dur": 11397,
+      "tdur": 11401
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 202867178,
+      "tts": 23386154,
+      "dur": 11443,
+      "tdur": 11443
+    },
+    {
+      "name": "CanvasRenderingContext2D::FinalizeFrame",
+      "ph": "X",
+      "pid": 3428,
+      "tid": 3428,
+      "ts": 203010251,
+      "tts": 23412667,
+      "dur": 11243,
+      "tdur": 11243
+    }
+  ]
+}

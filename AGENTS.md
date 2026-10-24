@@ -1,6 +1,8 @@
 # Projektgedächtnis: m8e-calc
 
-Aktuelle Ausgangslage: [docs/AP40.md](docs/AP40.md). Live-Abnahme und
+Aktuelle integrierte Produktabnahme: [docs/AP46.md](docs/AP46.md), nach
+AP42–AP45 auf main `c95f183a`. Historische Ausgangslage: [docs/AP40.md](docs/AP40.md).
+Live-Abnahme und
 Releaseentscheidung: [docs/AP39.md](docs/AP39.md) (blockiert);
 vorheriger Integrationsbericht: [docs/AP38.md](docs/AP38.md).
 Paketnachweise behalten ihre historischen SHAs; PR-Head, geprüfter Produkt-SHA
@@ -344,3 +346,76 @@ entwertet alte Aufträge. Aktuell sind ausschließlich die vollständig passende
 tatsächlich gerenderten neuesten Daten; PNG und Diagnosen beachten Pending.
 AP21/AP27/AP28, deterministische Budgets, Dirty-Rendering und Idle bleiben
 bindend. Vertrag, Latenzgrenzen und tatsächliche Nachweise: [docs/AP43.md](docs/AP43.md).
+
+## AP44 · Einstellungsaktionen
+
+Die normale Shell behält ThemeSwitch; AccentPicker liegt unter Einstellungen →
+Erscheinungsbild, die Installation unter App nur mit Browserprompt. `usePwa`
+bleibt zentral in App; SettingsDialog erhält nur `PwaInstallation`. SettingsDialog
+und AccentPanel bleiben lazy. Stabile Akzent-Refs stellen den Fokus nach kaltem
+Overlaywechsel und verbrauchtem Prompt wieder her, ohne zusätzliche Fokusfalle.
+Navigation, Kaltstart, Offlinezugriff und echter Tabzoom: [docs/AP44.md](docs/AP44.md).
+
+## AP45 · Gemeinsame Overlaybewegung
+
+Die verbindliche kurze Matrix steht in [docs/AP45.md](docs/AP45.md).
+App-/Accent-Controller übergeben Open an React Aria und entfernen geschlossene
+Overlays nicht vor ihrer Exitphase. Exit-Inhalte sind inert/pointerdurchlässig;
+Motion-/OS-Cancel darf keinen geschlossenen Scope zurücklassen. Overlay-Opacity
+und Controls-Farben verwenden Effects Fast; Selected-Radien bleiben diskret,
+Sliderpositionen folgen direkt. AP20/AP36/Galerie bleiben die Prüfinfrastruktur.
+
+## AP46 · Integrierte Abnahme
+
+Bestehende native AP19/AP20/AP36-Recorder bleiben die Bewegungsnachweise;
+Graphparameterfälle prüfen mindestens zehn Sekunden reales Playback und sichern
+Zwischenbilder sowie vollständige Pause-Signaturen. AP46 liest für die gezielte
+main-Abnahme das versiegelte Artefakt 12356744938 aus Lauf 39628007681, mit festem
+ursprünglichem Kontext/Fingerprint vor und nach den Tests. Dieser reine
+Abnahmeverbraucher hat keine Veröffentlichungsrechte und liefert niemals Bytes
+an den regulären Freigabe-/Deploypfad. Dessen strikte Same-Run-Bindung bleibt
+unverändert. PR-Head, main-/Produkt-SHA und aktive Live-Clientfassung weiterhin
+trennen; die letzte bleibt bei einer Umgebungssperre ausdrücklich unbekannt.
+
+## AP47 / AP48 · Reparatur der Abnahme
+
+[docs/AP47.md](docs/AP47.md) trennt den kontrollierten Canvas-Kontexthinweisvergleich,
+WebKit-Messlast und den Unit-/Browser-Overlayvertrag. Der sichtbare Graphcanvas
+verwendet den Standardkontext mit alpha=false; kein desynchronized-Hinweis.
+WebKit-Frameproben laufen im regulären Browserjob isoliert mit einem Worker,
+alle Grenzen unverändert. Rohproben auch bei frühem Fehler sichern.
+Unit-Vorbereitung und React-Abschluss ersetzen keinen kalten Produktionspfad:
+History-Exit → Settings wird mit zurückgehaltenem Modul und echtem Fokus in
+drei Engines geprüft. Merge ist durch den neuen Nutzerauftrag ausschließlich
+nach grüner finaler Pflicht-CI und relevanten Zusatzprüfungen autorisiert;
+die reale main-/Pages-Kette danach separat prüfen. Keine Tags/Releases/manuellen Deploys.
+
+AP46s historischer Artefaktverbraucher checkt denselben festgelegten c95-SHA
+für Galerie, Helper und Producerprüfung aus. Bei späteren Produktreparaturen
+niemals neuen PR-Quellcode als unveränderten c95-Quellcode ausgeben oder die
+Gleichheitsprüfung lockern. Neue Produktbuilds werden separat in ihrer eigenen
+aktuellen CI abgenommen.
+
+## AP49 · Begrenztes feines Gitterraster
+
+[docs/AP49.md](docs/AP49.md) bindet den festen Original-/Kandidatenvergleich.
+Nur dichte große, deckende periodische Feingitter mit regulärem DPR bis 1,5
+verwenden eine begrenzte native Rasterzelle; volle Quellabmessungen erhalten
+WebKit-Coverage. Andere Fälle behalten die ursprünglichen nativen Pfade.
+Keine DPR-/Geometrie-/Samplingverringerung. Quellenfläche und Perioden bleiben
+begrenzt; cacheweise WeakMap-Wiederverwendung ändert keine Idle-Steuerung.
+Die normale Drei-Engine-Pixelregression prüft Hell/Dunkel, Phasen, Resize und
+native DPR-Rückfälle. Maßgeblich bleiben alle ursprünglichen Performancegates
+und die abschließende Produkt-CI; ein insgesamt roter kontrollierter Vergleich
+mit nachgewiesen rotem Original darf nicht als grüner Workflow bezeichnet werden.
+
+## P1 · Label in Name
+
+[docs/ACCESSIBILITY_LABEL_IN_NAME.md](docs/ACCESSIBILITY_LABEL_IN_NAME.md)
+trennt die historischen PR-65-Logs, axe 4.14s neue Standardregel und die
+Produktkorrekturen. Sichtbarer Text einschließlich Zähler, Ergebnis, Einheiten
+und Badges gehört in den zugänglichen Aktionsnamen. Dekorative Animationen
+ersetzen keine Beschriftung. Der fest auf de0fcd0 gepinnte Toolchainvergleich
+prüft das unreparierte Produkt separat; allein die vollständige aktuelle
+Produkt-CI gibt den reparierten PR frei. Keine Regelabschaltung oder neue
+Screenshotbaseline zur Umgehung dieses Befunds.

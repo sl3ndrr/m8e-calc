@@ -1,0 +1,78 @@
+[
+  {
+    "head": "da63eb3b1bb62785ce9832e3e90dd4b6d1944e20",
+    "run": 39667544366,
+    "decision": "willReadFrequently context hint: no measured benefit; rejected; historical readable archive9116884b"
+  },
+  {
+    "head": "e61a3a69cf920c1e41aa32d5f528920f76fd4db0",
+    "run": 39668712661,
+    "decision": "Fill grid slower and wrong pixels; rejected; historical readable archive9116884b"
+  },
+  {
+    "head": "40505302e149a91798fe6e9eeb55a17ebacac1e7",
+    "run": 39671476164,
+    "artifact": 12380216709,
+    "decision": "Unfiltered native clips, minor and major,512px: pixelDPR1/2exact but DoUpdateLayers736.505 ->1062.237ms/66; rejected"
+  },
+  {
+    "head": "b053c2196e6fcdf023d833df2e83ee379c656e7f",
+    "run": 39672114630,
+    "artifact": 12380297247,
+    "decision": "alpha:true context: opaque44.174/54.550/54.548FPS vsalpha28.573/29.510/29.754FPS; rejected"
+  },
+  {
+    "head": "b3429acd8724f0c6b8522e71aea7ccbf4499fe0f",
+    "run": 39674185094,
+    "artifact": 12381555295,
+    "decision": "Periodic raster with duplicate background: faster but max4 pixel difference; rejected"
+  },
+  {
+    "head": "2ee609c2eef973a94488540378e144fe63c45695",
+    "run": 39674972811,
+    "artifact": 12381347095,
+    "decision": "Periodic raster without duplicate background:31% DoUpdateLayers benefit but max4 pixel difference; rejected"
+  },
+  {
+    "head": "df0ee7a30ff4687918b7711c8c14de8dccb4a9c9",
+    "run": 39676122757,
+    "artifact": 12382447527,
+    "decision": "Native source CTM: max4 pixel difference; rejected"
+  },
+  {
+    "head": "c632b11cc2194245b49e6a43b3a1771d78d35178",
+    "run": 39676915423,
+    "artifact": 12382271930,
+    "decision": "Original source coordinates: max4 pixel difference; rejected"
+  },
+  {
+    "head": "c6fa69fd8cd6c304abc2cd0be5235158d92b7a2e",
+    "run": 39678080825,
+    "artifact": 12383067602,
+    "decision": "Culled native1024px fine-grid clips: slower and max4 pixel difference; rejected; culled-native.json"
+  },
+  {
+    "head": "19e60a5c82c61a4c90078978a26c2215d0869e2d",
+    "run": 39679181970,
+    "artifact": 12382998478,
+    "decision": "Union of equivalent rectangles: max14 pixel difference; rejected before performance"
+  },
+  {
+    "head": "884ca6030b8efcd851a6c97d9e48891283fd7e38",
+    "run": 39679600030,
+    "artifact": 12383356851,
+    "decision": "Source isolation diagnostic only: small vs fullsize clipped source, copy vs pattern; no performance measurement or product acceptance"
+  },
+  {
+    "head": "302754ca2318de796739e04052db5188c9dcfd96",
+    "run": 39679899105,
+    "artifact": 12384330705,
+    "decision": "Native axes: tests green and pixels exact, but no measured CPU improvement; rejected as repair; native-axes.json"
+  },
+  {
+    "head": "ca858fd89bcc777d71c13e9012b824d21d1983eb",
+    "run": 39680795488,
+    "artifact": 12384820750,
+    "decision": "Fullsize clipped raster source still max2 in WebKit DPR1.75; rejected before check/performance. Final candidate retains original native path aboveDPR1.5"
+  }
+]

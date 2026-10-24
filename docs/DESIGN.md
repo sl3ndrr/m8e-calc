@@ -171,3 +171,19 @@ Vertrag und Messnachweise: [COMPONENTS](COMPONENTS.md), [AP42](AP42.md).
 Auch Radio-Segmente und der Theme-Thumb setzen ihre Selected-Radien diskret;
 die räumliche Translation des Theme-Thumbs behält ihren bisherigen Spring.
 Die AP36-Selected-Fälle prüfen deren echte Zwischenwerte bei Wiederholung.
+
+## AP44 · Akzentzugang
+
+Im Produkt öffnet Einstellungen → Erscheinungsbild denselben AccentPicker.
+ThemeSwitch bleibt in der Shell; das interne Lab behält seine Demonstration.
+SettingsDialog und AccentPanel bleiben lazy, die Farblogik unverändert.
+Prüfstatus und Grenzen: [AP44](AP44.md).
+
+## AP45 · Gemeinsame Bewegung
+
+Die kurze verbindliche [Bewegungsmatrix](AP45.md) ergänzt den bestehenden
+Motionvertrag: Overlay-Opacity und Zustandsfarben verwenden monotones Effects
+Fast. Dialog/Backdrop und gemeinsame Popover haben symmetrische Enter-/Exit-
+Transitions; ihre Platzierung bleibt stabil. Reduced/Off zeigen hier unmittelbar
+den Zielzustand. CSS und JS respektieren die wirksame OS-Begrenzung.
+Selected-Radien bleiben diskret; Sliderwerte und Thumbposition bleiben direkt.

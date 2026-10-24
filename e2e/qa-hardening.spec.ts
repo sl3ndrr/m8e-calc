@@ -76,7 +76,7 @@ test('keyboard-only core flows and modal/sheet focus restoration', async ({
   await expect(settings).toBeFocused();
   await page.setViewportSize({ width: 1200, height: 800 });
   const history = page.getByRole('button', {
-    name: 'Verlauf ein-/ausblenden',
+    name: /^Verlauf \d+ ein-\/ausblenden$/,
     exact: true,
   });
   await tabTo(page, history);

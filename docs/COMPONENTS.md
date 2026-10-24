@@ -181,3 +181,43 @@ AP19s gemeinsamer Bilddecoder prüft zusätzlich dessen tatsächliche Farbfläch
 
 Ein während Press/Release deaktivierter Button beendet auch die internen
 Transitions unmittelbar und zeigt den neutralen Disabled-Zustand.
+
+## AP44 · Verschachtelter AccentPicker
+
+Der bestehende AccentPicker wird innerhalb des Einstellungsdialogs verwendet.
+React Aria verwaltet den Overlaystapel und suspendiert den äußeren Fokusbereich
+für das aktive Kind; es gibt keine zweite manuelle Fokusfalle. Der montierte
+Popover-Rahmen enthält beim kalten Import einen benannten Ladedialog mit
+Progressbar. Escape und Fokus-Rückgabe gelten auch dort, danach für Select,
+Farbpanel und Einstellungen jeweils einzeln. `triggerRef` erlaubt dem
+Einstellungsdialog dieselbe stabile Fokusadresse nach einem verbrauchten
+Installationsprompt; geplante Rückgaben werden beim Unmount abgebrochen. [AP44](AP44.md) dokumentiert
+Produktzugänge und Prüfgrenzen.
+
+## AP45 · Overlaypräsenz und Effects
+
+Dialog und Popover müssen beim Schließen montiert bleiben; `isOpen` steuert
+React Aria, kein äußeres `isOpen &&` darf die Exitphase entfernen. Lazy Controller
+können erst beim ersten Öffnen geladen werden und danach geschlossen montiert
+bleiben. React Aria entfernt Portal und FocusScope nach der nativen Transition;
+Exit-Inhalt ist inert und pointerdurchlässig. Motionbedingtes Transition-Cancel
+verwirft ausschließlich den geschlossenen Scope, gewöhnliche Umkehr erhält ihn.
+Der gemeinsame Ref-Adapter setzt Inertheit am gesamten Overlay einschließlich
+der React-Aria-Dismiss-Buttons und räumt seinen lokalen Observer beim Unmount auf.
+Die vorhandenen Fokus-/Escape-/Light-Dismiss-Verträge bleiben erhalten.
+[AP45](AP45.md) enthält die verbindliche Matrix und Prüfgrenzen.
+
+`Popover.onAfterClose` meldet die tatsächliche Entfernung eines Exit-Scopes,
+solange der Controller montiert bleibt. Externer Komponenten-Unmount bricht
+stattdessen alle geplanten Rückgaben ab.
+
+Der Adapter erfasst noch selbst gehaltenen Fokus beim logischen Close vor
+Inertheit. Popover verwendet den slotted React-Aria-Triggerref, Dialog das vor
+seinem Mount aktive Ziel. Da Aria-Outside-Isolation den Trigger noch inert
+halten kann, gibt er nach dem passiven Isolation-Cleanup Fokus zurück, damit
+der nächste native Key den übergeordneten Scope erreicht. Nach Scope-Entfernung
+prüft der gemeinsame Kaltstartfallback zusätzlich genau einen rAF. Reduced/Off
+erfassen die eigene Rückgabe auch ohne data-exiting bei sofortiger Entfernung. Er ersetzt ausschließlich Body, das Ziel selbst oder den umgebenden
+Dialog. Neuer nativer Input, Wiederöffnen und Komponenten-Unmount brechen Frame
+und Listener ab. Neuer aktiver Fokus bleibt erhalten. React Aria verwaltet
+weiterhin Containment, Overlaystapel und reguläre Rückgabe.

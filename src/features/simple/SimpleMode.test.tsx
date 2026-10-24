@@ -32,9 +32,9 @@ it('offers every required function and initially disables empty memory recall', 
   render(<SimpleMode />);
   expect(screen.getAllByRole('button')).toHaveLength(31);
   expect(screen.getByRole('button', { name: 'Link teilen' })).toBeEnabled();
-  expect(screen.getByRole('button', { name: 'Kehrwert' })).toBeVisible();
+  expect(screen.getByRole('button', { name: '1/x · Kehrwert' })).toBeVisible();
   expect(
-    screen.getByRole('button', { name: 'Speicher abrufen' }),
+    screen.getByRole('button', { name: 'MR · Speicher abrufen' }),
   ).toBeDisabled();
   expect(result()).toHaveTextContent('0');
 });
@@ -94,18 +94,18 @@ it('renders the memory indicator, recalls, adds, subtracts and clears', async ()
   const user = userEvent.setup();
   render(<SimpleMode />);
   await user.keyboard('10');
-  await user.click(screen.getByRole('button', { name: 'Zahl speichern' }));
+  await user.click(screen.getByRole('button', { name: 'MS · Zahl speichern' }));
   expect(screen.getByLabelText('Zahl im Speicher')).toHaveTextContent('M');
   await user.keyboard('{Escape}3');
   await user.click(
-    screen.getByRole('button', { name: 'Zum Speicher addieren' }),
+    screen.getByRole('button', { name: 'M+ · Zum Speicher addieren' }),
   );
   await user.click(
-    screen.getByRole('button', { name: 'Vom Speicher subtrahieren' }),
+    screen.getByRole('button', { name: 'M− · Vom Speicher subtrahieren' }),
   );
-  await user.click(screen.getByRole('button', { name: 'Speicher abrufen' }));
+  await user.click(screen.getByRole('button', { name: 'MR · Speicher abrufen' }));
   expect(result()).toHaveTextContent('10');
-  await user.click(screen.getByRole('button', { name: 'Speicher löschen' }));
+  await user.click(screen.getByRole('button', { name: 'MC · Speicher löschen' }));
   expect(screen.getByLabelText('Speicher leer')).toBeEmptyDOMElement();
 });
 it('pastes a localized number into the pending operation', async () => {
@@ -133,7 +133,7 @@ it('copies the display and announces success through the shared snackbar', async
       <Snackbar label="Benachrichtigungen" closeLabel="Schließen" />
     </>,
   );
-  fireEvent.click(screen.getByRole('button', { name: 'Ergebnis kopieren' }));
+  fireEvent.click(screen.getByRole('button', { name: '0 · Ergebnis kopieren' }));
   await waitFor(() => expect(writeText).toHaveBeenCalledWith('0'));
   expect(await screen.findByText('Ergebnis kopiert.')).toBeVisible();
 });

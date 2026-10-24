@@ -89,7 +89,9 @@ function HistoryItem({
       <Button
         variant="text"
         className="history-restore"
-        aria-label={t('history.restore', locale, { input: entry.input })}
+        aria-label={t('history.restore', locale, {
+          input: `${entry.input} ${entry.result}`,
+        })}
         onPress={() => {
           const restored = restore(entry);
           snackbarQueue.add(

@@ -76,7 +76,7 @@ export function ScientificKeypad({
                 id={`${ri}-${i}`}
                 colorRole="function"
                 label={t('scientific.insertFunction', locale, {
-                  name,
+                  name: glyphs[name] ? `${glyphs[name]} (${name})` : name,
                   description: functionRegistry[name]?.doc[locale] ?? name,
                 })}
                 onPress={() => insert(functionInsertion(name))}

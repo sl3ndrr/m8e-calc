@@ -169,11 +169,11 @@ test('invalid links, input shortcut suppression, help, scaling and presentation'
   await expect(page.locator('.scientific-result-text')).toHaveText('0,5');
   await editor.focus();
   const before = await page
-    .getByRole('button', { name: 'Verlauf ein-/ausblenden' })
+    .getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ })
     .getAttribute('aria-expanded');
   await editor.press('Control+h');
   await expect(
-    page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }),
+    page.getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ }),
   ).toHaveAttribute('aria-expanded', before ?? 'false');
   await page.getByRole('button', { name: 'Tastenkürzel', exact: true }).focus();
   await page.keyboard.press('?');
@@ -266,6 +266,25 @@ test('PWA installability and all four modes offline after only the first load', 
   await context.setOffline(true);
   await page.reload();
   await page.locator('.simple-calculator').waitFor();
+  // Neither settings nor the color panel was opened before going offline.
+  await page
+    .getByRole('button', { name: 'Einstellungen', exact: true })
+    .click();
+  await page.getByRole('button', { name: 'Akzentfarbe anpassen' }).click();
+  const picker = page.getByRole('dialog', { name: 'Deine Farbwelt' });
+  await picker.getByRole('button', { name: 'Koralle', exact: true }).click();
+  await expect(picker.getByLabel('Eigene Farbe')).toHaveValue('#e2675a');
+  await page.keyboard.press('Escape');
+  await expect(
+    page.getByRole('button', { name: 'Akzentfarbe anpassen' }),
+  ).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(
+    page.getByRole('button', { name: 'Einstellungen', exact: true }),
+  ).toBeFocused();
+  await expect(
+    page.getByRole('dialog', { name: 'Einstellungen', exact: true }),
+  ).toBeHidden();
   await page.keyboard.type('2+3=');
   await expect(page.locator('.calculator-announcement')).toHaveText('5');
   await page.goto('/m8e-calc/#/scientific');

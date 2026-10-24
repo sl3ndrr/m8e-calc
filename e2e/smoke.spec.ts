@@ -58,6 +58,9 @@ test('normal build retains theme and accent controls without exposing the lab', 
   const dark = page.getByRole('radio', { name: 'Dunkel', exact: true });
   await dark.locator('..').locator('..').click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  await page
+    .getByRole('button', { name: 'Einstellungen', exact: true })
+    .click();
   await page.getByRole('button', { name: 'Akzentfarbe anpassen' }).click();
   const picker = page.getByRole('dialog', { name: 'Deine Farbwelt' });
   await picker.getByRole('button', { name: 'Koralle', exact: true }).click();
@@ -65,6 +68,9 @@ test('normal build retains theme and accent controls without exposing the lab', 
   await page.keyboard.press('Escape');
   await page.reload();
   await expect(dark).toBeChecked();
+  await page
+    .getByRole('button', { name: 'Einstellungen', exact: true })
+    .click();
   await page.getByRole('button', { name: 'Akzentfarbe anpassen' }).click();
   await expect(picker.getByLabel('Eigene Farbe')).toHaveValue('#e2675a');
   await expect(page.locator('a[href="#/design"]')).toHaveCount(0);

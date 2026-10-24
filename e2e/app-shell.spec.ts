@@ -14,7 +14,7 @@ test('switches lazy modes, resumes the last mode and persists visibility separat
       modes[i] ?? 'simple',
     );
     const toggle = page.getByRole('button', {
-      name: 'Verlauf ein-/ausblenden',
+      name: /^Verlauf \d+ ein-\/ausblenden$/,
     });
     await expect(toggle).toHaveAttribute('aria-expanded', 'false');
     await page.keyboard.press('Control+h');
@@ -26,16 +26,16 @@ test('switches lazy modes, resumes the last mode and persists visibility separat
   ).toHaveAttribute('aria-current', 'page');
   await page.reload();
   await expect(
-    page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }),
+    page.getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ }),
   ).toHaveAttribute('aria-expanded', 'true');
-  await page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }).click();
+  await page.getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ }).click();
   await page.getByRole('link', { name: 'Einfach', exact: true }).click();
   await expect(
-    page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }),
+    page.getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ }),
   ).toHaveAttribute('aria-expanded', 'true');
   await page.getByRole('link', { name: 'Graphen', exact: true }).click();
   await expect(
-    page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }),
+    page.getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ }),
   ).toHaveAttribute('aria-expanded', 'false');
 });
 for (const [width, height] of [
@@ -64,7 +64,7 @@ for (const [width, height] of [
       );
       await expect(activeStage).toHaveCSS('opacity', '1');
       await page
-        .getByRole('button', { name: 'Verlauf ein-/ausblenden' })
+        .getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ })
         .click();
       await expect(
         page.getByRole('complementary', { name: 'Verlauf' }),
@@ -129,7 +129,7 @@ test('history is modal below 1440, closes on Escape and returns focus', async ({
 }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto('/m8e-calc/');
-  const toggle = page.getByRole('button', { name: 'Verlauf ein-/ausblenden' });
+  const toggle = page.getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ });
   await toggle.click();
   await expect(page.getByRole('dialog', { name: 'Verlauf' })).toBeVisible();
   await page.keyboard.press('Escape');

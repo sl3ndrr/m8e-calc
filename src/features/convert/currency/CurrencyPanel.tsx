@@ -3,6 +3,7 @@ import { createUnitsEngine, type UnitErrorCode } from '../../../units';
 import { createCurrencyProvider } from '../../../units/currency';
 import { t, type Locale } from '../../../shared/i18n/extended';
 import { useSettingsStore } from '../../../shared/settingsStore';
+import { VisuallyHidden } from '../../../ui/VisuallyHidden';
 import { Button } from '../../../ui/Button';
 import { Fab } from '../../../ui/Fab';
 import { Card } from '../../../ui/Card';
@@ -190,9 +191,6 @@ export function CurrencyPanel({
                 <Button
                   variant="text"
                   isDisabled={!engine || !!error}
-                  aria-label={t('convert.copyUnit', locale, {
-                    unit: unit.names[locale],
-                  })}
                   onPress={() => {
                     void copy(`${text} (${unit.id})`);
                   }}
@@ -202,6 +200,9 @@ export function CurrencyPanel({
                   </span>
                   <strong className="expression">{text}</strong>
                   <span className="convert-unit-symbol">{unit.symbol}</span>
+                  <VisuallyHidden>
+                    {t('convert.copyUnit', locale, { unit: unit.names[locale] })}
+                  </VisuallyHidden>
                 </Button>
               </Card>
             );

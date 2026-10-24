@@ -40,6 +40,11 @@ Während Parameterberechnungen bleibt die letzte akzeptierte Geometrie sichtbar;
 der atomare Ersatz erhält den Reveal-Lebenszyklus der Funktion. Entfernen,
 Verbergen, ungültige Eingabe und Strukturwechsel entfernen alte Inhalte sofort.
 Pending-Export und Diagnosen verlangen weiterhin aktuelle vollständige Signaturen.
+Eine Diagnosefläche in der Funktionsliste erscheint nur mit einer tatsächlichen
+aktuellen Meldung. Erfolgreiche und noch ausstehende Parameterberechnungen
+erzeugen keine leere Statusfläche mit wechselndem Außenabstand. Dadurch bleiben
+die Parametercontrols auch bei automatischen 0,5-Schritten an derselben Position;
+echte Warnungen und deren Signaturprüfung bleiben erhalten. Nachweis: [AP50.md](AP50.md).
 Auftrags-/Latenzvertrag, echte Frameprobe und Abnahme: [AP43.md](AP43.md).
 Die Seitenverhältnissperre bedeutet gleiche Welteinheiten pro Pixel; 1:1 setzt
 auf den Standardbereich zurück. π-Ticks gelten für die x-Achse. Grobe und feine

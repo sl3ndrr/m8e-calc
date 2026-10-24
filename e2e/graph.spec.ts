@@ -126,7 +126,7 @@ test('invalid input and visibility do not crash the plot; complete plot sets res
     page.locator('.graph-editor [role="textbox"]'),
     'x^2',
   );
-  await page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }).click();
+  await page.getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ }).click();
   await page
     .getByRole('button', { name: 'Wiederherstellen: a*sin(x)' })
     .click();
@@ -194,6 +194,9 @@ test('canvas reloads theme and accent tokens; PNG copies to the clipboard', asyn
   const color = await page
     .locator('.graph-color-dot')
     .evaluate((element) => getComputedStyle(element).backgroundColor);
+  await page
+    .getByRole('button', { name: 'Einstellungen', exact: true })
+    .click();
   await page.getByRole('button', { name: 'Akzentfarbe anpassen' }).click();
   await page
     .getByRole('dialog', { name: 'Deine Farbwelt' })
@@ -207,6 +210,7 @@ test('canvas reloads theme and accent tokens; PNG copies to the clipboard', asyn
         .evaluate((element) => getComputedStyle(element).backgroundColor),
     )
     .not.toBe(color);
+  await page.keyboard.press('Escape');
   // Binary OS clipboard permissions are Chromium-only; theme assertions above
   // still run in every engine.
   if (context.browser()?.browserType().name() !== 'chromium') return;
@@ -491,9 +495,9 @@ test('AP21 history and permalink retain the fit basis and copy the desired anima
     )
     .toBe(true);
   await page.getByRole('button', { name: '1:1', exact: true }).click();
-  await page.getByRole('button', { name: 'Verlauf ein-/ausblenden' }).click();
+  await page.getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ }).click();
   await page
-    .getByRole('button', { name: 'Wiederherstellen: x^2', exact: true })
+    .getByRole('button', { name: /^Wiederherstellen: x\^2 /, exact: true })
     .first()
     .click();
   await expectSameView(page, expected);

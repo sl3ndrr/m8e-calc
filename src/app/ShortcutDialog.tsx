@@ -2,14 +2,20 @@ import { Dialog } from '../ui/Dialog';
 import { t } from '../shared/i18n/extended';
 import { useAppStore } from '../shared/store';
 import { shortcuts } from './shortcuts';
-export function ShortcutDialog({ onClose }: { onClose: () => void }) {
+export function ShortcutDialog({
+  isOpen = true,
+  onClose,
+}: {
+  isOpen?: boolean;
+  onClose: () => void;
+}) {
   const locale = useAppStore((s) => s.locale);
   return (
     <Dialog
       title={t('comfort.shortcuts', locale)}
       closeLabel={t('ui.close', locale)}
       className="shortcut-dialog"
-      isOpen
+      isOpen={isOpen}
       onOpenChange={(open) => {
         if (!open) onClose();
       }}

@@ -1,0 +1,12 @@
+{
+  "run": 39637196219,
+  "job": 119351655619,
+  "artifact": 12363247108,
+  "head": "bfbca7275b601b77b49fe0743dacdf453599fc0f",
+  "actualAfterBuild": "433584b860d4a70f707a144a62c390ed945b5379",
+  "beforeBuild": "8eb32f105b44708da751f4bd836c01592617cedd",
+  "sameRunner": true,
+  "graphIntegrationPassed": 71,
+  "existingPerformanceCasesPassed": 2,
+  "retries": 0
+}
