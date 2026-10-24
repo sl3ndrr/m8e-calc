@@ -58,8 +58,7 @@ export function NavigationRail({
           <span className="ui-rail-icon">
             <Icon name={item.icon} filled={item.id === selectedId} />
             {item.badge && <span className="ui-rail-badge">{item.badge}</span>}
-          </span>
-          {' '}
+          </span>{' '}
           <span>{item.label}</span>
         </Link>
       ))}
