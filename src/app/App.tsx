@@ -433,7 +433,7 @@ export function App() {
                   <Icon name="history" />
                   <span className="history-toggle-label">
                     {t('history.title', locale)}
-                  </span>
+                  </span>{' '}
                   <span className="history-badge" aria-hidden="true">
                     {count}
                   </span>

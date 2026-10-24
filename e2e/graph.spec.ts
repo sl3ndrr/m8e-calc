@@ -501,7 +501,7 @@ test('AP21 history and permalink retain the fit basis and copy the desired anima
     .getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ })
     .click();
   await page
-    .getByRole('button', { name: /^Wiederherstellen: x\^2 /, exact: true })
+    .getByRole('button', { name: /^Wiederherstellen: x\^2 / })
     .first()
     .click();
   await expectSameView(page, expected);

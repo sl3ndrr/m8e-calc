@@ -106,7 +106,7 @@ function HistoryItem({
         }}
       >
         <span className="history-expression expression">
-          <span>{entry.input}</span>
+          <span>{entry.input}</span>{' '}
           <strong>{entry.result}</strong>
         </span>
       </Button>

@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { t } from '../src/shared/i18n/extended';
 import { currencyCodes } from '../src/units/currency';
 import { RATE_ENDPOINT } from '../src/features/convert/currency/rates';
 import { qaSetup, ready } from './qa-setup';
@@ -53,7 +54,7 @@ for (const scenario of [
     }
     if (scenario === 'scientific') {
       const editor = page.getByRole('textbox', {
-        name: 'Ausdruck',
+        name: t('scientific.expression'),
         exact: true,
       });
       await editor.fill('a = 5');
@@ -63,18 +64,18 @@ for (const scenario of [
     }
     if (scenario === 'currency') {
       await page
-        .getByRole('button', { name: 'Einstellungen', exact: true })
+        .getByRole('button', { name: t('shell.settings'), exact: true })
         .click();
       const dialog = page.getByRole('dialog', {
-        name: 'Einstellungen',
+        name: t('shell.settings'),
         exact: true,
       });
-      await dialog.getByText('Online-Kurse laden', { exact: true }).click();
+      await dialog.getByText(t('currency.online'), { exact: true }).click();
       await dialog
-        .getByRole('button', { name: 'Schließen', exact: true })
+        .getByRole('button', { name: t('ui.close'), exact: true })
         .click();
       await page
-        .getByRole('button', { name: 'Währungen', exact: true })
+        .getByRole('button', { name: t('currency.category'), exact: true })
         .click();
       await expect(page.locator('.currency-date')).toContainText('Stand:');
     }

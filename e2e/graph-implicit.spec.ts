@@ -218,8 +218,7 @@ test('AP27 history, old/new links, reload and PNG contain the displayed contour'
     .click();
   await page
     .getByRole('button', {
-      name: 'Wiederherstellen: x^2+y^2=4 ; x',
-      exact: true,
+      name: /^Wiederherstellen: x\^2\+y\^2=4 ; x /,
     })
     .first()
     .click();

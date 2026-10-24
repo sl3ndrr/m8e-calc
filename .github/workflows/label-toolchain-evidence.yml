@@ -50,8 +50,28 @@ jobs:
         working-directory: .label-baseline
         run: |
           npm ci --engine-strict
-          npm install --no-save --package-lock=false --engine-strict "@playwright/test@$EVIDENCE_PLAYWRIGHT" "playwright@$EVIDENCE_PLAYWRIGHT" "playwright-core@$EVIDENCE_PLAYWRIGHT" "@axe-core/playwright@$EVIDENCE_AXE"
+          npm install --no-save --engine-strict "@playwright/test@$EVIDENCE_PLAYWRIGHT" "playwright@$EVIDENCE_PLAYWRIGHT" "playwright-core@$EVIDENCE_PLAYWRIGHT" "@axe-core/playwright@$EVIDENCE_AXE"
+          git diff --exit-code -- package.json package-lock.json
           npm ls @playwright/test playwright playwright-core @axe-core/playwright axe-core
+      - name: Require every other installed dependency to match main's lockfile
+        working-directory: .label-baseline
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { existsSync, readFileSync } from 'node:fs';
+          const lock = JSON.parse(readFileSync('package-lock.json', 'utf8'));
+          const toolchain = /(?:^|\/)node_modules\/(?:@axe-core\/playwright|axe-core|@playwright\/test|playwright(?:-core)?)(?:\/|$)/;
+          for (const [path, expected] of Object.entries(lock.packages)) {
+            if (!path || toolchain.test(path)) continue;
+            const file = `${path}/package.json`;
+            if (!existsSync(file) && expected.optional) continue;
+            const actual = JSON.parse(readFileSync(file, 'utf8'));
+            assert.equal(actual.version, expected.version, path);
+          }
+          NODE
+      - name: Install the matching browsers
+        working-directory: .label-baseline
+        run: |
           npx playwright install --with-deps chromium firefox webkit
       - name: Build the pinned product without product or gate changes
         working-directory: .label-baseline

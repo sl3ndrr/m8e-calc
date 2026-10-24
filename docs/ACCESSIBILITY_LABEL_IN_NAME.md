@@ -29,13 +29,24 @@ belegt deshalb nicht, dass die bestehenden Namen korrekt waren.
 
 `label-toolchain-evidence.yml` baut genau den oben festgehaltenen main-Stand,
 ohne Produktreparaturen, mit allen vier Kombinationen von Playwright
-1.64.0/1.64.1 und axe 4.13.0/4.14.0. Chromium, Firefox und WebKit prüfen jeweils
+1.64.0/1.64.1 und axe 4.13.0/4.14.0. Alle übrigen installierten Pakete müssen
+weiterhin dem unveränderten main-Lockfile entsprechen; dies wird eigens geprüft.
+Chromium, Firefox und WebKit prüfen jeweils
 Einfach, Wissenschaftlich einschließlich Definition und zweiter Tastenebene,
 Einheiten, gemockte Währungen und Galerie. Jeder Fall sichert sowohl den
 Standardscan als auch eine ausdrücklich aktivierte Regel, Versionen,
 Selektoren, HTML und ein Bild. Die JSON-Anhänge liegen in den vier
 `label-evidence-pw-…-axe-…`-Artefakten. Der Workflow prüft die erwartete
 4.13-/4.14-Unterscheidung; er ist kein Ersatz für die Produkt-CI.
+
+Im Einfach-Fall mit `12 + 3`, Ergebnis `15` und geöffnetem Verlauf melden
+alle drei Engines mit axe 4.13 im Standardscan null, bei ausdrücklich
+aktivierter Regel jedoch zehn betroffene Elemente. axe 4.14 meldet zwölf
+in beiden Varianten, unverändert mit Playwright 1.64.0 und 1.64.1.
+Die zusätzlichen beiden Fälle sind `M+` und `M−`: Der frühere Teilstringvergleich
+fand das einzelne `M` bereits innerhalb von „Zum“ bzw. „Vom“. Der neue
+Wortvergleich akzeptiert dies nicht. Damit sind Standardaktivierung,
+Algorithmusänderung und bereits vorhandene Produktfehler getrennt belegt.
 
 ## Produktkorrekturen
 
@@ -51,7 +62,13 @@ Selektoren, HTML und ein Bild. Die JSON-Anhänge liegen in den vier
 - Einheiten- und Währungskarten verwenden ihren sichtbaren Inhalt als Namen,
   ergänzt um die bereits übersetzte Kopieraktion. Namen, Zahlen, Symbole,
   Währungscodes und Systemzuordnung werden nicht mehr von `aria-label` ersetzt.
-- NavigationRail verwendet den Namen aus ihrem Inhalt, einschließlich Badge.
+- NavigationRail nennt Beschriftung und Badge auch in der eingeklappten Rail,
+  deren sichtbarer Beschriftungstext per CSS ausgeblendet ist.
+
+Zwischen getrennt gestalteten Textteilen stehen echte Text-Leerzeichen:
+Rail-Badge und Beschriftung, Verlaufstitel und Zähler sowie Ausdruck und
+Ergebnis. Ein CSS-Abstand allein trennt die Wörter im DOM nicht zuverlässig;
+ohne Leerzeichen entstehen etwa „Verlauf0“ oder „315“ statt „3 15“.
 
 Die Änderungen betreffen Semantik und Namen; Bildreferenzen werden nicht
 ersetzt. Deutsch und Englisch werden gepflegt. Es gibt keine ausgeschaltete
