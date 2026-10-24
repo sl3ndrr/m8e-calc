@@ -2,6 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import FunctionPanel from './FunctionPanel';
 import { newRow, parseRow } from './model';
+import type { SampleResponse } from './workerProtocol';
 vi.mock('../scientific/ExpressionEditor', () => ({
   default: ({
     value,
@@ -30,6 +31,70 @@ const common = {
   onAnalyze: vi.fn(),
 };
 describe('function panel', () => {
+  it('keeps successful and pending samples free of empty diagnostic regions', () => {
+    const row = parseRow(newRow('a', 'a*x'));
+    const sample: SampleResponse['curves'][number] = {
+      id: row.row.id,
+      signature: JSON.stringify(row.curve),
+      segments: [],
+      evaluations: 2,
+      truncated: false,
+    };
+    const props = { ...common, rows: [row], dispatch: vi.fn() };
+    const { container, rerender } = render(
+      <FunctionPanel {...props} samples={[sample]} />,
+    );
+    expect(
+      container.querySelector('.graph-sampling-status'),
+    ).not.toBeInTheDocument();
+    rerender(<FunctionPanel {...props} samples={[]} />);
+    expect(
+      container.querySelector('.graph-sampling-status'),
+    ).not.toBeInTheDocument();
+    rerender(<FunctionPanel {...props} samples={[sample]} />);
+    expect(
+      container.querySelector('.graph-sampling-status'),
+    ).not.toBeInTheDocument();
+  });
+  it('shows actual sampling warnings and removes them when no longer current', () => {
+    const row = parseRow(newRow('a', 'a*x'));
+    const sample: SampleResponse['curves'][number] = {
+      id: row.row.id,
+      signature: JSON.stringify(row.curve),
+      segments: [],
+      evaluations: 2,
+      truncated: true,
+    };
+    const props = { ...common, rows: [row], dispatch: vi.fn() };
+    const { container, rerender } = render(
+      <FunctionPanel {...props} samples={[sample]} />,
+    );
+    expect(container.querySelector('.graph-sampling-status p')).toBeVisible();
+    rerender(
+      <FunctionPanel
+        {...props}
+        samples={[{ ...sample, truncated: false, error: 'worker' }]}
+      />,
+    );
+    expect(container.querySelector('.graph-sampling-status')).toHaveTextContent(
+      'Sampling-Worker ist nicht verfügbar',
+    );
+    rerender(
+      <FunctionPanel
+        {...props}
+        samples={[{ ...sample, signature: 'outdated' }]}
+      />,
+    );
+    expect(
+      container.querySelector('.graph-sampling-status'),
+    ).not.toBeInTheDocument();
+    rerender(
+      <FunctionPanel {...props} samples={[{ ...sample, truncated: false }]} />,
+    );
+    expect(
+      container.querySelector('.graph-sampling-status'),
+    ).not.toBeInTheDocument();
+  });
   it('offers examples and adds parser-ready input', () => {
     const dispatch = vi.fn();
     render(<FunctionPanel {...common} rows={[]} dispatch={dispatch} />);
@@ -185,3 +250,4 @@ it('explains parser resource limits without exposing only a technical error code
   );
   expect(screen.getByRole('alert')).toHaveTextContent('Maximal 10000 Zeichen');
 });
+
