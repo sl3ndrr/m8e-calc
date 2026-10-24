@@ -269,3 +269,9 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       ungeeignete Geometrie erhalten. Bericht und verworfene Versuche: [AP49](AP49.md).
       Finale Produkt-CI, echte Zwischenbilder und automatische main-/Pages-Kette
       sind getrennt zu belegen; AP39-/Handpunkte bleiben bei Sperre offen.
+
+- [ ] 50 Stabile Parameteranzeige beim Abspielen — leere Sampling-Statusflächen
+      entfallen; aktuelle Warnungen bleiben erhalten. Komponentenregressionen
+      und reale Positionsmessungen bei 0,5-Schritten in de/en mit verzögertem
+      Worker: [AP50](AP50.md). Umsetzung in [PR #72](https://github.com/sl3ndrr/m8e-calc/pull/72),
+      noch nicht integriert; finale Pflicht-CI maßgeblich.
