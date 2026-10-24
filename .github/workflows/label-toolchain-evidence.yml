@@ -66,5 +66,6 @@ jobs:
         with:
           name: label-evidence-pw-${{ matrix.playwright }}-axe-${{ matrix.axe }}
           path: .label-baseline/test-results/
+          include-hidden-files: true
           if-no-files-found: error
           retention-days: 14
