@@ -106,8 +106,7 @@ function HistoryItem({
         }}
       >
         <span className="history-expression expression">
-          <span>{entry.input}</span>{' '}
-          <strong>{entry.result}</strong>
+          <span>{entry.input}</span> <strong>{entry.result}</strong>
         </span>
       </Button>
       <div className="history-entry-footer">
