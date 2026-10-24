@@ -250,4 +250,3 @@ it('explains parser resource limits without exposing only a technical error code
   );
   expect(screen.getByRole('alert')).toHaveTextContent('Maximal 10000 Zeichen');
 });
-
