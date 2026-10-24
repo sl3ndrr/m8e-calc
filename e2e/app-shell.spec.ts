@@ -28,7 +28,9 @@ test('switches lazy modes, resumes the last mode and persists visibility separat
   await expect(
     page.getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ }),
   ).toHaveAttribute('aria-expanded', 'true');
-  await page.getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ }).click();
+  await page
+    .getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ })
+    .click();
   await page.getByRole('link', { name: 'Einfach', exact: true }).click();
   await expect(
     page.getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ }),
@@ -129,7 +131,9 @@ test('history is modal below 1440, closes on Escape and returns focus', async ({
 }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto('/m8e-calc/');
-  const toggle = page.getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ });
+  const toggle = page.getByRole('button', {
+    name: /^Verlauf \d+ ein-\/ausblenden$/,
+  });
   await toggle.click();
   await expect(page.getByRole('dialog', { name: 'Verlauf' })).toBeVisible();
   await page.keyboard.press('Escape');

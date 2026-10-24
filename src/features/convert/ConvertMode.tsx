@@ -705,7 +705,9 @@ export default function ConvertMode() {
                         {t(`convert.system.${unit.system}`, locale)}
                       </span>
                       <VisuallyHidden>
-                        {t('convert.copyUnit', locale, { unit: unit.names[locale] })}
+                        {t('convert.copyUnit', locale, {
+                          unit: unit.names[locale],
+                        })}
                       </VisuallyHidden>
                     </Button>
                   </Card>

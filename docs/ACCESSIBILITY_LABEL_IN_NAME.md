@@ -2,8 +2,7 @@
 
 ## Ausgangspunkt
 
-Untersucht wird main `de0fcd0a0846f56226e148c14f7b3bf5d1cb387f` vom
-24. Oktober 2026. PR #65 hatte ursprünglich nur Playwright 1.64.0 → 1.64.1
+Untersucht wird main `de0fcd0a0846f56226e148c14f7b3bf5d1cb387f` vom 24. Oktober 2026. PR #65 hatte ursprünglich nur Playwright 1.64.0 → 1.64.1
 und `@axe-core/playwright` / dessen axe-core 4.13.0 → 4.14.0 geändert.
 Die separat installierte axe-core-Abhängigkeit war bereits 4.14.0;
 der bisherige Playwright-Adapter verwendete seine verschachtelte 4.13.0.
@@ -11,12 +10,12 @@ der bisherige Playwright-Adapter verwendete seine verschachtelte 4.13.0.
 Die [Originalläufe](https://github.com/sl3ndrr/m8e-calc/actions/runs/39512695733)
 bleiben historische Belege ihres ursprünglichen Produkts:
 
-| Job | Fehlgeschlagene Tests | Befund |
-| --- | ---: | --- |
-| [Chromium](https://github.com/sl3ndrr/m8e-calc/actions/runs/39512695733/job/118938039476) | 15 | `label-content-name-mismatch` |
-| [Firefox](https://github.com/sl3ndrr/m8e-calc/actions/runs/39512695733/job/118938039200) | 13 | `label-content-name-mismatch` |
-| [WebKit](https://github.com/sl3ndrr/m8e-calc/actions/runs/39512695733/job/118938039224) | 13 | `label-content-name-mismatch` |
-| [Galerie](https://github.com/sl3ndrr/m8e-calc/actions/runs/39512695733/job/118938039109) | 1 | Rail-Link mit sichtbarem Badge `3` |
+| Job                                                                                       | Fehlgeschlagene Tests | Befund                             |
+| ----------------------------------------------------------------------------------------- | --------------------: | ---------------------------------- |
+| [Chromium](https://github.com/sl3ndrr/m8e-calc/actions/runs/39512695733/job/118938039476) |                    15 | `label-content-name-mismatch`      |
+| [Firefox](https://github.com/sl3ndrr/m8e-calc/actions/runs/39512695733/job/118938039200)  |                    13 | `label-content-name-mismatch`      |
+| [WebKit](https://github.com/sl3ndrr/m8e-calc/actions/runs/39512695733/job/118938039224)   |                    13 | `label-content-name-mismatch`      |
+| [Galerie](https://github.com/sl3ndrr/m8e-calc/actions/runs/39512695733/job/118938039109)  |                     1 | Rail-Link mit sichtbarem Badge `3` |
 
 ## Geändertes Prüfverhalten
 

@@ -25,7 +25,8 @@ export default defineConfig({
       reuseExistingServer: false,
     },
     {
-      command: 'npm run preview:gallery -- --host 127.0.0.1 --port 4174 --strictPort',
+      command:
+        'npm run preview:gallery -- --host 127.0.0.1 --port 4174 --strictPort',
       url: 'http://127.0.0.1:4174/m8e-calc/',
       reuseExistingServer: false,
     },

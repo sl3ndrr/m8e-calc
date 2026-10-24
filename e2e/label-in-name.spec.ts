@@ -6,7 +6,9 @@ import { qaSetup, ready } from './qa-setup';
 test.use({ serviceWorkers: 'block' });
 
 for (const locale of ['de', 'en'] as const) {
-  test(`visible labels remain in action names (${locale})`, async ({ page }) => {
+  test(`visible labels remain in action names (${locale})`, async ({
+    page,
+  }) => {
     await qaSetup(page);
     await page.addInitScript((language) => {
       const key = 'm8e-calc.settings';

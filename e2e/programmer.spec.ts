@@ -45,7 +45,9 @@ test('hex input, bit clicks, widths, expression and history restore', async ({
   await editor.press('Enter');
   await expect(page.locator('.scientific-result-text')).toHaveText('10');
   await expect(hex).toHaveValue('000000000000000A');
-  await page.getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ }).click();
+  await page
+    .getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ })
+    .click();
   await page
     .getByRole('button', {
       name: t('history.restore', { input: '0xFF & 0b1010' }),

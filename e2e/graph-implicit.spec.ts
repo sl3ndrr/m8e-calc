@@ -213,7 +213,9 @@ test('AP27 history, old/new links, reload and PNG contain the displayed contour'
     page.locator('.graph-editor [role="textbox"]').first(),
     'x*y=1',
   );
-  await page.getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ }).click();
+  await page
+    .getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ })
+    .click();
   await page
     .getByRole('button', {
       name: 'Wiederherstellen: x^2+y^2=4 ; x',

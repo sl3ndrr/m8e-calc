@@ -103,9 +103,13 @@ it('renders the memory indicator, recalls, adds, subtracts and clears', async ()
   await user.click(
     screen.getByRole('button', { name: 'M− · Vom Speicher subtrahieren' }),
   );
-  await user.click(screen.getByRole('button', { name: 'MR · Speicher abrufen' }));
+  await user.click(
+    screen.getByRole('button', { name: 'MR · Speicher abrufen' }),
+  );
   expect(result()).toHaveTextContent('10');
-  await user.click(screen.getByRole('button', { name: 'MC · Speicher löschen' }));
+  await user.click(
+    screen.getByRole('button', { name: 'MC · Speicher löschen' }),
+  );
   expect(screen.getByLabelText('Speicher leer')).toBeEmptyDOMElement();
 });
 it('pastes a localized number into the pending operation', async () => {
@@ -133,7 +137,9 @@ it('copies the display and announces success through the shared snackbar', async
       <Snackbar label="Benachrichtigungen" closeLabel="Schließen" />
     </>,
   );
-  fireEvent.click(screen.getByRole('button', { name: '0 · Ergebnis kopieren' }));
+  fireEvent.click(
+    screen.getByRole('button', { name: '0 · Ergebnis kopieren' }),
+  );
   await waitFor(() => expect(writeText).toHaveBeenCalledWith('0'));
   expect(await screen.findByText('Ergebnis kopiert.')).toBeVisible();
 });

@@ -201,7 +201,9 @@ export function CurrencyPanel({
                   <strong className="expression">{text}</strong>
                   <span className="convert-unit-symbol">{unit.symbol}</span>
                   <VisuallyHidden>
-                    {t('convert.copyUnit', locale, { unit: unit.names[locale] })}
+                    {t('convert.copyUnit', locale, {
+                      unit: unit.names[locale],
+                    })}
                   </VisuallyHidden>
                 </Button>
               </Card>
