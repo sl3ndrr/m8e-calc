@@ -143,6 +143,7 @@ function CurveRow({
     (c) =>
       row.visible && c.id === row.id && c.signature === JSON.stringify(curve),
   );
+  const samplingMessages = sampled ? sampleMessageKeys(sampled) : [];
   const [menuKind, setMenuKind] = useState<AnalysisKind | null>(null);
   return (
     <section
@@ -290,9 +291,9 @@ function CurveRow({
           </details>
         </div>
       )}
-      {sampled && (
+      {samplingMessages.length > 0 && (
         <div role="status" className="graph-sampling-status">
-          {sampleMessageKeys(sampled).map((key) => (
+          {samplingMessages.map((key) => (
             <p key={key}>{t(key, locale)}</p>
           ))}
         </div>

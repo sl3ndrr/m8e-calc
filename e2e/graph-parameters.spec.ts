@@ -99,6 +99,130 @@ async function finalValue(page: Page) {
   return snapshot;
 }
 
+interface ParameterLayoutFrame {
+  value: number;
+  top: number;
+  heading: number;
+  pending: boolean;
+}
+
+for (const language of ['de', 'en'] as const) {
+  test(`AP50 parameter controls keep their position through half-step playback (${language})`, async ({
+    page,
+  }, info) => {
+    await page.addInitScript((language) => {
+      localStorage.setItem(
+        'm8e-calc.settings',
+        JSON.stringify({ version: 4, state: { language } }),
+      );
+    }, language);
+    await page.setViewportSize({
+      width: language === 'de' ? 1280 : 1920,
+      height: 1080,
+    });
+    await page.goto('/m8e-calc/#/graph');
+    await page
+      .getByRole('button', {
+        name: language === 'de' ? 'Hinzufügen' : 'Add',
+        exact: true,
+      })
+      .click();
+    await replaceGraphExpression(
+      page.locator('.graph-editor [role="textbox"]'),
+      'a*sin(x)',
+    );
+    const control = page.locator('.graph-parameter');
+    await control.locator('summary').click();
+    await control
+      .getByRole('textbox', { name: 'Minimum', exact: true })
+      .fill('-2');
+    await control
+      .getByRole('textbox', { name: 'Maximum', exact: true })
+      .fill('2');
+    await control
+      .getByRole('textbox', {
+        name: language === 'de' ? 'Schrittweite' : 'Step size',
+        exact: true,
+      })
+      .fill(language === 'de' ? '0,5' : '0.5');
+    await control
+      .getByRole('button', {
+        name: language === 'de' ? 'Anwenden' : 'Apply',
+        exact: true,
+      })
+      .click();
+    await control.locator('summary').click();
+    const slider = page.getByRole('slider', { name: 'a', exact: true });
+    await slider.press('Home');
+    await ready(page);
+    await page.evaluate(() => document.fonts.ready);
+    await page.evaluate(() => {
+      (window as ProbeWindow).__parameterProbe.delay = 180;
+    });
+    await page
+      .getByRole('button', {
+        name: language === 'de' ? 'Parameter a abspielen' : 'Play parameter a',
+        exact: true,
+      })
+      .click();
+    const frames = await control.evaluate(
+      (element) =>
+        new Promise<ParameterLayoutFrame[]>((resolve, reject) => {
+          const frames: ParameterLayoutFrame[] = [];
+          const start = performance.now();
+          function record() {
+            const row = element.closest('.graph-row');
+            const heading = element.querySelector('.ui-slider-heading');
+            const input = element.querySelector('input');
+            const canvas = document.querySelector('canvas.graph-canvas');
+            if (
+              !row ||
+              !heading ||
+              !(input instanceof HTMLInputElement) ||
+              !(canvas instanceof HTMLCanvasElement)
+            ) {
+              reject(new Error('Parameter layout unavailable'));
+              return;
+            }
+            const origin = row.getBoundingClientRect().top;
+            frames.push({
+              value: Number(input.value),
+              top: element.getBoundingClientRect().top - origin,
+              heading: heading.getBoundingClientRect().top - origin,
+              pending: canvas.dataset.sampling === 'true',
+            });
+            if (performance.now() - start >= 4500) resolve(frames);
+            else requestAnimationFrame(record);
+          }
+          requestAnimationFrame(record);
+        }),
+    );
+    await page
+      .getByRole('button', {
+        name: language === 'de' ? 'Parameter a anhalten' : 'Pause parameter a',
+        exact: true,
+      })
+      .click();
+    await finalValue(page);
+    await info.attach('parameter-layout.json', {
+      body: JSON.stringify(frames),
+      contentType: 'application/json',
+    });
+    await page.screenshot({ path: info.outputPath('parameter-layout.png') });
+    expect(new Set(frames.map((frame) => frame.value)).size).toBeGreaterThan(6);
+    expect(frames.some((frame) => frame.value < 0)).toBe(true);
+    expect(frames.some((frame) => frame.value % 1 !== 0)).toBe(true);
+    expect(frames.some((frame) => frame.value === 0)).toBe(true);
+    expect(frames.some((frame) => frame.pending)).toBe(true);
+    expect(frames.some((frame) => !frame.pending)).toBe(true);
+    for (const field of ['top', 'heading'] as const) {
+      const positions = frames.map((frame) => frame[field]);
+      const spread = Math.max(...positions) - Math.min(...positions);
+      expect(spread).toBeLessThanOrEqual(1);
+    }
+  });
+}
+
 for (const input of [
   'a*sin(x)',
   'a*x^2-1',
