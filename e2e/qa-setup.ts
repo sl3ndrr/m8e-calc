@@ -1,13 +1,18 @@
 import { expect, type Page, type Locator } from '@playwright/test';
 export const qaModes = ['simple', 'scientific', 'convert', 'graph'] as const;
-export async function qaSetup(page: Page, theme = 'light', accent = '#6750a4') {
+export async function qaSetup(
+  page: Page,
+  theme = 'light',
+  accent = '#6750a4',
+  language: 'de' | 'en' = 'de',
+) {
   await page.setViewportSize({ width: 1920, height: 1080 });
   await page.emulateMedia({
     colorScheme: theme === 'dark' ? 'dark' : 'light',
     reducedMotion: 'reduce',
   });
   await page.addInitScript(
-    ({ theme, accent }) => {
+    ({ theme, accent, language }) => {
       localStorage.setItem(
         'm8e-calc.settings',
         JSON.stringify({
@@ -16,12 +21,12 @@ export async function qaSetup(page: Page, theme = 'light', accent = '#6750a4') {
             themeMode: theme,
             accent,
             motionLevel: 'off',
-            language: 'de',
+            language,
           },
         }),
       );
     },
-    { theme, accent },
+    { theme, accent, language },
   );
 }
 export async function ready(page: Page, mode: string) {
