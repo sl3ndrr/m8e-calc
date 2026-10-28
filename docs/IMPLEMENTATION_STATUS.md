@@ -58,3 +58,15 @@ diesen lokalen Diff. PR #80 ist inzwischen gemergt und seine PR-CI grün; die
 main-CI der Basis ist wegen Gallery/Quality gate rot, Pages skipped. Diese
 Vorgängernachweise sind keine WP-02-Abnahme. Exakte Identitäten, Befehle,
 Hypothesen, Ergebnisse, Runtimegrenzen und Offen / Folgearbeiten: [WP02.md](WP02.md).
+
+WP-02-Fortsetzung: [Draft-PR #81](https://github.com/sl3ndrr/m8e-calc/pull/81)
+ist veröffentlicht. Seine erste Pflicht-CI und AP22 scheitern an zwei neuen
+Paneltests: Gruppierte Festkommaausgabe wird fälschlich im auto-Modus erwartet.
+Korrekturcommit `fe4a1101d3e18614b07a6db0b23a49a44b26a8cd` wählt für diese Fälle
+explizit fixed und ergänzt zwei exakte de/en-auto-Fälle. Bestehende Wert-,
+ARIA-, Tastatur-, Listen- und Seiteneffektprüfungen bleiben erhalten; Produkt und
+Schutzmechanismen unverändert. Ergänzende lokale Prüfungen bestehen erneut,
+reguläre Installation/Tests bleiben lokal durch Registry-403 blockiert. Neuer
+veröffentlichter Head und tatsächlicher CI-Abschluss werden im PR separat
+festgehalten; kein Erfolg des neuen Diffs aus dem roten Originallauf abgeleitet.
+Befund, Jobs und Befehle stehen im [WP02-Bericht](WP02.md).

@@ -6,9 +6,14 @@ import { t } from '../../shared/i18n/extended';
 import { VariablesPanel } from './ReferencePanels';
 import { useHistoryStore } from '../../shared/historyStore';
 
-it.each(['de', 'en'] as const)(
-  'separates label, canonical edit and safe list actions in %s',
-  async (locale) => {
+it.each([
+  ['de', 'fixed', 'v = 12.300'],
+  ['en', 'fixed', 'v = 12,300'],
+  ['de', 'auto', 'v = 1,23e+4'],
+  ['en', 'auto', 'v = 1.23e+4'],
+] as const)(
+  'separates label, canonical edit and safe list actions in %s (%s)',
+  async (locale, notation, label) => {
     let environment = execute('v=12345.678901234567890123456789');
     if (!environment.ok) throw new Error('setup');
     environment = execute('xs=factor(12)', environment.value.environment);
@@ -24,7 +29,7 @@ it.each(['de', 'en'] as const)(
       <VariablesPanel
         locale={locale}
         environment={env}
-        format={{ locale, digits: 3, grouping: true }}
+        format={{ locale, notation, digits: 3, grouping: true }}
         insert={insert}
         edit={edit}
         remove={remove}
@@ -33,7 +38,6 @@ it.each(['de', 'en'] as const)(
     const panel = screen.getByRole('region', {
       name: t('scientific.variables', locale),
     });
-    const label = locale === 'de' ? 'v = 12.300' : 'v = 12,300';
     expect(
       within(panel).getByRole('button', {
         name: `${label}: ${t('scientific.insert', locale, { text: 'v' })}`,
