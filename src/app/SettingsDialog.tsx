@@ -53,7 +53,7 @@ export function SettingsDialog({
     try {
       if (file.size > 100000) throw new TypeError('Settings file too large');
       const next = importSettings(await file.text());
-      settings.updateSettings({ ...next, onlineRates: settings.onlineRates });
+      settings.applyImportedSettings(next);
       snackbarQueue.add({ message: t('settings.imported') }, { timeout: 5000 });
     } catch {
       snackbarQueue.add({ message: t('settings.invalid') }, { timeout: 5000 });

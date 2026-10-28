@@ -262,8 +262,13 @@ ohne DOM und UI-Testsetup.
 migrieren ohne Zustimmung. Persistierte Zustimmung aus Version 4 gilt weiter.
 Der sichtbare Schalter „Online-Kurse laden“ erklärt EZB/Frankfurter, Übertragung
 von IP-Adresse/Verbindungsdaten, rein lokale Beträge und Speicherung der Kurse.
-Settings-Import erteilt keine Zustimmung und erhält höchstens eine bereits
-aktive Zustimmung. Alles-Zurücksetzen schaltet die Funktion aus.
+Settings-Import ändert die beim Importabschluss aktuelle Zustimmung nicht.
+Die übrigen validierten Einstellungen werden in einer atomaren Storeoperation
+übernommen; weder Dateidaten noch der Renderzustand beim Start von `File.text()`
+bestimmen `onlineRates`. Ein Widerruf während des Lesens bleibt auch nach Reload
+wirksam; eine zwischenzeitliche ausdrückliche Aktivierung bleibt ebenfalls
+erhalten. Ein fehlgeschlagener Import ändert keine Einstellung.
+Alles-Zurücksetzen schaltet die Funktion aus.
 
 Ohne Zustimmung existiert keine Währungskategorie, auch nicht bei vorhandenem
 Kurscache. Selbst manuelle Provider-Aufrufe prüfen Zustimmung vor jeder IO.
@@ -336,7 +341,14 @@ Timeout, Offline und veraltete Daten; zusätzlich Cache-Versionen, Quellen,
 Zeitstempel, Storage-Ausfälle, Vierstundenintervall, manuelle Aktualisierung,
 Request-Deduplizierung und Zustimmungsentzug mit verspäteter Antwort.
 Settings-/Importtests verhindern versehentliche Zustimmung durch Migration
-oder Import. `e2e/currency.spec.ts` fängt alle API-Requests ab: Opt-in aus =
+oder Import. Die WP-03-Regressionen halten `File.text()` mit einem kontrollierten
+Promise ausstehend und prüfen beide Zustimmungswechsel, umgekehrte Abschlussfolge,
+unveränderte Zustimmung, atomare Persistenz/Reload und Importfehler.
+`e2e/currency.spec.ts` zeichnet Requests des aktiven Umrechners auf und hält
+zusätzlich einen bereits geladenen Antwortkörper bis nach dem Widerruf zurück;
+Mockantworten belegen keine Live-Verfügbarkeit. Tatsächlicher lokaler
+Ausführungsstatus und Grenzen: [WP03.md](WP03.md).
+`e2e/currency.spec.ts` fängt alle API-Requests ab: Opt-in aus =
 keine externen Requests, Opt-in an ohne Cache = exakt ein Request; Eingabe,
 Währungswechsel, Swap und Reload mit frischem Cache erzeugen keine weiteren.
 Zusätzlich LoadingIndicator, Snackbar, manueller Request, Offline-/Altersanzeige,

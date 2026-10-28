@@ -80,3 +80,27 @@ bestehende Fokus-/Leertastenbedienung und ergänzt Fokus-, Auswahl- und
 Panelsichtbarkeitsassertions. Fachliche Assertions und Fristen bleiben erhalten;
 Produkt unverändert. Der neue Head benötigt seinen eigenen vollständigen
 CI-Nachweis, dokumentiert in PR #81. Einzelheiten und lokale Grenzen: [WP02](WP02.md).
+
+## WP-03 · Zustimmung bei asynchronem Settingsimport · 28.10.2026
+
+Lokal implementiert auf `feat/audit-wp-03`, Code-/Regressionencommit
+`5a6b33073102b54214d802b9fcaa33b69c2847a2`, tatsächliche Basis nach WP-01/WP-02
+`ecdf8509d1261ba4d349121eba633b6f749564dc` (main, 28.10., 22:39:33 Europe/Berlin).
+Abschließender Code-/Teststand nach expliziter Typisierung der Browser-Testsignale:
+`5c914ee697222a1b7ec98521e2d832aec43ba3e5`; Produktcode unverändert.
+Die atomare Storeaktion übernimmt validierte Einstellungen und erhält dabei die
+**beim Abschluss aktuelle** Zustimmung. Strenge Validierung, Größenlimit,
+Fehlermeldungen und Kursclient-Abbruch bleiben erhalten. Regressionen für Store,
+de/en-Dialog und alle drei konfigurierten Produktionsbrowser decken kontrollierte
+Dateipromises, beide Zustimmungswechsel/Abschlussfolgen, unveränderte Zustimmung,
+Persistenz/Reload, Fehler und Requests/verspätete Antworten ab.
+
+Die ergänzende native Quellcode-/Modellprobe bestätigt das ursprüngliche Rennen
+und besteht mit dem Fix (18 Gegenproben, drei Fehlerfälle); Syntax-/Format-/
+Diffprüfungen bestehen. **Die Pflichtabnahme bleibt blockiert:** npm 11.19.0 und
+`npm ci` scheitern an Registry-HTTP-403; Vitest, check, Build und Playwright
+starten ihre Prüfer nicht. Kein beobachteter unerlaubter Browserrequest behauptet,
+keine WP-03-Freigabe. Die inzwischen grüne main-/Pages-Kette der Basis
+40773772912 enthält diesen lokalen Diff nicht. Ausgangs-/Codeidentitäten,
+Dateien, exakte Befehle, Runtime-/Browsergrenzen, Belege und Offen / Folgearbeiten:
+[WP03.md](WP03.md). Keine Remoteänderungen ausgeführt.
