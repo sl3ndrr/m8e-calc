@@ -67,7 +67,8 @@ export default function ScientificMode() {
     grouping = useSettingsStore((s) => s.grouping);
   const environment = useScientificStore((s) => s.environment),
     commit = useScientificStore((s) => s.commit),
-    remove = useScientificStore((s) => s.remove);
+    remove = useScientificStore((s) => s.remove),
+    recovery = useScientificStore((s) => s.recovery);
   const [expression, setExpression] = useState(
       () =>
         readModeLink('scientific', validateScientificLink)?.expression ?? '',
@@ -188,6 +189,7 @@ export default function ScientificMode() {
     return () => window.clearTimeout(timer);
   }, [expression, environment, angleMode, complex, bitwise, programmer]);
   function evaluate(source: string = expression): void {
+    if (recovery === 'loading') return;
     const result = calculate(source, environment, options);
     if (!result.ok) {
       setError(result.error);
@@ -215,6 +217,15 @@ export default function ScientificMode() {
       },
     });
     cursor.current = { index: -1, draft: expression };
+  }
+  async function retryStoredEnvironment(): Promise<void> {
+    await useScientificStore.persist.rehydrate();
+    if (useScientificStore.getState().recovery === null) {
+      setCalculation(null);
+      setError(null);
+      setLive(null);
+      editor.current?.focus();
+    }
   }
   function browse(direction: -1 | 1): void {
     const next = browseHistory(
@@ -286,6 +297,22 @@ export default function ScientificMode() {
         </span>
         <CopyLinkButton mode="scientific" data={{ expression, angleMode }} />
       </header>
+      {recovery && (
+        <Card className="scientific-recovery">
+          <p role="status">{t(`scientific.recovery.${recovery}`, locale)}</p>
+          {recovery !== 'loading' && (
+            <>
+              <p>{t('scientific.recovery.session', locale)}</p>
+              <Button
+                variant="outlined"
+                onPress={() => void retryStoredEnvironment()}
+              >
+                {t('scientific.recovery.retry', locale)}
+              </Button>
+            </>
+          )}
+        </Card>
+      )}
       <div className="scientific-columns">
         <div className="scientific-main-column">
           <Card className="scientific-expression-card">
@@ -369,7 +396,10 @@ export default function ScientificMode() {
               )}
             </div>
             <div className="scientific-actions">
-              <Button onPress={() => evaluate()}>
+              <Button
+                isDisabled={recovery === 'loading'}
+                onPress={() => evaluate()}
+              >
                 {t('scientific.evaluate', locale)}
               </Button>
               <Button

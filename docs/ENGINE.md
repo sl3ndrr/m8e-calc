@@ -438,6 +438,26 @@ und haben maximale Tiefe 128 (auch bei geteilten Objektgraphen).
 Importierte Environments werden validiert
 (E_ENVIRONMENT bei ungültiger Version, Namen, Werten oder ASTs).
 
+WP-01 trennt Persistenz und aktiven Kontext: Die reine öffentliche API
+`restoreEnvironment(input: unknown): Result<Environment, EvalError>` prüft
+Version 1, Namen, serialisierte Zahlen/komplexe Werte/Listen, Funktionsparameter,
+ASTs samt Quellbereichen, kanonische Parsergrenzen und Zyklen. Sie gibt den
+unveränderten Bestand zurück, ohne Definitionen auszuführen, ans zu ergänzen
+oder Werte auf eine Wortbreite zu kürzen. Programmer-Operatoren in verzögerten
+Funktionskörpern sind strukturell zulässig, auch außerhalb des aktiven Bitparsers.
+Namen/AST-Literale und Quellbereiche bleiben auf die Ausdrucksgrenze 10000
+begrenzt; Zahlstrings dürfen bis 10053 Zeichen enthalten, damit auch expandierte
+Dezimaldarstellungen an den bestehenden Exponent-/Präzisionsgrenzen erhalten
+bleiben. Längere Fremdwerte werden vor der Decimal-Konstruktion abgewiesen.
+
+`execute`/`evaluate` prüfen zusätzlich den aktiven Kontext. Wissenschaftlich
+gültige Namen wie `shl`, `xor` oder gleichnamige Funktionsparameter können dort
+mit Programmer-/Kontextfunktionen kollidieren: `E_RESERVED_NAME`, unverändertes
+Environment. Das ist kein Persistenzfehler und löscht keine Definitionen.
+`deserializeValue` ist zusätzlich am öffentlichen Einstieg verfügbar; es liest
+einen gespeicherten Wert ohne Namensauswertung oder Wortnormalisierung. Die
+bestehenden Listen-, AST-, History- und Definitionsbudgets bleiben erhalten.
+
 ### Genauigkeitsgarantien und Grenzen
 
 - Decimal-Arithmetik und komplexe Komponenten bleiben bei 50 Stellen. Stark

@@ -2,6 +2,7 @@ import { allowClipboard } from './clipboard';
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { t } from '../src/shared/i18n/extended';
+import type { Environment } from '../src/engine';
 const route = '/m8e-calc/#/scientific';
 // Feature-state checks are isolated from SW update toasts; the production
 // matrix, comfort and pwa-update suites exercise the real worker separately.
@@ -272,3 +273,228 @@ test('AP24 KaTeX renders accessible math with local loaded fonts', async ({
   );
   expect(errors).toEqual([]);
 });
+
+for (const [locale, width] of [
+  ['de', 1440],
+  ['en', 2560],
+] as const) {
+  test(`WP-01 ${locale}: define → reload → calculate → reload preserves the scientific environment`, async ({
+    page,
+    browser,
+  }, info) => {
+    await page.setViewportSize({ width, height: 1440 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.evaluate((language) => {
+      const key = 'm8e-calc.settings';
+      const data = JSON.parse(localStorage.getItem(key) ?? '{}');
+      localStorage.setItem(
+        key,
+        JSON.stringify({ ...data, state: { ...data.state, language } }),
+      );
+    }, locale);
+    await page.reload();
+    const editor = page.getByRole('textbox', {
+      name: t('scientific.expression', locale),
+    });
+    const result = page.locator('.scientific-result-text');
+    const run = async (source: string, expected: string) => {
+      await editor.fill(source);
+      await editor.press('Enter');
+      await expect(result).toHaveText(expected);
+    };
+    const tools = async (computer: boolean) => {
+      if (width >= 1920) {
+        await page
+          .getByRole('button', {
+            name: t('scientific.computerScience', locale),
+            exact: true,
+          })
+          .click();
+      } else {
+        const radio = page.getByRole('radio', {
+          name: t(
+            computer ? 'scientific.computerScience' : 'scientific.keypad',
+            locale,
+          ),
+          exact: true,
+        });
+        await radio.focus();
+        await radio.press('Space');
+      }
+    };
+    const snapshot = () =>
+      page.evaluate(() => {
+        const data: { state: { environment: Environment } } = JSON.parse(
+          localStorage.getItem('m8e-calc.scientific') ?? '{}',
+        );
+        return data.state.environment;
+      });
+    await tools(true);
+    await editor.fill('bits(x)=x<<1');
+    await editor.press('Enter');
+    await expect(
+      page.getByText(t('scientific.definitionSaved', locale), { exact: true }),
+    ).toBeVisible();
+    await tools(false);
+    const complex = page.getByRole('radio', {
+      name: t('scientific.on', locale),
+      exact: true,
+    });
+    await complex.focus();
+    await complex.press('Space');
+    await run('v=123', '123');
+    await run('shl=2', '2');
+    await run('xor=3', '3');
+    await run('z=2+3i', '2+3i');
+    await run('xs=factor(360)', '[2, 2, 2, 3, 3, 5]');
+    await editor.fill('f(x)=x+v');
+    await editor.press('Enter');
+    await expect(
+      page.getByText(t('scientific.definitionSaved', locale), { exact: true }),
+    ).toBeVisible();
+    await run('f(shl)+xor', '128');
+    const before = await snapshot();
+    await page.reload();
+    await expect(editor).toBeVisible();
+    expect(await snapshot()).toEqual(before);
+    // The definition label also must not execute shl in a word context.
+    if (width < 1920) {
+      const variables = page.getByRole('radio', {
+        name: t('scientific.variables', locale),
+        exact: true,
+      });
+      await variables.focus();
+      await variables.press('Space');
+    }
+    await expect(page.locator('.scientific-variables')).toContainText(
+      'shl = 2',
+    );
+    await expect(page.locator('.scientific-variables')).toContainText(
+      'xor = 3',
+    );
+    await tools(true);
+    await editor.fill('1+1');
+    await editor.press('Enter');
+    await expect(page.locator('.scientific-error[role="alert"]')).toHaveText(
+      `${t('scientific.error.E_RESERVED_NAME', locale)} (1)`,
+    );
+    expect(await snapshot()).toEqual(before);
+    await tools(false);
+    await run('ans+v+shl+xor', '256');
+    const after = await snapshot();
+    expect(after.variables).toEqual(before.variables);
+    expect(after.functions).toEqual(before.functions);
+    expect(after.history.slice(1)).toEqual(before.history);
+    await page.reload();
+    await expect(editor).toBeVisible();
+    expect(await snapshot()).toEqual(after);
+    await run('v+shl+xor', '128');
+    await info.attach('wp01-runtime', {
+      body: JSON.stringify({
+        node: process.version,
+        browser: browser.version(),
+        locale,
+        width,
+      }),
+      contentType: 'application/json',
+    });
+  });
+
+  test(`WP-01 ${locale}: recovery keeps the original across a calculation and reload`, async ({
+    page,
+  }) => {
+    const original = '{"state":{"environment":{"version":99}},"version":1}';
+    await page.setViewportSize({ width, height: 900 });
+    await page.evaluate(
+      ({ original, language }) => {
+        localStorage.setItem('m8e-calc.scientific', original);
+        const key = 'm8e-calc.settings';
+        const data = JSON.parse(localStorage.getItem(key) ?? '{}');
+        localStorage.setItem(
+          key,
+          JSON.stringify({ ...data, state: { ...data.state, language } }),
+        );
+      },
+      { original, language: locale },
+    );
+    await page.reload();
+    await expect(
+      page.getByText(t('scientific.recovery.invalid', locale), { exact: true }),
+    ).toBeVisible();
+    const editor = page.getByRole('textbox', {
+      name: t('scientific.expression', locale),
+    });
+    await editor.fill('session=7');
+    await editor.press('Enter');
+    await expect(page.locator('.scientific-result-text')).toHaveText('7');
+    expect(
+      await page.evaluate(() => localStorage.getItem('m8e-calc.scientific')),
+    ).toBe(original);
+    await page.reload();
+    await expect(
+      page.getByText(t('scientific.recovery.invalid', locale), { exact: true }),
+    ).toBeVisible();
+    expect(
+      await page.evaluate(() => localStorage.getItem('m8e-calc.scientific')),
+    ).toBe(original);
+    await page
+      .getByRole('button', { name: t('scientific.recovery.retry', locale) })
+      .focus();
+    await page.keyboard.press('Enter');
+    await expect(
+      page.getByText(t('scientific.recovery.invalid', locale), { exact: true }),
+    ).toBeVisible();
+    expect(
+      await page.evaluate(() => localStorage.getItem('m8e-calc.scientific')),
+    ).toBe(original);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+
+    // Repair only the fixture in storage. The retry must load it without
+    // evaluating the editor draft, restore focus, and release the write gate.
+    await editor.fill('session=9');
+    await editor.press('Enter');
+    await expect(page.locator('.scientific-result-text')).toHaveText('9');
+    const repaired: Environment = {
+      version: 1,
+      variables: {
+        v: { kind: 'number', value: '123' },
+        shl: { kind: 'number', value: '2' },
+      },
+      functions: {},
+      history: [
+        { kind: 'number', value: '2' },
+        { kind: 'number', value: '123' },
+      ],
+    };
+    const repairedRaw = JSON.stringify({
+      state: { environment: repaired },
+      version: 1,
+    });
+    await page.evaluate((raw) => {
+      localStorage.setItem('m8e-calc.scientific', raw);
+    }, repairedRaw);
+    const retry = page.getByRole('button', {
+      name: t('scientific.recovery.retry', locale),
+    });
+    await retry.focus();
+    await retry.press('Enter');
+    await expect(retry).toHaveCount(0);
+    await expect(editor).toBeFocused();
+    await expect(page.locator('.scientific-result-text')).toHaveText('');
+    expect(
+      await page.evaluate(() => localStorage.getItem('m8e-calc.scientific')),
+    ).toBe(repairedRaw);
+    await editor.fill('ans+v+shl');
+    await editor.press('Enter');
+    await expect(page.locator('.scientific-result-text')).toHaveText('127');
+    await page.reload();
+    await expect(editor).toBeVisible();
+    await editor.fill('ans+v+shl');
+    await editor.press('Enter');
+    await expect(page.locator('.scientific-result-text')).toHaveText('252');
+  });
+}

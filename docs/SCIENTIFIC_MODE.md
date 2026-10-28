@@ -32,10 +32,40 @@ Engine und AST-Vertrag bleiben unverändert.
 - `a = 5`, `f(x) = x^2` definieren Werte/Funktionen. Bearbeiten stellt die
   Definition im Editor wieder her, Löschen entfernt sie. STO speichert `ans` im
   angegebenen Namen, RCL öffnet die Variablen. Definitionen und ans-Historie liegen
-  versioniert in `m8e-calc.scientific`; ungültige Daten werden verworfen, blockierter
-  Storage lässt die Sitzung im Speicher funktionieren.
+  versioniert in `m8e-calc.scientific`. Die Hydrierung validiert die Struktur ohne
+  Auswertung; normale Namen wie `shl`/`xor`, Programmer-Funktionskörper, komplexe
+  Werte, Listen und die wissenschaftliche ans-Historie bleiben erhalten. Der
+  separate globale Verlauf wird dadurch nicht migriert.
 - AP4-Verlauf-Payload v1 enthält Originalausdruck sowie Ausdruck-/Ergebnis-LaTeX.
   Wiederherstellung lädt den Ausdruck; sie führt keine Anweisung automatisch aus.
+
+### Wiederherstellung gespeicherter Definitionen · WP-01
+
+Der bestehende Storage-Umschlag Version 1 und ältere Umschläge ohne äußere
+Versionsnummer mit Environment-Version 1 bleiben lesbar. Es gibt keine
+Formelausführung zur Migration. Ungültiges JSON, unbekannte Versionen,
+fehlerhafte Werte/ASTs, Zyklen und überlange Daten sperren automatische
+Schreibzugriffe. Der ursprüngliche String bleibt in genau seinem bisherigen
+Storage-Schlüssel; keine Rohdatenlogs, zusätzlichen Backups oder Requests.
+Der JSON-Umschlag ist vor dem Parsen und vor dem Schreiben auf 16 Mi
+UTF-16-Einheiten begrenzt; die fachlichen Ressourcenlimits gelten zusätzlich.
+Ein zu großer Altbestand bleibt erhalten und wird als nicht wiederherstellbar
+angezeigt, statt gekürzt oder überschrieben zu werden.
+
+Ein de/en-Status erklärt ungültige Daten, fehlenden Lesezugriff oder fehlgeschlagenes
+Speichern. Berechnungen und Änderungen funktionieren danach nur in der Sitzung;
+Neuladen verliert diese ungespeicherte Sitzung. Verweigerter Lesezugriff sperrt
+auch dann Schreibzugriffe, wenn diese separat möglich wären. Bei vollem Storage
+bleibt der zuletzt gespeicherte Bestand erhalten; weitere automatische Versuche
+bleiben bis zur ausdrücklichen Wiederherstellung gesperrt.
+
+„Gespeicherten Bestand erneut laden“ liest und validiert ausschließlich den
+vorhandenen Schlüssel. Bei Erfolg ersetzt er die Sitzung und fokussiert den
+Editor, bei erneutem Fehler bleibt auch die Sitzung erhalten. Die Schaltfläche
+ist per Tastatur erreichbar; es gibt keine zusätzliche Animation. Solange eine
+asynchrone erste Hydrierung aussteht, ist Auswerten gesperrt. Ein Konflikt beim
+Wechsel ins Informatikpanel wird als reservierter Name gemeldet; Zurückwechseln
+zum Tastenfeld erlaubt die wissenschaftliche Berechnung mit demselben Bestand.
 
 ## Verifikation
 
@@ -46,6 +76,10 @@ Editor, DEG `sin(30°) = 0.5`, `a=5; a^2`, Integral `x^2` von 0 bis 3, Fehler,
 Verlauf, Selektionen, Completion, lokale Fonts und Zwischenablage.
 `e2e/scientific.spec.ts` erzeugt Hell-/Dunkelaufnahmen bei 2560×1440 und
 3840×2160 in `test-results/`; CI stellt sie als Playwright-Artefakt bereit.
+WP-01 ergänzt strukturelle Enginefälle, echte Store-Neuerzeugung mit fake Storage
+sowie de/en-Produktionsbrowserfälle „definieren → reload → weitere Berechnung →
+reload“ einschließlich Moduskonflikt und bewahrtem Fehlerbestand. Tatsächlicher
+Ausführungsstatus und Einschränkungen: [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md).
 
 ## Offen / Folge-Issues
 

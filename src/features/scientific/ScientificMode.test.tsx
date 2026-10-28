@@ -2,8 +2,8 @@ import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, expect, it, vi } from 'vitest';
 import ScientificMode from './ScientificMode';
-import { createEnvironment } from '../../engine';
-import { useScientificStore } from './scientificStore';
+import { createEnvironment, execute } from '../../engine';
+import { SCIENTIFIC_STORAGE_KEY, useScientificStore } from './scientificStore';
 import { useHistoryStore } from '../../shared/historyStore';
 import { useAppStore } from '../../shared/store';
 import { snackbarQueue } from '../../ui';
@@ -34,13 +34,60 @@ vi.mock('./MathDisplay', () => ({
     <div aria-label={label}>{latex}</div>
   ),
 }));
-afterEach(() => {
+afterEach(async () => {
   vi.useRealTimers();
+  localStorage.removeItem(SCIENTIFIC_STORAGE_KEY);
+  await useScientificStore.persist.rehydrate();
   useScientificStore.getState().commit(createEnvironment());
   useHistoryStore.getState().resetHistory();
   useAppStore.setState({ locale: 'de' });
   snackbarQueue.clear();
 });
+
+it.each(['de', 'en'] as const)(
+  'explains recovery in %s and permits keyboard retry without running old formulas',
+  async (locale) => {
+    useAppStore.setState({ locale });
+    localStorage.setItem(SCIENTIFIC_STORAGE_KEY, '{broken');
+    await useScientificStore.persist.rehydrate();
+    const user = userEvent.setup();
+    render(<ScientificMode />);
+    await screen.findByRole('textbox', {
+      name: locale === 'de' ? 'Ausdruck' : 'Expression',
+    });
+    const retry = screen.getByRole('button', {
+      name:
+        locale === 'de'
+          ? 'Gespeicherten Bestand erneut laden'
+          : 'Load saved data again',
+    });
+    expect(
+      screen.getByText(
+        locale === 'de'
+          ? /Der ursprüngliche Bestand bleibt unverändert/
+          : /The original data remains unchanged/,
+      ),
+    ).toBeVisible();
+    const result = execute('f(x)=1/0');
+    if (!result.ok) throw new Error('setup');
+    localStorage.setItem(
+      SCIENTIFIC_STORAGE_KEY,
+      JSON.stringify({
+        state: { environment: result.value.environment },
+        version: 1,
+      }),
+    );
+    retry.focus();
+    await user.keyboard('{Enter}');
+    expect(useScientificStore.getState().recovery).toBeNull();
+    expect(useScientificStore.getState().environment).toEqual(
+      result.value.environment,
+    );
+    expect(
+      screen.queryByRole('button', { name: retry.textContent ?? '' }),
+    ).not.toBeInTheDocument();
+  },
+);
 function expressionActions(editor: HTMLElement) {
   const article = editor.closest('article');
   if (!article)

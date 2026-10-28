@@ -119,6 +119,19 @@ it('validates persisted environments and edits/deletes definitions', () => {
   ])
     expect(normalizeEnvironment(invalid)).toEqual(createEnvironment());
 });
+it('reads definition labels without executing names in a programmer word context', () => {
+  const first = execute('v=18446744073709551615');
+  if (!first.ok) throw new Error('setup');
+  const result = execute('shl=2', first.value.environment);
+  if (!result.ok) throw new Error('setup');
+  const env = normalizeEnvironment(
+    JSON.parse(JSON.stringify(result.value.environment)),
+  );
+  const before = JSON.stringify(env);
+  expect(definitionSource(env, 'shl')).toBe('shl = 2');
+  expect(definitionSource(env, 'v')).toBe('v = 18446744073709551615');
+  expect(JSON.stringify(env)).toBe(before);
+});
 it('filters registry metadata and exposes bilingual completion signatures', () => {
   expect(constantMatches('pi', 'Kreiszahl', 'π', 'π', 'math')).toBe(true);
   expect(

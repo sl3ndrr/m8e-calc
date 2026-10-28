@@ -25,6 +25,17 @@
   grid-template-columns: minmax(0, 1fr);
   gap: 1.25rem;
 }
+.scientific-recovery {
+  display: grid;
+  justify-items: start;
+  gap: 0.625rem;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+  overflow-wrap: anywhere;
+}
+.scientific-recovery p {
+  margin: 0;
+}
 .scientific-main-column {
   display: grid;
   align-content: start;
