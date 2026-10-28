@@ -67,6 +67,34 @@ asynchrone erste Hydrierung aussteht, ist Auswerten gesperrt. Ein Konflikt beim
 Wechsel ins Informatikpanel wird als reservierter Name gemeldet; Zurückwechseln
 zum Tastenfeld erlaubt die wissenschaftliche Berechnung mit demselben Bestand.
 
+### Verlustfreies Bearbeiten · WP-02
+
+Definitionen verwenden neutrale Deserialisierung statt Namensauswertung.
+Die sichtbare Wertanzeige folgt Locale, Gruppierung, Notation und Stellenzahl;
+der Bearbeitungstext kommt separat aus `valueSource` mit voller verfügbarer
+Decimal-Präzision und Dezimalpunkt. Funktionsquelltext kommt aus dem vorhandenen
+AST-Printer. Anzeigen und Öffnen ändern weder Environment noch einen Verlauf.
+
+„Bearbeiten“ lädt diesen kanonischen Text, aktiviert die Variablenansicht und
+fokussiert den Editor. Solange der Text unverändert ist und noch der aktuellen
+gespeicherten Definition entspricht, bestätigt Enter reelle/komplexe Werte mit
+neutraler wissenschaftlicher Wertsemantik (`complex: 'on'`, Bitmodus aus).
+Es entsteht wie bei einer Zuweisung ein Ergebnis mit ans-/Verlaufseintrag;
+der gespeicherte fachliche Wert bleibt exakt erhalten. Das Bestätigen einer
+unveränderten Funktion erhält ihren AST und ihre ans-Historie ohne Ausführung
+des Körpers, einschließlich Programmer-Operatoren und erst beim Aufruf
+fehlschlagender Körper. Der globale Bedienverlauf erhält den Bestätigungseintrag.
+Bei geändertem Text gelten die normalen aktiven Kontext- und Namensprüfungen.
+Das Zurücksetzen auf den unveränderten Quelltext bleibt verlustfrei; Leeren,
+Verlaufsnavigation und erfolgreiche Übernahme beenden die Bearbeitungssitzung.
+Die Wiederherstellungs-/Schreibsperren aus WP-01 bleiben unverändert.
+
+Listen zeigen ihren gespeicherten Inhalt und erlauben weiterhin das Einfügen
+des Variablennamens. „Bearbeiten“ ist deaktiviert und erhält eine sichtbare,
+zugänglich zugeordnete de/en-Erklärung. Der Einfügename enthält den vollständigen
+sichtbaren Definitionstext und die lokalisierte Aktion (Ansatz aus PR #65/WP-04).
+Es gibt keine zusätzliche Live-Region für Definitionen oder Bearbeitungsaktionen.
+
 ## Verifikation
 
 Reine Tests für Einfügen/Selektion, Entwurfsnavigation, Gradnormalisierung,

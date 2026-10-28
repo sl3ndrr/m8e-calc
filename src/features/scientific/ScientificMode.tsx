@@ -89,6 +89,7 @@ export default function ScientificMode() {
   const [tab, setTab] = useState('keypad'),
     [storeName, setStoreName] = useState('a'),
     [storeError, setStoreError] = useState('');
+  const [editingName, setEditingName] = useState<string | null>(null);
   const [live, setLive] = useState<{
     expression: string;
     environment: typeof environment;
@@ -102,6 +103,7 @@ export default function ScientificMode() {
     cursor = useRef<HistoryCursor>({ index: -1, draft: '' });
   const change = useCallback((text: string) => {
     setExpression(text);
+    if (!text) setEditingName(null);
     setError(null);
     cursor.current = { index: -1, draft: text };
   }, []);
@@ -138,6 +140,7 @@ export default function ScientificMode() {
         }
       }
       change(p.expression);
+      setEditingName(null);
       editor.current?.focus();
     },
     [change],
@@ -190,12 +193,13 @@ export default function ScientificMode() {
   }, [expression, environment, angleMode, complex, bitwise, programmer]);
   function evaluate(source: string = expression): void {
     if (recovery === 'loading') return;
-    const result = calculate(source, environment, options);
+    const result = calculate(source, environment, options, editingName);
     if (!result.ok) {
       setError(result.error);
       return;
     }
     setError(null);
+    setEditingName(null);
     setCalculation(result.calculation);
     const integer = integerResult(result.calculation.value);
     if (bitwise && integer !== null) setWordValue(word(integer, programmer));
@@ -236,6 +240,7 @@ export default function ScientificMode() {
     );
     cursor.current = next.cursor;
     setExpression(next.text);
+    setEditingName(null);
     setError(null);
   }
   function insert(insertion: Insertion): void {
@@ -548,9 +553,12 @@ export default function ScientificMode() {
             <VariablesPanel
               locale={locale}
               environment={environment}
+              format={format}
               insert={(text) => insert({ text })}
-              edit={(source) => {
+              edit={(source, name) => {
                 change(source);
+                setEditingName(name);
+                setTab('variables');
                 editor.current?.focus();
               }}
               remove={remove}

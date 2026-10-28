@@ -8,6 +8,7 @@ import {
   restoreEnvironment,
   toFraction,
   toLatex,
+  valueSource,
   type AngleMode,
   type EvaluationContext,
   type ComplexMode,
@@ -67,7 +68,30 @@ export function calculate(
   expression: string,
   environment: Environment,
   options: ScientificOptions,
+  editingName: string | null = null,
 ) {
+  // Only the untouched source opened from a definition uses neutral value semantics.
+  // Any user edit follows the ordinary active-context validation path (WP-01).
+  const unchanged =
+    editingName !== null &&
+    expression === definitionSource(environment, editingName);
+  if (unchanged && Object.hasOwn(environment.functions, editingName)) {
+    const checked = restoreEnvironment(environment);
+    if (!checked.ok) return { ok: false as const, error: checked.error };
+    const ast = parse(expression, { bitwise: true });
+    if (!ast.ok) return { ok: false as const, error: ast.error };
+    // Confirming a delayed definition must not execute its body or change its AST.
+    return {
+      ok: true as const,
+      environment: checked.value,
+      calculation: {
+        expression,
+        expressionLatex: toLatex(ast.value),
+        value: null,
+      } satisfies Calculation,
+    };
+  }
+  if (unchanged) options = { ...options, complex: 'on', bitwise: false };
   const normalized = normalizeDegrees(expression, options.angleMode);
   const result = execute(normalized.text, environment, options);
   if (!result.ok) {
@@ -155,22 +179,35 @@ export function removeDefinition(
   delete functions[name];
   return { ...environment, variables, functions };
 }
-export function definitionSource(
+/** Pure presentation and executable source are intentionally separate. */
+export function definitionDetails(
   environment: Environment,
   name: string,
-): string {
+  format: ValueFormatOptions = {},
+): { text: string; source: string | null } {
   const fn = Object.hasOwn(environment.functions, name)
     ? environment.functions[name]
     : undefined;
-  if (fn)
-    return `${name}(${fn.parameters.join(', ')}) = ${print(fn.expression)}`;
+  if (fn) {
+    const source = `${name}(${fn.parameters.join(', ')}) = ${print(fn.expression)}`;
+    return { text: source, source };
+  }
   const saved = Object.hasOwn(environment.variables, name)
     ? environment.variables[name]
     : undefined;
   const result = saved ? deserializeValue(saved, { start: 0, end: 0 }) : null;
-  return result?.ok
-    ? `${name} = ${formatValue(result.value, { digits: 50 })}`
-    : '';
+  if (!result?.ok) return { text: '', source: null };
+  const source = valueSource(result.value);
+  return {
+    text: `${name} = ${formatValue(result.value, format)}`,
+    source: source === null ? null : `${name} = ${source}`,
+  };
+}
+export function definitionSource(
+  environment: Environment,
+  name: string,
+): string | null {
+  return definitionDetails(environment, name).source;
 }
 export function errorKey(error: EngineError): MessageKey {
   return `scientific.error.${error.code}`;

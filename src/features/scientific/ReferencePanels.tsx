@@ -2,9 +2,13 @@ import { useState } from 'react';
 import { Button } from '../../ui/Button';
 import { SegmentedControl } from '../../ui/SegmentedControl';
 import { TextField } from '../../ui/TextField';
-import { constantRegistry, type Environment } from '../../engine';
+import {
+  constantRegistry,
+  type Environment,
+  type ValueFormatOptions,
+} from '../../engine';
 import { t, type Locale } from '../../shared/i18n/extended';
-import { constantMatches, definitionSource } from './model';
+import { constantMatches, definitionDetails } from './model';
 export function ConstantsPanel({
   locale,
   insert,
@@ -74,14 +78,16 @@ export function ConstantsPanel({
 export function VariablesPanel({
   locale,
   environment,
+  format,
   insert,
   edit,
   remove,
 }: {
   locale: Locale;
   environment: Environment;
+  format?: ValueFormatOptions;
   insert: (name: string) => void;
-  edit: (source: string) => void;
+  edit: (source: string, name: string) => void;
   remove: (name: string) => void;
 }) {
   const names = [
@@ -96,36 +102,50 @@ export function VariablesPanel({
       <h2>{t('scientific.variables', locale)}</h2>
       {!names.length && <p>{t('scientific.noVariables', locale)}</p>}
       <ul className="scientific-variable-list">
-        {names.map((name) => (
-          <li key={name}>
-            <Button
-              variant="text"
-              className="scientific-definition"
-              aria-label={t('scientific.insert', locale, { text: name })}
-              onPress={() =>
-                insert(environment.functions[name] ? `${name}(` : name)
-              }
-            >
-              {definitionSource(environment, name)}
-            </Button>
-            <div>
+        {names.map((name, index) => {
+          const definition = definitionDetails(environment, name, format);
+          const helpId = `scientific-definition-help-${index}`;
+          return (
+            <li key={name}>
               <Button
                 variant="text"
-                aria-label={t('scientific.edit', locale, { name })}
-                onPress={() => edit(definitionSource(environment, name))}
+                className="scientific-definition"
+                aria-label={`${definition.text}: ${t('scientific.insert', locale, { text: name })}`}
+                onPress={() =>
+                  insert(environment.functions[name] ? `${name}(` : name)
+                }
               >
-                {t('scientific.edit', locale, { name })}
+                {definition.text}
               </Button>
-              <Button
-                variant="text"
-                aria-label={t('scientific.delete', locale, { name })}
-                onPress={() => remove(name)}
-              >
-                {t('scientific.delete', locale, { name })}
-              </Button>
-            </div>
-          </li>
-        ))}
+              <div>
+                <Button
+                  variant="text"
+                  aria-label={t('scientific.edit', locale, { name })}
+                  isDisabled={definition.source === null}
+                  aria-describedby={
+                    definition.source === null ? helpId : undefined
+                  }
+                  onPress={() => {
+                    if (definition.source !== null)
+                      edit(definition.source, name);
+                  }}
+                >
+                  {t('scientific.edit', locale, { name })}
+                </Button>
+                <Button
+                  variant="text"
+                  aria-label={t('scientific.delete', locale, { name })}
+                  onPress={() => remove(name)}
+                >
+                  {t('scientific.delete', locale, { name })}
+                </Button>
+              </div>
+              {definition.source === null && (
+                <p id={helpId}>{t('scientific.listEditUnavailable', locale)}</p>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </section>
   );

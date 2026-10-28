@@ -61,4 +61,4 @@ export {
   restoreEnvironment,
 } from './environment.ts';
 export { integrate } from './quadrature.ts';
-export { formatValue, toFraction, toLatex } from './output.ts';
+export { formatValue, valueSource, toFraction, toLatex } from './output.ts';

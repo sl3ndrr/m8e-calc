@@ -1,0 +1,130 @@
+{
+  "started": "2026-10-28T22:07:15.043185+01:00",
+  "base": "56cc9b03b6d04e2a26a4c8816137437aef6c92f3",
+  "codeCommit": "09eb146878c3adb55dbbaea69cafdde77c9f7b78",
+  "codeTree": "b588b29d65f87b026ad57c146a231397227c5c0b",
+  "codeDiffSha256": "e325bdc567d47bf18d29d2599be9112ed557c3d5ffa785ae19489c615e279860",
+  "node": "v24.22.1",
+  "npm": "11.9.0",
+  "os": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "results": [
+    {
+      "name": "npm-version-install",
+      "command": "npm install --prefix /workspace/scratch/01ecaa4b19d1/wp02-npm --ignore-scripts --no-package-lock npm@11.19.0",
+      "cwd": "/workspace/scratch/01ecaa4b19d1/m8e-calc",
+      "started": "2026-10-28T22:07:15.203767+01:00",
+      "ended": "2026-10-28T22:07:20.613392+01:00",
+      "exit": 1,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\nnpm error code E403\nnpm error 403 403 Forbidden - GET https://registry.npmjs.org/npm\nnpm error 403 In most cases, you or one of your dependencies are requesting\nnpm error 403 a package version that is forbidden by your security policy, or\nnpm error 403 on a server you do not have access to.\nnpm error A complete log of this run can be found in: /root/.npm/_logs/2026-10-28T21_07_15_294Z-debug-0.log\n"
+    },
+    {
+      "name": "install",
+      "command": "npm ci",
+      "cwd": "/workspace/scratch/01ecaa4b19d1/m8e-calc",
+      "started": "2026-10-28T22:07:20.613986+01:00",
+      "ended": "2026-10-28T22:07:27.242091+01:00",
+      "exit": 1,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\nnpm error code E403\nnpm error 403 403 Forbidden - GET https://registry.npmjs.org/zustand/-/zustand-5.0.15.tgz\nnpm error 403 In most cases, you or one of your dependencies are requesting\nnpm error 403 a package version that is forbidden by your security policy, or\nnpm error 403 on a server you do not have access to.\nnpm error A complete log of this run can be found in: /root/.npm/_logs/2026-10-28T21_07_20_706Z-debug-0.log\n"
+    },
+    {
+      "name": "check",
+      "command": "npm run check",
+      "cwd": "/workspace/scratch/01ecaa4b19d1/m8e-calc",
+      "started": "2026-10-28T22:07:27.242627+01:00",
+      "ended": "2026-10-28T22:07:27.507584+01:00",
+      "exit": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 check\n> npm run lint && npm run typecheck && npm run test && npm run build && npm run test:engine:bench && npm run test:graph:bench && npm run test:graph:implicit:bench\n\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 lint\n> eslint . && prettier --check .\n\nsh: 1: eslint: not found\n"
+    },
+    {
+      "name": "engine-tests",
+      "command": "npm run test:engine -- src/engine/valueSource.test.ts src/engine/environment.test.ts",
+      "cwd": "/workspace/scratch/01ecaa4b19d1/m8e-calc",
+      "started": "2026-10-28T22:07:27.508328+01:00",
+      "ended": "2026-10-28T22:07:27.630934+01:00",
+      "exit": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:engine\n> vitest run --project=engine src/engine/valueSource.test.ts src/engine/environment.test.ts\n\nsh: 1: vitest: not found\n"
+    },
+    {
+      "name": "ui-tests",
+      "command": "npm run test:ui -- src/features/scientific/model.test.ts src/features/scientific/ReferencePanels.test.tsx src/features/scientific/ScientificMode.test.tsx src/features/scientific/scientificStore.test.ts",
+      "cwd": "/workspace/scratch/01ecaa4b19d1/m8e-calc",
+      "started": "2026-10-28T22:07:27.631398+01:00",
+      "ended": "2026-10-28T22:07:27.752558+01:00",
+      "exit": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:ui\n> vitest run --project=ui src/features/scientific/model.test.ts src/features/scientific/ReferencePanels.test.tsx src/features/scientific/ScientificMode.test.tsx src/features/scientific/scientificStore.test.ts\n\nsh: 1: vitest: not found\n"
+    },
+    {
+      "name": "build",
+      "command": "npm run build",
+      "cwd": "/workspace/scratch/01ecaa4b19d1/m8e-calc",
+      "started": "2026-10-28T22:07:27.752949+01:00",
+      "ended": "2026-10-28T22:07:27.884805+01:00",
+      "exit": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 build\n> tsc -b && vite build && node scripts/check-build-target.mjs\n\nsh: 1: tsc: not found\n"
+    },
+    {
+      "name": "browser-scientific",
+      "command": "npm run test:e2e -- --project=chromium --project=firefox --project=webkit e2e/scientific.spec.ts e2e/qa-hardening.spec.ts",
+      "cwd": "/workspace/scratch/01ecaa4b19d1/m8e-calc",
+      "started": "2026-10-28T22:07:27.885229+01:00",
+      "ended": "2026-10-28T22:07:28.011937+01:00",
+      "exit": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test --project=chromium --project=firefox --project=webkit e2e/scientific.spec.ts e2e/qa-hardening.spec.ts\n\nsh: 1: playwright: not found\n"
+    },
+    {
+      "name": "browser-programmer",
+      "command": "npm run test:e2e -- --project=chromium e2e/programmer.spec.ts",
+      "cwd": "/workspace/scratch/01ecaa4b19d1/m8e-calc",
+      "started": "2026-10-28T22:07:28.012374+01:00",
+      "ended": "2026-10-28T22:07:28.156983+01:00",
+      "exit": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test --project=chromium e2e/programmer.spec.ts\n\nsh: 1: playwright: not found\n"
+    },
+    {
+      "name": "model-typecheck",
+      "command": "node ../wp02-tools-5/node_modules/typescript/bin/tsc -p ../wp02-typecheck.json --pretty false",
+      "cwd": "/workspace/scratch/01ecaa4b19d1/m8e-calc",
+      "started": "2026-10-28T22:07:28.158388+01:00",
+      "ended": "2026-10-28T22:07:29.067785+01:00",
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "name": "node-probe",
+      "command": "node --import ../wp02-loader.mjs ../wp02-probe.mjs",
+      "cwd": "/workspace/scratch/01ecaa4b19d1/m8e-calc",
+      "started": "2026-10-28T22:07:29.068275+01:00",
+      "ended": "2026-10-28T22:07:29.540572+01:00",
+      "exit": 0,
+      "output": "{\n  \"node\": \"v24.22.1\",\n  \"decimal\": \"10.6.0\",\n  \"scalarRoundtrips\": 26,\n  \"neutralContextRoundtrips\": 1248,\n  \"sourcePresentationChecks\": 1248,\n  \"delayedFunctions\": 4,\n  \"listAndProtectionChecks\": \"passed\",\n  \"baseline\": {\n    \"displayNormalizationAlreadyFixedByWP01\": true,\n    \"programmerReexecutionLossConfirmed\": true,\n    \"complexOffReexecutionFailureConfirmed\": true,\n    \"listInvalidEditConfirmed\": true\n  }\n}\n"
+    },
+    {
+      "name": "syntax",
+      "command": "node ../wp02-syntax-check.cjs",
+      "cwd": "/workspace/scratch/01ecaa4b19d1/m8e-calc",
+      "started": "2026-10-28T22:07:29.541078+01:00",
+      "ended": "2026-10-28T22:07:30.079228+01:00",
+      "exit": 0,
+      "output": "{\"typescript\":\"5.9.3\",\"files\":12,\"syntaxErrors\":0}\n"
+    },
+    {
+      "name": "format",
+      "command": "node ../wp02-tools/node_modules/prettier/bin/prettier.cjs --check docs/ENGINE.md docs/IMPLEMENTATION_STATUS.md docs/SCIENTIFIC_MODE.md docs/WP02.md docs/wp02-ci-fix-local-evidence.json docs/wp02-local-evidence.json e2e/scientific.spec.ts src/engine/index.ts src/engine/output.ts src/engine/valueSource.test.ts src/features/scientific/ReferencePanels.test.tsx src/features/scientific/ReferencePanels.tsx src/features/scientific/ScientificMode.test.tsx src/features/scientific/ScientificMode.tsx src/features/scientific/model.test.ts src/features/scientific/model.ts src/shared/i18n/de.ts src/shared/i18n/en.ts",
+      "cwd": "/workspace/scratch/01ecaa4b19d1/m8e-calc",
+      "started": "2026-10-28T22:07:30.079724+01:00",
+      "ended": "2026-10-28T22:07:31.027998+01:00",
+      "exit": 0,
+      "output": "Checking formatting...\nAll matched files use Prettier code style!\n"
+    },
+    {
+      "name": "diff-whitespace",
+      "command": "git diff --check 56cc9b03b6d04e2a26a4c8816137437aef6c92f3 HEAD",
+      "cwd": "/workspace/scratch/01ecaa4b19d1/m8e-calc",
+      "started": "2026-10-28T22:07:31.028687+01:00",
+      "ended": "2026-10-28T22:07:31.036759+01:00",
+      "exit": 0,
+      "output": ""
+    }
+  ],
+  "ended": "2026-10-28T22:07:31.037183+01:00"
+}
