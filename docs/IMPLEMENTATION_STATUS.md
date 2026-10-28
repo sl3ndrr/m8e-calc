@@ -37,3 +37,24 @@ Korrekturcommit `926c369f3e0337bb7f82eeff66468b787ff26eb3` verwendet dort
 `const`; Regeln und Assertions bleiben unverändert. Die zusätzliche lokale Probe
 und begrenzten Prüfungen bestehen; die vollständige CI des neuen PR-Stands
 bleibt separat abzunehmen. Keine Merge-/Deployfreigabe.
+
+## WP-02 · Verlustfreies Bearbeiten von Definitionen · 28.10.2026
+
+Lokal umgesetzt auf `feat/audit-wp-02`, Codecommit
+`e6034bd0353d0f6022a55be2448535dfeac911db`, tatsächliche Basis nach WP-01
+`56cc9b03b6d04e2a26a4c8816137437aef6c92f3`. Kanonischer Quelltext mit voller
+Decimal-Präzision ist von der lokalisierten Anzeige getrennt. Unverändertes
+Bearbeiten erhält skalare Werte unabhängig von Editor-/Programmereinstellungen;
+Funktionsbestätigung führt keinen Körper aus und erhält den AST. Listen bleiben
+sichtbar/einfügbar, Bearbeiten ist mit de/en-Erklärung deaktiviert. Die WP-01-
+Persistenzschutzmechanismen bleiben erhalten; Fachverträge und Regressionen sind
+aktualisiert, keine Abhängigkeits-/Lockfile-/Baselineänderung.
+
+Der strikte Engine-/Modell-Typcheck, die ergänzende originale Node-Probe sowie
+Syntax-/Format-/Diffprüfungen bestehen. **Die Pflichtabnahme bleibt blockiert:**
+npm 11.19.0 und `npm ci` scheitern an Registry-HTTP-403; check, Vitest, Build und
+beide Produktionsbrowserauswahlen starten ihre Prüfer nicht. Keine Freigabe für
+diesen lokalen Diff. PR #80 ist inzwischen gemergt und seine PR-CI grün; die
+main-CI der Basis ist wegen Gallery/Quality gate rot, Pages skipped. Diese
+Vorgängernachweise sind keine WP-02-Abnahme. Exakte Identitäten, Befehle,
+Hypothesen, Ergebnisse, Runtimegrenzen und Offen / Folgearbeiten: [WP02.md](WP02.md).

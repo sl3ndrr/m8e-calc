@@ -2,7 +2,7 @@ import { allowClipboard } from './clipboard';
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { t } from '../src/shared/i18n/extended';
-import type { Environment } from '../src/engine';
+import { execute, type Environment } from '../src/engine';
 const route = '/m8e-calc/#/scientific';
 // Feature-state checks are isolated from SW update toasts; the production
 // matrix, comfort and pwa-update suites exercise the real worker separately.
@@ -119,7 +119,7 @@ test('formats, copies LaTeX, switches complex mode and stores/recalls variables'
     .getByRole('textbox', { name: t('scientific.storeName') })
     .fill('b');
   await page.getByRole('button', { name: t('scientific.store') }).click();
-  await expect(page.locator('.scientific-variables')).toContainText('b = 0.5');
+  await expect(page.locator('.scientific-variables')).toContainText('b = 0,5');
   const complexOn = page.getByRole('radio', {
     name: t('scientific.on'),
     exact: true,
@@ -496,5 +496,261 @@ for (const [locale, width] of [
     await editor.fill('ans+v+shl');
     await editor.press('Enter');
     await expect(page.locator('.scientific-result-text')).toHaveText('252');
+  });
+}
+
+const definitionGroups = {
+  integers32: ['-1', '5000000000', '4294967295', '4294967296', '4294967297'],
+  integers64: [
+    '18446744073709551615',
+    '18446744073709551616',
+    '18446744073709551617',
+    '-18446744073709551617',
+  ],
+  exponents: ['1e50', '-1e50', '1e-50', '-1e-50', '1e10000', '1e-10000'],
+  precision: [
+    '0.125',
+    '-123.456',
+    '1/7',
+    '1.234567890123456789012345678901234567890123456789',
+  ],
+  complex: ['2+3i', '-2-3i', '0+0i', '1e50+1e-50i'],
+};
+for (const [locale, width] of [
+  ['de', 1440],
+  ['en', 3840],
+] as const) {
+  for (const [group, values] of Object.entries(definitionGroups)) {
+    test(`WP-02 ${locale} ${group}: edit → Enter → reload preserves values`, async ({
+      page,
+      browser,
+    }, info) => {
+      let environment: Environment = {
+        version: 1,
+        variables: {},
+        functions: {},
+        history: [],
+      };
+      for (const [index, value] of values.entries()) {
+        const result = execute(`v${index}=${value}`, environment, {
+          complex: 'on',
+        });
+        if (!result.ok) throw new Error(result.error.code);
+        environment = result.value.environment;
+      }
+      await page.setViewportSize({ width, height: 1440 });
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      await page.evaluate(
+        ({ environment, language }) => {
+          localStorage.setItem(
+            'm8e-calc.scientific',
+            JSON.stringify({ state: { environment }, version: 1 }),
+          );
+          const data = JSON.parse(
+            localStorage.getItem('m8e-calc.settings') ?? '{}',
+          );
+          localStorage.setItem(
+            'm8e-calc.settings',
+            JSON.stringify({
+              ...data,
+              state: {
+                ...data.state,
+                language,
+                grouping: true,
+                decimalSeparator: 'auto',
+              },
+            }),
+          );
+        },
+        { environment, language: locale },
+      );
+      await page.reload();
+      const editor = page.getByRole('textbox', {
+        name: t('scientific.expression', locale),
+      });
+      const snapshot = () =>
+        page.evaluate(() => ({
+          environment: JSON.parse(
+            localStorage.getItem('m8e-calc.scientific') ?? '{}',
+          ).state.environment as Environment,
+          history: localStorage.getItem('m8e-calc.history'),
+        }));
+      for (const [index] of values.entries()) {
+        await expect(editor).toBeVisible();
+        if (width < 1920)
+          await page
+            .getByRole('radio', {
+              name: t('scientific.variables', locale),
+              exact: true,
+            })
+            .click();
+        const digits = page.getByRole('slider', {
+          name: t('scientific.digits', locale),
+        });
+        await digits.focus();
+        await digits.press('Home');
+        await digits.press('ArrowRight');
+        await digits.press('ArrowRight');
+        await expect(digits).toHaveValue('3');
+        const before = await snapshot();
+        const name = `v${index}`;
+        const label = page
+          .locator('.scientific-definition')
+          .filter({ hasText: new RegExp(`^${name} = `) });
+        const visible = (await label.innerText()).trim();
+        await expect(label).toHaveAccessibleName(
+          `${visible}: ${t('scientific.insert', locale, { text: name })}`,
+        );
+        const edit = page.getByRole('button', {
+          name: t('scientific.edit', locale, { name }),
+          exact: true,
+        });
+        await edit.focus();
+        await edit.press('Enter');
+        await expect(editor).toBeFocused();
+        const source = await editor.innerText();
+        expect(source.startsWith(`${name} = `)).toBe(true);
+        expect(source).not.toContain(',');
+        expect(await snapshot()).toEqual(before);
+        await editor.press('Enter');
+        await expect(
+          page.locator('.scientific-error[role="alert"]'),
+        ).toHaveCount(0);
+        await expect
+          .poll(async () => (await snapshot()).environment.history.length)
+          .toBe(before.environment.history.length + 1);
+        const after = await snapshot();
+        expect(after.environment.variables).toEqual(environment.variables);
+        expect(after.environment.functions).toEqual(environment.functions);
+        expect(after.environment.history[0]).toEqual(
+          environment.variables[name],
+        );
+        expect(after.environment.history.slice(1)).toEqual(
+          before.environment.history,
+        );
+        await page.reload();
+        await expect(editor).toBeVisible();
+        expect(await snapshot()).toEqual(after);
+      }
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+      ).toBe(true);
+      await info.attach('wp02-runtime', {
+        body: JSON.stringify({
+          node: process.version,
+          browser: browser.version(),
+          locale,
+          width,
+          group,
+        }),
+        contentType: 'application/json',
+      });
+      await page.screenshot({
+        path: `test-results/wp02-${locale}-${group}.png`,
+        fullPage: true,
+      });
+    });
+  }
+  test(`WP-02 ${locale}: delayed functions and noneditable lists stay safe`, async ({
+    page,
+  }) => {
+    let environment: Environment = {
+      version: 1,
+      variables: {},
+      functions: {},
+      history: [],
+    };
+    for (const source of [
+      'f(x)=sin(x)',
+      'bad(x)=1/0+missing(x)',
+      'bits(x)=x<<1',
+      'shl=2',
+      'xs=factor(12)',
+    ]) {
+      const result = execute(source, environment, {
+        bitwise: source.includes('<<'),
+      });
+      if (!result.ok) throw new Error(result.error.code);
+      environment = result.value.environment;
+    }
+    await page.setViewportSize({ width, height: 1440 });
+    await page.evaluate(
+      ({ environment, language }) => {
+        localStorage.setItem(
+          'm8e-calc.scientific',
+          JSON.stringify({ state: { environment }, version: 1 }),
+        );
+        const data = JSON.parse(
+          localStorage.getItem('m8e-calc.settings') ?? '{}',
+        );
+        localStorage.setItem(
+          'm8e-calc.settings',
+          JSON.stringify({ ...data, state: { ...data.state, language } }),
+        );
+      },
+      { environment, language: locale },
+    );
+    await page.reload();
+    const editor = page.getByRole('textbox', {
+      name: t('scientific.expression', locale),
+    });
+    for (const name of ['f', 'bad', 'bits']) {
+      await expect(editor).toBeVisible();
+      if (width < 1920)
+        await page
+          .getByRole('radio', {
+            name: t('scientific.variables', locale),
+            exact: true,
+          })
+          .click();
+      await page
+        .getByRole('button', {
+          name: t('scientific.edit', locale, { name }),
+          exact: true,
+        })
+        .click();
+      await expect(editor).toBeFocused();
+      await editor.press('Enter');
+      await expect(page.locator('.scientific-error[role="alert"]')).toHaveCount(
+        0,
+      );
+      await page.reload();
+      await expect(editor).toBeVisible();
+      expect(
+        await page.evaluate(
+          () =>
+            JSON.parse(localStorage.getItem('m8e-calc.scientific') ?? '{}')
+              .state.environment,
+        ),
+      ).toEqual(environment);
+    }
+    if (width < 1920)
+      await page
+        .getByRole('radio', {
+          name: t('scientific.variables', locale),
+          exact: true,
+        })
+        .click();
+    const editList = page.getByRole('button', {
+      name: t('scientific.edit', locale, { name: 'xs' }),
+      exact: true,
+    });
+    await expect(editList).toBeDisabled();
+    await expect(editList).toHaveAccessibleDescription(
+      t('scientific.listEditUnavailable', locale),
+    );
+    const insert = page.getByRole('button', {
+      name: `xs = [2, 2, 3]: ${t('scientific.insert', locale, { text: 'xs' })}`,
+      exact: true,
+    });
+    await insert.focus();
+    await insert.press('Enter');
+    await expect(editor).toHaveText('xs');
+    const accessibility = await new AxeBuilder({ page })
+      .include('.scientific-variables')
+      .analyze();
+    expect(accessibility.violations).toEqual([]);
   });
 }

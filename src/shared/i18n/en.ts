@@ -242,6 +242,8 @@ export const en: Dictionary = {
   'scientific.copyConstant': 'Copy value of {name}',
   'scientific.variables': 'Variables',
   'scientific.noVariables': 'No definitions yet. Try a = 5 or f(x) = x^2.',
+  'scientific.listEditUnavailable':
+    'Lists cannot be edited as source here. You can still insert the variable name.',
   'scientific.edit': 'Edit {name}',
   'scientific.delete': 'Delete {name}',
   'scientific.definitionSaved': 'Function saved',

@@ -4,6 +4,7 @@ import {
   calculate,
   constantMatches,
   definitionSource,
+  definitionDetails,
   displayResult,
   normalizeDegrees,
   normalizeEnvironment,
@@ -147,4 +148,143 @@ it('filters registry metadata and exposes bilingual completion signatures', () =
   }
   expect(resultLocale('de', 'point')).toBe('en');
   expect(resultLocale('en', 'comma')).toBe('de');
+});
+
+it.each([
+  '-1',
+  '5000000000',
+  '4294967295',
+  '4294967296',
+  '4294967297',
+  '18446744073709551615',
+  '18446744073709551616',
+  '18446744073709551617',
+  '-18446744073709551617',
+  '1e50',
+  '-1e50',
+  '1e-50',
+  '-1e-50',
+  '0.125',
+  '-123.456',
+  '1/7',
+  '2+3i',
+  '-2-3i',
+  '0+0i',
+  '1e50+1e-50i',
+])(
+  'preserves unchanged %s across editor contexts and presentation settings',
+  (input) => {
+    const initial = execute(`v=${input}`, undefined, { complex: 'on' });
+    if (!initial.ok) throw new Error(initial.error.code);
+    const env = normalizeEnvironment(
+      JSON.parse(JSON.stringify(initial.value.environment)),
+    );
+    const before = JSON.stringify(env);
+    const source = definitionSource(env, 'v');
+    if (source === null) throw new Error('expected editable scalar');
+    for (const locale of ['de', 'en'])
+      for (const grouping of [false, true])
+        for (const digits of [1, 15, 50])
+          for (const notation of ['auto', 'fixed', 'sci', 'eng'] as const)
+            expect(
+              definitionDetails(env, 'v', {
+                locale,
+                grouping,
+                digits,
+                notation,
+                complexForm: 'polar',
+              }).source,
+            ).toBe(source);
+    for (const width of [8, 16, 32, 64] as const)
+      for (const signed of [false, true])
+        for (const overflow of ['wrap', 'error'] as const)
+          for (const angleMode of ['deg', 'rad', 'grad'] as const) {
+            const result = calculate(
+              source,
+              env,
+              {
+                angleMode,
+                complex: 'off',
+                bitwise: true,
+                programmer: { width, signed, overflow },
+              },
+              'v',
+            );
+            expect(result.ok).toBe(true);
+            if (!result.ok) throw new Error(result.error.code);
+            expect(result.environment.variables).toEqual(env.variables);
+            expect(result.environment.history[0]).toEqual(env.variables.v);
+            expect(result.environment.history.slice(1)).toEqual(env.history);
+          }
+    expect(JSON.stringify(env)).toBe(before);
+  },
+);
+
+it('keeps all 50 digits when the displayed label is rounded', () => {
+  const initial = execute('v=1/7');
+  if (!initial.ok) throw new Error('setup');
+  const details = definitionDetails(initial.value.environment, 'v', {
+    digits: 3,
+    locale: 'de',
+    grouping: true,
+  });
+  expect(details.text).toBe('v = 0,143');
+  expect(details.source).toBe(
+    'v = 0.14285714285714285714285714285714285714285714285714',
+  );
+});
+
+it('confirms delayed scientific/programmer functions without running or replacing their ASTs', () => {
+  for (const source of [
+    'f(x)=sin(x)+v',
+    'f(x)=1/0+missing(x)',
+    'f(x)=x<<1',
+    'f(shl)=shl+1',
+  ]) {
+    const initial = execute(source, undefined, {
+      bitwise: !source.includes('shl'),
+    });
+    if (!initial.ok) throw new Error(initial.error.code);
+    const env = initial.value.environment;
+    const canonical = definitionSource(env, 'f');
+    if (!canonical) throw new Error('source');
+    const before = JSON.stringify(env);
+    const result = calculate(
+      canonical,
+      env,
+      { ...options, bitwise: true },
+      'f',
+    );
+    expect(result.ok).toBe(true);
+    if (!result.ok) throw new Error(result.error.code);
+    expect(result.environment).toBe(env);
+    expect(result.calculation.value).toBeNull();
+    expect(JSON.stringify(env)).toBe(before);
+  }
+});
+
+it('keeps active-context protection for changed editor text', () => {
+  const initial = execute('shl=2');
+  if (!initial.ok) throw new Error('setup');
+  const env = initial.value.environment;
+  const result = calculate(
+    'shl = 3',
+    env,
+    { ...options, bitwise: true },
+    'shl',
+  );
+  expect(result).toMatchObject({
+    ok: false,
+    error: { code: 'E_RESERVED_NAME' },
+  });
+  expect(env.variables.shl).toEqual({ kind: 'number', value: '2' });
+});
+
+it('shows stored lists but supplies no executable edit source', () => {
+  const initial = execute('xs=factor(12)');
+  if (!initial.ok) throw new Error('setup');
+  expect(definitionDetails(initial.value.environment, 'xs')).toEqual({
+    text: 'xs = [2, 2, 3]',
+    source: null,
+  });
 });

@@ -167,3 +167,65 @@ it('uses full English metadata and exposes the programmer panel', async () => {
   await user.click(screen.getByRole('radio', { name: 'Computer science' }));
   expect(screen.getByRole('textbox', { name: 'Hexadecimal' })).toBeVisible();
 });
+
+it.each(['de', 'en'] as const)(
+  'keeps exact values through untouched definition edits in %s',
+  async (locale) => {
+    useAppStore.setState({ locale });
+    let env = createEnvironment();
+    for (const source of [
+      'v=-1',
+      'large=1e50',
+      'precise=1/7',
+      'z=-2-3i',
+      'xs=factor(12)',
+      'f(x)=1/0+missing(x)',
+    ]) {
+      const next = execute(source, env, { complex: 'on' });
+      if (!next.ok) throw new Error(next.error.code);
+      env = next.value.environment;
+    }
+    useScientificStore.getState().commit(env);
+    const user = userEvent.setup();
+    render(<ScientificMode />);
+    const editor = await screen.findByRole('textbox', {
+      name: locale === 'de' ? 'Ausdruck' : 'Expression',
+    });
+    await user.click(
+      screen.getByRole('radio', {
+        name: locale === 'de' ? 'Variablen' : 'Variables',
+      }),
+    );
+    const panel = screen.getByRole('region', {
+      name: locale === 'de' ? 'Variablen' : 'Variables',
+    });
+    for (const name of ['v', 'large', 'precise', 'z', 'f']) {
+      const before = useScientificStore.getState().environment;
+      const history = useHistoryStore.getState().entries;
+      await user.click(
+        within(panel).getByRole('button', {
+          name: locale === 'de' ? `${name} bearbeiten` : `Edit ${name}`,
+        }),
+      );
+      expect(useScientificStore.getState().environment).toBe(before);
+      expect(useHistoryStore.getState().entries).toBe(history);
+      // Replacing the text and restoring exactly the opened source remains lossless.
+      const source = (editor as HTMLInputElement).value;
+      fireEvent.change(editor, { target: { value: source + ' ' } });
+      fireEvent.change(editor, { target: { value: source } });
+      editor.focus();
+      await user.keyboard('{Enter}');
+      expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+      const after = useScientificStore.getState().environment;
+      expect(after.variables).toEqual(env.variables);
+      expect(after.functions).toEqual(env.functions);
+      expect(useHistoryStore.getState().entries).toHaveLength(
+        history.length + 1,
+      );
+    }
+    const editList = within(panel).getByRole('button', {
+      name: locale === 'de' ? 'xs bearbeiten' : 'Edit xs',
+    });
+    expect(editList).toBeDisabled();
+  },
+);

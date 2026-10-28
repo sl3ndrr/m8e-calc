@@ -27,6 +27,15 @@ export function formatValue(
   }
   return `${real}${value.im.isNegative() ? '-' : '+'}${imag}i`;
 }
+/** Executable, locale-independent scalar source at the available Decimal precision.
+ * Lists have no literal grammar and deliberately have no source representation.
+ */
+export function valueSource(value: Value): string | null {
+  if (value.kind === 'list') return null;
+  if (value.kind === 'number') return value.value.toString();
+  // Explicit products and groups keep signed/exponential components unambiguous.
+  return `(${value.re.toString()}) + (${value.im.toString()}) * i`;
+}
 export function toFraction(
   value: Value,
   maxDenominator = 1000000,

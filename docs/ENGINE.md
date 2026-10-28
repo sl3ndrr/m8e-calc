@@ -458,6 +458,20 @@ Environment. Das ist kein Persistenzfehler und löscht keine Definitionen.
 einen gespeicherten Wert ohne Namensauswertung oder Wortnormalisierung. Die
 bestehenden Listen-, AST-, History- und Definitionsbudgets bleiben erhalten.
 
+### Kanonischer Wertquelltext · WP-02
+
+`valueSource(value: Value): string | null` erzeugt für validierte skalare Werte
+reinen, ausführbaren Ausdruckstext ohne Auswertung oder Environmentzugriff.
+Reelle Zahlen verwenden den verfügbaren Decimal-String; komplexe Werte die
+kartesische Form `(re) + (im) * i` mit expliziten Produkten und Klammern.
+Negative Komponenten und Exponenten bleiben parsebar. Dezimalpunkt und
+ASCII-Exponenten sind unabhängig von Locale, Gruppierung, Anzeigepräzision,
+Winkelmodus und Programmer-Wortbreite. Komplexer Quelltext benötigt bei regulärer
+Ausführung wie bisher `complex: 'on'`; er aktiviert keinen Informatikmodus.
+Die bestehenden 50 Stellen, Exponent-/Ressourcengrenzen und der AST bleiben
+unverändert. Listen liefern `null`: Es gibt weiterhin keine Listenliteralgrammatik.
+`formatValue` bleibt die getrennte, gegebenenfalls gerundete Anzeige-API.
+
 ### Genauigkeitsgarantien und Grenzen
 
 - Decimal-Arithmetik und komplexe Komponenten bleiben bei 50 Stellen. Stark

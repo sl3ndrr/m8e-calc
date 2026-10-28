@@ -247,6 +247,8 @@ export const de = {
   'scientific.variables': 'Variablen',
   'scientific.noVariables':
     'Noch keine Definitionen. Beispiel: a = 5 oder f(x) = x^2.',
+  'scientific.listEditUnavailable':
+    'Listen können hier nicht als Quelltext bearbeitet werden. Der Variablenname lässt sich weiterhin einfügen.',
   'scientific.edit': '{name} bearbeiten',
   'scientific.delete': '{name} löschen',
   'scientific.definitionSaved': 'Funktion gespeichert',
