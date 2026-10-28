@@ -11,7 +11,15 @@ import type {
   UserFunction,
   Value,
 } from './types.ts';
-import { checkedNumber, failure, MAX_DEPTH, MAX_NODES } from './numeric.ts';
+import {
+  checkedNumber,
+  failure,
+  MAX_DEPTH,
+  MAX_EXPONENT,
+  MAX_NODES,
+  MAX_SOURCE_LENGTH,
+  PRECISION,
+} from './numeric.ts';
 import { checkedComplex } from './values.ts';
 import { lookupConstant } from './constants.ts';
 import { functionRegistry } from './functions.ts';
@@ -19,6 +27,9 @@ import { programmerFunctions } from './programmer/index.ts';
 import { parse } from './parser.ts';
 import { print } from './print.ts';
 import { evaluate } from './evaluate.ts';
+
+// Also accept expanded finite decimals at the existing exponent/precision edges.
+const MAX_SERIALIZED_NUMBER_LENGTH = MAX_EXPONENT + PRECISION + 3;
 
 export function isReserved(name: string, ctx: EvaluationContext = {}): boolean {
   return (
@@ -34,7 +45,11 @@ function isRecord(input: unknown): boolean {
   return input !== null && typeof input === 'object' && !Array.isArray(input);
 }
 function validName(name: string): boolean {
-  return /^[A-Za-z_][A-Za-z_0-9]*$/.test(name);
+  return (
+    typeof name === 'string' &&
+    name.length <= MAX_SOURCE_LENGTH &&
+    /^[A-Za-z_][A-Za-z_0-9]*$/.test(name)
+  );
 }
 export function createEnvironment(): Environment {
   return { version: 1, variables: {}, functions: {}, history: [] };
@@ -69,7 +84,8 @@ export function deserializeValue(
   if (
     input.kind === 'number' &&
     Object.hasOwn(input, 'value') &&
-    typeof input.value === 'string'
+    typeof input.value === 'string' &&
+    input.value.length <= MAX_SERIALIZED_NUMBER_LENGTH
   )
     return checkedNumber(input.value, range);
   if (
@@ -77,7 +93,9 @@ export function deserializeValue(
     Object.hasOwn(input, 're') &&
     Object.hasOwn(input, 'im') &&
     typeof input.re === 'string' &&
-    typeof input.im === 'string'
+    typeof input.im === 'string' &&
+    input.re.length <= MAX_SERIALIZED_NUMBER_LENGTH &&
+    input.im.length <= MAX_SERIALIZED_NUMBER_LENGTH
   )
     return checkedComplex(input.re, input.im, range);
   if (
@@ -109,27 +127,21 @@ function validAst(input: Ast): boolean {
     )
       return false;
     if (
-      !node.range ||
-      !Number.isInteger(node.range.start) ||
-      !Number.isInteger(node.range.end) ||
-      node.range.start < 0 ||
-      node.range.end < node.range.start
+      !Object.hasOwn(node, 'kind') ||
+      !Object.hasOwn(node, 'range') ||
+      !validRange(node.range)
     )
       return false;
     active.add(node);
     let valid = false;
     const operatorRange =
       'operatorRange' in node ? node.operatorRange : undefined;
-    if (
-      operatorRange &&
-      (!Number.isInteger(operatorRange.start) ||
-        !Number.isInteger(operatorRange.end))
-    )
-      return false;
+    if (operatorRange && !validRange(operatorRange)) return false;
     switch (node.kind) {
       case 'number':
         valid =
           typeof node.literal === 'string' &&
+          node.literal.length <= MAX_SOURCE_LENGTH &&
           /^(?:(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?|0[xX][0-9a-fA-F]+|0[bB][01]+|0[oO][0-7]+)$/.test(
             node.literal,
           );
@@ -165,8 +177,9 @@ function validAst(input: Ast): boolean {
         valid =
           typeof node.name === 'string' &&
           validName(node.name) &&
-          !!node.nameRange &&
+          validRange(node.nameRange) &&
           Array.isArray(node.args) &&
+          node.args.length <= MAX_NODES &&
           node.args.every((a) => walk(a, depth + 1));
         break;
     }
@@ -174,6 +187,16 @@ function validAst(input: Ast): boolean {
     return valid;
   }
   return walk(input, 1);
+}
+function validRange(range: SourceRange): boolean {
+  return (
+    !!range &&
+    Number.isInteger(range.start) &&
+    Number.isInteger(range.end) &&
+    range.start >= 0 &&
+    range.end >= range.start &&
+    range.end <= MAX_SOURCE_LENGTH
+  );
 }
 function calls(ast: Ast, out: Set<string>): void {
   switch (ast.kind) {
@@ -217,12 +240,13 @@ export function hasCycle(
   }
   return Object.keys(functions).some((name) => walk(name, 1));
 }
-export function validateEnvironment(
-  env: Environment,
-  range: SourceRange,
-  ctx: EvaluationContext = {},
+/** Validate persisted data without evaluating definitions or selecting a word context. */
+export function restoreEnvironment(
+  input: unknown,
+  range: SourceRange = { start: 0, end: 0 },
 ): Result<Environment, EvalError> {
   try {
+    const env = input as Environment;
     if (
       !isRecord(env) ||
       !['version', 'variables', 'functions', 'history'].every((key) =>
@@ -240,7 +264,7 @@ export function validateEnvironment(
     for (const [name, value] of Object.entries(env.variables))
       if (
         !validName(name) ||
-        isReserved(name, ctx) ||
+        isReserved(name) ||
         Object.hasOwn(env.functions, name) ||
         !deserializeValue(value, range).ok
       )
@@ -248,13 +272,13 @@ export function validateEnvironment(
     for (const [name, fn] of Object.entries(env.functions)) {
       if (
         !validName(name) ||
-        isReserved(name, ctx) ||
+        isReserved(name) ||
         !fn ||
         !Array.isArray(fn.parameters) ||
         fn.parameters.length === 0 ||
         fn.parameters.length > 128 ||
         new Set(fn.parameters).size !== fn.parameters.length ||
-        fn.parameters.some((p) => !validName(p) || isReserved(p, ctx)) ||
+        fn.parameters.some((p) => !validName(p) || isReserved(p)) ||
         !validAst(fn.expression)
       )
         return failure('E_ENVIRONMENT', range);
@@ -268,6 +292,29 @@ export function validateEnvironment(
     return hasCycle(env.functions)
       ? failure('E_CYCLE', range)
       : { ok: true, value: env };
+  } catch {
+    return failure('E_ENVIRONMENT', range);
+  }
+}
+/** Active context conflicts are calculation errors; they never invalidate storage. */
+export function validateEnvironment(
+  env: Environment,
+  range: SourceRange,
+  ctx: EvaluationContext = {},
+): Result<Environment, EvalError> {
+  const restored = restoreEnvironment(env, range);
+  if (!restored.ok) return restored;
+  try {
+    if (
+      Object.keys(env.variables).some((name) => isReserved(name, ctx)) ||
+      Object.entries(env.functions).some(
+        ([name, fn]) =>
+          isReserved(name, ctx) ||
+          fn.parameters.some((name) => isReserved(name, ctx)),
+      )
+    )
+      return failure('E_RESERVED_NAME', range);
+    return restored;
   } catch {
     return failure('E_ENVIRONMENT', range);
   }

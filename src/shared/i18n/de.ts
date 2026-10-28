@@ -260,6 +260,16 @@ export const de = {
   'scientific.tools': 'Bedienfelder',
   'scientific.computerScience': 'Informatik',
   'scientific.emptyResult': 'Dein nächster Gedanke beginnt hier.',
+  'scientific.recovery.loading': 'Gespeicherte Definitionen werden geladen.',
+  'scientific.recovery.invalid':
+    'Gespeicherte Definitionen konnten nicht wiederhergestellt werden. Der ursprüngliche Bestand bleibt unverändert.',
+  'scientific.recovery.unavailable':
+    'Der lokale Speicher ist nicht lesbar. Vorhandene Definitionen werden nicht überschrieben.',
+  'scientific.recovery.saveFailed':
+    'Die Sitzung konnte nicht gespeichert werden. Der zuletzt gespeicherte Bestand bleibt erhalten.',
+  'scientific.recovery.session':
+    'Neue Berechnungen und Definitionen gelten nur für diese Sitzung und gehen beim Neuladen verloren. Erneutes Laden des gespeicherten Bestands ersetzt diese Sitzung.',
+  'scientific.recovery.retry': 'Gespeicherten Bestand erneut laden',
   'scientific.noConstants': 'Keine passenden Konstanten.',
   'scientific.error.E_SYNTAX': 'Bitte einen Ausdruck eingeben.',
   'scientific.error.E_INVALID_NUMBER': 'Ungültige Zahl.',
@@ -284,7 +294,8 @@ export const de = {
     'Die numerische Berechnung konvergiert nicht.',
   'scientific.error.E_CYCLE':
     'Funktionsdefinitionen dürfen keine Zyklen bilden.',
-  'scientific.error.E_RESERVED_NAME': 'Dieser Name ist reserviert.',
+  'scientific.error.E_RESERVED_NAME':
+    'Ein Name ist in diesem Kontext reserviert. Gespeicherte Definitionen bleiben erhalten; wechsle bei Bedarf zurück zum Tastenfeld.',
   'scientific.error.E_ENVIRONMENT': 'Ungültige gespeicherte Definitionen.',
   'graph.title': 'Graphen',
   'graph.canvas': 'Interaktive Zeichenfläche',

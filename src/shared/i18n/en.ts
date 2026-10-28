@@ -253,6 +253,16 @@ export const en: Dictionary = {
   'scientific.tools': 'Tools',
   'scientific.computerScience': 'Computer science',
   'scientific.emptyResult': 'Your next idea starts here.',
+  'scientific.recovery.loading': 'Loading saved definitions.',
+  'scientific.recovery.invalid':
+    'Saved definitions could not be restored. The original data remains unchanged.',
+  'scientific.recovery.unavailable':
+    'Local storage cannot be read. Existing definitions will not be overwritten.',
+  'scientific.recovery.saveFailed':
+    'This session could not be saved. The last saved data is preserved.',
+  'scientific.recovery.session':
+    'New calculations and definitions only apply to this session and will be lost on reload. Loading the saved data again replaces this session.',
+  'scientific.recovery.retry': 'Load saved data again',
   'scientific.noConstants': 'No matching constants.',
   'scientific.error.E_SYNTAX': 'Enter an expression.',
   'scientific.error.E_INVALID_NUMBER': 'Invalid number.',
@@ -273,7 +283,8 @@ export const en: Dictionary = {
   'scientific.error.E_CONVERGENCE':
     'The numerical calculation did not converge.',
   'scientific.error.E_CYCLE': 'Function definitions cannot contain cycles.',
-  'scientific.error.E_RESERVED_NAME': 'This name is reserved.',
+  'scientific.error.E_RESERVED_NAME':
+    'A name is reserved in this context. Saved definitions are preserved; switch back to the keypad if needed.',
   'scientific.error.E_ENVIRONMENT': 'Invalid saved definitions.',
   'graph.title': 'Graphs',
   'graph.canvas': 'Interactive graph canvas',

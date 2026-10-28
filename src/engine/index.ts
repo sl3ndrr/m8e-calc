@@ -54,6 +54,11 @@ export type { ConstantDefinition } from './constants.ts';
 export type { IntegralEstimate, RealCallback } from './quadrature.ts';
 export { constantRegistry } from './constants.ts';
 export { complexValue } from './values.ts';
-export { createEnvironment, execute } from './environment.ts';
+export {
+  createEnvironment,
+  deserializeValue,
+  execute,
+  restoreEnvironment,
+} from './environment.ts';
 export { integrate } from './quadrature.ts';
 export { formatValue, toFraction, toLatex } from './output.ts';

@@ -1,9 +1,11 @@
 import {
   createEnvironment,
+  deserializeValue,
   execute,
   formatValue,
   parse,
   print,
+  restoreEnvironment,
   toFraction,
   toLatex,
   type AngleMode,
@@ -138,13 +140,10 @@ export function displayResult(
     latex: canonical.ok ? toLatex(canonical.value) : toLatex(value),
   };
 }
+/** Compatibility fallback for ephemeral state; persistence must inspect restoreEnvironment's Result. */
 export function normalizeEnvironment(input: unknown): Environment {
-  if (!input || typeof input !== 'object') return createEnvironment();
-  const checked = execute('0', input as Environment, {
-    complex: 'on',
-    bitwise: true,
-  });
-  return checked.ok ? (input as Environment) : createEnvironment();
+  const checked = restoreEnvironment(input);
+  return checked.ok ? checked.value : createEnvironment();
 }
 export function removeDefinition(
   environment: Environment,
@@ -165,9 +164,12 @@ export function definitionSource(
     : undefined;
   if (fn)
     return `${name}(${fn.parameters.join(', ')}) = ${print(fn.expression)}`;
-  const result = execute(name, environment, { complex: 'on', bitwise: true });
-  return result.ok && result.value.value
-    ? `${name} = ${formatValue(result.value.value, { digits: 50 })}`
+  const saved = Object.hasOwn(environment.variables, name)
+    ? environment.variables[name]
+    : undefined;
+  const result = saved ? deserializeValue(saved, { start: 0, end: 0 }) : null;
+  return result?.ok
+    ? `${name} = ${formatValue(result.value, { digits: 50 })}`
     : '';
 }
 export function errorKey(error: EngineError): MessageKey {
