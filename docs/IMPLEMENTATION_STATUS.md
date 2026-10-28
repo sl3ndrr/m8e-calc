@@ -29,3 +29,11 @@ Editorfokus, unverändertem Reparaturbestand und erneutem Reload abgedeckt.
 Produktcode und Lockfile bleiben unverändert. Erweiterte Node-Probe und die
 begrenzten Prüfungen bestehen erneut; die regulären Tests starten wegen der
 erneut bestätigten Registry-403 weiterhin nicht. Keine neue Abnahmefreigabe.
+
+Auf ausdrücklichen Folgeauftrag ist [Draft-PR #80](https://github.com/sl3ndrr/m8e-calc/pull/80)
+erstellt. Die erste PR-CI konnte regulär installieren und scheiterte an
+`prefer-const` für den verzögert initialisierten Fehlerreporter. Lokaler
+Korrekturcommit `926c369f3e0337bb7f82eeff66468b787ff26eb3` verwendet dort
+`const`; Regeln und Assertions bleiben unverändert. Die zusätzliche lokale Probe
+und begrenzten Prüfungen bestehen; die vollständige CI des neuen PR-Stands
+bleibt separat abzunehmen. Keine Merge-/Deployfreigabe.

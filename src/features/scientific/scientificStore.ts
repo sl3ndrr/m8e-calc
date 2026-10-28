@@ -31,7 +31,6 @@ export function createScientificStore(storage: StateStorage) {
   // Keep the original in its one existing key. Never retain or duplicate a raw backup.
   // Writes stay locked after any failed read/validation/save, until an explicit rehydrate.
   let writable = false;
-  let reportFailure: ((recovery: ScientificRecovery) => void) | undefined;
   function blocked(recovery: ScientificRecovery) {
     return {
       state: { environment: createEnvironment(), recovery },
@@ -139,7 +138,9 @@ export function createScientificStore(storage: StateStorage) {
       },
     ),
   );
-  reportFailure = (recovery) => store.setState({ recovery });
+  const reportFailure = (recovery: ScientificRecovery): void => {
+    store.setState({ recovery });
+  };
   return store;
 }
 export const useScientificStore = createScientificStore({
