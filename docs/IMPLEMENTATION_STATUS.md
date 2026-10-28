@@ -104,3 +104,16 @@ keine WP-03-Freigabe. Die inzwischen grüne main-/Pages-Kette der Basis
 40773772912 enthält diesen lokalen Diff nicht. Ausgangs-/Codeidentitäten,
 Dateien, exakte Befehle, Runtime-/Browsergrenzen, Belege und Offen / Folgearbeiten:
 [WP03.md](WP03.md). Keine Remoteänderungen ausgeführt.
+
+WP-03-Folgeauftrag: [Draft-PR #82](https://github.com/sl3ndrr/m8e-calc/pull/82)
+ist veröffentlicht. Erste Pflicht-CI 40778367449 auf Head `ab12dd8e…` / Build
+`f269743c…`: check auf beiden Node-Versionen (565 UI/1702 Domäne), Chromium
+227, Firefox 200, Galerie 75, Visuals 24 und Provenienz 36 bestanden.
+WebKit scheitert in 14 neuen Fällen: Native ResizeObserver-Meldung bereits beim
+Settingsöffnen vor Dateiauswahl erzeugt eine globale Snackbar vor der erwarteten
+Importmeldung. Die konkrete Observer-Ursache ist noch nicht bewiesen.
+Die Fixture wartet jetzt auf den bestehenden Modus-/Font-/Frame-Ready-Helfer und
+verlangt zusätzlich null Browserfehler. Sämtliche fachlichen und Meldungsassertions
+bleiben erhalten; Produktcode, Fristen, Retries und Baselines unverändert.
+Neuer aktueller CI-Nachweis erforderlich; der rote Originallauf bleibt erhalten.
+Details und lesbare Originaltrace-Auszüge: [WP03](WP03.md).

@@ -13,6 +13,7 @@ import {
 } from '../src/shared/settings';
 import { exportSettings } from '../src/app/fileTransfer';
 import { holdRateBody, holdSettingsRead } from './settingsImportHelpers';
+import { ready } from './qa-setup';
 // Network mocks must not be bypassed by an already controlling worker.
 test.use({ serviceWorkers: 'block' });
 const today = new Date().toISOString().slice(0, 10);
@@ -316,6 +317,8 @@ for (const locale of ['de', 'en'] as const) {
         page,
       }) => {
         const external: string[] = [];
+        const pageErrors: string[] = [];
+        page.on('pageerror', (error) => pageErrors.push(error.message));
         page.on('request', (request) => {
           if (new URL(request.url()).origin !== 'http://127.0.0.1:4173')
             external.push(request.url());
@@ -324,6 +327,7 @@ for (const locale of ['de', 'en'] as const) {
           route.fulfill({ json: rows }),
         );
         await page.goto('/m8e-calc/#/convert');
+        await ready(page, 'convert');
         await expect(
           page.getByRole('heading', { name: t('mode.convert', locale) }),
         ).toBeVisible();
@@ -400,6 +404,7 @@ for (const locale of ['de', 'en'] as const) {
         }
         const beforeCompletion = external.length;
         await read.finish();
+        expect(pageErrors).toEqual([]);
         await expect(
           page.getByText(t('settings.imported', locale), { exact: true }),
         ).toBeVisible();
@@ -441,6 +446,7 @@ for (const locale of ['de', 'en'] as const) {
           }),
         ).toHaveCount(scenario.current ? 1 : 0);
         await page.reload();
+        await ready(page, 'convert');
         await expect(
           page.getByRole('heading', { name: t('mode.convert', locale) }),
         ).toBeVisible();
@@ -469,6 +475,7 @@ for (const locale of ['de', 'en'] as const) {
         expect(
           external.every((url) => url.startsWith(`${RATE_ENDPOINT}?`)),
         ).toBe(true);
+        expect(pageErrors).toEqual([]);
       });
     }
 
@@ -477,6 +484,8 @@ for (const locale of ['de', 'en'] as const) {
         page,
       }) => {
         const requests: string[] = [];
+        const pageErrors: string[] = [];
+        page.on('pageerror', (error) => pageErrors.push(error.message));
         page.on('request', (request) => {
           if (request.url().startsWith(RATE_ENDPOINT))
             requests.push(request.url());
@@ -485,6 +494,7 @@ for (const locale of ['de', 'en'] as const) {
           route.fulfill({ json: rows }),
         );
         await page.goto('/m8e-calc/#/convert');
+        await ready(page, 'convert');
         await page
           .getByRole('button', {
             name: t('shell.settings', locale),
@@ -542,6 +552,7 @@ for (const locale of ['de', 'en'] as const) {
         if (failure === 'oversize') expect(revoked).toBe(before);
         else expect(revoked).not.toBe(before);
         await read.finish();
+        expect(pageErrors).toEqual([]);
         await expect(
           page.getByText(t('settings.invalid', locale), { exact: true }),
         ).toBeVisible();
@@ -550,6 +561,7 @@ for (const locale of ['de', 'en'] as const) {
           await page.evaluate((key) => localStorage.getItem(key), SETTINGS_KEY),
         ).toBe(revoked);
         await page.reload();
+        await ready(page, 'convert');
         await expect(
           page.getByRole('heading', { name: t('mode.convert', locale) }),
         ).toBeVisible();
@@ -563,6 +575,7 @@ for (const locale of ['de', 'en'] as const) {
           }),
         ).toHaveCount(0);
         expect(requests).toHaveLength(1);
+        expect(pageErrors).toEqual([]);
       });
     }
   });

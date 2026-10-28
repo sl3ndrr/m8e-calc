@@ -1,0 +1,190 @@
+{
+  "pr": 82,
+  "head": "ab12dd8e6dd1c61326d5440834d649a12618a90b",
+  "buildCommit": "f269743c2fa143fe01b0a7b6b2cf763f85ab2762",
+  "tree": "c27108987f9fe7dad1c1994a6bb62193343a707d",
+  "run": 40778367449,
+  "attempt": 1,
+  "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40778367449",
+  "conclusion": "failure",
+  "passed": {
+    "checkNodeVersions": ["24.15.0", "24.22.1"],
+    "npm": "11.19.0",
+    "uiTests": 565,
+    "domainTests": 1702,
+    "chromium": 227,
+    "firefox": 200,
+    "firefoxKnownClipboardSkips": 2,
+    "gallery": 75,
+    "visualReferences": 24,
+    "provenance": 36
+  },
+  "webkit": {
+    "passed": 186,
+    "failed": 14,
+    "knownClipboardSkips": 2
+  },
+  "artifact": {
+    "id": 12856897659,
+    "name": "qa-browsers-webkit",
+    "sha256": "07f1e70c0d8b935df4b0bd155ec5f5f35b32051f434aca2edae23646508362ec"
+  },
+  "traceObservations": [
+    {
+      "case": "currency-WP-03-de-failed-i-bba98-and-retains-revoked-consent-webkit",
+      "errors": [
+        {
+          "time": 167555.706,
+          "message": "ResizeObserver loop completed with undelivered notifications.",
+          "afterSettingsClickMs": 369.884,
+          "beforeFileSelectionMs": 588.751
+        }
+      ]
+    },
+    {
+      "case": "currency-WP-03-de-failed-o-a712b-and-retains-revoked-consent-webkit",
+      "errors": [
+        {
+          "time": 182392.366,
+          "message": "ResizeObserver loop completed with undelivered notifications.",
+          "afterSettingsClickMs": 261.651,
+          "beforeFileSelectionMs": 711.104
+        }
+      ]
+    },
+    {
+      "case": "currency-WP-03-de-failed-u-f0134-and-retains-revoked-consent-webkit",
+      "errors": [
+        {
+          "time": 174947.924,
+          "message": "ResizeObserver loop completed with undelivered notifications.",
+          "afterSettingsClickMs": 342.032,
+          "beforeFileSelectionMs": 608.103
+        }
+      ]
+    },
+    {
+      "case": "currency-WP-03-de-pending--59f22-cluding-reload-and-requests-webkit",
+      "errors": [
+        {
+          "time": 146036.523,
+          "message": "ResizeObserver loop completed with undelivered notifications.",
+          "afterSettingsClickMs": 219.179,
+          "beforeFileSelectionMs": 607.108
+        }
+      ]
+    },
+    {
+      "case": "currency-WP-03-de-pending--73461-cluding-reload-and-requests-webkit",
+      "errors": [
+        {
+          "time": 160298.948,
+          "message": "ResizeObserver loop completed with undelivered notifications.",
+          "afterSettingsClickMs": 182.031,
+          "beforeFileSelectionMs": 593.303
+        }
+      ]
+    },
+    {
+      "case": "currency-WP-03-de-pending--9aa63-cluding-reload-and-requests-webkit",
+      "errors": [
+        {
+          "time": 131216.273,
+          "message": "ResizeObserver loop completed with undelivered notifications.",
+          "afterSettingsClickMs": 172.59,
+          "beforeFileSelectionMs": 538.203
+        }
+      ]
+    },
+    {
+      "case": "currency-WP-03-de-pending--be6ee-cluding-reload-and-requests-webkit",
+      "errors": [
+        {
+          "time": 138754.211,
+          "message": "ResizeObserver loop completed with undelivered notifications.",
+          "afterSettingsClickMs": 221.813,
+          "beforeFileSelectionMs": 356.473
+        }
+      ]
+    },
+    {
+      "case": "currency-WP-03-de-pending--ec6d6-cluding-reload-and-requests-webkit",
+      "errors": [
+        {
+          "time": 153292.095,
+          "message": "ResizeObserver loop completed with undelivered notifications.",
+          "afterSettingsClickMs": 179.42,
+          "beforeFileSelectionMs": 428.637
+        }
+      ]
+    },
+    {
+      "case": "currency-WP-03-en-failed-i-83d2a-and-retains-revoked-consent-webkit",
+      "errors": [
+        {
+          "time": 216725.739,
+          "message": "ResizeObserver loop completed with undelivered notifications.",
+          "afterSettingsClickMs": 388.017,
+          "beforeFileSelectionMs": 590.245
+        }
+      ]
+    },
+    {
+      "case": "currency-WP-03-en-failed-o-a3245-and-retains-revoked-consent-webkit",
+      "errors": [
+        {
+          "time": 231197.748,
+          "message": "ResizeObserver loop completed with undelivered notifications.",
+          "afterSettingsClickMs": 423.03,
+          "beforeFileSelectionMs": 748.462
+        }
+      ]
+    },
+    {
+      "case": "currency-WP-03-en-failed-u-777d2-and-retains-revoked-consent-webkit",
+      "errors": [
+        {
+          "time": 223932.583,
+          "message": "ResizeObserver loop completed with undelivered notifications.",
+          "afterSettingsClickMs": 397.646,
+          "beforeFileSelectionMs": 610.546
+        }
+      ]
+    },
+    {
+      "case": "currency-WP-03-en-pending--312bf-cluding-reload-and-requests-webkit",
+      "errors": [
+        {
+          "time": 206982.326,
+          "message": "ResizeObserver loop completed with undelivered notifications.",
+          "afterSettingsClickMs": 199.86,
+          "beforeFileSelectionMs": 365.661
+        }
+      ]
+    },
+    {
+      "case": "currency-WP-03-en-pending--31bb5-cluding-reload-and-requests-webkit",
+      "errors": [
+        {
+          "time": 189707.447,
+          "message": "ResizeObserver loop completed with undelivered notifications.",
+          "afterSettingsClickMs": 135.513,
+          "beforeFileSelectionMs": 530.624
+        }
+      ]
+    },
+    {
+      "case": "currency-WP-03-en-pending--4016f-cluding-reload-and-requests-webkit",
+      "errors": [
+        {
+          "time": 199808.469,
+          "message": "ResizeObserver loop completed with undelivered notifications.",
+          "afterSettingsClickMs": 198.05,
+          "beforeFileSelectionMs": 658.847
+        }
+      ]
+    }
+  ],
+  "diagnosis": "All failed traces contain a ResizeObserver loop error during settings opening, before file selection. A generic global-error toast is visible and queues the import notification. This is not an observed consent-store regression. The source of the native observer loop is not proven.",
+  "followup": "Await existing converter/font/frame readiness before opening settings and after reload, assert absence of page errors as well as all existing assertions. The next full CI must verify this fixture-readiness hypothesis; no product change, error suppression, relaxed assertions, new timeout or retry."
+}
