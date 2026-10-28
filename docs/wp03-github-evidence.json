@@ -1,0 +1,168 @@
+{
+  "readAt": "2026-10-28T22:05:18.932Z",
+  "references": [
+    {
+      "url": "https://github.com/sl3ndrr/m8e-calc/pull/23",
+      "number": 23,
+      "id": 4861467989,
+      "title": "feat(currency): optionale EZB-Währungsumrechnung mit strengem Opt-in",
+      "state": "closed",
+      "merged_at": "2026-10-14T19:17:04Z",
+      "merge_commit_sha": "f48afe1e0bdb5baf42eb1ec194883ecdc1c41e87",
+      "head_sha": "3d21927e447beeed82937a0a52162d8caeda93d8",
+      "updated_at": "2026-10-20T19:03:07Z"
+    },
+    {
+      "url": "https://github.com/sl3ndrr/m8e-calc/pull/80",
+      "number": 80,
+      "id": 5047493980,
+      "title": "fix(scientific): Definitionsverlust bei Wiederherstellung verhindern (WP-01)",
+      "state": "closed",
+      "merged_at": "2026-10-28T08:54:26Z",
+      "merge_commit_sha": "56cc9b03b6d04e2a26a4c8816137437aef6c92f3",
+      "head_sha": "d07f77d95f9764b1bfa04d9a3af944c2c826cfbf",
+      "updated_at": "2026-10-28T08:54:26Z"
+    },
+    {
+      "url": "https://github.com/sl3ndrr/m8e-calc/pull/81",
+      "number": 81,
+      "id": 5057347809,
+      "title": "fix(scientific): Definitionen verlustfrei bearbeiten (WP-02)",
+      "state": "closed",
+      "merged_at": "2026-10-28T21:39:34Z",
+      "merge_commit_sha": "ecdf8509d1261ba4d349121eba633b6f749564dc",
+      "head_sha": "7fb3cd91e1df659f31070b0a25f987e34024212c",
+      "updated_at": "2026-10-28T21:39:34Z"
+    },
+    {
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40773772912",
+      "id": 40773772912,
+      "title": "CI",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "ecdf8509d1261ba4d349121eba633b6f749564dc",
+      "updated_at": "2026-10-28T22:00:00Z"
+    }
+  ],
+  "baselineJobs": [
+    {
+      "name": "Production build",
+      "id": 123117597385,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Pipeline contract tests",
+      "id": 123117597676,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Node 24 minimum",
+      "id": 123117597718,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Currency source evidence",
+      "id": 123117599760,
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Pages artifact verification",
+      "id": 123118590166,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Gallery",
+      "id": 123118590227,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Graph performance",
+      "id": 123118590424,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Hardening QA / browsers (webkit)",
+      "id": 123118590482,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Hardening QA / browsers (qa-performance)",
+      "id": 123118590547,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Hardening QA / browsers (firefox)",
+      "id": 123118590582,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Hardening QA / measure (after)",
+      "id": 123118590620,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Hardening QA / browsers (chromium)",
+      "id": 123118590644,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Release assets / images",
+      "id": 123118590659,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Hardening QA / measure (before)",
+      "id": 123118590698,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Build provenance / evidence",
+      "id": 123118590737,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Hardening QA / visual",
+      "id": 123118590738,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Hardening QA / QA gate",
+      "id": 123126742997,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Quality gate",
+      "id": 123126810628,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Deploy Pages",
+      "id": 123126875832,
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "issue22": {
+    "state": "open",
+    "updatedAt": "2026-10-22T09:48:12Z",
+    "url": "https://github.com/sl3ndrr/m8e-calc/issues/22"
+  }
+}

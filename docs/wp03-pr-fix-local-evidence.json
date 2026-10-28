@@ -1,0 +1,53 @@
+{
+  "basePublishedHead": "ab12dd8e6dd1c61326d5440834d649a12618a90b",
+  "localBase": "9ffcb3c9027b5c42cd26478459e17109276f2a50",
+  "node": "v24.22.1",
+  "npm": "11.9.0",
+  "runs": [
+    {
+      "command": ["npm", "ci"],
+      "startedAt": "2026-10-28T22:43:19.132885+00:00",
+      "exitCode": 1,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\nnpm error code E403\nnpm error 403 403 Forbidden - GET https://registry.npmjs.org/zustand/-/zustand-5.0.15.tgz\nnpm error 403 In most cases, you or one of your dependencies are requesting\nnpm error 403 a package version that is forbidden by your security policy, or\nnpm error 403 on a server you do not have access to.\nnpm error A complete log of this run can be found in: /root/.npm/_logs/2026-10-28T22_43_19_220Z-debug-0.log\n"
+    },
+    {
+      "command": ["npm", "run", "check"],
+      "startedAt": "2026-10-28T22:43:23.788909+00:00",
+      "exitCode": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 check\n> npm run lint && npm run typecheck && npm run test && npm run build && npm run test:engine:bench && npm run test:graph:bench && npm run test:graph:implicit:bench\n\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 lint\n> eslint . && prettier --check .\n\nsh: 1: eslint: not found\n"
+    },
+    {
+      "command": ["npm", "run", "build"],
+      "startedAt": "2026-10-28T22:43:24.051774+00:00",
+      "exitCode": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 build\n> tsc -b && vite build && node scripts/check-build-target.mjs\n\nsh: 1: tsc: not found\n"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "test:e2e",
+        "--",
+        "--project=chromium",
+        "--project=firefox",
+        "--project=webkit",
+        "e2e/currency.spec.ts",
+        "e2e/settings-actions.spec.ts",
+        "e2e/convert.spec.ts",
+        "e2e/qa-hardening.spec.ts"
+      ],
+      "startedAt": "2026-10-28T22:43:24.218796+00:00",
+      "exitCode": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test --project=chromium --project=firefox --project=webkit e2e/currency.spec.ts e2e/settings-actions.spec.ts e2e/convert.spec.ts e2e/qa-hardening.spec.ts\n\nsh: 1: playwright: not found\n"
+    }
+  ],
+  "sourceSha256": {
+    "e2e/currency.spec.ts": "d913b94c816bc71cac3c4e2f6d7c43cd7fa53f29553b8f1e4eea700f31726092"
+  },
+  "supplementalSyntax": {
+    "typescript": "6.0.3",
+    "files": ["e2e/currency.spec.ts"],
+    "parseDiagnostics": 0,
+    "limitation": "syntax only, not lockfile typecheck"
+  }
+}

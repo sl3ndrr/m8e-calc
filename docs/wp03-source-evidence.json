@@ -1,0 +1,170 @@
+{
+  "timestamp": "2026-10-28T22:05:54.473Z",
+  "node": "v24.22.1",
+  "base": "ecdf8509d1261ba4d349121eba633b6f749564dc",
+  "sourceHashes": {
+    "src/app/SettingsDialog.tsx": "bf61ffdcde8cf5c3835999b97c6049cba7afc890cc6e1ca1366286a2b4234d2b",
+    "src/shared/settingsStore.ts": "137aae1631bc3794b220c0fb21fceca647b8896a846655fc7ddba34083d73c71",
+    "src/app/fileTransfer.ts": "209e98363ca5b62065f95c7a722bd350416a876a9eefbe051028dd3e8694be46"
+  },
+  "limitation": "Source handler and initializer executed with a small set/persistence model; no Zustand, React, real reload or browser/network execution.",
+  "results": [
+    {
+      "variant": "original",
+      "initial": true,
+      "current": true,
+      "inFile": true,
+      "completedConsent": true,
+      "writesAtCompletion": 1
+    },
+    {
+      "variant": "original",
+      "initial": true,
+      "current": true,
+      "inFile": false,
+      "completedConsent": true,
+      "writesAtCompletion": 1
+    },
+    {
+      "variant": "original",
+      "initial": true,
+      "current": false,
+      "inFile": true,
+      "completedConsent": true,
+      "writesAtCompletion": 1
+    },
+    {
+      "variant": "original",
+      "initial": true,
+      "current": false,
+      "inFile": false,
+      "completedConsent": true,
+      "writesAtCompletion": 1
+    },
+    {
+      "variant": "original",
+      "initial": false,
+      "current": true,
+      "inFile": true,
+      "completedConsent": false,
+      "writesAtCompletion": 1
+    },
+    {
+      "variant": "original",
+      "initial": false,
+      "current": true,
+      "inFile": false,
+      "completedConsent": false,
+      "writesAtCompletion": 1
+    },
+    {
+      "variant": "original",
+      "initial": false,
+      "current": false,
+      "inFile": true,
+      "completedConsent": false,
+      "writesAtCompletion": 1
+    },
+    {
+      "variant": "original",
+      "initial": false,
+      "current": false,
+      "inFile": false,
+      "completedConsent": false,
+      "writesAtCompletion": 1
+    },
+    {
+      "variant": "fixed",
+      "initial": true,
+      "current": true,
+      "inFile": true,
+      "completedConsent": true,
+      "writesAtCompletion": 1
+    },
+    {
+      "variant": "fixed",
+      "initial": true,
+      "current": true,
+      "inFile": false,
+      "completedConsent": true,
+      "writesAtCompletion": 1
+    },
+    {
+      "variant": "fixed",
+      "initial": true,
+      "current": false,
+      "inFile": true,
+      "completedConsent": false,
+      "writesAtCompletion": 1
+    },
+    {
+      "variant": "fixed",
+      "initial": true,
+      "current": false,
+      "inFile": false,
+      "completedConsent": false,
+      "writesAtCompletion": 1
+    },
+    {
+      "variant": "fixed",
+      "initial": false,
+      "current": true,
+      "inFile": true,
+      "completedConsent": true,
+      "writesAtCompletion": 1
+    },
+    {
+      "variant": "fixed",
+      "initial": false,
+      "current": true,
+      "inFile": false,
+      "completedConsent": true,
+      "writesAtCompletion": 1
+    },
+    {
+      "variant": "fixed",
+      "initial": false,
+      "current": false,
+      "inFile": true,
+      "completedConsent": false,
+      "writesAtCompletion": 1
+    },
+    {
+      "variant": "fixed",
+      "initial": false,
+      "current": false,
+      "inFile": false,
+      "completedConsent": false,
+      "writesAtCompletion": 1
+    },
+    {
+      "variant": "original",
+      "changeAfterImport": true,
+      "completedConsent": true,
+      "finalConsent": false
+    },
+    {
+      "variant": "fixed",
+      "changeAfterImport": true,
+      "completedConsent": true,
+      "finalConsent": false
+    }
+  ],
+  "failures": [
+    {
+      "failure": "invalid",
+      "reads": 1,
+      "writesAtCompletion": 0
+    },
+    {
+      "failure": "unreadable",
+      "reads": 1,
+      "writesAtCompletion": 0
+    },
+    {
+      "failure": "oversize",
+      "reads": 0,
+      "writesAtCompletion": 0
+    }
+  ]
+}

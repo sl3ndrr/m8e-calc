@@ -6,6 +6,14 @@ import {
   RATE_CACHE_KEY,
   RATE_ENDPOINT,
 } from '../src/features/convert/currency/rates';
+import {
+  defaultSettings,
+  SETTINGS_KEY,
+  SETTINGS_VERSION,
+} from '../src/shared/settings';
+import { exportSettings } from '../src/app/fileTransfer';
+import { holdRateBody, holdSettingsRead } from './settingsImportHelpers';
+import { ready } from './qa-setup';
 // Network mocks must not be bypassed by an already controlling worker.
 test.use({ serviceWorkers: 'block' });
 const today = new Date().toISOString().slice(0, 10);
@@ -272,3 +280,303 @@ test('currency UI accessibility and review screenshots', async ({ page }) => {
     ),
   ).toBe(true);
 });
+
+for (const locale of ['de', 'en'] as const) {
+  test.describe(`WP-03 ${locale}`, () => {
+    test.use({
+      viewport:
+        locale === 'de'
+          ? { width: 1280, height: 800 }
+          : { width: 1920, height: 1080 },
+      reducedMotion: locale === 'en' ? 'reduce' : 'no-preference',
+    });
+    test.beforeEach(async ({ page }) => {
+      await page.addInitScript(
+        ({ key, version, language }) => {
+          if (localStorage.getItem(key) === null)
+            localStorage.setItem(
+              key,
+              JSON.stringify({
+                version,
+                state: { language, onlineRates: false },
+              }),
+            );
+        },
+        { key: SETTINGS_KEY, version: SETTINGS_VERSION, language: locale },
+      );
+    });
+
+    for (const scenario of [
+      { initial: true, current: false, changeAfterImport: false },
+      { initial: false, current: true, changeAfterImport: false },
+      { initial: true, current: true, changeAfterImport: false },
+      { initial: false, current: false, changeAfterImport: false },
+      { initial: true, current: false, changeAfterImport: true },
+    ]) {
+      test(`pending import retains consent ${scenario.initial} → ${scenario.current} (${scenario.changeAfterImport ? 'change after completion' : 'change before completion'}), including reload and requests`, async ({
+        page,
+      }) => {
+        const external: string[] = [];
+        const pageErrors: string[] = [];
+        page.on('pageerror', (error) => pageErrors.push(error.message));
+        page.on('request', (request) => {
+          if (new URL(request.url()).origin !== 'http://127.0.0.1:4173')
+            external.push(request.url());
+        });
+        await page.route(`${RATE_ENDPOINT}**`, (route) =>
+          route.fulfill({ json: rows }),
+        );
+        await page.goto('/m8e-calc/#/convert');
+        await ready(page, 'convert');
+        await expect(
+          page.getByRole('heading', { name: t('mode.convert', locale) }),
+        ).toBeVisible();
+        const late =
+          scenario.initial && !scenario.current && !scenario.changeAfterImport
+            ? await holdRateBody(page, RATE_ENDPOINT)
+            : null;
+        await page
+          .getByRole('button', {
+            name: t('shell.settings', locale),
+            exact: true,
+          })
+          .click();
+        const dialog = page.getByRole('dialog', {
+          name: t('shell.settings', locale),
+        });
+        const consent = dialog.getByRole('switch', {
+          name: t('currency.online', locale),
+        });
+        if (scenario.initial) {
+          await consent.focus();
+          await consent.press('Space');
+          await expect(consent).toBeChecked();
+          if (late) await late.started;
+          else
+            await expect
+              .poll(() =>
+                page.evaluate(
+                  (key) => localStorage.getItem(key),
+                  RATE_CACHE_KEY,
+                ),
+              )
+              .not.toBeNull();
+        }
+        await consent.focus();
+        await expect(consent).toBeFocused();
+        const read = await holdSettingsRead(page);
+        const atCompletion = scenario.changeAfterImport
+          ? scenario.initial
+          : scenario.current;
+        const expected = {
+          ...defaultSettings(),
+          language: locale,
+          historyLimit: 17,
+          grouping: false,
+          onlineRates: scenario.current,
+        };
+        await dialog.locator('input[type=file]').setInputFiles({
+          name: 'wp03-settings.json',
+          mimeType: 'application/json',
+          buffer: Buffer.from(
+            exportSettings({ ...expected, onlineRates: !scenario.current }),
+          ),
+        });
+        await read.started;
+        await expect(
+          page.getByText(t('settings.imported', locale), { exact: true }),
+        ).toHaveCount(0);
+        if (
+          scenario.initial !== scenario.current &&
+          !scenario.changeAfterImport
+        ) {
+          await consent.focus();
+          await expect(consent).toBeFocused();
+          await consent.press('Space');
+        }
+        await expect(consent).toBeChecked({ checked: atCompletion });
+        if (!scenario.initial && scenario.current) {
+          await expect
+            .poll(() =>
+              page.evaluate((key) => localStorage.getItem(key), RATE_CACHE_KEY),
+            )
+            .not.toBeNull();
+        }
+        const beforeCompletion = external.length;
+        await read.finish();
+        expect(pageErrors).toEqual([]);
+        await expect(
+          page.getByText(t('settings.imported', locale), { exact: true }),
+        ).toBeVisible();
+        await expect(consent).toBeChecked({ checked: atCompletion });
+        await expect(consent).toBeFocused();
+        const stored = () =>
+          page.evaluate(
+            (key) => JSON.parse(localStorage.getItem(key) ?? 'null'),
+            SETTINGS_KEY,
+          );
+        await expect.poll(stored).toEqual({
+          version: SETTINGS_VERSION,
+          state: { ...expected, onlineRates: atCompletion },
+        });
+        if (scenario.changeAfterImport) {
+          await consent.press('Space');
+          await expect(consent).toBeChecked({ checked: scenario.current });
+          await expect
+            .poll(stored)
+            .toEqual({ version: SETTINGS_VERSION, state: expected });
+        }
+        if (late) {
+          await late.finish();
+          expect(
+            await page.evaluate(
+              (key) => localStorage.getItem(key),
+              RATE_CACHE_KEY,
+            ),
+          ).toBeNull();
+        }
+        if (!scenario.current) expect(external).toHaveLength(beforeCompletion);
+        await dialog
+          .getByRole('button', { name: t('ui.close', locale), exact: true })
+          .click();
+        await expect(
+          page.getByRole('button', {
+            name: t('currency.category', locale),
+            exact: true,
+          }),
+        ).toHaveCount(scenario.current ? 1 : 0);
+        await page.reload();
+        await ready(page, 'convert');
+        await expect(
+          page.getByRole('heading', { name: t('mode.convert', locale) }),
+        ).toBeVisible();
+        await expect(
+          page.getByRole('button', {
+            name: t('currency.category', locale),
+            exact: true,
+          }),
+        ).toHaveCount(scenario.current ? 1 : 0);
+        await page
+          .getByRole('button', {
+            name: t('shell.settings', locale),
+            exact: true,
+          })
+          .click();
+        await expect(
+          page.getByRole('switch', { name: t('currency.online', locale) }),
+        ).toBeChecked({ checked: scenario.current });
+        expect(await stored()).toEqual({
+          version: SETTINGS_VERSION,
+          state: expected,
+        });
+        expect(external).toHaveLength(
+          scenario.initial || scenario.current ? 1 : 0,
+        );
+        expect(
+          external.every((url) => url.startsWith(`${RATE_ENDPOINT}?`)),
+        ).toBe(true);
+        expect(pageErrors).toEqual([]);
+      });
+    }
+
+    for (const failure of ['invalid', 'unreadable', 'oversize'] as const) {
+      test(`failed ${failure} import is atomic and retains revoked consent`, async ({
+        page,
+      }) => {
+        const requests: string[] = [];
+        const pageErrors: string[] = [];
+        page.on('pageerror', (error) => pageErrors.push(error.message));
+        page.on('request', (request) => {
+          if (request.url().startsWith(RATE_ENDPOINT))
+            requests.push(request.url());
+        });
+        await page.route(`${RATE_ENDPOINT}**`, (route) =>
+          route.fulfill({ json: rows }),
+        );
+        await page.goto('/m8e-calc/#/convert');
+        await ready(page, 'convert');
+        await page
+          .getByRole('button', {
+            name: t('shell.settings', locale),
+            exact: true,
+          })
+          .click();
+        const dialog = page.getByRole('dialog', {
+          name: t('shell.settings', locale),
+        });
+        const consent = dialog.getByRole('switch', {
+          name: t('currency.online', locale),
+        });
+        await consent.focus();
+        await consent.press('Space');
+        await expect
+          .poll(() =>
+            page.evaluate((key) => localStorage.getItem(key), RATE_CACHE_KEY),
+          )
+          .not.toBeNull();
+        const read = await holdSettingsRead(page, failure === 'unreadable');
+        if (failure === 'oversize') {
+          await consent.press('Space');
+          await expect(consent).not.toBeChecked();
+        }
+        const before = await page.evaluate(
+          (key) => localStorage.getItem(key),
+          SETTINGS_KEY,
+        );
+        await dialog.locator('input[type=file]').setInputFiles({
+          name: 'wp03-settings.json',
+          mimeType: 'application/json',
+          buffer: Buffer.from(
+            failure === 'oversize'
+              ? ' '.repeat(100001)
+              : JSON.stringify({
+                  version: 4,
+                  settings: {
+                    grouping: false,
+                    historyLimit: 1000,
+                    onlineRates: true,
+                  },
+                }),
+          ),
+        });
+        if (failure !== 'oversize') {
+          await read.started;
+          await consent.focus();
+          await consent.press('Space');
+          await expect(consent).not.toBeChecked();
+        }
+        const revoked = await page.evaluate(
+          (key) => localStorage.getItem(key),
+          SETTINGS_KEY,
+        );
+        if (failure === 'oversize') expect(revoked).toBe(before);
+        else expect(revoked).not.toBe(before);
+        await read.finish();
+        expect(pageErrors).toEqual([]);
+        await expect(
+          page.getByText(t('settings.invalid', locale), { exact: true }),
+        ).toBeVisible();
+        await expect(consent).not.toBeChecked();
+        expect(
+          await page.evaluate((key) => localStorage.getItem(key), SETTINGS_KEY),
+        ).toBe(revoked);
+        await page.reload();
+        await ready(page, 'convert');
+        await expect(
+          page.getByRole('heading', { name: t('mode.convert', locale) }),
+        ).toBeVisible();
+        expect(
+          await page.evaluate((key) => localStorage.getItem(key), SETTINGS_KEY),
+        ).toBe(revoked);
+        await expect(
+          page.getByRole('button', {
+            name: t('currency.category', locale),
+            exact: true,
+          }),
+        ).toHaveCount(0);
+        expect(requests).toHaveLength(1);
+        expect(pageErrors).toEqual([]);
+      });
+    }
+  });
+}

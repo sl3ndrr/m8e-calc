@@ -1,5 +1,8 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { currencyCodes } from '../../../units/currency';
+import { createSettingsStore } from '../../../shared/settingsStore';
+import { defaultSettings } from '../../../shared/settings';
+import { exportSettings, importSettings } from '../../../app/fileTransfer';
 import {
   CurrencyRateClient,
   parseRateResponse,
@@ -191,6 +194,94 @@ describe('currency cache and requests', () => {
       error: null,
       fallback: false,
     });
+  });
+  it('keeps revocation through a pending import, reload and a late old response', async () => {
+    const saved = new Map<string, string>();
+    const storage = {
+      getItem: (key: string) => saved.get(key) ?? null,
+      setItem: (key: string, value: string) => {
+        saved.set(key, value);
+      },
+      removeItem: (key: string) => {
+        saved.delete(key);
+      },
+    };
+    const settings = createSettingsStore(storage);
+    settings.getState().updateSettings({ onlineRates: true });
+    let finishResponse: (value: Response) => void = () => {
+      throw new Error('Request not initialized');
+    };
+    const request = vi.fn<typeof fetch>(
+      () =>
+        new Promise<Response>((resolve) => {
+          finishResponse = resolve;
+        }),
+    );
+    const client = new CurrencyRateClient({
+      consent: () => settings.getState().onlineRates,
+      storage: () => storage,
+      request,
+      online: () => true,
+      now: () => now,
+    });
+    const unsubscribe = settings.subscribe((state, previous) => {
+      if (previous.onlineRates && !state.onlineRates) client.disable();
+    });
+    try {
+      const oldRequest = client.load();
+      const startSnapshot = settings.getState();
+      let finishRead: (text: string) => void = () => {
+        throw new Error('Reader not initialized');
+      };
+      const reading = new Promise<string>((resolve) => {
+        finishRead = resolve;
+      });
+      const importing = reading.then((text) =>
+        startSnapshot.applyImportedSettings(importSettings(text)),
+      );
+      settings.getState().updateSettings({ onlineRates: false });
+      expect(request.mock.calls[0]?.[1]?.signal?.aborted).toBe(true);
+      finishRead(
+        exportSettings({
+          ...defaultSettings(),
+          grouping: false,
+          onlineRates: true,
+        }),
+      );
+      await importing;
+      expect(settings.getState()).toMatchObject({
+        grouping: false,
+        onlineRates: false,
+      });
+      await client.load(true);
+      finishResponse(response()); // Deliberately ignores the aborted signal.
+      await oldRequest;
+      await client.load(true);
+      const reloaded = createSettingsStore(storage);
+      expect(reloaded.getState()).toMatchObject({
+        grouping: false,
+        onlineRates: false,
+      });
+      const afterReload = new CurrencyRateClient({
+        consent: () => reloaded.getState().onlineRates,
+        storage: () => storage,
+        request,
+        online: () => true,
+        now: () => now,
+      });
+      await afterReload.load(true);
+      expect(request).toHaveBeenCalledTimes(1);
+      expect(saved.has(RATE_CACHE_KEY)).toBe(false);
+      expect(client.getSnapshot()).toEqual({
+        cache: null,
+        loading: false,
+        error: null,
+        fallback: false,
+      });
+      expect(afterReload.getSnapshot()).toEqual(client.getSnapshot());
+    } finally {
+      unsubscribe();
+    }
   });
   it('persists the automatic retry limit across reloads after a failure', async () => {
     const s = setup();
