@@ -70,3 +70,13 @@ reguläre Installation/Tests bleiben lokal durch Registry-403 blockiert. Neuer
 veröffentlichter Head und tatsächlicher CI-Abschluss werden im PR separat
 festgehalten; kein Erfolg des neuen Diffs aus dem roten Originallauf abgeleitet.
 Befund, Jobs und Befehle stehen im [WP02-Bericht](WP02.md).
+
+Auf dem ersten WP-02-Korrekturhead bestehen inzwischen check auf beiden Node-
+Versionen (539 UI/1702 Domänentests), die vier Paneltests und AP22. Die regulären
+Browser decken einen weiteren neuen Testaufbaufehler auf: Direkter Klick auf das
+native Radioinput wird von dessen sichtbarem Label abgefangen. Commit
+`09eb146878c3adb55dbbaea69cafdde77c9f7b78` verwendet im kompakten Testpfad die
+bestehende Fokus-/Leertastenbedienung und ergänzt Fokus-, Auswahl- und
+Panelsichtbarkeitsassertions. Fachliche Assertions und Fristen bleiben erhalten;
+Produkt unverändert. Der neue Head benötigt seinen eigenen vollständigen
+CI-Nachweis, dokumentiert in PR #81. Einzelheiten und lokale Grenzen: [WP02](WP02.md).

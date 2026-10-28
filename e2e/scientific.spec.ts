@@ -1,5 +1,5 @@
 import { allowClipboard } from './clipboard';
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { t } from '../src/shared/i18n/extended';
 import { execute, type Environment } from '../src/engine';
@@ -499,6 +499,26 @@ for (const [locale, width] of [
   });
 }
 
+async function openVariablesPanel(
+  page: Page,
+  locale: 'de' | 'en',
+  width: number,
+): Promise<void> {
+  if (width < 1920) {
+    const variables = page.getByRole('radio', {
+      name: t('scientific.variables', locale),
+      exact: true,
+    });
+    await variables.focus();
+    await expect(variables).toBeFocused();
+    await variables.press('Space');
+    await expect(variables).toBeChecked();
+  }
+  await expect(
+    page.getByRole('region', { name: t('scientific.variables', locale) }),
+  ).toBeVisible();
+}
+
 const definitionGroups = {
   integers32: ['-1', '5000000000', '4294967295', '4294967296', '4294967297'],
   integers64: [
@@ -577,13 +597,7 @@ for (const [locale, width] of [
         }));
       for (const [index] of values.entries()) {
         await expect(editor).toBeVisible();
-        if (width < 1920)
-          await page
-            .getByRole('radio', {
-              name: t('scientific.variables', locale),
-              exact: true,
-            })
-            .click();
+        await openVariablesPanel(page, locale, width);
         const digits = page.getByRole('slider', {
           name: t('scientific.digits', locale),
         });
@@ -698,13 +712,7 @@ for (const [locale, width] of [
     });
     for (const name of ['f', 'bad', 'bits']) {
       await expect(editor).toBeVisible();
-      if (width < 1920)
-        await page
-          .getByRole('radio', {
-            name: t('scientific.variables', locale),
-            exact: true,
-          })
-          .click();
+      await openVariablesPanel(page, locale, width);
       await page
         .getByRole('button', {
           name: t('scientific.edit', locale, { name }),
@@ -726,13 +734,7 @@ for (const [locale, width] of [
         ),
       ).toEqual(environment);
     }
-    if (width < 1920)
-      await page
-        .getByRole('radio', {
-          name: t('scientific.variables', locale),
-          exact: true,
-        })
-        .click();
+    await openVariablesPanel(page, locale, width);
     const editList = page.getByRole('button', {
       name: t('scientific.edit', locale, { name: 'xs' }),
       exact: true,
