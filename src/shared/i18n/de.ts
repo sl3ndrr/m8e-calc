@@ -69,7 +69,7 @@ export const de = {
     'Ziffern → Von · Strg+Umschalt+S → Tauschen · Pfeile → Kategorie · Strg+H → Verlauf',
   'convert.error.E_UNIT_UNKNOWN': 'Diese Einheit ist unbekannt.',
   'convert.error.E_UNIT_AMBIGUOUS':
-    'Die Einheit ist mehrdeutig. Bitte eine eindeutige Bezeichnung verwenden.',
+    'Die Eingabe ist mehrdeutig. Bitte eindeutige Einheiten und bei Bedarf → als Trenner verwenden.',
   'convert.error.E_UNIT_CATEGORY':
     'Die Einheiten gehören zu unterschiedlichen Kategorien.',
   'convert.error.E_UNIT_DOMAIN':

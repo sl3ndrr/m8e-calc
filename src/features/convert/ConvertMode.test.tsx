@@ -25,6 +25,43 @@ beforeEach(() => {
 });
 afterEach(() => vi.useRealTimers());
 it.each(['de', 'en'] as const)(
+  'applies inch queries and announces ambiguity in %s',
+  async (locale) => {
+    useAppStore.getState().setLocale(locale);
+    const user = userEvent.setup();
+    render(<ConvertMode />);
+    const quick = screen.getByRole('textbox', {
+      name: t('convert.quick', locale),
+    });
+    const from = () =>
+      screen.getByRole('textbox', { name: t('convert.from', locale) });
+    const to = () =>
+      screen.getByRole('textbox', { name: t('convert.to', locale) });
+    for (const [text, expected] of [
+      ['1 in to cm', locale === 'de' ? '2,54' : '2.54'],
+      ['1 in in cm', locale === 'de' ? '2,54' : '2.54'],
+      ['3 ft 4 in to cm', locale === 'de' ? '101,6' : '101.6'],
+    ] as const) {
+      fireEvent.change(quick, { target: { value: text } });
+      quick.focus();
+      await user.keyboard('{Enter}');
+      expect(to()).toHaveValue(expected);
+      expect(from()).toHaveFocus();
+      expect(quick).not.toHaveAttribute('aria-invalid', 'true');
+    }
+    const before = (to() as HTMLInputElement).value;
+    fireEvent.change(quick, { target: { value: '1 mA in ma' } });
+    quick.focus();
+    await user.keyboard('{Enter}');
+    expect(quick).toHaveFocus();
+    expect(quick).toHaveAttribute('aria-invalid', 'true');
+    expect(
+      screen.getByText(t('convert.error.E_UNIT_AMBIGUOUS', locale)),
+    ).toBeVisible();
+    expect(to()).toHaveValue(before);
+  },
+);
+it.each(['de', 'en'] as const)(
   'retains the complete visible pair in favorite/recent action names in %s',
   async (locale) => {
     useAppStore.getState().setLocale(locale);

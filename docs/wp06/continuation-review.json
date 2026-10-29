@@ -1,0 +1,32 @@
+{
+  "recordedAt": "2026-10-29T17:35:07.137200+00:00",
+  "previousHead": "0ffd9efec1be39ecf5f0937fc9cfe6e0131d23ef",
+  "validatedCodeCommit": "cb52217c9302e7f8bc17740fc07281a425c25a4f",
+  "codeUnchanged": true,
+  "snapshotExcludingThisManifest": {
+    "tree": "8321e49e478dff47764cfc3a4245b97469e3482a",
+    "base": "0d088b8c890b6d0b8826ba6eba46645e4ee4ea0b",
+    "binaryDiffSha256": "66393d008c4503db86b8961688c450fb4203e5d9dd985a4522eb91b5248f8e64",
+    "filesSha256": {
+      "docs/CONVERT_MODE.md": "b805e7d6e4459491be12473a2127d036bea164eb6a133a5c59862bbe5625deb5",
+      "docs/IMPLEMENTATION_STATUS.md": "3c75e5365787de36e0a76352bc795b56c39c99910db0478e8ccfd2c5d23f7c4c",
+      "docs/UNITS.md": "47f5bca63f5a8645f421df1df0cb7b3ba771c5c24a10c3c3d83f372dea70c467",
+      "docs/WP06.md": "23c56b4f31e40c26f82ef9d9f45bea990d8d4f75ee6e65d3797134ef596a1d29",
+      "docs/wp06/continuation-20261029.json": "f0fcb710d6d264e30cc2b183e0c08707e32bf5abd197880cb41ae3e86ea381fb",
+      "docs/wp06/environment.json": "03b51db05ce59cf0182cb435a09bad4bb43b81e0875b01f8c332589109a553e8",
+      "docs/wp06/final-validation.json": "1dfcf57e7f5dbdf41aaddf0707180d92f7c01812a120ff6c4836bb081e3be110",
+      "docs/wp06/github-context.json": "9bc2cc280c492390b4404d79bafa8b4f6b1edf2ffe10096a61ddf6f6a87c006a",
+      "docs/wp06/local-validation.json": "4e93f4d7b11b7d715a0090212e1761b8fbe710d796c3d0bf1b52f5ad7a24b503",
+      "docs/wp06/review-state.json": "06dcf1084b97fffe79508c143256895953dc8fd6bed8d868ca4b33a5b970b412",
+      "docs/wp06/supplemental-source.json": "08fc782b09cf55b028c5f2b97c6b007d7b3f1ac981502d8cd867eca35d355029",
+      "e2e/convert.spec.ts": "70abc9e75392294ebc554afe0df3f473c96223a67499820daa1df8d1cb15cd74",
+      "src/features/convert/ConvertMode.test.tsx": "68fc98ce7635d7d9f2e7441933d2dab16793a88e52080cec7e267546c7692263",
+      "src/features/convert/model.test.ts": "79fef2345cfce7f82eb6c876fcddc46cb1feb16a7e1c17d950f94afbd1eccc51",
+      "src/shared/i18n/de.ts": "23fa35b2ed585f9f6fc9e96bcb1f3983c9692da3e0a95476049b65bd80a1824e",
+      "src/shared/i18n/en.ts": "83ad78f63ae84c478957b63448288a1a5c17bf9e87c03bf0b8d0ec332df7fdb0",
+      "src/units/engine.ts": "515e65146aefa4e0dad1429267709d19785ea878dc453ea261784a02716feeb3",
+      "src/units/query.test.ts": "6a491c21eb60c18a09db580abc7c3070e1eb52cc1cb72089b87f006e821bf92e"
+    }
+  },
+  "acceptance": "blocked: npm registry HTTP 403; no new-diff PR CI/main CI/Pages/live/browser validation"
+}

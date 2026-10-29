@@ -48,6 +48,14 @@ Strg+Umschalt+S tauscht außerhalb der Eingabefelder (zentrale AP14-Registry). O
 Editoren erhalten ihre Tastaturbedienung. Strg+H und die Shell-Aktion steuern
 den AP4-Verlauf.
 
+Zollquellen funktionieren auch mit Worttrennern, etwa `1 in to cm`, `1 in in cm`
+und `3 ft 4 in to cm`. Es gelten die begrenzte Kandidatenprüfung und die
+Mehrdeutigkeitsregeln aus [UNITS.md](UNITS.md). Bei mehrdeutiger Eingabe erklärt
+die lokalisierte Feldmeldung eindeutige Einheiten und den Pfeil als Trenner.
+Fehler übernehmen weder Menge noch Paar; der Fokus bleibt in der Schnelleingabe.
+Erfolgreiche Übernahme fokussiert wie bisher das Von-Feld. Ohne Ziel gilt weiter
+die oben beschriebene Zielwahl des Reducers.
+
 `m8e-calc.convert`, Version 1, speichert validierte Favoritenpaare (max. 100),
 zuletzt verwendete Paare (max. 12), signifikante Stellen (1–50), Notation,
 Sortierung und Compound-Option. Fremde Kategorien/Einheiten und zukünftige

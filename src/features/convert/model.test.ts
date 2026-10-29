@@ -19,6 +19,41 @@ import type { HistoryEntry } from '../../shared/history';
 const query = (text: string, locale = 'de') =>
   convertReducer(initialConvertState(), { type: 'query', text, locale });
 describe('converter adapter', () => {
+  it.each(['de', 'en'])(
+    'keeps inch quick queries and errors atomic in %s',
+    (locale) => {
+      for (const [text, expected] of [
+        ['1 in to cm', '2.54'],
+        ['1 in in cm', '2.54'],
+        ['3 ft 4 in to cm', '101.6'],
+      ] as const) {
+        const state = query(text, locale);
+        expect(state.error).toBeNull();
+        expect(state.toId).toBe('cm');
+        expect(resultsFor(state).cm).toBe(expected);
+      }
+      const accepted = query('1 in to cm', locale);
+      const noTarget = convertReducer(accepted, {
+        type: 'query',
+        text: '2 in',
+        locale,
+      });
+      expect(noTarget.toId).toBe('cm');
+      expect(resultsFor(noTarget).cm).toBe('5.08');
+      for (const [text, code] of [
+        ['1 mA in ma', 'E_UNIT_AMBIGUOUS'],
+        ['1 in to cm to mm', 'E_UNIT_QUERY'],
+      ] as const) {
+        const rejected = convertReducer(accepted, {
+          type: 'query',
+          text,
+          locale,
+        });
+        expect(rejected).toEqual({ ...accepted, error: code });
+        expect(resultsFor(rejected)).toEqual({});
+      }
+    },
+  );
   it('keeps exact values through conversion, target editing and swapping', () => {
     let state = query('5 km in mi');
     expect(resultsFor(state).m).toBe('5000');

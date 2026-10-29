@@ -203,23 +203,7 @@ export function createUnitsEngine(
       throw new UnitError('E_UNIT_AMBIGUOUS', `Ambiguous unit: ${text}`);
     return found;
   }
-  function parseQuery(query: string, locale = 'de'): ParsedQuery {
-    if (query.length > 4096)
-      throw new UnitError('E_UNIT_QUERY', 'Query too long.');
-    // "in" is both an inch and the English connector. Require text after it.
-    const arrows = [...query.matchAll(/\s*(?:->|→)\s*/gu)];
-    const separators = arrows.length
-      ? arrows
-      : [...query.matchAll(/\s+(?:in|to|nach)\s+/giu)];
-    if (separators.length > 1)
-      throw new UnitError('E_UNIT_QUERY', 'Multiple conversion targets.');
-    const split = separators[0];
-    const source = split ? query.slice(0, split.index) : query;
-    const targetText = split
-      ? query.slice((split.index ?? 0) + split[0].length)
-      : undefined;
-    if (targetText !== undefined && !targetText.trim())
-      throw new UnitError('E_UNIT_QUERY', 'Missing target.');
+  function parseQuantity(source: string, locale: string): ParsedQuery {
     const numbers = [
       ...source.matchAll(
         /[-+−]?(?:\d+(?:[.,]\d*)?|[.,]\d+)(?:[eE][+-]?\d+)?(?=\s|[^\d.,]|$)/gu,
@@ -295,15 +279,94 @@ export function createUnitsEngine(
       value = fromBase(base, head.unit);
     }
     checkedBase(value, head.unit.id);
-    const target =
-      targetText === undefined
-        ? undefined
-        : resolve(targetText, locale, category);
-    return {
-      value,
-      fromId: head.unit.id,
-      ...(target ? { toId: target.id } : {}),
-    };
+    return { value, fromId: head.unit.id };
+  }
+  function parseQuery(query: string, locale = 'de'): ParsedQuery {
+    if (query.length > 4096)
+      throw new UnitError('E_UNIT_QUERY', 'Query too long.');
+    function withTarget(source: ParsedQuery, targetText: string): ParsedQuery {
+      if (!targetText.trim())
+        throw new UnitError('E_UNIT_QUERY', 'Missing target.');
+      const target = resolve(
+        targetText,
+        locale,
+        lookup(source.fromId).category,
+      );
+      return { ...source, toId: target.id };
+    }
+    const arrows = [...query.matchAll(/\s*(?:->|→)\s*/gu)];
+    if (arrows.length > 1)
+      throw new UnitError('E_UNIT_QUERY', 'Multiple conversion targets.');
+    const arrow = arrows[0];
+    if (arrow)
+      return withTarget(
+        parseQuantity(query.slice(0, arrow.index), locale),
+        query.slice(arrow.index + arrow[0].length),
+      );
+
+    // Do not consume trailing whitespace: adjacent words in "in in" must
+    // both be considered. Inch symbols stay in the source until it resolves.
+    const separators: RegExpExecArray[] = [];
+    for (const split of query.matchAll(/\s+(?:in|to|nach)(?=\s)/giu)) {
+      separators.push(split);
+      if (separators.length > 32)
+        throw new UnitError('E_UNIT_QUERY', 'Too many possible separators.');
+    }
+    if (!separators.length) return parseQuantity(query, locale);
+
+    let match: ParsedQuery | undefined;
+    let wholeError: UnitError | undefined;
+    let sourceError: UnitError | undefined;
+    let targetError: UnitError | undefined;
+    try {
+      // An entire unit name/alias may itself contain a connector.
+      match = parseQuantity(query, locale);
+    } catch (error) {
+      if (!(error instanceof UnitError) || error.code === 'E_UNIT_AMBIGUOUS')
+        throw error;
+      wholeError = error;
+    }
+    for (const split of separators) {
+      let source: ParsedQuery;
+      try {
+        source = parseQuantity(query.slice(0, split.index), locale);
+      } catch (error) {
+        if (!(error instanceof UnitError) || error.code === 'E_UNIT_AMBIGUOUS')
+          throw error;
+        if (error.code !== 'E_UNIT_UNKNOWN') sourceError ??= error;
+        continue;
+      }
+      let candidate: ParsedQuery;
+      try {
+        candidate = withTarget(
+          source,
+          query.slice(split.index + split[0].length),
+        );
+      } catch (error) {
+        if (!(error instanceof UnitError) || error.code === 'E_UNIT_AMBIGUOUS')
+          throw error;
+        targetError ??= error;
+        continue;
+      }
+      if (match)
+        throw new UnitError('E_UNIT_AMBIGUOUS', 'Ambiguous conversion query.');
+      match = candidate;
+    }
+    if (match) return match;
+    if (
+      separators.length > 1 &&
+      !sourceError &&
+      targetError?.code === 'E_UNIT_UNKNOWN'
+    )
+      throw new UnitError('E_UNIT_QUERY', 'No valid conversion target.');
+    // Prefer an error after a valid source, then a substantive source error.
+    // A failed speculative inch split must not hide domain/compound errors.
+    throw (
+      targetError ??
+      sourceError ??
+      wholeError ??
+      new UnitError('E_UNIT_QUERY', 'No valid conversion query.')
+    );
   }
   function formatQuantity(
     value: Decimal.Value,

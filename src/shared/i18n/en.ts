@@ -67,7 +67,7 @@ export const en: Dictionary = {
     'Digits → From · Ctrl+Shift+S → Swap · Arrows → Category · Ctrl+H → History',
   'convert.error.E_UNIT_UNKNOWN': 'Unknown unit.',
   'convert.error.E_UNIT_AMBIGUOUS':
-    'Ambiguous unit. Please use a specific name.',
+    'Ambiguous input. Use specific unit names and, if needed, → as the separator.',
   'convert.error.E_UNIT_CATEGORY':
     'These units belong to different categories.',
   'convert.error.E_UNIT_DOMAIN':

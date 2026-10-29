@@ -1,5 +1,32 @@
 # Implementierungsstatus
 
+## WP-06 · Zoll-Queries und Wortseparatoren · 29.10.2026
+
+Lokal auf `feat/audit-wp-06` umgesetzt, Code-/Regressionen-/Vertragscommit
+`cb52217c9302e7f8bc17740fc07281a425c25a4f`, tatsächliche Basis-main nach WP-05
+`0d088b8c890b6d0b8826ba6eba46645e4ee4ea0b`. Pfeile bleiben vorrangig;
+Worttrennstellen werden über gültige Größen und Ziele derselben Kategorie
+geprüft. Zollquellen einschließlich Compound funktionieren mit in/to/nach;
+mehrere gültige Lesarten werden kontrolliert als mehrdeutig abgewiesen.
+4096 Zeichen und höchstens 32 Wortkandidaten begrenzen den Aufwand. Katalog,
+Präzision, öffentliche Signaturen und Lockfile bleiben unverändert.
+de/en-Meldungen, Fachverträge und Parser-/Reducer-/UI-/Produktionsbrowser-
+Regressionen sind ergänzt.
+
+Originalfehler in beiden Sprachen mit echten Parser-/Reducerquellen reproduziert;
+836 ergänzende Korrekturprüfungen, strikte Domänen-/Modelltypprüfung sowie
+Syntax-/Format-/Dokumentprüfungen bestehen. **Pflichtabnahme blockiert:** npm
+11.19.0 und `npm ci` scheitern an Registry-HTTP-403. Check, Vitest, normaler
+Produktionsbuild und Drei-Engine-Quickinput starten ihre Prüfer nicht. Keine
+PR-/main-CI-, Pages- oder Live-Freigabe für diesen lokalen Diff. Vollständige
+Identitäten, Befehle, Runtimegrenzen und Offen / Folgearbeiten: [WP06](WP06.md).
+
+Fortsetzung: Der ergänzende Katalogvergleich erhält 8.124 bisher gültige Queries
+exakt und bestätigt sechs neu akzeptierte Zollqueries. Produktcode unverändert;
+Registry-403 und reguläre lokale Abnahme bleiben blockiert. Die Basis-main-CI
+ist inzwischen wegen zweier externer Joblink-Antworten (502/503) rot, Pages
+skipped; sie enthält den lokalen WP-06-Diff nicht. Nachweise im WP06-Bericht.
+
 ## WP-05 · Gallery-WebKit und Attempt-Provenienz · 29.10.2026
 
 Begrenzte lokale Diagnose auf `feat/audit-wp-05`, Basis-main

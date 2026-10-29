@@ -121,6 +121,20 @@ das Vorzeichen der gesamten Menge. Weitere negative Glieder sind verboten.
 Ohne explizites Ziel fehlt `toId`. Grenzwert: 4096 Zeichen. Keine allgemeine
 Ausdrucksgrammatik oder Kalenderrechnung.
 
+Explizite Pfeile haben Vorrang; mehrere Pfeile sind ungültig. Ohne Pfeil prüft
+der Parser die vollständige Quellgröße sowie jede mögliche Worttrennstelle
+anhand der bestehenden Größenregeln und einer Zieleinheit derselben Kategorie.
+Das Zollkürzel bleibt dabei Teil der Quelle: `1 in to cm`, `1 in in cm` und
+`3 ft 4 in to cm` ergeben 2,54 cm, 2,54 cm und 101,6 cm; `1 in` bleibt ohne Ziel.
+Auch Einheiten mit Ziffern oder mehrteiligen Namen werden vollständig aufgelöst.
+Mehrere gültige Lesarten (auch bei alternativen Katalogen) oder mehrdeutige
+Einheiten ergeben `E_UNIT_AMBIGUOUS`; ein Pfeil und eindeutige Einheiten helfen
+bei der Präzisierung. Ungültige Mehrfachziele werden nicht teilweise übernommen.
+Maximal 32 Worttrennstellen werden ausgewertet, zusätzlich höchstens einmal die
+vollständige Quelle; mehr Kandidaten ergeben vor der Auswertung `E_UNIT_QUERY`.
+Keine rekursive Suche nach Kombinationen von Trennstellen. Affinitäts-,
+Compound-, Zahlen- und Groß-/Kleinschreibungsregeln bleiben unverändert.
+
 `formatQuantity` delegiert an `src/engine/format.ts`: `digits` sind signifikante
 Stellen (1…50, Standard 15), `notation` ist `auto | fixed | sci | eng`;
 Locale/Gruppierung folgen dem Engine-Vertrag. Es verändert den Wert nicht.
