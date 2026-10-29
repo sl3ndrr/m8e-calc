@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-29T20:25:37.133823+00:00",
+  "base": "8351329bced1bab62ac387e911f7549a1dac4458",
+  "codeCommit": "064d934fe322fadc33e1397306d29075d17207be",
+  "codeTree": "5d1ef79e46cd00d40b475cf56778078c02a77eac",
+  "branch": "feat/audit-wp-07",
+  "classification": "Supplemental local evidence. No npm-ci/Vitest/React/typecheck/format/build/production-browser/CI/Pages/live acceptance.",
+  "runner": {
+    "node": "24.22.1",
+    "npmInstalled": "11.9.0",
+    "npmRequired": "11.19.0",
+    "kernel": "6.18.55",
+    "arch": "x64",
+    "cpuModel": null,
+    "cpuCount": null,
+    "browser": null,
+    "syntaxParserRuntimePlaywright": "1.62.1",
+    "requiredPlaywright": "1.64.1"
+  },
+  "unchanged": [
+    "src/engine",
+    "src/units",
+    "src/graph",
+    "package.json",
+    "package-lock.json",
+    "scripts/qa-bundle.mjs",
+    "workflows",
+    "image baselines"
+  ],
+  "sourceDependencies": [
+    {
+      "repository": "MikeMcl/decimal.js",
+      "ref": "v10.6.0",
+      "path": "decimal.mjs",
+      "blob": "18dc6409e055c067a20eb4c92930cbf482356801"
+    },
+    {
+      "repository": "pmndrs/zustand",
+      "ref": "v5.0.15",
+      "path": "src/vanilla.ts",
+      "blob": "a20f0f8ca5e70e49f86342c0284142341f534c07"
+    },
+    {
+      "repository": "pmndrs/zustand",
+      "ref": "v5.0.15",
+      "path": "src/middleware/persist.ts",
+      "blob": "abd9c042ef1ba69dd7f2bcd8b4036b2deb5df794"
+    }
+  ],
+  "fileSha256": {
+    "e2e/scientific-worker.spec.ts": "ffebe348c08cf9afb62fb33761460eedea065c9887ce6108192592b040fd59fc",
+    "e2e/scientificWorkerProbe.ts": "92d0d6e267253061c6f061dde26181f6859d502439273309bb33931f44a2deae",
+    "e2e/startup-budget.spec.ts": "5798031a8de1b3fc90608e07b514bb29d81cfef3e68d03b44b42d37c606cf9c6",
+    "playwright.config.ts": "507d3172ac9c39b430fc092712068b087d32731111c91f362d7b8c5dc6d8c5b1",
+    "src/features/scientific/ScientificMode.test.tsx": "07a0ae04e922f72bebb047e1b16f5979eeb4b3631164330e163e172ceee76db7",
+    "src/features/scientific/ScientificMode.tsx": "c36304a3910949635cd77eb75db39300b1f45fa19857859cfe9aeb411e13267d",
+    "src/features/scientific/calculation.worker.ts": "c4b45f2c60845bd47fc07a6e631f4a60f23d846f3fead7c6c389e62681911ef4",
+    "src/features/scientific/calculationExecutor.test.ts": "d9cb3602aae1f5bf6a90884784d2ad9f1fa70ee4ef4293c48cc011dd948dd1d5",
+    "src/features/scientific/calculationExecutor.ts": "8e047e7db7765073614adf7813d8e6c92695b70048ff18ce000c1759ec688e80",
+    "src/features/scientific/calculationTestWorker.ts": "ab40fa0c1d34049fcb0914ba39cb49ecab0390fc7c7b512c1bbf572207f28301",
+    "src/features/scientific/scientificStore.test.ts": "7870ee1912d5e92352cf3655dff3a38181c70ed713cc263ebfccbe9fad4d7e00",
+    "src/features/scientific/scientificStore.ts": "d3d686be393ae1b696462c512d8a8ff00a4e88f1793e92758eee648f6a0814bf",
+    "src/features/scientific/workerCalculation.ts": "712be83befbcf2a35d0814137e8f04dce259be2f9c01758bbd70fdb64330fa46",
+    "src/features/scientific/workerProtocol.test.ts": "f5fbb9f0281d7bfa346d698dde571b9883c7089009d8c87dc0f43c0a7a45877c",
+    "src/features/scientific/workerProtocol.ts": "440e8a754f875ebd0af542f69df919924c15546b82c53edb520c1fa4418183a3",
+    "src/shared/i18n/de.ts": "481939dfeff35a025be2c5fbe10d4e731c393c29d36215ee78b09227bc31c9fd",
+    "src/shared/i18n/en.ts": "6db0bb19047b1e7d2b32ce718f06dc51488eb8537a36652a47f55c020af5165f"
+  },
+  "probes": {
+    "source": {
+      "command": [
+        "node",
+        "--experimental-transform-types",
+        "--import",
+        "/workspace/scratch/be71db201b1c/.wp07/loader.mjs",
+        "/workspace/scratch/be71db201b1c/.wp07/probe.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"checks\": 77,\n  \"node\": \"v24.22.1\",\n  \"times\": [\n    {\n      \"source\": \"integral(sin(x),x,0,pi)\",\n      \"milliseconds\": 25.49289999999999,\n      \"value\": {\n        \"kind\": \"number\",\n        \"value\": \"2.0000000000000000000000000007193949273708873248011\"\n      }\n    },\n    {\n      \"source\": \"sum(integral(sin(x),x,0,pi),k,1,100)\",\n      \"milliseconds\": 1279.916265,\n      \"value\": {\n        \"kind\": \"number\",\n        \"value\": \"200.00000000000000000000000007193949273708873248005\"\n      }\n    }\n  ],\n  \"note\": \"Supplemental source probe; no regular npm-ci, Vitest, React, production build or browser acceptance.\"\n}\n",
+      "stderr": "(node:5) ExperimentalWarning: Transform Types is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    "registered": {
+      "command": [
+        "node",
+        "--experimental-transform-types",
+        "--import",
+        "/workspace/scratch/be71db201b1c/.wp07/loader.mjs",
+        "/workspace/scratch/be71db201b1c/.wp07/registered-probe.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"registeredCases\":34,\"assertions\":182,\"failed\":0,\"note\":\"Supplemental Node assertion bridge, not Vitest/React/production acceptance.\"}\n",
+      "stderr": "(node:13) ExperimentalWarning: Transform Types is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    "threads": {
+      "command": [
+        "node",
+        "--experimental-transform-types",
+        "--import",
+        "/workspace/scratch/be71db201b1c/.wp07/loader.mjs",
+        "/workspace/scratch/be71db201b1c/.wp07/thread-probe.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"realWorkerCases\":2,\"mainMarkerBeforeResult\":true,\"cancelledBeforeFinalResponse\":true,\"postCancelCommits\":0,\"remainingAdapterListeners\":0,\"value\":{\"kind\":\"number\",\"value\":\"200.00000000000000000000000007193949273708873248005\"},\"note\":\"Actual calculation.worker.ts in Node worker_threads via explicit browser-transport bridge; no production browser acceptance.\"}\n",
+      "stderr": "(node:21) ExperimentalWarning: Transform Types is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:21) ExperimentalWarning: Transform Types is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:21) ExperimentalWarning: Transform Types is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    }
+  },
+  "probeSources": {
+    "loader.mjs": {
+      "sha256": "76e542527983ae43ea9cd3355ba724cd4add7b2c8415d0b8c358bf7604713446",
+      "source": "import { registerHooks } from 'node:module';\nimport { existsSync } from 'node:fs';\nimport { fileURLToPath, pathToFileURL } from 'node:url';\nregisterHooks({ resolve(specifier, context, next) {\n  if (specifier === 'vitest') return { url: new URL('./vitestBridge.mjs', import.meta.url).href, shortCircuit: true };\n  if (specifier === 'decimal.js') return { url: new URL('./decimal.mjs', import.meta.url).href, shortCircuit: true };\n  if (specifier === 'zustand') return { url: new URL('./zustandBridge.mjs', import.meta.url).href, shortCircuit: true };\n  if (specifier === 'zustand/middleware') return { url: new URL('./persist.ts', import.meta.url).href, shortCircuit: true };\n  if (specifier.startsWith('.') && context.parentURL?.startsWith('file:')) {\n    const base = fileURLToPath(new URL(specifier, context.parentURL));\n    for (const suffix of ['.ts', '/index.ts'])\n      if (existsSync(base + suffix)) return { url: pathToFileURL(base + suffix).href, shortCircuit: true };\n  }\n  return next(specifier, context);\n}});\n"
+    },
+    "probe.mjs": {
+      "sha256": "434a4cf759162aad78706ac0ef93ca45212ad6bd6f69dfa6f8f7e5e1f93ae937",
+      "source": "import assert from 'node:assert/strict';\nimport { performance } from 'node:perf_hooks';\nimport { createEnvironment } from '../m8e-calc/src/engine/index.ts';\nimport { calculate } from '../m8e-calc/src/features/scientific/model.ts';\nimport { runCalculation } from '../m8e-calc/src/features/scientific/workerCalculation.ts';\nimport { isCalculationRequest, isCalculationResponse, matchesCalculation, restoreCalculation } from '../m8e-calc/src/features/scientific/workerProtocol.ts';\nimport { CalculationExecutor } from '../m8e-calc/src/features/scientific/calculationExecutor.ts';\nimport { TestCalculationWorker } from '../m8e-calc/src/features/scientific/calculationTestWorker.ts';\nlet checks = 0;\nconst check = (value) => { assert.ok(value); checks++; };\nconst equal = (a,b) => { assert.deepEqual(a,b); checks++; };\nconst req = (expression, id = 1, kind = 'execute') => ({ version: 1, id, kind, environmentRevision: 0, executionRevision: 0, inputRevision: id, expression, environment: createEnvironment(), options: { angleMode: 'rad', complex: 'off' }, editingName: null });\nconst times = [];\nfor (const source of ['integral(sin(x),x,0,pi)', 'sum(integral(sin(x),x,0,pi),k,1,100)']) {\n  const job = req(source); const start = performance.now(); const response = structuredClone(runCalculation(job)); const ms = performance.now()-start;\n  check(isCalculationRequest(job)); check(isCalculationResponse(response)); check(matchesCalculation(response,job));\n  const direct = calculate(source,job.environment,job.options); check(direct.ok && response.status==='success');\n  equal(restoreCalculation(response.calculation).value,direct.calculation.value); equal(response.environment,direct.environment);\n  times.push({source,milliseconds:ms,value:response.calculation.value});\n}\nfor (const source of ['a=5','f(x)=1/0','1/0','sin(']) {\n  const job=req(source,1,'preview'), before=structuredClone(job.environment), response=runCalculation(job);\n  equal(response.status,'preview');equal(response.calculation,null);check(!Object.hasOwn(response,'environment'));equal(job.environment,before);\n}\nfor (const patch of [{version:2},{id:0},{inputRevision:-1},{executionRevision:NaN},{environmentRevision:0.5},{environment:{version:99}},{options:{angleMode:'x'}}]) check(!isCalculationRequest({...req('1+2'),...patch}));\nconst valid=runCalculation(req('1+2'));\nfor (const patch of [{version:2},{environment:{version:99}},{calculation:{...valid.calculation,value:{kind:'number',value:'NaN'}}},{status:'error',error:{code:'OTHER',range:{start:0,end:0}}}]) check(!isCalculationResponse({...valid,...patch}));\nTestCalculationWorker.hold=true;\nfunction harness() {\n  const workers=[], completed=[], failures=[], states=[];\n  const adapter=new CalculationExecutor(s=>states.push(s),()=>{const w=new TestCalculationWorker();workers.push(w);return w;});\n  const submit=(id,kind='preview')=>adapter.submit(req(String(id),id,kind),r=>completed.push(r),()=>failures.push(id));\n  return {workers,completed,failures,states,adapter,submit};\n}\n{\n const s=harness();s.submit(1,'execute');for(let id=2;id<=1001;id++)s.submit(id);equal(s.workers.length,1);\n s.workers[0].respond();equal(s.completed.length,1);equal(s.workers.length,2);equal(s.workers[1].request.id,1001);s.workers[1].respond();equal(s.completed.length,2);s.adapter.dispose();\n}\n{\n const s=harness();s.submit(1);const old=s.workers[0],handlers=[...old.listeners.get('message')];s.submit(2);s.submit(3);\n for(const h of handlers)h(new MessageEvent('message',{data:runCalculation(old.request)}));equal(s.completed.length,0);\n s.submit(4,'execute');s.submit(5,'execute');for(const w of s.workers)w.respond();equal(s.completed.length,1);equal(s.completed[0].id,5);\n check(s.workers.every(w=>w.terminated&&[...w.listeners.values()].every(l=>l.size===0)));s.adapter.dispose();\n}\nfor (const fault of ['error','messageerror','malformed','identity']) {\n const s=harness();s.submit(1,'execute');s.submit(2);const w=s.workers[0];\n if(fault==='malformed')w.respond({version:99});else if(fault==='identity')w.respond({...runCalculation(w.request),executionRevision:99});else w.crash(fault);\n w.crash();w.respond();equal(s.failures.length,1);equal(s.completed.length,0);equal(s.workers.length,1);check(w.terminated);s.adapter.dispose();\n}\n{\n const s=harness();s.submit(1,'execute');s.submit(2);s.adapter.cancel();s.workers[0].respond();equal(s.completed.length,0);equal(s.workers.length,1);\n s.submit(3);s.adapter.dispose();s.workers[1].respond();s.submit(4);equal(s.workers.length,2);check(s.workers.every(w=>w.terminated));\n}\nglobalThis.window={localStorage:{getItem:()=>null,setItem:()=>{},removeItem:()=>{}}};\nconst {createScientificStore}=await import('../m8e-calc/src/features/scientific/scientificStore.ts');\n{\n const data=new Map(), writes=[];\n const storage={getItem:k=>data.get(k)??null,setItem:(k,v)=>{data.set(k,v);writes.push(v);},removeItem:k=>data.delete(k)};\n const store=createScientificStore(storage), r=store.getState().revision, result=calculate('a=5',store.getState().environment,req('').options);check(result.ok);\n check(store.getState().commitIfCurrent(r,result.environment));equal(writes.length,1);check(!store.getState().commitIfCurrent(r,result.environment));equal(writes.length,1);\n const revision=store.getState().revision;store.getState().remove('a');check(!store.getState().commitIfCurrent(revision,result.environment));equal(store.getState().environment.variables.a,undefined);\n check(!Object.hasOwn(JSON.parse(writes.at(-1)).state,'revision'));\n const before=store.getState().revision;await store.persist.rehydrate();check(!store.getState().commitIfCurrent(before,result.environment));\n}\nconsole.log(JSON.stringify({checks,node:process.version,times,note:'Supplemental source probe; no regular npm-ci, Vitest, React, production build or browser acceptance.'},null,2));\n"
+    },
+    "vitestBridge.mjs": {
+      "sha256": "efe9994bcc0333e7d991ef2431efca0517c4ab8675432e74291aa817b0ccdbba",
+      "source": "import assert from 'node:assert/strict';\nexport const cases=[], hooks=[];\nexport const it=(name,fn)=>cases.push({name,fn});\nit.each=(items)=>(name,fn)=>items.forEach(item=>it(name.replace('%s',String(item)),()=>fn(...(Array.isArray(item)?item:[item]))));\nexport const afterEach=fn=>hooks.push(fn);\nexport const vi={fn:(implementation=()=>{})=>{const fn=(...args)=>{fn.mock.calls.push(args);return implementation(...args);};fn.mock={calls:[]};return fn;}};\nlet assertions=0;\nconst matches=(value,pattern)=>pattern!==null&&typeof pattern==='object'?Object.entries(pattern).every(([k,v])=>matches(value?.[k],v)):Object.is(value,pattern);\nexport const expect=(value)=>{\n  const make=negated=>{\n    const check=predicate=>{assertions++;assert.equal(!!predicate,!negated);};\n    return {\n      get not(){return make(!negated);},\n      toBe:expected=>check(Object.is(value,expected)),\n      toEqual:expected=>{if(!negated){assert.deepEqual(value,expected);assertions++;}else assert.notDeepEqual(value,expected);},\n      toMatchObject:expected=>check(matches(value,expected)),\n      toBeDefined:()=>check(value!==undefined),toBeUndefined:()=>check(value===undefined),toBeNull:()=>check(value===null),\n      toHaveLength:expected=>check(value?.length===expected),\n      toHaveProperty:key=>check(Object.hasOwn(value,key)),\n      toHaveBeenCalled:()=>check(value.mock.calls.length>0),\n      toHaveBeenCalledTimes:expected=>check(value.mock.calls.length===expected),\n    };\n  };return make(false);\n};\nexport const count=()=>assertions;\n"
+    },
+    "registered-probe.mjs": {
+      "sha256": "75d54ac16cbac0e2fb2354c69383cc21742f0ed1e1e8458b1a6a9b189f7f5f20",
+      "source": "import { cases, hooks, count } from './vitestBridge.mjs';\nglobalThis.window={localStorage:{getItem:()=>null,setItem:()=>{},removeItem:()=>{}}};\nfor(const file of ['workerProtocol','calculationExecutor','scientificStore'])\n await import(`../m8e-calc/src/features/scientific/${file}.test.ts`);\nlet failed=0;\nfor(const {name,fn} of cases){try{await fn();}catch(error){failed++;console.error(name,error);}finally{for(const hook of hooks)await hook();}}\nconsole.log(JSON.stringify({registeredCases:cases.length,assertions:count(),failed,note:'Supplemental Node assertion bridge, not Vitest/React/production acceptance.'}));\nif(failed)process.exitCode=1;\n"
+    },
+    "zustandBridge.mjs": {
+      "sha256": "21a561d175d0e720a4644b96735c915333e47f61902f2094c3d56f6a91866c2c",
+      "source": "import { createStore } from './vanilla.ts';\n// Supplemental store-action checks only: no React render/hook emulation.\nexport const create = (initializer) => initializer ? createStore(initializer) : createStore;\n"
+    },
+    "thread-entry.mjs": {
+      "sha256": "a8512d6d13208a4d9257adc66573d5e93c17ba818085d684cbf9df26afdbb241",
+      "source": "import { parentPort } from 'node:worker_threads';\nglobalThis.self={postMessage:data=>parentPort.postMessage(data),onmessage:null};\nawait import('../m8e-calc/src/features/scientific/calculation.worker.ts');\nparentPort.on('message',data=>self.onmessage({data}));\n"
+    },
+    "thread-probe.mjs": {
+      "sha256": "d1d1634e4d62c67991aa287f427d3254f4a39c5d4f927db938ff3517d1717c75",
+      "source": "import assert from 'node:assert/strict';\nimport { Worker } from 'node:worker_threads';\nimport { once } from 'node:events';\nimport { CalculationExecutor } from '../m8e-calc/src/features/scientific/calculationExecutor.ts';\nimport { createEnvironment } from '../m8e-calc/src/engine/index.ts';\nconst request={version:1,id:1,kind:'execute',inputRevision:1,executionRevision:1,environmentRevision:1,\n expression:'sum(integral(sin(x),x,0,pi),k,1,100)',environment:createEnvironment(),options:{angleMode:'rad',complex:'off'},editingName:null};\nfunction transport(){\n const native=new Worker(new URL('./thread-entry.mjs',import.meta.url));\n const listeners=new Map(),messages=[];\n let onStart;const started=new Promise(resolve=>onStart=resolve);\n native.on('message',data=>{messages.push(data);if(data.status==='started')onStart();for(const fn of listeners.get('message')??[])fn(new MessageEvent('message',{data}));});\n return {native,messages,started,listeners,postMessage:r=>native.postMessage(r),terminate:()=>native.terminate(),\n addEventListener:(type,fn)=>{const set=listeners.get(type)??new Set();set.add(fn);listeners.set(type,set);},removeEventListener:(type,fn)=>listeners.get(type)?.delete(fn)};\n}\nconst t=transport();let complete=0;\nconst adapter=new CalculationExecutor(()=>{},()=>t);\nadapter.submit(request,()=>complete++,()=>{throw new Error('worker failed');});\nawait t.started;let marker=false;await new Promise(resolve=>setImmediate(()=>{marker=true;resolve();}));\nassert.ok(marker);assert.equal(complete,0);\nconst exited=once(t.native,'exit');adapter.cancel();await exited;\nassert.equal(complete,0);assert.ok([...t.listeners.values()].every(list=>list.size===0));assert.equal(t.messages.filter(m=>m.status==='success').length,0);adapter.dispose();\nconst second=transport();const finished=new Promise(resolve=>second.native.on('message',data=>{if(data.status==='success')resolve(data);}));second.postMessage(request);\nconst result=await finished;assert.equal(result.calculation.value.value,'200.00000000000000000000000007193949273708873248005');await second.native.terminate();\nconsole.log(JSON.stringify({realWorkerCases:2,mainMarkerBeforeResult:marker,cancelledBeforeFinalResponse:true,postCancelCommits:complete,remainingAdapterListeners:0,value:result.calculation.value,note:'Actual calculation.worker.ts in Node worker_threads via explicit browser-transport bridge; no production browser acceptance.'}));\n"
+    }
+  },
+  "verificationScope": "File hashes identify the final code snapshot. Node probes exercise the engine/protocol/executor/store sources; e2e/UI rendering are syntax-checked only. The final browser-test edit preserves the ES2022 API surface; no production source changed after these probes."
+}

@@ -35,6 +35,9 @@ for (const locale of ['de-DE', 'en-US']) {
         expect(manifest[key]).toBeDefined();
         expect(expected.has(manifest[key]?.file ?? '')).toBe(false);
       }
+      const scientific = manifest['src/features/scientific/ScientificMode.tsx'];
+      expect(scientific).toBeDefined();
+      expect(expected.has(scientific?.file ?? '')).toBe(false);
       const scripts = new Set<string>();
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
@@ -71,6 +74,7 @@ for (const locale of ['de-DE', 'en-US']) {
       await expect(page.locator('.calculator-announcement')).toHaveText('120');
       // Required calculation must already work without another module request.
       expect([...scripts].sort()).toEqual([...expected].sort());
+      expect([...scripts].some((file) => /calculation\.worker|ExpressionEditor|MathDisplay|ScientificMode/.test(file))).toBe(false);
       const startup = await page.evaluate(
         () =>
           Reflect.get(window, 'ap30Startup') as {

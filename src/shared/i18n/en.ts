@@ -204,6 +204,11 @@ export const en: Dictionary = {
     'Settings, history and the last used mode will be reset.',
   'settings.resetDone': 'All data reset.',
   'settings.cancel': 'Cancel',
+  'scientific.work.cancel': 'Cancel',
+  'scientific.work.preview': 'Calculating preview …',
+  'scientific.work.execute': 'Calculating …',
+  'scientific.work.cancelled': 'Calculation cancelled.',
+  'scientific.work.failed': 'Calculation could not be completed. Please evaluate again.',
   'scientific.expression': 'Expression',
   'scientific.hint':
     'Enter evaluates · ↑/↓ history · Esc clears · Ctrl+Space suggestions · Tab accepts · Decimal point, commas separate arguments',

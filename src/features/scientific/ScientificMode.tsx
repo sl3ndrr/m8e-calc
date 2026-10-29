@@ -33,14 +33,17 @@ import {
   type Insertion,
 } from './editorModel';
 import {
-  calculate,
   displayResult,
   errorKey,
-  preview,
   resultLocale,
   type Calculation,
 } from './model';
 import { useScientificStore } from './scientificStore';
+import {
+  CalculationExecutor,
+  type CalculationBusy,
+} from './calculationExecutor';
+import { restoreCalculation, type CalculationRequest } from './workerProtocol';
 import type { EditorHandle } from './ExpressionEditor';
 import { ScientificKeypad } from './ScientificKeypad';
 import { ConstantsPanel, VariablesPanel } from './ReferencePanels';
@@ -66,7 +69,7 @@ export default function ScientificMode() {
   const separator = useSettingsStore((s) => s.decimalSeparator),
     grouping = useSettingsStore((s) => s.grouping);
   const environment = useScientificStore((s) => s.environment),
-    commit = useScientificStore((s) => s.commit),
+    environmentRevision = useScientificStore((s) => s.revision),
     remove = useScientificStore((s) => s.remove),
     recovery = useScientificStore((s) => s.recovery);
   const [expression, setExpression] = useState(
@@ -90,23 +93,60 @@ export default function ScientificMode() {
     [storeName, setStoreName] = useState('a'),
     [storeError, setStoreError] = useState('');
   const [editingName, setEditingName] = useState<string | null>(null);
-  const [live, setLive] = useState<{
-    expression: string;
-    environment: typeof environment;
-    angleMode: AngleMode;
-    complex: ComplexMode;
-    bitwise: boolean;
-    programmer: WordOptions;
-    calculation: Calculation | null;
-  } | null>(null);
+  const [live, setLive] = useState<Calculation | null>(null);
+  const [busy, setBusy] = useState<CalculationBusy>(null);
+  const [workMessage, setWorkMessage] = useState<
+    'cancelled' | 'failed' | null
+  >(null);
+  const executor = useRef<CalculationExecutor | null>(null);
+  const inputRevision = useRef(0),
+    executionRevision = useRef(0),
+    requestId = useRef(0);
+  const previewTimer = useRef<number | null>(null);
+  const clearPreviewTimer = useCallback(() => {
+    if (previewTimer.current !== null) window.clearTimeout(previewTimer.current);
+    previewTimer.current = null;
+  }, []);
+  const invalidate = useCallback(() => {
+    executionRevision.current++;
+    clearPreviewTimer();
+    executor.current?.cancel();
+    setLive(null);
+    setWorkMessage(null);
+  }, [clearPreviewTimer]);
+  useEffect(() => {
+    const adapter = new CalculationExecutor(setBusy);
+    executor.current = adapter;
+    const unsubscribe = useScientificStore.subscribe((next, previous) => {
+      if (next.revision !== previous.revision) invalidate();
+    });
+    return () => {
+      executionRevision.current++;
+      clearPreviewTimer();
+      unsubscribe();
+      adapter.dispose();
+      executor.current = null;
+    };
+  }, [clearPreviewTimer, invalidate]);
   const editor = useRef<EditorHandle>(null),
     cursor = useRef<HistoryCursor>({ index: -1, draft: '' });
-  const change = useCallback((text: string) => {
-    setExpression(text);
-    if (!text) setEditingName(null);
-    setError(null);
-    cursor.current = { index: -1, draft: text };
-  }, []);
+  const change = useCallback(
+    (text: string) => {
+      inputRevision.current++;
+      clearPreviewTimer();
+      executor.current?.cancelPreview();
+      if (!text) {
+        invalidate();
+        setEditingName(null);
+      }
+      setLive(null);
+      setWorkMessage(null);
+      setExpression(text);
+      setError(null);
+      cursor.current = { index: -1, draft: text };
+    },
+    [clearPreviewTimer, invalidate],
+  );
   const restore = useCallback(
     (entry: HistoryEntry) => {
       const p = entry.payload;
@@ -118,6 +158,7 @@ export default function ScientificMode() {
         typeof p.expression !== 'string'
       )
         return;
+      invalidate();
       if (
         p.programmer &&
         typeof p.programmer === 'object' &&
@@ -143,7 +184,7 @@ export default function ScientificMode() {
       setEditingName(null);
       editor.current?.focus();
     },
-    [change],
+    [change, invalidate],
   );
   const { entries, add } = useModeHistory('scientific', restore);
   const bitwise = tab === 'computerScience';
@@ -158,71 +199,90 @@ export default function ScientificMode() {
   const displayed = calculation?.value
     ? displayResult(calculation.value, format, fraction)
     : null;
-  const liveCalculation =
-    live?.expression === expression &&
-    live.environment === environment &&
-    live.angleMode === angleMode &&
-    live.complex === complex &&
-    live.bitwise === bitwise &&
-    live.programmer === programmer
-      ? live.calculation
-      : null;
-  const liveText = liveCalculation?.value
-    ? displayResult(liveCalculation.value, format, fraction).text
+  const liveText = live?.value
+    ? displayResult(live.value, format, fraction).text
     : null;
   useEffect(() => {
-    const timer = window.setTimeout(
-      () =>
-        setLive({
-          expression,
-          environment,
-          angleMode,
-          complex,
-          bitwise,
-          programmer,
-          calculation: preview(expression, environment, {
-            angleMode,
-            complex,
-            bitwise,
-            programmer,
-          }),
-        }),
-      250,
-    );
+    if (!expression.trim() || recovery === 'loading') return;
+    const capturedInput = inputRevision.current;
+    const capturedExecution = executionRevision.current;
+    const adapter = executor.current;
+    const timer = window.setTimeout(() => {
+      previewTimer.current = null;
+      if (!adapter || capturedInput !== inputRevision.current || capturedExecution !== executionRevision.current) return;
+      const request: CalculationRequest = {
+        version: 1, id: ++requestId.current, kind: 'preview', expression,
+        environment, environmentRevision, inputRevision: capturedInput,
+        executionRevision: capturedExecution, options: { angleMode, complex, bitwise, programmer }, editingName: null,
+      };
+      adapter.submit(request, (response) => {
+        if (capturedInput !== inputRevision.current || capturedExecution !== executionRevision.current ||
+          useScientificStore.getState().revision !== environmentRevision) return;
+        if (response.status === 'preview') setLive(response.calculation ? restoreCalculation(response.calculation) : null);
+      }, () => {
+        if (capturedInput === inputRevision.current && capturedExecution === executionRevision.current) setWorkMessage('failed');
+      });
+    }, 250);
+    previewTimer.current = timer;
     return () => window.clearTimeout(timer);
-  }, [expression, environment, angleMode, complex, bitwise, programmer]);
-  function evaluate(source: string = expression): void {
-    if (recovery === 'loading') return;
-    const result = calculate(source, environment, options, editingName);
-    if (!result.ok) {
-      setError(result.error);
-      return;
-    }
-    setError(null);
-    setEditingName(null);
-    setCalculation(result.calculation);
-    const integer = integerResult(result.calculation.value);
-    if (bitwise && integer !== null) setWordValue(word(integer, programmer));
-    commit(result.environment);
-    const output = result.calculation.value
-      ? displayResult(result.calculation.value, format, fraction)
-      : { text: t('scientific.definitionSaved', locale), latex: '' };
-    add({
-      input: source,
-      result: output.text,
-      payload: {
-        version: 1,
-        expression: source,
-        ...(bitwise ? { programmer: { ...programmer } } : {}),
-        latex: {
-          expression: result.calculation.expressionLatex,
-          result: output.latex,
+  }, [expression, environment, environmentRevision, angleMode, complex, bitwise, programmer, recovery]);
+  function evaluate(source: string = expression, kind: 'execute' | 'store' = 'execute'): void {
+    const snapshot = useScientificStore.getState();
+    if (snapshot.recovery === 'loading') return;
+    invalidate();
+    const revision = executionRevision.current;
+    const input = inputRevision.current;
+    const request: CalculationRequest = {
+      version: 1, id: ++requestId.current, kind, expression: source,
+      environment: snapshot.environment, environmentRevision: snapshot.revision,
+      inputRevision: input, executionRevision: revision,
+      options: { ...options, programmer: { ...programmer } }, editingName: kind === 'execute' ? editingName : null,
+    };
+    executor.current?.submit(request, (response) => {
+      if (revision !== executionRevision.current || snapshot.revision !== useScientificStore.getState().revision) return;
+      if (response.status === 'error') {
+        if (kind === 'store') setStoreError(t(errorKey(response.error), locale));
+        else if (input === inputRevision.current) setError(response.error);
+        return;
+      }
+      if (response.status !== 'success') return;
+      const result = restoreCalculation(response.calculation);
+      if (!useScientificStore.getState().commitIfCurrent(snapshot.revision, response.environment)) return;
+      if (kind === 'store') {
+        setStoreError('');
+        setTab('variables');
+        return;
+      }
+      // Commit Enter's captured intent, but never overwrite a subsequently edited draft/result.
+      if (input === inputRevision.current) {
+        setError(null);
+        setEditingName(null);
+        setCalculation(result);
+        const integer = integerResult(result.value);
+        if (bitwise && integer !== null) setWordValue(word(integer, programmer));
+        cursor.current = { index: -1, draft: source };
+      }
+      const output = result.value
+        ? displayResult(result.value, format, fraction)
+        : { text: t('scientific.definitionSaved', locale), latex: '' };
+      add({
+        input: source, result: output.text,
+        payload: {
+          version: 1, expression: source,
+          ...(bitwise ? { programmer: { ...programmer } } : {}),
+          latex: { expression: result.expressionLatex, result: output.latex },
         },
-      },
+      });
+    }, () => {
+      if (revision === executionRevision.current) setWorkMessage('failed');
     });
-    cursor.current = { index: -1, draft: expression };
+  }
+  function selectTab(next: string): void {
+    if ((next === 'computerScience') !== bitwise) invalidate();
+    setTab(next);
   }
   async function retryStoredEnvironment(): Promise<void> {
+    invalidate();
     await useScientificStore.persist.rehydrate();
     if (useScientificStore.getState().recovery === null) {
       setCalculation(null);
@@ -238,8 +298,9 @@ export default function ScientificMode() {
       expression,
       entries.map((e) => e.input),
     );
+    invalidate();
+    change(next.text);
     cursor.current = next.cursor;
-    setExpression(next.text);
     setEditingName(null);
     setError(null);
   }
@@ -266,14 +327,7 @@ export default function ScientificMode() {
       setStoreError(t('scientific.storeInvalid', locale));
       return;
     }
-    const result = calculate(`${storeName} = ans`, environment, options);
-    if (!result.ok) {
-      setStoreError(t(errorKey(result.error), locale));
-      return;
-    }
-    commit(result.environment);
-    setStoreError('');
-    setTab('variables');
+    evaluate(`${storeName} = ans`, 'store');
   }
   const math = (latex: string, label: string) => (
     <Suspense fallback={<div className="scientific-math">{label}</div>}>
@@ -291,7 +345,7 @@ export default function ScientificMode() {
             variant="text"
             isSelected={tab === 'computerScience'}
             onPress={() =>
-              setTab(tab === 'computerScience' ? 'keypad' : 'computerScience')
+              selectTab(tab === 'computerScience' ? 'keypad' : 'computerScience')
             }
           >
             {t('scientific.computerScience', locale)}
@@ -331,6 +385,7 @@ export default function ScientificMode() {
                   aria-label={t('scientific.angle', locale)}
                   value={angleMode}
                   onChange={(v) => {
+                    invalidate();
                     setAngleMode(v as AngleMode);
                     setError(null);
                   }}
@@ -348,6 +403,7 @@ export default function ScientificMode() {
                   aria-label={t('scientific.complex', locale)}
                   value={complex}
                   onChange={(v) => {
+                    invalidate();
                     setComplex(v as ComplexMode);
                     setError(null);
                   }}
@@ -393,11 +449,26 @@ export default function ScientificMode() {
               role="status"
               aria-label={t('scientific.preview', locale)}
             >
-              {liveText && (
-                <>
-                  <span>{t('scientific.preview', locale)}</span>
-                  <output>{liveText}</output>
-                </>
+              {workMessage ? (
+                <span role={workMessage === 'failed' ? 'alert' : undefined}>
+                  {t(`scientific.work.${workMessage}`, locale)}
+                </span>
+              ) : busy ? (
+                <span>
+                  {t(
+                    busy === 'preview'
+                      ? 'scientific.work.preview'
+                      : 'scientific.work.execute',
+                    locale,
+                  )}
+                </span>
+              ) : (
+                liveText && (
+                  <>
+                    <span>{t('scientific.preview', locale)}</span>
+                    <output>{liveText}</output>
+                  </>
+                )
               )}
             </div>
             <div className="scientific-actions">
@@ -410,11 +481,14 @@ export default function ScientificMode() {
               <Button
                 variant="text"
                 onPress={() => {
-                  change('');
+                  if (busy) {
+                    invalidate();
+                    setWorkMessage('cancelled');
+                  } else change('');
                   editor.current?.focus();
                 }}
               >
-                {t('scientific.clear', locale)}
+                {t(busy ? 'scientific.work.cancel' : 'scientific.clear', locale)}
               </Button>
             </div>
           </Card>
@@ -506,7 +580,7 @@ export default function ScientificMode() {
               <SegmentedControl
                 aria-label={t('scientific.tools', locale)}
                 value={tab}
-                onChange={setTab}
+                onChange={selectTab}
                 items={(
                   [
                     'keypad',
@@ -528,7 +602,7 @@ export default function ScientificMode() {
                 editor.current?.focus();
               }}
               store={store}
-              recall={() => setTab('variables')}
+              recall={() => selectTab('variables')}
             />
             <TextField
               label={t('scientific.storeName', locale)}
@@ -556,9 +630,10 @@ export default function ScientificMode() {
               format={format}
               insert={(text) => insert({ text })}
               edit={(source, name) => {
+                invalidate();
                 change(source);
                 setEditingName(name);
-                setTab('variables');
+                selectTab('variables');
                 editor.current?.focus();
               }}
               remove={remove}
@@ -576,6 +651,7 @@ export default function ScientificMode() {
               onConfigure={(next) => {
                 try {
                   const value = reconfigure(wordValue, programmer, next);
+                  invalidate();
                   setWordValue(value);
                   setProgrammer(next);
                   setError(null);

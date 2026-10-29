@@ -20,6 +20,12 @@ Engine und AST-Vertrag bleiben unverändert.
   verändert weder Environment noch Verlauf. Zuweisungen/Definitionen werden
   erst bei Enter/Auswerten übernommen. Zahlen verwenden den Dezimalpunkt;
   Kommas trennen Argumente, die Anzeige folgt den Einstellungen.
+  WP-07 führt Vorschau, Enter/Auswerten und STO in einem lokalen Modulworker
+  aus. Während der Arbeit bleiben Editor und Navigation bedienbar. „Leeren“
+  wird vorübergehend zu „Abbrechen“ und beendet die Arbeit bei erhaltenem
+  Entwurf; Escape leert weiterhin und bricht ebenfalls ab. Der bestehende
+  Vorschauplatz meldet Arbeit, Abbruch oder einen kontrollierten Workerfehler
+  ohne zusätzliche Animation.
 - Ergebnis: Auto/Fest/Wissenschaftlich/Technisch, 1–50 **signifikante** Stellen,
   Bruchnäherung (Nenner ≤ 1.000.000), Text- und LaTeX-Kopie. KaTeX zeigt Ausdruck
   und formatiertes Ergebnis mit MathML. Komplexe Zahlen können aktiviert werden.
@@ -96,6 +102,52 @@ sichtbaren Definitionstext und die lokalisierte Aktion (Ansatz aus PR #65/WP-04)
 Es gibt keine zusätzliche Live-Region für Definitionen oder Bearbeitungsaktionen.
 
 ## Verifikation
+
+### Ausführungsadapter · WP-07
+
+`calculation.worker.ts`, `workerCalculation.ts`, `workerProtocol.ts` und
+`calculationExecutor.ts` liegen ausschließlich im wissenschaftlichen Feature.
+Die reine Engine einschließlich Verfahren, Toleranzen und Ressourcenlimits
+bleibt unverändert. Der Einfachmodus importiert diesen Adapter nicht.
+Der Worker entsteht erst bei einem Auftrag und wird nach dessen Abschluss
+freigegeben. Es gibt keinen synchronen Rechenfallback, kein SharedArrayBuffer
+und keine COOP-/COEP-Voraussetzung.
+
+Protokoll 1 trägt Request-ID, Eingabe-, Ausführungs- und Environmentrevision,
+Auftragsart, Originalausdruck, serialisiertes Environment, Winkel-/Komplex-/
+Programmeroptionen und gegebenenfalls den WP-02-Bearbeitungsnamen. Ein validiertes
+Startsignal bestätigt den Eintritt in den Worker; die abschließende Antwort
+enthält serialisierte Werte, Enginefehler mit Originalbereichen oder einen
+Adapterfehler. Werte und neue Environments werden neutral mit den bestehenden
+Domänenvalidatoren geprüft. Decimal-Instanzen werden nicht übertragen.
+
+Höchstens eine Berechnung läuft. Während Enter/STO läuft, ersetzt jede neue
+Vorschau nur den einen vorgemerkten Nachfolger. Neue Enter-/STO-Ausführung
+beendet die vorige Arbeit. Überholte laufende Vorschauen werden terminiert;
+Abbruch, Leeren, Moduswechsel und relevante Kontext-/Environmentänderungen
+entwerten alte Aufträge ebenfalls. Terminierung beendet auch lange synchrone
+Workerarbeit tatsächlich. Die UI räumt Debouncetimer, Storeabonnement und
+Workerlistener beim Unmount auf. Fehler verwerfen den Nachfolger, ohne
+automatische Wiederholungs- oder Neustartschleife.
+
+Eine Vorschau exportiert kein neues Environment und schreibt keinen Verlauf.
+Enter arbeitet auf dem beim Auslösen festgehaltenen Snapshot. Neue Texte und
+deren Vorschauen ersetzen diese ausdrückliche Absicht nicht. Ein gültiger
+Abschluss darf per atomarem `commitIfCurrent` höchstens einmal übernommen
+werden; inzwischen bearbeitete Eingaben und ihre Ergebnisfläche werden dabei
+nicht überschrieben. Der Verlauf benennt stets den ausgeführten Snapshot.
+STO behält seine bisherige Semantik ohne zusätzlichen globalen Verlaufseintrag.
+Die transiente Environmentrevision wird nicht persistiert; auch erneutes Laden
+identischer gespeicherter Daten entwertet ausstehende Antworten. WP-01s
+Schreibsperren und WP-02s verlustfreie Bestätigungen bleiben erhalten.
+
+Die regulären Protokoll-/Adapter-/Store-/UI-Regressionen und
+`e2e/scientific-worker.spec.ts` prüfen kontrollierte Antworten, Startsignale,
+A → B → A, Optionswechsel, Löschen, doppelte Ausführung, Abbruch und Cleanup.
+Der Offlinefall startet aus einem ausschließlich besuchten Einfachmodus.
+Tatsächliche Ausführungen und bestehende Abnahmeblocker: [WP07.md](WP07.md).
+
+### Bestehende Prüfungen
 
 Reine Tests für Einfügen/Selektion, Entwurfsnavigation, Gradnormalisierung,
 Fehlerpositionen, Vorschau, Formate, Registry und Storage. Komponententests prüfen

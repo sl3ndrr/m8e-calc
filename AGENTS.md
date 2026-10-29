@@ -1,5 +1,14 @@
 # Projektgedächtnis: m8e-calc
 
+WP-07 verschiebt wissenschaftliche Vorschau, Ausführung und STO ausschließlich
+in den lokalen Featureworker. Protokoll 1 validiert serialisierte Werte und
+Environments; eine laufende Arbeit und ein neuester Vorschau-Nachfolger sind
+die Obergrenze. Abbruch/Invalidierung terminieren den Worker tatsächlich.
+Explizite Snapshots committen atomar gegen die transiente Environmentrevision;
+Vorschauen dürfen weder Environment noch Verlauf schreiben. Kein synchroner
+Fallback, keine zusätzliche eager Startlast. Vertrag und Prüfgrenzen:
+[docs/SCIENTIFIC_MODE.md](docs/SCIENTIFIC_MODE.md), [docs/WP07.md](docs/WP07.md).
+
 Aktuelle integrierte Produktabnahme: [docs/AP46.md](docs/AP46.md), nach
 AP42–AP45 auf main `c95f183a`. Historische Ausgangslage: [docs/AP40.md](docs/AP40.md).
 Live-Abnahme und

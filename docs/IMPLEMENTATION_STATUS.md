@@ -1,5 +1,25 @@
 # Implementierungsstatus
 
+## WP-07 · Wissenschaftliche Berechnungen im Worker · 29.10.2026
+
+Lokal auf `feat/audit-wp-07` ab aktuellem main
+`8351329bced1bab62ac387e911f7549a1dac4458` einschließlich WP-06 umgesetzt.
+Vorschau, Enter und STO laufen über einen lokalen, tatsächlich terminierbaren
+Modulworker. Protokoll 1 validiert serialisierte Ergebnisse/Environments;
+eine laufende Arbeit und ein neuester Vorschau-Nachfolger begrenzen die Queue.
+Explizite Snapshots committen einmalig gegen die Environmentrevision, ohne
+neuere Eingaben zu überschreiben. Preview bleibt ohne Persistenz/Verlauf.
+de/en-Arbeits-/Abbruchzustand, Cleanup, Vertrags- und Regressionsergänzungen;
+keine Domänen-, Toleranz-, Dependency-, Lockfile- oder Baselineänderung.
+
+Ergänzende lokale Nodequellproben (77 Assertions sowie 34 registrierte Fälle /
+182 Assertions) und zwei echte Nodeworkerfälle bestehen; Syntax von 17 TS/TSX-
+Dateien geprüft. Das sind keine regulären Vitest-/React-/Produktionsbrowserläufe.
+**Pflichtabnahme blockiert:** npm 11.19.0 und `npm ci` scheitern an Registry-403;
+check, Build und die vorgesehenen Browser-/Bundlegates starten ihre Prüfer nicht.
+Keine WP-07-PR-/main-CI-, Pages- oder Livefreigabe. Vollständige Herkunft,
+Codeidentität, Befehle, Befunde und Grenzen: [WP07.md](WP07.md).
+
 ## WP-06 · Zoll-Queries und Wortseparatoren · 29.10.2026
 
 Lokal auf `feat/audit-wp-06` umgesetzt, Code-/Regressionen-/Vertragscommit

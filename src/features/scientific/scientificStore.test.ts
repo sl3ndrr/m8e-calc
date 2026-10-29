@@ -11,6 +11,30 @@ import {
   MAX_SCIENTIFIC_STORAGE_LENGTH,
   SCIENTIFIC_STORAGE_KEY,
 } from './scientificStore';
+it('commits a worker environment at most once and rejects any stale environment revision without storage writes', () => {
+  const { storage } = memoryStorage();
+  const store = createScientificStore(storage);
+  const revision = store.getState().revision;
+  const result = step('a=5');
+  expect(store.getState().commitIfCurrent(revision, result)).toBe(true);
+  const saved = storage.setItem.mock.calls.length;
+  expect(store.getState().commitIfCurrent(revision, result)).toBe(false);
+  expect(storage.setItem).toHaveBeenCalledTimes(saved);
+  const next = store.getState().revision;
+  store.getState().remove('a');
+  expect(store.getState().commitIfCurrent(next, result)).toBe(false);
+  expect(store.getState().environment.variables.a).toBeUndefined();
+  expect(JSON.parse(storage.setItem.mock.calls.at(-1)?.[1] ?? '{}').state).not.toHaveProperty('revision');
+});
+it('invalidates outstanding revisions even when hydration reloads equal contents', async () => {
+  const { storage } = memoryStorage(envelope(step('a=5')));
+  const store = createScientificStore(storage);
+  const revision = store.getState().revision;
+  const result = step('a+1', store.getState().environment);
+  await store.persist.rehydrate();
+  expect(store.getState().commitIfCurrent(revision, result)).toBe(false);
+  expect(storage.setItem).not.toHaveBeenCalled();
+});
 it('persists definitions and survives damaged or denied browser storage', () => {
   const data = new Map<string, string>();
   const storage = {
