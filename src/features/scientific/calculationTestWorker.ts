@@ -9,7 +9,9 @@ export class TestCalculationWorker implements CalculationWorker {
   readonly listeners = new Map<string, Set<EventListener>>();
   readonly sent: CalculationRequest[] = [];
   terminated = false;
-  constructor() { TestCalculationWorker.instances.push(this); }
+  constructor() {
+    TestCalculationWorker.instances.push(this);
+  }
   addEventListener(type: string, listener: EventListener): void {
     const list = this.listeners.get(type) ?? new Set<EventListener>();
     list.add(listener);
@@ -23,7 +25,7 @@ export class TestCalculationWorker implements CalculationWorker {
     if (!TestCalculationWorker.hold) queueMicrotask(() => this.respond());
   }
   respond(data: unknown = runCalculation(this.request)): void {
-    for (const listener of [...this.listeners.get('message') ?? []])
+    for (const listener of [...(this.listeners.get('message') ?? [])])
       listener(new MessageEvent('message', { data: structuredClone(data) }));
   }
   get request(): CalculationRequest {
@@ -32,7 +34,10 @@ export class TestCalculationWorker implements CalculationWorker {
     return request;
   }
   crash(type = 'error'): void {
-    for (const listener of [...this.listeners.get(type) ?? []]) listener(new Event(type));
+    for (const listener of [...(this.listeners.get(type) ?? [])])
+      listener(new Event(type));
   }
-  terminate(): void { this.terminated = true; }
+  terminate(): void {
+    this.terminated = true;
+  }
 }

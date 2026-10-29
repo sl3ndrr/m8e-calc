@@ -212,7 +212,8 @@ export const de = {
   'scientific.work.preview': 'Vorschau wird berechnet …',
   'scientific.work.execute': 'Berechnung läuft …',
   'scientific.work.cancelled': 'Berechnung abgebrochen.',
-  'scientific.work.failed': 'Berechnung konnte nicht abgeschlossen werden. Bitte erneut auswerten.',
+  'scientific.work.failed':
+    'Berechnung konnte nicht abgeschlossen werden. Bitte erneut auswerten.',
   'scientific.expression': 'Ausdruck',
   'scientific.hint':
     'Enter berechnet · ↑/↓ Verlauf · Esc leert · Strg+Leertaste Vorschläge · Tab übernimmt · Dezimalpunkt, Komma trennt Argumente',

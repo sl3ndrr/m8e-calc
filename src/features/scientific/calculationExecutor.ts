@@ -1,11 +1,22 @@
-import { isCalculationResponse, matchesCalculation, type CalculationRequest, type CalculationResponse } from './workerProtocol';
+import {
+  isCalculationResponse,
+  matchesCalculation,
+  type CalculationRequest,
+  type CalculationResponse,
+} from './workerProtocol';
 
 export type CalculationBusy = CalculationRequest['kind'] | null;
 export interface CalculationWorker {
   postMessage: (request: CalculationRequest) => void;
   terminate: () => void;
-  addEventListener: (type: 'message' | 'error' | 'messageerror', listener: EventListener) => void;
-  removeEventListener: (type: 'message' | 'error' | 'messageerror', listener: EventListener) => void;
+  addEventListener: (
+    type: 'message' | 'error' | 'messageerror',
+    listener: EventListener,
+  ) => void;
+  removeEventListener: (
+    type: 'message' | 'error' | 'messageerror',
+    listener: EventListener,
+  ) => void;
 }
 interface Job {
   request: CalculationRequest;
@@ -13,7 +24,9 @@ interface Job {
   fail: () => void;
 }
 export function createCalculationWorker(): CalculationWorker {
-  return new Worker(new URL('./calculation.worker.ts', import.meta.url), { type: 'module' });
+  return new Worker(new URL('./calculation.worker.ts', import.meta.url), {
+    type: 'module',
+  });
 }
 /** One running job and only the latest preview successor. No synchronous fallback. */
 export class CalculationExecutor {
@@ -26,10 +39,15 @@ export class CalculationExecutor {
     private readonly busy: (kind: CalculationBusy) => void,
     private readonly factory: () => CalculationWorker = createCalculationWorker,
   ) {}
-  submit(request: CalculationRequest, complete: Job['complete'], fail: Job['fail']): void {
+  submit(
+    request: CalculationRequest,
+    complete: Job['complete'],
+    fail: Job['fail'],
+  ): void {
     if (this.disposed) return;
     // Explicit execution always wins. Typing only replaces previews, preserving Enter's snapshot.
-    if (request.kind !== 'preview' || this.running?.request.kind === 'preview') this.stop();
+    if (request.kind !== 'preview' || this.running?.request.kind === 'preview')
+      this.stop();
     this.pending = { request, complete, fail };
     this.pump();
   }
@@ -77,10 +95,19 @@ export class CalculationExecutor {
       const message: EventListener = (event) => {
         if (this.worker !== worker || this.running !== job) return;
         const data: unknown = (event as MessageEvent<unknown>).data;
-        if (!isCalculationResponse(data)) { failed(); return; }
+        if (!isCalculationResponse(data)) {
+          failed();
+          return;
+        }
         // An already queued duplicate/old answer cannot consume the active job.
         if (data.id !== job.request.id) return;
-        if (!matchesCalculation(data, job.request) || data.status === 'failure') { failed(); return; }
+        if (
+          !matchesCalculation(data, job.request) ||
+          data.status === 'failure'
+        ) {
+          failed();
+          return;
+        }
         if (data.status === 'started') return;
         this.stop();
         this.busy(null);

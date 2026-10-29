@@ -95,16 +95,17 @@ export default function ScientificMode() {
   const [editingName, setEditingName] = useState<string | null>(null);
   const [live, setLive] = useState<Calculation | null>(null);
   const [busy, setBusy] = useState<CalculationBusy>(null);
-  const [workMessage, setWorkMessage] = useState<
-    'cancelled' | 'failed' | null
-  >(null);
+  const [workMessage, setWorkMessage] = useState<'cancelled' | 'failed' | null>(
+    null,
+  );
   const executor = useRef<CalculationExecutor | null>(null);
   const inputRevision = useRef(0),
     executionRevision = useRef(0),
     requestId = useRef(0);
   const previewTimer = useRef<number | null>(null);
   const clearPreviewTimer = useCallback(() => {
-    if (previewTimer.current !== null) window.clearTimeout(previewTimer.current);
+    if (previewTimer.current !== null)
+      window.clearTimeout(previewTimer.current);
     previewTimer.current = null;
   }, []);
   const invalidate = useCallback(() => {
@@ -208,73 +209,137 @@ export default function ScientificMode() {
     const adapter = executor.current;
     const timer = window.setTimeout(() => {
       previewTimer.current = null;
-      if (!adapter || capturedInput !== inputRevision.current || capturedExecution !== executionRevision.current) return;
+      if (
+        !adapter ||
+        capturedInput !== inputRevision.current ||
+        capturedExecution !== executionRevision.current
+      )
+        return;
       const request: CalculationRequest = {
-        version: 1, id: ++requestId.current, kind: 'preview', expression,
-        environment, environmentRevision, inputRevision: capturedInput,
-        executionRevision: capturedExecution, options: { angleMode, complex, bitwise, programmer }, editingName: null,
+        version: 1,
+        id: ++requestId.current,
+        kind: 'preview',
+        expression,
+        environment,
+        environmentRevision,
+        inputRevision: capturedInput,
+        executionRevision: capturedExecution,
+        options: { angleMode, complex, bitwise, programmer },
+        editingName: null,
       };
-      adapter.submit(request, (response) => {
-        if (capturedInput !== inputRevision.current || capturedExecution !== executionRevision.current ||
-          useScientificStore.getState().revision !== environmentRevision) return;
-        if (response.status === 'preview') setLive(response.calculation ? restoreCalculation(response.calculation) : null);
-      }, () => {
-        if (capturedInput === inputRevision.current && capturedExecution === executionRevision.current) setWorkMessage('failed');
-      });
+      adapter.submit(
+        request,
+        (response) => {
+          if (
+            capturedInput !== inputRevision.current ||
+            capturedExecution !== executionRevision.current ||
+            useScientificStore.getState().revision !== environmentRevision
+          )
+            return;
+          if (response.status === 'preview')
+            setLive(
+              response.calculation
+                ? restoreCalculation(response.calculation)
+                : null,
+            );
+        },
+        () => {
+          if (
+            capturedInput === inputRevision.current &&
+            capturedExecution === executionRevision.current
+          )
+            setWorkMessage('failed');
+        },
+      );
     }, 250);
     previewTimer.current = timer;
     return () => window.clearTimeout(timer);
-  }, [expression, environment, environmentRevision, angleMode, complex, bitwise, programmer, recovery]);
-  function evaluate(source: string = expression, kind: 'execute' | 'store' = 'execute'): void {
+  }, [
+    expression,
+    environment,
+    environmentRevision,
+    angleMode,
+    complex,
+    bitwise,
+    programmer,
+    recovery,
+  ]);
+  function evaluate(
+    source: string = expression,
+    kind: 'execute' | 'store' = 'execute',
+  ): void {
     const snapshot = useScientificStore.getState();
     if (snapshot.recovery === 'loading') return;
     invalidate();
     const revision = executionRevision.current;
     const input = inputRevision.current;
     const request: CalculationRequest = {
-      version: 1, id: ++requestId.current, kind, expression: source,
-      environment: snapshot.environment, environmentRevision: snapshot.revision,
-      inputRevision: input, executionRevision: revision,
-      options: { ...options, programmer: { ...programmer } }, editingName: kind === 'execute' ? editingName : null,
+      version: 1,
+      id: ++requestId.current,
+      kind,
+      expression: source,
+      environment: snapshot.environment,
+      environmentRevision: snapshot.revision,
+      inputRevision: input,
+      executionRevision: revision,
+      options: { ...options, programmer: { ...programmer } },
+      editingName: kind === 'execute' ? editingName : null,
     };
-    executor.current?.submit(request, (response) => {
-      if (revision !== executionRevision.current || snapshot.revision !== useScientificStore.getState().revision) return;
-      if (response.status === 'error') {
-        if (kind === 'store') setStoreError(t(errorKey(response.error), locale));
-        else if (input === inputRevision.current) setError(response.error);
-        return;
-      }
-      if (response.status !== 'success') return;
-      const result = restoreCalculation(response.calculation);
-      if (!useScientificStore.getState().commitIfCurrent(snapshot.revision, response.environment)) return;
-      if (kind === 'store') {
-        setStoreError('');
-        setTab('variables');
-        return;
-      }
-      // Commit Enter's captured intent, but never overwrite a subsequently edited draft/result.
-      if (input === inputRevision.current) {
-        setError(null);
-        setEditingName(null);
-        setCalculation(result);
-        const integer = integerResult(result.value);
-        if (bitwise && integer !== null) setWordValue(word(integer, programmer));
-        cursor.current = { index: -1, draft: source };
-      }
-      const output = result.value
-        ? displayResult(result.value, format, fraction)
-        : { text: t('scientific.definitionSaved', locale), latex: '' };
-      add({
-        input: source, result: output.text,
-        payload: {
-          version: 1, expression: source,
-          ...(bitwise ? { programmer: { ...programmer } } : {}),
-          latex: { expression: result.expressionLatex, result: output.latex },
-        },
-      });
-    }, () => {
-      if (revision === executionRevision.current) setWorkMessage('failed');
-    });
+    executor.current?.submit(
+      request,
+      (response) => {
+        if (
+          revision !== executionRevision.current ||
+          snapshot.revision !== useScientificStore.getState().revision
+        )
+          return;
+        if (response.status === 'error') {
+          if (kind === 'store')
+            setStoreError(t(errorKey(response.error), locale));
+          else if (input === inputRevision.current) setError(response.error);
+          return;
+        }
+        if (response.status !== 'success') return;
+        const result = restoreCalculation(response.calculation);
+        if (
+          !useScientificStore
+            .getState()
+            .commitIfCurrent(snapshot.revision, response.environment)
+        )
+          return;
+        if (kind === 'store') {
+          setStoreError('');
+          setTab('variables');
+          return;
+        }
+        // Commit Enter's captured intent, but never overwrite a subsequently edited draft/result.
+        if (input === inputRevision.current) {
+          setError(null);
+          setEditingName(null);
+          setCalculation(result);
+          const integer = integerResult(result.value);
+          if (bitwise && integer !== null)
+            setWordValue(word(integer, programmer));
+          cursor.current = { index: -1, draft: source };
+        }
+        const output = result.value
+          ? displayResult(result.value, format, fraction)
+          : { text: t('scientific.definitionSaved', locale), latex: '' };
+        add({
+          input: source,
+          result: output.text,
+          payload: {
+            version: 1,
+            expression: source,
+            ...(bitwise ? { programmer: { ...programmer } } : {}),
+            latex: { expression: result.expressionLatex, result: output.latex },
+          },
+        });
+      },
+      () => {
+        if (revision === executionRevision.current) setWorkMessage('failed');
+      },
+    );
   }
   function selectTab(next: string): void {
     if ((next === 'computerScience') !== bitwise) invalidate();
@@ -344,7 +409,9 @@ export default function ScientificMode() {
             variant="text"
             isSelected={tab === 'computerScience'}
             onPress={() =>
-              selectTab(tab === 'computerScience' ? 'keypad' : 'computerScience')
+              selectTab(
+                tab === 'computerScience' ? 'keypad' : 'computerScience',
+              )
             }
           >
             {t('scientific.computerScience', locale)}
@@ -487,7 +554,10 @@ export default function ScientificMode() {
                   editor.current?.focus();
                 }}
               >
-                {t(busy ? 'scientific.work.cancel' : 'scientific.clear', locale)}
+                {t(
+                  busy ? 'scientific.work.cancel' : 'scientific.clear',
+                  locale,
+                )}
               </Button>
             </div>
           </Card>

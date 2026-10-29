@@ -74,7 +74,13 @@ for (const locale of ['de-DE', 'en-US']) {
       await expect(page.locator('.calculator-announcement')).toHaveText('120');
       // Required calculation must already work without another module request.
       expect([...scripts].sort()).toEqual([...expected].sort());
-      expect([...scripts].some((file) => /calculation\.worker|ExpressionEditor|MathDisplay|ScientificMode/.test(file))).toBe(false);
+      expect(
+        [...scripts].some((file) =>
+          /calculation\.worker|ExpressionEditor|MathDisplay|ScientificMode/.test(
+            file,
+          ),
+        ),
+      ).toBe(false);
       const startup = await page.evaluate(
         () =>
           Reflect.get(window, 'ap30Startup') as {

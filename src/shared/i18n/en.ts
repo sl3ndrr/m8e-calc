@@ -208,7 +208,8 @@ export const en: Dictionary = {
   'scientific.work.preview': 'Calculating preview …',
   'scientific.work.execute': 'Calculating …',
   'scientific.work.cancelled': 'Calculation cancelled.',
-  'scientific.work.failed': 'Calculation could not be completed. Please evaluate again.',
+  'scientific.work.failed':
+    'Calculation could not be completed. Please evaluate again.',
   'scientific.expression': 'Expression',
   'scientific.hint':
     'Enter evaluates · ↑/↓ history · Esc clears · Ctrl+Space suggestions · Tab accepts · Decimal point, commas separate arguments',

@@ -24,7 +24,9 @@ it('commits a worker environment at most once and rejects any stale environment 
   store.getState().remove('a');
   expect(store.getState().commitIfCurrent(next, result)).toBe(false);
   expect(store.getState().environment.variables.a).toBeUndefined();
-  expect(JSON.parse(storage.setItem.mock.calls.at(-1)?.[1] ?? '{}').state).not.toHaveProperty('revision');
+  expect(
+    JSON.parse(storage.setItem.mock.calls.at(-1)?.[1] ?? '{}').state,
+  ).not.toHaveProperty('revision');
 });
 it('invalidates outstanding revisions even when hydration reloads equal contents', async () => {
   const { storage } = memoryStorage(envelope(step('a=5')));

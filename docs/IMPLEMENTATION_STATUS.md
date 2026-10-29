@@ -20,6 +20,17 @@ check, Build und die vorgesehenen Browser-/Bundlegates starten ihre Prüfer nich
 Keine WP-07-PR-/main-CI-, Pages- oder Livefreigabe. Vollständige Herkunft,
 Codeidentität, Befehle, Befunde und Grenzen: [WP07.md](WP07.md).
 
+Folgeauftrag: [Draft-PR #86](https://github.com/sl3ndrr/m8e-calc/pull/86) ist
+veröffentlicht. Erste CI `40949828861` installiert regulär, scheitert vor
+Typen/Tests/Build an Formatabweichungen. Die geprüften npm-ci-Werkzeuge sind
+über einen temporären Diagnoseexport lokal verfügbar; der Export ist wieder
+aus der Pipeline entfernt. Formatierung, zwei ungültige Testing-Library-Optionen
+und ein redundanter Cleanup-Refzugriff sind korrigiert. Typen/ESLint und 45
+gezielte echte Vitestfälle bestehen. Die vollständige lokale UI-Suite bleibt
+mit einem unveränderten 5-s-WP-02-Timeout rot (604 bestanden); keine Lockerung.
+Der finale Korrekturhead braucht seine eigene vollständige PR-CI, dokumentiert
+im PR und im [WP07-Bericht](WP07.md). Keine Merge-/Deployfreigabe.
+
 ## WP-06 · Zoll-Queries und Wortseparatoren · 29.10.2026
 
 Lokal auf `feat/audit-wp-06` umgesetzt, Code-/Regressionen-/Vertragscommit
