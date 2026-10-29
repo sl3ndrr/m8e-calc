@@ -1,0 +1,182 @@
+{
+  "base": "0d088b8c890b6d0b8826ba6eba46645e4ee4ea0b",
+  "codeCommit": "cb52217c9302e7f8bc17740fc07281a425c25a4f",
+  "codeTree": "b31c2002e77b2475dab34265bc2387c78ccef8fa",
+  "diffSha256": "fe0b2a5426990479253272fb6d79089071a16bacaa928b587d89a8246738f559",
+  "records": [
+    {
+      "command": ["npm", "run", "check"],
+      "cwd": "/workspace/scratch/0e689f4010c2/m8e-calc",
+      "startedAt": "2026-10-29T17:22:44.227469+00:00",
+      "finishedAt": "2026-10-29T17:22:45.036322+00:00",
+      "exitCode": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 check\n> npm run lint && npm run typecheck && npm run test && npm run build && npm run test:engine:bench && npm run test:graph:bench && npm run test:graph:implicit:bench\n\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 lint\n> eslint . && prettier --check .\n\nsh: 1: eslint: not found\n"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "test:engine",
+        "--",
+        "src/units/query.test.ts",
+        "src/units/units.test.ts"
+      ],
+      "cwd": "/workspace/scratch/0e689f4010c2/m8e-calc",
+      "startedAt": "2026-10-29T17:22:45.069394+00:00",
+      "finishedAt": "2026-10-29T17:22:45.308616+00:00",
+      "exitCode": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:engine\n> vitest run --project=engine src/units/query.test.ts src/units/units.test.ts\n\nsh: 1: vitest: not found\n"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "test:ui",
+        "--",
+        "src/features/convert/model.test.ts",
+        "src/features/convert/ConvertMode.test.tsx"
+      ],
+      "cwd": "/workspace/scratch/0e689f4010c2/m8e-calc",
+      "startedAt": "2026-10-29T17:22:45.330971+00:00",
+      "finishedAt": "2026-10-29T17:22:45.569017+00:00",
+      "exitCode": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:ui\n> vitest run --project=ui src/features/convert/model.test.ts src/features/convert/ConvertMode.test.tsx\n\nsh: 1: vitest: not found\n"
+    },
+    {
+      "command": ["npm", "run", "build"],
+      "cwd": "/workspace/scratch/0e689f4010c2/m8e-calc",
+      "startedAt": "2026-10-29T17:22:45.596955+00:00",
+      "finishedAt": "2026-10-29T17:22:45.802728+00:00",
+      "exitCode": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 build\n> tsc -b && vite build && node scripts/check-build-target.mjs\n\nsh: 1: tsc: not found\n"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "test:e2e",
+        "--",
+        "e2e/convert.spec.ts",
+        "--project=chromium",
+        "--project=firefox",
+        "--project=webkit",
+        "--output=test-results/wp06-convert"
+      ],
+      "cwd": "/workspace/scratch/0e689f4010c2/m8e-calc",
+      "startedAt": "2026-10-29T17:22:45.824388+00:00",
+      "finishedAt": "2026-10-29T17:22:46.054053+00:00",
+      "exitCode": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test e2e/convert.spec.ts --project=chromium --project=firefox --project=webkit --output=test-results/wp06-convert\n\nsh: 1: playwright: not found\n"
+    },
+    {
+      "command": [
+        "node",
+        "--import",
+        "../supplemental/loader.mjs",
+        "../supplemental/probe.mjs",
+        "../supplemental/original",
+        "--baseline"
+      ],
+      "cwd": "/workspace/scratch/0e689f4010c2/m8e-calc",
+      "startedAt": "2026-10-29T17:22:46.074157+00:00",
+      "finishedAt": "2026-10-29T17:22:47.052756+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"original\",\n  \"node\": \"v24.22.1\",\n  \"checks\": 12,\n  \"reproduced\": [\n    {\n      \"query\": \"1 in to cm\",\n      \"locale\": \"de\",\n      \"parser\": \"E_UNIT_UNKNOWN\",\n      \"reducer\": \"E_UNIT_UNKNOWN\"\n    },\n    {\n      \"query\": \"1 in in cm\",\n      \"locale\": \"de\",\n      \"parser\": \"E_UNIT_UNKNOWN\",\n      \"reducer\": \"E_UNIT_UNKNOWN\"\n    },\n    {\n      \"query\": \"3 ft 4 in to cm\",\n      \"locale\": \"de\",\n      \"parser\": \"E_UNIT_UNKNOWN\",\n      \"reducer\": \"E_UNIT_UNKNOWN\"\n    },\n    {\n      \"query\": \"1 in to cm\",\n      \"locale\": \"en\",\n      \"parser\": \"E_UNIT_UNKNOWN\",\n      \"reducer\": \"E_UNIT_UNKNOWN\"\n    },\n    {\n      \"query\": \"1 in in cm\",\n      \"locale\": \"en\",\n      \"parser\": \"E_UNIT_UNKNOWN\",\n      \"reducer\": \"E_UNIT_UNKNOWN\"\n    },\n    {\n      \"query\": \"3 ft 4 in to cm\",\n      \"locale\": \"en\",\n      \"parser\": \"E_UNIT_UNKNOWN\",\n      \"reducer\": \"E_UNIT_UNKNOWN\"\n    }\n  ]\n}\n"
+    },
+    {
+      "command": [
+        "node",
+        "--import",
+        "../supplemental/loader.mjs",
+        "../supplemental/probe.mjs",
+        "."
+      ],
+      "cwd": "/workspace/scratch/0e689f4010c2/m8e-calc",
+      "startedAt": "2026-10-29T17:22:47.071683+00:00",
+      "finishedAt": "2026-10-29T17:22:53.639251+00:00",
+      "exitCode": 0,
+      "output": "{\n  \"mode\": \"current\",\n  \"node\": \"v24.22.1\",\n  \"checks\": 836,\n  \"result\": \"passed\",\n  \"note\": \"Supplemental real-source parser/reducer probe; not Vitest, build or browser validation.\"\n}\n"
+    },
+    {
+      "command": [
+        "node",
+        "../supplemental/ts5/bin/tsc",
+        "-p",
+        "../supplemental/domain-tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "cwd": "/workspace/scratch/0e689f4010c2/m8e-calc",
+      "startedAt": "2026-10-29T17:22:53.662651+00:00",
+      "finishedAt": "2026-10-29T17:23:05.641174+00:00",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "../supplemental/ts5/bin/tsc",
+        "-p",
+        "../supplemental/model-tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "cwd": "/workspace/scratch/0e689f4010c2/m8e-calc",
+      "startedAt": "2026-10-29T17:23:05.680357+00:00",
+      "finishedAt": "2026-10-29T17:23:09.174596+00:00",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": ["node", "../supplemental/syntax.cjs"],
+      "cwd": "/workspace/scratch/0e689f4010c2/m8e-calc",
+      "startedAt": "2026-10-29T17:23:09.215018+00:00",
+      "finishedAt": "2026-10-29T17:23:10.312962+00:00",
+      "exitCode": 0,
+      "output": "{\"typescript\":\"5.9.3\",\"files\":[\"e2e/convert.spec.ts\",\"src/features/convert/ConvertMode.test.tsx\",\"src/features/convert/model.test.ts\",\"src/shared/i18n/de.ts\",\"src/shared/i18n/en.ts\",\"src/units/engine.ts\",\"src/units/query.test.ts\"],\"syntacticDiagnostics\":0}\n"
+    },
+    {
+      "command": [
+        "node",
+        "../supplemental/cached/prettier/bin/prettier.cjs",
+        "--check",
+        "src/units/engine.ts",
+        "src/units/query.test.ts",
+        "src/features/convert/model.test.ts",
+        "src/features/convert/ConvertMode.test.tsx",
+        "src/shared/i18n/de.ts",
+        "src/shared/i18n/en.ts",
+        "e2e/convert.spec.ts",
+        "docs/UNITS.md",
+        "docs/CONVERT_MODE.md"
+      ],
+      "cwd": "/workspace/scratch/0e689f4010c2/m8e-calc",
+      "startedAt": "2026-10-29T17:23:10.356905+00:00",
+      "finishedAt": "2026-10-29T17:23:11.812413+00:00",
+      "exitCode": 0,
+      "output": "Checking formatting...\nAll matched files use Prettier code style!\n"
+    },
+    {
+      "command": ["node", "scripts/check-release-docs.mjs"],
+      "cwd": "/workspace/scratch/0e689f4010c2/m8e-calc",
+      "startedAt": "2026-10-29T17:23:11.846617+00:00",
+      "finishedAt": "2026-10-29T17:23:12.253341+00:00",
+      "exitCode": 0,
+      "output": "Checked 53 documents, 411 local links, 193 npm commands; 0 HTTP passed, 0 manually reviewed, 0 failures (0/337 external URLs). Report: test-results/release-docs.json\n"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "0d088b8c890b6d0b8826ba6eba46645e4ee4ea0b",
+        "HEAD"
+      ],
+      "cwd": "/workspace/scratch/0e689f4010c2/m8e-calc",
+      "startedAt": "2026-10-29T17:23:12.290156+00:00",
+      "finishedAt": "2026-10-29T17:23:12.300755+00:00",
+      "exitCode": 0,
+      "output": ""
+    }
+  ]
+}

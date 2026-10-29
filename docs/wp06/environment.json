@@ -1,0 +1,64 @@
+{
+  "runtime": {
+    "node": "24.22.1",
+    "availableNpm": "11.9.0",
+    "requiredNpm": "11.19.0",
+    "lockedPlaywright": "1.64.1",
+    "lockedVitest": "5.0.5",
+    "browsersActuallyExecuted": [],
+    "runtimePlaywrightUnused": {
+      "version": "1.62.1",
+      "chromiumInstalled": false,
+      "firefoxInstalled": false,
+      "webkitInstalled": false
+    }
+  },
+  "installationAttempts": [
+    {
+      "command": [
+        "npm",
+        "install",
+        "--prefix",
+        "/workspace/scratch/0e689f4010c2/toolchain",
+        "npm@11.19.0",
+        "--ignore-scripts",
+        "--fetch-retries=0",
+        "--fetch-timeout=20000"
+      ],
+      "exitCode": 1,
+      "error": "E403 403 Forbidden - GET https://registry.npmjs.org/npm"
+    },
+    {
+      "command": [
+        "npm",
+        "ci",
+        "--engine-strict",
+        "--fetch-retries=0",
+        "--fetch-timeout=20000"
+      ],
+      "cwd": "/workspace/scratch/0e689f4010c2/m8e-calc",
+      "exitCode": 1,
+      "error": "E403 403 Forbidden - GET https://registry.npmjs.org/zustand/-/zustand-5.0.15.tgz",
+      "note": "Available npm 11.9.0; required 11.19.0 could not be installed. Not a successful conforming install."
+    }
+  ],
+  "cloneAttempts": [
+    {
+      "url": "https://github.com/sl3ndrr/m8e-calc.git",
+      "exitCode": 128,
+      "error": "HTTP 403 Forbidden. Calls to this URL are not allowed."
+    },
+    {
+      "url": "https://git.chatgpt-team.site/sl3ndrr/m8e-calc.git",
+      "exitCode": 128,
+      "error": "HTTP 403 Forbidden. Calls to this URL are not allowed."
+    },
+    {
+      "url": "https://git.chatgpt-team.site/github.com/sl3ndrr/m8e-calc.git",
+      "exitCode": 128,
+      "error": "HTTP 403 Forbidden. Calls to this URL are not allowed."
+    }
+  ],
+  "initialLocalStatus": "No checkout; git status: not a git repository. Restored baseline clean before changes.",
+  "initialModelTypecheck": "First supplemental model config omitted existing src/buildFlags.d.ts and reported missing __INTERNAL_DESIGN_LAB__. Including that real declaration fixes the test harness; product unchanged."
+}

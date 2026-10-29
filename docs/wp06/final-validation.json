@@ -1,0 +1,48 @@
+{
+  "validatedCodeCommit": "cb52217c9302e7f8bc17740fc07281a425c25a4f",
+  "records": [
+    {
+      "command": [
+        "node",
+        "../supplemental/cached/prettier/bin/prettier.cjs",
+        "--check",
+        "docs/WP06.md",
+        "docs/IMPLEMENTATION_STATUS.md",
+        "docs/wp06/environment.json",
+        "docs/wp06/github-context.json",
+        "docs/wp06/local-validation.json",
+        "docs/wp06/supplemental-source.json"
+      ],
+      "startedAt": "2026-10-29T17:28:01.468654+00:00",
+      "exitCode": 0,
+      "output": "Checking formatting...\nAll matched files use Prettier code style!\n"
+    },
+    {
+      "command": ["node", "scripts/check-release-docs.mjs"],
+      "startedAt": "2026-10-29T17:28:02.220057+00:00",
+      "exitCode": 0,
+      "output": "Checked 54 documents, 416 local links, 197 npm commands; 0 HTTP passed, 0 manually reviewed, 0 failures (0/337 external URLs). Report: test-results/release-docs.json\n"
+    },
+    {
+      "command": ["git", "diff", "--check"],
+      "startedAt": "2026-10-29T17:28:02.424924+00:00",
+      "exitCode": 0,
+      "output": ""
+    }
+  ],
+  "previousStatusSectionsPreserved": true,
+  "unchangedFiles": {
+    "AGENTS.md": "d46129e24107b3c0ba1694061ad4d5e40eb999bb94959485a4f9fc9f71aeaab8",
+    "package.json": "b6a2db4ae5254f8d33b0ff37d3fdfb0e59c05840df9a35d31e53a886db632b41",
+    "package-lock.json": "1fc789bf560baaac9a9b4c935d27b1ca53813d460923a3711646450bd52b63ae",
+    "vite.config.ts": "4db08d5ff51f502ed381bee890ecbea1758f5ddaac18285a21ecfdfdea67f2de",
+    "playwright.config.ts": "40596036001476a76ff13efe9f5aec6d0b26323915a14f073f76fe7fa172e825",
+    "playwright.gallery.config.ts": "d14f147d39179e553d6e5e91ca3acbebae4dea78aef1aabd95fd700fd79c42ca",
+    "src/units/catalog.ts": "9c507ad2a32fd6b9cf9acdd471c239872eece44a89280e86013843a27c12293c",
+    "src/units/decimal.ts": "cdbb48e1ccfe646d904f93ddb0ff484c8b5e505396edab459e6c03943f52f06f",
+    "src/units/types.ts": "5b84c48a617800d4e8ccd8590b65b5dcedda22ef647154587c0883011dba9fca",
+    "src/features/convert/model.ts": "6919f57868df577827c5200c917a5b81a7df26d25e82df8ccb37247adcb97609",
+    "src/features/convert/ConvertMode.tsx": "5a658b4a0027f30573f4145370614310439abbd4f6ba2580dded03cafb01a97c",
+    "src/engine/format.ts": "652cb83e06e80e2439170ef1b1c6b2b7fb856b3e60ad193ae39313eebd03e9af"
+  }
+}

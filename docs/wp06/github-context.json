@@ -1,0 +1,41 @@
+{
+  "base": "0d088b8c890b6d0b8826ba6eba46645e4ee4ea0b",
+  "defaultBranch": "main",
+  "workBranch": "feat/audit-wp-06",
+  "baseCommitTime": "2026-10-29T16:55:57Z",
+  "baseTree": "56ac34ca09c8d70733d326cd52d5ccd86fae6675",
+  "restoredBlobs": 801,
+  "restoredTrees": 50,
+  "history": "shallow at original signed commit; all blob, tree and commit Git SHAs verified locally",
+  "remoteReadOnly": true,
+  "pr84": {
+    "state": "closed",
+    "merged": true,
+    "head": "25d60f69e2acf7c0339274329fee26383c752572",
+    "merge": "0d088b8c890b6d0b8826ba6eba46645e4ee4ea0b",
+    "url": "https://github.com/sl3ndrr/m8e-calc/pull/84"
+  },
+  "pr83": {
+    "state": "closed",
+    "merged": true,
+    "head": "e6d9bcb38c26442ec9085e1724c04b6b659e7748",
+    "merge": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+    "url": "https://github.com/sl3ndrr/m8e-calc/pull/83"
+  },
+  "issue51": {
+    "state": "closed",
+    "url": "https://github.com/sl3ndrr/m8e-calc/issues/51"
+  },
+  "baseMainRun": {
+    "id": 40916398094,
+    "status": "queued",
+    "conclusion": null,
+    "head_sha": "0d088b8c890b6d0b8826ba6eba46645e4ee4ea0b",
+    "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40916398094"
+  },
+  "latestReadMain": "0d088b8c890b6d0b8826ba6eba46645e4ee4ea0b",
+  "limits": [
+    "No PR/CI/Pages/Live validation for the new local diff",
+    "Client model/reasoning setting cannot be changed or verified through these tools"
+  ]
+}

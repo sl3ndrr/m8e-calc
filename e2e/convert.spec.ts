@@ -2,6 +2,7 @@ import { allowClipboard } from './clipboard';
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { t } from '../src/shared/i18n/extended';
+import { qaSetup, ready } from './qa-setup';
 
 // Feature-state checks are isolated from SW update toasts; the production
 // matrix, comfort and pwa-update suites exercise the real worker separately.
@@ -15,6 +16,85 @@ test.beforeEach(async ({ page }) => {
   // The Shell heading precedes the lazy feature and its keyboard listeners.
   await page.locator('.convert-mode').waitFor();
 });
+for (const locale of ['de', 'en'] as const) {
+  test(`WP06 inch quickinput and controlled ambiguity (${locale})`, async ({
+    page,
+  }) => {
+    const errors: string[] = [];
+    page.on('pageerror', (error) => errors.push(error.message));
+    await qaSetup(page, 'light', '#6750a4', locale);
+    await page.setViewportSize({
+      width: locale === 'de' ? 1280 : 1920,
+      height: 1080,
+    });
+    // beforeEach already opened this hash. Reload so qaSetup's init script
+    // runs in a new document and applies the requested language.
+    await page.reload();
+    await expect(page.locator('html')).toHaveAttribute('lang', locale);
+    await ready(page, 'convert');
+    const quick = page.getByRole('textbox', {
+      name: t('convert.quick', locale),
+      exact: true,
+    });
+    const from = page.getByRole('textbox', {
+      name: t('convert.from', locale),
+      exact: true,
+    });
+    const to = page.getByRole('textbox', {
+      name: t('convert.to', locale),
+      exact: true,
+    });
+    const localized = (text: string) =>
+      locale === 'de' ? text.replace('.', ',') : text;
+    for (const [query, value] of [
+      ['1 in to cm', '2.54'],
+      ['1 in in cm', '2.54'],
+      ['3 ft 4 in to cm', '101.6'],
+      ['1 in', '2.54'],
+      ['1 in -> cm', '2.54'],
+      ['3 ft 4 in → cm', '101.6'],
+      ['1 in nach cm', '2.54'],
+      [locale === 'de' ? '1,5 in to cm' : '1.5 in to cm', '3.81'],
+      ['1e30 in to cm', '2.54e+30'],
+      ['5 km in mi', '3.106856'],
+    ] as const) {
+      await quick.fill(query);
+      await quick.press('Enter');
+      await expect(to).toHaveValue(localized(value));
+      await expect(from).toBeFocused();
+      await expect(quick).not.toHaveAttribute('aria-invalid', 'true');
+    }
+    await quick.fill('1 mA in ma');
+    await quick.press('Enter');
+    await expect(quick).toBeFocused();
+    await expect(quick).toHaveAttribute('aria-invalid', 'true');
+    await expect(
+      page.getByText(t('convert.error.E_UNIT_AMBIGUOUS', locale), {
+        exact: true,
+      }),
+    ).toBeVisible();
+    await expect(to).toHaveValue(localized('3.106856'));
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= window.innerWidth,
+      ),
+    ).toBe(true);
+    await quick.fill('1 in to cm to mm');
+    await quick.press('Enter');
+    await expect(quick).toHaveAttribute('aria-invalid', 'true');
+    await expect(to).toHaveValue(localized('3.106856'));
+    await quick.fill('1 in in cm');
+    await quick.press('Enter');
+    await expect(to).toHaveValue(localized('2.54'));
+    await expect(from).toBeFocused();
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= window.innerWidth,
+      ),
+    ).toBe(true);
+    expect(errors).toEqual([]);
+  });
+}
 test('conversion, target editing, paste, swap and keyboard shortcuts', async ({
   page,
   browserName,
