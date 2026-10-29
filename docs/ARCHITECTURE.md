@@ -170,6 +170,11 @@ Dynamische Styles benötigen `style-src 'unsafe-inline'` für CodeMirror,
 React Aria und Motion; diese explizite Grenze steht auch im QA-Bericht.
 Meta-CSP kann insbesondere `frame-ancestors` nicht ersetzen.
 
+Fontdateien werden unabhängig von ihrer Größe als lokale Assets ausgegeben.
+Vites Inline-Schwellwert gilt für Fonts nicht: Auch die kleine
+`KaTeX_Size3-Regular.woff2` muss `font-src 'self'` erfüllen und im Offline-
+Precache liegen. Die Policy erhält keine zusätzliche `data:`-Freigabe.
+
 Die vollständige Kontrastmatrix belegt die vorhandenen Textrollen. Der funktionale
 Outline-Rand erhält >=3:1 gegen sämtliche Surface-Ebenen.
 Die Root-Schrift sinkt nicht unter die browserseitige Standardschriftgröße;

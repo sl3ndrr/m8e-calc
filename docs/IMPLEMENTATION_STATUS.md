@@ -12,7 +12,8 @@ neuere Eingaben zu überschreiben. Preview bleibt ohne Persistenz/Verlauf.
 de/en-Arbeits-/Abbruchzustand, Cleanup, Vertrags- und Regressionsergänzungen;
 keine Domänen-, Toleranz-, Dependency-, Lockfile- oder Baselineänderung.
 
-Ergänzende lokale Nodequellproben (77 Assertions sowie 34 registrierte Fälle /
+Erster lokaler Abschluss vor dem PR-Folgeauftrag: Ergänzende Nodequellproben
+(77 Assertions sowie 34 registrierte Fälle /
 182 Assertions) und zwei echte Nodeworkerfälle bestehen; Syntax von 17 TS/TSX-
 Dateien geprüft. Das sind keine regulären Vitest-/React-/Produktionsbrowserläufe.
 **Pflichtabnahme blockiert:** npm 11.19.0 und `npm ci` scheitern an Registry-403;
@@ -30,6 +31,16 @@ gezielte echte Vitestfälle bestehen. Die vollständige lokale UI-Suite bleibt
 mit einem unveränderten 5-s-WP-02-Timeout rot (604 bestanden); keine Lockerung.
 Der finale Korrekturhead braucht seine eigene vollständige PR-CI, dokumentiert
 im PR und im [WP07-Bericht](WP07.md). Keine Merge-/Deployfreigabe.
+
+Der Korrekturlauf `40951346563` besteht danach vollständiges check auf beiden
+Node-Versionen (605 UI/1744 Domäne), Galerie, 24 unveränderte Visuals,
+Provenienz und Performance. Chromium/Firefox/WebKit decken je drei Font-CSP-Verstöße
+auf: Vite inlinet KaTeX Size3, obwohl `font-src 'self'` das sperrt. Die
+hashgeprüfte Basis enthält bytegleiches CSS. Alle Workerassertions davor
+bestehen; keine Workerursache. Fontdateien werden nun größenunabhängig lokal
+ausgegeben und Size3 im Offline-Precache geprüft. Policy und Null-CSP-Assertion
+bleiben unverändert; eigener vollständiger finaler CI-Nachweis erforderlich.
+Trace-/Artefakthashes und Einordnung: [WP07](WP07.md).
 
 ## WP-06 · Zoll-Queries und Wortseparatoren · 29.10.2026
 

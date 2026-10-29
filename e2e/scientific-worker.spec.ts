@@ -311,7 +311,7 @@ test('WP-07 fresh simple precache starts scientific calculation offline with loc
         ),
       );
   });
-  const workers = await page.evaluate(async () => {
+  const precache = await page.evaluate(async () => {
     const paths = (
       await Promise.all(
         (await caches.keys()).map(async (name) =>
@@ -319,9 +319,15 @@ test('WP-07 fresh simple precache starts scientific calculation offline with loc
         ),
       )
     ).flat();
-    return paths.filter((path) => path.includes('calculation.worker'));
+    return {
+      workers: paths.filter((path) => path.includes('calculation.worker')),
+      size3: paths.filter((path) =>
+        /KaTeX_Size3-Regular-.*\.woff2$/.test(path),
+      ),
+    };
   });
-  expect(workers).toHaveLength(1);
+  expect(precache.workers).toHaveLength(1);
+  expect(precache.size3).toHaveLength(1);
   await context.setOffline(true);
   await page.locator('.ui-navigation-rail a[href="#/scientific"]').click();
   await ready(page, 'scientific');

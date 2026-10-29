@@ -122,6 +122,10 @@ Workerstart zeigt einen kontrollierten de/en-Fehler ohne synchrone Ersatzrechnun
 Offline-Nutzung erfolgt über den zuvor vollständig installierten HTTPS-/localhost-
 Precache. Produktionsprüfung und tatsächlich verfügbare Nachweise: [WP07.md](WP07.md).
 
+Auch kleine Fontdateien werden als lokale Assets ausgegeben und vollständig
+precacht. WP-07 sichert insbesondere KaTeX Size3 gegen unbeabsichtigtes
+Data-URL-Inlining und damit gegen die bestehende `font-src 'self'`-Sperre ab.
+
 ## Verifikation / Offen
 
 Unit: Fuzzy-Suche, Query-Auswertung, Kürzelkonflikte/Input-Scope, Settings-Migration,

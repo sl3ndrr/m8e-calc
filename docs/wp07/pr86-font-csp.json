@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "run": 40951346563,
+  "attempt": 1,
+  "head": "1cd16e630f5279b0b6a4562758348b6599ae3c09",
+  "build": "09d2b53c0290cf8824222a986a0420225d389461",
+  "fingerprint": "19438ff0fbf302b68b03d74223e635447780b867cbb209bae69296f63c2b464e",
+  "chromium": {
+    "artifact": 12932556397,
+    "zipSha256": "bfe3f67596b292bd813ae84a75905b4129192fc3a72a0be54d5459f6bff35d43",
+    "passed": 239,
+    "failed": 3,
+    "traces": [
+      {
+        "path": "scientific-worker-WP-07-fr-fd80c-e-with-local-worker-and-CSP-chromium/trace.zip",
+        "sha256": "45a71439037382736a23412dc5664dd887f9fe00254571a3f70f0de3523cc5fd",
+        "fontCspEvents": [
+          {
+            "time": 378021.995,
+            "type": "error",
+            "messagePrefix": "Loading the font 'data:font/woff2;base64,d09GMgABAAAAAA4oAA4AAAAAHbQAAA3TAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmAAgRQIDgmcDBEICo1oijYBNgIkA14LMgAEIAWJAAeBHAyBHBvbGiM",
+            "policySuffix": "violates the following Content Security Policy directive: \"font-src 'self'\". The action has been blocked.",
+            "url": "http://127.0.0.1:4173/m8e-calc/#/scientific"
+          },
+          {
+            "time": 379006.364,
+            "type": "error",
+            "messagePrefix": "Loading the font 'data:font/woff2;base64,d09GMgABAAAAAA4oAA4AAAAAHbQAAA3TAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmAAgRQIDgmcDBEICo1oijYBNgIkA14LMgAEIAWJAAeBHAyBHBvbGiM",
+            "policySuffix": "violates the following Content Security Policy directive: \"font-src 'self'\". The action has been blocked.",
+            "url": "http://127.0.0.1:4173/m8e-calc/#/scientific"
+          }
+        ]
+      },
+      {
+        "path": "scientific-worker-WP-07-pr-17590-eanup-before-final-delivery-chromium/trace.zip",
+        "sha256": "7787e08bb291c2ac382b57b5abcd8fa146a8134ae37990e5b209a160e7fb98bd",
+        "fontCspEvents": [
+          {
+            "time": 352722.565,
+            "type": "error",
+            "messagePrefix": "Loading the font 'data:font/woff2;base64,d09GMgABAAAAAA4oAA4AAAAAHbQAAA3TAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmAAgRQIDgmcDBEICo1oijYBNgIkA14LMgAEIAWJAAeBHAyBHBvbGiM",
+            "policySuffix": "violates the following Content Security Policy directive: \"font-src 'self'\". The action has been blocked.",
+            "url": "http://127.0.0.1:4173/m8e-calc/#/scientific"
+          }
+        ]
+      },
+      {
+        "path": "scientific-worker-WP-07-pr-ea221-eanup-before-final-delivery-chromium/trace.zip",
+        "sha256": "b11d14dedfd89bc707311df5e09e59e323d5623a4ce73935d9ff48147abfe9b4",
+        "fontCspEvents": [
+          {
+            "time": 365407.552,
+            "type": "error",
+            "messagePrefix": "Loading the font 'data:font/woff2;base64,d09GMgABAAAAAA4oAA4AAAAAHbQAAA3TAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmAAgRQIDgmcDBEICo1oijYBNgIkA14LMgAEIAWJAAeBHAyBHBvbGiM",
+            "policySuffix": "violates the following Content Security Policy directive: \"font-src 'self'\". The action has been blocked.",
+            "url": "http://127.0.0.1:4173/m8e-calc/#/scientific"
+          }
+        ]
+      }
+    ]
+  },
+  "firefox": {
+    "artifact": 12932038499,
+    "zipSha256": "84c521b4602bd4fff177f68101dd744060e8dae7a9fd49a89150c8ffa87479fb",
+    "passed": 212,
+    "skipped": 2,
+    "failed": 3,
+    "failedAssertion": "Expected no CSP violations, observed font-src."
+  },
+  "baselineArtifact": {
+    "id": 12925649438,
+    "zipSha256": "53dfe7e35b141725b45a38e00b98cc8963a3046f7c4db7481b9048e17ca7b150",
+    "source": "8351329bced1bab62ac387e911f7549a1dac4458"
+  },
+  "cssComparison": {
+    "path": "dist/assets/MathDisplay-fV8fYLk0.css",
+    "baselineEqualsCandidate": true,
+    "sha256": "1556b595c113fa3ac7e07fa3fbf7dd88efd09cd71e18bd7d29883c72e430713e"
+  },
+  "font": {
+    "source": "node_modules/katex/dist/fonts/KaTeX_Size3-Regular.woff2",
+    "bytes": 3624,
+    "sha256": "73d591271b1604960cb10bb90fee021670af7297017e0e98480b332d11f51995",
+    "inlinedDataFont": true
+  },
+  "conclusion": "Existing small-font inlining violates font-src self. Worker assertions pass before the font CSP assertion. Preserve policy and assertions; emit fonts as same-origin files.",
+  "localCorrection": {
+    "runtime": {
+      "node": "24.22.1",
+      "npm": "11.9.0",
+      "dependencies": "CI npm-ci export, not a local installation"
+    },
+    "sourceSha256": {
+      "vite.config.ts": "c456bbb196c8551ef51c511fdb28d71c00418c4072353f7e064abf1c9f23ec87",
+      "e2e/scientific-worker.spec.ts": "a3fc206e56c8d45ed7ab57d51245ed558702ee79b68f0e39063dbe3d04fbfe9e"
+    },
+    "commands": {
+      "npm run check": {
+        "exit": 1,
+        "format": "passed",
+        "types": "passed",
+        "uiPassed": 604,
+        "uiFailed": 1,
+        "failure": "Existing WP-02 untouched definition edits in de, unchanged 5000ms timeout, observed 5190ms. CI on preceding source passed on both Node versions; new head requires own CI."
+      },
+      "npm run build": {
+        "exit": 0
+      },
+      "node scripts/qa-bundle.mjs": {
+        "exit": 0,
+        "gzipBytes": 190765,
+        "limit": 200000,
+        "eager": []
+      },
+      "node scripts/check-release-docs.mjs --report test-results/wp07-docs.json": {
+        "exit": 0,
+        "documents": 55,
+        "links": 431,
+        "externalUrlsChecked": 0
+      }
+    },
+    "emittedAssets": {
+      "css": "dist/assets/MathDisplay-D6IlXTJG.css",
+      "cssSha256": "cf33c0db3f1519c3d9e87cda358b777293174c1e86e2231e2a45888784aa8ad5",
+      "font": "dist/assets/KaTeX_Size3-Regular-gV2CO0n9.woff2",
+      "fontSha256": "73d591271b1604960cb10bb90fee021670af7297017e0e98480b332d11f51995",
+      "fontBytes": 3624,
+      "noDataFont": true,
+      "size3Precached": true,
+      "fontSrcSelf": true
+    }
+  },
+  "webkit": {
+    "job": 123720913572,
+    "artifact": 12932364397,
+    "passed": 212,
+    "skipped": 2,
+    "failed": 3,
+    "failedAssertion": "Same three new cases: expected no CSP violations, observed font-src.",
+    "completedAt": "2026-10-29T21:08:11Z"
+  }
+}

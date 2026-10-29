@@ -17,6 +17,9 @@ export default defineConfig(({ command, mode }) => {
     build: {
       manifest: true,
       outDir: mode === 'gallery' ? 'dist-gallery' : 'dist',
+      // Emit font files at the same origin, including fonts below Vite's inline threshold.
+      assetsInlineLimit: (filePath) =>
+        /\.(?:woff2?|ttf|otf)$/i.test(filePath) ? false : undefined,
     },
     plugins: [
       react(),

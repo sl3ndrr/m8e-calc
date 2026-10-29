@@ -145,6 +145,9 @@ Eine äußere App-Fehlergrenze schützt gemeinsame Shell-/Dialogkomponenten.
 Fehlgeschlagene Editor-/Formelimporte benötigen ebenfalls Cache-Refresh und Reload;
 ein Remount allein löst gecachte Importablehnungen nicht.
 Zentraler CSP-Adapter: `scripts/cspPlugin.ts`; Hashes müssen den finalen Inline-Code abdecken.
+Fontdateien bleiben unabhängig von ihrer Größe lokale Assets; Vite darf sie
+nicht als Data-URL einbetten. `font-src 'self'` bleibt unverändert, auch für
+KaTeX Size3 und den vollständigen Offline-Precache (WP-07).
 Die vollständige Rollenmatrix prüft Text auf Surface-Ebenen; funktionale Outline-Ränder werden auf 3:1 korrigiert. Native Animationen auf dem Startpfad verwenden dieselben zentralen Spring-Tokens und räumen beim Unmount auf.
 
 ## AP16 · Release-Vorbereitung
