@@ -1,0 +1,55 @@
+{
+  "source": "original-trace.json",
+  "imagesUnmodified": true,
+  "limits": "JPEG screencast pixels are lossy paint observations, not computed CSS values or proof of transition duration. No baseline update.",
+  "frames": [
+    {
+      "file": "original-switch-1.jpeg",
+      "originalTracePath": "screencast/page@ce3d2c2027cd74f66a183d5597d8dcbe-1792852388116.jpeg",
+      "sha256": "3ee9ac5e59bb12f66d85fc4526f651d9076fdedfd883984e5958af6a52d4b84b",
+      "traceTimestamp": 112268.721,
+      "frameSwapWallTime": 1792852388121.613,
+      "imagePixels": [800, 450],
+      "traceFrameMetadata": {
+        "width": 2560,
+        "height": 1440
+      },
+      "sample": {
+        "pixel": [50, 225],
+        "rgb": [116, 111, 118]
+      }
+    },
+    {
+      "file": "original-switch-2.jpeg",
+      "originalTracePath": "screencast/page@ce3d2c2027cd74f66a183d5597d8dcbe-1792852388181.jpeg",
+      "sha256": "fd45cb1f31fe686b15d48178bfc56a400ee6b7910d950b3e263646ac5f380e5a",
+      "traceTimestamp": 112333.855,
+      "frameSwapWallTime": 1792852388187.405,
+      "imagePixels": [800, 450],
+      "traceFrameMetadata": {
+        "width": 2560,
+        "height": 1440
+      },
+      "sample": {
+        "pixel": [50, 225],
+        "rgb": [100, 85, 140]
+      }
+    },
+    {
+      "file": "original-switch-3.jpeg",
+      "originalTracePath": "screencast/page@ce3d2c2027cd74f66a183d5597d8dcbe-1792852388291.jpeg",
+      "sha256": "b298241a798f9074b068fe9ffd598bc5924f33466a8ac4aa21bf93b846d64168",
+      "traceTimestamp": 112444.655,
+      "frameSwapWallTime": 1792852388303.677,
+      "imagePixels": [800, 450],
+      "traceFrameMetadata": {
+        "width": 2560,
+        "height": 1440
+      },
+      "sample": {
+        "pixel": [50, 225],
+        "rgb": [100, 85, 142]
+      }
+    }
+  ]
+}

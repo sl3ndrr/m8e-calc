@@ -1,0 +1,318 @@
+{
+  "retrievedAt": "2026-10-29T15:42:13.245Z",
+  "repository": "sl3ndrr/m8e-calc",
+  "issues": [
+    {
+      "url": "https://github.com/sl3ndrr/m8e-calc/issues/70",
+      "issue_number": 70,
+      "title": "test(graph): AP47 WebKit-rAF-Probe bleibt im Slow-Worker-Fall stehen (118/115)",
+      "state": "open",
+      "state_reason": null,
+      "updated_at": "2026-10-22T09:48:28Z",
+      "closed_at": null
+    },
+    {
+      "url": "https://github.com/sl3ndrr/m8e-calc/issues/71",
+      "issue_number": 71,
+      "title": "test(app): AP48 fehlenden Einstellungsdialog nach History-Exit diagnostizieren",
+      "state": "open",
+      "state_reason": null,
+      "updated_at": "2026-10-22T09:48:37Z",
+      "closed_at": null
+    },
+    {
+      "url": "https://github.com/sl3ndrr/m8e-calc/issues/43",
+      "issue_number": 43,
+      "title": "perf(graph): AP28 – wiederkehrenden 4K-rAF-Befund belastbar eingrenzen",
+      "state": "closed",
+      "state_reason": "completed",
+      "updated_at": "2026-10-22T09:50:01Z",
+      "closed_at": "2026-10-22T09:50:01Z"
+    }
+  ],
+  "prs": [
+    {
+      "url": "https://github.com/sl3ndrr/m8e-calc/pull/65",
+      "number": 65,
+      "state": "open",
+      "merged": false,
+      "head_sha": "891c72afabab899ef03f55142d5b143f07fce86f",
+      "merge_commit_sha": null,
+      "merged_at": null,
+      "updated_at": "2026-10-27T23:06:43Z"
+    },
+    {
+      "url": "https://github.com/sl3ndrr/m8e-calc/pull/69",
+      "number": 69,
+      "state": "closed",
+      "merged": true,
+      "head_sha": "f6b814e50e1b63bc0dd3a3792f60eaa6bb2814e7",
+      "merge_commit_sha": "fad008b1045e781c8efdac961a728453fd944c11",
+      "merged_at": "2026-10-22T06:43:08Z",
+      "updated_at": "2026-10-22T07:15:06Z"
+    },
+    {
+      "url": "https://github.com/sl3ndrr/m8e-calc/pull/83",
+      "number": 83,
+      "state": "closed",
+      "merged": true,
+      "head_sha": "e6d9bcb38c26442ec9085e1724c04b6b659e7748",
+      "merge_commit_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+      "merged_at": "2026-10-29T14:46:12Z",
+      "updated_at": "2026-10-29T14:46:12Z"
+    }
+  ],
+  "currentCI": {
+    "source": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/runs?head_sha=c50efc82e4b9cf38788b369c83fb70085cdbf545&event=push&per_page=20",
+    "rawResponseSha256": "ea782015c42950b70b0059836eb19dd4feb04eb03b690323d15ddd1fac7546a2",
+    "runs": [
+      {
+        "id": 40894801034,
+        "name": "CI",
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "head_branch": "main",
+        "run_attempt": 1,
+        "conclusion": "success",
+        "status": "completed",
+        "event": "push",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034",
+        "created_at": "2026-10-29T14:46:15Z",
+        "updated_at": "2026-10-29T15:13:23Z"
+      }
+    ]
+  },
+  "currentJobs": {
+    "source": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/runs/40894801034/jobs?per_page=100",
+    "rawResponseSha256": "27320904f72123858f75fb4e1f181364de165d836b5cc60bf24bd322ba21fed7",
+    "jobs": [
+      {
+        "id": 123520859623,
+        "name": "Node 24 minimum",
+        "conclusion": "success",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123520859623",
+        "started_at": "2026-10-29T14:46:19Z",
+        "completed_at": "2026-10-29T14:48:31Z"
+      },
+      {
+        "id": 123520860243,
+        "name": "Production build",
+        "conclusion": "success",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123520860243",
+        "started_at": "2026-10-29T14:46:19Z",
+        "completed_at": "2026-10-29T14:48:28Z"
+      },
+      {
+        "id": 123520860554,
+        "name": "Pipeline contract tests",
+        "conclusion": "success",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123520860554",
+        "started_at": "2026-10-29T14:46:19Z",
+        "completed_at": "2026-10-29T14:46:42Z"
+      },
+      {
+        "id": 123520861228,
+        "name": "Currency source evidence",
+        "conclusion": "skipped",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123520861228",
+        "started_at": "2026-10-29T14:46:16Z",
+        "completed_at": "2026-10-29T14:46:15Z"
+      },
+      {
+        "id": 123522169231,
+        "name": "Gallery",
+        "conclusion": "success",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123522169231",
+        "started_at": "2026-10-29T14:48:31Z",
+        "completed_at": "2026-10-29T14:52:37Z"
+      },
+      {
+        "id": 123522169361,
+        "name": "Graph performance",
+        "conclusion": "success",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123522169361",
+        "started_at": "2026-10-29T14:48:31Z",
+        "completed_at": "2026-10-29T14:50:12Z"
+      },
+      {
+        "id": 123522169533,
+        "name": "Pages artifact verification",
+        "conclusion": "success",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123522169533",
+        "started_at": "2026-10-29T14:48:31Z",
+        "completed_at": "2026-10-29T14:48:41Z"
+      },
+      {
+        "id": 123522169536,
+        "name": "Hardening QA / visual",
+        "conclusion": "success",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123522169536",
+        "started_at": "2026-10-29T14:48:32Z",
+        "completed_at": "2026-10-29T14:50:15Z"
+      },
+      {
+        "id": 123522169553,
+        "name": "Hardening QA / measure (before)",
+        "conclusion": "success",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123522169553",
+        "started_at": "2026-10-29T14:48:31Z",
+        "completed_at": "2026-10-29T14:51:37Z"
+      },
+      {
+        "id": 123522169603,
+        "name": "Hardening QA / measure (after)",
+        "conclusion": "success",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123522169603",
+        "started_at": "2026-10-29T14:48:31Z",
+        "completed_at": "2026-10-29T14:51:37Z"
+      },
+      {
+        "id": 123522169674,
+        "name": "Release assets / images",
+        "conclusion": "success",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123522169674",
+        "started_at": "2026-10-29T14:48:31Z",
+        "completed_at": "2026-10-29T14:52:35Z"
+      },
+      {
+        "id": 123522169749,
+        "name": "Hardening QA / browsers (firefox)",
+        "conclusion": "success",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123522169749",
+        "started_at": "2026-10-29T14:48:31Z",
+        "completed_at": "2026-10-29T15:01:52Z"
+      },
+      {
+        "id": 123522169865,
+        "name": "Hardening QA / browsers (webkit)",
+        "conclusion": "success",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123522169865",
+        "started_at": "2026-10-29T14:48:31Z",
+        "completed_at": "2026-10-29T15:11:14Z"
+      },
+      {
+        "id": 123522169954,
+        "name": "Hardening QA / browsers (chromium)",
+        "conclusion": "success",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123522169954",
+        "started_at": "2026-10-29T14:48:33Z",
+        "completed_at": "2026-10-29T14:58:47Z"
+      },
+      {
+        "id": 123522169957,
+        "name": "Hardening QA / browsers (qa-performance)",
+        "conclusion": "success",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123522169957",
+        "started_at": "2026-10-29T14:48:43Z",
+        "completed_at": "2026-10-29T14:50:03Z"
+      },
+      {
+        "id": 123522170111,
+        "name": "Build provenance / evidence",
+        "conclusion": "success",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123522170111",
+        "started_at": "2026-10-29T14:48:43Z",
+        "completed_at": "2026-10-29T14:51:55Z"
+      },
+      {
+        "id": 123535757483,
+        "name": "Hardening QA / QA gate",
+        "conclusion": "success",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123535757483",
+        "started_at": "2026-10-29T15:12:09Z",
+        "completed_at": "2026-10-29T15:12:16Z"
+      },
+      {
+        "id": 123536371593,
+        "name": "Quality gate",
+        "conclusion": "success",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123536371593",
+        "started_at": "2026-10-29T15:12:19Z",
+        "completed_at": "2026-10-29T15:12:27Z"
+      },
+      {
+        "id": 123536481563,
+        "name": "Deploy Pages",
+        "conclusion": "success",
+        "status": "completed",
+        "run_id": 40894801034,
+        "run_attempt": 1,
+        "head_sha": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+        "html_url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40894801034/job/123536481563",
+        "started_at": "2026-10-29T15:12:31Z",
+        "completed_at": "2026-10-29T15:13:22Z"
+      }
+    ]
+  }
+}

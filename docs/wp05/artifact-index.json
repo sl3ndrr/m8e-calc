@@ -1,0 +1,270 @@
+{
+  "artifacts": [
+    {
+      "id": 12573497858,
+      "name": "gallery",
+      "size_in_bytes": 2757527,
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12573497858",
+      "archive_download_url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12573497858/zip",
+      "expired": false,
+      "created_at": "2026-10-24T19:48:00Z",
+      "expires_at": "2026-11-07T19:47:59Z",
+      "updated_at": "2026-10-24T19:48:00Z",
+      "digest": "sha256:c81adad3cd1f24ae8c4e2b74d319ed2b7dfe52f96e7219200f73ed8a5636f40b",
+      "workflow_run": {
+        "id": 40102607931,
+        "repository_id": 1416574520,
+        "head_repository_id": 1416574520,
+        "head_branch": "main",
+        "head_sha": "de0fcd0a0846f56226e148c14f7b3bf5d1cb387f"
+      }
+    },
+    {
+      "id": 12563950151,
+      "name": "qa-browsers-qa-performance",
+      "size_in_bytes": 3219,
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12563950151",
+      "archive_download_url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12563950151/zip",
+      "expired": false,
+      "created_at": "2026-10-24T14:31:48Z",
+      "expires_at": "2026-11-07T14:31:47Z",
+      "updated_at": "2026-10-24T14:31:48Z",
+      "digest": "sha256:95d71ee31c271ea9bd3dc15f0bcaaab6348ac5f7dd8202d653f1f0fc05be4b55",
+      "workflow_run": {
+        "id": 40102607931,
+        "repository_id": 1416574520,
+        "head_repository_id": 1416574520,
+        "head_branch": "main",
+        "head_sha": "de0fcd0a0846f56226e148c14f7b3bf5d1cb387f"
+      }
+    },
+    {
+      "id": 12563796067,
+      "name": "qa-browsers-chromium",
+      "size_in_bytes": 27526515,
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12563796067",
+      "archive_download_url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12563796067/zip",
+      "expired": false,
+      "created_at": "2026-10-24T14:39:41Z",
+      "expires_at": "2026-11-07T14:39:39Z",
+      "updated_at": "2026-10-24T14:39:41Z",
+      "digest": "sha256:f016e052dd35a5414aedf357f41865d56e3f29c7d106035c10b191b449592a4f",
+      "workflow_run": {
+        "id": 40102607931,
+        "repository_id": 1416574520,
+        "head_repository_id": 1416574520,
+        "head_branch": "main",
+        "head_sha": "de0fcd0a0846f56226e148c14f7b3bf5d1cb387f"
+      }
+    },
+    {
+      "id": 12563750798,
+      "name": "qa-after",
+      "size_in_bytes": 2711350,
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12563750798",
+      "archive_download_url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12563750798/zip",
+      "expired": false,
+      "created_at": "2026-10-24T14:33:07Z",
+      "expires_at": "2026-11-07T14:33:07Z",
+      "updated_at": "2026-10-24T14:33:07Z",
+      "digest": "sha256:79bcb4d96b6709fbaa80c9fff3f9fd1c9a728959de5dccd8ff0296f4bd45a68b",
+      "workflow_run": {
+        "id": 40102607931,
+        "repository_id": 1416574520,
+        "head_repository_id": 1416574520,
+        "head_branch": "main",
+        "head_sha": "de0fcd0a0846f56226e148c14f7b3bf5d1cb387f"
+      }
+    },
+    {
+      "id": 12563666311,
+      "name": "checked-normal-40102607931-1",
+      "size_in_bytes": 1792826,
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12563666311",
+      "archive_download_url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12563666311/zip",
+      "expired": false,
+      "created_at": "2026-10-24T14:29:53Z",
+      "expires_at": "2026-11-07T14:29:52Z",
+      "updated_at": "2026-10-24T14:29:53Z",
+      "digest": "sha256:b7e163e5c54783a8234ce5157ba687e2153252576cd258c88d86e19db244e80a",
+      "workflow_run": {
+        "id": 40102607931,
+        "repository_id": 1416574520,
+        "head_repository_id": 1416574520,
+        "head_branch": "main",
+        "head_sha": "de0fcd0a0846f56226e148c14f7b3bf5d1cb387f"
+      }
+    },
+    {
+      "id": 12563652563,
+      "name": "qa-browsers-firefox",
+      "size_in_bytes": 27899716,
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12563652563",
+      "archive_download_url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12563652563/zip",
+      "expired": false,
+      "created_at": "2026-10-24T14:38:14Z",
+      "expires_at": "2026-11-07T14:38:12Z",
+      "updated_at": "2026-10-24T14:38:14Z",
+      "digest": "sha256:e63d8e0b206f6d7c6afbd54f4d8a2235a8c760501e84e82956ef1130f5b624b3",
+      "workflow_run": {
+        "id": 40102607931,
+        "repository_id": 1416574520,
+        "head_repository_id": 1416574520,
+        "head_branch": "main",
+        "head_sha": "de0fcd0a0846f56226e148c14f7b3bf5d1cb387f"
+      }
+    },
+    {
+      "id": 12563248778,
+      "name": "qa-before",
+      "size_in_bytes": 2789281,
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12563248778",
+      "archive_download_url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12563248778/zip",
+      "expired": false,
+      "created_at": "2026-10-24T14:33:11Z",
+      "expires_at": "2026-11-07T14:33:10Z",
+      "updated_at": "2026-10-24T14:33:11Z",
+      "digest": "sha256:b8ecdc437fa35e9efe9727ea140a5871b959e0dc4f69a067a464e718f823ec2c",
+      "workflow_run": {
+        "id": 40102607931,
+        "repository_id": 1416574520,
+        "head_repository_id": 1416574520,
+        "head_branch": "main",
+        "head_sha": "de0fcd0a0846f56226e148c14f7b3bf5d1cb387f"
+      }
+    },
+    {
+      "id": 12563084227,
+      "name": "gallery",
+      "size_in_bytes": 11020596,
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12563084227",
+      "archive_download_url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12563084227/zip",
+      "expired": false,
+      "created_at": "2026-10-24T14:33:30Z",
+      "expires_at": "2026-11-07T14:33:29Z",
+      "updated_at": "2026-10-24T14:33:30Z",
+      "digest": "sha256:12b9b14a7ce012960d506821131220b6898cdb2dab8b832e7d22173d57b22ab8",
+      "workflow_run": {
+        "id": 40102607931,
+        "repository_id": 1416574520,
+        "head_repository_id": 1416574520,
+        "head_branch": "main",
+        "head_sha": "de0fcd0a0846f56226e148c14f7b3bf5d1cb387f"
+      }
+    },
+    {
+      "id": 12562993021,
+      "name": "ap29-provenance",
+      "size_in_bytes": 20156380,
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12562993021",
+      "archive_download_url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12562993021/zip",
+      "expired": false,
+      "created_at": "2026-10-24T14:32:25Z",
+      "expires_at": "2026-11-07T14:32:23Z",
+      "updated_at": "2026-10-24T14:32:25Z",
+      "digest": "sha256:662f28d44243f83f234c37a9640946620e5ee3a7eed55e847bd4316b45df937f",
+      "workflow_run": {
+        "id": 40102607931,
+        "repository_id": 1416574520,
+        "head_repository_id": 1416574520,
+        "head_branch": "main",
+        "head_sha": "de0fcd0a0846f56226e148c14f7b3bf5d1cb387f"
+      }
+    },
+    {
+      "id": 12562988007,
+      "name": "graph-performance",
+      "size_in_bytes": 410230,
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12562988007",
+      "archive_download_url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12562988007/zip",
+      "expired": false,
+      "created_at": "2026-10-24T14:31:28Z",
+      "expires_at": "2026-11-07T14:31:27Z",
+      "updated_at": "2026-10-24T14:31:28Z",
+      "digest": "sha256:72790f7c0b669d150cfba9d07fe68d3cffe52ce759b4dbf37bcac204e3eb5534",
+      "workflow_run": {
+        "id": 40102607931,
+        "repository_id": 1416574520,
+        "head_repository_id": 1416574520,
+        "head_branch": "main",
+        "head_sha": "de0fcd0a0846f56226e148c14f7b3bf5d1cb387f"
+      }
+    },
+    {
+      "id": 12562944545,
+      "name": "qa-browsers-webkit",
+      "size_in_bytes": 50057872,
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12562944545",
+      "archive_download_url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12562944545/zip",
+      "expired": false,
+      "created_at": "2026-10-24T14:46:48Z",
+      "expires_at": "2026-11-07T14:46:45Z",
+      "updated_at": "2026-10-24T14:46:48Z",
+      "digest": "sha256:bb803ea7a1ab4a46bc1ff8ce0850c7daa7e9bc8f949211a5c22469278bd320a3",
+      "workflow_run": {
+        "id": 40102607931,
+        "repository_id": 1416574520,
+        "head_repository_id": 1416574520,
+        "head_branch": "main",
+        "head_sha": "de0fcd0a0846f56226e148c14f7b3bf5d1cb387f"
+      }
+    },
+    {
+      "id": 12562943348,
+      "name": "release-assets",
+      "size_in_bytes": 1405333,
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12562943348",
+      "archive_download_url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12562943348/zip",
+      "expired": false,
+      "created_at": "2026-10-24T14:34:06Z",
+      "expires_at": "2026-11-07T14:34:05Z",
+      "updated_at": "2026-10-24T14:34:06Z",
+      "digest": "sha256:5d49500d5eebab4f0fd15fb806b9711143c51b8acddb420e0021a4c9a0897ed6",
+      "workflow_run": {
+        "id": 40102607931,
+        "repository_id": 1416574520,
+        "head_repository_id": 1416574520,
+        "head_branch": "main",
+        "head_sha": "de0fcd0a0846f56226e148c14f7b3bf5d1cb387f"
+      }
+    },
+    {
+      "id": 12562708905,
+      "name": "qa-visual",
+      "size_in_bytes": 4222342,
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12562708905",
+      "archive_download_url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12562708905/zip",
+      "expired": false,
+      "created_at": "2026-10-24T14:31:32Z",
+      "expires_at": "2026-11-07T14:31:32Z",
+      "updated_at": "2026-10-24T14:31:32Z",
+      "digest": "sha256:3d4f88c7866fb8d65b354bd60bd27700a8aa199b887f8a47f14e0214078d0a6e",
+      "workflow_run": {
+        "id": 40102607931,
+        "repository_id": 1416574520,
+        "head_repository_id": 1416574520,
+        "head_branch": "main",
+        "head_sha": "de0fcd0a0846f56226e148c14f7b3bf5d1cb387f"
+      }
+    },
+    {
+      "id": 12562449957,
+      "name": "pages-40102607931-1",
+      "size_in_bytes": 1777218,
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12562449957",
+      "archive_download_url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/artifacts/12562449957/zip",
+      "expired": false,
+      "created_at": "2026-10-24T14:30:10Z",
+      "expires_at": "2026-11-07T14:30:09Z",
+      "updated_at": "2026-10-24T14:30:10Z",
+      "digest": "sha256:42efe5d71a6a70e7b558c8f2ae9e314d9564fe96fd45784c1c68591f55e6e059",
+      "workflow_run": {
+        "id": 40102607931,
+        "repository_id": 1416574520,
+        "head_repository_id": 1416574520,
+        "head_branch": "main",
+        "head_sha": "de0fcd0a0846f56226e148c14f7b3bf5d1cb387f"
+      }
+    }
+  ]
+}

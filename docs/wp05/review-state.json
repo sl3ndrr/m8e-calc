@@ -1,0 +1,138 @@
+{
+  "scope": "documentation/evidence only; current product/test/workflow/lockfile unchanged",
+  "base": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+  "branch": "feat/audit-wp-05",
+  "evidenceCommit": "053f799a7b59ad8cc9db3d0b5f929b4423969b96",
+  "evidenceTree": "d249534b55db531de9c31b26745ec344b8db5938",
+  "evidenceDiffSha256": "58a30d7ef4552a9a6f819b1de5cd66aadddfdc1e2c739311036306b4e132d459",
+  "filesAtEvidenceCommit": [
+    {
+      "path": "docs/IMPLEMENTATION_STATUS.md",
+      "sha256": "b51182587bb93809f31881cf004613d66fb998e5e78f0e70650b235098390f02"
+    },
+    {
+      "path": "docs/WP05.md",
+      "sha256": "51b567ce143f3ceaa3036cc5ceb97f91554840128adf5a96735d6b8b03f9167a"
+    },
+    {
+      "path": "docs/wp05/artifact-index.json",
+      "sha256": "345a272264f5b2da9749cb058ded445ac4fe074be8491e75ac4c11accc6d30ea"
+    },
+    {
+      "path": "docs/wp05/github-context.json",
+      "sha256": "d659dfcad3799e0d72090e6c969b88d0d0344fdfc30e07df2d3fbfb57e635675"
+    },
+    {
+      "path": "docs/wp05/historical-proof.json",
+      "sha256": "a91cccb3894e867150db1e2ac844aba0ee3a17a8a5780b69a8ebde07f174596e"
+    },
+    {
+      "path": "docs/wp05/local-validation.json",
+      "sha256": "47a0b1bdad01242b10977a621f3a83c995cf107a55478b6523abaf68a08c5f62"
+    },
+    {
+      "path": "docs/wp05/original-logs.json",
+      "sha256": "c364d36033a8a6ea4435de916cc9509e952cd771df9e74614ef60c6debce2b73"
+    },
+    {
+      "path": "docs/wp05/original-switch-1.jpeg",
+      "sha256": "3ee9ac5e59bb12f66d85fc4526f651d9076fdedfd883984e5958af6a52d4b84b"
+    },
+    {
+      "path": "docs/wp05/original-switch-2.jpeg",
+      "sha256": "fd45cb1f31fe686b15d48178bfc56a400ee6b7910d950b3e263646ac5f380e5a"
+    },
+    {
+      "path": "docs/wp05/original-switch-3.jpeg",
+      "sha256": "b298241a798f9074b068fe9ffd598bc5924f33466a8ac4aa21bf93b846d64168"
+    },
+    {
+      "path": "docs/wp05/original-trace.json",
+      "sha256": "1e0295d9d36e98db758a121a742c8ac7f4f07d9b4621f95858123eb4c3ddeb46"
+    },
+    {
+      "path": "docs/wp05/screencast.json",
+      "sha256": "089cda1ddefca35d9aea5e9987a5b27eb44e24c02607411a797991c9257cb259"
+    },
+    {
+      "path": "docs/wp05/source-comparison.json",
+      "sha256": "793e16f187965fd107e2d2dd061b021dce5d94c7ca03750e6d3a7984c373d128"
+    }
+  ],
+  "rawOriginals": [
+    {
+      "file": "gallery-run40102607931-attempt1.zip",
+      "sha256": "12b9b14a7ce012960d506821131220b6898cdb2dab8b832e7d22173d57b22ab8"
+    },
+    {
+      "file": "checked-normal-40102607931-1.zip",
+      "sha256": "b7e163e5c54783a8234ce5157ba687e2153252576cd258c88d86e19db244e80a"
+    },
+    {
+      "file": "log-attempt1.txt",
+      "sha256": "45f8599926840284c2bbcabf9d4e33150b911ce4456e10e5452cdb2f9d239707"
+    },
+    {
+      "file": "log-attempt2.txt",
+      "sha256": "e8fe9ded337d48e0c3e9706da9575c3e2afe160277b58f7c11aa56834876ab80"
+    },
+    {
+      "file": "log-current-gallery.txt",
+      "sha256": "d8e63bc176a3cddf79d8bda7a8a988d5619bd14fa0ac367e0cd60c33dbec3694"
+    }
+  ],
+  "remoteMainFinalRead": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+  "checks": [
+    {
+      "command": [
+        "node",
+        "../wp05-format/3.9.6/package/bin/prettier.cjs",
+        "--check",
+        "docs/WP05.md",
+        "docs/IMPLEMENTATION_STATUS.md",
+        "docs/wp05/artifact-index.json",
+        "docs/wp05/github-context.json",
+        "docs/wp05/historical-proof.json",
+        "docs/wp05/local-validation.json",
+        "docs/wp05/original-logs.json",
+        "docs/wp05/original-trace.json",
+        "docs/wp05/review-state.json",
+        "docs/wp05/screencast.json",
+        "docs/wp05/source-comparison.json"
+      ],
+      "startedAtUTC": "2026-10-29T15:52:45.587048+00:00",
+      "exitCode": 0,
+      "stdout": "Checking formatting...\nAll matched files use Prettier code style!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-release-docs.mjs",
+        "--report",
+        "test-results/wp05-final-release-docs.json"
+      ],
+      "startedAtUTC": "2026-10-29T15:52:46.032699+00:00",
+      "exitCode": 0,
+      "stdout": "Checked 53 documents, 410 local links, 193 npm commands; 0 HTTP passed, 0 manually reviewed, 0 failures (0/337 external URLs). Report: test-results/wp05-final-release-docs.json\n",
+      "stderr": ""
+    },
+    {
+      "command": ["git", "diff", "--check"],
+      "startedAtUTC": "2026-10-29T15:52:46.149863+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "finalDocumentationSummary": {
+    "documents": 53,
+    "localLinks": 410,
+    "npmCommands": 193,
+    "externalIdentified": 337,
+    "externalChecked": 0,
+    "httpPassed": 0,
+    "manuallyReviewed": 0,
+    "failures": 0
+  }
+}

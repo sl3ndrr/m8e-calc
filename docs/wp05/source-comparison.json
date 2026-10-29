@@ -1,0 +1,86 @@
+{
+  "audit": "de0fcd0a0846f56226e148c14f7b3bf5d1cb387f",
+  "base": "c50efc82e4b9cf38788b369c83fb70085cdbf545",
+  "files": [
+    {
+      "path": "src/ui/Switch.css",
+      "auditBlob": "a9a2f2164bfe155a1f679018a8cd610df64bf9c4",
+      "currentBlob": "a9a2f2164bfe155a1f679018a8cd610df64bf9c4",
+      "equal": true,
+      "auditSha256": "0546befac50085562dd2675688c0aa4c2cb74a5fd6d0a31236351856673a4ce9",
+      "currentSha256": "0546befac50085562dd2675688c0aa4c2cb74a5fd6d0a31236351856673a4ce9"
+    },
+    {
+      "path": "src/ui/Switch.tsx",
+      "auditBlob": "f5f69b8dcd4a58390c0578b82fe401cbe1633adc",
+      "currentBlob": "f5f69b8dcd4a58390c0578b82fe401cbe1633adc",
+      "equal": true,
+      "auditSha256": "82aa57c727a42494351d6bdf94f83e6e8d830e5fcb4dcc3e1b40d5220d8666ef",
+      "currentSha256": "82aa57c727a42494351d6bdf94f83e6e8d830e5fcb4dcc3e1b40d5220d8666ef"
+    },
+    {
+      "path": "e2e/ap36Capture.ts",
+      "auditBlob": "7ee9e4b3af940b5b7df7bb33383edb57e86019e9",
+      "currentBlob": "7ee9e4b3af940b5b7df7bb33383edb57e86019e9",
+      "equal": true,
+      "auditSha256": "f668fcdcd147cb773551fbac3589f6b93ce10f3eda6695bc73d72b0f97b669c0",
+      "currentSha256": "f668fcdcd147cb773551fbac3589f6b93ce10f3eda6695bc73d72b0f97b669c0"
+    },
+    {
+      "path": "e2e/controls-polish.spec.ts",
+      "auditBlob": "c8508ef11b4a0c0d0c0bb0b54c7247d981c77378",
+      "currentBlob": "c8508ef11b4a0c0d0c0bb0b54c7247d981c77378",
+      "equal": true,
+      "auditSha256": "dd23738e5b1545d271c3b61f0c9d840364b810801ee6e7d3d975b86b5c4ae1f8",
+      "currentSha256": "dd23738e5b1545d271c3b61f0c9d840364b810801ee6e7d3d975b86b5c4ae1f8"
+    },
+    {
+      "path": "playwright.gallery.config.ts",
+      "auditBlob": "bd53e8df4a8ac5ee5c9ad3f2348af12cb2879e33",
+      "currentBlob": "bd53e8df4a8ac5ee5c9ad3f2348af12cb2879e33",
+      "equal": true,
+      "auditSha256": "d14f147d39179e553d6e5e91ca3acbebae4dea78aef1aabd95fd700fd79c42ca",
+      "currentSha256": "d14f147d39179e553d6e5e91ca3acbebae4dea78aef1aabd95fd700fd79c42ca"
+    },
+    {
+      "path": "package-lock.json",
+      "auditBlob": "81699a9ce1429dd1a4d12484d5f07719b11e71da",
+      "currentBlob": "4d1d07267acf0b2660e4b7ec77bf37ed7d6013c8",
+      "equal": false,
+      "auditSha256": "58692235db9049c660fb9fc6cc43c68b02448ffedbbae9a3678773eb8ce44016",
+      "currentSha256": "1fc789bf560baaac9a9b4c935d27b1ca53813d460923a3711646450bd52b63ae"
+    }
+  ],
+  "lockfileChanges": [
+    {
+      "path": "",
+      "before": "1.0.0",
+      "after": "1.0.0"
+    },
+    {
+      "path": "node_modules/@axe-core/playwright",
+      "before": "4.13.0",
+      "after": "4.14.0"
+    },
+    {
+      "path": "node_modules/@axe-core/playwright/node_modules/axe-core",
+      "before": "4.13.0",
+      "after": null
+    },
+    {
+      "path": "node_modules/@playwright/test",
+      "before": "1.64.0",
+      "after": "1.64.1"
+    },
+    {
+      "path": "node_modules/playwright",
+      "before": "1.64.0",
+      "after": "1.64.1"
+    },
+    {
+      "path": "node_modules/playwright-core",
+      "before": "1.64.0",
+      "after": "1.64.1"
+    }
+  ]
+}
