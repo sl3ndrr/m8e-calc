@@ -1,6 +1,10 @@
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
+import { useImperativeHandle, useRef, type Ref } from 'react';
+import type { EditorHandle } from './ExpressionEditor';
 import userEvent from '@testing-library/user-event';
-import { afterEach, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, expect, it, vi } from 'vitest';
+import { TestCalculationWorker } from './calculationTestWorker';
+import { runCalculation } from './workerCalculation';
 import ScientificMode from './ScientificMode';
 import { createEnvironment, execute } from '../../engine';
 import { SCIENTIFIC_STORAGE_KEY, useScientificStore } from './scientificStore';
@@ -8,34 +12,50 @@ import { useHistoryStore } from '../../shared/historyStore';
 import { useAppStore } from '../../shared/store';
 import { snackbarQueue } from '../../ui';
 vi.mock('./ExpressionEditor', () => ({
-  default: ({
+  default: function MockEditor({
+    ref,
     value,
     onChange,
     onEvaluate,
     locale,
   }: {
+    ref?: Ref<EditorHandle>;
     value: string;
     onChange: (value: string) => void;
     onEvaluate: () => void;
     locale: string;
-  }) => (
-    <input
-      aria-label={locale === 'de' ? 'Ausdruck' : 'Expression'}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter') onEvaluate();
-      }}
-    />
-  ),
+  }) {
+    const input = useRef<HTMLInputElement>(null);
+    useImperativeHandle(ref, () => ({
+      focus: () => input.current?.focus(),
+      insert: () => {},
+    }));
+    return (
+      <input
+        ref={input}
+        aria-label={locale === 'de' ? 'Ausdruck' : 'Expression'}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') onEvaluate();
+        }}
+      />
+    );
+  },
 }));
 vi.mock('./MathDisplay', () => ({
   default: ({ latex, label }: { latex: string; label: string }) => (
     <div aria-label={label}>{latex}</div>
   ),
 }));
+beforeEach(() => {
+  TestCalculationWorker.instances = [];
+  TestCalculationWorker.hold = false;
+  vi.stubGlobal('Worker', TestCalculationWorker);
+});
 afterEach(async () => {
   vi.useRealTimers();
+  vi.unstubAllGlobals();
   localStorage.removeItem(SCIENTIFIC_STORAGE_KEY);
   await useScientificStore.persist.rehydrate();
   useScientificStore.getState().commit(createEnvironment());
@@ -86,6 +106,142 @@ it.each(['de', 'en'] as const)(
     expect(
       screen.queryByRole('button', { name: retry.textContent ?? '' }),
     ).not.toBeInTheDocument();
+  },
+);
+
+function activeWorker(): TestCalculationWorker {
+  const worker = TestCalculationWorker.instances.at(-1);
+  if (!worker) throw new Error('Expected worker request');
+  return worker;
+}
+it('does not replace an explicit snapshot with typing or its preview, or overwrite the newer draft', async () => {
+  TestCalculationWorker.hold = true;
+  render(<ScientificMode />);
+  const editor = await screen.findByRole('textbox', { name: 'Ausdruck' });
+  vi.useFakeTimers();
+  fireEvent.change(editor, { target: { value: 'a=5' } });
+  fireEvent.keyDown(editor, { key: 'Enter' });
+  const execution = activeWorker();
+  fireEvent.change(editor, { target: { value: 'a+2' } });
+  await act(async () => {
+    vi.advanceTimersByTime(250);
+  });
+  expect(TestCalculationWorker.instances).toHaveLength(1);
+  expect(execution.terminated).toBe(false);
+  act(() => execution.respond());
+  expect(editor).toHaveValue('a+2');
+  expect(
+    screen.getByText('Dein nächster Gedanke beginnt hier.'),
+  ).toBeInTheDocument();
+  expect(useScientificStore.getState().environment.variables.a).toEqual({
+    kind: 'number',
+    value: '5',
+  });
+  expect(useHistoryStore.getState().entries).toHaveLength(1);
+  expect(useHistoryStore.getState().entries[0]?.input).toBe('a=5');
+  await act(async () => {
+    vi.advanceTimersByTime(250);
+  });
+  const preview = activeWorker();
+  expect(preview.request.kind).toBe('preview');
+  act(() => preview.respond());
+  expect(screen.getByLabelText('Live-Vorschau')).toHaveTextContent('7');
+  expect(useHistoryStore.getState().entries).toHaveLength(1);
+  expect(useScientificStore.getState().environment.history).toHaveLength(1);
+});
+it('invalidates rapid A → B → A, options and deleted definitions without resurrecting queued responses', async () => {
+  TestCalculationWorker.hold = true;
+  const saved = execute('a=5');
+  if (!saved.ok) throw new Error('setup');
+  useScientificStore.getState().commit(saved.value.environment);
+  render(<ScientificMode />);
+  const editor = await screen.findByRole('textbox', { name: 'Ausdruck' });
+  vi.useFakeTimers();
+  const oldHandlers: (() => void)[] = [];
+  for (const value of ['a+1', 'a+2', 'a+1']) {
+    fireEvent.change(editor, { target: { value } });
+    await act(async () => {
+      vi.advanceTimersByTime(250);
+    });
+    const worker = activeWorker();
+    const handlers = [...(worker.listeners.get('message') ?? [])];
+    const data = runCalculation(worker.request);
+    oldHandlers.push(() =>
+      handlers.forEach((h) => h(new MessageEvent('message', { data }))),
+    );
+  }
+  act(() => {
+    oldHandlers[0]?.();
+    oldHandlers[1]?.();
+  });
+  expect(screen.getByLabelText('Live-Vorschau')).not.toHaveTextContent('6');
+  fireEvent.click(screen.getByRole('radio', { name: 'RAD' }));
+  act(() => oldHandlers[2]?.());
+  expect(screen.getByLabelText('Live-Vorschau')).not.toHaveTextContent('6');
+  await act(async () => {
+    vi.advanceTimersByTime(250);
+  });
+  fireEvent.keyDown(editor, { key: 'Enter' });
+  const execution = activeWorker();
+  const handlers = [...(execution.listeners.get('message') ?? [])];
+  const response = runCalculation(execution.request);
+  act(() => useScientificStore.getState().remove('a'));
+  act(() =>
+    handlers.forEach((h) => h(new MessageEvent('message', { data: response }))),
+  );
+  expect(execution.terminated).toBe(true);
+  expect(useScientificStore.getState().environment.variables.a).toBeUndefined();
+  expect(useHistoryStore.getState().entries).toHaveLength(0);
+});
+it.each(['de', 'en'] as const)(
+  'two Enter presses, keyboard cancel, worker failure and unmount are safe in %s',
+  async (locale) => {
+    useAppStore.setState({ locale });
+    TestCalculationWorker.hold = true;
+    const view = render(<ScientificMode />);
+    const editor = await screen.findByRole('textbox', {
+      name: locale === 'de' ? 'Ausdruck' : 'Expression',
+    });
+    fireEvent.change(editor, { target: { value: '1+2' } });
+    fireEvent.keyDown(editor, { key: 'Enter' });
+    const first = activeWorker();
+    fireEvent.keyDown(editor, { key: 'Enter' });
+    const second = activeWorker();
+    expect(first.terminated).toBe(true);
+    act(() => {
+      first.respond();
+      second.respond();
+      second.respond();
+    });
+    expect(useHistoryStore.getState().entries).toHaveLength(1);
+    fireEvent.keyDown(editor, { key: 'Enter' });
+    const cancelled = activeWorker();
+    const user = userEvent.setup();
+    const cancel = screen.getByRole('button', {
+      name: locale === 'de' ? 'Abbrechen' : 'Cancel',
+    });
+    cancel.focus();
+    await user.keyboard('{Enter}');
+    expect(cancelled.terminated).toBe(true);
+    expect(editor).toHaveFocus();
+    act(() => cancelled.respond());
+    expect(useHistoryStore.getState().entries).toHaveLength(1);
+    fireEvent.keyDown(editor, { key: 'Enter' });
+    act(() => activeWorker().crash('messageerror'));
+    expect(screen.getByRole('alert')).toHaveTextContent(
+      locale === 'de' ? 'erneut auswerten' : 'evaluate again',
+    );
+    fireEvent.keyDown(editor, { key: 'Enter' });
+    const pending = activeWorker();
+    view.unmount();
+    pending.respond();
+    expect(pending.terminated).toBe(true);
+    expect(
+      [...pending.listeners.values()].every(
+        (listeners) => listeners.size === 0,
+      ),
+    ).toBe(true);
+    expect(useHistoryStore.getState().entries).toHaveLength(1);
   },
 );
 function expressionActions(editor: HTMLElement) {

@@ -58,6 +58,14 @@ Settings-Version 2 ergänzt Sprache (`auto/de/en`), Dezimaltrennzeichen (`auto/c
 
 Für Folgepakete: Benutzereingabe → reine UI-Funktion/Reducer → Domäne → typisiertes Ergebnis/Fehler → Store/Ansicht. Fehler werden in der UI über i18n angezeigt. DOM-Zugriffe und Seiteneffekte bleiben in Adaptern. Domänen können ohne Browser getestet und später bei Bedarf in Worker eingebunden werden.
 
+WP-07 bindet wissenschaftliche Berechnungen über einen lokalen, lazy erzeugten
+Modulworker an. Protokollvalidierung, begrenzte Aufträge, tatsächliche
+Terminierung und UI-Lifecycle bleiben in `src/features/scientific`.
+Environment-/Ausführungsrevisionen und ein atomarer Storevergleich schützen
+die einmalige Übernahme ausdrücklicher Snapshots; Vorschauen bleiben transient.
+Engine-API und Domänengrenzen ändern sich nicht. Vollständiger Vertrag:
+[SCIENTIFIC_MODE.md](SCIENTIFIC_MODE.md), lokale Nachweise: [WP07.md](WP07.md).
+
 ## Routing, Build und Hosting
 
 Hash-Routing benötigt keine Pages-Rewrites. Vite erzeugt Assets relativ zum Base-Pfad `/m8e-calc/`, überschreibbar über `VITE_BASE_PATH`. Pages erhält ausschließlich `dist/`. Keine externen Requests zur Laufzeit außer explizit aktivierten EZB-Währungskursen (AP17); Fonts sind selbst gehostete, subsettete Variable-Fonts mit Preloads. Tokens liegen zentral in `src/styles`, generiert mit `npm run tokens`. AP2 liefert das Material-3-Expressive-Fundament und zwei Theme-Komponenten; weitere Komponenten folgen in AP3. Das Inline-Bootstrap in `index.html` wird von Vite vor App-JavaScript eingefügt und stellt den passenden Modus mit validiertem Farbcache vor dem ersten Paint her.
@@ -161,6 +169,11 @@ noch `unsafe-eval`; Verbindungen, Fonts, Worker und Manifest bleiben lokal.
 Dynamische Styles benötigen `style-src 'unsafe-inline'` für CodeMirror,
 React Aria und Motion; diese explizite Grenze steht auch im QA-Bericht.
 Meta-CSP kann insbesondere `frame-ancestors` nicht ersetzen.
+
+Fontdateien werden unabhängig von ihrer Größe als lokale Assets ausgegeben.
+Vites Inline-Schwellwert gilt für Fonts nicht: Auch die kleine
+`KaTeX_Size3-Regular.woff2` muss `font-src 'self'` erfüllen und im Offline-
+Precache liegen. Die Policy erhält keine zusätzliche `data:`-Freigabe.
 
 Die vollständige Kontrastmatrix belegt die vorhandenen Textrollen. Der funktionale
 Outline-Rand erhält >=3:1 gegen sämtliche Surface-Ebenen.

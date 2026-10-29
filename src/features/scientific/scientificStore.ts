@@ -21,6 +21,8 @@ interface PersistedScientificState {
   recovery: ScientificRecovery;
 }
 interface ScientificState extends PersistedScientificState {
+  revision: number;
+  commitIfCurrent: (revision: number, environment: Environment) => boolean;
   commit: (environment: Environment) => void;
   remove: (name: string) => void;
 }
@@ -109,12 +111,23 @@ export function createScientificStore(storage: StateStorage) {
   };
   const store = create<ScientificState>()(
     persist<ScientificState, [], [], PersistedScientificState>(
-      (set) => ({
+      (set, get) => ({
+        revision: 0,
+        commitIfCurrent: (revision, environment) => {
+          if (get().revision !== revision || get().recovery === 'loading')
+            return false;
+          set({ environment, revision: revision + 1 });
+          return true;
+        },
         environment: createEnvironment(),
         recovery: 'loading',
-        commit: (environment) => set({ environment }),
+        commit: (environment) =>
+          set((s) => ({ environment, revision: s.revision + 1 })),
         remove: (name) =>
-          set((s) => ({ environment: removeDefinition(s.environment, name) })),
+          set((s) => ({
+            environment: removeDefinition(s.environment, name),
+            revision: s.revision + 1,
+          })),
       }),
       {
         name: SCIENTIFIC_STORAGE_KEY,
@@ -128,6 +141,7 @@ export function createScientificStore(storage: StateStorage) {
           writable = restored.recovery === null;
           return {
             ...current,
+            revision: current.revision + 1,
             // A failed retry must also preserve the current in-memory session.
             environment: restored.recovery
               ? current.environment

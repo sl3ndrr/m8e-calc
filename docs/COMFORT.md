@@ -83,7 +83,8 @@ Beenden-Button und Strg+Umschalt+P führen zurück. Präsentation selbst ist tra
 Abhängigkeit. Er erzeugt Manifest und Service Worker für den konfigurierten
 Base-Pfad (Standard `/m8e-calc/`). Ein inhaltsabhängiger Cache-Name berücksichtigt
 Bundle, Manifest und Icons. Die Installation precacht **alle** erzeugten Assets,
-einschließlich lazy Modus-/CodeMirror-/KaTeX-Chunks, lokaler Fonts und Graph-Worker.
+einschließlich lazy Modus-/CodeMirror-/KaTeX-Chunks, lokaler Fonts sowie Graph-
+und wissenschaftlichem Berechnungsworker (WP-07).
 Der Cache wird erst nach vollständig erfolgreicher Installation aktiviert;
 ein fehlgeschlagenes Update lässt die bisherige Version aktiv.
 
@@ -112,6 +113,18 @@ sein Motiv liegt in der maskable-Sicherheitszone. Reproduktion:
 Chromium prüft `Page.getInstallabilityErrors`, Manifestpfade und Offline-Nutzung.
 Der Installieren-Button erscheint nur bei `beforeinstallprompt`; andere Browser
 verwenden ihre native Installationsoberfläche. HTTPS oder localhost ist nötig.
+
+Der wissenschaftliche Berechnungsworker verwendet dieselbe Origin und denselben
+Base-Pfad, ohne Blob-Worker, externe Rechendienste oder zusätzliche CSP-Freigabe.
+Direktes Öffnen über `file:` ist kein unterstützter Offline-Installationsweg:
+Browser können Modulworker und die Appimporte dort sperren. Ein fehlgeschlagener
+Workerstart zeigt einen kontrollierten de/en-Fehler ohne synchrone Ersatzrechnung.
+Offline-Nutzung erfolgt über den zuvor vollständig installierten HTTPS-/localhost-
+Precache. Produktionsprüfung und tatsächlich verfügbare Nachweise: [WP07.md](WP07.md).
+
+Auch kleine Fontdateien werden als lokale Assets ausgegeben und vollständig
+precacht. WP-07 sichert insbesondere KaTeX Size3 gegen unbeabsichtigtes
+Data-URL-Inlining und damit gegen die bestehende `font-src 'self'`-Sperre ab.
 
 ## Verifikation / Offen
 

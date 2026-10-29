@@ -1,5 +1,14 @@
 # Projektgedächtnis: m8e-calc
 
+WP-07 verschiebt wissenschaftliche Vorschau, Ausführung und STO ausschließlich
+in den lokalen Featureworker. Protokoll 1 validiert serialisierte Werte und
+Environments; eine laufende Arbeit und ein neuester Vorschau-Nachfolger sind
+die Obergrenze. Abbruch/Invalidierung terminieren den Worker tatsächlich.
+Explizite Snapshots committen atomar gegen die transiente Environmentrevision;
+Vorschauen dürfen weder Environment noch Verlauf schreiben. Kein synchroner
+Fallback, keine zusätzliche eager Startlast. Vertrag und Prüfgrenzen:
+[docs/SCIENTIFIC_MODE.md](docs/SCIENTIFIC_MODE.md), [docs/WP07.md](docs/WP07.md).
+
 Aktuelle integrierte Produktabnahme: [docs/AP46.md](docs/AP46.md), nach
 AP42–AP45 auf main `c95f183a`. Historische Ausgangslage: [docs/AP40.md](docs/AP40.md).
 Live-Abnahme und
@@ -136,6 +145,9 @@ Eine äußere App-Fehlergrenze schützt gemeinsame Shell-/Dialogkomponenten.
 Fehlgeschlagene Editor-/Formelimporte benötigen ebenfalls Cache-Refresh und Reload;
 ein Remount allein löst gecachte Importablehnungen nicht.
 Zentraler CSP-Adapter: `scripts/cspPlugin.ts`; Hashes müssen den finalen Inline-Code abdecken.
+Fontdateien bleiben unabhängig von ihrer Größe lokale Assets; Vite darf sie
+nicht als Data-URL einbetten. `font-src 'self'` bleibt unverändert, auch für
+KaTeX Size3 und den vollständigen Offline-Precache (WP-07).
 Die vollständige Rollenmatrix prüft Text auf Surface-Ebenen; funktionale Outline-Ränder werden auf 3:1 korrigiert. Native Animationen auf dem Startpfad verwenden dieselben zentralen Spring-Tokens und räumen beim Unmount auf.
 
 ## AP16 · Release-Vorbereitung

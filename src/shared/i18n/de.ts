@@ -208,6 +208,12 @@ export const de = {
     'Einstellungen, Verlauf und zuletzt genutzter Modus werden zurückgesetzt.',
   'settings.resetDone': 'Alle Daten zurückgesetzt.',
   'settings.cancel': 'Abbrechen',
+  'scientific.work.cancel': 'Abbrechen',
+  'scientific.work.preview': 'Vorschau wird berechnet …',
+  'scientific.work.execute': 'Berechnung läuft …',
+  'scientific.work.cancelled': 'Berechnung abgebrochen.',
+  'scientific.work.failed':
+    'Berechnung konnte nicht abgeschlossen werden. Bitte erneut auswerten.',
   'scientific.expression': 'Ausdruck',
   'scientific.hint':
     'Enter berechnet · ↑/↓ Verlauf · Esc leert · Strg+Leertaste Vorschläge · Tab übernimmt · Dezimalpunkt, Komma trennt Argumente',
