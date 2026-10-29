@@ -1,0 +1,524 @@
+{
+  "source": {
+    "commit": "de0fcd0a0846f56226e148c14f7b3bf5d1cb387f",
+    "run": "40102607931",
+    "attempt": 1,
+    "job": "120898102607",
+    "artifactId": "12563084227",
+    "artifactSha256": "12b9b14a7ce012960d506821131220b6898cdb2dab8b832e7d22173d57b22ab8",
+    "target": "gallery",
+    "traceEntry": "test-results/gallery/controls-polish-AP45-effec-7f1e8-ols-and-direct-slider-input-gallery-webkit/trace.zip",
+    "traceSha256": "eca6c404fc5403367fde1fea15fb682d7ec027fe044f04c8f6fbd9de922c52f8"
+  },
+  "context": {
+    "version": 10,
+    "type": "context-options",
+    "origin": "library",
+    "browserName": "webkit",
+    "playwrightVersion": "1.64.0",
+    "options": {
+      "noDefaultViewport": false,
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "screen": {
+        "width": 1792,
+        "height": 1120
+      },
+      "ignoreHTTPSErrors": false,
+      "javaScriptEnabled": true,
+      "bypassCSP": false,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Safari/605.1.15",
+      "locale": "de-DE",
+      "offline": false,
+      "deviceScaleFactor": 2,
+      "isMobile": false,
+      "hasTouch": false,
+      "colorScheme": "light",
+      "reducedMotion": "no-preference",
+      "forcedColors": "none",
+      "acceptDownloads": "accept",
+      "contrast": "no-preference",
+      "baseURL": "http://127.0.0.1:4174",
+      "serviceWorkers": "block",
+      "selectorEngines": [],
+      "testIdAttributeName": "data-testid"
+    },
+    "platform": "linux",
+    "wallTime": 1792852386346,
+    "monotonicTime": 110498.906,
+    "sdkLanguage": "javascript",
+    "testIdAttributeName": "data-testid",
+    "title": "controls-polish.spec.ts:195 › AP45 effects light full OS false: native controls and direct slider input"
+  },
+  "events": [
+    {
+      "type": "before",
+      "callId": "bcpc@1162",
+      "startTime": 110875.451,
+      "class": "Frame",
+      "method": "selectOption",
+      "params": {
+        "selector": "internal:label=\"Animationsstufe\"i",
+        "strict": true,
+        "options": [
+          {
+            "valueOrLabel": "full"
+          }
+        ]
+      }
+    },
+    {
+      "type": "log",
+      "callId": "bcpc@1162",
+      "time": 110939.674,
+      "message": "waiting for getByLabel('Animationsstufe')"
+    },
+    {
+      "type": "log",
+      "callId": "bcpc@1162",
+      "time": 111620.325,
+      "message": "  locator resolved to <select id=\"motion-level\">…</select>"
+    },
+    {
+      "type": "log",
+      "callId": "bcpc@1162",
+      "time": 111624.173,
+      "message": "attempting select option action"
+    },
+    {
+      "type": "log",
+      "callId": "bcpc@1162",
+      "time": 111651.155,
+      "message": "  waiting for element to be visible and enabled"
+    },
+    {
+      "type": "log",
+      "callId": "bcpc@1162",
+      "time": 111768.699,
+      "message": "  selected specified option(s)"
+    },
+    {
+      "type": "after",
+      "callId": "bcpc@1162",
+      "endTime": 111769.052,
+      "result": {
+        "values": ["full"]
+      }
+    },
+    {
+      "type": "before",
+      "callId": "bcpc@1164",
+      "startTime": 111782.232,
+      "title": "Evaluate",
+      "class": "Frame",
+      "method": "waitForSelector",
+      "params": {
+        "selector": "[data-component=\"Switch\"] [data-state=\"default\"] >> .ui-switch-track",
+        "strict": true,
+        "state": "attached"
+      }
+    },
+    {
+      "type": "log",
+      "callId": "bcpc@1164",
+      "time": 111811.524,
+      "message": "waiting for locator('[data-component=\"Switch\"] [data-state=\"default\"]').locator('.ui-switch-track')"
+    },
+    {
+      "type": "log",
+      "callId": "bcpc@1164",
+      "time": 111831.843,
+      "message": "  locator resolved to visible <span class=\"ui-switch-track\">…</span>"
+    },
+    {
+      "type": "after",
+      "callId": "bcpc@1164",
+      "endTime": 111838.979,
+      "result": {
+        "element": "<ElementHandle>"
+      }
+    },
+    {
+      "type": "before",
+      "callId": "bcpc@1168",
+      "startTime": 111879.491,
+      "class": "Frame",
+      "method": "evaluateExpression",
+      "params": {
+        "expression": "({\n    selector,\n    freezeFrames,\n    holdTime\n  }) => {\n    var _probe$presenceObserv;\n    const probe = Reflect.get(window, 'ap36Probe');\n    (_probe$presenceObserv = probe.presenceObserver) === null || _probe$presenceObserv === void 0 || _probe$presenceObserv.disconnect();\n    probe.presenceObserver = null;\n    probe.selector = selector;\n    probe.holdTime = holdTime;\n    probe.held = [];\n    probe.freezeFrames = freezeFrames;\n    probe.live = [];\n  }",
+        "isFunction": true,
+        "arg": {
+          "value": {
+            "o": [
+              {
+                "k": "selector",
+                "v": {
+                  "s": ".ui-switch-track"
+                }
+              },
+              {
+                "k": "freezeFrames",
+                "v": {
+                  "b": false
+                }
+              },
+              {
+                "k": "holdTime",
+                "v": {
+                  "n": 40
+                }
+              }
+            ],
+            "id": 1
+          },
+          "handles": []
+        }
+      }
+    },
+    {
+      "type": "after",
+      "callId": "bcpc@1168",
+      "endTime": 111890.972,
+      "result": {
+        "value": {
+          "v": "undefined"
+        }
+      }
+    },
+    {
+      "type": "before",
+      "callId": "bcpc@1170",
+      "startTime": 111896.845,
+      "class": "Frame",
+      "method": "press",
+      "params": {
+        "selector": "[data-component=\"Switch\"] [data-state=\"default\"] >> internal:role=switch",
+        "strict": true,
+        "key": "Space"
+      }
+    },
+    {
+      "type": "log",
+      "callId": "bcpc@1170",
+      "time": 111901.375,
+      "message": "waiting for locator('[data-component=\"Switch\"] [data-state=\"default\"]').getByRole('switch')"
+    },
+    {
+      "type": "log",
+      "callId": "bcpc@1170",
+      "time": 111905.517,
+      "message": "  locator resolved to <input tabindex=\"0\" role=\"switch\" type=\"checkbox\" data-react-aria-pressable=\"true\"/>"
+    },
+    {
+      "type": "log",
+      "callId": "bcpc@1170",
+      "time": 111906.283,
+      "message": "elementHandle.press(\"Space\")"
+    },
+    {
+      "type": "after",
+      "callId": "bcpc@1170",
+      "endTime": 111986.034
+    },
+    {
+      "type": "before",
+      "callId": "bcpc@1172",
+      "startTime": 112001.43,
+      "title": "Expect \"toBeChecked\"",
+      "class": "Frame",
+      "method": "expect",
+      "params": {
+        "selector": "[data-component=\"Switch\"] [data-state=\"default\"] >> internal:role=switch",
+        "expression": "to.be.checked",
+        "expectedValue": {
+          "value": {
+            "o": [
+              {
+                "k": "checked",
+                "v": {
+                  "v": "undefined"
+                }
+              },
+              {
+                "k": "indeterminate",
+                "v": {
+                  "v": "undefined"
+                }
+              }
+            ],
+            "id": 1
+          },
+          "handles": []
+        },
+        "isNot": false,
+        "timeout": 5000
+      }
+    },
+    {
+      "type": "log",
+      "callId": "bcpc@1172",
+      "time": 112011.047,
+      "message": "Expect \"toBeChecked\" locator('[data-component=\"Switch\"] [data-state=\"default\"]').getByRole('switch') with timeout 5000ms"
+    },
+    {
+      "type": "log",
+      "callId": "bcpc@1172",
+      "time": 112011.056,
+      "message": "waiting for locator('[data-component=\"Switch\"] [data-state=\"default\"]').getByRole('switch')"
+    },
+    {
+      "type": "after",
+      "callId": "bcpc@1172",
+      "endTime": 112015.671
+    },
+    {
+      "type": "before",
+      "callId": "bcpc@1174",
+      "startTime": 112026.122,
+      "title": "Expect \"toHaveAttribute\"",
+      "class": "Frame",
+      "method": "expect",
+      "params": {
+        "selector": "[data-component=\"Switch\"] [data-state=\"default\"] >> .ui-switch",
+        "expression": "to.have.attribute",
+        "expressionArg": "data-focus-visible",
+        "expectedValue": {
+          "value": {
+            "v": "undefined"
+          },
+          "handles": []
+        },
+        "isNot": false,
+        "timeout": 5000
+      }
+    },
+    {
+      "type": "log",
+      "callId": "bcpc@1174",
+      "time": 112036.618,
+      "message": "Expect \"toHaveAttribute\" locator('[data-component=\"Switch\"] [data-state=\"default\"]').locator('.ui-switch') with timeout 5000ms"
+    },
+    {
+      "type": "log",
+      "callId": "bcpc@1174",
+      "time": 112036.627,
+      "message": "waiting for locator('[data-component=\"Switch\"] [data-state=\"default\"]').locator('.ui-switch')"
+    },
+    {
+      "type": "after",
+      "callId": "bcpc@1174",
+      "endTime": 112040.746
+    }
+  ],
+  "heldPolls": [
+    {
+      "callId": "bcpc@1177",
+      "startTime": 112049.142,
+      "endTime": 112055.986,
+      "result": {
+        "value": {
+          "a": [],
+          "id": 1
+        }
+      }
+    },
+    {
+      "callId": "bcpc@1180",
+      "startTime": 112164.983,
+      "endTime": 112172.704,
+      "result": {
+        "value": {
+          "a": [],
+          "id": 1
+        }
+      }
+    },
+    {
+      "callId": "bcpc@1183",
+      "startTime": 112428.312,
+      "endTime": 112445.549,
+      "result": {
+        "value": {
+          "a": [],
+          "id": 1
+        }
+      }
+    },
+    {
+      "callId": "bcpc@1186",
+      "startTime": 112962.793,
+      "endTime": 113006.475,
+      "result": {
+        "value": {
+          "a": [],
+          "id": 1
+        }
+      }
+    },
+    {
+      "callId": "bcpc@1189",
+      "startTime": 114028.369,
+      "endTime": 114037.258,
+      "result": {
+        "value": {
+          "a": [],
+          "id": 1
+        }
+      }
+    },
+    {
+      "callId": "bcpc@1192",
+      "startTime": 115055.186,
+      "endTime": 115062.886,
+      "result": {
+        "value": {
+          "a": [],
+          "id": 1
+        }
+      }
+    },
+    {
+      "callId": "bcpc@1195",
+      "startTime": 116078.521,
+      "endTime": 116094.105,
+      "result": {
+        "value": {
+          "a": [],
+          "id": 1
+        }
+      }
+    }
+  ],
+  "snapshots": [
+    {
+      "timestamp": 111811.186,
+      "phase": "before",
+      "callId": "bcpc@1164",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "html": {
+        "lang": "de",
+        "data-theme": "light",
+        "data-theme-mode": "system",
+        "data-motion": "full",
+        "data-theme-palette": "#6750a4:tonalSpot:standard",
+        "data-theme-ready": "true"
+      },
+      "inlineTokensNotComputedStyles": {
+        "--md-sys-color-surface-container-high": "#ece6ee",
+        "--md-sys-color-primary": "#65558f",
+        "--md-sys-motion-effects-fast-duration": "151ms"
+      },
+      "switchLabels": [],
+      "switchInputs": []
+    },
+    {
+      "timestamp": 111916.182,
+      "phase": "action",
+      "callId": "bcpc@1170",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "html": {
+        "lang": "de",
+        "data-theme": "light",
+        "data-theme-mode": "system",
+        "data-motion": "full",
+        "data-theme-palette": "#6750a4:tonalSpot:standard",
+        "data-theme-ready": "true"
+      },
+      "inlineTokensNotComputedStyles": {
+        "--md-sys-color-surface-container-high": "#ece6ee",
+        "--md-sys-color-primary": "#65558f",
+        "--md-sys-motion-effects-fast-duration": "151ms"
+      },
+      "switchLabels": [
+        {
+          "data-react-aria-pressable": "true",
+          "class": "ui-switch ui-state-default",
+          "data-rac": ""
+        }
+      ],
+      "switchInputs": [
+        {
+          "__playwright_value_": "on",
+          "__playwright_checked_": "false",
+          "__playwright_target__": "",
+          "data-react-aria-pressable": "true",
+          "tabindex": "0",
+          "role": "switch",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "timestamp": 111998.873,
+      "phase": "after",
+      "callId": "bcpc@1170",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "html": {
+        "__playwright_scroll_top_": "2853",
+        "lang": "de",
+        "data-theme": "light",
+        "data-theme-mode": "system",
+        "data-motion": "full",
+        "data-theme-palette": "#6750a4:tonalSpot:standard",
+        "data-theme-ready": "true"
+      },
+      "inlineTokensNotComputedStyles": {
+        "--md-sys-color-surface-container-high": "#ece6ee",
+        "--md-sys-color-primary": "#65558f",
+        "--md-sys-motion-effects-fast-duration": "151ms"
+      },
+      "switchLabels": [
+        {
+          "data-react-aria-pressable": "true",
+          "class": "ui-switch ui-state-default",
+          "data-rac": "",
+          "data-focused": "true",
+          "data-focus-visible": "true",
+          "data-selected": "true"
+        }
+      ],
+      "switchInputs": [
+        {
+          "__playwright_value_": "on",
+          "__playwright_checked_": "true",
+          "__playwright_target__": "",
+          "data-react-aria-pressable": "true",
+          "tabindex": "0",
+          "role": "switch",
+          "type": "checkbox"
+        }
+      ]
+    }
+  ],
+  "css": {
+    "url": "http://127.0.0.1:4174/m8e-calc/assets/Switch-pXkEQS_e.css",
+    "status": 200,
+    "timings": {
+      "dns": -1,
+      "connect": -1,
+      "ssl": -1,
+      "send": 0,
+      "wait": 2.019,
+      "receive": 3.408
+    },
+    "startedDateTime": "2026-10-24T14:33:06.745Z",
+    "sha256": "4690223f9f3c0257cbe92baa0a808e406ab0c3d134dab45596e8623b82b44069",
+    "content": ".ui-switch{cursor:pointer;border-radius:var(--md-sys-shape-small);min-height:48px;color:var(--md-sys-color-on-surface);align-items:center;gap:.75rem;display:inline-flex;position:relative}.ui-switch-track{border:2px solid var(--md-sys-color-outline);border-radius:var(--md-sys-shape-full);background:var(--md-sys-color-surface-container-high);width:52px;height:32px;transition:background-color var(--md-sys-motion-effects-fast-duration) var(--md-sys-motion-effects-fast-easing), border-color var(--md-sys-motion-effects-fast-duration) var(--md-sys-motion-effects-fast-easing);align-items:center;padding:4px;display:flex}.ui-switch-thumb{border-radius:var(--md-sys-shape-full);background:var(--md-sys-color-outline);width:16px;height:16px;transition:transform var(--md-sys-motion-spatial-fast-duration) var(--md-sys-motion-spatial-fast-easing), background-color var(--md-sys-motion-effects-fast-duration) var(--md-sys-motion-effects-fast-easing);position:relative}.ui-switch[data-selected] .ui-switch-track{background:var(--md-sys-color-primary);border-color:var(--md-sys-color-primary)}.ui-switch[data-selected] .ui-switch-thumb{background:var(--md-sys-color-on-primary);transform:translate(22px)}.ui-switch:where([data-hovered],[data-pressed]) .ui-switch-thumb>.ui-state-layer{opacity:.1;inset:-10px}.ui-switch[data-disabled]{opacity:.38;cursor:default}.ui-switch[data-hovered] .ui-switch-thumb>.ui-state-layer{opacity:.08}.ui-switch:where([data-focus-visible],[data-pressed]) .ui-switch-thumb>.ui-state-layer{opacity:.1;inset:-10px}.ui-switch[data-disabled] .ui-switch-track,.ui-switch[data-disabled] .ui-switch-thumb{transition:none}\n"
+  },
+  "limits": [
+    "Snapshot tokens and served CSS are not a computed-style timeline.",
+    "No recorded transitionrun/transitionstart/transitionend/transitioncancel events, animation inventory or document visibility timeline.",
+    "No controlled good/bad reproduction; successful historical tests are comparison evidence only."
+  ]
+}

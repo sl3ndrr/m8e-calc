@@ -1,0 +1,627 @@
+[
+  {
+    "identity": {
+      "run": "40102607931",
+      "attempt": 1,
+      "job": "120898102607"
+    },
+    "originalFilename": "log-attempt1.txt",
+    "originalSha256": "45f8599926840284c2bbcabf9d4e33150b911ce4456e10e5452cdb2f9d239707",
+    "excerpts": [
+      {
+        "line": 4,
+        "text": "2026-10-24T14:30:00.3169867Z Version: 20261021.618"
+      },
+      {
+        "line": 17,
+        "text": "2026-10-24T14:30:00.3177278Z Image: ubuntu-24.04"
+      },
+      {
+        "line": 18,
+        "text": "2026-10-24T14:30:00.3177755Z Version: 20261012.334.1"
+      },
+      {
+        "line": 53,
+        "text": "2026-10-24T14:30:02.4526628Z   BUILD_FINGERPRINT: c0d357767f181a58558104e5e3b4b2fa12acc396704a7dd1983aa2d2f618aee2"
+      },
+      {
+        "line": 160,
+        "text": "2026-10-24T14:30:04.0800295Z   BUILD_FINGERPRINT: c0d357767f181a58558104e5e3b4b2fa12acc396704a7dd1983aa2d2f618aee2"
+      },
+      {
+        "line": 172,
+        "text": "2026-10-24T14:30:09.4679901Z node: v24.22.1"
+      },
+      {
+        "line": 184,
+        "text": "2026-10-24T14:30:10.7899648Z ##[group]Run npm install --global npm@11.19.0"
+      },
+      {
+        "line": 185,
+        "text": "2026-10-24T14:30:10.7900251Z \u001b[36;1mnpm install --global npm@11.19.0\u001b[0m"
+      },
+      {
+        "line": 188,
+        "text": "2026-10-24T14:30:10.8051019Z   BUILD_FINGERPRINT: c0d357767f181a58558104e5e3b4b2fa12acc396704a7dd1983aa2d2f618aee2"
+      },
+      {
+        "line": 199,
+        "text": "2026-10-24T14:30:14.3600441Z   BUILD_FINGERPRINT: c0d357767f181a58558104e5e3b4b2fa12acc396704a7dd1983aa2d2f618aee2"
+      },
+      {
+        "line": 218,
+        "text": "2026-10-24T14:30:19.9141607Z   BUILD_FINGERPRINT: c0d357767f181a58558104e5e3b4b2fa12acc396704a7dd1983aa2d2f618aee2"
+      },
+      {
+        "line": 236,
+        "text": "2026-10-24T14:30:20.9899334Z   BUILD_FINGERPRINT: c0d357767f181a58558104e5e3b4b2fa12acc396704a7dd1983aa2d2f618aee2"
+      },
+      {
+        "line": 243,
+        "text": "2026-10-24T14:30:21.0413851Z   BUILD_FINGERPRINT: c0d357767f181a58558104e5e3b4b2fa12acc396704a7dd1983aa2d2f618aee2"
+      },
+      {
+        "line": 250,
+        "text": "2026-10-24T14:30:21.0926062Z   BUILD_FINGERPRINT: c0d357767f181a58558104e5e3b4b2fa12acc396704a7dd1983aa2d2f618aee2"
+      },
+      {
+        "line": 1487,
+        "text": "2026-10-24T14:31:01.8436743Z Downloading Firefox 157.0 (playwright firefox v1555) from https://cdn.playwright.dev/dbazure/download/playwright/builds/firefox/1555/firefox-ubuntu-24.04.zip"
+      },
+      {
+        "line": 1500,
+        "text": "2026-10-24T14:31:05.3079110Z Downloading WebKit 27.2 (playwright webkit v2370) from https://cdn.playwright.dev/dbazure/download/playwright/builds/webkit/2370/webkit-ubuntu-24.04.zip"
+      },
+      {
+        "line": 1512,
+        "text": "2026-10-24T14:31:07.9424252Z WebKit 27.2 (playwright webkit v2370) downloaded to /home/runner/.cache/ms-playwright/webkit-2370"
+      },
+      {
+        "line": 1517,
+        "text": "2026-10-24T14:31:08.1800734Z   BUILD_FINGERPRINT: c0d357767f181a58558104e5e3b4b2fa12acc396704a7dd1983aa2d2f618aee2"
+      },
+      {
+        "line": 1675,
+        "text": "2026-10-24T14:31:15.6466618Z \u001b[36;1mnpm run test:e2e:gallery -- --output=test-results/gallery\u001b[0m"
+      },
+      {
+        "line": 1676,
+        "text": "2026-10-24T14:31:15.6501501Z shell: /usr/bin/bash -e {0}"
+      },
+      {
+        "line": 1677,
+        "text": "2026-10-24T14:31:15.6501817Z env:"
+      },
+      {
+        "line": 1678,
+        "text": "2026-10-24T14:31:15.6502130Z   BUILD_FINGERPRINT: c0d357767f181a58558104e5e3b4b2fa12acc396704a7dd1983aa2d2f618aee2"
+      },
+      {
+        "line": 1679,
+        "text": "2026-10-24T14:31:15.6502495Z ##[endgroup]"
+      },
+      {
+        "line": 1680,
+        "text": "2026-10-24T14:31:15.8421051Z "
+      },
+      {
+        "line": 1681,
+        "text": "2026-10-24T14:31:15.8421878Z > m8e-calc@1.0.0 test:e2e:gallery"
+      },
+      {
+        "line": 1682,
+        "text": "2026-10-24T14:31:15.8423043Z > playwright test --config=playwright.gallery.config.ts --output=test-results/gallery"
+      },
+      {
+        "line": 1683,
+        "text": "2026-10-24T14:31:15.8423762Z "
+      },
+      {
+        "line": 1684,
+        "text": "2026-10-24T14:31:17.0298967Z "
+      },
+      {
+        "line": 1685,
+        "text": "2026-10-24T14:31:17.0299943Z Running 75 tests using 2 workers"
+      },
+      {
+        "line": 1686,
+        "text": "2026-10-24T14:33:28.8224437Z ···································································F·······"
+      },
+      {
+        "line": 1687,
+        "text": "2026-10-24T14:33:28.8231409Z "
+      },
+      {
+        "line": 1688,
+        "text": "2026-10-24T14:33:28.8239668Z   1) [gallery-webkit] › e2e/controls-polish.spec.ts:195:5 › AP45 effects light full OS false: native controls and direct slider input "
+      },
+      {
+        "line": 1689,
+        "text": "2026-10-24T14:33:28.8240356Z "
+      },
+      {
+        "line": 1690,
+        "text": "2026-10-24T14:33:28.8240605Z     Error: expect(received).toBeGreaterThan(expected)"
+      },
+      {
+        "line": 1691,
+        "text": "2026-10-24T14:33:28.8240889Z "
+      },
+      {
+        "line": 1692,
+        "text": "2026-10-24T14:33:28.8241007Z     Expected: > 0"
+      },
+      {
+        "line": 1693,
+        "text": "2026-10-24T14:33:28.8241272Z     Received:   0"
+      },
+      {
+        "line": 1694,
+        "text": "2026-10-24T14:33:28.8241422Z "
+      },
+      {
+        "line": 1695,
+        "text": "2026-10-24T14:33:28.8241522Z     Call Log:"
+      },
+      {
+        "line": 1696,
+        "text": "2026-10-24T14:33:28.8242440Z     - Timeout 5000ms exceeded while waiting on the predicate"
+      },
+      {
+        "line": 1697,
+        "text": "2026-10-24T14:33:28.8242648Z "
+      },
+      {
+        "line": 1698,
+        "text": "2026-10-24T14:33:28.8242756Z       221 |         await expect"
+      },
+      {
+        "line": 1699,
+        "text": "2026-10-24T14:33:28.8243048Z       222 |           .poll(async () => (await held(page)).length)"
+      },
+      {
+        "line": 1700,
+        "text": "2026-10-24T14:33:28.8243346Z     > 223 |           .toBeGreaterThan(0);"
+      },
+      {
+        "line": 1701,
+        "text": "2026-10-24T14:33:28.8243577Z           |            ^"
+      },
+      {
+        "line": 1702,
+        "text": "2026-10-24T14:33:28.8243833Z       224 |         const middle = await track.evaluate("
+      },
+      {
+        "line": 1703,
+        "text": "2026-10-24T14:33:28.8244167Z       225 |           (node) => getComputedStyle(node).backgroundColor,"
+      },
+      {
+        "line": 1704,
+        "text": "2026-10-24T14:33:28.8244442Z       226 |         );"
+      },
+      {
+        "line": 1705,
+        "text": "2026-10-24T14:33:28.8244778Z         at /home/runner/work/m8e-calc/m8e-calc/e2e/controls-polish.spec.ts:223:12"
+      },
+      {
+        "line": 1706,
+        "text": "2026-10-24T14:33:28.8245023Z "
+      },
+      {
+        "line": 1707,
+        "text": "2026-10-24T14:33:28.8245451Z     Error Context: test-results/gallery/controls-polish-AP45-effec-7f1e8-ols-and-direct-slider-input-gallery-webkit/error-context.md"
+      },
+      {
+        "line": 1708,
+        "text": "2026-10-24T14:33:28.8245863Z "
+      },
+      {
+        "line": 1709,
+        "text": "2026-10-24T14:33:28.8246266Z     attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────"
+      },
+      {
+        "line": 1710,
+        "text": "2026-10-24T14:33:28.8246873Z     test-results/gallery/controls-polish-AP45-effec-7f1e8-ols-and-direct-slider-input-gallery-webkit/trace.zip"
+      },
+      {
+        "line": 1711,
+        "text": "2026-10-24T14:33:28.8247304Z     Usage:"
+      },
+      {
+        "line": 1712,
+        "text": "2026-10-24T14:33:28.8247406Z "
+      },
+      {
+        "line": 1713,
+        "text": "2026-10-24T14:33:28.8247828Z         npx playwright show-trace test-results/gallery/controls-polish-AP45-effec-7f1e8-ols-and-direct-slider-input-gallery-webkit/trace.zip"
+      },
+      {
+        "line": 1714,
+        "text": "2026-10-24T14:33:28.8248270Z "
+      },
+      {
+        "line": 1715,
+        "text": "2026-10-24T14:33:28.8248563Z     ────────────────────────────────────────────────────────────────────────────────────────────────"
+      },
+      {
+        "line": 1716,
+        "text": "2026-10-24T14:33:28.8248789Z "
+      },
+      {
+        "line": 1717,
+        "text": "2026-10-24T14:33:28.8248880Z   1 failed"
+      },
+      {
+        "line": 1718,
+        "text": "2026-10-24T14:33:28.8249400Z     [gallery-webkit] › e2e/controls-polish.spec.ts:195:5 › AP45 effects light full OS false: native controls and direct slider input "
+      },
+      {
+        "line": 1719,
+        "text": "2026-10-24T14:33:28.8249845Z   74 passed (2.2m)"
+      },
+      {
+        "line": 1720,
+        "text": "2026-10-24T14:33:28.8433355Z ##[error]Process completed with exit code 1."
+      },
+      {
+        "line": 1721,
+        "text": "2026-10-24T14:33:28.8497077Z ##[group]Run actions/upload-artifact@v7"
+      },
+      {
+        "line": 1722,
+        "text": "2026-10-24T14:33:28.8497375Z with:"
+      },
+      {
+        "line": 1735,
+        "text": "2026-10-24T14:33:28.8499736Z   BUILD_FINGERPRINT: c0d357767f181a58558104e5e3b4b2fa12acc396704a7dd1983aa2d2f618aee2"
+      },
+      {
+        "line": 1749,
+        "text": "2026-10-24T14:33:30.6462878Z Artifact gallery successfully finalized. Artifact ID 12563084227"
+      },
+      {
+        "line": 1750,
+        "text": "2026-10-24T14:33:30.6463962Z Artifact gallery has been successfully uploaded! Final size is 11020596 bytes. Artifact ID is 12563084227"
+      }
+    ]
+  },
+  {
+    "identity": {
+      "run": "40102607931",
+      "attempt": 2,
+      "job": "120970164709"
+    },
+    "originalFilename": "log-attempt2.txt",
+    "originalSha256": "e8fe9ded337d48e0c3e9706da9575c3e2afe160277b58f7c11aa56834876ab80",
+    "excerpts": [
+      {
+        "line": 4,
+        "text": "2026-10-24T19:47:40.9381971Z Version: 20261012.601"
+      },
+      {
+        "line": 17,
+        "text": "2026-10-24T19:47:40.9387224Z Image: ubuntu-24.04"
+      },
+      {
+        "line": 18,
+        "text": "2026-10-24T19:47:40.9387549Z Version: 20261012.334.1"
+      },
+      {
+        "line": 53,
+        "text": "2026-10-24T19:47:43.1507995Z   BUILD_FINGERPRINT: c0d357767f181a58558104e5e3b4b2fa12acc396704a7dd1983aa2d2f618aee2"
+      },
+      {
+        "line": 160,
+        "text": "2026-10-24T19:47:44.6953809Z   BUILD_FINGERPRINT: c0d357767f181a58558104e5e3b4b2fa12acc396704a7dd1983aa2d2f618aee2"
+      },
+      {
+        "line": 172,
+        "text": "2026-10-24T19:47:49.7278677Z node: v24.22.1"
+      },
+      {
+        "line": 184,
+        "text": "2026-10-24T19:47:51.1449718Z ##[group]Run npm install --global npm@11.19.0"
+      },
+      {
+        "line": 185,
+        "text": "2026-10-24T19:47:51.1449985Z \u001b[36;1mnpm install --global npm@11.19.0\u001b[0m"
+      },
+      {
+        "line": 188,
+        "text": "2026-10-24T19:47:51.1676850Z   BUILD_FINGERPRINT: c0d357767f181a58558104e5e3b4b2fa12acc396704a7dd1983aa2d2f618aee2"
+      },
+      {
+        "line": 199,
+        "text": "2026-10-24T19:47:53.9851568Z   BUILD_FINGERPRINT: c0d357767f181a58558104e5e3b4b2fa12acc396704a7dd1983aa2d2f618aee2"
+      },
+      {
+        "line": 218,
+        "text": "2026-10-24T19:47:58.5284148Z   BUILD_FINGERPRINT: c0d357767f181a58558104e5e3b4b2fa12acc396704a7dd1983aa2d2f618aee2"
+      },
+      {
+        "line": 224,
+        "text": "2026-10-24T19:47:59.1373560Z Redirecting to blob download url: https://productionresultssa2.blob.core.windows.net/actions-results/682955be-bb4d-82c6-b106-820bacbff5cf/workflow-job-run-2c407471-c3da-5c3c-a95e-df3c9707d067/artifacts/8aa8202785a9e002737647393d0eb8e2d3a75834b9603738cc0df129a6c21bf3.zip"
+      },
+      {
+        "line": 225,
+        "text": "2026-10-24T19:47:59.1374855Z Starting download of artifact to: /home/runner/work/m8e-calc/m8e-calc"
+      },
+      {
+        "line": 226,
+        "text": "2026-10-24T19:47:59.3226303Z (node:2251) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead."
+      },
+      {
+        "line": 227,
+        "text": "2026-10-24T19:47:59.3226905Z (Use `node --trace-deprecation ...` to show where the warning was created)"
+      },
+      {
+        "line": 228,
+        "text": "2026-10-24T19:47:59.6576317Z SHA256 digest of downloaded artifact is b7e163e5c54783a8234ce5157ba687e2153252576cd258c88d86e19db244e80a"
+      },
+      {
+        "line": 229,
+        "text": "2026-10-24T19:47:59.6576881Z Artifact download completed successfully."
+      },
+      {
+        "line": 230,
+        "text": "2026-10-24T19:47:59.6577192Z Total of 1 artifact(s) downloaded"
+      },
+      {
+        "line": 231,
+        "text": "2026-10-24T19:47:59.6579300Z Download artifact has finished successfully"
+      },
+      {
+        "line": 232,
+        "text": "2026-10-24T19:47:59.6676191Z ##[group]Run node scripts/ci/build-proof.mjs verify"
+      },
+      {
+        "line": 233,
+        "text": "2026-10-24T19:47:59.6676441Z \u001b[36;1mnode scripts/ci/build-proof.mjs verify\u001b[0m"
+      },
+      {
+        "line": 234,
+        "text": "2026-10-24T19:47:59.6727648Z shell: /usr/bin/bash -e {0}"
+      },
+      {
+        "line": 235,
+        "text": "2026-10-24T19:47:59.6727804Z env:"
+      },
+      {
+        "line": 236,
+        "text": "2026-10-24T19:47:59.6728008Z   BUILD_FINGERPRINT: c0d357767f181a58558104e5e3b4b2fa12acc396704a7dd1983aa2d2f618aee2"
+      },
+      {
+        "line": 237,
+        "text": "2026-10-24T19:47:59.6728249Z ##[endgroup]"
+      },
+      {
+        "line": 238,
+        "text": "2026-10-24T19:47:59.7070994Z node:internal/modules/run_main:107"
+      },
+      {
+        "line": 239,
+        "text": "2026-10-24T19:47:59.7071462Z     triggerUncaughtException("
+      },
+      {
+        "line": 240,
+        "text": "2026-10-24T19:47:59.7071699Z     ^"
+      },
+      {
+        "line": 241,
+        "text": "2026-10-24T19:47:59.7071805Z "
+      },
+      {
+        "line": 242,
+        "text": "2026-10-24T19:47:59.7072481Z AssertionError [ERR_ASSERTION]: Build artifact is from a different attempt of this run. Re-run all jobs, including Production build; do not re-run only failed jobs."
+      },
+      {
+        "line": 243,
+        "text": "2026-10-24T19:47:59.7073021Z "
+      },
+      {
+        "line": 244,
+        "text": "2026-10-24T19:47:59.7073099Z '1' !== '2'"
+      },
+      {
+        "line": 245,
+        "text": "2026-10-24T19:47:59.7073205Z "
+      },
+      {
+        "line": 246,
+        "text": "2026-10-24T19:47:59.7073485Z     at verify (file:///home/runner/work/m8e-calc/m8e-calc/scripts/ci/build-proof.mjs:91:12)"
+      },
+      {
+        "line": 247,
+        "text": "2026-10-24T19:47:59.7074117Z     at file:///home/runner/work/m8e-calc/m8e-calc/scripts/ci/build-proof.mjs:119:5"
+      },
+      {
+        "line": 248,
+        "text": "2026-10-24T19:47:59.7075013Z     at ModuleJob.run (node:internal/modules/esm/module_job:561:25)"
+      },
+      {
+        "line": 249,
+        "text": "2026-10-24T19:47:59.7075446Z     at async node:internal/modules/esm/loader:647:26"
+      },
+      {
+        "line": 250,
+        "text": "2026-10-24T19:47:59.7075897Z     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {"
+      },
+      {
+        "line": 251,
+        "text": "2026-10-24T19:47:59.7076297Z   generatedMessage: false,"
+      },
+      {
+        "line": 252,
+        "text": "2026-10-24T19:47:59.7076521Z   code: 'ERR_ASSERTION',"
+      },
+      {
+        "line": 253,
+        "text": "2026-10-24T19:47:59.7076822Z   actual: '1',"
+      },
+      {
+        "line": 254,
+        "text": "2026-10-24T19:47:59.7077007Z   expected: '2',"
+      },
+      {
+        "line": 255,
+        "text": "2026-10-24T19:47:59.7077236Z   operator: 'strictEqual',"
+      },
+      {
+        "line": 256,
+        "text": "2026-10-24T19:47:59.7077443Z   diff: 'simple'"
+      },
+      {
+        "line": 257,
+        "text": "2026-10-24T19:47:59.7077631Z }"
+      },
+      {
+        "line": 258,
+        "text": "2026-10-24T19:47:59.7077723Z "
+      },
+      {
+        "line": 259,
+        "text": "2026-10-24T19:47:59.7077806Z Node.js v24.22.1"
+      },
+      {
+        "line": 260,
+        "text": "2026-10-24T19:47:59.7090185Z ##[error]Process completed with exit code 1."
+      },
+      {
+        "line": 261,
+        "text": "2026-10-24T19:47:59.7149321Z ##[group]Run actions/upload-artifact@v7"
+      },
+      {
+        "line": 262,
+        "text": "2026-10-24T19:47:59.7149508Z with:"
+      },
+      {
+        "line": 275,
+        "text": "2026-10-24T19:47:59.7151103Z   BUILD_FINGERPRINT: c0d357767f181a58558104e5e3b4b2fa12acc396704a7dd1983aa2d2f618aee2"
+      },
+      {
+        "line": 288,
+        "text": "2026-10-24T19:48:01.1480720Z Artifact gallery successfully finalized. Artifact ID 12573497858"
+      },
+      {
+        "line": 289,
+        "text": "2026-10-24T19:48:01.1481420Z Artifact gallery has been successfully uploaded! Final size is 2757527 bytes. Artifact ID is 12573497858"
+      }
+    ]
+  },
+  {
+    "identity": {
+      "run": "40894801034",
+      "attempt": 1,
+      "job": "123522169231"
+    },
+    "originalFilename": "log-current-gallery.txt",
+    "originalSha256": "d8e63bc176a3cddf79d8bda7a8a988d5619bd14fa0ac367e0cd60c33dbec3694",
+    "excerpts": [
+      {
+        "line": 4,
+        "text": "2026-10-29T14:48:32.5145250Z Version: 20261021.618"
+      },
+      {
+        "line": 17,
+        "text": "2026-10-29T14:48:32.5155288Z Image: ubuntu-24.04"
+      },
+      {
+        "line": 18,
+        "text": "2026-10-29T14:48:32.5156021Z Version: 20261025.353.1"
+      },
+      {
+        "line": 53,
+        "text": "2026-10-29T14:48:33.6313298Z   BUILD_FINGERPRINT: 643ebf8d1559e1eaa758776bb8fe5186a82e24a3b709cad8ac302d88f8df1179"
+      },
+      {
+        "line": 160,
+        "text": "2026-10-29T14:48:35.1828477Z   BUILD_FINGERPRINT: 643ebf8d1559e1eaa758776bb8fe5186a82e24a3b709cad8ac302d88f8df1179"
+      },
+      {
+        "line": 168,
+        "text": "2026-10-29T14:48:36.8910808Z node: v24.22.1"
+      },
+      {
+        "line": 180,
+        "text": "2026-10-29T14:48:38.3807608Z ##[group]Run npm install --global npm@11.19.0"
+      },
+      {
+        "line": 181,
+        "text": "2026-10-29T14:48:38.3808120Z \u001b[36;1mnpm install --global npm@11.19.0\u001b[0m"
+      },
+      {
+        "line": 184,
+        "text": "2026-10-29T14:48:38.3840782Z   BUILD_FINGERPRINT: 643ebf8d1559e1eaa758776bb8fe5186a82e24a3b709cad8ac302d88f8df1179"
+      },
+      {
+        "line": 195,
+        "text": "2026-10-29T14:48:40.2889565Z   BUILD_FINGERPRINT: 643ebf8d1559e1eaa758776bb8fe5186a82e24a3b709cad8ac302d88f8df1179"
+      },
+      {
+        "line": 214,
+        "text": "2026-10-29T14:48:47.3997644Z   BUILD_FINGERPRINT: 643ebf8d1559e1eaa758776bb8fe5186a82e24a3b709cad8ac302d88f8df1179"
+      },
+      {
+        "line": 232,
+        "text": "2026-10-29T14:48:48.3227200Z   BUILD_FINGERPRINT: 643ebf8d1559e1eaa758776bb8fe5186a82e24a3b709cad8ac302d88f8df1179"
+      },
+      {
+        "line": 239,
+        "text": "2026-10-29T14:48:48.3884923Z   BUILD_FINGERPRINT: 643ebf8d1559e1eaa758776bb8fe5186a82e24a3b709cad8ac302d88f8df1179"
+      },
+      {
+        "line": 246,
+        "text": "2026-10-29T14:48:48.4497101Z   BUILD_FINGERPRINT: 643ebf8d1559e1eaa758776bb8fe5186a82e24a3b709cad8ac302d88f8df1179"
+      },
+      {
+        "line": 1446,
+        "text": "2026-10-29T14:49:26.2715918Z Downloading Firefox 157.0 (playwright firefox v1555) from https://cdn.playwright.dev/dbazure/download/playwright/builds/firefox/1555/firefox-ubuntu-24.04.zip"
+      },
+      {
+        "line": 1459,
+        "text": "2026-10-29T14:49:29.3502599Z Downloading WebKit 27.2 (playwright webkit v2370) from https://cdn.playwright.dev/dbazure/download/playwright/builds/webkit/2370/webkit-ubuntu-24.04.zip"
+      },
+      {
+        "line": 1471,
+        "text": "2026-10-29T14:49:32.4390666Z WebKit 27.2 (playwright webkit v2370) downloaded to /home/runner/.cache/ms-playwright/webkit-2370"
+      },
+      {
+        "line": 1476,
+        "text": "2026-10-29T14:49:32.8721575Z   BUILD_FINGERPRINT: 643ebf8d1559e1eaa758776bb8fe5186a82e24a3b709cad8ac302d88f8df1179"
+      },
+      {
+        "line": 1637,
+        "text": "2026-10-29T14:49:42.3294357Z   BUILD_FINGERPRINT: 643ebf8d1559e1eaa758776bb8fe5186a82e24a3b709cad8ac302d88f8df1179"
+      },
+      {
+        "line": 1644,
+        "text": "2026-10-29T14:49:43.8393917Z Running 75 tests using 2 workers"
+      },
+      {
+        "line": 1646,
+        "text": "2026-10-29T14:52:24.5980178Z   75 passed (2.7m)"
+      },
+      {
+        "line": 1653,
+        "text": "2026-10-29T14:52:24.6625385Z   BUILD_FINGERPRINT: 643ebf8d1559e1eaa758776bb8fe5186a82e24a3b709cad8ac302d88f8df1179"
+      },
+      {
+        "line": 1665,
+        "text": "2026-10-29T14:52:33.2265994Z   BUILD_FINGERPRINT: 643ebf8d1559e1eaa758776bb8fe5186a82e24a3b709cad8ac302d88f8df1179"
+      },
+      {
+        "line": 1731,
+        "text": "2026-10-29T14:52:33.3580253Z   BUILD_FINGERPRINT: 643ebf8d1559e1eaa758776bb8fe5186a82e24a3b709cad8ac302d88f8df1179"
+      },
+      {
+        "line": 1745,
+        "text": "2026-10-29T14:52:35.1900592Z Artifact gallery successfully finalized. Artifact ID 12905634759"
+      },
+      {
+        "line": 1746,
+        "text": "2026-10-29T14:52:35.1902143Z Artifact gallery has been successfully uploaded! Final size is 10604732 bytes. Artifact ID is 12905634759"
+      }
+    ]
+  }
+]

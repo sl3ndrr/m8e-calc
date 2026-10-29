@@ -1,5 +1,25 @@
 # Implementierungsstatus
 
+## WP-05 · Gallery-WebKit und Attempt-Provenienz · 29.10.2026
+
+Begrenzte lokale Diagnose auf `feat/audit-wp-05`, Basis-main
+`c50efc82e4b9cf38788b369c83fb70085cdbf545` nach WP-04. Originaltrace/-logs
+und Artefakt-Hashes aus Run `40102607931` gesichert: Attempt 1 scheitert an
+der leeren Motion-Probe bei erfolgreich geschaltetem/fokussiertem Switch;
+Attempt 2 wird bereits vor Tests korrekt wegen fremder Producerattempt gesperrt.
+Das historische Normalartefakt besteht lokal die vollständige Byteprüfung
+unter seiner ursprünglichen Identität und wird für Attempt 2 abgelehnt.
+
+Die fünf unmittelbar betroffenen Switch-/Proben-/Test-/Konfigurationsdateien
+sind gegenüber dem Audit bytegleich. Auch die grüne aktuelle Basis-main-CI
+beweist deshalb keine konkrete Fehlerbehebung. **Ursache/Reproduktion offen:**
+Registry-HTTP-403 verhindert reguläre Installation, Gallerybuild und Browser.
+9/9 unveränderte Pipeline-Vertragstests bestehen mit lokalem TMPDIR; kein
+spekulativer Produktfix, keine abgeschwächten Assertions oder Herkunftsregeln.
+Gesicherte Befunde, Prüfgrenzen und kontrollierter Folgeweg: [WP05.md](WP05.md).
+Der spätere Abschluss erfordert die vollständige neue CI einschließlich
+Producer und Konsumenten derselben Attempt, keinen Failed-Jobs-Rerun.
+
 ## WP-01 · Wissenschaftliche Persistenz · 27.–28.10.2026
 
 Lokal umgesetzt auf `feat/audit-wp-01`, Codecommit
