@@ -72,6 +72,15 @@ jobs:
           cache: npm
       - run: npm install --global npm@11.19.0
       - run: npm ci --engine-strict
+      - name: Preserve WP-07 installed diagnostic tools
+        if: github.head_ref == 'feat/audit-wp-07'
+        run: tar -czf "$RUNNER_TEMP/wp07-tools.tgz" node_modules
+      - uses: actions/upload-artifact@v7
+        if: github.head_ref == 'feat/audit-wp-07'
+        with:
+          name: wp07-installed-tools-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/wp07-tools.tgz
+          retention-days: 1
       - run: npm run check
       - id: proof
         run: node scripts/ci/build-proof.mjs seal

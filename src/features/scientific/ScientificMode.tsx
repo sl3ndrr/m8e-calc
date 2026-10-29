@@ -121,7 +121,6 @@ export default function ScientificMode() {
       if (next.revision !== previous.revision) invalidate();
     });
     return () => {
-      executionRevision.current++;
       clearPreviewTimer();
       unsubscribe();
       adapter.dispose();
