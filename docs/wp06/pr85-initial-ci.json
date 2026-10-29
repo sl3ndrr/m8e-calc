@@ -1,0 +1,526 @@
+{
+  "pr": 85,
+  "head": "368588a2405133ae34297039747973d414341dd6",
+  "buildCommit": "e0542921907e8719d7e6dcb8befa33461161b4db",
+  "tree": "10440e97f4dc485b619b53002879902690c31d19",
+  "run": 40923195920,
+  "attempt": 1,
+  "fingerprint": "d582583be2ec6fc97c47903813b61e7f76ca744fe12c6b811b213ddc60e26b71",
+  "producerArtifact": 12919556965,
+  "producerZipDigest": "79a05c7ce5c8abe3e88e27f9dca4541ca88dee73c308b0e0e1911b1733bd47c8",
+  "jobs": [
+    {
+      "id": 123621655789,
+      "name": "Node 24 minimum",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123621655789"
+    },
+    {
+      "id": 123621656204,
+      "name": "Production build",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123621656204"
+    },
+    {
+      "id": 123621656343,
+      "name": "Pipeline contract tests",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123621656343"
+    },
+    {
+      "id": 123621658540,
+      "name": "Currency source evidence",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123621658540"
+    },
+    {
+      "id": 123622641011,
+      "name": "Pages artifact verification",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123622641011"
+    },
+    {
+      "id": 123622641274,
+      "name": "Release assets / images",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123622641274"
+    },
+    {
+      "id": 123622641323,
+      "name": "Hardening QA / visual",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123622641323"
+    },
+    {
+      "id": 123622641354,
+      "name": "Graph performance",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123622641354"
+    },
+    {
+      "id": 123622641365,
+      "name": "Hardening QA / browsers (webkit)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123622641365"
+    },
+    {
+      "id": 123622641377,
+      "name": "Hardening QA / browsers (chromium)",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123622641377"
+    },
+    {
+      "id": 123622641416,
+      "name": "Hardening QA / browsers (firefox)",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123622641416"
+    },
+    {
+      "id": 123622641448,
+      "name": "Build provenance / evidence",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123622641448"
+    },
+    {
+      "id": 123622641497,
+      "name": "Hardening QA / measure (after)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123622641497"
+    },
+    {
+      "id": 123622641540,
+      "name": "Hardening QA / browsers (qa-performance)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123622641540"
+    },
+    {
+      "id": 123622641544,
+      "name": "Gallery",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123622641544"
+    },
+    {
+      "id": 123622641630,
+      "name": "Hardening QA / measure (before)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123622641630"
+    },
+    {
+      "id": 123634007882,
+      "name": "Hardening QA / QA gate",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123634007882"
+    },
+    {
+      "id": 123634090328,
+      "name": "Quality gate",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123634090328"
+    },
+    {
+      "id": 123634216547,
+      "name": "Deploy Pages",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/sl3ndrr/m8e-calc/actions/runs/40923195920/job/123634216547"
+    }
+  ],
+  "logExcerpts": {
+    "chromium": [
+      {
+        "line": 1512,
+        "text": "2026-10-29T17:41:47.2441610Z   ✓   22 [chromium] › e2e/convert.spec.ts:20:3 › WP06 inch quickinput and controlled ambiguity (de) (2.8s)"
+      },
+      {
+        "line": 1521,
+        "text": "2026-10-29T17:42:17.5292750Z   ✘   26 [chromium] › e2e/convert.spec.ts:20:3 › WP06 inch quickinput and controlled ambiguity (en) (30.1s)"
+      },
+      {
+        "line": 1726,
+        "text": "2026-10-29T17:50:14.9623320Z   1) [chromium] › e2e/convert.spec.ts:20:3 › WP06 inch quickinput and controlled ambiguity (en) ────"
+      },
+      {
+        "line": 1728,
+        "text": "2026-10-29T17:50:14.9623955Z     Test timeout of 30000ms exceeded."
+      },
+      {
+        "line": 1730,
+        "text": "2026-10-29T17:50:14.9624323Z     Error: locator.fill: Test timeout of 30000ms exceeded."
+      },
+      {
+        "line": 1732,
+        "text": "2026-10-29T17:50:14.9624978Z       - waiting for getByRole('textbox', { name: 'Quick entry', exact: true })"
+      },
+      {
+        "line": 1742,
+        "text": "2026-10-29T17:50:14.9628083Z         at /home/runner/work/m8e-calc/m8e-calc/e2e/convert.spec.ts:58:19"
+      },
+      {
+        "line": 1744,
+        "text": "2026-10-29T17:50:14.9628790Z     Error Context: test-results/convert-WP06-inch-quickinput-and-controlled-ambiguity-en--chromium/error-context.md"
+      },
+      {
+        "line": 1747,
+        "text": "2026-10-29T17:50:14.9630475Z     test-results/convert-WP06-inch-quickinput-and-controlled-ambiguity-en--chromium/trace.zip"
+      },
+      {
+        "line": 1750,
+        "text": "2026-10-29T17:50:14.9631461Z         npx playwright show-trace test-results/convert-WP06-inch-quickinput-and-controlled-ambiguity-en--chromium/trace.zip"
+      },
+      {
+        "line": 1754,
+        "text": "2026-10-29T17:50:14.9632670Z   1 failed"
+      },
+      {
+        "line": 1755,
+        "text": "2026-10-29T17:50:14.9633152Z     [chromium] › e2e/convert.spec.ts:20:3 › WP06 inch quickinput and controlled ambiguity (en) ─────"
+      },
+      {
+        "line": 1756,
+        "text": "2026-10-29T17:50:14.9633569Z   234 passed (9.5m)"
+      }
+    ],
+    "firefox": [
+      {
+        "line": 1500,
+        "text": "2026-10-29T17:41:24.4895813Z   ✓   14 [firefox] › e2e/convert.spec.ts:20:3 › WP06 inch quickinput and controlled ambiguity (de) (3.2s)"
+      },
+      {
+        "line": 1509,
+        "text": "2026-10-29T17:41:55.8527597Z   ✘   15 [firefox] › e2e/convert.spec.ts:20:3 › WP06 inch quickinput and controlled ambiguity (en) (30.5s)"
+      },
+      {
+        "line": 1700,
+        "text": "2026-10-29T17:51:36.3956447Z   1) [firefox] › e2e/convert.spec.ts:20:3 › WP06 inch quickinput and controlled ambiguity (en) ─────"
+      },
+      {
+        "line": 1702,
+        "text": "2026-10-29T17:51:36.3957280Z     Test timeout of 30000ms exceeded."
+      },
+      {
+        "line": 1704,
+        "text": "2026-10-29T17:51:36.3957831Z     Error: locator.fill: Test timeout of 30000ms exceeded."
+      },
+      {
+        "line": 1706,
+        "text": "2026-10-29T17:51:36.3959218Z       - waiting for getByRole('textbox', { name: 'Quick entry', exact: true })"
+      },
+      {
+        "line": 1716,
+        "text": "2026-10-29T17:51:36.3963379Z         at /home/runner/work/m8e-calc/m8e-calc/e2e/convert.spec.ts:58:19"
+      },
+      {
+        "line": 1718,
+        "text": "2026-10-29T17:51:36.3964739Z     Error Context: test-results/convert-WP06-inch-quickinput-and-controlled-ambiguity-en--firefox/error-context.md"
+      },
+      {
+        "line": 1721,
+        "text": "2026-10-29T17:51:36.3967186Z     test-results/convert-WP06-inch-quickinput-and-controlled-ambiguity-en--firefox/trace.zip"
+      },
+      {
+        "line": 1724,
+        "text": "2026-10-29T17:51:36.3968719Z         npx playwright show-trace test-results/convert-WP06-inch-quickinput-and-controlled-ambiguity-en--firefox/trace.zip"
+      },
+      {
+        "line": 1728,
+        "text": "2026-10-29T17:51:36.3970360Z   1 failed"
+      },
+      {
+        "line": 1729,
+        "text": "2026-10-29T17:51:36.3971054Z     [firefox] › e2e/convert.spec.ts:20:3 › WP06 inch quickinput and controlled ambiguity (en) ──────"
+      },
+      {
+        "line": 1730,
+        "text": "2026-10-29T17:51:36.3971727Z   2 skipped"
+      },
+      {
+        "line": 1731,
+        "text": "2026-10-29T17:51:36.3972072Z   207 passed (10.7m)"
+      }
+    ],
+    "webkit": [
+      {
+        "line": 1504,
+        "text": "2026-10-29T17:42:39.0984222Z   ✓   16 [webkit] › e2e/convert.spec.ts:20:3 › WP06 inch quickinput and controlled ambiguity (de) (3.4s)"
+      },
+      {
+        "line": 1505,
+        "text": "2026-10-29T17:42:43.1223323Z   ✓   17 [webkit] › e2e/convert.spec.ts:20:3 › WP06 inch quickinput and controlled ambiguity (en) (4.0s)"
+      },
+      {
+        "line": 1700,
+        "text": "2026-10-29T18:00:22.8472077Z   2 skipped"
+      },
+      {
+        "line": 1701,
+        "text": "2026-10-29T18:00:22.8472414Z   208 passed (18.8m)"
+      }
+    ]
+  },
+  "runtime": {
+    "buildNode": "24.22.2",
+    "minimumNode": "24.15.0",
+    "npm": "11.19.0",
+    "playwright": "1.64.1",
+    "chromium": "156.0.8078.4",
+    "firefox": "157.0",
+    "webkit": "27.2",
+    "physicalDeviceChecked": false
+  },
+  "interpretation": {
+    "confirmed": "Same-hash navigation does not run qaSetup init script in Chromium/Firefox; English locator waits on German UI before first query.",
+    "fix": "Real document reload followed by html.lang assertion; product unchanged; original assertions/timeouts/retries unchanged.",
+    "newHeadValidation": "required; not inferred from this failed run"
+  },
+  "originalArtifact": {
+    "id": 12920750342,
+    "zipSha256": "6114bda9bfda2b9a5b6b6ec42f2c8e5cdcdf038f92298dda2d2d4861abc1436f",
+    "traceZipSha256": "fe236dc531a99adff29b506680141330603ec679748e2cfc2a2ab965de60fbf9",
+    "errorContextSha256": "e9ca1beac10204867304bb4114bfaf2440c77974cb8d1db49d23d4f88d86a7c5"
+  },
+  "pageSnapshotExcerpt": [
+    "  - waiting for getByRole('textbox', { name: 'Quick entry', exact: true })",
+    "      - form \"Schnelleingabe\" [ref=e60]:",
+    "          - textbox \"Schnelleingabe\" [ref=e64]"
+  ],
+  "traceExcerpt": [
+    {
+      "file": "test.trace",
+      "event": {
+        "type": "before",
+        "callId": "prep@4103",
+        "parentId": "prep@4070",
+        "startTime": 61251.39,
+        "class": "Test",
+        "method": "pw:api",
+        "title": "Navigate",
+        "subtitle": "/m8e-calc/#/convert",
+        "params": {
+          "url": "/m8e-calc/#/convert"
+        },
+        "stack": [
+          {
+            "file": "/home/runner/work/m8e-calc/m8e-calc/e2e/convert.spec.ts",
+            "line": 12,
+            "column": 14
+          }
+        ]
+      }
+    },
+    {
+      "file": "test.trace",
+      "event": {
+        "type": "after",
+        "callId": "prep@4103",
+        "endTime": 61495.905,
+        "annotations": []
+      }
+    },
+    {
+      "file": "test.trace",
+      "event": {
+        "type": "before",
+        "callId": "prep@4117",
+        "startTime": 62002.185,
+        "class": "Test",
+        "method": "pw:api",
+        "title": "Navigate",
+        "subtitle": "/m8e-calc/#/convert",
+        "params": {
+          "url": "/m8e-calc/#/convert"
+        },
+        "stack": [
+          {
+            "file": "/home/runner/work/m8e-calc/m8e-calc/e2e/convert.spec.ts",
+            "line": 30,
+            "column": 16
+          }
+        ]
+      }
+    },
+    {
+      "file": "test.trace",
+      "event": {
+        "type": "after",
+        "callId": "prep@4117",
+        "endTime": 62010.09,
+        "annotations": []
+      }
+    },
+    {
+      "file": "test.trace",
+      "event": {
+        "type": "before",
+        "callId": "prep@4127",
+        "startTime": 62083.987,
+        "class": "Test",
+        "method": "pw:api",
+        "title": "Fill \"1 in to cm\"",
+        "subtitle": "getByRole('textbox', { name: 'Quick entry', exact: true })",
+        "params": {
+          "locator": "getByRole('textbox', { name: 'Quick entry', exact: true })",
+          "value": "1 in to cm"
+        },
+        "stack": [
+          {
+            "file": "/home/runner/work/m8e-calc/m8e-calc/e2e/convert.spec.ts",
+            "line": 58,
+            "column": 19
+          }
+        ]
+      }
+    },
+    {
+      "file": "test.trace",
+      "event": {
+        "type": "after",
+        "callId": "prep@4127",
+        "endTime": 91314.491,
+        "annotations": [],
+        "error": {
+          "name": "",
+          "message": "Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Quick entry', exact: true })\u001b[22m\n",
+          "stack": "Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Quick entry', exact: true })\u001b[22m\n\n    at /home/runner/work/m8e-calc/m8e-calc/e2e/convert.spec.ts:58:19"
+        }
+      }
+    },
+    {
+      "file": "1-trace.trace",
+      "event": {
+        "type": "before",
+        "callId": "prep@4103",
+        "startTime": 61254.175,
+        "class": "Frame",
+        "method": "goto",
+        "params": {
+          "url": "/m8e-calc/#/convert",
+          "waitUntil": "load"
+        }
+      }
+    },
+    {
+      "file": "1-trace.trace",
+      "event": {
+        "type": "after",
+        "callId": "prep@4103",
+        "endTime": 61422.046,
+        "result": {
+          "response": "<Response>"
+        }
+      }
+    },
+    {
+      "file": "1-trace.trace",
+      "event": {
+        "type": "before",
+        "callId": "prep@4117",
+        "startTime": 62002.406,
+        "class": "Frame",
+        "method": "goto",
+        "params": {
+          "url": "/m8e-calc/#/convert",
+          "waitUntil": "load"
+        }
+      }
+    },
+    {
+      "file": "1-trace.trace",
+      "event": {
+        "type": "after",
+        "callId": "prep@4117",
+        "endTime": 62007.447,
+        "result": {}
+      }
+    },
+    {
+      "file": "1-trace.trace",
+      "event": {
+        "type": "before",
+        "callId": "prep@4127",
+        "startTime": 62084.234,
+        "class": "Frame",
+        "method": "fill",
+        "params": {
+          "selector": "internal:role=textbox[name=\"Quick entry\"s]",
+          "strict": true,
+          "value": "1 in to cm"
+        }
+      }
+    }
+  ],
+  "traceSourcesSha256": {
+    "test.trace": "e510e7bb6ddf6847b6ff1ec7b5399af49c09f1c870cbdb3546684630cd071d63",
+    "1-trace.trace": "c241e50bfba9dba5cf63b4dbb1b404c76b64ddeb03ac38b4c84104249b6bd2ac",
+    "0-trace.trace": "c7f3084cfadd3e02108e6975e3622d7ac3827b3ab172bafe1fe11b709693d57d"
+  },
+  "traceContext": [
+    {
+      "browserName": "",
+      "browserVersion": null,
+      "platform": "linux",
+      "options": {}
+    },
+    {
+      "browserName": "chromium",
+      "browserVersion": null,
+      "platform": "linux",
+      "options": {
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "locale": "de-DE",
+        "deviceScaleFactor": 1,
+        "isMobile": false,
+        "hasTouch": false,
+        "colorScheme": "light",
+        "reducedMotion": "no-preference",
+        "serviceWorkers": "block"
+      }
+    },
+    {
+      "browserName": "",
+      "browserVersion": null,
+      "platform": "linux",
+      "options": {}
+    }
+  ],
+  "correctionLocalChecks": [
+    {
+      "command": ["npm", "run", "check"],
+      "checkedAt": "2026-10-29T18:56:57.315411+00:00",
+      "exitCode": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 check\n> npm run lint && npm run typecheck && npm run test && npm run build && npm run test:engine:bench && npm run test:graph:bench && npm run test:graph:implicit:bench\n\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 lint\n> eslint . && prettier --check .\n\nsh: 1: eslint: not found\n"
+    },
+    {
+      "command": ["node", "../supplemental/syntax.cjs"],
+      "checkedAt": "2026-10-29T18:56:57.735516+00:00",
+      "exitCode": 0,
+      "output": "{\"typescript\":\"5.9.3\",\"files\":[\"e2e/convert.spec.ts\",\"src/features/convert/ConvertMode.test.tsx\",\"src/features/convert/model.test.ts\",\"src/shared/i18n/de.ts\",\"src/shared/i18n/en.ts\",\"src/units/engine.ts\",\"src/units/query.test.ts\"],\"syntacticDiagnostics\":0}\n"
+    },
+    {
+      "command": ["git", "diff", "--check"],
+      "checkedAt": "2026-10-29T18:56:57.739736+00:00",
+      "exitCode": 0,
+      "output": ""
+    }
+  ]
+}

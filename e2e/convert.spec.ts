@@ -27,7 +27,10 @@ for (const locale of ['de', 'en'] as const) {
       width: locale === 'de' ? 1280 : 1920,
       height: 1080,
     });
-    await page.goto('/m8e-calc/#/convert');
+    // beforeEach already opened this hash. Reload so qaSetup's init script
+    // runs in a new document and applies the requested language.
+    await page.reload();
+    await expect(page.locator('html')).toHaveAttribute('lang', locale);
     await ready(page, 'convert');
     const quick = page.getByRole('textbox', {
       name: t('convert.quick', locale),

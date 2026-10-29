@@ -27,6 +27,17 @@ Registry-403 und reguläre lokale Abnahme bleiben blockiert. Die Basis-main-CI
 ist inzwischen wegen zweier externer Joblink-Antworten (502/503) rot, Pages
 skipped; sie enthält den lokalen WP-06-Diff nicht. Nachweise im WP06-Bericht.
 
+Auf Folgeauftrag ist [PR #85](https://github.com/sl3ndrr/m8e-calc/pull/85)
+veröffentlicht, initialer Head `368588a2…`, geprüfter Build `e0542921…`.
+Check auf beiden Node-Versionen (584 UI/1744 Domäne), Galerie, Visuals,
+Provenienz und Graph-/Releaseprüfungen bestehen. Chromium/Firefox scheitern
+im neuen englischen Fall: Die zweite Navigation auf denselben Hash führt das
+Sprach-Init-Script nicht aus; der Originalsnapshot ist weiterhin deutsch.
+WebKit besteht beide Sprachen. Echtes Reload und eine ausdrückliche
+html.lang-Assertion korrigieren die Fixture; alle fachlichen Assertions und
+Grenzen bleiben erhalten. Eigener vollständiger CI-Nachweis auf dem
+Korrekturhead erforderlich. Originalbeleg und Einordnung: [WP06](WP06.md).
+
 ## WP-05 · Gallery-WebKit und Attempt-Provenienz · 29.10.2026
 
 Begrenzte lokale Diagnose auf `feat/audit-wp-05`, Basis-main
