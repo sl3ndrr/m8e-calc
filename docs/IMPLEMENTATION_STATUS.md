@@ -163,3 +163,9 @@ sichern beide Fälle. Die konkrete Symbolprüfung berücksichtigt den Auswahlpfe
 zusammen mit seinem tatsächlichen Feldlabel. Die zwei negativen Gegenproben
 bestehen bereits; bestätigte Verstöße bleiben weiter blockierend. Neue vollständige
 CI auf dem finalen Head erforderlich, keine Freigabe aus einem roten Lauf.
+
+Head `443b72a…` besteht check mit 580 UI-/1702 Domänentests und Galerie.
+Sechs Visualfälle stoppen am alten exakten Paar-Namensselektor, vor jedem
+Pixelvergleich. Visual-/Persistenztest und AP18-Aufnahmeskript erwarten nun
+den vollständigen korrigierten Namen. Keine Bildreferenz oder Prüfgrenze
+geändert; eigener vollständiger CI-Nachweis auf diesem Folgehead bleibt nötig.
