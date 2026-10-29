@@ -139,3 +139,17 @@ main-/Pages-Kette der Basis enthalten diesen Diff nicht. Physische Screenreader-
 Sprachsteuerungsabnahme separat offen. Keine Remoteänderungen oder Freigabe.
 Identitäten, Dateien, exakte Befehle, Ergebnisse, Runtimegrenzen und
 Offen / Folgearbeiten: [WP04](WP04.md).
+
+WP-04-Folgeauftrag: [Draft-PR #83](https://github.com/sl3ndrr/m8e-calc/pull/83)
+ist veröffentlicht, initialer Head `08c7ae3d…`, Prüf-/Build-SHA `b6c504c4…`.
+Erste Pflicht-CI 40845905012 besteht check auf beiden Node-Versionen
+(576 UI-/1702 Domänentests), Galerie 75, Visuals 24 und Provenienz 36;
+AP22/AP28 sind ebenfalls grün. Chromium und Firefox decken einen Fehler der
+neuen Testassertion auf: axe meldet reine Symbolzeichen bestimmungsgemäß als
+manuell zu prüfen, während der Test pauschal keine `incomplete`-Befunde verlangt.
+Die Korrektur prüft jeden solchen Knoten auf konkretes Ziel, exaktes Zeichen
+und sprechbaren de/en-Aktionsnamen. Unbekannte/abweichende Befunde bleiben Fehler;
+Gegenproben sichern falsche Namen, unbekannte Symbole und Formelmismatches ab.
+Vollständige Scans und alle fachlichen Assertions/Grenzen bleiben bindend,
+Produkt unverändert. Finaler Korrekturhead benötigt einen eigenen vollständigen
+CI-Nachweis; Originalfehler und Quellen sind in [WP04](WP04.md) dokumentiert.
