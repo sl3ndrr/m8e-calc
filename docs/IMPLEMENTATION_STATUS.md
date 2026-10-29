@@ -117,3 +117,25 @@ verlangt zusätzlich null Browserfehler. Sämtliche fachlichen und Meldungsasser
 bleiben erhalten; Produktcode, Fristen, Retries und Baselines unverändert.
 Neuer aktueller CI-Nachweis erforderlich; der rote Originallauf bleibt erhalten.
 Details und lesbare Originaltrace-Auszüge: [WP03](WP03.md).
+
+## WP-04 · Label in Name aus PR #65 · 29.10.2026
+
+Lokal auf `feat/audit-wp-04` umgesetzt, Code-/Regressionencommit
+`d147e905b4c09b3aa7c0fdc2dd7ba2d5d1a106c7`, tatsächliche Basis
+`7525d315184f83c23406671a488241856e594d0e` einschließlich WP-01 bis WP-03.
+Der weiterhin offene PR #65 liefert die benötigten Produktkorrekturen für
+Ergebniswert, Speicher-/Funktionskürzel, Verlauf, Einheiten-/Währungskarten und
+Rail-Badges. WP-02s bereits korrekte lokalisierte Definitionsnamen bleiben
+bytegleich erhalten. Nur die zusammengehörigen Playwright-/axe-Updates aus dem
+PR übernommen; keine unabhängigen Dependency-, Grenz- oder Baselineänderungen.
+de/en-Regressionen aktivieren die Label-in-Name-Regel ausdrücklich im vollständigen
+axe-Scan und ergänzen vier Modi, Währungen, lange Werte, Fokus und Einzelansagen.
+
+**Pflichtabnahme blockiert:** npm 11.19.0 und `npm ci` scheitern an Registry-403;
+check, Vitest, Produktionsbuild, Browsermatrix, Visuals und separate Galerie
+starten ihre Prüfer nicht. Ergänzende i18n-/Quell-/Syntax-/Formatprüfungen bestehen
+(32 Quellgegenproben, 27 Syntaxdateien). Grüne historische PR-65-CI und aktuelle
+main-/Pages-Kette der Basis enthalten diesen Diff nicht. Physische Screenreader- /
+Sprachsteuerungsabnahme separat offen. Keine Remoteänderungen oder Freigabe.
+Identitäten, Dateien, exakte Befehle, Ergebnisse, Runtimegrenzen und
+Offen / Folgearbeiten: [WP04](WP04.md).

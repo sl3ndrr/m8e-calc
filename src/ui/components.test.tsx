@@ -47,6 +47,7 @@ const fixtures: Record<string, ReactNode> = {
         ...item,
         href: '#one',
         icon: 'palette',
+        badge: item.id === 'two' ? '3' : undefined,
       }))}
     />
   ),
@@ -508,4 +509,9 @@ it('checkbox preserves native mixed/disabled/invalid semantics and changes once 
   expect(input).toHaveAttribute('aria-invalid', 'true');
   await user.click(screen.getByText('Remember'));
   expect(change).toHaveBeenCalledTimes(2);
+});
+
+it('keeps the navigation badge in the accessible link name', () => {
+  render(fixtures.NavigationRail);
+  expect(screen.getByRole('link', { name: '3 Two' })).toBeVisible();
 });

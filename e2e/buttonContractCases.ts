@@ -282,7 +282,7 @@ export function buttonContractCases(gallery: boolean) {
       await page.keyboard.type('2+3=');
       await expect(page.locator('.calculator-announcement')).toHaveText('5');
       await page
-        .getByRole('button', { name: 'Verlauf ein-/ausblenden' })
+        .getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ })
         .click();
       const button = page.locator('.history-tools > .ui-button');
       await expect(button).toBeEnabled();

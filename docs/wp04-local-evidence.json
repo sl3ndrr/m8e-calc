@@ -1,0 +1,349 @@
+{
+  "base": "7525d315184f83c23406671a488241856e594d0e",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "code_commit": "d147e905b4c09b3aa7c0fdc2dd7ba2d5d1a106c7",
+  "tree": "ad603c2fe656c503f7f6bf346d45cdfc6aaa11f0",
+  "commands": [
+    {
+      "argv": ["node", "--version"],
+      "started_utc": "2026-10-29T08:02:46.200739+00:00",
+      "finished_utc": "2026-10-29T08:02:46.206058+00:00",
+      "exit_code": 0,
+      "stdout": "v24.22.1\n",
+      "stderr": ""
+    },
+    {
+      "argv": ["npm", "--version"],
+      "started_utc": "2026-10-29T08:02:46.206432+00:00",
+      "finished_utc": "2026-10-29T08:02:46.339890+00:00",
+      "exit_code": 0,
+      "stdout": "11.9.0\n",
+      "stderr": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n"
+    },
+    {
+      "argv": [
+        "npm",
+        "install",
+        "--prefix",
+        "/workspace/scratch/5832bde6fb96/wp04-npm",
+        "--ignore-scripts",
+        "--no-package-lock",
+        "npm@11.19.0"
+      ],
+      "started_utc": "2026-10-29T08:02:46.340269+00:00",
+      "finished_utc": "2026-10-29T08:02:51.873113+00:00",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\nnpm error code E403\nnpm error 403 403 Forbidden - GET https://registry.npmjs.org/npm\nnpm error 403 In most cases, you or one of your dependencies are requesting\nnpm error 403 a package version that is forbidden by your security policy, or\nnpm error 403 on a server you do not have access to.\nnpm error A complete log of this run can be found in: /root/.npm/_logs/2026-10-29T08_02_46_416Z-debug-0.log\n"
+    },
+    {
+      "argv": ["npm", "ci"],
+      "started_utc": "2026-10-29T08:02:51.873620+00:00",
+      "finished_utc": "2026-10-29T08:02:57.707139+00:00",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\nnpm error code E403\nnpm error 403 403 Forbidden - GET https://registry.npmjs.org/zustand/-/zustand-5.0.15.tgz\nnpm error 403 In most cases, you or one of your dependencies are requesting\nnpm error 403 a package version that is forbidden by your security policy, or\nnpm error 403 on a server you do not have access to.\nnpm error A complete log of this run can be found in: /root/.npm/_logs/2026-10-29T08_02_51_968Z-debug-0.log\n"
+    },
+    {
+      "argv": ["npm", "run", "check"],
+      "started_utc": "2026-10-29T08:02:57.707700+00:00",
+      "finished_utc": "2026-10-29T08:02:57.981526+00:00",
+      "exit_code": 127,
+      "stdout": "\n> m8e-calc@1.0.0 check\n> npm run lint && npm run typecheck && npm run test && npm run build && npm run test:engine:bench && npm run test:graph:bench && npm run test:graph:implicit:bench\n\n\n> m8e-calc@1.0.0 lint\n> eslint . && prettier --check .\n\n",
+      "stderr": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\nsh: 1: eslint: not found\n"
+    },
+    {
+      "argv": [
+        "npm",
+        "run",
+        "test:ui",
+        "--",
+        "src/ui/keypad/keypad.test.tsx",
+        "src/ui/components.test.tsx",
+        "src/app/HistorySheet.test.tsx",
+        "src/features/simple/SimpleMode.test.tsx",
+        "src/features/scientific/ReferencePanels.test.tsx"
+      ],
+      "started_utc": "2026-10-29T08:02:57.982031+00:00",
+      "finished_utc": "2026-10-29T08:02:58.111516+00:00",
+      "exit_code": 127,
+      "stdout": "\n> m8e-calc@1.0.0 test:ui\n> vitest run --project=ui src/ui/keypad/keypad.test.tsx src/ui/components.test.tsx src/app/HistorySheet.test.tsx src/features/simple/SimpleMode.test.tsx src/features/scientific/ReferencePanels.test.tsx\n\n",
+      "stderr": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\nsh: 1: vitest: not found\n"
+    },
+    {
+      "argv": ["npm", "run", "build"],
+      "started_utc": "2026-10-29T08:02:58.111843+00:00",
+      "finished_utc": "2026-10-29T08:02:58.244563+00:00",
+      "exit_code": 127,
+      "stdout": "\n> m8e-calc@1.0.0 build\n> tsc -b && vite build && node scripts/check-build-target.mjs\n\n",
+      "stderr": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\nsh: 1: tsc: not found\n"
+    },
+    {
+      "argv": [
+        "npm",
+        "run",
+        "test:e2e",
+        "--",
+        "--project=chromium",
+        "--project=firefox",
+        "--project=webkit"
+      ],
+      "started_utc": "2026-10-29T08:02:58.245559+00:00",
+      "finished_utc": "2026-10-29T08:02:58.388491+00:00",
+      "exit_code": 127,
+      "stdout": "\n> m8e-calc@1.0.0 test:e2e\n> playwright test --project=chromium --project=firefox --project=webkit\n\n",
+      "stderr": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\nsh: 1: playwright: not found\n"
+    },
+    {
+      "argv": ["npm", "run", "test:e2e", "--", "--project=qa-visual"],
+      "started_utc": "2026-10-29T08:02:58.389182+00:00",
+      "finished_utc": "2026-10-29T08:02:58.528208+00:00",
+      "exit_code": 127,
+      "stdout": "\n> m8e-calc@1.0.0 test:e2e\n> playwright test --project=qa-visual\n\n",
+      "stderr": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\nsh: 1: playwright: not found\n"
+    },
+    {
+      "argv": ["npm", "run", "build:gallery"],
+      "started_utc": "2026-10-29T08:02:58.528647+00:00",
+      "finished_utc": "2026-10-29T08:02:58.658397+00:00",
+      "exit_code": 127,
+      "stdout": "\n> m8e-calc@1.0.0 build:gallery\n> tsc -b && vite build --mode gallery && node scripts/check-build-target.mjs dist-gallery gallery\n\n",
+      "stderr": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\nsh: 1: tsc: not found\n"
+    },
+    {
+      "argv": ["npm", "run", "test:e2e:gallery"],
+      "started_utc": "2026-10-29T08:02:58.658786+00:00",
+      "finished_utc": "2026-10-29T08:02:58.791206+00:00",
+      "exit_code": 127,
+      "stdout": "\n> m8e-calc@1.0.0 test:e2e:gallery\n> playwright test --config=playwright.gallery.config.ts\n\n",
+      "stderr": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\nsh: 1: playwright: not found\n"
+    },
+    {
+      "argv": [
+        "node",
+        "../wp04-tools/node_modules/typescript/bin/tsc",
+        "-p",
+        "../wp04-i18n-tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "started_utc": "2026-10-29T08:02:58.792107+00:00",
+      "finished_utc": "2026-10-29T08:02:59.319925+00:00",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "docs/wp04-source-probe.mjs",
+        "../wp04-tools/node_modules/typescript/lib/typescript.js"
+      ],
+      "started_utc": "2026-10-29T08:02:59.320331+00:00",
+      "finished_utc": "2026-10-29T08:02:59.894721+00:00",
+      "exit_code": 0,
+      "stdout": "{\n  \"scope\": \"Source expressions, original translators, syntax and lockfile only; NOT a DOM, typecheck, axe or browser result\",\n  \"runtime\": \"v24.22.1\",\n  \"typescript\": \"5.9.3\",\n  \"base\": \"7525d315184f83c23406671a488241856e594d0e\",\n  \"cases\": [\n    {\n      \"locale\": \"de\",\n      \"key\": \"MC\",\n      \"visible\": \"MC\"\n    },\n    {\n      \"locale\": \"de\",\n      \"key\": \"MR\",\n      \"visible\": \"MR\"\n    },\n    {\n      \"locale\": \"de\",\n      \"key\": \"MS\",\n      \"visible\": \"MS\"\n    },\n    {\n      \"locale\": \"de\",\n      \"key\": \"M+\",\n      \"visible\": \"M+\"\n    },\n    {\n      \"locale\": \"de\",\n      \"key\": \"M-\",\n      \"visible\": \"M\u2212\"\n    },\n    {\n      \"locale\": \"de\",\n      \"key\": \"clearEntry\",\n      \"visible\": \"CE\"\n    },\n    {\n      \"locale\": \"de\",\n      \"key\": \"sqrt\",\n      \"visible\": \"\u221ax\"\n    },\n    {\n      \"locale\": \"de\",\n      \"key\": \"square\",\n      \"visible\": \"x\u00b2\"\n    },\n    {\n      \"locale\": \"de\",\n      \"key\": \"reciprocal\",\n      \"visible\": \"1/x\"\n    },\n    {\n      \"locale\": \"de\",\n      \"value\": \"15\",\n      \"before\": \"Ergebnis kopieren\",\n      \"after\": \"15 \u00b7 Ergebnis kopieren\"\n    },\n    {\n      \"locale\": \"de\",\n      \"value\": \"\u22121,23456789012345e+100\",\n      \"before\": \"Ergebnis kopieren\",\n      \"after\": \"\u22121,23456789012345e+100 \u00b7 Ergebnis kopieren\"\n    },\n    {\n      \"locale\": \"de\",\n      \"value\": \"1,234,567,890,123,456\",\n      \"before\": \"Ergebnis kopieren\",\n      \"after\": \"1,234,567,890,123,456 \u00b7 Ergebnis kopieren\"\n    },\n    {\n      \"locale\": \"de\",\n      \"entry\": {\n        \"input\": \"12 + 3\",\n        \"result\": \"15\"\n      },\n      \"before\": \"Wiederherstellen: 12 + 3\",\n      \"after\": \"Wiederherstellen: 12 + 3 15\"\n    },\n    {\n      \"locale\": \"de\",\n      \"entry\": {\n        \"input\": \"v = 12345.678901234567890123456789\",\n        \"result\": \"gespeichert / saved\"\n      },\n      \"before\": \"Wiederherstellen: v = 12345.678901234567890123456789\",\n      \"after\": \"Wiederherstellen: v = 12345.678901234567890123456789 gespeichert / saved\"\n    },\n    {\n      \"locale\": \"de\",\n      \"entry\": {\n        \"input\": \"5 km \u2192 m\",\n        \"result\": \"5.000 m\"\n      },\n      \"before\": \"Wiederherstellen: 5 km \u2192 m\",\n      \"after\": \"Wiederherstellen: 5 km \u2192 m 5.000 m\"\n    },\n    {\n      \"locale\": \"de\",\n      \"entry\": {\n        \"input\": \"sin(x) ; x^2\",\n        \"result\": \"2 Funktionen / functions\"\n      },\n      \"before\": \"Wiederherstellen: sin(x) ; x^2\",\n      \"after\": \"Wiederherstellen: sin(x) ; x^2 2 Funktionen / functions\"\n    },\n    {\n      \"locale\": \"en\",\n      \"key\": \"MC\",\n      \"visible\": \"MC\"\n    },\n    {\n      \"locale\": \"en\",\n      \"key\": \"MR\",\n      \"visible\": \"MR\"\n    },\n    {\n      \"locale\": \"en\",\n      \"key\": \"MS\",\n      \"visible\": \"MS\"\n    },\n    {\n      \"locale\": \"en\",\n      \"key\": \"M+\",\n      \"visible\": \"M+\"\n    },\n    {\n      \"locale\": \"en\",\n      \"key\": \"M-\",\n      \"visible\": \"M\u2212\"\n    },\n    {\n      \"locale\": \"en\",\n      \"key\": \"clearEntry\",\n      \"visible\": \"CE\"\n    },\n    {\n      \"locale\": \"en\",\n      \"key\": \"sqrt\",\n      \"visible\": \"\u221ax\"\n    },\n    {\n      \"locale\": \"en\",\n      \"key\": \"square\",\n      \"visible\": \"x\u00b2\"\n    },\n    {\n      \"locale\": \"en\",\n      \"key\": \"reciprocal\",\n      \"visible\": \"1/x\"\n    },\n    {\n      \"locale\": \"en\",\n      \"value\": \"15\",\n      \"before\": \"Copy result\",\n      \"after\": \"15 \u00b7 Copy result\"\n    },\n    {\n      \"locale\": \"en\",\n      \"value\": \"\u22121,23456789012345e+100\",\n      \"before\": \"Copy result\",\n      \"after\": \"\u22121,23456789012345e+100 \u00b7 Copy result\"\n    },\n    {\n      \"locale\": \"en\",\n      \"value\": \"1,234,567,890,123,456\",\n      \"before\": \"Copy result\",\n      \"after\": \"1,234,567,890,123,456 \u00b7 Copy result\"\n    },\n    {\n      \"locale\": \"en\",\n      \"entry\": {\n        \"input\": \"12 + 3\",\n        \"result\": \"15\"\n      },\n      \"before\": \"Restore: 12 + 3\",\n      \"after\": \"Restore: 12 + 3 15\"\n    },\n    {\n      \"locale\": \"en\",\n      \"entry\": {\n        \"input\": \"v = 12345.678901234567890123456789\",\n        \"result\": \"gespeichert / saved\"\n      },\n      \"before\": \"Restore: v = 12345.678901234567890123456789\",\n      \"after\": \"Restore: v = 12345.678901234567890123456789 gespeichert / saved\"\n    },\n    {\n      \"locale\": \"en\",\n      \"entry\": {\n        \"input\": \"5 km \u2192 m\",\n        \"result\": \"5.000 m\"\n      },\n      \"before\": \"Restore: 5 km \u2192 m\",\n      \"after\": \"Restore: 5 km \u2192 m 5.000 m\"\n    },\n    {\n      \"locale\": \"en\",\n      \"entry\": {\n        \"input\": \"sin(x) ; x^2\",\n        \"result\": \"2 Funktionen / functions\"\n      },\n      \"before\": \"Restore: sin(x) ; x^2\",\n      \"after\": \"Restore: sin(x) ; x^2 2 Funktionen / functions\"\n    }\n  ],\n  \"syntax\": [\n    {\n      \"path\": \"e2e/ap36-motion.spec.ts\",\n      \"sha256\": \"818f5efeedc3183bd6ce8098c0d174431c3c04f7cb268ed71d1a58db639bb729\"\n    },\n    {\n      \"path\": \"e2e/app-shell.spec.ts\",\n      \"sha256\": \"a289a46bb280f3c165fbedcb1d7f6bbd31cb0de9a518da8ddb23fe146a351f9e\"\n    },\n    {\n      \"path\": \"e2e/buttonContractCases.ts\",\n      \"sha256\": \"e29b4fb1dbcc22ef46b97144b7f1a4c3a8446c06da6bb400494ad4a0f821ab45\"\n    },\n    {\n      \"path\": \"e2e/comfort.spec.ts\",\n      \"sha256\": \"9eba4212d7143db92b6c6a3a1f747521d5b59f99b366cd3a5dc18200028d48ea\"\n    },\n    {\n      \"path\": \"e2e/components.spec.ts\",\n      \"sha256\": \"961cec42bf08829402c4170f95b2abf84902cdb442b6c6a1546b9a63f51ba47d\"\n    },\n    {\n      \"path\": \"e2e/convert.spec.ts\",\n      \"sha256\": \"ed3a59a9abc9582a76bd5fa7693f0a58f34049b8c3fe2695925f94d03d8621f5\"\n    },\n    {\n      \"path\": \"e2e/graph-implicit.spec.ts\",\n      \"sha256\": \"0579fade3d012f56b7c6d8ecea7bb4b3e7d5c0d6bea10e97bf835f9608e92a1f\"\n    },\n    {\n      \"path\": \"e2e/graph.spec.ts\",\n      \"sha256\": \"bf396df5645591ada471311b8d4bb3ae1bb1c87c954502101ab62d2730444d68\"\n    },\n    {\n      \"path\": \"e2e/label-in-name.spec.ts\",\n      \"sha256\": \"4df7eefc53d3c66d92ce8b02cd44bb826f93654ae2e89754520a400cf9307d48\"\n    },\n    {\n      \"path\": \"e2e/programmer.spec.ts\",\n      \"sha256\": \"7be9f3daf2a1a6e621228d826ef996cadf50eb63e627d422159740e1ee1b4cab\"\n    },\n    {\n      \"path\": \"e2e/qa-hardening.spec.ts\",\n      \"sha256\": \"a5a4ee44bedcef64a38f6912ed13c19c32f6ac37937adb6e3d72903f2bde8cc1\"\n    },\n    {\n      \"path\": \"e2e/qa-setup.ts\",\n      \"sha256\": \"ac7ad52df98678fb84ed810595d6a7d9dafd616aac195edc0384624a4c9661d0\"\n    },\n    {\n      \"path\": \"e2e/scientific.spec.ts\",\n      \"sha256\": \"1b9084e094343c80a30e5fe96dafa355ccd7868663750dd45f10027c479e73be\"\n    },\n    {\n      \"path\": \"playwright.config.ts\",\n      \"sha256\": \"40596036001476a76ff13efe9f5aec6d0b26323915a14f073f76fe7fa172e825\"\n    },\n    {\n      \"path\": \"src/app/App.tsx\",\n      \"sha256\": \"5c0991482a4ef1a7a7ff4eaedf4205cb94245d19a8e3cbf8798c02ab7bbe7f1e\"\n    },\n    {\n      \"path\": \"src/app/HistorySheet.test.tsx\",\n      \"sha256\": \"4aff4c81371084dcd759a3b4f111630a88f65cbb734cf82afddd759c287b1928\"\n    },\n    {\n      \"path\": \"src/app/HistorySheet.tsx\",\n      \"sha256\": \"d92dd2f306289e5ae49181f0279fd5f4033ccd5e220624437b2284efc2f99a23\"\n    },\n    {\n      \"path\": \"src/features/convert/ConvertMode.tsx\",\n      \"sha256\": \"fc542519e717c473b4963e115c3c1c2d83732a9167f0a757d4a713e0bbd5c9ca\"\n    },\n    {\n      \"path\": \"src/features/convert/currency/CurrencyPanel.tsx\",\n      \"sha256\": \"5da2e6c8a2be7c297806bbba4fd3e9363fb0061cca5b65f9475ff7267c91d5ee\"\n    },\n    {\n      \"path\": \"src/features/scientific/ScientificKeypad.tsx\",\n      \"sha256\": \"f7fc7f15b0a9b402c86206fee075a8358faa792ce38b343166891e6143e27d94\"\n    },\n    {\n      \"path\": \"src/features/simple/SimpleMode.test.tsx\",\n      \"sha256\": \"3a181a15bbd9e6eba36f4a0a2ebb3574163837f25cff47059a98804ce1360435\"\n    },\n    {\n      \"path\": \"src/shared/i18n/coreDE.ts\",\n      \"sha256\": \"1543a551e4f630715537f24338cf39c2688782baf1e3f7c29c838f7172a30550\"\n    },\n    {\n      \"path\": \"src/shared/i18n/coreEN.ts\",\n      \"sha256\": \"b8f25fd44999ee3510d894a3668137f6a4ff1494994199ae41724f115098e7cf\"\n    },\n    {\n      \"path\": \"src/ui/NavigationRail.tsx\",\n      \"sha256\": \"d96dd225d099b87dc907651a2c0fb2a2005adfbe6dc5976385e63aa74358842e\"\n    },\n    {\n      \"path\": \"src/ui/components.test.tsx\",\n      \"sha256\": \"a4a3ab8862b880508b4dc1ed2fb8b1db68d688c7f8741180ce4d689c0c19747f\"\n    },\n    {\n      \"path\": \"src/ui/keypad/CalculatorDisplay.tsx\",\n      \"sha256\": \"b74da89ccefb04b9ebed133fde91799c497d041c34b94d807d60203f3563768a\"\n    },\n    {\n      \"path\": \"src/ui/keypad/keypad.test.tsx\",\n      \"sha256\": \"8fc85a61c5c7824abab5764b6bb21d02c6d0512a68387fa5471e521e0ef87796\"\n    }\n  ],\n  \"unchangedWP02\": \"src/features/scientific/ReferencePanels.tsx\",\n  \"unrelatedLockEntriesUnchanged\": true\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "node",
+        "../wp04-tools/node_modules/prettier/bin/prettier.cjs",
+        "--check",
+        "AGENTS.md",
+        "docs/ACCESSIBILITY_LABEL_IN_NAME.md",
+        "docs/COMPONENTS.md",
+        "docs/CONVERT_MODE.md",
+        "docs/wp04-source-probe.mjs",
+        "e2e/ap36-motion.spec.ts",
+        "e2e/app-shell.spec.ts",
+        "e2e/buttonContractCases.ts",
+        "e2e/comfort.spec.ts",
+        "e2e/components.spec.ts",
+        "e2e/convert.spec.ts",
+        "e2e/graph-implicit.spec.ts",
+        "e2e/graph.spec.ts",
+        "e2e/label-in-name.spec.ts",
+        "e2e/programmer.spec.ts",
+        "e2e/qa-hardening.spec.ts",
+        "e2e/qa-setup.ts",
+        "e2e/scientific.spec.ts",
+        "package-lock.json",
+        "package.json",
+        "playwright.config.ts",
+        "src/app/App.tsx",
+        "src/app/HistorySheet.test.tsx",
+        "src/app/HistorySheet.tsx",
+        "src/features/convert/ConvertMode.tsx",
+        "src/features/convert/currency/CurrencyPanel.tsx",
+        "src/features/scientific/ScientificKeypad.tsx",
+        "src/features/simple/SimpleMode.test.tsx",
+        "src/shared/i18n/coreDE.ts",
+        "src/shared/i18n/coreEN.ts",
+        "src/ui/NavigationRail.tsx",
+        "src/ui/components.test.tsx",
+        "src/ui/keypad/CalculatorDisplay.tsx",
+        "src/ui/keypad/keypad.test.tsx"
+      ],
+      "started_utc": "2026-10-29T08:02:59.895620+00:00",
+      "finished_utc": "2026-10-29T08:03:01.404069+00:00",
+      "exit_code": 0,
+      "stdout": "Checking formatting...\nAll matched files use Prettier code style!\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "7525d315184f83c23406671a488241856e594d0e",
+        "HEAD"
+      ],
+      "started_utc": "2026-10-29T08:03:01.404722+00:00",
+      "finished_utc": "2026-10-29T08:03:01.417013+00:00",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "diff_sha256": "aa368fae1ac0c2748baf472af42ce44ea61abff1705834bfef1296201865f01c",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "d46129e24107b3c0ba1694061ad4d5e40eb999bb94959485a4f9fc9f71aeaab8"
+    },
+    {
+      "path": "docs/ACCESSIBILITY_LABEL_IN_NAME.md",
+      "sha256": "2695262594b050660123f608b5771196cf28cf04191f07b467b54ace2b0c3983"
+    },
+    {
+      "path": "docs/COMPONENTS.md",
+      "sha256": "c610c344488bb2a2e8780a9c3282195ca6b988f46989e2340962258eff756692"
+    },
+    {
+      "path": "docs/CONVERT_MODE.md",
+      "sha256": "0fc067c628a11f36002000024d6a12f73df8340e8e4f4dab6069eeac1449ed28"
+    },
+    {
+      "path": "docs/wp04-source-probe.mjs",
+      "sha256": "16e52667f2bdbec36834e880e35d8825221dfe58113aa6a45de85d2a1d192281"
+    },
+    {
+      "path": "e2e/ap36-motion.spec.ts",
+      "sha256": "818f5efeedc3183bd6ce8098c0d174431c3c04f7cb268ed71d1a58db639bb729"
+    },
+    {
+      "path": "e2e/app-shell.spec.ts",
+      "sha256": "a289a46bb280f3c165fbedcb1d7f6bbd31cb0de9a518da8ddb23fe146a351f9e"
+    },
+    {
+      "path": "e2e/buttonContractCases.ts",
+      "sha256": "e29b4fb1dbcc22ef46b97144b7f1a4c3a8446c06da6bb400494ad4a0f821ab45"
+    },
+    {
+      "path": "e2e/comfort.spec.ts",
+      "sha256": "9eba4212d7143db92b6c6a3a1f747521d5b59f99b366cd3a5dc18200028d48ea"
+    },
+    {
+      "path": "e2e/components.spec.ts",
+      "sha256": "961cec42bf08829402c4170f95b2abf84902cdb442b6c6a1546b9a63f51ba47d"
+    },
+    {
+      "path": "e2e/convert.spec.ts",
+      "sha256": "ed3a59a9abc9582a76bd5fa7693f0a58f34049b8c3fe2695925f94d03d8621f5"
+    },
+    {
+      "path": "e2e/graph-implicit.spec.ts",
+      "sha256": "0579fade3d012f56b7c6d8ecea7bb4b3e7d5c0d6bea10e97bf835f9608e92a1f"
+    },
+    {
+      "path": "e2e/graph.spec.ts",
+      "sha256": "bf396df5645591ada471311b8d4bb3ae1bb1c87c954502101ab62d2730444d68"
+    },
+    {
+      "path": "e2e/label-in-name.spec.ts",
+      "sha256": "4df7eefc53d3c66d92ce8b02cd44bb826f93654ae2e89754520a400cf9307d48"
+    },
+    {
+      "path": "e2e/programmer.spec.ts",
+      "sha256": "7be9f3daf2a1a6e621228d826ef996cadf50eb63e627d422159740e1ee1b4cab"
+    },
+    {
+      "path": "e2e/qa-hardening.spec.ts",
+      "sha256": "a5a4ee44bedcef64a38f6912ed13c19c32f6ac37937adb6e3d72903f2bde8cc1"
+    },
+    {
+      "path": "e2e/qa-setup.ts",
+      "sha256": "ac7ad52df98678fb84ed810595d6a7d9dafd616aac195edc0384624a4c9661d0"
+    },
+    {
+      "path": "e2e/scientific.spec.ts",
+      "sha256": "1b9084e094343c80a30e5fe96dafa355ccd7868663750dd45f10027c479e73be"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "1fc789bf560baaac9a9b4c935d27b1ca53813d460923a3711646450bd52b63ae"
+    },
+    {
+      "path": "package.json",
+      "sha256": "b6a2db4ae5254f8d33b0ff37d3fdfb0e59c05840df9a35d31e53a886db632b41"
+    },
+    {
+      "path": "playwright.config.ts",
+      "sha256": "40596036001476a76ff13efe9f5aec6d0b26323915a14f073f76fe7fa172e825"
+    },
+    {
+      "path": "src/app/App.tsx",
+      "sha256": "5c0991482a4ef1a7a7ff4eaedf4205cb94245d19a8e3cbf8798c02ab7bbe7f1e"
+    },
+    {
+      "path": "src/app/HistorySheet.test.tsx",
+      "sha256": "4aff4c81371084dcd759a3b4f111630a88f65cbb734cf82afddd759c287b1928"
+    },
+    {
+      "path": "src/app/HistorySheet.tsx",
+      "sha256": "d92dd2f306289e5ae49181f0279fd5f4033ccd5e220624437b2284efc2f99a23"
+    },
+    {
+      "path": "src/features/convert/ConvertMode.tsx",
+      "sha256": "fc542519e717c473b4963e115c3c1c2d83732a9167f0a757d4a713e0bbd5c9ca"
+    },
+    {
+      "path": "src/features/convert/currency/CurrencyPanel.tsx",
+      "sha256": "5da2e6c8a2be7c297806bbba4fd3e9363fb0061cca5b65f9475ff7267c91d5ee"
+    },
+    {
+      "path": "src/features/scientific/ScientificKeypad.tsx",
+      "sha256": "f7fc7f15b0a9b402c86206fee075a8358faa792ce38b343166891e6143e27d94"
+    },
+    {
+      "path": "src/features/simple/SimpleMode.test.tsx",
+      "sha256": "3a181a15bbd9e6eba36f4a0a2ebb3574163837f25cff47059a98804ce1360435"
+    },
+    {
+      "path": "src/shared/i18n/coreDE.ts",
+      "sha256": "1543a551e4f630715537f24338cf39c2688782baf1e3f7c29c838f7172a30550"
+    },
+    {
+      "path": "src/shared/i18n/coreEN.ts",
+      "sha256": "b8f25fd44999ee3510d894a3668137f6a4ff1494994199ae41724f115098e7cf"
+    },
+    {
+      "path": "src/ui/NavigationRail.tsx",
+      "sha256": "d96dd225d099b87dc907651a2c0fb2a2005adfbe6dc5976385e63aa74358842e"
+    },
+    {
+      "path": "src/ui/components.test.tsx",
+      "sha256": "a4a3ab8862b880508b4dc1ed2fb8b1db68d688c7f8741180ce4d689c0c19747f"
+    },
+    {
+      "path": "src/ui/keypad/CalculatorDisplay.tsx",
+      "sha256": "b74da89ccefb04b9ebed133fde91799c497d041c34b94d807d60203f3563768a"
+    },
+    {
+      "path": "src/ui/keypad/keypad.test.tsx",
+      "sha256": "8fc85a61c5c7824abab5764b6bb21d02c6d0512a68387fa5471e521e0ef87796"
+    }
+  ],
+  "scope": "Regular dependency installation and required checks attempted; supplemental source/syntax/i18n/format results do not validate UI or browsers."
+}

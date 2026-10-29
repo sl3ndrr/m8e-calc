@@ -73,7 +73,7 @@ for (const [level, os] of [
     await idle(page);
     // Remount through the real sheet toggle, registering the pause before input.
     const toggle = page.getByRole('button', {
-      name: 'Verlauf ein-/ausblenden',
+      name: /^Verlauf \d+ ein-\/ausblenden$/,
     });
     await toggle.click();
     await expect(entry).toHaveCount(0);

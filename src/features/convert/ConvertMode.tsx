@@ -679,9 +679,6 @@ export default function ConvertMode() {
                     <Button
                       variant="text"
                       isDisabled={!!state.error}
-                      aria-label={t('convert.copyUnit', locale, {
-                        unit: unit.names[locale],
-                      })}
                       onPress={() => {
                         const value = values[unit.id];
                         if (value !== undefined)
@@ -707,6 +704,11 @@ export default function ConvertMode() {
                       <span className="convert-unit-system">
                         {t(`convert.system.${unit.system}`, locale)}
                       </span>
+                      <VisuallyHidden>
+                        {t('convert.copyUnit', locale, {
+                          unit: unit.names[locale],
+                        })}
+                      </VisuallyHidden>
                     </Button>
                   </Card>
                 ))}

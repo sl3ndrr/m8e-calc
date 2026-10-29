@@ -19,8 +19,13 @@ test('gallery contains every component and supported state, with zero axe violat
       for (const state of states)
         await expect(row.locator(`[data-state="${state}"]`)).toBeVisible();
     }
-    const result = await new AxeBuilder({ page }).analyze();
+    const result = await new AxeBuilder({ page })
+      .options({ rules: { 'label-content-name-mismatch': { enabled: true } } })
+      .analyze();
     expect(result.violations).toEqual([]);
+    expect(
+      result.passes.some(({ id }) => id === 'label-content-name-mismatch'),
+    ).toBe(true);
   }
 });
 test('keyboard focus, expressive press, connected group and slider use real browser state', async ({

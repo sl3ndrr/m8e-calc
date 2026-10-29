@@ -7,6 +7,7 @@
 - Props sind explizit typisiert. React-Aria-Konventionen verwenden `isDisabled`, `isSelected`, `defaultSelected`, `onPress`, `selectedKey`, `onSelectionChange`, `isOpen` und `onOpenChange`. Kontrollierte Werte erhalten ihren Änderungs-Callback; unkontrollierte Werte verwenden `default*`.
 - Sichtbare Texte, ARIA-Namen, Beschreibungen und Fehler kommen vom Aufrufer über `t(key, params)` oder `t(key, locale, params)`. Neue Schlüssel immer in `de` und `en` ergänzen. Symbolnamen, Zahlen und API-Bezeichner sind technische Werte.
 - Icon-only-Aktionen verlangen `aria-label`. `Icon` ist standardmäßig dekorativ; `label` macht es zu einem benannten Bild. `VisuallyHidden` liefert Text für Assistenztechnik.
+- Label in Name: Sichtbare Zahlen, Kürzel, Definitionen, Einheiten und Badges gehören vollständig in den zugänglichen Aktionsnamen. Textinhalt bzw. `aria-labelledby` bevorzugen; wo ein expliziter Name nötig ist (etwa dekorativ animierte Zahlen oder eingeklappte Navigation), dieselbe Textquelle wie für die Anzeige verwenden. Eine lokalisierte Aktion ergänzt den Inhalt. Getrennte Textteile brauchen echte Leerzeichen. Vorhandene Live-Regions und MathML erhalten; keine zweite Statusausgabe zur Beschriftung ergänzen. Umsetzung und tatsächliche Prüfgrenzen: [WP04](WP04.md).
 - Farben ausschließlich aus `--md-sys-color-*`; Radien aus `--md-sys-shape-*`; Bewegungen aus den AP2-Spring-Tokens. `StateLayer` erzeugt Hover/Focus/Pressed-Überlagerungen aus `currentColor`. Interaktive Ziele haben mindestens 48 × 48 px; visuelle Slider-/Switch-Griffe dürfen kleiner sein.
 - Tastaturfokus benutzt einen 3-px-Primary-Ring mit Abstand; Forced Colors benutzt `Highlight`. React Aria veröffentlicht `data-focus-visible`. Der `FocusRing`-Wrapper eignet sich für zusammengesetzte Flächen.
 - Full verwendet Spatial-Springs und Effects-Transitions. Reduced und Off deaktivieren räumliche CSS- und JS-Animationen. OS-Reduced-Motion begrenzt Full. `useSpring` retargetet, beendet unterbrochene Animationen und räumt beim Unmount auf. `useMediaQuery` abonniert und entfernt MediaQuery-Listener.
@@ -114,6 +115,11 @@ error, onCopy })` zeigt eine Ausdruckszeile, animierte Zeichen mit tabellarische
 Ziffern, an gemessene Breite angepasste Schrift und ein Live-Output. Alle lokalisierten Texte
 und die formatierte Zahl kommen vom Aufrufer; der Baustein kennt keine Engine.
 AP8 kann dieselben Exporte aus `src/ui` verwenden.
+
+Der Kopiername verwendet `value` plus `copyLabel`. Die animierten Ziffern bleiben
+dekorativ; genau ein persistentes Live-Output meldet das Ergebnis bzw. den Fehler.
+`copyLabel` bleibt ein Aktionsname ohne zusätzlichen Zahlenwert; die öffentliche
+Prop-API ist unverändert.
 
 AP11 ergänzt `SelectOption.group`: Optionen mit Gruppe werden in benannten ListBox-Sections mit Überschrift dargestellt und bleiben durchsuchbar. `historyStore.replace(id, data)` ersetzt einen Eintrag atomar unter Erhalt von ID und Pin (Umrechner-Ruheverlauf).
 
