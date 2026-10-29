@@ -124,6 +124,18 @@ async function reviewSymbols(
       glyph: '−',
       name: t('graph.zoomOut', locale),
     },
+    // The exercised graph state contains exactly one function row.
+    {
+      selector: '.graph-rows > div:first-child .graph-drag-handle button',
+      glyph: '↕',
+      name: t('graph.reorder', locale, { n: 1 }),
+    },
+    {
+      selector:
+        '.graph-rows > div:first-child .graph-row-meta button[aria-haspopup="true"]',
+      glyph: '⋯',
+      name: t('graph.actionsN', locale, { n: 1 }),
+    },
     ...(['convert.fromUnit', 'convert.toUnit'] as const).map((key) => ({
       selector: '.convert-mode .ui-select-toggle',
       glyph: '▾',

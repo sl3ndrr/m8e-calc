@@ -169,3 +169,9 @@ Sechs Visualfälle stoppen am alten exakten Paar-Namensselektor, vor jedem
 Pixelvergleich. Visual-/Persistenztest und AP18-Aufnahmeskript erwarten nun
 den vollständigen korrigierten Namen. Keine Bildreferenz oder Prüfgrenze
 geändert; eigener vollständiger CI-Nachweis auf diesem Folgehead bleibt nötig.
+
+Die abgeschlossenen Graphscans im Chromiumartefakt desselben Vorgängerlaufs
+bestätigen null axe-Verstöße, aber zwei noch nicht erfasste Symbolaktionen
+(`↕`, `⋯`). Deren konkrete Prüfung verlangt jetzt Funktionszeile, Glyph und
+exakten de/en-Aktionsnamen mit Nummer. Währungs-/Fokusfälle und Gegenproben
+bestehen bereits; endgültiger Lauf auf der vollständigen Korrektur folgt in #83.
