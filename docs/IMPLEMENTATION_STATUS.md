@@ -153,3 +153,13 @@ Gegenproben sichern falsche Namen, unbekannte Symbole und Formelmismatches ab.
 Vollständige Scans und alle fachlichen Assertions/Grenzen bleiben bindend,
 Produkt unverändert. Finaler Korrekturhead benötigt einen eigenen vollständigen
 CI-Nachweis; Originalfehler und Quellen sind in [WP04](WP04.md) dokumentiert.
+
+Der typkorrigierte Head `7a99ac8…` besteht check. Seine weiterlaufende Suite
+bestätigt danach einen Paar-Namensverstoß (`km → m` gegenüber „km to m“) und
+doppelte Namen der Einheitenauswahlpfeile im echten Browserartefakt. Gemeinsamer
+sichtbarer Paartext als Namenspräfix und einmalige Feldlabel-Verknüpfung per
+`aria-labelledby` korrigieren diese Produktbefunde; de/en-Komponenten-/Browsertests
+sichern beide Fälle. Die konkrete Symbolprüfung berücksichtigt den Auswahlpfeil
+zusammen mit seinem tatsächlichen Feldlabel. Die zwei negativen Gegenproben
+bestehen bereits; bestätigte Verstöße bleiben weiter blockierend. Neue vollständige
+CI auf dem finalen Head erforderlich, keine Freigabe aus einem roten Lauf.

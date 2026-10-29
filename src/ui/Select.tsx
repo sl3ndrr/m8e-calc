@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import {
   ComboBox,
   Select as AriaSelect,
@@ -42,6 +43,7 @@ export function Select({
   errorMessage,
   ...props
 }: SelectProps) {
+  const labelId = useId();
   const items = options.map((option) => ({ ...option }));
   const groups = [
     ...new Set(
@@ -63,12 +65,18 @@ export function Select({
   );
   const content = (
     <>
-      <Label>{label}</Label>
+      <Label id={searchable ? labelId : undefined} className="ui-select-label">
+        {label}
+      </Label>
       {searchable ? (
         <div className="ui-select-control">
           <StateLayer />
           <Input />
-          <Button variant="text" aria-label={label}>
+          <Button
+            variant="text"
+            className="ui-select-toggle"
+            aria-labelledby={labelId}
+          >
             ▾
           </Button>
         </div>

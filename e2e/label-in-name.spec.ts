@@ -11,6 +11,12 @@ test.use({ serviceWorkers: 'block' });
 type RuleResult = Awaited<
   ReturnType<AxeBuilder['analyze']>
 >['incomplete'][number];
+interface SymbolReviewEntry {
+  selector: string;
+  glyph: string;
+  name: string;
+  fieldLabel?: string;
+}
 
 // Keep the full scan. Explicit activation also protects against changes to
 // axe's default/experimental rule selection; require proof it actually ran.
@@ -37,7 +43,7 @@ async function reviewSymbols(
   locale: Locale,
   results: readonly RuleResult[],
 ) {
-  const known = [
+  const known: SymbolReviewEntry[] = [
     ...(
       [
         ['⌘', 'comfort.palette'],
@@ -118,6 +124,12 @@ async function reviewSymbols(
       glyph: '−',
       name: t('graph.zoomOut', locale),
     },
+    ...(['convert.fromUnit', 'convert.toUnit'] as const).map((key) => ({
+      selector: '.convert-mode .ui-select-toggle',
+      glyph: '▾',
+      name: t(key, locale),
+      fieldLabel: t(key, locale),
+    })),
   ];
   const reviewed = [];
   for (const result of results) {
@@ -129,10 +141,17 @@ async function reviewSymbols(
       const control = page.locator(selector);
       await expect(control).toHaveCount(1);
       const glyph = (await control.textContent())?.trim();
+      const fieldLabel = await control.evaluate((el) =>
+        el
+          .closest('.ui-select')
+          ?.querySelector('.ui-select-label')
+          ?.textContent?.trim(),
+      );
       const matches = [];
       for (const entry of known) {
         if (
           entry.glyph === glyph &&
+          (!entry.fieldLabel || entry.fieldLabel === fieldLabel) &&
           (await control.evaluate(
             (el, scope) => el.matches(scope),
             entry.selector,
@@ -320,6 +339,13 @@ for (const locale of ['de', 'en'] as const) {
     await quick.press('Enter');
     await expect(meter.locator('strong')).toHaveText(
       locale === 'de' ? '5.000' : '5,000',
+    );
+    const pair = page
+      .locator('.convert-pairs button')
+      .filter({ hasText: 'km → m' });
+    await expect(pair).toHaveCount(1);
+    await expect(pair).toHaveAccessibleName(
+      `km → m · ${t('convert.loadPair', locale, { category: locale === 'de' ? 'Länge' : 'Length', from: 'km', to: 'm' })}`,
     );
     for (const card of await page.locator('.convert-unit-card button').all()) {
       for (const part of await card

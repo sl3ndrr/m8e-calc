@@ -24,6 +24,29 @@ beforeEach(() => {
   });
 });
 afterEach(() => vi.useRealTimers());
+it.each(['de', 'en'] as const)(
+  'retains the complete visible pair in favorite/recent action names in %s',
+  async (locale) => {
+    useAppStore.getState().setLocale(locale);
+    const pair = { categoryId: 'length', fromId: 'km', toId: 'm' } as const;
+    useConvertStore.getState().update({ favorites: [pair], recent: [pair] });
+    render(<ConvertMode />);
+    const name = `km → m · ${t('convert.loadPair', locale, { category: locale === 'de' ? 'Länge' : 'Length', from: 'km', to: 'm' })}`;
+    const controls = screen.getAllByRole('button', { name, exact: true });
+    expect(controls).toHaveLength(2);
+    for (const control of controls) expect(control).toHaveTextContent('km → m');
+    const control = controls[0];
+    if (!control) throw new Error('Missing pair action');
+    control.focus();
+    await userEvent.setup().keyboard('{Enter}');
+    expect(
+      screen.getByRole('combobox', {
+        name: t('convert.toUnit', locale),
+        exact: true,
+      }),
+    ).toHaveValue(locale === 'de' ? 'm · Meter' : 'm · metre');
+  },
+);
 it('converts localized source and target inputs and swaps without rounding the model', async () => {
   const user = userEvent.setup();
   render(<ConvertMode />);

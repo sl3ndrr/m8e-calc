@@ -121,6 +121,10 @@ dekorativ; genau ein persistentes Live-Output meldet das Ergebnis bzw. den Fehle
 `copyLabel` bleibt ein Aktionsname ohne zusätzlichen Zahlenwert; die öffentliche
 Prop-API ist unverändert.
 
+Suchbare Selects benennen ihren Pfeilbutton genau einmal über `aria-labelledby`
+aus demselben sichtbaren Feldlabel wie die ComboBox. Ein zusätzliches identisches
+`aria-label` darf die React-Aria-Verknüpfung nicht zu einer Doppelansage erweitern.
+
 AP11 ergänzt `SelectOption.group`: Optionen mit Gruppe werden in benannten ListBox-Sections mit Überschrift dargestellt und bleiben durchsuchbar. `historyStore.replace(id, data)` ersetzt einen Eintrag atomar unter Erhalt von ID und Pin (Umrechner-Ruheverlauf).
 
 ## AP19 · Zahlen und Tasten

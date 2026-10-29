@@ -347,21 +347,26 @@ export default function ConvertMode() {
         <h3>{t(heading, locale)}</h3>
         <div>
           {pairs.length ? (
-            pairs.map((pair) => (
-              <Button
-                key={pairKey(pair)}
-                variant="tonal"
-                size="sm"
-                onPress={() => dispatch({ type: 'pair', pair })}
-                aria-label={t('convert.loadPair', locale, {
-                  category: categoryFor(pair.categoryId).names[locale],
-                  from: unitFor(pair.fromId).symbol,
-                  to: unitFor(pair.toId).symbol,
-                })}
-              >
-                {unitFor(pair.fromId).symbol} → {unitFor(pair.toId).symbol}
-              </Button>
-            ))
+            pairs.map((pair) => {
+              const from = unitFor(pair.fromId).symbol;
+              const to = unitFor(pair.toId).symbol;
+              const label = `${from} → ${to}`;
+              return (
+                <Button
+                  key={pairKey(pair)}
+                  variant="tonal"
+                  size="sm"
+                  onPress={() => dispatch({ type: 'pair', pair })}
+                  aria-label={`${label} · ${t('convert.loadPair', locale, {
+                    category: categoryFor(pair.categoryId).names[locale],
+                    from,
+                    to,
+                  })}`}
+                >
+                  {label}
+                </Button>
+              );
+            })
           ) : (
             <p>{t('convert.noPairs', locale)}</p>
           )}
