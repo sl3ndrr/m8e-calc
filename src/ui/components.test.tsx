@@ -530,10 +530,10 @@ it.each(['de', 'en'] as const)(
         defaultSelectedKey="one"
       />,
     );
-    expect(
-      screen.getByRole('combobox', { name: label, exact: true }),
-    ).toHaveAccessibleName(label);
-    const trigger = screen.getByRole('button', { name: label, exact: true });
+    expect(screen.getByRole('combobox', { name: label })).toHaveAccessibleName(
+      label,
+    );
+    const trigger = screen.getByRole('button', { name: label });
     expect(trigger).toHaveTextContent('▾');
     await user.click(trigger);
     expect(screen.getByRole('listbox')).toBeVisible();

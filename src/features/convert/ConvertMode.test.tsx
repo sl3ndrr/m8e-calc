@@ -32,7 +32,7 @@ it.each(['de', 'en'] as const)(
     useConvertStore.getState().update({ favorites: [pair], recent: [pair] });
     render(<ConvertMode />);
     const name = `km → m · ${t('convert.loadPair', locale, { category: locale === 'de' ? 'Länge' : 'Length', from: 'km', to: 'm' })}`;
-    const controls = screen.getAllByRole('button', { name, exact: true });
+    const controls = screen.getAllByRole('button', { name });
     expect(controls).toHaveLength(2);
     for (const control of controls) expect(control).toHaveTextContent('km → m');
     const control = controls[0];
@@ -42,7 +42,6 @@ it.each(['de', 'en'] as const)(
     expect(
       screen.getByRole('combobox', {
         name: t('convert.toUnit', locale),
-        exact: true,
       }),
     ).toHaveValue(locale === 'de' ? 'm · Meter' : 'm · metre');
   },
