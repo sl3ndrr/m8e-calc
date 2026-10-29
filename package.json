@@ -33,7 +33,7 @@
     "motion": "^14.4.0",
     "@fontsource-variable/roboto-flex": "^5.2.8",
     "@fontsource-variable/roboto-mono": "^5.2.7",
-    "material-symbols": "^0.48.0",
+    "material-symbols": "^0.48.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "zustand": "^5.0.8",
