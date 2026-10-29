@@ -33,6 +33,7 @@ export default defineConfig({
       name,
       testMatch: [
         '**/qa-hardening.spec.ts',
+        '**/label-in-name.spec.ts',
         '**/comfort.spec.ts',
         '**/settings-actions.spec.ts',
         '**/ap18-ui.spec.ts',

@@ -117,3 +117,71 @@ verlangt zusätzlich null Browserfehler. Sämtliche fachlichen und Meldungsasser
 bleiben erhalten; Produktcode, Fristen, Retries und Baselines unverändert.
 Neuer aktueller CI-Nachweis erforderlich; der rote Originallauf bleibt erhalten.
 Details und lesbare Originaltrace-Auszüge: [WP03](WP03.md).
+
+## WP-04 · Label in Name aus PR #65 · 29.10.2026
+
+Lokal auf `feat/audit-wp-04` umgesetzt, Code-/Regressionencommit
+`d147e905b4c09b3aa7c0fdc2dd7ba2d5d1a106c7`, tatsächliche Basis
+`7525d315184f83c23406671a488241856e594d0e` einschließlich WP-01 bis WP-03.
+Der weiterhin offene PR #65 liefert die benötigten Produktkorrekturen für
+Ergebniswert, Speicher-/Funktionskürzel, Verlauf, Einheiten-/Währungskarten und
+Rail-Badges. WP-02s bereits korrekte lokalisierte Definitionsnamen bleiben
+bytegleich erhalten. Nur die zusammengehörigen Playwright-/axe-Updates aus dem
+PR übernommen; keine unabhängigen Dependency-, Grenz- oder Baselineänderungen.
+de/en-Regressionen aktivieren die Label-in-Name-Regel ausdrücklich im vollständigen
+axe-Scan und ergänzen vier Modi, Währungen, lange Werte, Fokus und Einzelansagen.
+
+**Pflichtabnahme blockiert:** npm 11.19.0 und `npm ci` scheitern an Registry-403;
+check, Vitest, Produktionsbuild, Browsermatrix, Visuals und separate Galerie
+starten ihre Prüfer nicht. Ergänzende i18n-/Quell-/Syntax-/Formatprüfungen bestehen
+(32 Quellgegenproben, 27 Syntaxdateien). Grüne historische PR-65-CI und aktuelle
+main-/Pages-Kette der Basis enthalten diesen Diff nicht. Physische Screenreader- /
+Sprachsteuerungsabnahme separat offen. Keine Remoteänderungen oder Freigabe.
+Identitäten, Dateien, exakte Befehle, Ergebnisse, Runtimegrenzen und
+Offen / Folgearbeiten: [WP04](WP04.md).
+
+WP-04-Folgeauftrag: [Draft-PR #83](https://github.com/sl3ndrr/m8e-calc/pull/83)
+ist veröffentlicht, initialer Head `08c7ae3d…`, Prüf-/Build-SHA `b6c504c4…`.
+Erste Pflicht-CI 40845905012 besteht check auf beiden Node-Versionen
+(576 UI-/1702 Domänentests), Galerie 75, Visuals 24 und Provenienz 36;
+AP22/AP28 sind ebenfalls grün. Chromium und Firefox decken einen Fehler der
+neuen Testassertion auf: axe meldet reine Symbolzeichen bestimmungsgemäß als
+manuell zu prüfen, während der Test pauschal keine `incomplete`-Befunde verlangt.
+Die Korrektur prüft jeden solchen Knoten auf konkretes Ziel, exaktes Zeichen
+und sprechbaren de/en-Aktionsnamen. Unbekannte/abweichende Befunde bleiben Fehler;
+Gegenproben sichern falsche Namen, unbekannte Symbole und Formelmismatches ab.
+Vollständige Scans und alle fachlichen Assertions/Grenzen bleiben bindend,
+Produkt unverändert. Finaler Korrekturhead benötigt einen eigenen vollständigen
+CI-Nachweis; Originalfehler und Quellen sind in [WP04](WP04.md) dokumentiert.
+
+Der typkorrigierte Head `7a99ac8…` besteht check. Seine weiterlaufende Suite
+bestätigt danach einen Paar-Namensverstoß (`km → m` gegenüber „km to m“) und
+doppelte Namen der Einheitenauswahlpfeile im echten Browserartefakt. Gemeinsamer
+sichtbarer Paartext als Namenspräfix und einmalige Feldlabel-Verknüpfung per
+`aria-labelledby` korrigieren diese Produktbefunde; de/en-Komponenten-/Browsertests
+sichern beide Fälle. Die konkrete Symbolprüfung berücksichtigt den Auswahlpfeil
+zusammen mit seinem tatsächlichen Feldlabel. Die zwei negativen Gegenproben
+bestehen bereits; bestätigte Verstöße bleiben weiter blockierend. Neue vollständige
+CI auf dem finalen Head erforderlich, keine Freigabe aus einem roten Lauf.
+
+Head `443b72a…` besteht check mit 580 UI-/1702 Domänentests und Galerie.
+Sechs Visualfälle stoppen am alten exakten Paar-Namensselektor, vor jedem
+Pixelvergleich. Visual-/Persistenztest und AP18-Aufnahmeskript erwarten nun
+den vollständigen korrigierten Namen. Keine Bildreferenz oder Prüfgrenze
+geändert; eigener vollständiger CI-Nachweis auf diesem Folgehead bleibt nötig.
+
+Die abgeschlossenen Graphscans im Chromiumartefakt desselben Vorgängerlaufs
+bestätigen null axe-Verstöße, aber zwei noch nicht erfasste Symbolaktionen
+(`↕`, `⋯`). Deren konkrete Prüfung verlangt jetzt Funktionszeile, Glyph und
+exakten de/en-Aktionsnamen mit Nummer. Währungs-/Fokusfälle und Gegenproben
+bestehen bereits; endgültiger Lauf auf der vollständigen Korrektur folgt in #83.
+
+Wiederaufnahme nach Umgebungsausfall: CI 40855404744 bestätigt sämtliche neuen
+Label-in-Name-Fälle in drei Engines, check, Galerie und 24 unveränderte Visuals.
+Ein bestehender WebKit-Motion-Fall bleibt rot. Sein ausgewerteter Trace bestätigt
+einen unbeabsichtigten Dokumentreload im als warm vorbereiteten Test; die
+Hypothese einer überlebenden Exit-blockierenden Probe ist widerlegt. Echte
+Moduslinks, zusätzliche Dokumentidentitätsassertions, auf den Zielmodus begrenzte
+Tastenselektoren und begrenzte Lebensdauer der Messprobe korrigieren die
+Vorbereitung. Alle Motion-/Cold-Load-Prüfungen und Grenzen bleiben bindend;
+eigene finale Pflicht-CI erforderlich. Details und Rohbeleg: [WP04](WP04.md).

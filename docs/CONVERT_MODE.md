@@ -29,6 +29,16 @@ Einheitenkarten kopieren den formatierten Wert inklusive Symbol. Die Ziel-
 Einheit wird hervorgehoben. Sortierung nach Größe nutzt AP10-Basiswerte für
 jeweils eine Einheit; funktionale/affine Definitionen werden genauso ausgewertet.
 
+Die Kopieraktion erhält ihren zugänglichen Namen aus dem gesamten sichtbaren
+Karteninhalt (Einheitenname, aktueller Wert, Symbol und System), ergänzt um die
+lokalisierte Aktion. Währungskarten schließen Code, Name, Zahl und Symbol ein.
+Kein pauschales `aria-label` verdeckt diese Inhalte und keine zusätzliche
+Live-Region wiederholt sie. WP-04-Nachweise und offene Abnahme: [WP04](WP04.md).
+
+Favoriten-/zuletzt verwendete Paare verwenden dieselbe vollständige sichtbare
+Zeichenfolge wie `km → m` als Namenspräfix, ergänzt um die lokalisierte Ladeaktion
+mit Kategorie. Sichtbarer Text und Namenspräfix kommen aus einer gemeinsamen Quelle.
+
 Schnelleingabe: `/` fokussiert; Enter übernimmt z. B. `5 km in mi`,
 `72 °F -> °C` oder `3 ft 4 in`. Ohne Ziel bleibt das Ziel derselben Kategorie
 erhalten, andernfalls wird die Kategorie-Basis gewählt. Dezimalzeichen folgt

@@ -408,3 +408,13 @@ Die normale Drei-Engine-Pixelregression prüft Hell/Dunkel, Phasen, Resize und
 native DPR-Rückfälle. Maßgeblich bleiben alle ursprünglichen Performancegates
 und die abschließende Produkt-CI; ein insgesamt roter kontrollierter Vergleich
 mit nachgewiesen rotem Original darf nicht als grüner Workflow bezeichnet werden.
+
+## WP-04 · Label in Name
+
+[docs/ACCESSIBILITY_LABEL_IN_NAME.md](docs/ACCESSIBILITY_LABEL_IN_NAME.md)
+trennt die historischen PR-65-Nachweise von der lokalen Übernahme auf aktuellem
+main. Sichtbarer Text einschließlich Zahl, Kürzel, Definition, Einheit, Zähler
+und Badge gehört in den zugänglichen Aktionsnamen. Die lokalisierte Anzeige aus
+WP-02 bleibt von kanonischem Bearbeitungsquelltext getrennt. Die Produktions-
+und Galerieregression aktiviert `label-content-name-mismatch` ausdrücklich,
+ohne andere Regeln auszuschalten. Aktueller Prüfstatus: [docs/WP04.md](docs/WP04.md).

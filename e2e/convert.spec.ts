@@ -142,7 +142,10 @@ test('quiet history replaces pairs, restores and survives reload with favorites'
   await expect(
     page
       .getByRole('region', { name: t('convert.favorites'), exact: true })
-      .getByRole('button', { name: 'Länge: km nach mi laden' }),
+      .getByRole('button', {
+        name: 'km → mi · Länge: km nach mi laden',
+        exact: true,
+      }),
   ).toBeVisible();
 });
 test('category grid arrows, copying, reduced motion and accessibility', async ({
@@ -162,7 +165,7 @@ test('category grid arrows, copying, reduced motion and accessibility', async ({
     .fill('5 km in mi');
   await page.getByRole('button', { name: t('convert.apply') }).click();
   await page
-    .getByRole('button', { name: 'Meter kopieren', exact: true })
+    .getByRole('button', { name: /^Meter .* Meter kopieren$/, exact: true })
     .click();
   await expect
     .poll(() => page.evaluate(() => navigator.clipboard.readText()))

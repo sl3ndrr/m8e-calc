@@ -1,0 +1,318 @@
+{
+  "scope": "Source expressions, original translators, syntax and lockfile only; NOT a DOM, typecheck, axe or browser result",
+  "runtime": "v24.22.1",
+  "typescript": "5.9.3",
+  "base": "7525d315184f83c23406671a488241856e594d0e",
+  "cases": [
+    {
+      "locale": "de",
+      "key": "MC",
+      "visible": "MC"
+    },
+    {
+      "locale": "de",
+      "key": "MR",
+      "visible": "MR"
+    },
+    {
+      "locale": "de",
+      "key": "MS",
+      "visible": "MS"
+    },
+    {
+      "locale": "de",
+      "key": "M+",
+      "visible": "M+"
+    },
+    {
+      "locale": "de",
+      "key": "M-",
+      "visible": "M−"
+    },
+    {
+      "locale": "de",
+      "key": "clearEntry",
+      "visible": "CE"
+    },
+    {
+      "locale": "de",
+      "key": "sqrt",
+      "visible": "√x"
+    },
+    {
+      "locale": "de",
+      "key": "square",
+      "visible": "x²"
+    },
+    {
+      "locale": "de",
+      "key": "reciprocal",
+      "visible": "1/x"
+    },
+    {
+      "locale": "de",
+      "value": "15",
+      "before": "Ergebnis kopieren",
+      "after": "15 · Ergebnis kopieren"
+    },
+    {
+      "locale": "de",
+      "value": "−1,23456789012345e+100",
+      "before": "Ergebnis kopieren",
+      "after": "−1,23456789012345e+100 · Ergebnis kopieren"
+    },
+    {
+      "locale": "de",
+      "value": "1,234,567,890,123,456",
+      "before": "Ergebnis kopieren",
+      "after": "1,234,567,890,123,456 · Ergebnis kopieren"
+    },
+    {
+      "locale": "de",
+      "entry": {
+        "input": "12 + 3",
+        "result": "15"
+      },
+      "before": "Wiederherstellen: 12 + 3",
+      "after": "Wiederherstellen: 12 + 3 15"
+    },
+    {
+      "locale": "de",
+      "entry": {
+        "input": "v = 12345.678901234567890123456789",
+        "result": "gespeichert / saved"
+      },
+      "before": "Wiederherstellen: v = 12345.678901234567890123456789",
+      "after": "Wiederherstellen: v = 12345.678901234567890123456789 gespeichert / saved"
+    },
+    {
+      "locale": "de",
+      "entry": {
+        "input": "5 km → m",
+        "result": "5.000 m"
+      },
+      "before": "Wiederherstellen: 5 km → m",
+      "after": "Wiederherstellen: 5 km → m 5.000 m"
+    },
+    {
+      "locale": "de",
+      "entry": {
+        "input": "sin(x) ; x^2",
+        "result": "2 Funktionen / functions"
+      },
+      "before": "Wiederherstellen: sin(x) ; x^2",
+      "after": "Wiederherstellen: sin(x) ; x^2 2 Funktionen / functions"
+    },
+    {
+      "locale": "en",
+      "key": "MC",
+      "visible": "MC"
+    },
+    {
+      "locale": "en",
+      "key": "MR",
+      "visible": "MR"
+    },
+    {
+      "locale": "en",
+      "key": "MS",
+      "visible": "MS"
+    },
+    {
+      "locale": "en",
+      "key": "M+",
+      "visible": "M+"
+    },
+    {
+      "locale": "en",
+      "key": "M-",
+      "visible": "M−"
+    },
+    {
+      "locale": "en",
+      "key": "clearEntry",
+      "visible": "CE"
+    },
+    {
+      "locale": "en",
+      "key": "sqrt",
+      "visible": "√x"
+    },
+    {
+      "locale": "en",
+      "key": "square",
+      "visible": "x²"
+    },
+    {
+      "locale": "en",
+      "key": "reciprocal",
+      "visible": "1/x"
+    },
+    {
+      "locale": "en",
+      "value": "15",
+      "before": "Copy result",
+      "after": "15 · Copy result"
+    },
+    {
+      "locale": "en",
+      "value": "−1,23456789012345e+100",
+      "before": "Copy result",
+      "after": "−1,23456789012345e+100 · Copy result"
+    },
+    {
+      "locale": "en",
+      "value": "1,234,567,890,123,456",
+      "before": "Copy result",
+      "after": "1,234,567,890,123,456 · Copy result"
+    },
+    {
+      "locale": "en",
+      "entry": {
+        "input": "12 + 3",
+        "result": "15"
+      },
+      "before": "Restore: 12 + 3",
+      "after": "Restore: 12 + 3 15"
+    },
+    {
+      "locale": "en",
+      "entry": {
+        "input": "v = 12345.678901234567890123456789",
+        "result": "gespeichert / saved"
+      },
+      "before": "Restore: v = 12345.678901234567890123456789",
+      "after": "Restore: v = 12345.678901234567890123456789 gespeichert / saved"
+    },
+    {
+      "locale": "en",
+      "entry": {
+        "input": "5 km → m",
+        "result": "5.000 m"
+      },
+      "before": "Restore: 5 km → m",
+      "after": "Restore: 5 km → m 5.000 m"
+    },
+    {
+      "locale": "en",
+      "entry": {
+        "input": "sin(x) ; x^2",
+        "result": "2 Funktionen / functions"
+      },
+      "before": "Restore: sin(x) ; x^2",
+      "after": "Restore: sin(x) ; x^2 2 Funktionen / functions"
+    }
+  ],
+  "syntax": [
+    {
+      "path": "e2e/ap36-motion.spec.ts",
+      "sha256": "818f5efeedc3183bd6ce8098c0d174431c3c04f7cb268ed71d1a58db639bb729"
+    },
+    {
+      "path": "e2e/app-shell.spec.ts",
+      "sha256": "a289a46bb280f3c165fbedcb1d7f6bbd31cb0de9a518da8ddb23fe146a351f9e"
+    },
+    {
+      "path": "e2e/buttonContractCases.ts",
+      "sha256": "e29b4fb1dbcc22ef46b97144b7f1a4c3a8446c06da6bb400494ad4a0f821ab45"
+    },
+    {
+      "path": "e2e/comfort.spec.ts",
+      "sha256": "9eba4212d7143db92b6c6a3a1f747521d5b59f99b366cd3a5dc18200028d48ea"
+    },
+    {
+      "path": "e2e/components.spec.ts",
+      "sha256": "961cec42bf08829402c4170f95b2abf84902cdb442b6c6a1546b9a63f51ba47d"
+    },
+    {
+      "path": "e2e/convert.spec.ts",
+      "sha256": "ed3a59a9abc9582a76bd5fa7693f0a58f34049b8c3fe2695925f94d03d8621f5"
+    },
+    {
+      "path": "e2e/graph-implicit.spec.ts",
+      "sha256": "0579fade3d012f56b7c6d8ecea7bb4b3e7d5c0d6bea10e97bf835f9608e92a1f"
+    },
+    {
+      "path": "e2e/graph.spec.ts",
+      "sha256": "bf396df5645591ada471311b8d4bb3ae1bb1c87c954502101ab62d2730444d68"
+    },
+    {
+      "path": "e2e/label-in-name.spec.ts",
+      "sha256": "db074655475c1b038163811d3d64888d4f717fc8505ce28a282a315d303b5e99"
+    },
+    {
+      "path": "e2e/programmer.spec.ts",
+      "sha256": "7be9f3daf2a1a6e621228d826ef996cadf50eb63e627d422159740e1ee1b4cab"
+    },
+    {
+      "path": "e2e/qa-hardening.spec.ts",
+      "sha256": "a5a4ee44bedcef64a38f6912ed13c19c32f6ac37937adb6e3d72903f2bde8cc1"
+    },
+    {
+      "path": "e2e/qa-setup.ts",
+      "sha256": "ac7ad52df98678fb84ed810595d6a7d9dafd616aac195edc0384624a4c9661d0"
+    },
+    {
+      "path": "e2e/scientific.spec.ts",
+      "sha256": "1b9084e094343c80a30e5fe96dafa355ccd7868663750dd45f10027c479e73be"
+    },
+    {
+      "path": "playwright.config.ts",
+      "sha256": "40596036001476a76ff13efe9f5aec6d0b26323915a14f073f76fe7fa172e825"
+    },
+    {
+      "path": "src/app/App.tsx",
+      "sha256": "5c0991482a4ef1a7a7ff4eaedf4205cb94245d19a8e3cbf8798c02ab7bbe7f1e"
+    },
+    {
+      "path": "src/app/HistorySheet.test.tsx",
+      "sha256": "4aff4c81371084dcd759a3b4f111630a88f65cbb734cf82afddd759c287b1928"
+    },
+    {
+      "path": "src/app/HistorySheet.tsx",
+      "sha256": "d92dd2f306289e5ae49181f0279fd5f4033ccd5e220624437b2284efc2f99a23"
+    },
+    {
+      "path": "src/features/convert/ConvertMode.tsx",
+      "sha256": "fc542519e717c473b4963e115c3c1c2d83732a9167f0a757d4a713e0bbd5c9ca"
+    },
+    {
+      "path": "src/features/convert/currency/CurrencyPanel.tsx",
+      "sha256": "5da2e6c8a2be7c297806bbba4fd3e9363fb0061cca5b65f9475ff7267c91d5ee"
+    },
+    {
+      "path": "src/features/scientific/ScientificKeypad.tsx",
+      "sha256": "f7fc7f15b0a9b402c86206fee075a8358faa792ce38b343166891e6143e27d94"
+    },
+    {
+      "path": "src/features/simple/SimpleMode.test.tsx",
+      "sha256": "3a181a15bbd9e6eba36f4a0a2ebb3574163837f25cff47059a98804ce1360435"
+    },
+    {
+      "path": "src/shared/i18n/coreDE.ts",
+      "sha256": "1543a551e4f630715537f24338cf39c2688782baf1e3f7c29c838f7172a30550"
+    },
+    {
+      "path": "src/shared/i18n/coreEN.ts",
+      "sha256": "b8f25fd44999ee3510d894a3668137f6a4ff1494994199ae41724f115098e7cf"
+    },
+    {
+      "path": "src/ui/NavigationRail.tsx",
+      "sha256": "d96dd225d099b87dc907651a2c0fb2a2005adfbe6dc5976385e63aa74358842e"
+    },
+    {
+      "path": "src/ui/components.test.tsx",
+      "sha256": "a4a3ab8862b880508b4dc1ed2fb8b1db68d688c7f8741180ce4d689c0c19747f"
+    },
+    {
+      "path": "src/ui/keypad/CalculatorDisplay.tsx",
+      "sha256": "b74da89ccefb04b9ebed133fde91799c497d041c34b94d807d60203f3563768a"
+    },
+    {
+      "path": "src/ui/keypad/keypad.test.tsx",
+      "sha256": "8fc85a61c5c7824abab5764b6bb21d02c6d0512a68387fa5471e521e0ef87796"
+    }
+  ],
+  "unchangedWP02": "src/features/scientific/ReferencePanels.tsx",
+  "unrelatedLockEntriesUnchanged": true
+}

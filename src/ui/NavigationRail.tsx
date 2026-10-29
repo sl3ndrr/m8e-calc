@@ -51,7 +51,7 @@ export function NavigationRail({
         <Link
           key={item.id}
           href={item.href}
-          aria-label={item.label}
+          aria-label={[item.badge, item.label].filter(Boolean).join(' ')}
           aria-current={item.id === selectedId ? 'page' : undefined}
           className="ui-rail-link"
         >
@@ -59,7 +59,7 @@ export function NavigationRail({
           <span className="ui-rail-icon">
             <Icon name={item.icon} filled={item.id === selectedId} />
             {item.badge && <span className="ui-rail-badge">{item.badge}</span>}
-          </span>
+          </span>{' '}
           <span>{item.label}</span>
         </Link>
       ))}

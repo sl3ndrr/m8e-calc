@@ -45,7 +45,7 @@ for (const [width, height] of [
             page
               .getByRole('region', { name: 'Zuletzt genutzt', exact: true })
               .getByRole('button', {
-                name: 'Länge: km nach mi laden',
+                name: 'km → mi · Länge: km nach mi laden',
                 exact: true,
               }),
           ).toBeVisible();

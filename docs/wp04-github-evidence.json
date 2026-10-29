@@ -1,0 +1,275 @@
+{
+  "read_utc": "2026-10-29T07:59:04.588Z",
+  "pr65": {
+    "url": "https://github.com/sl3ndrr/m8e-calc/pull/65",
+    "number": 65,
+    "state": "open",
+    "merged": false,
+    "mergeable": true,
+    "draft": false,
+    "body": "## Was\n\nDas Playwright-/axe-Update wird auf aktuellem main `de0fcd0a` integriert und die dadurch sichtbaren Label-in-Name-Befunde werden im Produkt korrigiert.\n\n- Sichtbare Speicher-/Funktionstasten und der aktuelle Ergebniswert bleiben im zugänglichen Namen erhalten, auf Deutsch und Englisch.\n- Verlauf nennt Zähler, Ausdruck und Ergebnis. Echte Text-Leerzeichen trennen die bisher nur durch CSS getrennten Bestandteile.\n- Einheiten-/Währungskarten erhalten ihren Namen aus dem vollständigen sichtbaren Inhalt plus lokalisierter Kopieraktion. Definitionen und die zweite wissenschaftliche Tastenebene sind berücksichtigt.\n- Navigation nennt auch Badges und behält ihren Namen bei eingeklappter Rail.\n- Playwright 1.64.1 und `@axe-core/playwright` 4.14.0 bleiben aktiviert; keine axe-Regel, Produktknoten, Performancegrenze oder Bildreferenz wurde zur Umgehung des Befunds abgeschwächt.\n\n## Warum\n\nDie [Originallogs](https://github.com/sl3ndrr/m8e-calc/actions/runs/39512695733) gehören zum damaligen Produktstand. Auf dem unveränderten aktuellen main zeigt ein isolierter 2×2-Vergleich in Chromium, Firefox und WebKit: axe 4.14 aktiviert die vorher experimentelle Regel standardmäßig und vergleicht zusammenhängende Wörter statt Teilstrings.\n\nIm Einfach-Fall mit `12 + 3`, Ergebnis `15` und geöffnetem Verlauf:\n\n| axe | Standardscan | Regel ausdrücklich aktiviert |\n| --- | ---: | ---: |\n| 4.13.0 | 0 betroffene Elemente | 10 |\n| 4.14.0 | 12 | 12 |\n\nDas Ergebnis bleibt mit Playwright 1.64.0 und 1.64.1 identisch. Die zusätzlichen beiden Fälle sind `M+` und `M−`: Ein einzelnes „M“ innerhalb von „Zum“/„Vom“ genügt dem neuen Wortvergleich nicht. Bereits vorhandene Produktfehler, Standardaktivierung und Algorithmusänderung sind damit getrennt belegt. Alle übrigen installierten Abhängigkeiten werden gegen mains unverändertes Lockfile geprüft.\n\nAusführliche Analyse und Reproduktion: [docs/ACCESSIBILITY_LABEL_IN_NAME.md](https://github.com/sl3ndrr/m8e-calc/blob/891c72afabab899ef03f55142d5b143f07fce86f/docs/ACCESSIBILITY_LABEL_IN_NAME.md).\n\n## Test\n\nGeprüfter PR-Head: `891c72afabab899ef03f55142d5b143f07fce86f`; Basis und Diagnoseprodukt: `de0fcd0a0846f56226e148c14f7b3bf5d1cb387f`.\n\n- [Vollständige CI mit Quality gate](https://github.com/sl3ndrr/m8e-calc/actions/runs/40106025940): grün. `npm run check` auf Node 24.15.0 und aktueller 24er-Version; 491 UI- und 1.666 Engine-/Units-/Graph-Tests, Build und alle Benchmarks.\n- Vollständige Chromium-/Firefox-/WebKit-Gates einschließlich neuer DE-/EN-Namensprüfungen und unverändert vollständiger axe-Scans; 75 Galerietests, 24 visuelle Referenzvergleiche, Performance, PWA/Provenienz, Artefaktprüfung und Release-/Quellenprüfungen.\n- [Toolchain-Vergleich](https://github.com/sl3ndrr/m8e-calc/actions/runs/40106025939): alle 60 Fälle grün; vier Artefakte mit Versionen, HTML, Selektoren, Rohbefunden und Bildern des gepinnten unreparierten main.\n- [AP22 Graphwerte](https://github.com/sl3ndrr/m8e-calc/actions/runs/40106025947) und [AP28 Graph-/Performance-Nachweise](https://github.com/sl3ndrr/m8e-calc/actions/runs/40106025926): grün.\n- Pipeline-Vertragstests zusätzlich lokal: 9/9 bestanden.\n\n## Screenshots\n\nKeine sichtbare Layoutänderung und keine aktualisierte Bildbaseline. Alle 24 bestehenden Bildvergleiche sind grün; aktuelle Galerie-/Releasebilder liegen in den Artefakten des oben verlinkten CI-Laufs.\n\n## Offen / Folge-Issues\n\nKeine offenen Punkte für diesen P1-Befund. Merge und anschließende main-/Pages-Live-Abnahme sind separat; die PR-Gates belegen keine Veröffentlichung.",
+    "title": "fix(a11y): sichtbare Beschriftungen beim Test-Toolchain-Update erhalten",
+    "base": "main",
+    "base_sha": "de0fcd0a0846f56226e148c14f7b3bf5d1cb387f",
+    "head": "dependabot/npm_and_yarn/test-toolchain-162531cb89",
+    "head_sha": "891c72afabab899ef03f55142d5b143f07fce86f",
+    "head_repo_id": 1416574520,
+    "head_repo_full_name": "sl3ndrr/m8e-calc",
+    "merge_commit_sha": "b56a2a877f0acf10e0bf15352c3b011923aac590",
+    "user": {
+      "login": "dependabot[bot]",
+      "name": "dependabot[bot]",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/in/29110?v=4",
+      "id": 49699333
+    },
+    "requested_reviewers": null,
+    "requested_team_reviewers": null,
+    "diff": null,
+    "comments": null,
+    "created_at": "2026-10-20T23:05:38Z",
+    "updated_at": "2026-10-27T23:06:43Z",
+    "closed_at": null,
+    "merged_at": null,
+    "commits": 9,
+    "changed_files": 35,
+    "additions": 565,
+    "deletions": 99,
+    "display_url": "https://github.com/sl3ndrr/m8e-calc/pull/65",
+    "display_title": "fix(a11y): sichtbare Beschriftungen beim Test-Toolchain-Update erhalten"
+  },
+  "main": {
+    "content": "{\"ref\":\"refs/heads/main\",\"node_id\":\"REF_kwDOVG82OK9yZWZzL2hlYWRzL21haW4\",\"url\":\"https://api.github.com/repos/sl3ndrr/m8e-calc/git/refs/heads/main\",\"object\":{\"sha\":\"7525d315184f83c23406671a488241856e594d0e\",\"type\":\"commit\",\"url\":\"https://api.github.com/repos/sl3ndrr/m8e-calc/git/commits/7525d315184f83c23406671a488241856e594d0e\"}}",
+    "title": "main",
+    "modified_date": null,
+    "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/git/ref/heads/main",
+    "display_url": "https://api.github.com/repos/sl3ndrr/m8e-calc/git/ref/heads/main",
+    "display_title": "main",
+    "structuredContent": {
+      "title": "main",
+      "content": "{\"ref\":\"refs/heads/main\",\"node_id\":\"REF_kwDOVG82OK9yZWZzL2hlYWRzL21haW4\",\"url\":\"https://api.github.com/repos/sl3ndrr/m8e-calc/git/refs/heads/main\",\"object\":{\"sha\":\"7525d315184f83c23406671a488241856e594d0e\",\"type\":\"commit\",\"url\":\"https://api.github.com/repos/sl3ndrr/m8e-calc/git/commits/7525d315184f83c23406671a488241856e594d0e\"}}",
+      "display_url": "https://api.github.com/repos/sl3ndrr/m8e-calc/git/ref/heads/main"
+    }
+  },
+  "jobs": [
+    {
+      "id": 123157397521,
+      "name": "Production build",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40785458612
+    },
+    {
+      "id": 123157397905,
+      "name": "Pipeline contract tests",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40785458612
+    },
+    {
+      "id": 123157397960,
+      "name": "Node 24 minimum",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40785458612
+    },
+    {
+      "id": 123157399354,
+      "name": "Currency source evidence",
+      "status": "completed",
+      "conclusion": "skipped",
+      "run_id": 40785458612
+    },
+    {
+      "id": 123158286969,
+      "name": "Pages artifact verification",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40785458612
+    },
+    {
+      "id": 123158287010,
+      "name": "Graph performance",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40785458612
+    },
+    {
+      "id": 123158287141,
+      "name": "Gallery",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40785458612
+    },
+    {
+      "id": 123158287304,
+      "name": "Release assets / images",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40785458612
+    },
+    {
+      "id": 123158287314,
+      "name": "Hardening QA / visual",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40785458612
+    },
+    {
+      "id": 123158287316,
+      "name": "Hardening QA / measure (after)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40785458612
+    },
+    {
+      "id": 123158287318,
+      "name": "Build provenance / evidence",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40785458612
+    },
+    {
+      "id": 123158287449,
+      "name": "Hardening QA / measure (before)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40785458612
+    },
+    {
+      "id": 123158287468,
+      "name": "Hardening QA / browsers (firefox)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40785458612
+    },
+    {
+      "id": 123158287528,
+      "name": "Hardening QA / browsers (chromium)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40785458612
+    },
+    {
+      "id": 123158287551,
+      "name": "Hardening QA / browsers (webkit)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40785458612
+    },
+    {
+      "id": 123158287649,
+      "name": "Hardening QA / browsers (qa-performance)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40785458612
+    },
+    {
+      "id": 123165634832,
+      "name": "Hardening QA / QA gate",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40785458612
+    },
+    {
+      "id": 123165739857,
+      "name": "Quality gate",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40785458612
+    },
+    {
+      "id": 123165805588,
+      "name": "Deploy Pages",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40785458612
+    }
+  ],
+  "other_read_states": [
+    {
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/pulls/81",
+      "number": 81,
+      "state": "closed",
+      "merged": true,
+      "head": "7fb3cd91e1df659f31070b0a25f987e34024212c",
+      "head_sha": null,
+      "status": null,
+      "conclusion": null,
+      "updated_at": "2026-10-28T21:39:34Z"
+    },
+    {
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/pulls/82",
+      "number": 82,
+      "state": "closed",
+      "merged": true,
+      "head": "b11d07975b365b6282f26fcfaa1d32919ab2113c",
+      "head_sha": null,
+      "status": null,
+      "conclusion": null,
+      "updated_at": "2026-10-28T23:10:33Z"
+    },
+    {
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/runs/40106025940",
+      "number": null,
+      "state": null,
+      "merged": null,
+      "head": null,
+      "head_sha": "891c72afabab899ef03f55142d5b143f07fce86f",
+      "status": "completed",
+      "conclusion": "success",
+      "updated_at": "2026-10-24T15:34:22Z"
+    },
+    {
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/runs?head_sha=7525d315184f83c23406671a488241856e594d0e&per_page=10",
+      "number": null,
+      "state": null,
+      "merged": null,
+      "head": null,
+      "head_sha": null,
+      "status": null,
+      "conclusion": null,
+      "updated_at": null
+    },
+    {
+      "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/issues/22",
+      "number": 22,
+      "state": "open",
+      "merged": null,
+      "head": null,
+      "head_sha": null,
+      "status": null,
+      "conclusion": null,
+      "updated_at": "2026-10-22T09:48:12Z"
+    }
+  ],
+  "supplement": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/pulls/65/reviews",
+        "data": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/issues/65/comments",
+        "data": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "url": "https://api.github.com/repos/sl3ndrr/m8e-calc/actions/runs/40106025939",
+        "data": {
+          "id": 40106025939,
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "891c72afabab899ef03f55142d5b143f07fce86f",
+          "updated_at": "2026-10-24T15:18:00Z"
+        }
+      }
+    }
+  ]
+}

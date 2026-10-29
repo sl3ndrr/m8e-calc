@@ -13,6 +13,7 @@ import * as UI from './index';
 import type { ReactNode } from 'react';
 import { useSettingsStore } from '../shared/settingsStore';
 import { defaultSettings } from '../shared/settings';
+import { t } from '../shared/i18n/extended';
 const options = [
   { id: 'one', label: 'One' },
   { id: 'two', label: 'Two' },
@@ -47,6 +48,7 @@ const fixtures: Record<string, ReactNode> = {
         ...item,
         href: '#one',
         icon: 'palette',
+        badge: item.id === 'two' ? '3' : undefined,
       }))}
     />
   ),
@@ -509,3 +511,31 @@ it('checkbox preserves native mixed/disabled/invalid semantics and changes once 
   await user.click(screen.getByText('Remember'));
   expect(change).toHaveBeenCalledTimes(2);
 });
+
+it('keeps the navigation badge in the accessible link name', () => {
+  render(fixtures.NavigationRail);
+  expect(screen.getByRole('link', { name: '3 Two' })).toBeVisible();
+});
+
+it.each(['de', 'en'] as const)(
+  'names the searchable unit trigger once from its visible label in %s',
+  async (locale) => {
+    const user = userEvent.setup();
+    const label = t('convert.fromUnit', locale);
+    render(
+      <UI.Select
+        label={label}
+        options={options}
+        searchable
+        defaultSelectedKey="one"
+      />,
+    );
+    expect(screen.getByRole('combobox', { name: label })).toHaveAccessibleName(
+      label,
+    );
+    const trigger = screen.getByRole('button', { name: label });
+    expect(trigger).toHaveTextContent('▾');
+    await user.click(trigger);
+    expect(screen.getByRole('listbox')).toBeVisible();
+  },
+);

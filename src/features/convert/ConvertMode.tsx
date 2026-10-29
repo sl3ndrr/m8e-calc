@@ -347,21 +347,26 @@ export default function ConvertMode() {
         <h3>{t(heading, locale)}</h3>
         <div>
           {pairs.length ? (
-            pairs.map((pair) => (
-              <Button
-                key={pairKey(pair)}
-                variant="tonal"
-                size="sm"
-                onPress={() => dispatch({ type: 'pair', pair })}
-                aria-label={t('convert.loadPair', locale, {
-                  category: categoryFor(pair.categoryId).names[locale],
-                  from: unitFor(pair.fromId).symbol,
-                  to: unitFor(pair.toId).symbol,
-                })}
-              >
-                {unitFor(pair.fromId).symbol} → {unitFor(pair.toId).symbol}
-              </Button>
-            ))
+            pairs.map((pair) => {
+              const from = unitFor(pair.fromId).symbol;
+              const to = unitFor(pair.toId).symbol;
+              const label = `${from} → ${to}`;
+              return (
+                <Button
+                  key={pairKey(pair)}
+                  variant="tonal"
+                  size="sm"
+                  onPress={() => dispatch({ type: 'pair', pair })}
+                  aria-label={`${label} · ${t('convert.loadPair', locale, {
+                    category: categoryFor(pair.categoryId).names[locale],
+                    from,
+                    to,
+                  })}`}
+                >
+                  {label}
+                </Button>
+              );
+            })
           ) : (
             <p>{t('convert.noPairs', locale)}</p>
           )}
@@ -679,9 +684,6 @@ export default function ConvertMode() {
                     <Button
                       variant="text"
                       isDisabled={!!state.error}
-                      aria-label={t('convert.copyUnit', locale, {
-                        unit: unit.names[locale],
-                      })}
                       onPress={() => {
                         const value = values[unit.id];
                         if (value !== undefined)
@@ -707,6 +709,11 @@ export default function ConvertMode() {
                       <span className="convert-unit-system">
                         {t(`convert.system.${unit.system}`, locale)}
                       </span>
+                      <VisuallyHidden>
+                        {t('convert.copyUnit', locale, {
+                          unit: unit.names[locale],
+                        })}
+                      </VisuallyHidden>
                     </Button>
                   </Card>
                 ))}
