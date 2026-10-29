@@ -353,13 +353,19 @@ for (const [motion, reduced] of [
     // Resolve the lazy keypad before installing the paused-digit probe. Cold
     // mode loading is covered separately; this test measures live press frames.
     await page.goto('/m8e-calc/#/scientific');
-    await expect(page.locator('[data-key="+"] button')).toBeVisible();
-    await page.goto('/m8e-calc/#/simple');
+    await expect(
+      page.locator('.scientific-keypad-panel [data-key="+"] button'),
+    ).toBeVisible();
+    const documentOrigin = await page.evaluate(() => performance.timeOrigin);
+    await page.locator('.shell-rail a[href="#/simple"]').click();
+    expect(await page.evaluate(() => performance.timeOrigin)).toBe(
+      documentOrigin,
+    );
     await ready(page);
     await settle(page.locator('.mode-stage'));
     const viewport = page.locator('.calculator-viewport');
     await settle(viewport);
-    await page.evaluate(() => {
+    const digitProbe = await page.evaluateHandle(() => {
       const animate = Element.prototype.animate;
       Element.prototype.animate = function (frames, options) {
         const animation = animate.call(this, frames, options);
@@ -367,41 +373,56 @@ for (const [motion, reduced] of [
           animation.pause();
         return animation;
       };
+      return () => {
+        Element.prototype.animate = animate;
+      };
     });
-    await page.keyboard.press('9');
-    const digit = await viewport.evaluate((node) =>
-      node.getAnimations({ subtree: true }).map((a) => ({
-        frames:
-          a.effect instanceof KeyframeEffect ? a.effect.getKeyframes() : [],
-        duration: a.effect?.getTiming().duration,
-      })),
-    );
-    if (motion === 'off') expect(digit).toEqual([]);
-    else {
-      expect(digit.length).toBeGreaterThan(0);
-      expect(
-        digit.some((a) =>
-          a.frames.some((f) => String(f.transform).includes('translateY')),
-        ),
-      ).toBe(motion === 'full' && !reduced);
+    try {
+      await page.keyboard.press('9');
+      const digit = await viewport.evaluate((node) =>
+        node.getAnimations({ subtree: true }).map((a) => ({
+          frames:
+            a.effect instanceof KeyframeEffect ? a.effect.getKeyframes() : [],
+          duration: a.effect?.getTiming().duration,
+        })),
+      );
+      if (motion === 'off') expect(digit).toEqual([]);
+      else {
+        expect(digit.length).toBeGreaterThan(0);
+        expect(
+          digit.some((a) =>
+            a.frames.some((f) => String(f.transform).includes('translateY')),
+          ),
+        ).toBe(motion === 'full' && !reduced);
+      }
+      await viewport.evaluate((node) =>
+        node.getAnimations({ subtree: true }).forEach((a) => {
+          a.pause();
+          a.currentTime = Number(a.effect?.getTiming().duration) / 2;
+        }),
+      );
+      await info.attach('digit-middle', {
+        body: await viewport.screenshot(),
+        contentType: 'image/png',
+      });
+      await viewport.evaluate((node) =>
+        node.getAnimations({ subtree: true }).forEach((a) => a.play()),
+      );
+      await settle(viewport);
+    } finally {
+      await digitProbe.evaluate((restore) => restore());
+      await digitProbe.dispose();
     }
-    await viewport.evaluate((node) =>
-      node.getAnimations({ subtree: true }).forEach((a) => {
-        a.pause();
-        a.currentTime = Number(a.effect?.getTiming().duration) / 2;
-      }),
-    );
-    await info.attach('digit-middle', {
-      body: await viewport.screenshot(),
-      contentType: 'image/png',
-    });
-    await viewport.evaluate((node) =>
-      node.getAnimations({ subtree: true }).forEach((a) => a.play()),
-    );
-    await settle(viewport);
     for (const mode of ['simple', 'scientific']) {
-      await page.goto(`/m8e-calc/#/${mode}`);
-      const target = page.locator(`[data-key="+"] button`);
+      // goto on the already-active URL reloads the document and discards the
+      // warm module registry. Exercise the actual same-document navigation.
+      await page.locator(`.shell-rail a[href="#/${mode}"]`).click();
+      expect(await page.evaluate(() => performance.timeOrigin)).toBe(
+        documentOrigin,
+      );
+      const target = page.locator(
+        `[data-mode="${mode}"] [data-key="+"] button`,
+      );
       await expect(target).toBeVisible();
       const rest = (await frames(target, 1))[0];
       await target.hover();

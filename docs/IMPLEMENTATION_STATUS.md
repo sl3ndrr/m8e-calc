@@ -175,3 +175,13 @@ bestätigen null axe-Verstöße, aber zwei noch nicht erfasste Symbolaktionen
 (`↕`, `⋯`). Deren konkrete Prüfung verlangt jetzt Funktionszeile, Glyph und
 exakten de/en-Aktionsnamen mit Nummer. Währungs-/Fokusfälle und Gegenproben
 bestehen bereits; endgültiger Lauf auf der vollständigen Korrektur folgt in #83.
+
+Wiederaufnahme nach Umgebungsausfall: CI 40855404744 bestätigt sämtliche neuen
+Label-in-Name-Fälle in drei Engines, check, Galerie und 24 unveränderte Visuals.
+Ein bestehender WebKit-Motion-Fall bleibt rot. Sein ausgewerteter Trace bestätigt
+einen unbeabsichtigten Dokumentreload im als warm vorbereiteten Test; die
+Hypothese einer überlebenden Exit-blockierenden Probe ist widerlegt. Echte
+Moduslinks, zusätzliche Dokumentidentitätsassertions, auf den Zielmodus begrenzte
+Tastenselektoren und begrenzte Lebensdauer der Messprobe korrigieren die
+Vorbereitung. Alle Motion-/Cold-Load-Prüfungen und Grenzen bleiben bindend;
+eigene finale Pflicht-CI erforderlich. Details und Rohbeleg: [WP04](WP04.md).

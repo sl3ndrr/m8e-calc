@@ -1,0 +1,184 @@
+{
+  "captured_utc": "2026-10-29T13:46:13.019499+00:00",
+  "scope": "Original failed WebKit artifact analysis; not a new browser execution",
+  "repository": "sl3ndrr/m8e-calc",
+  "pr": 83,
+  "head": "a0d1e0c8653c70c8580bf5f60173301e70f87321",
+  "build_commit": "f4a69d029b0d178e9a10a9082544e00288ee2352",
+  "run": 40855404744,
+  "job": 123386370674,
+  "artifact": 12890038333,
+  "artifact_sha256": "0447f36592115d1d34075b943ade4eb0703f3cc9037f4a94ff1a0c7ed7cb6001",
+  "trace_sha256": "442f4c6dcf59e191023f0182b440c471e655d0bb8b27e63d0546799e207268c9",
+  "navigation_calls": [
+    {
+      "type": "before",
+      "callId": "uenx@10906",
+      "startTime": 1286170.502,
+      "class": "Frame",
+      "method": "goto",
+      "params": {
+        "url": "/m8e-calc/#/scientific",
+        "waitUntil": "load"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "uenx@10906",
+      "endTime": 1286312.7,
+      "result": {
+        "response": "<Response>"
+      }
+    },
+    {
+      "type": "before",
+      "callId": "uenx@10910",
+      "startTime": 1286821.209,
+      "class": "Frame",
+      "method": "goto",
+      "params": {
+        "url": "/m8e-calc/#/simple",
+        "waitUntil": "load"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "uenx@10910",
+      "endTime": 1286823.086,
+      "result": {}
+    },
+    {
+      "type": "before",
+      "callId": "uenx@10954",
+      "startTime": 1288047.001,
+      "class": "Frame",
+      "method": "goto",
+      "params": {
+        "url": "/m8e-calc/#/simple",
+        "waitUntil": "load"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "uenx@10954",
+      "endTime": 1288139.783,
+      "result": {
+        "response": "<Response>"
+      }
+    },
+    {
+      "type": "before",
+      "callId": "uenx@11011",
+      "startTime": 1289221.874,
+      "class": "Frame",
+      "method": "goto",
+      "params": {
+        "url": "/m8e-calc/#/scientific",
+        "waitUntil": "load"
+      }
+    },
+    {
+      "type": "after",
+      "callId": "uenx@11011",
+      "endTime": 1289223.773,
+      "result": {}
+    }
+  ],
+  "console_messages": [
+    {
+      "type": "console",
+      "messageType": "warning",
+      "text": "Service Worker registration blocked by Playwright",
+      "args": [
+        {
+          "preview": "Service Worker registration blocked by Playwright",
+          "value": "Service Worker registration blocked by Playwright"
+        }
+      ],
+      "location": {
+        "url": "web-inspector://bootstrap.js",
+        "lineNumber": 18,
+        "columnNumber": 103
+      },
+      "time": 1286415.679,
+      "pageId": "page@a3631d70c22c91a648348f1edd6439b8"
+    },
+    {
+      "type": "console",
+      "messageType": "warning",
+      "text": "Service Worker registration blocked by Playwright",
+      "args": [
+        {
+          "preview": "Service Worker registration blocked by Playwright",
+          "value": "Service Worker registration blocked by Playwright"
+        }
+      ],
+      "location": {
+        "url": "web-inspector://bootstrap.js",
+        "lineNumber": 18,
+        "columnNumber": 103
+      },
+      "time": 1288202.247,
+      "pageId": "page@a3631d70c22c91a648348f1edd6439b8"
+    },
+    {
+      "type": "console",
+      "messageType": "warning",
+      "text": "The resource http://127.0.0.1:4173/m8e-calc/assets/roboto-flex-latin-DlhILaPV.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it wasn't preloaded for nothing.",
+      "args": [],
+      "location": {
+        "url": "",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "time": 1291140.632,
+      "pageId": "page@a3631d70c22c91a648348f1edd6439b8"
+    },
+    {
+      "type": "console",
+      "messageType": "warning",
+      "text": "The resource http://127.0.0.1:4173/m8e-calc/assets/roboto-mono-latin-CZtBPCCa.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it wasn't preloaded for nothing.",
+      "args": [],
+      "location": {
+        "url": "",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "time": 1291140.694,
+      "pageId": "page@a3631d70c22c91a648348f1edd6439b8"
+    },
+    {
+      "type": "console",
+      "messageType": "warning",
+      "text": "The resource http://127.0.0.1:4173/m8e-calc/assets/material-symbols-rounded-17-fZmEE.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it wasn't preloaded for nothing.",
+      "args": [],
+      "location": {
+        "url": "",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "time": 1291140.72,
+      "pageId": "page@a3631d70c22c91a648348f1edd6439b8"
+    },
+    {
+      "type": "console",
+      "messageType": "warning",
+      "text": "The resource http://127.0.0.1:4173/m8e-calc/assets/index-C4guI2Cb.js was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it wasn't preloaded for nothing.",
+      "args": [],
+      "location": {
+        "url": "",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "time": 1291140.749,
+      "pageId": "page@a3631d70c22c91a648348f1edd6439b8"
+    }
+  ],
+  "snapshot": "# Instructions\n\n- Following Playwright test failed.\n- Explain why, be concise, respect Playwright best practices.\n- Provide a snippet of code with the fix, if possible.\n\n# Test info\n\n- Name: calculator-rendering.spec.ts >> motion full OS reduced false: digits, release and scientific keypad\n- Location: e2e/calculator-rendering.spec.ts:339:3\n\n# Error details\n\n```\nError: expect(locator).toBeVisible() failed\n\nLocator: locator('[data-key=\"+\"] button')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('[data-key=\"+\"] button') with timeout 5000ms\n  - waiting for locator('[data-key=\"+\"] button')\n\n```\n\n```yaml\n- complementary:\n  - paragraph: m8e-calc\n  - navigation \"Rechnermodi\":\n    - link \"Einfach\":\n      - /url: \"#/simple\"\n    - link \"Wissenschaftlich\":\n      - /url: \"#/scientific\"\n    - link \"Umrechner\":\n      - /url: \"#/convert\"\n    - link \"Graphen\":\n      - /url: \"#/graph\"\n  - button \"Navigation aufklappen\"\n- main \"Wissenschaftlich\":\n  - heading \"Wissenschaftlich\" [level=1]\n  - group \"Personalisierung\":\n    - radiogroup \"Erscheinungsbild\":\n      - radio \"Hell\"\n      - 'radio \"System \u00b7 System: Hell aktiv\" [checked]'\n      - radio \"Dunkel\"\n  - button \"Befehlspalette\"\n  - button \"Tastenk\u00fcrzel\": \"?\"\n  - button \"Pr\u00e4sentationsmodus\"\n  - button \"Einstellungen\"\n  - button \"Verlauf 0 ein-/ausblenden\": Verlauf\n  - progressbar \"Wird geladen\"\n```\n\n",
+  "findings": {
+    "confirmed": "The already active #/simple URL is passed to goto a second time. This goto returns a Response, unlike the two different-hash same-document transitions. A second Service Worker registration warning and a new React Aria ID prefix corroborate document recreation; the warm lazy registry and instrumented animate function are lost.",
+    "disproved": "An instrumentation patch surviving and blocking exit animations cannot explain this trace: the document reload erases the patch. ModeStage does not wait for exit animations.",
+    "unresolved": "This trace records no network resource snapshots, so the internal reason for the subsequent cold ScientificMode suspense delay is not established. Separate cold-load suites remain unchanged.",
+    "regression": "Use actual rail links, assert unchanged performance.timeOrigin after every mode navigation, scope the key selector to the requested mode, and restore the digit probe in finally before measuring live keypad frames."
+  }
+}
