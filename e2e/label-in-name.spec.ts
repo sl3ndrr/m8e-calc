@@ -1,6 +1,5 @@
 import { expect, test, type Page, type Locator } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import type { RuleResult } from 'axe-core';
 import { t, type Locale } from '../src/shared/i18n/extended';
 import { functionRegistry } from '../src/engine';
 import { qaSetup, ready, tabTo } from './qa-setup';
@@ -9,6 +8,9 @@ import { currencyCodes } from '../src/units/currency';
 import { RATE_ENDPOINT } from '../src/features/convert/currency/rates';
 
 test.use({ serviceWorkers: 'block' });
+type RuleResult = Awaited<
+  ReturnType<AxeBuilder['analyze']>
+>['incomplete'][number];
 
 // Keep the full scan. Explicit activation also protects against changes to
 // axe's default/experimental rule selection; require proof it actually ran.
