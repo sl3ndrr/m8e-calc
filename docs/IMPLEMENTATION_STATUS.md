@@ -41,6 +41,12 @@ Tastaturhelper mit zusätzlicher exakter Textprüfung. Zoomaufnahmen schließen
 die zuvor verdeckende Kopiermeldung über ihren realen lokalisierten Button.
 Keine Produktänderung dafür; neue vollständige CI und Bildsichtung erforderlich.
 
+Dritter Lauf: Der separate AP22-Eingabepfad besteht; die Galerie findet einen
+bestehenden Themingfall im gleichzeitigen Lab-/Dialog-Ladezustand (74/75).
+Zusätzliche sichtbare Lab-Vorbedingung im Persistenztest, sämtliche Fokus- und
+Kaltstartprüfungen erhalten. Ursache und Wirksamkeit bis zur neuen CI getrennt
+als Hypothese dokumentiert; keine spekulative Produkt- oder Grenzänderung.
+
 ## WP-07 · Wissenschaftliche Berechnungen im Worker · 29.10.2026
 
 Lokal auf `feat/audit-wp-07` ab aktuellem main
