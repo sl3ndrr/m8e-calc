@@ -1,6 +1,6 @@
 import { chromium, expect, test } from '@playwright/test';
 import { resolve } from 'node:path';
-import { rm } from 'node:fs/promises';
+import { rm, writeFile } from 'node:fs/promises';
 import { ready } from './qa-setup';
 import { t } from '../src/shared/i18n/extended';
 
@@ -41,6 +41,7 @@ test('WP-08 native 100/200% zoom keeps the complete exponent selectable and copy
       width: innerWidth,
       dpr: devicePixelRatio,
     }));
+    const cdp = await context.newCDPSession(page);
     const evidence = [];
     for (const [locale, theme, decimal] of [
       ['de', 'light', ','],
@@ -162,10 +163,39 @@ test('WP-08 native 100/200% zoom keeps the complete exponent selectable and copy
         );
         await page.evaluate(() => document.fonts.ready);
         await result.scrollIntoViewIfNeeded();
-        await page.screenshot({
-          path: info.outputPath(`wp08-zoom-${locale}-${zoom}.png`),
-          fullPage: true,
+        await page.evaluate(() => getSelection()?.removeAllRanges());
+        // Native tab zoom changes DIP/CSS coordinates. Use AP19's capture contract
+        // so the evidence actually contains the fully visible result, not a crop
+        // of the page origin produced by page.screenshot at 200% tab zoom.
+        const bounds = await result.evaluate((node) => {
+          const rect = node.getBoundingClientRect();
+          return {
+            x: rect.x + scrollX,
+            y: rect.y + scrollY,
+            width: rect.width,
+            height: rect.height,
+          };
         });
+        const layout = await cdp.send('Page.getLayoutMetrics');
+        const scale =
+          layout.layoutViewport.clientWidth /
+          layout.cssLayoutViewport.clientWidth;
+        expect(scale).toBeCloseTo(zoom);
+        const capture = await cdp.send('Page.captureScreenshot', {
+          format: 'png',
+          captureBeyondViewport: true,
+          clip: {
+            x: bounds.x * scale,
+            y: bounds.y * scale,
+            width: bounds.width * scale,
+            height: bounds.height * scale,
+            scale: 1,
+          },
+        });
+        await writeFile(
+          info.outputPath(`wp08-zoom-${locale}-${zoom}.png`),
+          Buffer.from(capture.data, 'base64'),
+        );
         evidence.push({ locale, theme, zoom, actual, geometry });
       }
     }

@@ -10,7 +10,8 @@ for (const locale of ['de', 'en'] as const) {
   test(`WP-08 ${locale}: empty, pending, worker completion and errors keep the value slot stable`, async ({
     page,
   }) => {
-    await page.setViewportSize({ width: 1280, height: 900 });
+    const width = locale === 'en' ? 1920 : 1280;
+    await page.setViewportSize({ width, height: width === 1920 ? 1080 : 900 });
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.addInitScript(
       (language) =>
@@ -26,12 +27,42 @@ for (const locale of ['de', 'en'] as const) {
     await installScientificWorkerProbe(page);
     await page.goto('/m8e-calc/#/scientific');
     await ready(page, 'scientific');
+    if (width === 1920) {
+      await page
+        .getByRole('button', {
+          name: t('history.toggleCount', locale, { count: 0 }),
+          exact: true,
+        })
+        .click();
+      await expect(page.locator('.shell-history[data-docked]')).toBeVisible();
+    }
     const result = page.locator('.scientific-result-text');
     const value = page.locator('.scientific-result-value');
     const announcement = page.locator('.scientific-announcement');
     const height = await value.evaluate(
       (node) => node.getBoundingClientRect().height,
     );
+    const card = page.locator('.scientific-result-card');
+    const cardHeight = await card.evaluate(
+      (node) => node.getBoundingClientRect().height,
+    );
+    const expectShortLayout = async () => {
+      expect(
+        await card.evaluate((node) => node.getBoundingClientRect().height),
+      ).toBe(cardHeight);
+      if (width === 1920) {
+        expect(
+          await page
+            .locator('.mode-stage-frame')
+            .evaluate(
+              (node) =>
+                node.scrollHeight <= node.clientHeight + 1 &&
+                node.scrollWidth <= node.clientWidth + 1,
+            ),
+        ).toBe(true);
+      }
+    };
+    await expectShortLayout();
     const editor = page.getByRole('textbox', {
       name: t('scientific.expression', locale),
       exact: true,
@@ -56,6 +87,21 @@ for (const locale of ['de', 'en'] as const) {
     await expect(result).toHaveText(expected);
     await expect(announcement).toHaveText(expected);
     await expect(page.locator('.scientific-preview')).toContainText(expected);
+    await expectShortLayout();
+    if (width === 1920) {
+      const copy = page.getByRole('button', {
+        name: t('scientific.copyText', locale),
+        exact: true,
+      });
+      await copy.focus();
+      await expect(copy).toBeFocused();
+      await expect(copy).toBeInViewport({ ratio: 1 });
+      expect(
+        await page
+          .locator('.mode-stage')
+          .evaluate((node) => getComputedStyle(node).overflowY),
+      ).toBe('auto');
+    }
     expect(
       await value.evaluate((node) => node.getBoundingClientRect().height),
     ).toBe(height);
@@ -230,9 +276,13 @@ for (const [locale, theme, decimalSeparator, grouping, decimal] of [
     );
     await fraction.focus();
     await fraction.press('Space');
-    await page
-      .getByRole('radio', { name: t('scientific.on', locale), exact: true })
-      .check();
+    const complexOn = page.getByRole('radio', {
+      name: t('scientific.on', locale),
+      exact: true,
+    });
+    await complexOn.focus();
+    await complexOn.press('Space');
+    await expect(complexOn).toBeChecked();
     await run('-2.5+3.75i', `-2${decimal}5+3${decimal}75i`);
     await expect(fraction).toBeDisabled();
     await run('factor(12)', '[2, 2, 3]');

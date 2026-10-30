@@ -21,6 +21,19 @@ vorherigem Lockfile-Export. Produktionsbrowserstarts stoppen vor App-Prüfungen;
 echter Zoom und Hell-/Dunkel-Sichtprüfung bleiben offen.
 Keine ungeprüften Bildbaselines aktualisiert, keine Remoteänderungen/Freigabe.
 
+Auf ausdrücklichen Folgeauftrag ist [PR #87](https://github.com/sl3ndrr/m8e-calc/pull/87)
+als Entwurf veröffentlicht. Erste eigene CI besteht beide Node-Checks, Build,
+Galerie, Performance, Provenienz und weitere Gates, findet aber den 27-px-
+Bühnenüberlauf bei 1920×1080, ungeeignete Radio-Pointeraktionen, mehrdeutige
+Definitionstextselektoren und genau sechs beauftragte Bildabweichungen.
+Scoped Bühnenhöhe mit internem Scrollen, echte Tastaturaktionen und vollständige
+Output-/Sichtbarkeitsassertions korrigieren die Befunde. Sechs wissenschaftliche
+Referenzen sind nach dokumentiertem Alt-/Neu-Sichtvergleich gezielt übernommen;
+18 andere Referenzen und sämtliche Prüfgrenzen bleiben erhalten. Echte native
+Zoommessungen sind vorhanden; ihre Bildaufnahme verwendet nun den AP19-DIP/CSS-
+Vertrag. Aktuelle vollständige Pflicht-CI auf dem Korrekturhead bleibt erforderlich.
+Identitäten und Originalbefunde: [WP08](WP08.md), aktueller Abschluss im PR.
+
 ## WP-07 · Wissenschaftliche Berechnungen im Worker · 29.10.2026
 
 Lokal auf `feat/audit-wp-07` ab aktuellem main

@@ -336,9 +336,10 @@ for (const [locale, width] of [
     await tools(true);
     await editor.fill('bits(x)=x<<1');
     await editor.press('Enter');
-    await expect(
-      page.getByText(t('scientific.definitionSaved', locale), { exact: true }),
-    ).toBeVisible();
+    await expect(page.locator('.scientific-result-text')).toHaveText(
+      t('scientific.definitionSaved', locale),
+    );
+    await expect(page.locator('.scientific-result-text')).toBeVisible();
     await tools(false);
     const complex = page.getByRole('radio', {
       name: t('scientific.on', locale),
@@ -353,9 +354,10 @@ for (const [locale, width] of [
     await run('xs=factor(360)', '[2, 2, 2, 3, 3, 5]');
     await editor.fill('f(x)=x+v');
     await editor.press('Enter');
-    await expect(
-      page.getByText(t('scientific.definitionSaved', locale), { exact: true }),
-    ).toBeVisible();
+    await expect(page.locator('.scientific-result-text')).toHaveText(
+      t('scientific.definitionSaved', locale),
+    );
+    await expect(page.locator('.scientific-result-text')).toBeVisible();
     await run('f(shl)+xor', '128');
     const before = await snapshot();
     await page.reload();

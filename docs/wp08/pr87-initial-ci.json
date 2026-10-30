@@ -1,0 +1,128 @@
+{
+  "runId": 41082546143,
+  "attempt": 1,
+  "head": "63fa55f5191158e04549b08317ca4b2d2e247c38",
+  "build": "0f2992cac02101ab776510f1617c699785a7b58c",
+  "tree": "a0b430b0bb3622dbada6b55c5325e84c8015bd6d",
+  "normalArtifact": {
+    "id": 12989164717,
+    "sha256": "390d971cffb76b528d709f45f735a994ee651da137cc9daed0e65738ac76c4fa",
+    "fingerprint": "12bbc7b7364384ab5045c07cbc7fa2313e67992c213f24d82d5a5c522677c42e",
+    "verifiedFiles": 145
+  },
+  "chromiumArtifact": {
+    "id": 12989639723,
+    "sha256": "a5080e34d5f2a56949d804c59347e6bf920f171f51f50ec6e648edd7c49e76be"
+  },
+  "chromiumStats": {
+    "startTime": "2026-10-30T15:40:51.658Z",
+    "duration": 626705.085,
+    "expected": 242,
+    "skipped": 0,
+    "unexpected": 7,
+    "flaky": 0
+  },
+  "chromiumFailures": [
+    {
+      "title": "docked shell has no overflow at 1920×1080",
+      "file": "app-shell.spec.ts",
+      "line": 49,
+      "project": "chromium",
+      "errors": [
+        "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n\n  101 |           }),\n  102 |         )\n> 103 |         .toBe(true)\n      |          ^\n  104 |         .catch(async (error) => {\n  105 |           console.log(\n  106 |             'QA_OVERFLOW',\n    at /home/runner/work/m8e-calc/m8e-calc/e2e/app-shell.spec.ts:103:10"
+      ]
+    },
+    {
+      "title": "WP-08 de/light/auto: visible result, copy, announcement and long values",
+      "file": "scientific-result.spec.ts",
+      "line": 98,
+      "project": "chromium",
+      "errors": [
+        "Test timeout of 30000ms exceeded.",
+        "Error: locator.check: Test timeout of 30000ms exceeded.\nCall log:\n  - waiting for getByRole('radio', { name: 'An', exact: true })\n    - locator resolved to <input title=\"\" value=\"on\" type=\"radio\" tabindex=\"-1\" data-react-aria-pressable=\"true\" name=\"react-aria5571748274-_r_ek_\"/>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <span>An</span> intercepts pointer events\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <span>An</span> intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    51 × waiting for element to be visible, enabled and stable\n       - element is visible, enabled and stable\n       - scrolling into view if needed\n       - done scrolling\n       - <span>An</span> intercepts pointer events\n     - retrying click action\n       - waiting 500ms\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n\n\n  233 |     await page\n  234 |       .getByRole('radio', { name: t('scientific.on', locale), exact: true })\n> 235 |       .check();\n      |        ^\n  236 |     await run('-2.5+3.75i', `-2${decimal}5+3${decimal}75i`);\n  237 |     await expect(fraction).toBeDisabled();\n  238 |     await run('factor(12)', '[2, 2, 3]');\n    at /home/runner/work/m8e-calc/m8e-calc/e2e/scientific-result.spec.ts:235:8"
+      ]
+    },
+    {
+      "title": "WP-08 en/dark/auto: visible result, copy, announcement and long values",
+      "file": "scientific-result.spec.ts",
+      "line": 98,
+      "project": "chromium",
+      "errors": ["Test timeout of 30000ms exceeded."]
+    },
+    {
+      "title": "WP-08 de/dark/point: visible result, copy, announcement and long values",
+      "file": "scientific-result.spec.ts",
+      "line": 98,
+      "project": "chromium",
+      "errors": ["Test timeout of 30000ms exceeded."]
+    },
+    {
+      "title": "WP-08 en/light/comma: visible result, copy, announcement and long values",
+      "file": "scientific-result.spec.ts",
+      "line": 98,
+      "project": "chromium",
+      "errors": [
+        "Test timeout of 30000ms exceeded.",
+        "Error: locator.check: Test timeout of 30000ms exceeded.\nBrowser logs:\n\n<launching> /home/runner/.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,AvoidCorsURLLoaderRestartOnRedirect,Translate,AutoDeElevate,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-3JBauj --remote-debugging-pipe --no-startup-window\n<launched> pid=9528\n[pid=9528][err] [1030/154724.725128:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=9528][err] [1030/154724.728891:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=9528][err] [1030/154724.728938:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=9528][err] [1030/154724.730486:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=9528][err] [1030/154724.752825:WARNING:media/gpu/vaapi/vaapi_wrapper.cc:1655] drmGetDevices2() has not found any devices\n[pid=9528][err] [1030/154724.757273:WARNING:sandbox/policy/linux/sandbox_linux.cc:405] InitializeSandbox() called with multiple threads in process gpu-process.\n[pid=9528][err] [1030/154725.106125:INFO:CONSOLE:3] \"Service Worker registration blocked by Playwright\", source:  (3)\n[pid=9528] <gracefully close start>\nCall log:\n  - waiting for getByRole('radio', { name: 'On', exact: true })\n    - locator resolved to <input title=\"\" value=\"on\" type=\"radio\" tabindex=\"-1\" data-react-aria-pressable=\"true\" name=\"react-aria9867162267-_r_c7_\"/>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <span>On</span> intercepts pointer events\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <span>On</span> intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    50 × waiting for element to be visible, enabled and stable\n       - element is visible, enabled and stable\n       - scrolling into view if needed\n       - done scrolling\n       - <span>On</span> intercepts pointer events\n     - retrying click action\n       - waiting 500ms\n    - waiting for element to be visible, enabled and stable\n\n\n  233 |     await page\n  234 |       .getByRole('radio', { name: t('scientific.on', locale), exact: true })\n> 235 |       .check();\n      |        ^\n  236 |     await run('-2.5+3.75i', `-2${decimal}5+3${decimal}75i`);\n  237 |     await expect(fraction).toBeDisabled();\n  238 |     await run('factor(12)', '[2, 2, 3]');\n    at /home/runner/work/m8e-calc/m8e-calc/e2e/scientific-result.spec.ts:235:8"
+      ]
+    },
+    {
+      "title": "WP-01 de: define → reload → calculate → reload preserves the scientific environment",
+      "file": "scientific.spec.ts",
+      "line": 285,
+      "project": "chromium",
+      "errors": [
+        "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('Funktion gespeichert', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('Funktion gespeichert', { exact: true }) resolved to 2 elements:\n    1) <div role=\"status\" aria-atomic=\"true\" class=\"scientific-announcement\">Funktion gespeichert</div> aka getByText('Funktion gespeichert').first()\n    2) <output aria-live=\"off\" aria-label=\"Ergebnis\" class=\"scientific-result-text type-display-small\">Funktion gespeichert</output> aka getByRole('status', { name: 'Ergebnis' })\n\nCall log:\n  - Expect \"toBeVisible\" getByText('Funktion gespeichert', { exact: true }) with timeout 5000ms\n  - waiting for getByText('Funktion gespeichert', { exact: true })\n\n\n  339 |     await expect(\n  340 |       page.getByText(t('scientific.definitionSaved', locale), { exact: true }),\n> 341 |     ).toBeVisible();\n      |       ^\n  342 |     await tools(false);\n  343 |     const complex = page.getByRole('radio', {\n  344 |       name: t('scientific.on', locale),\n    at /home/runner/work/m8e-calc/m8e-calc/e2e/scientific.spec.ts:341:7"
+      ]
+    },
+    {
+      "title": "WP-01 en: define → reload → calculate → reload preserves the scientific environment",
+      "file": "scientific.spec.ts",
+      "line": 285,
+      "project": "chromium",
+      "errors": [
+        "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('Function saved', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('Function saved', { exact: true }) resolved to 2 elements:\n    1) <div role=\"status\" aria-atomic=\"true\" class=\"scientific-announcement\">Function saved</div> aka getByText('Function saved').first()\n    2) <output aria-live=\"off\" aria-label=\"Result\" class=\"scientific-result-text type-display-small\">Function saved</output> aka getByRole('status', { name: 'Result' })\n\nCall log:\n  - Expect \"toBeVisible\" getByText('Function saved', { exact: true }) with timeout 5000ms\n  - waiting for getByText('Function saved', { exact: true })\n\n\n  339 |     await expect(\n  340 |       page.getByText(t('scientific.definitionSaved', locale), { exact: true }),\n> 341 |     ).toBeVisible();\n      |       ^\n  342 |     await tools(false);\n  343 |     const complex = page.getByRole('radio', {\n  344 |       name: t('scientific.on', locale),\n    at /home/runner/work/m8e-calc/m8e-calc/e2e/scientific.spec.ts:341:7"
+      ]
+    }
+  ],
+  "notes": [
+    "Product: empty scientific mode grows beyond its parent frame at docked 1920x1080; original frame clientHeight 952, scrollHeight 979, stage height 978.5625. Scoped stage height/scroll containment correction, no assertion removed.",
+    "Test fixture: hidden radio input check() is intercepted by visible label. Keyboard focus/Space with explicit checked assertion replaces it.",
+    "Test selection: definition-saved text exists in main output and the single live region. Assert exact main output and visibility instead of ambiguous page text.",
+    "Six commissioned scientific image references reviewed and copied byte-for-byte from original CI PNGs; other 18 references and 0.001 threshold unchanged.",
+    "Native zoom function assertions pass initially. Initial page.screenshot at true 200% yields the page-origin crop; result evidence capture corrected to the existing AP19 DIP/CSS contract. Initial screenshots do not constitute successful visual review of the long value."
+  ],
+  "workflowConclusion": "failure",
+  "firefox": {
+    "jobId": 124155956243,
+    "passed": 215,
+    "failed": 6,
+    "skipped": 2,
+    "errorLines": [
+      "2026-10-30T15:54:17.0751935Z     Error: locator.check: Test timeout of 30000ms exceeded.",
+      "2026-10-30T15:54:17.0974472Z     Error: locator.check: Test timeout of 30000ms exceeded.",
+      "2026-10-30T15:54:17.0995294Z     Error: locator.check: Test timeout of 30000ms exceeded.",
+      "2026-10-30T15:54:17.1015848Z     Error: locator.check: Test timeout of 30000ms exceeded.",
+      "2026-10-30T15:54:17.1037398Z     Error: strict mode violation: getByText('Funktion gespeichert', { exact: true }) resolved to 2 elements:",
+      "2026-10-30T15:54:17.1052111Z     Error: strict mode violation: getByText('Function saved', { exact: true }) resolved to 2 elements:",
+      "2026-10-30T15:54:17.1064058Z   6 failed",
+      "2026-10-30T15:54:17.1070285Z   215 passed (13.3m)"
+    ]
+  },
+  "webkit": {
+    "jobId": 124155956238,
+    "passed": 215,
+    "failed": 6,
+    "skipped": 2,
+    "errorLines": [
+      "2026-10-30T16:07:04.2264044Z     Error: locator.check: Test timeout of 30000ms exceeded.",
+      "2026-10-30T16:07:04.2442469Z     Error: locator.check: Test timeout of 30000ms exceeded.",
+      "2026-10-30T16:07:04.2466592Z     Error: locator.check: Test timeout of 30000ms exceeded.",
+      "2026-10-30T16:07:04.2512798Z     Error: locator.check: Test timeout of 30000ms exceeded.",
+      "2026-10-30T16:07:04.2535908Z     Error: strict mode violation: getByText('Funktion gespeichert', { exact: true }) resolved to 2 elements:",
+      "2026-10-30T16:07:04.2551077Z     Error: strict mode violation: getByText('Function saved', { exact: true }) resolved to 2 elements:",
+      "2026-10-30T16:07:04.2563332Z   6 failed",
+      "2026-10-30T16:07:04.2569900Z   215 passed (25.0m)"
+    ]
+  }
+}

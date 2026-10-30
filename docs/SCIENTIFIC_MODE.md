@@ -149,6 +149,10 @@ statische Output bekommt keinen zusätzlichen Tabstopp. Wertezeile und Mathemati
 reservieren Platz für kurze Zustände; längere Inhalte dürfen wachsen. Während
 weiterer Arbeit oder Fehlern bleibt das letzte übernommene Ergebnis erhalten;
 der bestehende Vorschauplatz zeigt den aktuellen Arbeits-/Fehlerstatus.
+Die wissenschaftliche Bühne bleibt auf die Höhe ihres Shell-Containers begrenzt;
+längere Inhalte scrollen innerhalb dieser Bühne. Auch mit angedocktem Verlauf
+darf die Bühnenbox nicht über den Frame hinauswachsen. Tastaturfokus auf der
+Kopieraktion muss sie in den sichtbaren Ausschnitt bringen.
 
 Modell-/Komponententests prüfen bekannte Formate, vollständige Kopien und null
 Ansagemutationen beim nachlaufenden Vorschauabschluss. Produktionsfälle ergänzen

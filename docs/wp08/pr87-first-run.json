@@ -1,0 +1,165 @@
+{
+  "runId": 41082546143,
+  "attempt": 1,
+  "head": "63fa55f5191158e04549b08317ca4b2d2e247c38",
+  "build": "0f2992cac02101ab776510f1617c699785a7b58c",
+  "conclusion": "failure",
+  "jobs": [
+    { "id": 124155149276, "name": "Node 24 minimum", "conclusion": "success" },
+    { "id": 124155149854, "name": "Production build", "conclusion": "success" },
+    {
+      "id": 124155150221,
+      "name": "Pipeline contract tests",
+      "conclusion": "success"
+    },
+    {
+      "id": 124155152850,
+      "name": "Currency source evidence",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 124155955894,
+      "name": "Graph performance",
+      "conclusion": "success"
+    },
+    { "id": 124155956025, "name": "Gallery", "conclusion": "success" },
+    {
+      "id": 124155956238,
+      "name": "Hardening QA / browsers (webkit)",
+      "conclusion": "failure"
+    },
+    {
+      "id": 124155956243,
+      "name": "Hardening QA / browsers (firefox)",
+      "conclusion": "failure"
+    },
+    {
+      "id": 124155956257,
+      "name": "Pages artifact verification",
+      "conclusion": "success"
+    },
+    {
+      "id": 124155956298,
+      "name": "Hardening QA / browsers (chromium)",
+      "conclusion": "failure"
+    },
+    {
+      "id": 124155956320,
+      "name": "Hardening QA / measure (before)",
+      "conclusion": "success"
+    },
+    {
+      "id": 124155956321,
+      "name": "Build provenance / evidence",
+      "conclusion": "success"
+    },
+    {
+      "id": 124155956325,
+      "name": "Hardening QA / visual",
+      "conclusion": "failure"
+    },
+    {
+      "id": 124155956329,
+      "name": "Hardening QA / browsers (qa-performance)",
+      "conclusion": "success"
+    },
+    {
+      "id": 124155956353,
+      "name": "Release assets / images",
+      "conclusion": "success"
+    },
+    {
+      "id": 124155956429,
+      "name": "Hardening QA / measure (after)",
+      "conclusion": "success"
+    },
+    {
+      "id": 124170513154,
+      "name": "Hardening QA / QA gate",
+      "conclusion": "failure"
+    },
+    { "id": 124170598412, "name": "Quality gate", "conclusion": "failure" },
+    { "id": 124170762563, "name": "Deploy Pages", "conclusion": "skipped" }
+  ],
+  "artifacts": [
+    {
+      "id": 12991400269,
+      "name": "gallery",
+      "size": 10606889,
+      "metadataDigest": "sha256:6711351fcc22115de12fdc5f7b3842e8a8184db94d31cb3b958ff5281b88afc5"
+    },
+    {
+      "id": 12991178926,
+      "name": "qa-browsers-webkit",
+      "size": 73324318,
+      "metadataDigest": "sha256:bd132c02d91616380f46427404bca32479590346963a0ab7b5253f080af796df"
+    },
+    {
+      "id": 12990895705,
+      "name": "qa-after",
+      "size": 2707203,
+      "metadataDigest": "sha256:802f61ee66033bb4d351132c41e2610d92dd73584164faf54b5eae619e766f45"
+    },
+    {
+      "id": 12990800685,
+      "name": "graph-performance",
+      "size": 404662,
+      "metadataDigest": "sha256:4f873b519c6be64438a4e5d09894d4c4e2a0fa096adf3d25edcf0d0c92f44499"
+    },
+    {
+      "id": 12990642707,
+      "name": "release-assets",
+      "size": 1418375,
+      "metadataDigest": "sha256:666190555490643550c2849e13070860f44438d549c21ba059c2bf86519e3179"
+    },
+    {
+      "id": 12990539131,
+      "name": "qa-browsers-firefox",
+      "size": 78155199,
+      "metadataDigest": "sha256:f5967ef11ae44f84724cb151bc74b98f409212929a5409f287564323215a891c"
+    },
+    {
+      "id": 12990407877,
+      "name": "qa-before",
+      "size": 2786320,
+      "metadataDigest": "sha256:96ef5ecee4fb762d05135e7b05e9b5ac982bce49c4729b74b17a7e749daf3c5d"
+    },
+    {
+      "id": 12990312719,
+      "name": "qa-visual",
+      "size": 16391077,
+      "metadataDigest": "sha256:ee762efbe6113c909111a85effbaf76d136455a9000f28a3d6e14c5056aa3089"
+    },
+    {
+      "id": 12989937796,
+      "name": "pages-41082546143-1",
+      "size": 1824555,
+      "metadataDigest": "sha256:0a18163b793443db14f897b5d3f403988432e200d2c5f4b61c869945ec1e0611"
+    },
+    {
+      "id": 12989833006,
+      "name": "ap29-provenance",
+      "size": 20399332,
+      "metadataDigest": "sha256:3e618cc7cee99bd2171d26a3d13e80bdb9d67e10cb69ae548267d0133a249c0b"
+    },
+    {
+      "id": 12989639723,
+      "name": "qa-browsers-chromium",
+      "size": 47573177,
+      "metadataDigest": "sha256:a5080e34d5f2a56949d804c59347e6bf920f171f51f50ec6e648edd7c49e76be"
+    },
+    {
+      "id": 12989244623,
+      "name": "qa-browsers-qa-performance",
+      "size": 216673,
+      "metadataDigest": "sha256:0d60e515f977024e27c781488c4936e13b759ac663a3532a1be121fe1922321d"
+    },
+    {
+      "id": 12989164717,
+      "name": "checked-normal-41082546143-1",
+      "size": 1828436,
+      "metadataDigest": "sha256:390d971cffb76b528d709f45f735a994ee651da137cc9daed0e65738ac76c4fa"
+    }
+  ],
+  "note": "ZIP hashes of normal, visual and Chromium were independently verified locally. Firefox/WebKit digest values here are GitHub metadata, not claimed local ZIP verifications."
+}
