@@ -529,9 +529,15 @@ it('uses full English metadata and exposes the programmer panel', async () => {
   expect(screen.getByRole('textbox', { name: 'Hexadecimal' })).toBeVisible();
 });
 
-it.each(['de', 'en'] as const)(
-  'keeps exact values through untouched definition edits in %s',
-  async (locale) => {
+// Each definition is an independent UI round trip with the same full environment.
+// Keep the default timeout per case instead of accumulating five interactions in it.
+it.each(
+  (['de', 'en'] as const).flatMap((locale) =>
+    ['v', 'large', 'precise', 'z', 'f'].map((name) => ({ locale, name })),
+  ),
+)(
+  'keeps exact values through an untouched $name definition edit in $locale',
+  async ({ locale, name }) => {
     useAppStore.setState({ locale });
     let env = createEnvironment();
     for (const source of [
@@ -560,30 +566,26 @@ it.each(['de', 'en'] as const)(
     const panel = screen.getByRole('region', {
       name: locale === 'de' ? 'Variablen' : 'Variables',
     });
-    for (const name of ['v', 'large', 'precise', 'z', 'f']) {
-      const before = useScientificStore.getState().environment;
-      const history = useHistoryStore.getState().entries;
-      await user.click(
-        within(panel).getByRole('button', {
-          name: locale === 'de' ? `${name} bearbeiten` : `Edit ${name}`,
-        }),
-      );
-      expect(useScientificStore.getState().environment).toBe(before);
-      expect(useHistoryStore.getState().entries).toBe(history);
-      // Replacing the text and restoring exactly the opened source remains lossless.
-      const source = (editor as HTMLInputElement).value;
-      fireEvent.change(editor, { target: { value: source + ' ' } });
-      fireEvent.change(editor, { target: { value: source } });
-      editor.focus();
-      await user.keyboard('{Enter}');
-      expect(screen.queryByRole('alert')).not.toBeInTheDocument();
-      const after = useScientificStore.getState().environment;
-      expect(after.variables).toEqual(env.variables);
-      expect(after.functions).toEqual(env.functions);
-      expect(useHistoryStore.getState().entries).toHaveLength(
-        history.length + 1,
-      );
-    }
+    const before = useScientificStore.getState().environment;
+    const history = useHistoryStore.getState().entries;
+    await user.click(
+      within(panel).getByRole('button', {
+        name: locale === 'de' ? `${name} bearbeiten` : `Edit ${name}`,
+      }),
+    );
+    expect(useScientificStore.getState().environment).toBe(before);
+    expect(useHistoryStore.getState().entries).toBe(history);
+    // Replacing the text and restoring exactly the opened source remains lossless.
+    const source = (editor as HTMLInputElement).value;
+    fireEvent.change(editor, { target: { value: source + ' ' } });
+    fireEvent.change(editor, { target: { value: source } });
+    editor.focus();
+    await user.keyboard('{Enter}');
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    const after = useScientificStore.getState().environment;
+    expect(after.variables).toEqual(env.variables);
+    expect(after.functions).toEqual(env.functions);
+    expect(useHistoryStore.getState().entries).toHaveLength(history.length + 1);
     const editList = within(panel).getByRole('button', {
       name: locale === 'de' ? 'xs bearbeiten' : 'Edit xs',
     });

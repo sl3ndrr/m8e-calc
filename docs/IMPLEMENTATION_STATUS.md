@@ -59,6 +59,17 @@ Gesamtgate rot, Ursache nicht als Rechen-/Browser-/Umgebungsfehler bewiesen.
 Zusätzliche Test-Lebenszyklusdiagnose sichert Ereignisse auch bei Fehlschlag;
 keine Recovery, Wiederholung oder Produktänderung. Originale und Grenzen im WP08-Bericht.
 
+Sechster Lauf: Alle drei Browserprojekte und das QA-Gate bestehen; das
+Quality gate bleibt wegen vier HTTP-502-Antworten historischer GitHub-Joblinks
+rot. Der zusätzliche AP22-Lauf scheitert am 5000-ms-Sammeltest für
+Definitionsbearbeitung. Auf erneuten Reparaturauftrag werden die vier Links
+nach verifizierter Jobzuordnung auf ihre Laufseiten umgestellt und die fünf
+Bearbeitungsfälle je Sprache als zehn isolierte Tests geprüft. Alle bisherigen
+Assertions und die Standardfrist bleiben erhalten; die frühere kumulative
+Fünferfolge wird durch unabhängige Roundtrips ersetzt. Keine Produktänderung.
+Lokale Checker-Regressionen bestanden; npm-ci ist HTTP-403-blockiert.
+Eigene neue PR-CI erforderlich; Details: [WP08](WP08.md).
+
 ## WP-07 · Wissenschaftliche Berechnungen im Worker · 29.10.2026
 
 Lokal auf `feat/audit-wp-07` ab aktuellem main
