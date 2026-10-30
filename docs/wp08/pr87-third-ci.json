@@ -1,0 +1,38 @@
+{
+  "runId": 41091564961,
+  "attempt": 1,
+  "head": "b32a89b7184d9aaf0962d0abea6a6f74b58f9969",
+  "build": "608219a8335f9bb9b252f0f8e458a7d8e5fc2b0a",
+  "tree": "a2cf2567b18970ea17ec8f995d2036f48c7b6c1f",
+  "galleryJob": 124188252311,
+  "artifact": 12994028098,
+  "zipSha256": "9aaf25843838d3936571b1b424207939a4fca68e8de0d158ef25e15d4d78fd85",
+  "passed": 74,
+  "failed": 1,
+  "failure": "theming.spec.ts:23: expect Iris toBeFocused; dialog Deine Farbwelt not found after unchanged 5000 ms.",
+  "observed": "Original trace shows DesignLab and AccentPicker loading fallbacks, trigger expanded, dark radio checked. Both DesignLab and AccentPanel requests return 200. No evidence of a lost click or a scientific product error.",
+  "hypothesis": "Starting the preferences/persistence scenario only after the design lab is visibly mounted isolates it from concurrent cold lab rendering. Add a visible lab prerequisite; preserve all focus/persistence/keyboard assertions and the separate route-controlled cold-loading accent tests. This hypothesis requires a new actual CI result; no claim of a proven runtime root cause.",
+  "correction": "One extra prerequisite assertion in e2e/theming.spec.ts. No product source, workflow, browser configuration, timeout, retry or budget changes.",
+  "originalErrorContextSha256": "5871a514e35c59cf0ae486e7d679477f99ae9bd222cc3a90de39390ed437f449",
+  "localCorrection": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "lines": 628,
+    "outputSha256": "8ecc2bf9138e0ca9cbc5f77e28cf5166d704280e1fe3c972e6457d8218573155",
+    "uiPassed": 627,
+    "domainPassed": 1744,
+    "lintTypesBuildBenchmarks": "passed",
+    "node": "24.22.1",
+    "npm": "11.9.0",
+    "source": "e2e/theming.spec.ts",
+    "sourceSha256": "82bc9a3710be18ec3534651f2904d6598cbdd66653f63512d04bf9df2f217737",
+    "docsCheck": {
+      "documents": 56,
+      "localLinks": 445,
+      "npmCommands": 228,
+      "failures": 0,
+      "externalChecked": false
+    },
+    "limits": "Local regular install still blocked; hash-verified lockfile tools as described. New PR CI is required."
+  }
+}

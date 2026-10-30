@@ -40,6 +40,7 @@ export default defineConfig({
         '**/calculator-rendering.spec.ts',
         '**/simple-calculator.spec.ts',
         '**/scientific.spec.ts',
+        '**/scientific-result.spec.ts',
         '**/scientific-worker.spec.ts',
         '**/convert.spec.ts',
         '**/currency.spec.ts',

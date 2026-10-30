@@ -1,6 +1,8 @@
 .mode-stage:has(.scientific-workspace) {
   padding: 1rem;
   align-items: start;
+  height: 100%;
+  overflow: auto;
 }
 .scientific-workspace {
   width: 100%;
@@ -100,18 +102,36 @@
 .scientific-math .katex {
   font-size: 1.3rem;
 }
+.scientific-result-value {
+  display: grid;
+  align-items: center;
+  min-height: var(--md-sys-typescale-display-small-line-height);
+  min-width: 0;
+}
+.scientific-result-value > * {
+  grid-area: 1 / 1;
+}
+.scientific-result-math {
+  display: grid;
+  align-content: start;
+  gap: 0.625rem;
+  min-width: 0;
+  min-height: 7rem;
+}
 .scientific-result-text {
-  font-family: 'Roboto Mono', monospace;
-  font-size: 1.5rem;
+  display: block;
+  min-width: 0;
+  font-variant-numeric: tabular-nums;
   color: var(--md-sys-color-primary);
   overflow-wrap: anywhere;
+  user-select: text;
 }
 .scientific-result-card {
   background: var(--md-sys-color-surface-container-high);
 }
 .scientific-empty {
   color: var(--md-sys-color-on-surface-variant);
-  margin-block: 1.5rem;
+  margin: 0;
 }
 .scientific-result-card .ui-button-group {
   flex-wrap: wrap;

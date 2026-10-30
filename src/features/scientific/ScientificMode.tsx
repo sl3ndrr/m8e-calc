@@ -202,6 +202,25 @@ export default function ScientificMode() {
   const liveText = live?.value
     ? displayResult(live.value, format, fraction).text
     : null;
+  const resultText =
+    displayed?.text ??
+    (calculation ? t('scientific.definitionSaved', locale) : '');
+  // One announcement channel owns preview, work, error and committed result.
+  // A preview of the just-committed expression must not announce it a second time.
+  const announcement = error
+    ? `${t(errorKey(error), locale)} (${error.range.start + 1})`
+    : workMessage
+      ? t(`scientific.work.${workMessage}`, locale)
+      : busy && busy !== 'preview'
+        ? t('scientific.work.execute', locale)
+        : calculation?.expression === expression &&
+            (liveText === null || liveText === resultText)
+          ? resultText
+          : busy
+            ? t('scientific.work.preview', locale)
+            : liveText
+              ? `${t('scientific.preview', locale)}: ${liveText}`
+              : resultText;
   useEffect(() => {
     if (!expression.trim() || recovery === 'loading') return;
     const capturedInput = inputRevision.current;
@@ -403,6 +422,15 @@ export default function ScientificMode() {
       className="scientific-workspace"
       aria-label={t('mode.scientific', locale)}
     >
+      <VisuallyHidden>
+        <div
+          className="scientific-announcement"
+          role="status"
+          aria-atomic="true"
+        >
+          {announcement}
+        </div>
+      </VisuallyHidden>
       <header className="scientific-heading">
         {wide && (
           <Button
@@ -505,6 +533,7 @@ export default function ScientificMode() {
                 id="scientific-editor-error"
                 className="scientific-error"
                 role="alert"
+                aria-live="off"
               >
                 {t(errorKey(error), locale)}{' '}
                 <span>({error.range.start + 1})</span>
@@ -513,10 +542,14 @@ export default function ScientificMode() {
             <div
               className="scientific-preview"
               role="status"
+              aria-live="off"
               aria-label={t('scientific.preview', locale)}
             >
               {workMessage ? (
-                <span role={workMessage === 'failed' ? 'alert' : undefined}>
+                <span
+                  role={workMessage === 'failed' ? 'alert' : undefined}
+                  aria-live="off"
+                >
                   {t(`scientific.work.${workMessage}`, locale)}
                 </span>
               ) : busy ? (
@@ -532,7 +565,7 @@ export default function ScientificMode() {
                 liveText && (
                   <>
                     <span>{t('scientific.preview', locale)}</span>
-                    <output>{liveText}</output>
+                    <span>{liveText}</span>
                   </>
                 )
               )}
@@ -566,32 +599,41 @@ export default function ScientificMode() {
             aria-label={t('scientific.result', locale)}
           >
             <h2>{t('scientific.result', locale)}</h2>
-            <VisuallyHidden>
+            <div className="scientific-result-value">
               <output
-                className="scientific-result-text"
-                aria-live="polite"
-                aria-atomic="true"
+                className="scientific-result-text type-display-small"
+                aria-label={t('scientific.result', locale)}
+                aria-live="off"
               >
-                {displayed?.text ?? ''}
+                {resultText}
               </output>
-            </VisuallyHidden>
-            {calculation ? (
-              <>
-                {math(
-                  calculation.expressionLatex,
-                  t('scientific.expression', locale),
-                )}
-                {displayed ? (
-                  <>{math(displayed.latex, t('scientific.result', locale))}</>
-                ) : (
-                  <p role="status">{t('scientific.definitionSaved', locale)}</p>
-                )}
-              </>
-            ) : (
-              <p className="scientific-empty">
-                {t('scientific.emptyResult', locale)}
-              </p>
-            )}
+              {!calculation && (
+                <p className="scientific-empty">
+                  {t('scientific.emptyResult', locale)}
+                </p>
+              )}
+            </div>
+            <div className="scientific-result-math">
+              {calculation && (
+                <>
+                  {math(
+                    calculation.expressionLatex,
+                    t('scientific.expression', locale),
+                  )}
+                  {displayed && (
+                    <div>
+                      <p className="scientific-help">
+                        {t('scientific.mathematicalResult', locale)}
+                      </p>
+                      {math(
+                        displayed.latex,
+                        t('scientific.mathematicalResult', locale),
+                      )}
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
             <ButtonGroup aria-label={t('scientific.format', locale)} connected>
               {(['auto', 'fixed', 'sci', 'eng'] as const).map((n) => (
                 <Button

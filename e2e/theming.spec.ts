@@ -11,6 +11,9 @@ test('persists theme, seed, variant, contrast and motion, with accessible keyboa
   page,
 }) => {
   await page.goto('/m8e-calc/#/design');
+  // This case checks persisted preferences after the lab is ready. The separate
+  // accent-picker suite controls cold lab/panel loading and verifies its focus.
+  await expect(page.locator('.design-lab')).toBeVisible();
   const group = page.getByRole('radiogroup', { name: 'Erscheinungsbild' });
   await group.getByRole('radio', { name: /^System/ }).focus();
   await page.keyboard.press('ArrowRight');

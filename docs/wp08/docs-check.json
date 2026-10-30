@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-30T15:33:10.511Z",
+  "externalEnabled": false,
+  "policy": {
+    "attemptsPerUrl": 1,
+    "timeoutMs": 30000
+  },
+  "summary": {
+    "documents": 56,
+    "localLinks": 438,
+    "npmCommands": 225,
+    "externalIdentified": 346,
+    "externalChecked": 0,
+    "httpPassed": 0,
+    "manuallyReviewed": 0,
+    "failures": 0
+  },
+  "results": []
+}

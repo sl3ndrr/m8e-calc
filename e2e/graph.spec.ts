@@ -407,6 +407,12 @@ test('AP21 replaces obsolete fit goals on curve/parameter changes, presets, rese
   await page
     .getByRole('checkbox', { name: 'Seitenverhältnis sperren' })
     .press('Space');
+  // The aspect toggle starts its own view transition. Finish that action before
+  // capturing the next fit goal, just as after the initial lock and resize.
+  await expect(
+    page.getByRole('checkbox', { name: 'Seitenverhältnis sperren' }),
+  ).not.toBeChecked();
+  await settled(page);
   await fit.click();
   const expected = await targetBounds(page);
   for (let i = 0; i < 10; i++) await fit.click();

@@ -221,6 +221,7 @@ export const de = {
   'scientific.clear': 'Ausdruck leeren',
   'scientific.preview': 'Live-Vorschau',
   'scientific.result': 'Ergebnis',
+  'scientific.mathematicalResult': 'Mathematische Darstellung (LaTeX)',
   'scientific.format': 'Ausgabeformat',
   'scientific.auto': 'Auto',
   'scientific.fixed': 'Fest',

@@ -1,0 +1,73 @@
+{
+  "runId": 41082546143,
+  "attempt": 1,
+  "pr": 87,
+  "head": "63fa55f5191158e04549b08317ca4b2d2e247c38",
+  "build": "0f2992cac02101ab776510f1617c699785a7b58c",
+  "tree": "a0b430b0bb3622dbada6b55c5325e84c8015bd6d",
+  "artifactId": 12990312719,
+  "archiveSha256": "ee762efbe6113c909111a85effbaf76d136455a9000f28a3d6e14c5056aa3089",
+  "initialResult": {
+    "failed": 6,
+    "passed": 18
+  },
+  "reviewMethod": "Twelve original PNGs inspected with view_image, six expected/actual pairs at 1920x1080, 2560x1440 and 3840x2160. No pixel editing or re-encoding. Exactly the six scientific actual PNG bytes copied after review.",
+  "references": [
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/scientific-1920-light-qa-visual-linux.png",
+      "size": [1920, 1080],
+      "oldSha256": "b7713f614db36b1c29003ddf91c0cb6bc71c16d4113b8f32061a72707011d140",
+      "newSha256": "ae1923e1cdd9bcf18718afc628514c57bcabb0473499b78fba6bd62bf3f9f605",
+      "actualArtifactPath": "test-results/qa-visual-scientific-1920-light-qa-visual/scientific-1920-light-actual.png",
+      "differenceBounds": [272, 112, 1888, 1064],
+      "review": "Viewed original expected and actual images side by side: large localized 0,5, formula and labelled canonical 0.5 retained; readable light/dark tokens, complete copy controls. Increased result-card height is the commissioned visible change; 1920 workspace uses its existing scroll area. No palette or other-mode reference replacement."
+    },
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/scientific-1920-dark-qa-visual-linux.png",
+      "size": [1920, 1080],
+      "oldSha256": "64d42a33624f2f19868e44e0c7cf0d1c92b5c8353c155b707fd6ce3dfad4919d",
+      "newSha256": "06841d14b88d61c7f89c7cf64202ab464bdb612e6372bba2f9f448ac36ac87b2",
+      "actualArtifactPath": "test-results/qa-visual-scientific-1920-dark-qa-visual/scientific-1920-dark-actual.png",
+      "differenceBounds": [272, 112, 1888, 1064],
+      "review": "Viewed original expected and actual images side by side: large localized 0,5, formula and labelled canonical 0.5 retained; readable light/dark tokens, complete copy controls. Increased result-card height is the commissioned visible change; 1920 workspace uses its existing scroll area. No palette or other-mode reference replacement."
+    },
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/scientific-2560-light-qa-visual-linux.png",
+      "size": [2560, 1440],
+      "oldSha256": "c5fea7187952d519d9f85de23022e136f6f59a01303148c76bdec765904f7bb7",
+      "newSha256": "f367b572248d1f7f65d3e297b9b6d0c0eb8f261ac484b888a1ff4e813386bcfa",
+      "actualArtifactPath": "test-results/qa-visual-scientific-2560-light-qa-visual/scientific-2560-light-actual.png",
+      "differenceBounds": [384, 835, 1203, 1350],
+      "review": "Viewed original expected and actual images side by side: large localized 0,5, formula and labelled canonical 0.5 retained; readable light/dark tokens, complete copy controls. Increased result-card height is the commissioned visible change; 1920 workspace uses its existing scroll area. No palette or other-mode reference replacement."
+    },
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/scientific-2560-dark-qa-visual-linux.png",
+      "size": [2560, 1440],
+      "oldSha256": "866642f9677e7e6b5f74bf92e67db61f43eb81295848f06ac25753db749dd22b",
+      "newSha256": "b8291ea53cea46fa087c7a75b23b7e1ca74ddd4b51bf896c755f35cae73c49e6",
+      "actualArtifactPath": "test-results/qa-visual-scientific-2560-dark-qa-visual/scientific-2560-dark-actual.png",
+      "differenceBounds": [384, 835, 1203, 1350],
+      "review": "Viewed original expected and actual images side by side: large localized 0,5, formula and labelled canonical 0.5 retained; readable light/dark tokens, complete copy controls. Increased result-card height is the commissioned visible change; 1920 workspace uses its existing scroll area. No palette or other-mode reference replacement."
+    },
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/scientific-3840-light-qa-visual-linux.png",
+      "size": [3840, 2160],
+      "oldSha256": "8914ab1c23c671b64d81202567b49d4faab2140c4520b1b49a9e4137a6e3a728",
+      "newSha256": "eedec19beea2cada4f58fb668c4cd2532e4a13e63da872197c28fb307d82ddc1",
+      "actualArtifactPath": "test-results/qa-visual-scientific-3840-light-qa-visual/scientific-3840-light-actual.png",
+      "differenceBounds": [576, 1244, 1805, 1967],
+      "review": "Viewed original expected and actual images side by side: large localized 0,5, formula and labelled canonical 0.5 retained; readable light/dark tokens, complete copy controls. Increased result-card height is the commissioned visible change; 1920 workspace uses its existing scroll area. No palette or other-mode reference replacement."
+    },
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/scientific-3840-dark-qa-visual-linux.png",
+      "size": [3840, 2160],
+      "oldSha256": "2392614d190fd1743257f74f2c1b6af3318772f2858642454f993a0c23040f7d",
+      "newSha256": "59a2ef72b0b953daaa5f311ad2c95d9b64f6e4ac18186a35b6ab0fa9909cc543",
+      "actualArtifactPath": "test-results/qa-visual-scientific-3840-dark-qa-visual/scientific-3840-dark-actual.png",
+      "differenceBounds": [576, 1244, 1805, 1967],
+      "review": "Viewed original expected and actual images side by side: large localized 0,5, formula and labelled canonical 0.5 retained; readable light/dark tokens, complete copy controls. Increased result-card height is the commissioned visible change; 1920 workspace uses its existing scroll area. No palette or other-mode reference replacement."
+    }
+  ],
+  "thresholdUnchanged": 0.001,
+  "otherReferencesUpdated": false
+}

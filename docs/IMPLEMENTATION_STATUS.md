@@ -1,5 +1,75 @@
 # Implementierungsstatus
 
+## WP-08 · Wissenschaftlicher Hauptwert nach Zahlenpräferenzen · 30.10.2026
+
+Lokal auf `feat/audit-wp-08` ab `43b0765172223182634f81183dbc8d471ba77052`
+einschließlich WP-07 umgesetzt. Bereits korrekter lokalisierter Ergebnistext
+jetzt sichtbar als Hauptwert, gemeinsame Quelle für Textkopie/Ansage; Formel
+und ausdrücklich benanntes kanonisches LaTeX bleiben ergänzend. Ein persistenter
+Ansagekanal verhindert konkurrierende Ausgaben und eine zweite Ergebnisansage
+beim nachlaufenden Vorschauabschluss. Zahlenformate, Brüche, komplexe Werte,
+Listen, Definition-ohne-Wert und lange vollständige Kopien sind berücksichtigt.
+Parser, Decimal-Werte, numerische Grenzen und Workerfluss bleiben erhalten.
+
+Geprüfter Codecommit `ef69c112955b3fe710a797cd0f9fb7c1d66128e5`:
+`npm run check` vollständig bestanden, 627 UI-/1744 Domänentests, Build und
+Benchmarks; Bundle 190757 Byte gzip < 200000, keine eager Scientificmodule.
+Keine längeren Fristen oder gelockerten Assertions. Identitäten, genaue Befehle
+und Rohbelege stehen in [WP08](WP08.md). Reguläres npm-ci/npm 11.19.0 und
+Browserdownload sind HTTP-403-blockiert; lokale Prüfer aus hashgeprüftem
+vorherigem Lockfile-Export. Produktionsbrowserstarts stoppen vor App-Prüfungen;
+echter Zoom und Hell-/Dunkel-Sichtprüfung bleiben offen.
+Keine ungeprüften Bildbaselines aktualisiert, keine Remoteänderungen/Freigabe.
+
+Auf ausdrücklichen Folgeauftrag ist [PR #87](https://github.com/sl3ndrr/m8e-calc/pull/87)
+als Entwurf veröffentlicht. Erste eigene CI besteht beide Node-Checks, Build,
+Galerie, Performance, Provenienz und weitere Gates, findet aber den 27-px-
+Bühnenüberlauf bei 1920×1080, ungeeignete Radio-Pointeraktionen, mehrdeutige
+Definitionstextselektoren und genau sechs beauftragte Bildabweichungen.
+Scoped Bühnenhöhe mit internem Scrollen, echte Tastaturaktionen und vollständige
+Output-/Sichtbarkeitsassertions korrigieren die Befunde. Sechs wissenschaftliche
+Referenzen sind nach dokumentiertem Alt-/Neu-Sichtvergleich gezielt übernommen;
+18 andere Referenzen und sämtliche Prüfgrenzen bleiben erhalten. Echte native
+Zoommessungen sind vorhanden; ihre Bildaufnahme verwendet nun den AP19-DIP/CSS-
+Vertrag. Aktuelle vollständige Pflicht-CI auf dem Korrekturhead bleibt erforderlich.
+Identitäten und Originalbefunde: [WP08](WP08.md), aktueller Abschluss im PR.
+
+Zweiter Lauf: 24/24 Visuals, 75/75 Galerie, 36/36 Provenienz und alle sieben
+Chromium-WP-08-Fälle bestehen. Ein bestehender AP22-Test erzeugt laut Trace
+`(t,t^2)r=1` durch DOM-Fill; er nutzt jetzt den vorhandenen CodeMirror-
+Tastaturhelper mit zusätzlicher exakter Textprüfung. Zoomaufnahmen schließen
+die zuvor verdeckende Kopiermeldung über ihren realen lokalisierten Button.
+Keine Produktänderung dafür; neue vollständige CI und Bildsichtung erforderlich.
+
+Dritter Lauf: Der separate AP22-Eingabepfad besteht; die Galerie findet einen
+bestehenden Themingfall im gleichzeitigen Lab-/Dialog-Ladezustand (74/75).
+Zusätzliche sichtbare Lab-Vorbedingung im Persistenztest, sämtliche Fokus- und
+Kaltstartprüfungen erhalten. Ursache und Wirksamkeit bis zur neuen CI getrennt
+als Hypothese dokumentiert; keine spekulative Produkt- oder Grenzänderung.
+
+Vierter Lauf: Alle 19 WP-08-Fälle, 75 Galerie- und 24 Bildprüfungen bestehen.
+WebKit findet einen vorhandenen AP21-Vergleich mit noch laufendem Aspektwechsel
+beim Erfassen des Referenz-Fits. Zusätzliche Unchecked- und bestehende Settled-
+Prüfung davor; zehn Fits und 0,25-px-Grenze bleiben erhalten. Ganze CI ist rot,
+neuer vollständiger Lauf erforderlich; Originaltrace und Werte im WP08-Bericht.
+
+Fünfter Lauf: AP21 und alle 19 WP-08-Fälle bestehen in drei Engines. WebKit
+findet einen neuen unerklärten Targetschluss im WP-01-en-Persistenztest;
+Gesamtgate rot, Ursache nicht als Rechen-/Browser-/Umgebungsfehler bewiesen.
+Zusätzliche Test-Lebenszyklusdiagnose sichert Ereignisse auch bei Fehlschlag;
+keine Recovery, Wiederholung oder Produktänderung. Originale und Grenzen im WP08-Bericht.
+
+Sechster Lauf: Alle drei Browserprojekte und das QA-Gate bestehen; das
+Quality gate bleibt wegen vier HTTP-502-Antworten historischer GitHub-Joblinks
+rot. Der zusätzliche AP22-Lauf scheitert am 5000-ms-Sammeltest für
+Definitionsbearbeitung. Auf erneuten Reparaturauftrag werden die vier Links
+nach verifizierter Jobzuordnung auf ihre Laufseiten umgestellt und die fünf
+Bearbeitungsfälle je Sprache als zehn isolierte Tests geprüft. Alle bisherigen
+Assertions und die Standardfrist bleiben erhalten; die frühere kumulative
+Fünferfolge wird durch unabhängige Roundtrips ersetzt. Keine Produktänderung.
+Lokale Checker-Regressionen bestanden; npm-ci ist HTTP-403-blockiert.
+Eigene neue PR-CI erforderlich; Details: [WP08](WP08.md).
+
 ## WP-07 · Wissenschaftliche Berechnungen im Worker · 29.10.2026
 
 Lokal auf `feat/audit-wp-07` ab aktuellem main

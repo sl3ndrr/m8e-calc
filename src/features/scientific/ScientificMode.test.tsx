@@ -11,6 +11,8 @@ import { SCIENTIFIC_STORAGE_KEY, useScientificStore } from './scientificStore';
 import { useHistoryStore } from '../../shared/historyStore';
 import { useAppStore } from '../../shared/store';
 import { snackbarQueue } from '../../ui';
+import { useSettingsStore } from '../../shared/settingsStore';
+import { t } from '../../shared/i18n/extended';
 vi.mock('./ExpressionEditor', () => ({
   default: function MockEditor({
     ref,
@@ -62,6 +64,184 @@ afterEach(async () => {
   useHistoryStore.getState().resetHistory();
   useAppStore.setState({ locale: 'de' });
   snackbarQueue.clear();
+  useSettingsStore.setState({
+    language: 'auto',
+    decimalSeparator: 'auto',
+    grouping: true,
+  });
+  useAppStore.setState({ locale: 'de' });
+});
+
+it.each([
+  ['de', 'numbers'],
+  ['en', 'numbers'],
+  ['de', 'values'],
+  ['en', 'values'],
+] as const)(
+  'WP-08 %s/%s: visible value, full copy and one announcement share formatting',
+  async (locale, scenario) => {
+    useSettingsStore.setState({
+      language: locale,
+      decimalSeparator: 'auto',
+      grouping: true,
+    });
+    useAppStore.setState({ locale });
+    TestCalculationWorker.hold = true;
+    const user = userEvent.setup();
+    const clipboard = vi.spyOn(navigator.clipboard, 'writeText');
+    const view = render(<ScientificMode />);
+    const editor = await screen.findByRole('textbox', {
+      name: t('scientific.expression', locale),
+    });
+    const output = screen.getByRole('status', {
+      name: t('scientific.result', locale),
+    });
+    const article = output.closest('article');
+    if (!article) throw new Error('Expected result card');
+    const controls = within(article);
+    const copyText = controls.getByRole('button', {
+      name: t('scientific.copyText', locale),
+    });
+    const announcement = view.container.querySelector(
+      '.scientific-announcement',
+    );
+    expect(announcement).toHaveAttribute('role', 'status');
+    expect(output).toHaveAttribute('aria-live', 'off');
+    expect(output).toBeEmptyDOMElement();
+    expect(screen.getByText(t('scientific.emptyResult', locale))).toBeVisible();
+    const run = (source: string) => {
+      fireEvent.change(editor, { target: { value: source } });
+      fireEvent.keyDown(editor, { key: 'Enter' });
+      expect(announcement).toHaveTextContent(
+        t('scientific.work.execute', locale),
+      );
+      act(() => activeWorker().respond());
+    };
+    const check = async (expected: string) => {
+      expect(output).toBeVisible();
+      expect(output.textContent).toBe(expected);
+      expect(announcement?.textContent).toBe(expected);
+      await user.click(copyText);
+      expect(clipboard).toHaveBeenLastCalledWith(expected);
+    };
+    if (scenario === 'numbers') {
+      run('1234567.89');
+      await check(locale === 'de' ? '1.234.567,89' : '1,234,567.89');
+      act(() =>
+        useSettingsStore.setState({
+          decimalSeparator: locale === 'de' ? 'point' : 'comma',
+          grouping: false,
+        }),
+      );
+      await check(locale === 'de' ? '1234567.89' : '1234567,89');
+      fireEvent.click(
+        controls.getByRole('button', {
+          name: t('scientific.sci', locale),
+        }),
+      );
+      await check(locale === 'de' ? '1.23456789e+6' : '1,23456789e+6');
+      fireEvent.click(
+        controls.getByRole('button', { name: t('scientific.fixed', locale) }),
+      );
+      const digits = controls.getByRole('slider', {
+        name: t('scientific.digits', locale),
+      });
+      digits.focus();
+      await user.keyboard('{End}');
+      run('1/7');
+      await check(
+        locale === 'de'
+          ? '0.14285714285714285714285714285714285714285714285714'
+          : '0,14285714285714285714285714285714285714285714285714',
+      );
+    } else {
+      act(() =>
+        useSettingsStore.setState({
+          decimalSeparator: locale === 'de' ? 'point' : 'comma',
+          grouping: false,
+        }),
+      );
+      run('-1/2');
+      fireEvent.click(
+        controls.getByRole('switch', {
+          name: t('scientific.fraction', locale),
+        }),
+      );
+      await check('-1/2');
+      await user.click(
+        controls.getByRole('button', {
+          name: t('scientific.copyLatex', locale),
+        }),
+      );
+      expect(clipboard.mock.calls.at(-1)?.[0]).toContain('\\frac{-1}{2}');
+      fireEvent.click(
+        expressionActions(editor).getByRole('radio', {
+          name: t('scientific.on', locale),
+        }),
+      );
+      fireEvent.click(
+        controls.getByRole('button', {
+          name: t('scientific.auto', locale),
+        }),
+      );
+      run('-2.5+3.75i');
+      await check(locale === 'de' ? '-2.5+3.75i' : '-2,5+3,75i');
+      expect(
+        controls.getByRole('switch', {
+          name: t('scientific.fraction', locale),
+        }),
+      ).toBeDisabled();
+      run('factor(12)');
+      await check('[2, 2, 3]');
+      run('f(x)=x^2');
+      expect(output).toHaveTextContent(t('scientific.definitionSaved', locale));
+      expect(announcement?.textContent).toBe(output.textContent);
+      expect(copyText).toBeDisabled();
+      run('1/0');
+      expect(announcement?.textContent).toBe(
+        `${t('scientific.error.E_DIVISION_BY_ZERO', locale)} (2)`,
+      );
+      expect(screen.getByRole('alert')).toHaveAttribute('aria-live', 'off');
+    }
+    expect(
+      view.container.querySelectorAll(
+        '.scientific-main-column [role="status"]:not([aria-live="off"]), .scientific-main-column [role="alert"]:not([aria-live="off"])',
+      ),
+    ).toHaveLength(0);
+    clipboard.mockRestore();
+  },
+);
+
+it('WP-08 does not mutate the announcement when the completed result receives its follow-up preview', async () => {
+  TestCalculationWorker.hold = true;
+  const view = render(<ScientificMode />);
+  const editor = await screen.findByRole('textbox', { name: 'Ausdruck' });
+  vi.useFakeTimers();
+  fireEvent.change(editor, { target: { value: '1/2' } });
+  fireEvent.keyDown(editor, { key: 'Enter' });
+  act(() => activeWorker().respond());
+  const announcement = view.container.querySelector('.scientific-announcement');
+  if (!announcement) throw new Error('Expected persistent announcement');
+  expect(announcement.textContent).toBe('0,5');
+  const mutations: MutationRecord[] = [];
+  const observer = new MutationObserver((records) =>
+    mutations.push(...records),
+  );
+  observer.observe(announcement, {
+    childList: true,
+    characterData: true,
+    subtree: true,
+  });
+  await act(async () => {
+    vi.advanceTimersByTime(250);
+  });
+  expect(activeWorker().request.kind).toBe('preview');
+  expect(announcement.textContent).toBe('0,5');
+  await act(async () => activeWorker().respond());
+  expect(screen.getByLabelText('Live-Vorschau')).toHaveTextContent('0,5');
+  expect(announcement.textContent).toBe('0,5');
+  expect(mutations).toEqual([]);
+  observer.disconnect();
 });
 
 it.each(['de', 'en'] as const)(
@@ -114,6 +294,31 @@ function activeWorker(): TestCalculationWorker {
   if (!worker) throw new Error('Expected worker request');
   return worker;
 }
+it('WP-08 announces a different preview after a context change while keeping the committed result', async () => {
+  TestCalculationWorker.hold = true;
+  const view = render(<ScientificMode />);
+  const editor = await screen.findByRole('textbox', { name: 'Ausdruck' });
+  vi.useFakeTimers();
+  fireEvent.change(editor, { target: { value: 'sin(30)' } });
+  fireEvent.keyDown(editor, { key: 'Enter' });
+  act(() => activeWorker().respond());
+  const output = screen.getByRole('status', { name: 'Ergebnis' });
+  const announcement = view.container.querySelector('.scientific-announcement');
+  expect(output.textContent).toBe('0,5');
+  fireEvent.click(
+    expressionActions(editor).getByRole('radio', { name: 'RAD' }),
+  );
+  await act(async () => {
+    vi.advanceTimersByTime(250);
+  });
+  expect(activeWorker().request.options.angleMode).toBe('rad');
+  act(() => activeWorker().respond());
+  expect(output.textContent).toBe('0,5');
+  expect(screen.getByLabelText('Live-Vorschau')).toHaveTextContent(
+    '-0,988031624092862',
+  );
+  expect(announcement?.textContent).toBe('Live-Vorschau: -0,988031624092862');
+});
 it('does not replace an explicit snapshot with typing or its preview, or overwrite the newer draft', async () => {
   TestCalculationWorker.hold = true;
   render(<ScientificMode />);
@@ -324,9 +529,15 @@ it('uses full English metadata and exposes the programmer panel', async () => {
   expect(screen.getByRole('textbox', { name: 'Hexadecimal' })).toBeVisible();
 });
 
-it.each(['de', 'en'] as const)(
-  'keeps exact values through untouched definition edits in %s',
-  async (locale) => {
+// Each definition is an independent UI round trip with the same full environment.
+// Keep the default timeout per case instead of accumulating five interactions in it.
+it.each(
+  (['de', 'en'] as const).flatMap((locale) =>
+    ['v', 'large', 'precise', 'z', 'f'].map((name) => ({ locale, name })),
+  ),
+)(
+  'keeps exact values through an untouched $name definition edit in $locale',
+  async ({ locale, name }) => {
     useAppStore.setState({ locale });
     let env = createEnvironment();
     for (const source of [
@@ -355,30 +566,26 @@ it.each(['de', 'en'] as const)(
     const panel = screen.getByRole('region', {
       name: locale === 'de' ? 'Variablen' : 'Variables',
     });
-    for (const name of ['v', 'large', 'precise', 'z', 'f']) {
-      const before = useScientificStore.getState().environment;
-      const history = useHistoryStore.getState().entries;
-      await user.click(
-        within(panel).getByRole('button', {
-          name: locale === 'de' ? `${name} bearbeiten` : `Edit ${name}`,
-        }),
-      );
-      expect(useScientificStore.getState().environment).toBe(before);
-      expect(useHistoryStore.getState().entries).toBe(history);
-      // Replacing the text and restoring exactly the opened source remains lossless.
-      const source = (editor as HTMLInputElement).value;
-      fireEvent.change(editor, { target: { value: source + ' ' } });
-      fireEvent.change(editor, { target: { value: source } });
-      editor.focus();
-      await user.keyboard('{Enter}');
-      expect(screen.queryByRole('alert')).not.toBeInTheDocument();
-      const after = useScientificStore.getState().environment;
-      expect(after.variables).toEqual(env.variables);
-      expect(after.functions).toEqual(env.functions);
-      expect(useHistoryStore.getState().entries).toHaveLength(
-        history.length + 1,
-      );
-    }
+    const before = useScientificStore.getState().environment;
+    const history = useHistoryStore.getState().entries;
+    await user.click(
+      within(panel).getByRole('button', {
+        name: locale === 'de' ? `${name} bearbeiten` : `Edit ${name}`,
+      }),
+    );
+    expect(useScientificStore.getState().environment).toBe(before);
+    expect(useHistoryStore.getState().entries).toBe(history);
+    // Replacing the text and restoring exactly the opened source remains lossless.
+    const source = (editor as HTMLInputElement).value;
+    fireEvent.change(editor, { target: { value: source + ' ' } });
+    fireEvent.change(editor, { target: { value: source } });
+    editor.focus();
+    await user.keyboard('{Enter}');
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    const after = useScientificStore.getState().environment;
+    expect(after.variables).toEqual(env.variables);
+    expect(after.functions).toEqual(env.functions);
+    expect(useHistoryStore.getState().entries).toHaveLength(history.length + 1);
     const editList = within(panel).getByRole('button', {
       name: locale === 'de' ? 'xs bearbeiten' : 'Edit xs',
     });

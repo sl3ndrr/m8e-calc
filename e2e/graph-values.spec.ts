@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { replaceGraphExpression } from './graphEditor';
 // Feature-state checks are isolated from SW update toasts; the production
 // matrix, comfort and pwa-update suites exercise the real worker separately.
 test.use({ serviceWorkers: 'block' });
@@ -94,7 +95,7 @@ test('AP22 parameters apply localized ranges atomically; trace names all curve t
   await page.goto('/m8e-calc/#/graph');
   await page.getByRole('button', { name: 'Hinzufügen', exact: true }).click();
   const editor = page.locator('.graph-editor [role="textbox"]');
-  await editor.fill('a*x');
+  await replaceGraphExpression(editor, 'a*x');
   await page.getByText('Bereich und Schrittweite', { exact: true }).click();
   const range = page.locator('.graph-parameter form');
   await range.getByRole('textbox', { name: 'Minimum' }).fill('');
@@ -112,7 +113,7 @@ test('AP22 parameters apply localized ranges atomically; trace names all curve t
     ['(t,t^2)', 't ='],
     ['r=1', 'θ ='],
   ] as const) {
-    await editor.fill(input);
+    await replaceGraphExpression(editor, input);
     const canvas = page.getByRole('application');
     await canvas.focus();
     await canvas.press('Escape');
