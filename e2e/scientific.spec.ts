@@ -1,5 +1,6 @@
 import { allowClipboard } from './clipboard';
-import { expect, test, type Page } from '@playwright/test';
+import { expect, type Page } from '@playwright/test';
+import { test } from './scientificLifecycle';
 import AxeBuilder from '@axe-core/playwright';
 import { t } from '../src/shared/i18n/extended';
 import { execute, type Environment } from '../src/engine';

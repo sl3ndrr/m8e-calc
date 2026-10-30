@@ -1,0 +1,98 @@
+{
+  "runId": 41119477318,
+  "attempt": 1,
+  "head": "3d81000eb558b1b25fec555fbc4fd4f96ed6414e",
+  "build": "0e2c7f0f13c70654f4400817e815a9dea3bc04d5",
+  "tree": "5c64f1f89036a66564fc4bde1a1a9ded428bfb7e",
+  "artifact": 13010685467,
+  "zipSha256": "5a74c82d474fdebc3aae9410afc578922b96341edc12a02af1ce31165df887a9",
+  "stats": {
+    "startTime": "2026-10-30T20:01:19.909Z",
+    "duration": 1452022.148,
+    "expected": 220,
+    "skipped": 2,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "allWp08Cases": 6,
+  "allWp08Passed": true,
+  "ap21": "passed",
+  "runtime": {
+    "node": "v24.22.1",
+    "browser": "27.2",
+    "locale": "de",
+    "theme": "light",
+    "decimalSeparator": "auto",
+    "grouping": true,
+    "width": 1280,
+    "clipboard": "in-memory adapter"
+  },
+  "failures": [
+    {
+      "title": "WP-01 en: define \u2192 reload \u2192 calculate \u2192 reload preserves the scientific environment",
+      "file": "scientific.spec.ts",
+      "results": [
+        {
+          "status": "failed",
+          "duration": 25123,
+          "errors": [
+            {
+              "location": {
+                "file": "/home/runner/work/m8e-calc/m8e-calc/e2e/scientific.spec.ts",
+                "column": 28,
+                "line": 307
+              },
+              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.scientific-result-text')\nExpected: \u001b[32m\"3\"\u001b[39m\nError: Target page, context or browser has been closed\n\nCall log:\n\u001b[2m  - Expect \"toHaveText\" locator('.scientific-result-text') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.scientific-result-text')\u001b[22m\n\n\n  305 |       await editor.fill(source);\n  306 |       await editor.press('Enter');\n> 307 |       await expect(result).toHaveText(expected);\n      |                            ^\n  308 |     };\n  309 |     const tools = async (computer: boolean) => {\n  310 |       if (width >= 1920) {\n    at run (/home/runner/work/m8e-calc/m8e-calc/e2e/scientific.spec.ts:307:28)\n    at /home/runner/work/m8e-calc/m8e-calc/e2e/scientific.spec.ts:352:5"
+            }
+          ],
+          "retry": 0,
+          "startTime": "2026-10-30T20:17:14.197Z"
+        }
+      ]
+    }
+  ],
+  "sameProductPriorRun": {
+    "runId": 41093992294,
+    "wp01EnglishCase": "passed",
+    "byteIdenticalProductFiles": 144,
+    "onlyChangedProductionFile": "build-info.json"
+  },
+  "observed": "Original trace has correct xor=3 input and calculating announcement. No wrong result recorded. The 5000ms expectation remains unresolved until target closure roughly20s later; result status is failed, not timedOut. Trace has no explicit crash or close event.",
+  "classification": "Unexplained page/context/browser closure; underlying browser, environment or product cause remains unproven. Do not claim OOM, a crash, a timeout failure or an arithmetic bug as established. Local WebKit reproduction unavailable because browser download remains HTTP403 blocked.",
+  "diagnosticChange": "Automatic scientific E2E fixture records page crash/close, context close, browser disconnect and pageerror events plus runtime/connection state in finally. No waits, retries, recovery, skipped assertions, timeouts, numerical or product changes. Subsequent full CI must be reported separately; passing would not prove the underlying closure cause repaired.",
+  "localDiagnosticCheck": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "lines": 628,
+    "outputSha256": "e3c59b0449a4a5729b62245e491f80cd3d18a5e68db2393328b4f7b9ce319e26",
+    "uiPassed": 627,
+    "domainPassed": 1744,
+    "lintTypesBuildBenchmarks": "passed",
+    "node": "24.22.1",
+    "npm": "11.9.0",
+    "sources": [
+      {
+        "path": "e2e/scientific.spec.ts",
+        "sha256": "a2f8a941697225632d9e4b1b8090574b7813bc47ef6da450ed2634ec65e5b548"
+      },
+      {
+        "path": "e2e/scientificLifecycle.ts",
+        "sha256": "7b2b5fd833f5e200fe365b6e022acf33768492ba541ff2afa91f3beb392a638e"
+      }
+    ],
+    "playwrightDiscovery": {
+      "command": "node node_modules/@playwright/test/cli.js test e2e/scientific.spec.ts --project=chromium --project=firefox --project=webkit --list",
+      "exitCode": 0,
+      "cases": 75,
+      "note": "Discovery only, not a browser test success."
+    },
+    "docsCheck": {
+      "documents": 56,
+      "localLinks": 447,
+      "npmCommands": 228,
+      "failures": 0,
+      "externalChecked": false
+    },
+    "limits": "First local invocation printed only command header and was rejected as evidence. Complete second invocation is hash bound. Regular local install remains blocked; new full PR CI required."
+  }
+}

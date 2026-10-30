@@ -53,6 +53,12 @@ beim Erfassen des Referenz-Fits. Zusätzliche Unchecked- und bestehende Settled-
 Prüfung davor; zehn Fits und 0,25-px-Grenze bleiben erhalten. Ganze CI ist rot,
 neuer vollständiger Lauf erforderlich; Originaltrace und Werte im WP08-Bericht.
 
+Fünfter Lauf: AP21 und alle 19 WP-08-Fälle bestehen in drei Engines. WebKit
+findet einen neuen unerklärten Targetschluss im WP-01-en-Persistenztest;
+Gesamtgate rot, Ursache nicht als Rechen-/Browser-/Umgebungsfehler bewiesen.
+Zusätzliche Test-Lebenszyklusdiagnose sichert Ereignisse auch bei Fehlschlag;
+keine Recovery, Wiederholung oder Produktänderung. Originale und Grenzen im WP08-Bericht.
+
 ## WP-07 · Wissenschaftliche Berechnungen im Worker · 29.10.2026
 
 Lokal auf `feat/audit-wp-07` ab aktuellem main
