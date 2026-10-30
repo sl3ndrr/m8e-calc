@@ -1,5 +1,9 @@
 import { expect, it } from 'vitest';
-import { createEnvironment, execute } from '../../engine';
+import {
+  createEnvironment,
+  execute,
+  type ValueFormatOptions,
+} from '../../engine';
 import {
   calculate,
   constantMatches,
@@ -14,6 +18,90 @@ import {
 } from './model';
 import { completionEntries } from './registry';
 const options = { angleMode: 'deg', complex: 'off' } as const;
+it.each([
+  ['de', 'auto', true, '1234567.89', 'auto', 15, false, '1.234.567,89'],
+  ['en', 'auto', true, '1234567.89', 'auto', 15, false, '1,234,567.89'],
+  ['de', 'point', false, '-1234.567', 'fixed', 5, false, '-1234.6'],
+  ['en', 'comma', true, '-1234.567', 'fixed', 5, false, '-1.234,6'],
+  ['de', 'auto', true, '12345', 'sci', 3, false, '1,23e+4'],
+  ['en', 'auto', true, '12345', 'eng', 3, false, '12.3e+3'],
+  ['de', 'auto', true, '999999.9', 'eng', 6, false, '1e+6'],
+  [
+    'en',
+    'comma',
+    false,
+    '1/7',
+    'fixed',
+    50,
+    false,
+    '0,14285714285714285714285714285714285714285714285714',
+  ],
+  ['de', 'auto', true, '-1/2', 'sci', 1, true, '-1/2'],
+  ['en', 'auto', false, '2.5-3.75i', 'auto', 15, true, '2.5-3.75i'],
+  ['de', 'auto', true, '-1234.5+2.75i', 'fixed', 15, false, '-1.234,5+2,75i'],
+  ['de', 'auto', true, 'factor(12)', 'auto', 15, true, '[2, 2, 3]'],
+  ['en', 'auto', false, 'factor(1)', 'sci', 1, false, '[]'],
+  ['de', 'auto', false, '1e10000', 'sci', 50, false, '1e+10000'],
+  ['en', 'comma', true, '-1e-10000', 'sci', 50, false, '-1e-10000'],
+] as const)(
+  'WP-08: %s/%s formats %s %s as %s/%s (fraction %s)',
+  (
+    locale,
+    separator,
+    grouping,
+    source,
+    notation,
+    digits,
+    fraction,
+    expected,
+  ) => {
+    const result = calculate(source, createEnvironment(), {
+      ...options,
+      complex: 'on',
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok || !result.calculation.value)
+      throw new Error('Expected value');
+    const value = result.calculation.value;
+    const before = JSON.stringify(value);
+    const format: ValueFormatOptions = {
+      locale: resultLocale(locale, separator),
+      grouping,
+      notation,
+      digits,
+    };
+    const displayed = displayResult(value, format, fraction);
+    expect(displayed.text).toBe(expected);
+    expect(displayed.latex).toBe(
+      displayResult(
+        value,
+        { ...format, locale: 'en', grouping: false },
+        fraction,
+      ).latex,
+    );
+    expect(JSON.stringify(value)).toBe(before);
+    expect(result.calculation.expression).toBe(source);
+  },
+);
+
+it('WP-08 keeps argument commas and decimal points in formula source, and definitions have no numeric result', () => {
+  const result = calculate('min(1.5, 2.5)', createEnvironment(), options);
+  if (!result.ok || !result.calculation.value)
+    throw new Error('Expected value');
+  expect(result.calculation.expression).toBe('min(1.5, 2.5)');
+  expect(
+    displayResult(result.calculation.value, { locale: 'de' }, false).text,
+  ).toBe('1,5');
+  expect(result.calculation.expressionLatex).toContain('1.5');
+  expect(result.calculation.expressionLatex).toContain('2.5');
+  const definition = calculate(
+    'f(x)=min(x, 1.5)',
+    createEnvironment(),
+    options,
+  );
+  expect(definition.ok).toBe(true);
+  if (definition.ok) expect(definition.calculation.value).toBeNull();
+});
 it('evaluates degrees, variables and calculus through AP7', () => {
   let env = createEnvironment();
   for (const [expression, expected] of [

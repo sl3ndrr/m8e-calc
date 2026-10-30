@@ -1,5 +1,26 @@
 # Implementierungsstatus
 
+## WP-08 · Wissenschaftlicher Hauptwert nach Zahlenpräferenzen · 30.10.2026
+
+Lokal auf `feat/audit-wp-08` ab `43b0765172223182634f81183dbc8d471ba77052`
+einschließlich WP-07 umgesetzt. Bereits korrekter lokalisierter Ergebnistext
+jetzt sichtbar als Hauptwert, gemeinsame Quelle für Textkopie/Ansage; Formel
+und ausdrücklich benanntes kanonisches LaTeX bleiben ergänzend. Ein persistenter
+Ansagekanal verhindert konkurrierende Ausgaben und eine zweite Ergebnisansage
+beim nachlaufenden Vorschauabschluss. Zahlenformate, Brüche, komplexe Werte,
+Listen, Definition-ohne-Wert und lange vollständige Kopien sind berücksichtigt.
+Parser, Decimal-Werte, numerische Grenzen und Workerfluss bleiben erhalten.
+
+Geprüfter Codecommit `ef69c112955b3fe710a797cd0f9fb7c1d66128e5`:
+`npm run check` vollständig bestanden, 627 UI-/1744 Domänentests, Build und
+Benchmarks; Bundle 190757 Byte gzip < 200000, keine eager Scientificmodule.
+Keine längeren Fristen oder gelockerten Assertions. Identitäten, genaue Befehle
+und Rohbelege stehen in [WP08](WP08.md). Reguläres npm-ci/npm 11.19.0 und
+Browserdownload sind HTTP-403-blockiert; lokale Prüfer aus hashgeprüftem
+vorherigem Lockfile-Export. Produktionsbrowserstarts stoppen vor App-Prüfungen;
+echter Zoom und Hell-/Dunkel-Sichtprüfung bleiben offen.
+Keine ungeprüften Bildbaselines aktualisiert, keine Remoteänderungen/Freigabe.
+
 ## WP-07 · Wissenschaftliche Berechnungen im Worker · 29.10.2026
 
 Lokal auf `feat/audit-wp-07` ab aktuellem main

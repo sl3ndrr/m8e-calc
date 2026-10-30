@@ -217,6 +217,7 @@ export const en: Dictionary = {
   'scientific.clear': 'Clear expression',
   'scientific.preview': 'Live preview',
   'scientific.result': 'Result',
+  'scientific.mathematicalResult': 'Mathematical representation (LaTeX)',
   'scientific.format': 'Output format',
   'scientific.auto': 'Auto',
   'scientific.fixed': 'Fixed',

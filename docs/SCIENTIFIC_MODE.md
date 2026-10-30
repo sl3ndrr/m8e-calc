@@ -27,8 +27,9 @@ Engine und AST-Vertrag bleiben unverändert.
   Vorschauplatz meldet Arbeit, Abbruch oder einen kontrollierten Workerfehler
   ohne zusätzliche Animation.
 - Ergebnis: Auto/Fest/Wissenschaftlich/Technisch, 1–50 **signifikante** Stellen,
-  Bruchnäherung (Nenner ≤ 1.000.000), Text- und LaTeX-Kopie. KaTeX zeigt Ausdruck
-  und formatiertes Ergebnis mit MathML. Komplexe Zahlen können aktiviert werden.
+  Bruchnäherung (Nenner ≤ 1.000.000), Text- und LaTeX-Kopie. Der lokalisierte
+  Text ist die sichtbare Hauptinformation; KaTeX ergänzt Ausdruck und
+  mathematische Darstellung mit MathML. Komplexe Zahlen können aktiviert werden.
 - Ab 1920 px erscheinen Editor/Ergebnis, Tastenfeld und Referenzspalte gemeinsam;
   die Shell dockt den Verlauf rechts. Darunter wechseln Tabs die Bedienfelder.
   Das Informatik-Panel wird von AP9 geliefert (siehe unten).
@@ -100,6 +101,60 @@ des Variablennamens. „Bearbeiten“ ist deaktiviert und erhält eine sichtbare
 zugänglich zugeordnete de/en-Erklärung. Der Einfügename enthält den vollständigen
 sichtbaren Definitionstext und die lokalisierte Aktion (Ansatz aus PR #65/WP-04).
 Es gibt keine zusätzliche Live-Region für Definitionen oder Bearbeitungsaktionen.
+
+### Ergebnisanzeige und Kopiervertrag · WP-08 / D1
+
+`displayResult(...).text` ist die gemeinsame Quelle für Hauptwert, „Text kopieren“
+und Ergebnisansage. `resultLocale` berücksichtigt de/en und Separatoroverride;
+Gruppierung, Notation und 1–50 signifikante Stellen folgen unverändert
+`formatValue`/`formatNumber`. Kopiert wird der **vollständige angezeigte Text**,
+einschließlich Exponent und aller dargestellten Stellen. Das ist kein Export
+zusätzlicher, in der Anzeige gerundeter Decimal-Stellen.
+
+Bruchmodus behält die Näherung `Zähler/Nenner` mit vorzeichenbehaftetem Zähler,
+positivem Nenner und ASCII-Ganzzahlen ohne Gruppierung. Stellenzahl/Notation
+verändern diese Bruchanzeige nicht. Nur reelle Zahlen erhalten Brüche. Komplexe
+Werte bleiben kartesisch mit formatierten Komponenten, Listen mit formatierten
+Elementen und dem bisherigen Listentrenner `, `. Der Bruchschalter ist für diese
+Werte gesperrt. Eine Funktionsdefinition hat keinen Zahlenwert: Die Hauptfläche
+meldet lokalisiert „Funktion gespeichert“, beide Ergebniskopien sind deaktiviert.
+Vor der ersten Ausführung bleibt das Output leer; der bisherige Leerhinweis
+belegt denselben reservierten Werteplatz.
+
+Formel und mathematisches Ergebnis bleiben ergänzend sichtbar. „Mathematische
+Darstellung (LaTeX)“ benennt die Ergänzung; kanonische Dezimalpunkte und fehlende
+Gruppierung sind dort beabsichtigt. „LaTeX kopieren“ exportiert weiterhin
+`Ausdruck-LaTeX = Ergebnis-LaTeX`, im Bruchmodus mit `\\frac`. Dieser andere
+Export ist keine lokalisierte Textkopie. Kein Ersetzen von Punkten/Kommas in
+Formeln, kein neuer Zahlenformatter und keine Änderung an Parsergrammatik,
+AST oder gespeicherten Decimal-Werten. Argumentkommas bleiben im Ausdruck erhalten.
+
+Genau eine persistente höfliche Statusregion bündelt diesen Ergebnisfluss:
+Enginefehler mit Position, Workerfehler/Abbruch, ausdrückliche Arbeit, aktuelles
+Ergebnis bzw. Vorschau. Die Vorschau erhält den lokalisierten Vorschaupräfix;
+die Ergebnisansage enthält exakt den Hauptwert. Die nachlaufende Vorschau des
+gerade ausgeführten Ausdrucks verändert die Ergebnisansage nicht nochmals.
+Eine abweichende Vorschau desselben Ausdrucks nach einem Kontextwechsel wird
+dagegen ausdrücklich als Vorschau angesagt; der letzte übernommene Hauptwert bleibt erhalten.
+Sichtbares Output, Vorschau und Fehler behalten ihre Semantik, sind durch
+`aria-live="off"` jedoch keine konkurrierenden Ansagequellen. MathML bleibt
+außerhalb der Live-Region. Recovery, Formularfehler und Clipboard-Snackbar
+behalten ihre getrennten ereignisbezogenen Aufgaben.
+
+Die Hauptanzeige verwendet `type-display-small`, Primary und tabellarische
+Ziffern. Vollständiger Text darf ohne Ellipse umbrechen; kein Clipping oder
+Animationsviewport begrenzt den Exponenten. Textselektion bleibt möglich,
+Kopieraktionen bleiben per Tastatur und mit nativem Fokus erreichbar. Das
+statische Output bekommt keinen zusätzlichen Tabstopp. Wertezeile und Mathematik
+reservieren Platz für kurze Zustände; längere Inhalte dürfen wachsen. Während
+weiterer Arbeit oder Fehlern bleibt das letzte übernommene Ergebnis erhalten;
+der bestehende Vorschauplatz zeigt den aktuellen Arbeits-/Fehlerstatus.
+
+Modell-/Komponententests prüfen bekannte Formate, vollständige Kopien und null
+Ansagemutationen beim nachlaufenden Vorschauabschluss. Produktionsfälle ergänzen
+de/en, Hell/Dunkel, Overrides, 1280 px, echte Workerabschlüsse/Fehler und nativen
+Chromium-Tabzoom 100/200 % über die vorhandene AP19-Erweiterung. Tatsächliche
+Ausführungen und offene Bild-/Browserabnahme: [WP08.md](WP08.md).
 
 ## Verifikation
 

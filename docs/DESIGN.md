@@ -48,6 +48,13 @@ Die Font-Lizenzen liegen neben den Assets in `src/styles/fonts/`. Reproduzierbar
 
 Emphasized Display/Headline nutzt Gewicht 500, Body 500, Title/Label gemäß Rolle 500 oder 700. Die Web-Adaption setzt `opsz` passend zur Größe, `wdth` normalerweise 100; Emphasized Display/Headline 95 als bewusste gestalterische Wahl. `.expression` verwendet Roboto Mono und tabellarische Ziffern (`tnum`). Die Lab-Ausdrücke sind reine Schriftproben.
 
+WP-08 verwendet für den wissenschaftlichen Hauptwert `type-display-small` mit
+tabellarischen Ziffern und Primary. Vollständiger Text bleibt selektierbar und
+darf umbrechen, ohne Ellipse oder neue Animation. Formel/KaTeX sind ergänzend
+beschriftet; ihre kanonische Zahlenschreibweise bestimmt nicht die Hauptanzeige.
+Format-/Ansagevertrag: [SCIENTIFIC_MODE.md](SCIENTIFIC_MODE.md), tatsächliche
+Prüfgrenzen und offene visuelle Abnahme: [WP08.md](WP08.md).
+
 ## Formen
 
 `shapes.ts` und `tokens.css` definieren None 0, Extra Small 4, Small 8, Medium 12, Large 16, **Large Increased 20**, Extra Large 28, **Extra Large Increased 32**, **Extra Extra Large 48**, Full 9999 px. Utilities: `.shape-<name>`. `.shape-squircle` setzt ausschließlich innerhalb von `@supports (corner-shape: squircle)` die ergänzende Corner-Form; der normale Radius bleibt der sichere Standard.

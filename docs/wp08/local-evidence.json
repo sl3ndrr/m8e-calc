@@ -1,0 +1,936 @@
+{
+  "recordedAtUTC": "2026-10-30T15:33:08.347947+00:00",
+  "baseCommit": "43b0765172223182634f81183dbc8d471ba77052",
+  "baseTree": "7e9c45ee063ba10b542f19a0c2b366bba72fc51b",
+  "branch": "feat/audit-wp-08",
+  "checkedCodeCommit": "ef69c112955b3fe710a797cd0f9fb7c1d66128e5",
+  "checkedCodeTree": "b44e6d0aafe2876c01e3a36eda20672345a41a15",
+  "baseToCodeBinaryDiffSha256": "cbd1bd7aeff22c3531fc8e0cfd481271d7e1fce73298582f1de1dba839b3d71e",
+  "sourceFiles": [
+    {
+      "path": "e2e/scientific-result-zoom.spec.ts",
+      "sha256": "55ec12a4d13caee00b946a487c268d4579e28ffe7bb33844fb07ae2d68408dea"
+    },
+    {
+      "path": "e2e/scientific-result.spec.ts",
+      "sha256": "0685c95d54375fb2e3723d14e7241202a4c8c7f370b40ffa993340037440c738"
+    },
+    {
+      "path": "playwright.config.ts",
+      "sha256": "96f0dab42c84566441d4f45e9fd7e1299bf83cf37e6a716df9498ca48ce2575d"
+    },
+    {
+      "path": "src/features/scientific/ScientificMode.css",
+      "sha256": "ade56179749d84b1115e6e40c0fd3c70f6bc2e6215933af8ee63228af3403bfa"
+    },
+    {
+      "path": "src/features/scientific/ScientificMode.test.tsx",
+      "sha256": "aa6e921999f8fb440dfda73820e24c486f31a129cd55bcef559b1935086eabc9"
+    },
+    {
+      "path": "src/features/scientific/ScientificMode.tsx",
+      "sha256": "efec1903e0470b5343ca431aa44b747689197ed4ca6a6ac9c4d94ae14fb58fba"
+    },
+    {
+      "path": "src/features/scientific/model.test.ts",
+      "sha256": "d4d872f339823d0cec82c9077557e16de248679e22963744c5c322d946de7759"
+    },
+    {
+      "path": "src/shared/i18n/de.ts",
+      "sha256": "9dcaea8c2896d9ec9034a8f8754f54901557c4e0e7a6fb3e8c0d1100bedde2cc"
+    },
+    {
+      "path": "src/shared/i18n/en.ts",
+      "sha256": "4e81e4659673e132c13898246f62c3c6bb135b42ead8a6ceabe8155096096821"
+    }
+  ],
+  "unchangedPaths": [
+    "src/engine",
+    "src/units",
+    "src/graph",
+    "src/features/scientific/model.ts",
+    "src/features/scientific/calculationExecutor.ts",
+    "src/features/scientific/workerProtocol.ts",
+    "package.json",
+    "package-lock.json",
+    ".github",
+    "e2e/qa-visual.spec.ts-snapshots"
+  ],
+  "runtime": {
+    "node": "24.22.1",
+    "npm": "11.9.0",
+    "requiredNpm": "11.19.0",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "cpuCountReportedByNode": 0,
+    "prettier": "3.9.10",
+    "typescript": "5.9.3",
+    "vitest": "5.0.5",
+    "playwright": "1.64.1",
+    "executedBrowserVersions": [],
+    "physicalDeviceTested": false
+  },
+  "toolExport": {
+    "runId": 40950236689,
+    "artifactId": 12931081928,
+    "zipSha256": "3067bf1d8f8cf37092e02f310ccee057df8933e4dd7a10e517094fdb1c57e970",
+    "matchingLockfilePackages": 397,
+    "absentOptionalPlatformPackages": 25,
+    "note": "Read-only reuse of a prior regular npm ci export. No reuse of its test result and no new remote workflow."
+  },
+  "localBuild": {
+    "buildInfo": {
+      "schemaVersion": 1,
+      "sourceCommit": null,
+      "target": "normal"
+    },
+    "files": [
+      {
+        "path": ".vite/manifest.json",
+        "bytes": 33710,
+        "sha256": "7966ea49be71ebba4ad374ab8b81d4cbd8fe4374f1b7c0ecd7699989e414d336"
+      },
+      {
+        "path": "assets/AccentPanel-CrS47tdM.js",
+        "bytes": 3482,
+        "sha256": "53a0d6e3a766878ffaffcdb084a0a2d61b27cce38399b9c8c04df2982e5d149d"
+      },
+      {
+        "path": "assets/AccentPicker-xWQvBha2.css",
+        "bytes": 3155,
+        "sha256": "af651224537916cb7a2dd36b74ea8109c04590e0be308695bb640c188bb99a42"
+      },
+      {
+        "path": "assets/Button-BoVqgmZx.css",
+        "bytes": 4971,
+        "sha256": "d8a3388116d15912cef445ad7e6b679a38dedfb3e13b39775b39ae62e1226450"
+      },
+      {
+        "path": "assets/Button-XVpI3UH4.js",
+        "bytes": 71067,
+        "sha256": "9f5331cacea6b405c1bb9611d6640c156b675a9d02dcf3ac36a87393ce782a12"
+      },
+      {
+        "path": "assets/Card-CpJeSsLo.js",
+        "bytes": 200,
+        "sha256": "6962c57466d53bb6890cb5ac8a2ef41561e2378709eb62c107303f2e4c8516d0"
+      },
+      {
+        "path": "assets/Card-DD1MZGf1.css",
+        "bytes": 454,
+        "sha256": "1bf89d1235fa772db2ec5c44285a55871da7bfecbffd3aa93ec10be0e0a160e9"
+      },
+      {
+        "path": "assets/Checkbox-BHI7YD3x.js",
+        "bytes": 4193,
+        "sha256": "984ae9f315bdf0c0e7832befeda46f9e671f52f8afb3c38fdf6edb10bc406b4d"
+      },
+      {
+        "path": "assets/Checkbox-CaWe_hBO.css",
+        "bytes": 1903,
+        "sha256": "9affbe5332d67f045b985c196e36ce669bcc0c23a312c91b0dc8ad13148d216f"
+      },
+      {
+        "path": "assets/CommandPalette-CXQ6vynt.js",
+        "bytes": 3851,
+        "sha256": "5faa17e8610c1b14d2f6221aed64812441624d2e153aa573b77af23c7013d22d"
+      },
+      {
+        "path": "assets/ConvertMode-C-rZJdia.css",
+        "bytes": 7553,
+        "sha256": "6494db4b2ab09183a6c0df3f36a819266ff4d3f4e5465032d8bd7e15d950b7e9"
+      },
+      {
+        "path": "assets/ConvertMode-DgD-MdjD.js",
+        "bytes": 21499,
+        "sha256": "7aaabb7a230cd5267b385c6f8bc4a594cf00c97d3cd78c9132ac2b431676302e"
+      },
+      {
+        "path": "assets/CopyLinkButton-BBBHaT_c.js",
+        "bytes": 811,
+        "sha256": "b82202d0537ebb13a05f792878b37c8b8deb89fa3d3fc05f14149980b4b81681"
+      },
+      {
+        "path": "assets/CopyLinkButton-CzVs3g7c.css",
+        "bytes": 152,
+        "sha256": "ffc0752ab6d774b2e8493dc35c2d22c675a5d181a0dd07411ed1eb8e5d10240d"
+      },
+      {
+        "path": "assets/Dialog-CNke6_Be.css",
+        "bytes": 803,
+        "sha256": "bf2054baf2b7f5a629db938ee79f2c9086c1ada7726cb1f688e21892284e0c7a"
+      },
+      {
+        "path": "assets/Dialog-DAE_d4Rb.js",
+        "bytes": 4973,
+        "sha256": "0edab07adcbf12e3940b1c0d377f2d71c01f0797910317944aff7101658de28d"
+      },
+      {
+        "path": "assets/ExpressionEditor-JEAz7kHr.js",
+        "bytes": 354791,
+        "sha256": "2d33448d111a3305f1620b3ebf43b5c6c227bd8f3f9321b77856dd3594ce1966"
+      },
+      {
+        "path": "assets/FocusScope-CuIhVRDU.js",
+        "bytes": 14292,
+        "sha256": "18e34f28861f94f272072b9dc5ce056507fe83195e36a14fb3380738b8124f3a"
+      },
+      {
+        "path": "assets/GraphMode-CPEJlQ_S.css",
+        "bytes": 6640,
+        "sha256": "1d1c7b544175b25096811eb893083cce4545a1b02bf746353ec1591ffc9468d2"
+      },
+      {
+        "path": "assets/GraphMode-rA18M-6L.js",
+        "bytes": 91256,
+        "sha256": "deb72000e940cef6cfb1acc9b614609ad33e5e7d432ad6aadf9cbe6311fe534e"
+      },
+      {
+        "path": "assets/HistorySheet-BrnnUnw3.js",
+        "bytes": 66754,
+        "sha256": "123cdd07286273f41a050dc54cb00e30a8ebffc65efb7235b2fae0cc22741ea9"
+      },
+      {
+        "path": "assets/IconButton-DsK9xG5I.js",
+        "bytes": 3457,
+        "sha256": "8a1c473907a47aa0f58df146f326a3cd28768395588927c69a50d818fc268613"
+      },
+      {
+        "path": "assets/IconButton-h8-ZNqqk.css",
+        "bytes": 413,
+        "sha256": "f5396fdc2c31eecb38f0b9ab1114e398c331a615875d77fa47a0a526cb0d914a"
+      },
+      {
+        "path": "assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
+        "bytes": 28076,
+        "sha256": "0cdd387c9590a1a9f9794560022dbb59654a7d86f187aa0c81495ad42d3a7308"
+      },
+      {
+        "path": "assets/KaTeX_AMS-Regular-DMm9YOAa.woff",
+        "bytes": 33516,
+        "sha256": "30da91e84c893f875e252689faebdc590b2871145e8adc7f9a9d4dbd8ce0b251"
+      },
+      {
+        "path": "assets/KaTeX_AMS-Regular-DRggAlZN.ttf",
+        "bytes": 63632,
+        "sha256": "68534840bcfdd2bffb6f0e8deb48684dd01e7f04ea2813267577afb906de1d13"
+      },
+      {
+        "path": "assets/KaTeX_Caligraphic-Bold-ATXxdsX0.ttf",
+        "bytes": 12368,
+        "sha256": "07d8e303ce4fc12b4bb54f1004170dd190a1f3db45d400fe68060df3e0897268"
+      },
+      {
+        "path": "assets/KaTeX_Caligraphic-Bold-BEiXGLvX.woff",
+        "bytes": 7716,
+        "sha256": "1ae6bd7475590e97e7f145a89e09ccde322f7a6bc0b91607b1c8b8ee28290fed"
+      },
+      {
+        "path": "assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2",
+        "bytes": 6912,
+        "sha256": "de7701e42cf1f4cf0b766c03fb27977207eee2f4fd5d76fa82188406da43ea4c"
+      },
+      {
+        "path": "assets/KaTeX_Caligraphic-Regular-CTRA-rTL.woff",
+        "bytes": 7656,
+        "sha256": "3398dd02302557a793f2863f88e02d96ce10df2abffa07c8e9fa90775116e65c"
+      },
+      {
+        "path": "assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2",
+        "bytes": 6908,
+        "sha256": "5d53e70ad607c2352162dec9e0923fb54ecdafaccbf604cd8dcf7d00facb989b"
+      },
+      {
+        "path": "assets/KaTeX_Caligraphic-Regular-wX97UBjC.ttf",
+        "bytes": 12344,
+        "sha256": "ed0b74372feefcbb9c0666b2e210da37b7e49fa7fbbf3eeb11db5f693dacfbb7"
+      },
+      {
+        "path": "assets/KaTeX_Fraktur-Bold-BdnERNNW.ttf",
+        "bytes": 19584,
+        "sha256": "9163df9c7122432e6495b4229fa9071cf9ae86a758ae5efc4924ec2e1a6dbce1"
+      },
+      {
+        "path": "assets/KaTeX_Fraktur-Bold-BsDP51OF.woff",
+        "bytes": 13296,
+        "sha256": "9be7ceb88004ab8ad124082246fbfcca4091e36385d4ec6ed1df67375dad50fb"
+      },
+      {
+        "path": "assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2",
+        "bytes": 11348,
+        "sha256": "74444efd593c005e3f4573b44524704c0af0a937fe911cca9e94068d0d140d3f"
+      },
+      {
+        "path": "assets/KaTeX_Fraktur-Regular-CB_wures.ttf",
+        "bytes": 19572,
+        "sha256": "1e6f9579e90e2cac37f8f60a597c436e075c114385652b7cbeb0dec0421291b3"
+      },
+      {
+        "path": "assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2",
+        "bytes": 11316,
+        "sha256": "51814d270d06ff0255dba0799994fa4d8c84d11f09951d47595f4abb1f3602dc"
+      },
+      {
+        "path": "assets/KaTeX_Fraktur-Regular-Dxdc4cR9.woff",
+        "bytes": 13208,
+        "sha256": "5e28753be717dac97f559f49bc10be9cf3c124ddcabda6659d11cb68febc6463"
+      },
+      {
+        "path": "assets/KaTeX_Main-Bold-Cx986IdX.woff2",
+        "bytes": 25324,
+        "sha256": "0f60d1b897938ec918c8ce073092411baf9438f6739465693ff18b0f9d20b021"
+      },
+      {
+        "path": "assets/KaTeX_Main-Bold-Jm3AIy58.woff",
+        "bytes": 29912,
+        "sha256": "c76c5d696297d51b9cb1639c7da4334f0e7dec81b42b11213b5e25ef671bb822"
+      },
+      {
+        "path": "assets/KaTeX_Main-Bold-waoOVXN0.ttf",
+        "bytes": 51336,
+        "sha256": "138ac28d1663b3037e9c5f52371fa5c63d8324f4a38d22cd573e6ea3a3fd0cf8"
+      },
+      {
+        "path": "assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2",
+        "bytes": 16780,
+        "sha256": "99cd42a3c072d918f2f44984a807cf7aa16e13545fd0875fc07c6c65f99e715b"
+      },
+      {
+        "path": "assets/KaTeX_Main-BoldItalic-DzxPMmG6.ttf",
+        "bytes": 32968,
+        "sha256": "70ee1f64a20f2048c21940ef46d0144fd215baa953ca69afd1e31e98544f708f"
+      },
+      {
+        "path": "assets/KaTeX_Main-BoldItalic-SpSLRI95.woff",
+        "bytes": 19412,
+        "sha256": "a6f7ec0d846ac7ad975adb8959c37ed49b94acbc4ae436db9ce9e20287e4a64c"
+      },
+      {
+        "path": "assets/KaTeX_Main-Italic-3WenGoN9.ttf",
+        "bytes": 33580,
+        "sha256": "0d85ae7cc30f23790a7f1a58c4a112fdca8aae769b6ba11429af1d98b1b6cb3a"
+      },
+      {
+        "path": "assets/KaTeX_Main-Italic-BMLOBm91.woff",
+        "bytes": 19676,
+        "sha256": "f1d6ef86f3b11a528bd5185199bd2443ecb2b0dead96d88674b5a2c12be24bdf"
+      },
+      {
+        "path": "assets/KaTeX_Main-Italic-NWA7e6Wa.woff2",
+        "bytes": 16988,
+        "sha256": "97479ca6cce906abc961ecac96faa5f9ca2e61b8e7670d475826bcdee9a7c267"
+      },
+      {
+        "path": "assets/KaTeX_Main-Regular-B22Nviop.woff2",
+        "bytes": 26272,
+        "sha256": "c2342cd8b869e01752a9321dc17213fc40d4d04c79688c1d43f2cf316abd7866"
+      },
+      {
+        "path": "assets/KaTeX_Main-Regular-Dr94JaBh.woff",
+        "bytes": 30772,
+        "sha256": "c6368d87e8a1a3a5d337623d83d8dc4b868f242a9ad476237d6f8d1e0f168cdc"
+      },
+      {
+        "path": "assets/KaTeX_Main-Regular-ypZvNtVU.ttf",
+        "bytes": 53580,
+        "sha256": "d0332f52868370fd83ae7fa46470f90c8f2eab2fcf12bc4f88080b340c95a830"
+      },
+      {
+        "path": "assets/KaTeX_Math-BoldItalic-B3XSjfu4.ttf",
+        "bytes": 31196,
+        "sha256": "f9377ab0271cda59af24bcffbd46a4d0c8a3572ffafdbb38de2ad5ea7b0d5ee5"
+      },
+      {
+        "path": "assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2",
+        "bytes": 16400,
+        "sha256": "dc47344dbb6cb5b655c8460d561f4df5f501b90c804ad3c6cec65fe322351ab1"
+      },
+      {
+        "path": "assets/KaTeX_Math-BoldItalic-iY-2wyZ7.woff",
+        "bytes": 18668,
+        "sha256": "850c0af5c2238497febaf5e461d880bf458c341f42f4f330f1b1ab5698b1998e"
+      },
+      {
+        "path": "assets/KaTeX_Math-Italic-DA0__PXp.woff",
+        "bytes": 18748,
+        "sha256": "8a8d244581371912b8f3f5a23e2437cb2a59cd9bcaebb0346e722c05737a2571"
+      },
+      {
+        "path": "assets/KaTeX_Math-Italic-flOr_0UB.ttf",
+        "bytes": 31308,
+        "sha256": "08ce98e51b04d58945a301e639e02b6998af29fdfd61a7b8afdd07bbfc479d4a"
+      },
+      {
+        "path": "assets/KaTeX_Math-Italic-t53AETM-.woff2",
+        "bytes": 16440,
+        "sha256": "7af58c5ec8f132a2ddde9027c6d7814decce4d3b822a11192a42a20e2e973264"
+      },
+      {
+        "path": "assets/KaTeX_SansSerif-Bold-CFMepnvq.ttf",
+        "bytes": 24504,
+        "sha256": "1ece03f79f95277d57dc7f6b435a74e1379b0d46104a8530286b60ff49369ea0"
+      },
+      {
+        "path": "assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2",
+        "bytes": 12216,
+        "sha256": "e99ae51144bf1232efcc1bfe5add36262c6866b0faab24fa75740e1b98577a62"
+      },
+      {
+        "path": "assets/KaTeX_SansSerif-Bold-DbIhKOiC.woff",
+        "bytes": 14408,
+        "sha256": "ece03cfd83e22c212cdef66feb8442d25a083beb988db3f1883f3f9738d750ba"
+      },
+      {
+        "path": "assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2",
+        "bytes": 12028,
+        "sha256": "00b26ac825e2095056396e0553b8ac26d3f8ad158c3826e28b4c45b385c4714a"
+      },
+      {
+        "path": "assets/KaTeX_SansSerif-Italic-DN2j7dab.woff",
+        "bytes": 14112,
+        "sha256": "91ee67500cc0129aa0ace3ac5c61ff1692102f0f31d02b69347fba35dcb75bf2"
+      },
+      {
+        "path": "assets/KaTeX_SansSerif-Italic-YYjJ1zSn.ttf",
+        "bytes": 22364,
+        "sha256": "3931dd81faed86ba021bb2bbdc36f5bed9a38d6b4f4077aca59b265aa1b02083"
+      },
+      {
+        "path": "assets/KaTeX_SansSerif-Regular-BNo7hRIc.ttf",
+        "bytes": 19436,
+        "sha256": "f36ea897e19f4a2e571d1e900e4e3710e438deb05a842486045ba0a3e616a4ad"
+      },
+      {
+        "path": "assets/KaTeX_SansSerif-Regular-CS6fqUqJ.woff",
+        "bytes": 12316,
+        "sha256": "11e4dc8a6471ff6d6ee561d53d10fde8f7489e798257ff449c5d37c197435605"
+      },
+      {
+        "path": "assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2",
+        "bytes": 10344,
+        "sha256": "68e8c73ef42afd3ccec58bf0fba302cce448938e7fc020a5e31f8a952eee1342"
+      },
+      {
+        "path": "assets/KaTeX_Script-Regular-C5JkGWo-.ttf",
+        "bytes": 16648,
+        "sha256": "1c67f068fea8bb09bf099c088b1cf64bd27516a6e07f4684344873564bb66a67"
+      },
+      {
+        "path": "assets/KaTeX_Script-Regular-D3wIWfF6.woff2",
+        "bytes": 9644,
+        "sha256": "036d4e95149b69ff9bcc0cd55771efeb25ffa3947293e69acd78d5ac328c684b"
+      },
+      {
+        "path": "assets/KaTeX_Script-Regular-D5yQViql.woff",
+        "bytes": 10588,
+        "sha256": "d96cdf2b3bdd4d64a8fd5f74a4c467f123a8a73931cd435889f08ffaf9bf947a"
+      },
+      {
+        "path": "assets/KaTeX_Size1-Regular-C195tn64.woff",
+        "bytes": 6496,
+        "sha256": "c943cc986384f59e86bea5fd7dc50a9c4dfe567a7c05eb40d6790720dead97c9"
+      },
+      {
+        "path": "assets/KaTeX_Size1-Regular-Dbsnue_I.ttf",
+        "bytes": 12228,
+        "sha256": "95b6d2f1a50173bfedb8c63e1d1c99b10427d0a4df4201cb44513b226951a22b"
+      },
+      {
+        "path": "assets/KaTeX_Size1-Regular-mCD8mA8B.woff2",
+        "bytes": 5468,
+        "sha256": "6b47c40166b6dbe21a5dfca7718413f2147fd2399be1ba605d8ad39cedf25dfe"
+      },
+      {
+        "path": "assets/KaTeX_Size2-Regular-B7gKUWhC.ttf",
+        "bytes": 11508,
+        "sha256": "a6b2099fb555c60e3a0db3a08842ebf1d732c6eb4e4bf44913613bed4fc4e39b"
+      },
+      {
+        "path": "assets/KaTeX_Size2-Regular-Dy4dx90m.woff2",
+        "bytes": 5208,
+        "sha256": "d04c54219f9eaec6d4d4fd42dfb28785975a4794d6b2fc71e566b9cd6db842dd"
+      },
+      {
+        "path": "assets/KaTeX_Size2-Regular-oD1tc_U0.woff",
+        "bytes": 6188,
+        "sha256": "2014c523c3210bcc166648c4d4cc57f05b747df07a24277bf71c51e67dc79e3d"
+      },
+      {
+        "path": "assets/KaTeX_Size3-Regular-CTq5MqoE.woff",
+        "bytes": 4420,
+        "sha256": "6ab6b62e9b62dae2c00dd90f791bd10950be0ecc3490d7d6045f51c2e8fe0949"
+      },
+      {
+        "path": "assets/KaTeX_Size3-Regular-DgpXs0kz.ttf",
+        "bytes": 7588,
+        "sha256": "500e04d54f0d51666332c9d2089aa803be22aa878eca539e59fa53c6e522b082"
+      },
+      {
+        "path": "assets/KaTeX_Size3-Regular-gV2CO0n9.woff2",
+        "bytes": 3624,
+        "sha256": "73d591271b1604960cb10bb90fee021670af7297017e0e98480b332d11f51995"
+      },
+      {
+        "path": "assets/KaTeX_Size4-Regular-BF-4gkZK.woff",
+        "bytes": 5980,
+        "sha256": "99f9c6750b489c9462bf04900bd3f939df9b829339daaaaa99ef5495cdddea58"
+      },
+      {
+        "path": "assets/KaTeX_Size4-Regular-DWFBv043.ttf",
+        "bytes": 10364,
+        "sha256": "c647367d1dd4e162468717d020e1fc0f1dc5c26ebfdffbe55261713bf88c5877"
+      },
+      {
+        "path": "assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2",
+        "bytes": 4928,
+        "sha256": "a4af7d414440a1c1790825cfb700cf9cf43b0f2c4b04f0ebc523011ad9853ec0"
+      },
+      {
+        "path": "assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff",
+        "bytes": 16028,
+        "sha256": "e14fed02b1aba7ce9f5afd5844b5d0321b22351febc720e0de8b8723527609f7"
+      },
+      {
+        "path": "assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2",
+        "bytes": 13568,
+        "sha256": "71d517d67827787cfabdf186914cc3358eda539e37931941f2b2fd4a21f68c0b"
+      },
+      {
+        "path": "assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf",
+        "bytes": 27556,
+        "sha256": "f01f3e87d9c6a61c0c081ceb577abd864eb00a612f7ac1620dd6915fad2ef5aa"
+      },
+      {
+        "path": "assets/Keypad-DUGiORd-.css",
+        "bytes": 2028,
+        "sha256": "a6ce49b4e92603e5d1bf88f87003f597280d25480bf976c1d69fd2dda9397be3"
+      },
+      {
+        "path": "assets/Keypad-DmbnNd47.js",
+        "bytes": 605,
+        "sha256": "1ab6af80fd3515f660abdadd2a979146e3a3028fe8e5e5422ba6d229cca920fe"
+      },
+      {
+        "path": "assets/LoadingIndicator-ATDyzdxl.css",
+        "bytes": 102,
+        "sha256": "43623368a731bc66a0deb2c81b225fdc9332b397ef5eb901edb7cae8ae95dc5c"
+      },
+      {
+        "path": "assets/LoadingIndicator-B1I56f-w.js",
+        "bytes": 1539,
+        "sha256": "603838f4570cee3c04a5799e28868718fa6c2c9bf4fac4792bb0155df99599f4"
+      },
+      {
+        "path": "assets/MathDisplay-CfJApdIs.js",
+        "bytes": 259336,
+        "sha256": "179f9e506684cd202bf6a471fa274a65be0f2f26c98e0517ad0126562b7d5d62"
+      },
+      {
+        "path": "assets/MathDisplay-D6IlXTJG.css",
+        "bytes": 25529,
+        "sha256": "cf33c0db3f1519c3d9e87cda358b777293174c1e86e2231e2a45888784aa8ad5"
+      },
+      {
+        "path": "assets/Popover-Exy15r63.css",
+        "bytes": 624,
+        "sha256": "87d8fc3c830ec36d8e25c6e2cbce9138ecc34dbe74d7861c87790714455c2c7e"
+      },
+      {
+        "path": "assets/Popover-wSdmeohv.js",
+        "bytes": 430,
+        "sha256": "428cb7a9402ef437cd4aeeb92d74272845ccc645a828e8abbe4ac2dc6ba21e48"
+      },
+      {
+        "path": "assets/ScientificMode-BWk_oGWV.js",
+        "bytes": 34519,
+        "sha256": "fb4085de1f116f47c763b5b02920c84c73bc3729c386558d711a9704b34bc6c0"
+      },
+      {
+        "path": "assets/ScientificMode-CJSvmYM9.css",
+        "bytes": 11435,
+        "sha256": "d72c70e6e282a2d94604c6ff431357f28962e9572bfc4831a0d5077bb6c92f9c"
+      },
+      {
+        "path": "assets/Select-CY-MZX8U.js",
+        "bytes": 40308,
+        "sha256": "aa55fb69b86317cf2ddd65374f22d8020e3def90aca0ed2d6da37fcfc2dc32bc"
+      },
+      {
+        "path": "assets/Select-zbWAXGec.css",
+        "bytes": 1214,
+        "sha256": "7144a4e4cc56a8654008924fb33145dffe0d41be1cb95846dd0326a39993b090"
+      },
+      {
+        "path": "assets/SettingsDialog-Db6yX7uX.js",
+        "bytes": 5292,
+        "sha256": "97d05d825cc2b7ae84ac1c894bea853e6c78f1c20f6a066429b959eb25180c51"
+      },
+      {
+        "path": "assets/ShortcutDialog-Dgng_BSq.js",
+        "bytes": 1111,
+        "sha256": "81059fd2b4b53bb661bdc8bb42f88fdce440532f7ccc9f415e398294be207432"
+      },
+      {
+        "path": "assets/SideSheet-BZfUtJea.css",
+        "bytes": 335,
+        "sha256": "8a630590b836ebaa279afc9a5a17424fd07c31271f7c7e11a740207324af310c"
+      },
+      {
+        "path": "assets/SideSheet-DWQQRdlO.js",
+        "bytes": 354,
+        "sha256": "abdbbf6d70b4664d5e70d86ffa992fa6aaf065f0b86aa375fa1ff99b1e7a6002"
+      },
+      {
+        "path": "assets/SimpleMode-Cz3UFmRX.css",
+        "bytes": 3428,
+        "sha256": "52d8ae09674f60b23d29424de23046a0fe28919502f7deec14b9c724f4c99ea6"
+      },
+      {
+        "path": "assets/SimpleMode-XGWqu9GN.js",
+        "bytes": 16321,
+        "sha256": "9eb888b10f199a66d2e11990cd67b2245d69853e280eaee9df3940c4118628bc"
+      },
+      {
+        "path": "assets/Slider-BdpOauFc.css",
+        "bytes": 1577,
+        "sha256": "8609f642547a115d58de9a2b3d67bfbec25f28c9cd1f5ec0bd51ddc60daf63e6"
+      },
+      {
+        "path": "assets/Slider-CxsFFzoS.js",
+        "bytes": 13216,
+        "sha256": "a8926949d475043ac49389db067f326d9279855d285099533ddc00473187f7cc"
+      },
+      {
+        "path": "assets/Switch-CNUl9isq.js",
+        "bytes": 2175,
+        "sha256": "d24fa0b7917176f42b7f5097fbfb0eb0ef91f64edcf4c8f77133e2bdfeffb93f"
+      },
+      {
+        "path": "assets/Switch-pXkEQS_e.css",
+        "bytes": 1636,
+        "sha256": "4690223f9f3c0257cbe92baa0a808e406ab0c3d134dab45596e8623b82b44069"
+      },
+      {
+        "path": "assets/TextField-Bia33xUx.css",
+        "bytes": 1424,
+        "sha256": "29909fb9b6a17d224e1f3241455da407d6c27e378f7405363f9f00369e195740"
+      },
+      {
+        "path": "assets/TextField-DRs_MtQn.js",
+        "bytes": 2124,
+        "sha256": "6bd73d4012d9a075f8d065951961c649488194e978db37254d19391d581848b5"
+      },
+      {
+        "path": "assets/VisuallyHidden-IKLirsxw.js",
+        "bytes": 184,
+        "sha256": "3820b6cd01f1f48d6f747991232c924df6240c0b838606ed5e406df3e0afc290"
+      },
+      {
+        "path": "assets/browserMotion-CDweiHa2.js",
+        "bytes": 158,
+        "sha256": "1d232c6f91f371bea65ab84eae4fc5b9d8f83e7b0e0fda159d8e4f809284f63c"
+      },
+      {
+        "path": "assets/buildScheme-BhNn56JZ.js",
+        "bytes": 1677,
+        "sha256": "49a46db0e04d894fb181ef1c57157ea3beadf1d29a9279ebf0966156ca69d84a"
+      },
+      {
+        "path": "assets/calculation.worker-DQ-VjPCR.js",
+        "bytes": 89398,
+        "sha256": "1a19e6e8470d794948f08135ab4663308b367f4c33b9cb2bffd87b3503ef232d"
+      },
+      {
+        "path": "assets/engine-BnmcVa8_.js",
+        "bytes": 3699,
+        "sha256": "e8d65968c799cdab9c3c2fde93a969a7fa2ef4c3209f877bbbeec4b4ca9256c5"
+      },
+      {
+        "path": "assets/evaluate-kuGWoVE8.js",
+        "bytes": 84767,
+        "sha256": "e4bcd2959ee746128b425561331eabe6f91387609824b6dc00a9c566014c4420"
+      },
+      {
+        "path": "assets/extended-afKhGHBX.js",
+        "bytes": 37884,
+        "sha256": "bfda156a179d6df056be7c48bc7ff84d9ec28185e25b1f20b992f43cdd55f7f7"
+      },
+      {
+        "path": "assets/graphPalette-DTsoAoAA.js",
+        "bytes": 40169,
+        "sha256": "87b9ba4fb6cfbd74d8b3eaa4cd090736ee20c789e2a7bcdde5d2553ba6bba272"
+      },
+      {
+        "path": "assets/i18n-Bv43hc8-.js",
+        "bytes": 11279,
+        "sha256": "bcff4ffcfeba330bd53cdbc6a988b8f2eafaa9e1700f0e70275c0bd2fd33d0f4"
+      },
+      {
+        "path": "assets/index-CSLQbeAw.css",
+        "bytes": 62193,
+        "sha256": "03907dd9320ffde5b14f97d3b4f0c8087246c9b8ca71b18cc4c11942d95fc41e"
+      },
+      {
+        "path": "assets/index-kd_k9QGA.js",
+        "bytes": 259280,
+        "sha256": "28ea2a4c3350cf3fef77770a75c025b3285091617a9a050087b657e6f766bcf8"
+      },
+      {
+        "path": "assets/jsx-runtime-Dk72oS4N.js",
+        "bytes": 8774,
+        "sha256": "c5f4f8da0038e4082afc00542f93aa1bb64bc5777801d67197507865915a89b6"
+      },
+      {
+        "path": "assets/material-symbols-rounded-17-fZmEE.woff2",
+        "bytes": 29976,
+        "sha256": "f01f2fe389b1145baa882ffe411b9a7a40d33362a239f1c8bc078f5fd05d11aa"
+      },
+      {
+        "path": "assets/model-57A4P_uV.js",
+        "bytes": 1768,
+        "sha256": "f8ca4c330c2cf1d9e24b286fdf363dde91fb9f17c30e43ca14c6105ed556a727"
+      },
+      {
+        "path": "assets/model-CL_jJKfW.js",
+        "bytes": 4189,
+        "sha256": "8d66aac7ece31a1ff592a37f96c0628eace10e119bacb7e3fa631454ac1383db"
+      },
+      {
+        "path": "assets/registry-cMwNdkqK.js",
+        "bytes": 713,
+        "sha256": "c9c67b9485a0bef8f40cfcc9b94f7254239f904d4d9593b91bfec2c37ce9d074"
+      },
+      {
+        "path": "assets/roboto-flex-latin-DlhILaPV.woff2",
+        "bytes": 194648,
+        "sha256": "64eba947f98e35fb9f31c3ff6b6881e3962fe8647ccff924f72728eca2289484"
+      },
+      {
+        "path": "assets/roboto-mono-latin-CZtBPCCa.woff2",
+        "bytes": 32796,
+        "sha256": "b81cd55177300649be8f95b3b747d721ce607e8ed2856e25bd0c630cfd631faf"
+      },
+      {
+        "path": "assets/sampling.worker-DdpY2KL0.js",
+        "bytes": 82754,
+        "sha256": "322d264bade5ef76740eb6d521a26ef6ba24184c679a0a8fafbbad3b066b6f1c"
+      },
+      {
+        "path": "assets/seeds-DdxXycSJ.js",
+        "bytes": 339,
+        "sha256": "8cda8dac4470852dd9b71f0b2108c8bbd31c7974a8377227b5012fed32abe9df"
+      },
+      {
+        "path": "assets/snackbarQueue-1PCeJI1t.js",
+        "bytes": 11096,
+        "sha256": "7c755a2ee8fc9d525805d14ade76675ff0e42e01181ed2f0564a53336284aaf8"
+      },
+      {
+        "path": "assets/units-CrXr7G98.js",
+        "bytes": 26670,
+        "sha256": "6145d17920a3561a49e58fca04459ceed2c25fad2fbbb91db5081e2da1195fc2"
+      },
+      {
+        "path": "assets/useFormValidation-C933WQX3.js",
+        "bytes": 5112,
+        "sha256": "7f3deae7e72e35b8fe6b88bc082184e04b58e2c8587bd2dfe7c844c1ce21c18c"
+      },
+      {
+        "path": "assets/useModeHistory-l8p_v8Kz.js",
+        "bytes": 1193,
+        "sha256": "f7274f70a53209fe5435a881a985dc3111ba0a1abd1cdca561acd5876e9a19b5"
+      },
+      {
+        "path": "assets/useOverlayTransition-CI5GMRxO.js",
+        "bytes": 87253,
+        "sha256": "c1ba5b28db0c34c816433be5d5fbbfc5e51d2109f1902b1ed4af699dde09985f"
+      },
+      {
+        "path": "assets/useSlot-IYVZR0JA.js",
+        "bytes": 353,
+        "sha256": "5c5dd43588d8f75339d65b618ec84e395f8805abee9cf7922c8fb734043fcda3"
+      },
+      {
+        "path": "assets/useSpring-DAeWWBoH.js",
+        "bytes": 940,
+        "sha256": "36bfae931eca8467e8d784df229d129e0a7a123d793750e58d18221915199fa8"
+      },
+      {
+        "path": "assets/useTextField-DTkD8Y8k.js",
+        "bytes": 2523,
+        "sha256": "6eb81c72c32cc45b01ce7ad68d0e77873190f0398e439ba19d0933f7334e8e28"
+      },
+      {
+        "path": "assets/useToggle-DNijUGKW.js",
+        "bytes": 2173,
+        "sha256": "43495d861b25868acc51bf900561473e10315027c8aa45c7e9dac7e937327b40"
+      },
+      {
+        "path": "build-info.json",
+        "bytes": 57,
+        "sha256": "cff297702bb4908ab28e25c0a1cef9c9947f914480d979566141eb76651af3d0"
+      },
+      {
+        "path": "build-target.json",
+        "bytes": 19,
+        "sha256": "ead9564e848cd943e289e660ec81056ef709039563a9a7f97fa0e4e9c3f06b4c"
+      },
+      {
+        "path": "icons/app-192.png",
+        "bytes": 6345,
+        "sha256": "670159aeb105a484e7a1f35f3c499102647be4d298a4272e54a89e0c6be3836a"
+      },
+      {
+        "path": "icons/app-512.png",
+        "bytes": 20919,
+        "sha256": "276e976df1aa8356a1bef27786cbc3cdb0ba9cb3600a5e6817de9da473607f1f"
+      },
+      {
+        "path": "icons/app-maskable-512.png",
+        "bytes": 16684,
+        "sha256": "6e243b440ed666636f6c6e8900156951ea9c38261328396d8334222d5ef7de76"
+      },
+      {
+        "path": "icons/app.svg",
+        "bytes": 1198,
+        "sha256": "1275c302b96afd8cf6a4c21c1c70533bbe7e407b566aa4e583a89809fb9a2aa9"
+      },
+      {
+        "path": "index.html",
+        "bytes": 10139,
+        "sha256": "aa1c29e3ccb69ac6cf60588ecd089c3ff37082d93903238804c3a71500808adb"
+      },
+      {
+        "path": "manifest.webmanifest",
+        "bytes": 579,
+        "sha256": "82fd3b212af91e4e7e424f59f24f1632b3b0ac91e70a9b076b0cf1891d563832"
+      },
+      {
+        "path": "sw.js",
+        "bytes": 8310,
+        "sha256": "a9fd93b5c7dd8b5f0ef8c720488f64cf2ce068bfeffca652ba6b7032804052f1"
+      }
+    ],
+    "note": "Local byte snapshot, not a CI artifact proof or Pages deployment. sourceCommit is null because no GITHUB_SHA was provided."
+  },
+  "commands": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "interpretation": "Final code: lint/format/types, 627 UI and 1744 domain tests, normal build, engine/graph/implicit benchmarks passed. Tools from verified CI install export; local npm ci remains blocked.",
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 check\n> npm run lint && npm run typecheck && npm run test && npm run build && npm run test:engine:bench && npm run test:graph:bench && npm run test:graph:implicit:bench\n\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 lint\n> eslint . && prettier --check .\n\nChecking formatting...\nAll matched files use Prettier code style!\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 typecheck\n> tsc -b --pretty false\n\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test\n> npm run test:ui && npm run test:engine\n\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:ui\n> vitest run --project=ui\n\n\n RUN  v5.0.5 /workspace/scratch/5669fb5a6f85/m8e-calc\n\nNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package\nNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package\nNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package\nNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package\nNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package\nNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package\nNot implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package\n\n Test Files  66 passed (66)\n      Tests  627 passed (627)\n   Start at  18:28:55\n   Duration  28.55s (tests 47%, environment 34%, import 11%, setup 5%, transform 3%)\n\nEnvironment  |ui| jsdom was created 66 times · 49.37s total, 34% of tracked time\n             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)\n             learn more: https://vitest.dev/guide/improving-performance#test-environments\n\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:engine\n> vitest run --project=engine\n\n\n RUN  v5.0.5 /workspace/scratch/5669fb5a6f85/m8e-calc\n\n\n Test Files  12 passed (12)\n      Tests  1744 passed (1744)\n   Start at  18:29:25\n   Duration  2.64s (tests 89%, import 7%, transform 4%, worker 1%)\n\n    Isolate  12 workers spawned · ~166ms startup each (spawn + environment, per file)\n             at least ~829ms faster with isolate: false — reuses workers across files instead of one per file\n\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 build\n> tsc -b && vite build && node scripts/check-build-target.mjs\n\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 1278 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/build-target.json                                  0.01 kB │ gzip:   0.03 kB\ndist/build-info.json                                    0.05 kB │ gzip:   0.07 kB\ndist/manifest.webmanifest                               0.57 kB\ndist/assets/KaTeX_Size3-Regular-gV2CO0n9.woff2          3.62 kB\ndist/assets/KaTeX_Size3-Regular-CTq5MqoE.woff           4.42 kB\ndist/assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2          4.92 kB\ndist/assets/KaTeX_Size2-Regular-Dy4dx90m.woff2          5.20 kB\ndist/assets/KaTeX_Size1-Regular-mCD8mA8B.woff2          5.46 kB\ndist/assets/KaTeX_Size4-Regular-BF-4gkZK.woff           5.98 kB\ndist/assets/KaTeX_Size2-Regular-oD1tc_U0.woff           6.18 kB\ndist/assets/KaTeX_Size1-Regular-C195tn64.woff           6.49 kB\ndist/assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2    6.90 kB\ndist/assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2       6.91 kB\ndist/assets/KaTeX_Size3-Regular-DgpXs0kz.ttf            7.58 kB\ndist/assets/KaTeX_Caligraphic-Regular-CTRA-rTL.woff     7.65 kB\ndist/assets/KaTeX_Caligraphic-Bold-BEiXGLvX.woff        7.71 kB\ndist/sw.js                                              8.31 kB\ndist/assets/KaTeX_Script-Regular-D3wIWfF6.woff2         9.64 kB\ndist/index.html                                        10.13 kB │ gzip:   2.66 kB\ndist/assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2     10.34 kB\ndist/assets/KaTeX_Size4-Regular-DWFBv043.ttf           10.36 kB\ndist/assets/KaTeX_Script-Regular-D5yQViql.woff         10.58 kB\ndist/assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2       11.31 kB\ndist/assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2          11.34 kB\ndist/assets/KaTeX_Size2-Regular-B7gKUWhC.ttf           11.50 kB\ndist/assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2      12.02 kB\ndist/assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2        12.21 kB\ndist/assets/KaTeX_Size1-Regular-Dbsnue_I.ttf           12.22 kB\ndist/assets/KaTeX_SansSerif-Regular-CS6fqUqJ.woff      12.31 kB\ndist/assets/KaTeX_Caligraphic-Regular-wX97UBjC.ttf     12.34 kB\ndist/assets/KaTeX_Caligraphic-Bold-ATXxdsX0.ttf        12.36 kB\ndist/assets/KaTeX_Fraktur-Regular-Dxdc4cR9.woff        13.20 kB\ndist/assets/KaTeX_Fraktur-Bold-BsDP51OF.woff           13.29 kB\ndist/assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2    13.56 kB\ndist/assets/KaTeX_SansSerif-Italic-DN2j7dab.woff       14.11 kB\ndist/assets/KaTeX_SansSerif-Bold-DbIhKOiC.woff         14.40 kB\ndist/assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff     16.02 kB\ndist/assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2       16.40 kB\ndist/assets/KaTeX_Math-Italic-t53AETM-.woff2           16.44 kB\ndist/assets/KaTeX_Script-Regular-C5JkGWo-.ttf          16.64 kB\ndist/assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2       16.78 kB\ndist/assets/KaTeX_Main-Italic-NWA7e6Wa.woff2           16.98 kB\ndist/assets/KaTeX_Math-BoldItalic-iY-2wyZ7.woff        18.66 kB\ndist/assets/KaTeX_Math-Italic-DA0__PXp.woff            18.74 kB\ndist/assets/KaTeX_Main-BoldItalic-SpSLRI95.woff        19.41 kB\ndist/assets/KaTeX_SansSerif-Regular-BNo7hRIc.ttf       19.43 kB\ndist/assets/KaTeX_Fraktur-Regular-CB_wures.ttf         19.57 kB\ndist/assets/KaTeX_Fraktur-Bold-BdnERNNW.ttf            19.58 kB\ndist/assets/KaTeX_Main-Italic-BMLOBm91.woff            19.67 kB\ndist/assets/KaTeX_SansSerif-Italic-YYjJ1zSn.ttf        22.36 kB\ndist/assets/KaTeX_SansSerif-Bold-CFMepnvq.ttf          24.50 kB\ndist/assets/KaTeX_Main-Bold-Cx986IdX.woff2             25.32 kB\ndist/assets/KaTeX_Main-Regular-B22Nviop.woff2          26.27 kB\ndist/assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf      27.55 kB\ndist/assets/KaTeX_AMS-Regular-BQhdFMY1.woff2           28.07 kB\ndist/assets/KaTeX_Main-Bold-Jm3AIy58.woff              29.91 kB\ndist/assets/material-symbols-rounded-17-fZmEE.woff2    29.97 kB\ndist/assets/KaTeX_Main-Regular-Dr94JaBh.woff           30.77 kB\ndist/assets/KaTeX_Math-BoldItalic-B3XSjfu4.ttf         31.19 kB\ndist/assets/KaTeX_Math-Italic-flOr_0UB.ttf             31.30 kB\ndist/assets/roboto-mono-latin-CZtBPCCa.woff2           32.79 kB\ndist/assets/KaTeX_Main-BoldItalic-DzxPMmG6.ttf         32.96 kB\ndist/assets/KaTeX_AMS-Regular-DMm9YOAa.woff            33.51 kB\ndist/assets/KaTeX_Main-Italic-3WenGoN9.ttf             33.58 kB\ndist/.vite/manifest.json                               33.71 kB │ gzip:   4.01 kB\ndist/assets/KaTeX_Main-Bold-waoOVXN0.ttf               51.33 kB\ndist/assets/KaTeX_Main-Regular-ypZvNtVU.ttf            53.58 kB\ndist/assets/KaTeX_AMS-Regular-DRggAlZN.ttf             63.63 kB\ndist/assets/sampling.worker-DdpY2KL0.js                82.75 kB\ndist/assets/calculation.worker-DQ-VjPCR.js             89.39 kB\ndist/assets/roboto-flex-latin-DlhILaPV.woff2          194.64 kB\ndist/assets/LoadingIndicator-ATDyzdxl.css               0.10 kB │ gzip:   0.10 kB\ndist/assets/CopyLinkButton-CzVs3g7c.css                 0.15 kB │ gzip:   0.13 kB\ndist/assets/SideSheet-BZfUtJea.css                      0.33 kB │ gzip:   0.21 kB\ndist/assets/IconButton-h8-ZNqqk.css                     0.41 kB │ gzip:   0.24 kB\ndist/assets/Card-DD1MZGf1.css                           0.45 kB │ gzip:   0.23 kB\ndist/assets/Popover-Exy15r63.css                        0.62 kB │ gzip:   0.34 kB\ndist/assets/Dialog-CNke6_Be.css                         0.80 kB │ gzip:   0.42 kB\ndist/assets/Select-zbWAXGec.css                         1.21 kB │ gzip:   0.43 kB\ndist/assets/TextField-Bia33xUx.css                      1.42 kB │ gzip:   0.52 kB\ndist/assets/Slider-BdpOauFc.css                         1.57 kB │ gzip:   0.57 kB\ndist/assets/Switch-pXkEQS_e.css                         1.63 kB │ gzip:   0.49 kB\ndist/assets/Checkbox-CaWe_hBO.css                       1.90 kB │ gzip:   0.61 kB\ndist/assets/Keypad-DUGiORd-.css                         2.02 kB │ gzip:   0.55 kB\ndist/assets/AccentPicker-xWQvBha2.css                   3.15 kB │ gzip:   0.96 kB\ndist/assets/SimpleMode-Cz3UFmRX.css                     3.42 kB │ gzip:   1.13 kB\ndist/assets/Button-BoVqgmZx.css                         4.97 kB │ gzip:   1.24 kB\ndist/assets/GraphMode-CPEJlQ_S.css                      6.64 kB │ gzip:   1.64 kB\ndist/assets/ConvertMode-C-rZJdia.css                    7.55 kB │ gzip:   1.86 kB\ndist/assets/ScientificMode-CJSvmYM9.css                11.43 kB │ gzip:   2.44 kB\ndist/assets/MathDisplay-D6IlXTJG.css                   25.52 kB │ gzip:   4.03 kB\ndist/assets/index-CSLQbeAw.css                         62.19 kB │ gzip:  10.37 kB\ndist/assets/browserMotion-CDweiHa2.js                   0.15 kB │ gzip:   0.13 kB\ndist/assets/VisuallyHidden-IKLirsxw.js                  0.18 kB │ gzip:   0.16 kB\ndist/assets/Card-CpJeSsLo.js                            0.20 kB │ gzip:   0.17 kB\ndist/assets/seeds-DdxXycSJ.js                           0.33 kB │ gzip:   0.21 kB\ndist/assets/useSlot-IYVZR0JA.js                         0.35 kB │ gzip:   0.26 kB\ndist/assets/SideSheet-DWQQRdlO.js                       0.35 kB │ gzip:   0.24 kB\ndist/assets/Popover-wSdmeohv.js                         0.43 kB │ gzip:   0.31 kB\ndist/assets/Keypad-DmbnNd47.js                          0.60 kB │ gzip:   0.36 kB\ndist/assets/registry-cMwNdkqK.js                        0.71 kB │ gzip:   0.43 kB\ndist/assets/CopyLinkButton-BBBHaT_c.js                  0.81 kB │ gzip:   0.49 kB\ndist/assets/useSpring-DAeWWBoH.js                       0.94 kB │ gzip:   0.53 kB\ndist/assets/ShortcutDialog-Dgng_BSq.js                  1.11 kB │ gzip:   0.51 kB\ndist/assets/useModeHistory-l8p_v8Kz.js                  1.19 kB │ gzip:   0.60 kB\ndist/assets/LoadingIndicator-B1I56f-w.js                1.53 kB │ gzip:   0.88 kB\ndist/assets/buildScheme-BhNn56JZ.js                     1.67 kB │ gzip:   0.79 kB\ndist/assets/model-57A4P_uV.js                           1.76 kB │ gzip:   0.87 kB\ndist/assets/TextField-DRs_MtQn.js                       2.12 kB │ gzip:   1.03 kB\ndist/assets/useToggle-DNijUGKW.js                       2.17 kB │ gzip:   0.97 kB\ndist/assets/Switch-CNUl9isq.js                          2.17 kB │ gzip:   0.98 kB\ndist/assets/useTextField-DTkD8Y8k.js                    2.52 kB │ gzip:   1.14 kB\ndist/assets/IconButton-DsK9xG5I.js                      3.45 kB │ gzip:   1.61 kB\ndist/assets/AccentPanel-CrS47tdM.js                     3.48 kB │ gzip:   1.39 kB\ndist/assets/engine-BnmcVa8_.js                          3.69 kB │ gzip:   1.69 kB\ndist/assets/CommandPalette-CXQ6vynt.js                  3.85 kB │ gzip:   1.80 kB\ndist/assets/model-CL_jJKfW.js                           4.18 kB │ gzip:   1.70 kB\ndist/assets/Checkbox-BHI7YD3x.js                        4.19 kB │ gzip:   1.64 kB\ndist/assets/Dialog-DAE_d4Rb.js                          4.97 kB │ gzip:   1.97 kB\ndist/assets/useFormValidation-C933WQX3.js               5.11 kB │ gzip:   1.95 kB\ndist/assets/SettingsDialog-Db6yX7uX.js                  5.29 kB │ gzip:   1.81 kB\ndist/assets/jsx-runtime-Dk72oS4N.js                     8.77 kB │ gzip:   3.33 kB\ndist/assets/snackbarQueue-1PCeJI1t.js                  11.09 kB │ gzip:   4.43 kB\ndist/assets/i18n-Bv43hc8-.js                           11.27 kB │ gzip:   3.87 kB\ndist/assets/Slider-CxsFFzoS.js                         13.21 kB │ gzip:   4.70 kB\ndist/assets/FocusScope-CuIhVRDU.js                     14.29 kB │ gzip:   4.39 kB\ndist/assets/SimpleMode-XGWqu9GN.js                     16.32 kB │ gzip:   5.64 kB\ndist/assets/ConvertMode-DgD-MdjD.js                    21.49 kB │ gzip:   7.51 kB\ndist/assets/units-CrXr7G98.js                          26.67 kB │ gzip:  10.00 kB\ndist/assets/ScientificMode-BWk_oGWV.js                 34.51 kB │ gzip:  10.96 kB\ndist/assets/extended-afKhGHBX.js                       37.88 kB │ gzip:  11.73 kB\ndist/assets/graphPalette-DTsoAoAA.js                   40.16 kB │ gzip:  12.50 kB\ndist/assets/Select-CY-MZX8U.js                         40.30 kB │ gzip:  12.60 kB\ndist/assets/HistorySheet-BrnnUnw3.js                   66.75 kB │ gzip:  24.34 kB\ndist/assets/Button-XVpI3UH4.js                         71.06 kB │ gzip:  24.33 kB\ndist/assets/evaluate-kuGWoVE8.js                       84.76 kB │ gzip:  31.39 kB\ndist/assets/useOverlayTransition-CI5GMRxO.js           87.25 kB │ gzip:  26.30 kB\ndist/assets/GraphMode-rA18M-6L.js                      91.25 kB │ gzip:  31.87 kB\ndist/assets/index-kd_k9QGA.js                         259.28 kB │ gzip:  81.77 kB\ndist/assets/MathDisplay-CfJApdIs.js                   259.33 kB │ gzip:  77.69 kB\ndist/assets/ExpressionEditor-JEAz7kHr.js              354.79 kB │ gzip: 115.43 kB\n\n✓ built in 516ms\ndist: verified normal target, manifest, assets and precache\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:engine:bench\n> node scripts/engine-benchmark.mjs\n\n{\n  \"node\": \"v24.22.1\",\n  \"results\": [\n    {\n      \"expression\": \"0.1+0.2\",\n      \"meanMilliseconds\": 0.003660405333333339\n    },\n    {\n      \"expression\": \"2(3+4)-5^2\",\n      \"meanMilliseconds\": 0.010066586333333334\n    },\n    {\n      \"expression\": \"200+15%\",\n      \"meanMilliseconds\": 0.0036907040000000012\n    },\n    {\n      \"expression\": \"sqrt(2)+log(1000)\",\n      \"meanMilliseconds\": 0.04539829466666666\n    },\n    {\n      \"expression\": \"sin(30)+cos(60)\",\n      \"meanMilliseconds\": 0.016458072333333348\n    }\n  ]\n}\n{\n  \"expression\": \"integral(x^2,x,0,1)\",\n  \"maximumMilliseconds\": 2.2918200000000297,\n  \"meanMilliseconds\": 0.6794408900000053\n}\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:graph:bench\n> node scripts/graph-benchmark.mjs\n\n{\n  \"node\": \"v24.22.1\",\n  \"pixelSize\": {\n    \"width\": 2560,\n    \"height\": 1440\n  },\n  \"targetMilliseconds\": 4,\n  \"regressionLimitMilliseconds\": 25,\n  \"results\": [\n    {\n      \"source\": \"sin(x)\",\n      \"meanMilliseconds\": 0.19583878499999996,\n      \"fitMeanMilliseconds\": 0.05412012500000003,\n      \"evaluations\": 1281,\n      \"segments\": 1\n    },\n    {\n      \"source\": \"1/x\",\n      \"meanMilliseconds\": 0.2872713750000003,\n      \"fitMeanMilliseconds\": 0.02512780499999991,\n      \"evaluations\": 2817,\n      \"segments\": 2\n    },\n    {\n      \"source\": \"tan(x)\",\n      \"meanMilliseconds\": 1.0253531999999999,\n      \"fitMeanMilliseconds\": 0.04479613999999969,\n      \"evaluations\": 6921,\n      \"segments\": 5\n    },\n    {\n      \"source\": \"abs(x)\",\n      \"meanMilliseconds\": 0.12798931000000038,\n      \"fitMeanMilliseconds\": 0.03756892499999992,\n      \"evaluations\": 1281,\n      \"segments\": 1\n    },\n    {\n      \"source\": \"x^x\",\n      \"meanMilliseconds\": 0.19293566499999998,\n      \"fitMeanMilliseconds\": 0.020205040000000167,\n      \"evaluations\": 2427,\n      \"segments\": 1\n    },\n    {\n      \"source\": \"sqrt(x)\",\n      \"meanMilliseconds\": 0.10527195500000004,\n      \"fitMeanMilliseconds\": 0.01560380500000008,\n      \"evaluations\": 1437,\n      \"segments\": 1\n    },\n    {\n      \"source\": \"ln(x)\",\n      \"meanMilliseconds\": 0.16376665,\n      \"fitMeanMilliseconds\": 0.01883899499999984,\n      \"evaluations\": 1953,\n      \"segments\": 1\n    },\n    {\n      \"source\": \"(cos(t),sin(t))\",\n      \"meanMilliseconds\": 0.2131946800000003,\n      \"fitMeanMilliseconds\": 0.06804809500000034,\n      \"evaluations\": 1281,\n      \"segments\": 1\n    },\n    {\n      \"source\": \"r=1+cos(theta)\",\n      \"meanMilliseconds\": 0.19774696500000005,\n      \"fitMeanMilliseconds\": 0.05640336500000046,\n      \"evaluations\": 1281,\n      \"segments\": 1\n    },\n    {\n      \"source\": \"(sin(3*t),sin(2*t))\",\n      \"meanMilliseconds\": 0.2624526050000003,\n      \"fitMeanMilliseconds\": 0.07229039500000056,\n      \"evaluations\": 1281,\n      \"segments\": 1\n    }\n  ]\n}\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:graph:implicit:bench\n> node scripts/graph-implicit-benchmark.mjs\n\n{\n  \"node\": \"v24.22.1\",\n  \"pixelSize\": {\n    \"width\": 1280,\n    \"height\": 720\n  },\n  \"criteria\": {\n    \"discoveryPixels\": 8,\n    \"tolerancePixels\": 0.25\n  },\n  \"budgets\": {\n    \"maxCells\": 200000,\n    \"maxEvaluations\": 1000000,\n    \"maxSamples\": 400000,\n    \"maxDepth\": 10,\n    \"maxSegments\": 50000\n  },\n  \"warmupIterations\": 2,\n  \"iterations\": 5,\n  \"targetMilliseconds\": 250,\n  \"regressionLimitMilliseconds\": 1500,\n  \"results\": [\n    {\n      \"source\": \"x^2+y^2=4\",\n      \"bounds\": {\n        \"xMin\": -3,\n        \"xMax\": 3,\n        \"yMin\": -3,\n        \"yMax\": 3\n      },\n      \"meanMilliseconds\": 105.0355636,\n      \"evaluations\": 101055,\n      \"segments\": 1,\n      \"status\": \"contours\",\n      \"limits\": [],\n      \"cells\": 19320,\n      \"leaves\": 14720,\n      \"cachedSamples\": 59385,\n      \"outputEdges\": 336,\n      \"deepestLevel\": 2,\n      \"nonFiniteEvaluations\": 0,\n      \"rejectedEdges\": 0,\n      \"unresolvedCells\": 0,\n      \"zeroCells\": 0,\n      \"saddleCells\": 0,\n      \"transitionCells\": 0,\n      \"maxEstimatedErrorPixels\": 0.057802637954155515\n    },\n    {\n      \"source\": \"x^2/4+y^2=1\",\n      \"bounds\": {\n        \"xMin\": -3,\n        \"xMax\": 3,\n        \"yMin\": -3,\n        \"yMax\": 3\n      },\n      \"meanMilliseconds\": 95.22886840000001,\n      \"evaluations\": 94069,\n      \"segments\": 1,\n      \"status\": \"contours\",\n      \"limits\": [],\n      \"cells\": 19320,\n      \"leaves\": 14720,\n      \"cachedSamples\": 59385,\n      \"outputEdges\": 276,\n      \"deepestLevel\": 2,\n      \"nonFiniteEvaluations\": 0,\n      \"rejectedEdges\": 0,\n      \"unresolvedCells\": 0,\n      \"zeroCells\": 0,\n      \"saddleCells\": 0,\n      \"transitionCells\": 0,\n      \"maxEstimatedErrorPixels\": 0.22581091732278805\n    },\n    {\n      \"source\": \"x*y=1\",\n      \"bounds\": {\n        \"xMin\": -3,\n        \"xMax\": 3,\n        \"yMin\": -3,\n        \"yMax\": 3\n      },\n      \"meanMilliseconds\": 80.69245920000003,\n      \"evaluations\": 87629,\n      \"segments\": 2,\n      \"status\": \"contours\",\n      \"limits\": [],\n      \"cells\": 19320,\n      \"leaves\": 14720,\n      \"cachedSamples\": 59385,\n      \"outputEdges\": 224,\n      \"deepestLevel\": 2,\n      \"nonFiniteEvaluations\": 0,\n      \"rejectedEdges\": 0,\n      \"unresolvedCells\": 0,\n      \"zeroCells\": 0,\n      \"saddleCells\": 0,\n      \"transitionCells\": 0,\n      \"maxEstimatedErrorPixels\": 0.05025914482499345\n    },\n    {\n      \"source\": \"(x-.123)*(y-.234)=0\",\n      \"bounds\": {\n        \"xMin\": -3,\n        \"xMax\": 3,\n        \"yMin\": -3,\n        \"yMax\": 3\n      },\n      \"meanMilliseconds\": 97.29279120000001,\n      \"evaluations\": 91901,\n      \"segments\": 4,\n      \"status\": \"contours\",\n      \"limits\": [],\n      \"cells\": 19320,\n      \"leaves\": 14720,\n      \"cachedSamples\": 59385,\n      \"outputEdges\": 254,\n      \"deepestLevel\": 2,\n      \"nonFiniteEvaluations\": 0,\n      \"rejectedEdges\": 0,\n      \"unresolvedCells\": 0,\n      \"zeroCells\": 0,\n      \"saddleCells\": 1,\n      \"transitionCells\": 0,\n      \"maxEstimatedErrorPixels\": 0\n    },\n    {\n      \"source\": \"(x-.123)*y=0\",\n      \"bounds\": {\n        \"xMin\": -3,\n        \"xMax\": 3,\n        \"yMin\": -3,\n        \"yMax\": 3\n      },\n      \"meanMilliseconds\": 88.46311459999997,\n      \"evaluations\": 90985,\n      \"segments\": 4,\n      \"status\": \"contours\",\n      \"limits\": [],\n      \"cells\": 19320,\n      \"leaves\": 14720,\n      \"cachedSamples\": 59385,\n      \"outputEdges\": 253,\n      \"deepestLevel\": 2,\n      \"nonFiniteEvaluations\": 0,\n      \"rejectedEdges\": 0,\n      \"unresolvedCells\": 0,\n      \"zeroCells\": 0,\n      \"saddleCells\": 0,\n      \"transitionCells\": 0,\n      \"maxEstimatedErrorPixels\": 0\n    },\n    {\n      \"source\": \"y*(x+y-.123)=0\",\n      \"bounds\": {\n        \"xMin\": -3,\n        \"xMax\": 3,\n        \"yMin\": -3,\n        \"yMax\": 3\n      },\n      \"meanMilliseconds\": 135.69436779999995,\n      \"evaluations\": 110993,\n      \"segments\": 4,\n      \"status\": \"contours\",\n      \"limits\": [],\n      \"cells\": 19320,\n      \"leaves\": 14720,\n      \"cachedSamples\": 59385,\n      \"outputEdges\": 408,\n      \"deepestLevel\": 2,\n      \"nonFiniteEvaluations\": 0,\n      \"rejectedEdges\": 0,\n      \"unresolvedCells\": 0,\n      \"zeroCells\": 0,\n      \"saddleCells\": 0,\n      \"transitionCells\": 0,\n      \"maxEstimatedErrorPixels\": 6.967031248913688e-14\n    },\n    {\n      \"source\": \"(x^2+y^2-1)*((x-1.7)^2+y^2-.16)=0\",\n      \"bounds\": {\n        \"xMin\": -3,\n        \"xMax\": 3,\n        \"yMin\": -3,\n        \"yMax\": 3\n      },\n      \"meanMilliseconds\": 107.62170119999992,\n      \"evaluations\": 92247,\n      \"segments\": 2,\n      \"status\": \"contours\",\n      \"limits\": [],\n      \"cells\": 19352,\n      \"leaves\": 14744,\n      \"cachedSamples\": 59505,\n      \"outputEdges\": 250,\n      \"deepestLevel\": 3,\n      \"nonFiniteEvaluations\": 0,\n      \"rejectedEdges\": 0,\n      \"unresolvedCells\": 0,\n      \"zeroCells\": 0,\n      \"saddleCells\": 0,\n      \"transitionCells\": 10,\n      \"maxEstimatedErrorPixels\": 0.21910716760690005\n    },\n    {\n      \"source\": \"((x-.4)^2+(y-.43)^2-(6/720)^2)*((x-.42)^2+(y-.43)^2-(6/720)^2)=0\",\n      \"bounds\": {\n        \"xMin\": 0,\n        \"xMax\": 1,\n        \"yMin\": 0,\n        \"yMax\": 1\n      },\n      \"meanMilliseconds\": 97.53428539999986,\n      \"evaluations\": 67527,\n      \"segments\": 2,\n      \"status\": \"contours\",\n      \"limits\": [],\n      \"cells\": 19392,\n      \"leaves\": 14774,\n      \"cachedSamples\": 59653,\n      \"outputEdges\": 45,\n      \"deepestLevel\": 4,\n      \"nonFiniteEvaluations\": 0,\n      \"rejectedEdges\": 0,\n      \"unresolvedCells\": 0,\n      \"zeroCells\": 0,\n      \"saddleCells\": 0,\n      \"transitionCells\": 10,\n      \"maxEstimatedErrorPixels\": 0.18707770818072966\n    },\n    {\n      \"source\": \"1/(x-.123)=0\",\n      \"bounds\": {\n        \"xMin\": -3,\n        \"xMax\": 3,\n        \"yMin\": -3,\n        \"yMax\": 3\n      },\n      \"meanMilliseconds\": 163.33212640000002,\n      \"evaluations\": 151541,\n      \"segments\": 0,\n      \"status\": \"unresolved\",\n      \"limits\": [],\n      \"cells\": 30728,\n      \"leaves\": 23276,\n      \"cachedSamples\": 99323,\n      \"outputEdges\": 0,\n      \"deepestLevel\": 7,\n      \"nonFiniteEvaluations\": 0,\n      \"rejectedEdges\": 5802,\n      \"unresolvedCells\": 2944,\n      \"zeroCells\": 0,\n      \"saddleCells\": 0,\n      \"transitionCells\": 0,\n      \"maxEstimatedErrorPixels\": 0\n    },\n    {\n      \"source\": \"sqrt(x)+y=0\",\n      \"bounds\": {\n        \"xMin\": -3,\n        \"xMax\": 3,\n        \"yMin\": -3,\n        \"yMax\": 3\n      },\n      \"meanMilliseconds\": 135.2018680000001,\n      \"evaluations\": 113811,\n      \"segments\": 1,\n      \"status\": \"contours\",\n      \"limits\": [],\n      \"cells\": 30756,\n      \"leaves\": 23297,\n      \"cachedSamples\": 99417,\n      \"outputEdges\": 109,\n      \"deepestLevel\": 7,\n      \"nonFiniteEvaluations\": 63844,\n      \"rejectedEdges\": 0,\n      \"unresolvedCells\": 2947,\n      \"zeroCells\": 0,\n      \"saddleCells\": 0,\n      \"transitionCells\": 7,\n      \"maxEstimatedErrorPixels\": 0.21829425649993503\n    }\n  ]\n}\n",
+      "outputSha256": "f6c7d9ac154662065fbf7d317633b803da4f15cdbb6f62fcdc14789615057988"
+    },
+    {
+      "command": "npm run build (fresh output directory after moving prior dist aside)",
+      "exitCode": 0,
+      "interpretation": "Fresh normal output: 145 files, byte-identical to the current 145 files within the previous output; 35 stale unreferenced files excluded.",
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 build\n> tsc -b && vite build && node scripts/check-build-target.mjs\n\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 1278 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/build-target.json                                  0.01 kB │ gzip:   0.03 kB\ndist/build-info.json                                    0.05 kB │ gzip:   0.07 kB\ndist/manifest.webmanifest                               0.57 kB\ndist/assets/KaTeX_Size3-Regular-gV2CO0n9.woff2          3.62 kB\ndist/assets/KaTeX_Size3-Regular-CTq5MqoE.woff           4.42 kB\ndist/assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2          4.92 kB\ndist/assets/KaTeX_Size2-Regular-Dy4dx90m.woff2          5.20 kB\ndist/assets/KaTeX_Size1-Regular-mCD8mA8B.woff2          5.46 kB\ndist/assets/KaTeX_Size4-Regular-BF-4gkZK.woff           5.98 kB\ndist/assets/KaTeX_Size2-Regular-oD1tc_U0.woff           6.18 kB\ndist/assets/KaTeX_Size1-Regular-C195tn64.woff           6.49 kB\ndist/assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2    6.90 kB\ndist/assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2       6.91 kB\ndist/assets/KaTeX_Size3-Regular-DgpXs0kz.ttf            7.58 kB\ndist/assets/KaTeX_Caligraphic-Regular-CTRA-rTL.woff     7.65 kB\ndist/assets/KaTeX_Caligraphic-Bold-BEiXGLvX.woff        7.71 kB\ndist/sw.js                                              8.31 kB\ndist/assets/KaTeX_Script-Regular-D3wIWfF6.woff2         9.64 kB\ndist/index.html                                        10.13 kB │ gzip:   2.66 kB\ndist/assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2     10.34 kB\ndist/assets/KaTeX_Size4-Regular-DWFBv043.ttf           10.36 kB\ndist/assets/KaTeX_Script-Regular-D5yQViql.woff         10.58 kB\ndist/assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2       11.31 kB\ndist/assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2          11.34 kB\ndist/assets/KaTeX_Size2-Regular-B7gKUWhC.ttf           11.50 kB\ndist/assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2      12.02 kB\ndist/assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2        12.21 kB\ndist/assets/KaTeX_Size1-Regular-Dbsnue_I.ttf           12.22 kB\ndist/assets/KaTeX_SansSerif-Regular-CS6fqUqJ.woff      12.31 kB\ndist/assets/KaTeX_Caligraphic-Regular-wX97UBjC.ttf     12.34 kB\ndist/assets/KaTeX_Caligraphic-Bold-ATXxdsX0.ttf        12.36 kB\ndist/assets/KaTeX_Fraktur-Regular-Dxdc4cR9.woff        13.20 kB\ndist/assets/KaTeX_Fraktur-Bold-BsDP51OF.woff           13.29 kB\ndist/assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2    13.56 kB\ndist/assets/KaTeX_SansSerif-Italic-DN2j7dab.woff       14.11 kB\ndist/assets/KaTeX_SansSerif-Bold-DbIhKOiC.woff         14.40 kB\ndist/assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff     16.02 kB\ndist/assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2       16.40 kB\ndist/assets/KaTeX_Math-Italic-t53AETM-.woff2           16.44 kB\ndist/assets/KaTeX_Script-Regular-C5JkGWo-.ttf          16.64 kB\ndist/assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2       16.78 kB\ndist/assets/KaTeX_Main-Italic-NWA7e6Wa.woff2           16.98 kB\ndist/assets/KaTeX_Math-BoldItalic-iY-2wyZ7.woff        18.66 kB\ndist/assets/KaTeX_Math-Italic-DA0__PXp.woff            18.74 kB\ndist/assets/KaTeX_Main-BoldItalic-SpSLRI95.woff        19.41 kB\ndist/assets/KaTeX_SansSerif-Regular-BNo7hRIc.ttf       19.43 kB\ndist/assets/KaTeX_Fraktur-Regular-CB_wures.ttf         19.57 kB\ndist/assets/KaTeX_Fraktur-Bold-BdnERNNW.ttf            19.58 kB\ndist/assets/KaTeX_Main-Italic-BMLOBm91.woff            19.67 kB\ndist/assets/KaTeX_SansSerif-Italic-YYjJ1zSn.ttf        22.36 kB\ndist/assets/KaTeX_SansSerif-Bold-CFMepnvq.ttf          24.50 kB\ndist/assets/KaTeX_Main-Bold-Cx986IdX.woff2             25.32 kB\ndist/assets/KaTeX_Main-Regular-B22Nviop.woff2          26.27 kB\ndist/assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf      27.55 kB\ndist/assets/KaTeX_AMS-Regular-BQhdFMY1.woff2           28.07 kB\ndist/assets/KaTeX_Main-Bold-Jm3AIy58.woff              29.91 kB\ndist/assets/material-symbols-rounded-17-fZmEE.woff2    29.97 kB\ndist/assets/KaTeX_Main-Regular-Dr94JaBh.woff           30.77 kB\ndist/assets/KaTeX_Math-BoldItalic-B3XSjfu4.ttf         31.19 kB\ndist/assets/KaTeX_Math-Italic-flOr_0UB.ttf             31.30 kB\ndist/assets/roboto-mono-latin-CZtBPCCa.woff2           32.79 kB\ndist/assets/KaTeX_Main-BoldItalic-DzxPMmG6.ttf         32.96 kB\ndist/assets/KaTeX_AMS-Regular-DMm9YOAa.woff            33.51 kB\ndist/assets/KaTeX_Main-Italic-3WenGoN9.ttf             33.58 kB\ndist/.vite/manifest.json                               33.71 kB │ gzip:   4.01 kB\ndist/assets/KaTeX_Main-Bold-waoOVXN0.ttf               51.33 kB\ndist/assets/KaTeX_Main-Regular-ypZvNtVU.ttf            53.58 kB\ndist/assets/KaTeX_AMS-Regular-DRggAlZN.ttf             63.63 kB\ndist/assets/sampling.worker-DdpY2KL0.js                82.75 kB\ndist/assets/calculation.worker-DQ-VjPCR.js             89.39 kB\ndist/assets/roboto-flex-latin-DlhILaPV.woff2          194.64 kB\ndist/assets/LoadingIndicator-ATDyzdxl.css               0.10 kB │ gzip:   0.10 kB\ndist/assets/CopyLinkButton-CzVs3g7c.css                 0.15 kB │ gzip:   0.13 kB\ndist/assets/SideSheet-BZfUtJea.css                      0.33 kB │ gzip:   0.21 kB\ndist/assets/IconButton-h8-ZNqqk.css                     0.41 kB │ gzip:   0.24 kB\ndist/assets/Card-DD1MZGf1.css                           0.45 kB │ gzip:   0.23 kB\ndist/assets/Popover-Exy15r63.css                        0.62 kB │ gzip:   0.34 kB\ndist/assets/Dialog-CNke6_Be.css                         0.80 kB │ gzip:   0.42 kB\ndist/assets/Select-zbWAXGec.css                         1.21 kB │ gzip:   0.43 kB\ndist/assets/TextField-Bia33xUx.css                      1.42 kB │ gzip:   0.52 kB\ndist/assets/Slider-BdpOauFc.css                         1.57 kB │ gzip:   0.57 kB\ndist/assets/Switch-pXkEQS_e.css                         1.63 kB │ gzip:   0.49 kB\ndist/assets/Checkbox-CaWe_hBO.css                       1.90 kB │ gzip:   0.61 kB\ndist/assets/Keypad-DUGiORd-.css                         2.02 kB │ gzip:   0.55 kB\ndist/assets/AccentPicker-xWQvBha2.css                   3.15 kB │ gzip:   0.96 kB\ndist/assets/SimpleMode-Cz3UFmRX.css                     3.42 kB │ gzip:   1.13 kB\ndist/assets/Button-BoVqgmZx.css                         4.97 kB │ gzip:   1.24 kB\ndist/assets/GraphMode-CPEJlQ_S.css                      6.64 kB │ gzip:   1.64 kB\ndist/assets/ConvertMode-C-rZJdia.css                    7.55 kB │ gzip:   1.86 kB\ndist/assets/ScientificMode-CJSvmYM9.css                11.43 kB │ gzip:   2.44 kB\ndist/assets/MathDisplay-D6IlXTJG.css                   25.52 kB │ gzip:   4.03 kB\ndist/assets/index-CSLQbeAw.css                         62.19 kB │ gzip:  10.37 kB\ndist/assets/browserMotion-CDweiHa2.js                   0.15 kB │ gzip:   0.13 kB\ndist/assets/VisuallyHidden-IKLirsxw.js                  0.18 kB │ gzip:   0.16 kB\ndist/assets/Card-CpJeSsLo.js                            0.20 kB │ gzip:   0.17 kB\ndist/assets/seeds-DdxXycSJ.js                           0.33 kB │ gzip:   0.21 kB\ndist/assets/useSlot-IYVZR0JA.js                         0.35 kB │ gzip:   0.26 kB\ndist/assets/SideSheet-DWQQRdlO.js                       0.35 kB │ gzip:   0.24 kB\ndist/assets/Popover-wSdmeohv.js                         0.43 kB │ gzip:   0.31 kB\ndist/assets/Keypad-DmbnNd47.js                          0.60 kB │ gzip:   0.36 kB\ndist/assets/registry-cMwNdkqK.js                        0.71 kB │ gzip:   0.43 kB\ndist/assets/CopyLinkButton-BBBHaT_c.js                  0.81 kB │ gzip:   0.49 kB\ndist/assets/useSpring-DAeWWBoH.js                       0.94 kB │ gzip:   0.53 kB\ndist/assets/ShortcutDialog-Dgng_BSq.js                  1.11 kB │ gzip:   0.51 kB\ndist/assets/useModeHistory-l8p_v8Kz.js                  1.19 kB │ gzip:   0.60 kB\ndist/assets/LoadingIndicator-B1I56f-w.js                1.53 kB │ gzip:   0.88 kB\ndist/assets/buildScheme-BhNn56JZ.js                     1.67 kB │ gzip:   0.79 kB\ndist/assets/model-57A4P_uV.js                           1.76 kB │ gzip:   0.87 kB\ndist/assets/TextField-DRs_MtQn.js                       2.12 kB │ gzip:   1.03 kB\ndist/assets/useToggle-DNijUGKW.js                       2.17 kB │ gzip:   0.97 kB\ndist/assets/Switch-CNUl9isq.js                          2.17 kB │ gzip:   0.98 kB\ndist/assets/useTextField-DTkD8Y8k.js                    2.52 kB │ gzip:   1.14 kB\ndist/assets/IconButton-DsK9xG5I.js                      3.45 kB │ gzip:   1.61 kB\ndist/assets/AccentPanel-CrS47tdM.js                     3.48 kB │ gzip:   1.39 kB\ndist/assets/engine-BnmcVa8_.js                          3.69 kB │ gzip:   1.69 kB\ndist/assets/CommandPalette-CXQ6vynt.js                  3.85 kB │ gzip:   1.80 kB\ndist/assets/model-CL_jJKfW.js                           4.18 kB │ gzip:   1.70 kB\ndist/assets/Checkbox-BHI7YD3x.js                        4.19 kB │ gzip:   1.64 kB\ndist/assets/Dialog-DAE_d4Rb.js                          4.97 kB │ gzip:   1.97 kB\ndist/assets/useFormValidation-C933WQX3.js               5.11 kB │ gzip:   1.95 kB\ndist/assets/SettingsDialog-Db6yX7uX.js                  5.29 kB │ gzip:   1.81 kB\ndist/assets/jsx-runtime-Dk72oS4N.js                     8.77 kB │ gzip:   3.33 kB\ndist/assets/snackbarQueue-1PCeJI1t.js                  11.09 kB │ gzip:   4.43 kB\ndist/assets/i18n-Bv43hc8-.js                           11.27 kB │ gzip:   3.87 kB\ndist/assets/Slider-CxsFFzoS.js                         13.21 kB │ gzip:   4.70 kB\ndist/assets/FocusScope-CuIhVRDU.js                     14.29 kB │ gzip:   4.39 kB\ndist/assets/SimpleMode-XGWqu9GN.js                     16.32 kB │ gzip:   5.64 kB\ndist/assets/ConvertMode-DgD-MdjD.js                    21.49 kB │ gzip:   7.51 kB\ndist/assets/units-CrXr7G98.js                          26.67 kB │ gzip:  10.00 kB\ndist/assets/ScientificMode-BWk_oGWV.js                 34.51 kB │ gzip:  10.96 kB\ndist/assets/extended-afKhGHBX.js                       37.88 kB │ gzip:  11.73 kB\ndist/assets/graphPalette-DTsoAoAA.js                   40.16 kB │ gzip:  12.50 kB\ndist/assets/Select-CY-MZX8U.js                         40.30 kB │ gzip:  12.60 kB\ndist/assets/HistorySheet-BrnnUnw3.js                   66.75 kB │ gzip:  24.34 kB\ndist/assets/Button-XVpI3UH4.js                         71.06 kB │ gzip:  24.33 kB\ndist/assets/evaluate-kuGWoVE8.js                       84.76 kB │ gzip:  31.39 kB\ndist/assets/useOverlayTransition-CI5GMRxO.js           87.25 kB │ gzip:  26.30 kB\ndist/assets/GraphMode-rA18M-6L.js                      91.25 kB │ gzip:  31.87 kB\ndist/assets/index-kd_k9QGA.js                         259.28 kB │ gzip:  81.77 kB\ndist/assets/MathDisplay-CfJApdIs.js                   259.33 kB │ gzip:  77.69 kB\ndist/assets/ExpressionEditor-JEAz7kHr.js              354.79 kB │ gzip: 115.43 kB\n\n✓ built in 551ms\ndist: verified normal target, manifest, assets and precache\n",
+      "outputSha256": "593adfeac0bb3d110cfb23529e6fb65369cfa40b3f9847a5eebbda8678c715b5"
+    },
+    {
+      "command": "node scripts/qa-bundle.mjs",
+      "exitCode": 0,
+      "interpretation": "Final normal build, 190757 bytes gzip < 200000; eager scientific modules absent.",
+      "output": "{\"total\":190757,\"limit\":200000,\"chunks\":[{\"key\":\"index.html\",\"file\":\"assets/index-kd_k9QGA.js\",\"gzip\":80797},{\"key\":\"_jsx-runtime-Dk72oS4N.js\",\"file\":\"assets/jsx-runtime-Dk72oS4N.js\",\"gzip\":3328},{\"key\":\"_Button-XVpI3UH4.js\",\"file\":\"assets/Button-XVpI3UH4.js\",\"gzip\":24105},{\"key\":\"_i18n-Bv43hc8-.js\",\"file\":\"assets/i18n-Bv43hc8-.js\",\"gzip\":3853},{\"key\":\"_useOverlayTransition-CI5GMRxO.js\",\"file\":\"assets/useOverlayTransition-CI5GMRxO.js\",\"gzip\":26033},{\"key\":\"_FocusScope-CuIhVRDU.js\",\"file\":\"assets/FocusScope-CuIhVRDU.js\",\"gzip\":4375},{\"key\":\"_useFormValidation-C933WQX3.js\",\"file\":\"assets/useFormValidation-C933WQX3.js\",\"gzip\":1951},{\"key\":\"_useSlot-IYVZR0JA.js\",\"file\":\"assets/useSlot-IYVZR0JA.js\",\"gzip\":263},{\"key\":\"_snackbarQueue-1PCeJI1t.js\",\"file\":\"assets/snackbarQueue-1PCeJI1t.js\",\"gzip\":4416},{\"key\":\"_IconButton-DsK9xG5I.js\",\"file\":\"assets/IconButton-DsK9xG5I.js\",\"gzip\":1615},{\"key\":\"_useSpring-DAeWWBoH.js\",\"file\":\"assets/useSpring-DAeWWBoH.js\",\"gzip\":535},{\"key\":\"_LoadingIndicator-B1I56f-w.js\",\"file\":\"assets/LoadingIndicator-B1I56f-w.js\",\"gzip\":881},{\"key\":\"_Popover-wSdmeohv.js\",\"file\":\"assets/Popover-wSdmeohv.js\",\"gzip\":314},{\"key\":\"_browserMotion-CDweiHa2.js\",\"file\":\"assets/browserMotion-CDweiHa2.js\",\"gzip\":136},{\"key\":\"src/features/simple/SimpleMode.tsx\",\"file\":\"assets/SimpleMode-XGWqu9GN.js\",\"gzip\":5623},{\"key\":\"_evaluate-kuGWoVE8.js\",\"file\":\"assets/evaluate-kuGWoVE8.js\",\"gzip\":31066},{\"key\":\"_useModeHistory-l8p_v8Kz.js\",\"file\":\"assets/useModeHistory-l8p_v8Kz.js\",\"gzip\":604},{\"key\":\"_CopyLinkButton-BBBHaT_c.js\",\"file\":\"assets/CopyLinkButton-BBBHaT_c.js\",\"gzip\":498},{\"key\":\"_Keypad-DmbnNd47.js\",\"file\":\"assets/Keypad-DmbnNd47.js\",\"gzip\":364}],\"eager\":[]}\n",
+      "outputSha256": "b6c9284462fdaa393cffaf065d6660b754cbd9feb723e66e86580bce92be5283"
+    },
+    {
+      "command": "TMPDIR=/workspace/scratch/5669fb5a6f85/.wp08/tmp npm run test:e2e -- e2e/scientific-result.spec.ts e2e/scientific-result-zoom.spec.ts e2e/scientific.spec.ts e2e/scientific-worker.spec.ts e2e/startup-budget.spec.ts e2e/qa-hardening.spec.ts e2e/comfort.spec.ts --project=chromium --workers=1 --max-failures=1",
+      "exitCode": 1,
+      "interpretation": "Blocked before app/browser assertions: missing browser executable. Stop-on-first-failure is only an invocation boundary; no retries, timeouts, test expectations or configuration changed.",
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test e2e/scientific-result.spec.ts e2e/scientific-result-zoom.spec.ts e2e/scientific.spec.ts e2e/scientific-worker.spec.ts e2e/startup-budget.spec.ts e2e/qa-hardening.spec.ts e2e/comfort.spec.ts --project=chromium --workers=1 --max-failures=1\n\n[WebServer] (node:30) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n[WebServer] (node:43) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n\nRunning 71 tests using 1 worker\n\n(node:81) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n  ✘   1 [chromium] › e2e/comfort.spec.ts:15:1 › palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview (2ms)\nTesting stopped early after 1 maximum allowed failures.\n\n\n  1) [chromium] › e2e/comfort.spec.ts:15:1 › palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview \n\n    Error: browserType.launch: Executable doesn't exist at /root/.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell\n    ╔════════════════════════════════════════════════════════════╗\n    ║ Looks like Playwright was just installed or updated.       ║\n    ║ Please run the following command to download new browsers: ║\n    ║                                                            ║\n    ║     npx playwright install                                 ║\n    ║                                                            ║\n    ║ <3 Playwright Team                                         ║\n    ╚════════════════════════════════════════════════════════════╝\n\n    Error Context: test-results/comfort-palette-focus-fuzz-49c80-cape-and-conversion-preview-chromium/error-context.md\n\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/comfort-palette-focus-fuzz-49c80-cape-and-conversion-preview-chromium/trace.zip\n    Usage:\n\n        npx playwright show-trace test-results/comfort-palette-focus-fuzz-49c80-cape-and-conversion-preview-chromium/trace.zip\n\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n\n  1 failed\n    [chromium] › e2e/comfort.spec.ts:15:1 › palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview \n  70 did not run\n  1 error was not a part of any test, see above for details\n",
+      "outputSha256": "b678bc6e93d74e6a1afee1146e16a0ee730219d8d2dc80d143780c943b2bef3e"
+    },
+    {
+      "command": "TMPDIR=/workspace/scratch/5669fb5a6f85/.wp08/tmp npm run test:e2e -- e2e/scientific-result.spec.ts e2e/scientific.spec.ts e2e/scientific-worker.spec.ts e2e/startup-budget.spec.ts e2e/qa-hardening.spec.ts e2e/comfort.spec.ts --project=firefox --workers=1 --max-failures=1",
+      "exitCode": 1,
+      "interpretation": "Blocked before app/browser assertions: missing browser executable. Stop-on-first-failure is only an invocation boundary; no retries, timeouts, test expectations or configuration changed.",
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test e2e/scientific-result.spec.ts e2e/scientific.spec.ts e2e/scientific-worker.spec.ts e2e/startup-budget.spec.ts e2e/qa-hardening.spec.ts e2e/comfort.spec.ts --project=firefox --workers=1 --max-failures=1\n\n[WebServer] (node:30) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n[WebServer] (node:43) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n\nRunning 70 tests using 1 worker\n\n(node:81) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n  ✘   1 [firefox] › e2e/comfort.spec.ts:15:1 › palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview (2ms)\nTesting stopped early after 1 maximum allowed failures.\n\n\n  1) [firefox] › e2e/comfort.spec.ts:15:1 › palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview \n\n    Error: browserType.launch: Executable doesn't exist at /root/.cache/ms-playwright/firefox-1555/firefox/firefox\n    ╔════════════════════════════════════════════════════════════╗\n    ║ Looks like Playwright was just installed or updated.       ║\n    ║ Please run the following command to download new browsers: ║\n    ║                                                            ║\n    ║     npx playwright install                                 ║\n    ║                                                            ║\n    ║ <3 Playwright Team                                         ║\n    ╚════════════════════════════════════════════════════════════╝\n\n    Error Context: test-results/comfort-palette-focus-fuzz-49c80-cape-and-conversion-preview-firefox/error-context.md\n\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/comfort-palette-focus-fuzz-49c80-cape-and-conversion-preview-firefox/trace.zip\n    Usage:\n\n        npx playwright show-trace test-results/comfort-palette-focus-fuzz-49c80-cape-and-conversion-preview-firefox/trace.zip\n\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n\n  1 failed\n    [firefox] › e2e/comfort.spec.ts:15:1 › palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview \n  69 did not run\n  1 error was not a part of any test, see above for details\n",
+      "outputSha256": "8194dee61a48e1ed5774f45f3150567a2a56302d53375f99dbfe497e135bde56"
+    },
+    {
+      "command": "TMPDIR=/workspace/scratch/5669fb5a6f85/.wp08/tmp npm run test:e2e -- e2e/scientific-result.spec.ts e2e/scientific.spec.ts e2e/scientific-worker.spec.ts e2e/startup-budget.spec.ts e2e/qa-hardening.spec.ts e2e/comfort.spec.ts --project=webkit --workers=1 --max-failures=1",
+      "exitCode": 1,
+      "interpretation": "Blocked before app/browser assertions: missing browser executable. Stop-on-first-failure is only an invocation boundary; no retries, timeouts, test expectations or configuration changed.",
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test e2e/scientific-result.spec.ts e2e/scientific.spec.ts e2e/scientific-worker.spec.ts e2e/startup-budget.spec.ts e2e/qa-hardening.spec.ts e2e/comfort.spec.ts --project=webkit --workers=1 --max-failures=1\n\n[WebServer] (node:30) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n[WebServer] (node:43) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n\nRunning 70 tests using 1 worker\n\n(node:80) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n  ✘   1 [webkit] › e2e/comfort.spec.ts:15:1 › palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview (2ms)\nTesting stopped early after 1 maximum allowed failures.\n\n\n  1) [webkit] › e2e/comfort.spec.ts:15:1 › palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview \n\n    Error: browserType.launch: Executable doesn't exist at /root/.cache/ms-playwright/webkit-2370/pw_run.sh\n    ╔════════════════════════════════════════════════════════════╗\n    ║ Looks like Playwright was just installed or updated.       ║\n    ║ Please run the following command to download new browsers: ║\n    ║                                                            ║\n    ║     npx playwright install                                 ║\n    ║                                                            ║\n    ║ <3 Playwright Team                                         ║\n    ╚════════════════════════════════════════════════════════════╝\n\n    Error Context: test-results/comfort-palette-focus-fuzz-49c80-cape-and-conversion-preview-webkit/error-context.md\n\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/comfort-palette-focus-fuzz-49c80-cape-and-conversion-preview-webkit/trace.zip\n    Usage:\n\n        npx playwright show-trace test-results/comfort-palette-focus-fuzz-49c80-cape-and-conversion-preview-webkit/trace.zip\n\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n\n  1 failed\n    [webkit] › e2e/comfort.spec.ts:15:1 › palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview \n  69 did not run\n  1 error was not a part of any test, see above for details\n",
+      "outputSha256": "68a86286f026a678eedfd1b445b201ee2f8323fc9a591776eae1170c97f49032"
+    },
+    {
+      "command": "TMPDIR=/workspace/scratch/5669fb5a6f85/.wp08/tmp npm run test:e2e -- e2e/qa-visual.spec.ts --project=qa-visual --grep 'scientific [0-9]+ (light|dark)$' --workers=1 --max-failures=1",
+      "exitCode": 1,
+      "interpretation": "Six scientific visual references selected; first browser launch blocked, five not run. No pixel comparison or baseline update.",
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test e2e/qa-visual.spec.ts --project=qa-visual --grep scientific [0-9]+ (light|dark)$ --workers=1 --max-failures=1\n\n[WebServer] (node:30) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n[WebServer] (node:43) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n\nRunning 6 tests using 1 worker\n\n",
+      "outputSha256": "03e55837d6838213e96002c35d391444b80e39b79c44dee726ca63dc63f7ea2e"
+    },
+    {
+      "command": "TMPDIR=/workspace/scratch/5669fb5a6f85/.wp08/tmp npm run test:e2e:provenance -- --workers=1 --max-failures=1",
+      "exitCode": 1,
+      "interpretation": "AP29 fixture builds completed, first browser launch blocked; 35 not run. No offline or live-client success.",
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e:provenance\n> playwright test --config=playwright.ap29.config.ts --workers=1 --max-failures=1\n\n[WebServer] (node:30) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n[WebServer] (node:43) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 1278 modules transformed.\nrendering chunks...\ncomputing gzip size...\ntest-results/ap29-builds/a/build-target.json                                  0.01 kB │ gzip:   0.03 kB\ntest-results/ap29-builds/a/build-info.json                                    0.09 kB │ gzip:   0.07 kB\ntest-results/ap29-builds/a/manifest.webmanifest                               0.57 kB\ntest-results/ap29-builds/a/assets/KaTeX_Size3-Regular-gV2CO0n9.woff2          3.62 kB\ntest-results/ap29-builds/a/assets/KaTeX_Size3-Regular-CTq5MqoE.woff           4.42 kB\ntest-results/ap29-builds/a/assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2          4.92 kB\ntest-results/ap29-builds/a/assets/KaTeX_Size2-Regular-Dy4dx90m.woff2          5.20 kB\ntest-results/ap29-builds/a/assets/KaTeX_Size1-Regular-mCD8mA8B.woff2          5.46 kB\ntest-results/ap29-builds/a/assets/KaTeX_Size4-Regular-BF-4gkZK.woff           5.98 kB\ntest-results/ap29-builds/a/assets/KaTeX_Size2-Regular-oD1tc_U0.woff           6.18 kB\ntest-results/ap29-builds/a/assets/KaTeX_Size1-Regular-C195tn64.woff           6.49 kB\ntest-results/ap29-builds/a/assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2    6.90 kB\ntest-results/ap29-builds/a/assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2       6.91 kB\ntest-results/ap29-builds/a/assets/KaTeX_Size3-Regular-DgpXs0kz.ttf            7.58 kB\ntest-results/ap29-builds/a/assets/KaTeX_Caligraphic-Regular-CTRA-rTL.woff     7.65 kB\ntest-results/ap29-builds/a/assets/KaTeX_Caligraphic-Bold-BEiXGLvX.woff        7.71 kB\ntest-results/ap29-builds/a/sw.js                                              8.31 kB\ntest-results/ap29-builds/a/assets/KaTeX_Script-Regular-D3wIWfF6.woff2         9.64 kB\ntest-results/ap29-builds/a/index.html                                        10.13 kB │ gzip:   2.68 kB\ntest-results/ap29-builds/a/assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2     10.34 kB\ntest-results/ap29-builds/a/assets/KaTeX_Size4-Regular-DWFBv043.ttf           10.36 kB\ntest-results/ap29-builds/a/assets/KaTeX_Script-Regular-D5yQViql.woff         10.58 kB\ntest-results/ap29-builds/a/assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2       11.31 kB\ntest-results/ap29-builds/a/assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2          11.34 kB\ntest-results/ap29-builds/a/assets/KaTeX_Size2-Regular-B7gKUWhC.ttf           11.50 kB\ntest-results/ap29-builds/a/assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2      12.02 kB\ntest-results/ap29-builds/a/assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2        12.21 kB\ntest-results/ap29-builds/a/assets/KaTeX_Size1-Regular-Dbsnue_I.ttf           12.22 kB\ntest-results/ap29-builds/a/assets/KaTeX_SansSerif-Regular-CS6fqUqJ.woff      12.31 kB\ntest-results/ap29-builds/a/assets/KaTeX_Caligraphic-Regular-wX97UBjC.ttf     12.34 kB\ntest-results/ap29-builds/a/assets/KaTeX_Caligraphic-Bold-ATXxdsX0.ttf        12.36 kB\ntest-results/ap29-builds/a/assets/KaTeX_Fraktur-Regular-Dxdc4cR9.woff        13.20 kB\ntest-results/ap29-builds/a/assets/KaTeX_Fraktur-Bold-BsDP51OF.woff           13.29 kB\ntest-results/ap29-builds/a/assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2    13.56 kB\ntest-results/ap29-builds/a/assets/KaTeX_SansSerif-Italic-DN2j7dab.woff       14.11 kB\ntest-results/ap29-builds/a/assets/KaTeX_SansSerif-Bold-DbIhKOiC.woff         14.40 kB\ntest-results/ap29-builds/a/assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff     16.02 kB\ntest-results/ap29-builds/a/assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2       16.40 kB\ntest-results/ap29-builds/a/assets/KaTeX_Math-Italic-t53AETM-.woff2           16.44 kB\ntest-results/ap29-builds/a/assets/KaTeX_Script-Regular-C5JkGWo-.ttf          16.64 kB\ntest-results/ap29-builds/a/assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2       16.78 kB\ntest-results/ap29-builds/a/assets/KaTeX_Main-Italic-NWA7e6Wa.woff2           16.98 kB\ntest-results/ap29-builds/a/assets/KaTeX_Math-BoldItalic-iY-2wyZ7.woff        18.66 kB\ntest-results/ap29-builds/a/assets/KaTeX_Math-Italic-DA0__PXp.woff            18.74 kB\ntest-results/ap29-builds/a/assets/KaTeX_Main-BoldItalic-SpSLRI95.woff        19.41 kB\ntest-results/ap29-builds/a/assets/KaTeX_SansSerif-Regular-BNo7hRIc.ttf       19.43 kB\ntest-results/ap29-builds/a/assets/KaTeX_Fraktur-Regular-CB_wures.ttf         19.57 kB\ntest-results/ap29-builds/a/assets/KaTeX_Fraktur-Bold-BdnERNNW.ttf            19.58 kB\ntest-results/ap29-builds/a/assets/KaTeX_Main-Italic-BMLOBm91.woff            19.67 kB\ntest-results/ap29-builds/a/assets/KaTeX_SansSerif-Italic-YYjJ1zSn.ttf        22.36 kB\ntest-results/ap29-builds/a/assets/KaTeX_SansSerif-Bold-CFMepnvq.ttf          24.50 kB\ntest-results/ap29-builds/a/assets/KaTeX_Main-Bold-Cx986IdX.woff2             25.32 kB\ntest-results/ap29-builds/a/assets/KaTeX_Main-Regular-B22Nviop.woff2          26.27 kB\ntest-results/ap29-builds/a/assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf      27.55 kB\ntest-results/ap29-builds/a/assets/KaTeX_AMS-Regular-BQhdFMY1.woff2           28.07 kB\ntest-results/ap29-builds/a/assets/KaTeX_Main-Bold-Jm3AIy58.woff              29.91 kB\ntest-results/ap29-builds/a/assets/material-symbols-rounded-17-fZmEE.woff2    29.97 kB\ntest-results/ap29-builds/a/assets/KaTeX_Main-Regular-Dr94JaBh.woff           30.77 kB\ntest-results/ap29-builds/a/assets/KaTeX_Math-BoldItalic-B3XSjfu4.ttf         31.19 kB\ntest-results/ap29-builds/a/assets/KaTeX_Math-Italic-flOr_0UB.ttf             31.30 kB\ntest-results/ap29-builds/a/assets/roboto-mono-latin-CZtBPCCa.woff2           32.79 kB\ntest-results/ap29-builds/a/assets/KaTeX_Main-BoldItalic-DzxPMmG6.ttf         32.96 kB\ntest-results/ap29-builds/a/assets/KaTeX_AMS-Regular-DMm9YOAa.woff            33.51 kB\ntest-results/ap29-builds/a/assets/KaTeX_Main-Italic-3WenGoN9.ttf             33.58 kB\ntest-results/ap29-builds/a/.vite/manifest.json                               33.71 kB │ gzip:   4.01 kB\ntest-results/ap29-builds/a/assets/KaTeX_Main-Bold-waoOVXN0.ttf               51.33 kB\ntest-results/ap29-builds/a/assets/KaTeX_Main-Regular-ypZvNtVU.ttf            53.58 kB\ntest-results/ap29-builds/a/assets/KaTeX_AMS-Regular-DRggAlZN.ttf             63.63 kB\ntest-results/ap29-builds/a/assets/sampling.worker-DdpY2KL0.js                82.75 kB\ntest-results/ap29-builds/a/assets/calculation.worker-DQ-VjPCR.js             89.39 kB\ntest-results/ap29-builds/a/assets/roboto-flex-latin-DlhILaPV.woff2          194.64 kB\ntest-results/ap29-builds/a/assets/LoadingIndicator-ATDyzdxl.css               0.10 kB │ gzip:   0.10 kB\ntest-results/ap29-builds/a/assets/CopyLinkButton-CzVs3g7c.css                 0.15 kB │ gzip:   0.13 kB\ntest-results/ap29-builds/a/assets/SideSheet-BZfUtJea.css                      0.33 kB │ gzip:   0.21 kB\ntest-results/ap29-builds/a/assets/IconButton-h8-ZNqqk.css                     0.41 kB │ gzip:   0.24 kB\ntest-results/ap29-builds/a/assets/Card-DD1MZGf1.css                           0.45 kB │ gzip:   0.23 kB\ntest-results/ap29-builds/a/assets/Popover-Exy15r63.css                        0.62 kB │ gzip:   0.34 kB\ntest-results/ap29-builds/a/assets/Dialog-CNke6_Be.css                         0.80 kB │ gzip:   0.42 kB\ntest-results/ap29-builds/a/assets/Select-zbWAXGec.css                         1.21 kB │ gzip:   0.43 kB\ntest-results/ap29-builds/a/assets/TextField-Bia33xUx.css                      1.42 kB │ gzip:   0.52 kB\ntest-results/ap29-builds/a/assets/Slider-BdpOauFc.css                         1.57 kB │ gzip:   0.57 kB\ntest-results/ap29-builds/a/assets/Switch-pXkEQS_e.css                         1.63 kB │ gzip:   0.49 kB\ntest-results/ap29-builds/a/assets/Checkbox-CaWe_hBO.css                       1.90 kB │ gzip:   0.61 kB\ntest-results/ap29-builds/a/assets/Keypad-DUGiORd-.css                         2.02 kB │ gzip:   0.55 kB\ntest-results/ap29-builds/a/assets/AccentPicker-xWQvBha2.css                   3.15 kB │ gzip:   0.96 kB\ntest-results/ap29-builds/a/assets/SimpleMode-Cz3UFmRX.css                     3.42 kB │ gzip:   1.13 kB\ntest-results/ap29-builds/a/assets/Button-BoVqgmZx.css                         4.97 kB │ gzip:   1.24 kB\ntest-results/ap29-builds/a/assets/GraphMode-CPEJlQ_S.css                      6.64 kB │ gzip:   1.64 kB\ntest-results/ap29-builds/a/assets/ConvertMode-C-rZJdia.css                    7.55 kB │ gzip:   1.86 kB\ntest-results/ap29-builds/a/assets/ScientificMode-CJSvmYM9.css                11.43 kB │ gzip:   2.44 kB\ntest-results/ap29-builds/a/assets/MathDisplay-D6IlXTJG.css                   25.52 kB │ gzip:   4.03 kB\ntest-results/ap29-builds/a/assets/index-CSLQbeAw.css                         62.19 kB │ gzip:  10.37 kB\ntest-results/ap29-builds/a/assets/browserMotion-CDweiHa2.js                   0.15 kB │ gzip:   0.13 kB\ntest-results/ap29-builds/a/assets/VisuallyHidden-IKLirsxw.js                  0.18 kB │ gzip:   0.16 kB\ntest-results/ap29-builds/a/assets/Card-CpJeSsLo.js                            0.20 kB │ gzip:   0.17 kB\ntest-results/ap29-builds/a/assets/seeds-DdxXycSJ.js                           0.33 kB │ gzip:   0.21 kB\ntest-results/ap29-builds/a/assets/useSlot-IYVZR0JA.js                         0.35 kB │ gzip:   0.26 kB\ntest-results/ap29-builds/a/assets/SideSheet-DWQQRdlO.js                       0.35 kB │ gzip:   0.24 kB\ntest-results/ap29-builds/a/assets/Popover-wSdmeohv.js                         0.43 kB │ gzip:   0.31 kB\ntest-results/ap29-builds/a/assets/Keypad-DmbnNd47.js                          0.60 kB │ gzip:   0.36 kB\ntest-results/ap29-builds/a/assets/registry-cMwNdkqK.js                        0.71 kB │ gzip:   0.43 kB\ntest-results/ap29-builds/a/assets/CopyLinkButton-BBBHaT_c.js                  0.81 kB │ gzip:   0.49 kB\ntest-results/ap29-builds/a/assets/useSpring-DAeWWBoH.js                       0.94 kB │ gzip:   0.53 kB\ntest-results/ap29-builds/a/assets/ShortcutDialog-Dgng_BSq.js                  1.11 kB │ gzip:   0.51 kB\ntest-results/ap29-builds/a/assets/useModeHistory-l8p_v8Kz.js                  1.19 kB │ gzip:   0.60 kB\ntest-results/ap29-builds/a/assets/LoadingIndicator-B1I56f-w.js                1.53 kB │ gzip:   0.88 kB\ntest-results/ap29-builds/a/assets/buildScheme-BhNn56JZ.js                     1.67 kB │ gzip:   0.79 kB\ntest-results/ap29-builds/a/assets/model-57A4P_uV.js                           1.76 kB │ gzip:   0.87 kB\ntest-results/ap29-builds/a/assets/TextField-DRs_MtQn.js                       2.12 kB │ gzip:   1.03 kB\ntest-results/ap29-builds/a/assets/useToggle-DNijUGKW.js                       2.17 kB │ gzip:   0.97 kB\ntest-results/ap29-builds/a/assets/Switch-CNUl9isq.js                          2.17 kB │ gzip:   0.98 kB\ntest-results/ap29-builds/a/assets/useTextField-DTkD8Y8k.js                    2.52 kB │ gzip:   1.14 kB\ntest-results/ap29-builds/a/assets/IconButton-DsK9xG5I.js                      3.45 kB │ gzip:   1.61 kB\ntest-results/ap29-builds/a/assets/AccentPanel-CrS47tdM.js                     3.48 kB │ gzip:   1.39 kB\ntest-results/ap29-builds/a/assets/engine-BnmcVa8_.js                          3.69 kB │ gzip:   1.69 kB\ntest-results/ap29-builds/a/assets/CommandPalette-CXQ6vynt.js                  3.85 kB │ gzip:   1.80 kB\ntest-results/ap29-builds/a/assets/model-CL_jJKfW.js                           4.18 kB │ gzip:   1.70 kB\ntest-results/ap29-builds/a/assets/Checkbox-BHI7YD3x.js                        4.19 kB │ gzip:   1.64 kB\ntest-results/ap29-builds/a/assets/Dialog-DAE_d4Rb.js                          4.97 kB │ gzip:   1.97 kB\ntest-results/ap29-builds/a/assets/useFormValidation-C933WQX3.js               5.11 kB │ gzip:   1.95 kB\ntest-results/ap29-builds/a/assets/SettingsDialog-Db6yX7uX.js                  5.29 kB │ gzip:   1.81 kB\ntest-results/ap29-builds/a/assets/jsx-runtime-Dk72oS4N.js                     8.77 kB │ gzip:   3.33 kB\ntest-results/ap29-builds/a/assets/snackbarQueue-1PCeJI1t.js                  11.09 kB │ gzip:   4.43 kB\ntest-results/ap29-builds/a/assets/i18n-Bv43hc8-.js                           11.27 kB │ gzip:   3.87 kB\ntest-results/ap29-builds/a/assets/Slider-CxsFFzoS.js                         13.21 kB │ gzip:   4.70 kB\ntest-results/ap29-builds/a/assets/FocusScope-CuIhVRDU.js                     14.29 kB │ gzip:   4.39 kB\ntest-results/ap29-builds/a/assets/SimpleMode-XGWqu9GN.js                     16.32 kB │ gzip:   5.64 kB\ntest-results/ap29-builds/a/assets/ConvertMode-DgD-MdjD.js                    21.49 kB │ gzip:   7.51 kB\ntest-results/ap29-builds/a/assets/units-CrXr7G98.js                          26.67 kB │ gzip:  10.00 kB\ntest-results/ap29-builds/a/assets/ScientificMode-BWk_oGWV.js                 34.51 kB │ gzip:  10.96 kB\ntest-results/ap29-builds/a/assets/extended-afKhGHBX.js                       37.88 kB │ gzip:  11.73 kB\ntest-results/ap29-builds/a/assets/graphPalette-DTsoAoAA.js                   40.16 kB │ gzip:  12.50 kB\ntest-results/ap29-builds/a/assets/Select-CY-MZX8U.js                         40.30 kB │ gzip:  12.60 kB\ntest-results/ap29-builds/a/assets/HistorySheet-BrnnUnw3.js                   66.75 kB │ gzip:  24.34 kB\ntest-results/ap29-builds/a/assets/Button-XVpI3UH4.js                         71.06 kB │ gzip:  24.33 kB\ntest-results/ap29-builds/a/assets/evaluate-kuGWoVE8.js                       84.76 kB │ gzip:  31.39 kB\ntest-results/ap29-builds/a/assets/useOverlayTransition-CI5GMRxO.js           87.25 kB │ gzip:  26.30 kB\ntest-results/ap29-builds/a/assets/GraphMode-rA18M-6L.js                      91.25 kB │ gzip:  31.87 kB\ntest-results/ap29-builds/a/assets/index-kd_k9QGA.js                         259.28 kB │ gzip:  81.77 kB\ntest-results/ap29-builds/a/assets/MathDisplay-CfJApdIs.js                   259.33 kB │ gzip:  77.69 kB\ntest-results/ap29-builds/a/assets/ExpressionEditor-JEAz7kHr.js              354.79 kB │ gzip: 115.43 kB\n\n✓ built in 536ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 1278 modules transformed.\nrendering chunks...\ncomputing gzip size...\ntest-results/ap29-builds/b/build-target.json                                  0.01 kB │ gzip:   0.03 kB\ntest-results/ap29-builds/b/build-info.json                                    0.09 kB │ gzip:   0.07 kB\ntest-results/ap29-builds/b/manifest.webmanifest                               0.57 kB\ntest-results/ap29-builds/b/assets/KaTeX_Size3-Regular-gV2CO0n9.woff2          3.62 kB\ntest-results/ap29-builds/b/assets/KaTeX_Size3-Regular-CTq5MqoE.woff           4.42 kB\ntest-results/ap29-builds/b/assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2          4.92 kB\ntest-results/ap29-builds/b/assets/KaTeX_Size2-Regular-Dy4dx90m.woff2          5.20 kB\ntest-results/ap29-builds/b/assets/KaTeX_Size1-Regular-mCD8mA8B.woff2          5.46 kB\ntest-results/ap29-builds/b/assets/KaTeX_Size4-Regular-BF-4gkZK.woff           5.98 kB\ntest-results/ap29-builds/b/assets/KaTeX_Size2-Regular-oD1tc_U0.woff           6.18 kB\ntest-results/ap29-builds/b/assets/KaTeX_Size1-Regular-C195tn64.woff           6.49 kB\ntest-results/ap29-builds/b/assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2    6.90 kB\ntest-results/ap29-builds/b/assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2       6.91 kB\ntest-results/ap29-builds/b/assets/KaTeX_Size3-Regular-DgpXs0kz.ttf            7.58 kB\ntest-results/ap29-builds/b/assets/KaTeX_Caligraphic-Regular-CTRA-rTL.woff     7.65 kB\ntest-results/ap29-builds/b/assets/KaTeX_Caligraphic-Bold-BEiXGLvX.woff        7.71 kB\ntest-results/ap29-builds/b/sw.js                                              8.31 kB\ntest-results/ap29-builds/b/assets/KaTeX_Script-Regular-D3wIWfF6.woff2         9.64 kB\ntest-results/ap29-builds/b/index.html                                        10.13 kB │ gzip:   2.68 kB\ntest-results/ap29-builds/b/assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2     10.34 kB\ntest-results/ap29-builds/b/assets/KaTeX_Size4-Regular-DWFBv043.ttf           10.36 kB\ntest-results/ap29-builds/b/assets/KaTeX_Script-Regular-D5yQViql.woff         10.58 kB\ntest-results/ap29-builds/b/assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2       11.31 kB\ntest-results/ap29-builds/b/assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2          11.34 kB\ntest-results/ap29-builds/b/assets/KaTeX_Size2-Regular-B7gKUWhC.ttf           11.50 kB\ntest-results/ap29-builds/b/assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2      12.02 kB\ntest-results/ap29-builds/b/assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2        12.21 kB\ntest-results/ap29-builds/b/assets/KaTeX_Size1-Regular-Dbsnue_I.ttf           12.22 kB\ntest-results/ap29-builds/b/assets/KaTeX_SansSerif-Regular-CS6fqUqJ.woff      12.31 kB\ntest-results/ap29-builds/b/assets/KaTeX_Caligraphic-Regular-wX97UBjC.ttf     12.34 kB\ntest-results/ap29-builds/b/assets/KaTeX_Caligraphic-Bold-ATXxdsX0.ttf        12.36 kB\ntest-results/ap29-builds/b/assets/KaTeX_Fraktur-Regular-Dxdc4cR9.woff        13.20 kB\ntest-results/ap29-builds/b/assets/KaTeX_Fraktur-Bold-BsDP51OF.woff           13.29 kB\ntest-results/ap29-builds/b/assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2    13.56 kB\ntest-results/ap29-builds/b/assets/KaTeX_SansSerif-Italic-DN2j7dab.woff       14.11 kB\ntest-results/ap29-builds/b/assets/KaTeX_SansSerif-Bold-DbIhKOiC.woff         14.40 kB\ntest-results/ap29-builds/b/assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff     16.02 kB\ntest-results/ap29-builds/b/assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2       16.40 kB\ntest-results/ap29-builds/b/assets/KaTeX_Math-Italic-t53AETM-.woff2           16.44 kB\ntest-results/ap29-builds/b/assets/KaTeX_Script-Regular-C5JkGWo-.ttf          16.64 kB\ntest-results/ap29-builds/b/assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2       16.78 kB\ntest-results/ap29-builds/b/assets/KaTeX_Main-Italic-NWA7e6Wa.woff2           16.98 kB\ntest-results/ap29-builds/b/assets/KaTeX_Math-BoldItalic-iY-2wyZ7.woff        18.66 kB\ntest-results/ap29-builds/b/assets/KaTeX_Math-Italic-DA0__PXp.woff            18.74 kB\ntest-results/ap29-builds/b/assets/KaTeX_Main-BoldItalic-SpSLRI95.woff        19.41 kB\ntest-results/ap29-builds/b/assets/KaTeX_SansSerif-Regular-BNo7hRIc.ttf       19.43 kB\ntest-results/ap29-builds/b/assets/KaTeX_Fraktur-Regular-CB_wures.ttf         19.57 kB\ntest-results/ap29-builds/b/assets/KaTeX_Fraktur-Bold-BdnERNNW.ttf            19.58 kB\ntest-results/ap29-builds/b/assets/KaTeX_Main-Italic-BMLOBm91.woff            19.67 kB\ntest-results/ap29-builds/b/assets/KaTeX_SansSerif-Italic-YYjJ1zSn.ttf        22.36 kB\ntest-results/ap29-builds/b/assets/KaTeX_SansSerif-Bold-CFMepnvq.ttf          24.50 kB\ntest-results/ap29-builds/b/assets/KaTeX_Main-Bold-Cx986IdX.woff2             25.32 kB\ntest-results/ap29-builds/b/assets/KaTeX_Main-Regular-B22Nviop.woff2          26.27 kB\ntest-results/ap29-builds/b/assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf      27.55 kB\ntest-results/ap29-builds/b/assets/KaTeX_AMS-Regular-BQhdFMY1.woff2           28.07 kB\ntest-results/ap29-builds/b/assets/KaTeX_Main-Bold-Jm3AIy58.woff              29.91 kB\ntest-results/ap29-builds/b/assets/material-symbols-rounded-17-fZmEE.woff2    29.97 kB\ntest-results/ap29-builds/b/assets/KaTeX_Main-Regular-Dr94JaBh.woff           30.77 kB\ntest-results/ap29-builds/b/assets/KaTeX_Math-BoldItalic-B3XSjfu4.ttf         31.19 kB\ntest-results/ap29-builds/b/assets/KaTeX_Math-Italic-flOr_0UB.ttf             31.30 kB\ntest-results/ap29-builds/b/assets/roboto-mono-latin-CZtBPCCa.woff2           32.79 kB\ntest-results/ap29-builds/b/assets/KaTeX_Main-BoldItalic-DzxPMmG6.ttf         32.96 kB\ntest-results/ap29-builds/b/assets/KaTeX_AMS-Regular-DMm9YOAa.woff            33.51 kB\ntest-results/ap29-builds/b/assets/KaTeX_Main-Italic-3WenGoN9.ttf             33.58 kB\ntest-results/ap29-builds/b/.vite/manifest.json                               33.71 kB │ gzip:   4.01 kB\ntest-results/ap29-builds/b/assets/KaTeX_Main-Bold-waoOVXN0.ttf               51.33 kB\ntest-results/ap29-builds/b/assets/KaTeX_Main-Regular-ypZvNtVU.ttf            53.58 kB\ntest-results/ap29-builds/b/assets/KaTeX_AMS-Regular-DRggAlZN.ttf             63.63 kB\ntest-results/ap29-builds/b/assets/sampling.worker-DdpY2KL0.js                82.75 kB\ntest-results/ap29-builds/b/assets/calculation.worker-DQ-VjPCR.js             89.39 kB\ntest-results/ap29-builds/b/assets/roboto-flex-latin-DlhILaPV.woff2          194.64 kB\ntest-results/ap29-builds/b/assets/LoadingIndicator-ATDyzdxl.css               0.10 kB │ gzip:   0.10 kB\ntest-results/ap29-builds/b/assets/CopyLinkButton-CzVs3g7c.css                 0.15 kB │ gzip:   0.13 kB\ntest-results/ap29-builds/b/assets/SideSheet-BZfUtJea.css                      0.33 kB │ gzip:   0.21 kB\ntest-results/ap29-builds/b/assets/IconButton-h8-ZNqqk.css                     0.41 kB │ gzip:   0.24 kB\ntest-results/ap29-builds/b/assets/Card-DD1MZGf1.css                           0.45 kB │ gzip:   0.23 kB\ntest-results/ap29-builds/b/assets/Popover-Exy15r63.css                        0.62 kB │ gzip:   0.34 kB\ntest-results/ap29-builds/b/assets/Dialog-CNke6_Be.css                         0.80 kB │ gzip:   0.42 kB\ntest-results/ap29-builds/b/assets/Select-zbWAXGec.css                         1.21 kB │ gzip:   0.43 kB\ntest-results/ap29-builds/b/assets/TextField-Bia33xUx.css                      1.42 kB │ gzip:   0.52 kB\ntest-results/ap29-builds/b/assets/Slider-BdpOauFc.css                         1.57 kB │ gzip:   0.57 kB\ntest-results/ap29-builds/b/assets/Switch-pXkEQS_e.css                         1.63 kB │ gzip:   0.49 kB\ntest-results/ap29-builds/b/assets/Checkbox-CaWe_hBO.css                       1.90 kB │ gzip:   0.61 kB\ntest-results/ap29-builds/b/assets/Keypad-DUGiORd-.css                         2.02 kB │ gzip:   0.55 kB\ntest-results/ap29-builds/b/assets/AccentPicker-xWQvBha2.css                   3.15 kB │ gzip:   0.96 kB\ntest-results/ap29-builds/b/assets/SimpleMode-Cz3UFmRX.css                     3.42 kB │ gzip:   1.13 kB\ntest-results/ap29-builds/b/assets/Button-BoVqgmZx.css                         4.97 kB │ gzip:   1.24 kB\ntest-results/ap29-builds/b/assets/GraphMode-CPEJlQ_S.css                      6.64 kB │ gzip:   1.64 kB\ntest-results/ap29-builds/b/assets/ConvertMode-C-rZJdia.css                    7.55 kB │ gzip:   1.86 kB\ntest-results/ap29-builds/b/assets/ScientificMode-CJSvmYM9.css                11.43 kB │ gzip:   2.44 kB\ntest-results/ap29-builds/b/assets/MathDisplay-D6IlXTJG.css                   25.52 kB │ gzip:   4.03 kB\ntest-results/ap29-builds/b/assets/index-CSLQbeAw.css                         62.19 kB │ gzip:  10.37 kB\ntest-results/ap29-builds/b/assets/browserMotion-CDweiHa2.js                   0.15 kB │ gzip:   0.13 kB\ntest-results/ap29-builds/b/assets/VisuallyHidden-IKLirsxw.js                  0.18 kB │ gzip:   0.16 kB\ntest-results/ap29-builds/b/assets/Card-CpJeSsLo.js                            0.20 kB │ gzip:   0.17 kB\ntest-results/ap29-builds/b/assets/seeds-DdxXycSJ.js                           0.33 kB │ gzip:   0.21 kB\ntest-results/ap29-builds/b/assets/useSlot-IYVZR0JA.js                         0.35 kB │ gzip:   0.26 kB\ntest-results/ap29-builds/b/assets/SideSheet-DWQQRdlO.js                       0.35 kB │ gzip:   0.24 kB\ntest-results/ap29-builds/b/assets/Popover-wSdmeohv.js                         0.43 kB │ gzip:   0.31 kB\ntest-results/ap29-builds/b/assets/Keypad-DmbnNd47.js                          0.60 kB │ gzip:   0.36 kB\ntest-results/ap29-builds/b/assets/registry-cMwNdkqK.js                        0.71 kB │ gzip:   0.43 kB\ntest-results/ap29-builds/b/assets/CopyLinkButton-BBBHaT_c.js                  0.81 kB │ gzip:   0.49 kB\ntest-results/ap29-builds/b/assets/useSpring-DAeWWBoH.js                       0.94 kB │ gzip:   0.53 kB\ntest-results/ap29-builds/b/assets/ShortcutDialog-Dgng_BSq.js                  1.11 kB │ gzip:   0.51 kB\ntest-results/ap29-builds/b/assets/useModeHistory-l8p_v8Kz.js                  1.19 kB │ gzip:   0.60 kB\ntest-results/ap29-builds/b/assets/LoadingIndicator-B1I56f-w.js                1.53 kB │ gzip:   0.88 kB\ntest-results/ap29-builds/b/assets/buildScheme-BhNn56JZ.js                     1.67 kB │ gzip:   0.79 kB\ntest-results/ap29-builds/b/assets/model-57A4P_uV.js                           1.76 kB │ gzip:   0.87 kB\ntest-results/ap29-builds/b/assets/TextField-DRs_MtQn.js                       2.12 kB │ gzip:   1.03 kB\ntest-results/ap29-builds/b/assets/useToggle-DNijUGKW.js                       2.17 kB │ gzip:   0.97 kB\ntest-results/ap29-builds/b/assets/Switch-CNUl9isq.js                          2.17 kB │ gzip:   0.98 kB\ntest-results/ap29-builds/b/assets/useTextField-DTkD8Y8k.js                    2.52 kB │ gzip:   1.14 kB\ntest-results/ap29-builds/b/assets/IconButton-DsK9xG5I.js                      3.45 kB │ gzip:   1.61 kB\ntest-results/ap29-builds/b/assets/AccentPanel-CrS47tdM.js                     3.48 kB │ gzip:   1.39 kB\ntest-results/ap29-builds/b/assets/engine-BnmcVa8_.js                          3.69 kB │ gzip:   1.69 kB\ntest-results/ap29-builds/b/assets/CommandPalette-CXQ6vynt.js                  3.85 kB │ gzip:   1.80 kB\ntest-results/ap29-builds/b/assets/model-CL_jJKfW.js                           4.18 kB │ gzip:   1.70 kB\ntest-results/ap29-builds/b/assets/Checkbox-BHI7YD3x.js                        4.19 kB │ gzip:   1.64 kB\ntest-results/ap29-builds/b/assets/Dialog-DAE_d4Rb.js                          4.97 kB │ gzip:   1.97 kB\ntest-results/ap29-builds/b/assets/useFormValidation-C933WQX3.js               5.11 kB │ gzip:   1.95 kB\ntest-results/ap29-builds/b/assets/SettingsDialog-Db6yX7uX.js                  5.29 kB │ gzip:   1.81 kB\ntest-results/ap29-builds/b/assets/jsx-runtime-Dk72oS4N.js                     8.77 kB │ gzip:   3.33 kB\ntest-results/ap29-builds/b/assets/snackbarQueue-1PCeJI1t.js                  11.09 kB │ gzip:   4.43 kB\ntest-results/ap29-builds/b/assets/i18n-Bv43hc8-.js                           11.27 kB │ gzip:   3.87 kB\ntest-results/ap29-builds/b/assets/Slider-CxsFFzoS.js                         13.21 kB │ gzip:   4.70 kB\ntest-results/ap29-builds/b/assets/FocusScope-CuIhVRDU.js                     14.29 kB │ gzip:   4.39 kB\ntest-results/ap29-builds/b/assets/SimpleMode-XGWqu9GN.js                     16.32 kB │ gzip:   5.64 kB\ntest-results/ap29-builds/b/assets/ConvertMode-DgD-MdjD.js                    21.49 kB │ gzip:   7.51 kB\ntest-results/ap29-builds/b/assets/units-CrXr7G98.js                          26.67 kB │ gzip:  10.00 kB\ntest-results/ap29-builds/b/assets/ScientificMode-BWk_oGWV.js                 34.51 kB │ gzip:  10.96 kB\ntest-results/ap29-builds/b/assets/extended-afKhGHBX.js                       37.88 kB │ gzip:  11.73 kB\ntest-results/ap29-builds/b/assets/graphPalette-DTsoAoAA.js                   40.16 kB │ gzip:  12.50 kB\ntest-results/ap29-builds/b/assets/Select-CY-MZX8U.js                         40.30 kB │ gzip:  12.60 kB\ntest-results/ap29-builds/b/assets/HistorySheet-BrnnUnw3.js                   66.75 kB │ gzip:  24.34 kB\ntest-results/ap29-builds/b/assets/Button-XVpI3UH4.js                         71.06 kB │ gzip:  24.33 kB\ntest-results/ap29-builds/b/assets/evaluate-kuGWoVE8.js                       84.76 kB │ gzip:  31.39 kB\ntest-results/ap29-builds/b/assets/useOverlayTransition-CI5GMRxO.js           87.25 kB │ gzip:  26.30 kB\ntest-results/ap29-builds/b/assets/GraphMode-rA18M-6L.js                      91.25 kB │ gzip:  31.87 kB\ntest-results/ap29-builds/b/assets/index-kd_k9QGA.js                         259.28 kB │ gzip:  81.77 kB\ntest-results/ap29-builds/b/assets/MathDisplay-CfJApdIs.js                   259.33 kB │ gzip:  77.69 kB\ntest-results/ap29-builds/b/assets/ExpressionEditor-JEAz7kHr.js              354.79 kB │ gzip: 115.43 kB\n\n✓ built in 401ms\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 1278 modules transformed.\nrendering chunks...\ncomputing gzip size...\ntest-results/ap29-builds/local/build-target.json                                  0.01 kB │ gzip:   0.03 kB\ntest-results/ap29-builds/local/build-info.json                                    0.05 kB │ gzip:   0.07 kB\ntest-results/ap29-builds/local/manifest.webmanifest                               0.57 kB\ntest-results/ap29-builds/local/assets/KaTeX_Size3-Regular-gV2CO0n9.woff2          3.62 kB\ntest-results/ap29-builds/local/assets/KaTeX_Size3-Regular-CTq5MqoE.woff           4.42 kB\ntest-results/ap29-builds/local/assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2          4.92 kB\ntest-results/ap29-builds/local/assets/KaTeX_Size2-Regular-Dy4dx90m.woff2          5.20 kB\ntest-results/ap29-builds/local/assets/KaTeX_Size1-Regular-mCD8mA8B.woff2          5.46 kB\ntest-results/ap29-builds/local/assets/KaTeX_Size4-Regular-BF-4gkZK.woff           5.98 kB\ntest-results/ap29-builds/local/assets/KaTeX_Size2-Regular-oD1tc_U0.woff           6.18 kB\ntest-results/ap29-builds/local/assets/KaTeX_Size1-Regular-C195tn64.woff           6.49 kB\ntest-results/ap29-builds/local/assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2    6.90 kB\ntest-results/ap29-builds/local/assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2       6.91 kB\ntest-results/ap29-builds/local/assets/KaTeX_Size3-Regular-DgpXs0kz.ttf            7.58 kB\ntest-results/ap29-builds/local/assets/KaTeX_Caligraphic-Regular-CTRA-rTL.woff     7.65 kB\ntest-results/ap29-builds/local/assets/KaTeX_Caligraphic-Bold-BEiXGLvX.woff        7.71 kB\ntest-results/ap29-builds/local/sw.js                                              8.31 kB\ntest-results/ap29-builds/local/assets/KaTeX_Script-Regular-D3wIWfF6.woff2         9.64 kB\ntest-results/ap29-builds/local/index.html                                        10.14 kB │ gzip:   2.69 kB\ntest-results/ap29-builds/local/assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2     10.34 kB\ntest-results/ap29-builds/local/assets/KaTeX_Size4-Regular-DWFBv043.ttf           10.36 kB\ntest-results/ap29-builds/local/assets/KaTeX_Script-Regular-D5yQViql.woff         10.58 kB\ntest-results/ap29-builds/local/assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2       11.31 kB\ntest-results/ap29-builds/local/assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2          11.34 kB\ntest-results/ap29-builds/local/assets/KaTeX_Size2-Regular-B7gKUWhC.ttf           11.50 kB\ntest-results/ap29-builds/local/assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2      12.02 kB\ntest-results/ap29-builds/local/assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2        12.21 kB\ntest-results/ap29-builds/local/assets/KaTeX_Size1-Regular-Dbsnue_I.ttf           12.22 kB\ntest-results/ap29-builds/local/assets/KaTeX_SansSerif-Regular-CS6fqUqJ.woff      12.31 kB\ntest-results/ap29-builds/local/assets/KaTeX_Caligraphic-Regular-wX97UBjC.ttf     12.34 kB\ntest-results/ap29-builds/local/assets/KaTeX_Caligraphic-Bold-ATXxdsX0.ttf        12.36 kB\ntest-results/ap29-builds/local/assets/KaTeX_Fraktur-Regular-Dxdc4cR9.woff        13.20 kB\ntest-results/ap29-builds/local/assets/KaTeX_Fraktur-Bold-BsDP51OF.woff           13.29 kB\ntest-results/ap29-builds/local/assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2    13.56 kB\ntest-results/ap29-builds/local/assets/KaTeX_SansSerif-Italic-DN2j7dab.woff       14.11 kB\ntest-results/ap29-builds/local/assets/KaTeX_SansSerif-Bold-DbIhKOiC.woff         14.40 kB\ntest-results/ap29-builds/local/assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff     16.02 kB\ntest-results/ap29-builds/local/assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2       16.40 kB\ntest-results/ap29-builds/local/assets/KaTeX_Math-Italic-t53AETM-.woff2           16.44 kB\ntest-results/ap29-builds/local/assets/KaTeX_Script-Regular-C5JkGWo-.ttf          16.64 kB\ntest-results/ap29-builds/local/assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2       16.78 kB\ntest-results/ap29-builds/local/assets/KaTeX_Main-Italic-NWA7e6Wa.woff2           16.98 kB\ntest-results/ap29-builds/local/assets/KaTeX_Math-BoldItalic-iY-2wyZ7.woff        18.66 kB\ntest-results/ap29-builds/local/assets/KaTeX_Math-Italic-DA0__PXp.woff            18.74 kB\ntest-results/ap29-builds/local/assets/KaTeX_Main-BoldItalic-SpSLRI95.woff        19.41 kB\ntest-results/ap29-builds/local/assets/KaTeX_SansSerif-Regular-BNo7hRIc.ttf       19.43 kB\ntest-results/ap29-builds/local/assets/KaTeX_Fraktur-Regular-CB_wures.ttf         19.57 kB\ntest-results/ap29-builds/local/assets/KaTeX_Fraktur-Bold-BdnERNNW.ttf            19.58 kB\ntest-results/ap29-builds/local/assets/KaTeX_Main-Italic-BMLOBm91.woff            19.67 kB\ntest-results/ap29-builds/local/assets/KaTeX_SansSerif-Italic-YYjJ1zSn.ttf        22.36 kB\ntest-results/ap29-builds/local/assets/KaTeX_SansSerif-Bold-CFMepnvq.ttf          24.50 kB\ntest-results/ap29-builds/local/assets/KaTeX_Main-Bold-Cx986IdX.woff2             25.32 kB\ntest-results/ap29-builds/local/assets/KaTeX_Main-Regular-B22Nviop.woff2          26.27 kB\ntest-results/ap29-builds/local/assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf      27.55 kB\ntest-results/ap29-builds/local/assets/KaTeX_AMS-Regular-BQhdFMY1.woff2           28.07 kB\ntest-results/ap29-builds/local/assets/KaTeX_Main-Bold-Jm3AIy58.woff              29.91 kB\ntest-results/ap29-builds/local/assets/material-symbols-rounded-17-fZmEE.woff2    29.97 kB\ntest-results/ap29-builds/local/assets/KaTeX_Main-Regular-Dr94JaBh.woff           30.77 kB\ntest-results/ap29-builds/local/assets/KaTeX_Math-BoldItalic-B3XSjfu4.ttf         31.19 kB\ntest-results/ap29-builds/local/assets/KaTeX_Math-Italic-flOr_0UB.ttf             31.30 kB\ntest-results/ap29-builds/local/assets/roboto-mono-latin-CZtBPCCa.woff2           32.79 kB\ntest-results/ap29-builds/local/assets/KaTeX_Main-BoldItalic-DzxPMmG6.ttf         32.96 kB\ntest-results/ap29-builds/local/assets/KaTeX_AMS-Regular-DMm9YOAa.woff            33.51 kB\ntest-results/ap29-builds/local/assets/KaTeX_Main-Italic-3WenGoN9.ttf             33.58 kB\ntest-results/ap29-builds/local/.vite/manifest.json                               33.71 kB │ gzip:   4.01 kB\ntest-results/ap29-builds/local/assets/KaTeX_Main-Bold-waoOVXN0.ttf               51.33 kB\ntest-results/ap29-builds/local/assets/KaTeX_Main-Regular-ypZvNtVU.ttf            53.58 kB\ntest-results/ap29-builds/local/assets/KaTeX_AMS-Regular-DRggAlZN.ttf             63.63 kB\ntest-results/ap29-builds/local/assets/sampling.worker-DdpY2KL0.js                82.75 kB\ntest-results/ap29-builds/local/assets/calculation.worker-DQ-VjPCR.js             89.39 kB\ntest-results/ap29-builds/local/assets/roboto-flex-latin-DlhILaPV.woff2          194.64 kB\ntest-results/ap29-builds/local/assets/LoadingIndicator-ATDyzdxl.css               0.10 kB │ gzip:   0.10 kB\ntest-results/ap29-builds/local/assets/CopyLinkButton-CzVs3g7c.css                 0.15 kB │ gzip:   0.13 kB\ntest-results/ap29-builds/local/assets/SideSheet-BZfUtJea.css                      0.33 kB │ gzip:   0.21 kB\ntest-results/ap29-builds/local/assets/IconButton-h8-ZNqqk.css                     0.41 kB │ gzip:   0.24 kB\ntest-results/ap29-builds/local/assets/Card-DD1MZGf1.css                           0.45 kB │ gzip:   0.23 kB\ntest-results/ap29-builds/local/assets/Popover-Exy15r63.css                        0.62 kB │ gzip:   0.34 kB\ntest-results/ap29-builds/local/assets/Dialog-CNke6_Be.css                         0.80 kB │ gzip:   0.42 kB\ntest-results/ap29-builds/local/assets/Select-zbWAXGec.css                         1.21 kB │ gzip:   0.43 kB\ntest-results/ap29-builds/local/assets/TextField-Bia33xUx.css                      1.42 kB │ gzip:   0.52 kB\ntest-results/ap29-builds/local/assets/Slider-BdpOauFc.css                         1.57 kB │ gzip:   0.57 kB\ntest-results/ap29-builds/local/assets/Switch-pXkEQS_e.css                         1.63 kB │ gzip:   0.49 kB\ntest-results/ap29-builds/local/assets/Checkbox-CaWe_hBO.css                       1.90 kB │ gzip:   0.61 kB\ntest-results/ap29-builds/local/assets/Keypad-DUGiORd-.css                         2.02 kB │ gzip:   0.55 kB\ntest-results/ap29-builds/local/assets/AccentPicker-xWQvBha2.css                   3.15 kB │ gzip:   0.96 kB\ntest-results/ap29-builds/local/assets/SimpleMode-Cz3UFmRX.css                     3.42 kB │ gzip:   1.13 kB\ntest-results/ap29-builds/local/assets/Button-BoVqgmZx.css                         4.97 kB │ gzip:   1.24 kB\ntest-results/ap29-builds/local/assets/GraphMode-CPEJlQ_S.css                      6.64 kB │ gzip:   1.64 kB\ntest-results/ap29-builds/local/assets/ConvertMode-C-rZJdia.css                    7.55 kB │ gzip:   1.86 kB\ntest-results/ap29-builds/local/assets/ScientificMode-CJSvmYM9.css                11.43 kB │ gzip:   2.44 kB\ntest-results/ap29-builds/local/assets/MathDisplay-D6IlXTJG.css                   25.52 kB │ gzip:   4.03 kB\ntest-results/ap29-builds/local/assets/index-CSLQbeAw.css                         62.19 kB │ gzip:  10.37 kB\ntest-results/ap29-builds/local/assets/browserMotion-CDweiHa2.js                   0.15 kB │ gzip:   0.13 kB\ntest-results/ap29-builds/local/assets/VisuallyHidden-IKLirsxw.js                  0.18 kB │ gzip:   0.16 kB\ntest-results/ap29-builds/local/assets/Card-CpJeSsLo.js                            0.20 kB │ gzip:   0.17 kB\ntest-results/ap29-builds/local/assets/seeds-DdxXycSJ.js                           0.33 kB │ gzip:   0.21 kB\ntest-results/ap29-builds/local/assets/useSlot-IYVZR0JA.js                         0.35 kB │ gzip:   0.26 kB\ntest-results/ap29-builds/local/assets/SideSheet-DWQQRdlO.js                       0.35 kB │ gzip:   0.24 kB\ntest-results/ap29-builds/local/assets/Popover-wSdmeohv.js                         0.43 kB │ gzip:   0.31 kB\ntest-results/ap29-builds/local/assets/Keypad-DmbnNd47.js                          0.60 kB │ gzip:   0.36 kB\ntest-results/ap29-builds/local/assets/registry-cMwNdkqK.js                        0.71 kB │ gzip:   0.43 kB\ntest-results/ap29-builds/local/assets/CopyLinkButton-BBBHaT_c.js                  0.81 kB │ gzip:   0.49 kB\ntest-results/ap29-builds/local/assets/useSpring-DAeWWBoH.js                       0.94 kB │ gzip:   0.53 kB\ntest-results/ap29-builds/local/assets/ShortcutDialog-Dgng_BSq.js                  1.11 kB │ gzip:   0.51 kB\ntest-results/ap29-builds/local/assets/useModeHistory-l8p_v8Kz.js                  1.19 kB │ gzip:   0.60 kB\ntest-results/ap29-builds/local/assets/LoadingIndicator-B1I56f-w.js                1.53 kB │ gzip:   0.88 kB\ntest-results/ap29-builds/local/assets/buildScheme-BhNn56JZ.js                     1.67 kB │ gzip:   0.79 kB\ntest-results/ap29-builds/local/assets/model-57A4P_uV.js                           1.76 kB │ gzip:   0.87 kB\ntest-results/ap29-builds/local/assets/TextField-DRs_MtQn.js                       2.12 kB │ gzip:   1.03 kB\ntest-results/ap29-builds/local/assets/useToggle-DNijUGKW.js                       2.17 kB │ gzip:   0.97 kB\ntest-results/ap29-builds/local/assets/Switch-CNUl9isq.js                          2.17 kB │ gzip:   0.98 kB\ntest-results/ap29-builds/local/assets/useTextField-DTkD8Y8k.js                    2.52 kB │ gzip:   1.14 kB\ntest-results/ap29-builds/local/assets/IconButton-DsK9xG5I.js                      3.45 kB │ gzip:   1.61 kB\ntest-results/ap29-builds/local/assets/AccentPanel-CrS47tdM.js                     3.48 kB │ gzip:   1.39 kB\ntest-results/ap29-builds/local/assets/engine-BnmcVa8_.js                          3.69 kB │ gzip:   1.69 kB\ntest-results/ap29-builds/local/assets/CommandPalette-CXQ6vynt.js                  3.85 kB │ gzip:   1.80 kB\ntest-results/ap29-builds/local/assets/model-CL_jJKfW.js                           4.18 kB │ gzip:   1.70 kB\ntest-results/ap29-builds/local/assets/Checkbox-BHI7YD3x.js                        4.19 kB │ gzip:   1.64 kB\ntest-results/ap29-builds/local/assets/Dialog-DAE_d4Rb.js                          4.97 kB │ gzip:   1.97 kB\ntest-results/ap29-builds/local/assets/useFormValidation-C933WQX3.js               5.11 kB │ gzip:   1.95 kB\ntest-results/ap29-builds/local/assets/SettingsDialog-Db6yX7uX.js                  5.29 kB │ gzip:   1.81 kB\ntest-results/ap29-builds/local/assets/jsx-runtime-Dk72oS4N.js                     8.77 kB │ gzip:   3.33 kB\ntest-results/ap29-builds/local/assets/snackbarQueue-1PCeJI1t.js                  11.09 kB │ gzip:   4.43 kB\ntest-results/ap29-builds/local/assets/i18n-Bv43hc8-.js                           11.27 kB │ gzip:   3.87 kB\ntest-results/ap29-builds/local/assets/Slider-CxsFFzoS.js                         13.21 kB │ gzip:   4.70 kB\ntest-results/ap29-builds/local/assets/FocusScope-CuIhVRDU.js                     14.29 kB │ gzip:   4.39 kB\ntest-results/ap29-builds/local/assets/SimpleMode-XGWqu9GN.js                     16.32 kB │ gzip:   5.64 kB\ntest-results/ap29-builds/local/assets/ConvertMode-DgD-MdjD.js                    21.49 kB │ gzip:   7.51 kB\ntest-results/ap29-builds/local/assets/units-CrXr7G98.js                          26.67 kB │ gzip:  10.00 kB\ntest-results/ap29-builds/local/assets/ScientificMode-BWk_oGWV.js                 34.51 kB │ gzip:  10.96 kB\ntest-results/ap29-builds/local/assets/extended-afKhGHBX.js                       37.88 kB │ gzip:  11.73 kB\ntest-results/ap29-builds/local/assets/graphPalette-DTsoAoAA.js                   40.16 kB │ gzip:  12.50 kB\ntest-results/ap29-builds/local/assets/Select-CY-MZX8U.js                         40.30 kB │ gzip:  12.60 kB\ntest-results/ap29-builds/local/assets/HistorySheet-BrnnUnw3.js                   66.75 kB │ gzip:  24.34 kB\ntest-results/ap29-builds/local/assets/Button-XVpI3UH4.js                         71.06 kB │ gzip:  24.33 kB\ntest-results/ap29-builds/local/assets/evaluate-kuGWoVE8.js                       84.76 kB │ gzip:  31.39 kB\ntest-results/ap29-builds/local/assets/useOverlayTransition-CI5GMRxO.js           87.25 kB │ gzip:  26.30 kB\ntest-results/ap29-builds/local/assets/GraphMode-rA18M-6L.js                      91.25 kB │ gzip:  31.87 kB\ntest-results/ap29-builds/local/assets/index-kd_k9QGA.js                         259.28 kB │ gzip:  81.77 kB\ntest-results/ap29-builds/local/assets/MathDisplay-CfJApdIs.js                   259.33 kB │ gzip:  77.69 kB\ntest-results/ap29-builds/local/assets/ExpressionEditor-JEAz7kHr.js              354.79 kB │ gzip: 115.43 kB\n\n✓ built in 417ms\nvite v8.3.4 building client environment for gallery...\ntransforming...\n✓ 1301 modules transformed.\nrendering chunks...\ncomputing gzip size...\ntest-results/ap29-builds/gallery/build-target.json                                  0.02 kB │ gzip:   0.04 kB\ntest-results/ap29-builds/gallery/build-info.json                                    0.05 kB │ gzip:   0.07 kB\ntest-results/ap29-builds/gallery/manifest.webmanifest                               0.57 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Size3-Regular-gV2CO0n9.woff2          3.62 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Size3-Regular-CTq5MqoE.woff           4.42 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2          4.92 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Size2-Regular-Dy4dx90m.woff2          5.20 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Size1-Regular-mCD8mA8B.woff2          5.46 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Size4-Regular-BF-4gkZK.woff           5.98 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Size2-Regular-oD1tc_U0.woff           6.18 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Size1-Regular-C195tn64.woff           6.49 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2    6.90 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2       6.91 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Size3-Regular-DgpXs0kz.ttf            7.58 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Caligraphic-Regular-CTRA-rTL.woff     7.65 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Caligraphic-Bold-BEiXGLvX.woff        7.71 kB\ntest-results/ap29-builds/gallery/sw.js                                              8.45 kB\ntest-results/ap29-builds/gallery/index.html                                         9.43 kB │ gzip:   2.55 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Script-Regular-D3wIWfF6.woff2         9.64 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2     10.34 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Size4-Regular-DWFBv043.ttf           10.36 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Script-Regular-D5yQViql.woff         10.58 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2       11.31 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2          11.34 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Size2-Regular-B7gKUWhC.ttf           11.50 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2      12.02 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2        12.21 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Size1-Regular-Dbsnue_I.ttf           12.22 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_SansSerif-Regular-CS6fqUqJ.woff      12.31 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Caligraphic-Regular-wX97UBjC.ttf     12.34 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Caligraphic-Bold-ATXxdsX0.ttf        12.36 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Fraktur-Regular-Dxdc4cR9.woff        13.20 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Fraktur-Bold-BsDP51OF.woff           13.29 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2    13.56 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_SansSerif-Italic-DN2j7dab.woff       14.11 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_SansSerif-Bold-DbIhKOiC.woff         14.40 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff     16.02 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2       16.40 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Math-Italic-t53AETM-.woff2           16.44 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Script-Regular-C5JkGWo-.ttf          16.64 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2       16.78 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Main-Italic-NWA7e6Wa.woff2           16.98 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Math-BoldItalic-iY-2wyZ7.woff        18.66 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Math-Italic-DA0__PXp.woff            18.74 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Main-BoldItalic-SpSLRI95.woff        19.41 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_SansSerif-Regular-BNo7hRIc.ttf       19.43 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Fraktur-Regular-CB_wures.ttf         19.57 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Fraktur-Bold-BdnERNNW.ttf            19.58 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Main-Italic-BMLOBm91.woff            19.67 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_SansSerif-Italic-YYjJ1zSn.ttf        22.36 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_SansSerif-Bold-CFMepnvq.ttf          24.50 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Main-Bold-Cx986IdX.woff2             25.32 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Main-Regular-B22Nviop.woff2          26.27 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf      27.55 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_AMS-Regular-BQhdFMY1.woff2           28.07 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Main-Bold-Jm3AIy58.woff              29.91 kB\ntest-results/ap29-builds/gallery/assets/material-symbols-rounded-17-fZmEE.woff2    29.97 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Main-Regular-Dr94JaBh.woff           30.77 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Math-BoldItalic-B3XSjfu4.ttf         31.19 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Math-Italic-flOr_0UB.ttf             31.30 kB\ntest-results/ap29-builds/gallery/assets/roboto-mono-latin-CZtBPCCa.woff2           32.79 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Main-BoldItalic-DzxPMmG6.ttf         32.96 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_AMS-Regular-DMm9YOAa.woff            33.51 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Main-Italic-3WenGoN9.ttf             33.58 kB\ntest-results/ap29-builds/gallery/.vite/manifest.json                               34.47 kB │ gzip:   4.06 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Main-Bold-waoOVXN0.ttf               51.33 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_Main-Regular-ypZvNtVU.ttf            53.58 kB\ntest-results/ap29-builds/gallery/assets/KaTeX_AMS-Regular-DRggAlZN.ttf             63.63 kB\ntest-results/ap29-builds/gallery/assets/sampling.worker-DdpY2KL0.js                82.75 kB\ntest-results/ap29-builds/gallery/assets/calculation.worker-DQ-VjPCR.js             89.39 kB\ntest-results/ap29-builds/gallery/assets/roboto-flex-latin-DlhILaPV.woff2          194.64 kB\ntest-results/ap29-builds/gallery/assets/Fab-BxxrJu-t.css                            0.10 kB │ gzip:   0.11 kB\ntest-results/ap29-builds/gallery/assets/CopyLinkButton-CzVs3g7c.css                 0.15 kB │ gzip:   0.13 kB\ntest-results/ap29-builds/gallery/assets/internalLabLink-BsPKFqOY.css                0.25 kB │ gzip:   0.16 kB\ntest-results/ap29-builds/gallery/assets/SideSheet-BZfUtJea.css                      0.33 kB │ gzip:   0.21 kB\ntest-results/ap29-builds/gallery/assets/IconButton-h8-ZNqqk.css                     0.41 kB │ gzip:   0.24 kB\ntest-results/ap29-builds/gallery/assets/Card-DD1MZGf1.css                           0.45 kB │ gzip:   0.23 kB\ntest-results/ap29-builds/gallery/assets/ButtonGroup-SL0SBqBz.css                    0.58 kB │ gzip:   0.24 kB\ntest-results/ap29-builds/gallery/assets/Dialog-CNke6_Be.css                         0.80 kB │ gzip:   0.42 kB\ntest-results/ap29-builds/gallery/assets/Chip-ClM5UX7W.css                           1.03 kB │ gzip:   0.39 kB\ntest-results/ap29-builds/gallery/assets/Select-zbWAXGec.css                         1.21 kB │ gzip:   0.43 kB\ntest-results/ap29-builds/gallery/assets/TextField-Bia33xUx.css                      1.42 kB │ gzip:   0.52 kB\ntest-results/ap29-builds/gallery/assets/Slider-BdpOauFc.css                         1.57 kB │ gzip:   0.57 kB\ntest-results/ap29-builds/gallery/assets/SimpleMode-Co15gWSb.css                     1.63 kB │ gzip:   0.65 kB\ntest-results/ap29-builds/gallery/assets/Switch-pXkEQS_e.css                         1.63 kB │ gzip:   0.49 kB\ntest-results/ap29-builds/gallery/assets/CalculatorDisplay-Bpw6OKrd.css              1.79 kB │ gzip:   0.67 kB\ntest-results/ap29-builds/gallery/assets/Checkbox-CaWe_hBO.css                       1.90 kB │ gzip:   0.61 kB\ntest-results/ap29-builds/gallery/assets/Keypad-DUGiORd-.css                         2.02 kB │ gzip:   0.55 kB\ntest-results/ap29-builds/gallery/assets/Button-BoVqgmZx.css                         4.97 kB │ gzip:   1.24 kB\ntest-results/ap29-builds/gallery/assets/GraphMode-BUFEuAfR.css                      5.60 kB │ gzip:   1.47 kB\ntest-results/ap29-builds/gallery/assets/ConvertMode-0QkmvWKJ.css                    7.45 kB │ gzip:   1.80 kB\ntest-results/ap29-builds/gallery/assets/DesignLab-BNZD55U5.css                      7.96 kB │ gzip:   1.92 kB\ntest-results/ap29-builds/gallery/assets/ScientificMode-B2wH5h4r.css                10.84 kB │ gzip:   2.34 kB\ntest-results/ap29-builds/gallery/assets/MathDisplay-D6IlXTJG.css                   25.52 kB │ gzip:   4.03 kB\ntest-results/ap29-builds/gallery/assets/index-CBc4dyA8.css                         66.07 kB │ gzip:  11.01 kB\ntest-results/ap29-builds/gallery/assets/VisuallyHidden-VkmOkyzs.js                  0.18 kB │ gzip:   0.16 kB\ntest-results/ap29-builds/gallery/assets/Card-CpJeSsLo.js                            0.20 kB │ gzip:   0.17 kB\ntest-results/ap29-builds/gallery/assets/Fab-B84gnr3R.js                             0.26 kB │ gzip:   0.21 kB\ntest-results/ap29-builds/gallery/assets/seeds-DdxXycSJ.js                           0.33 kB │ gzip:   0.21 kB\ntest-results/ap29-builds/gallery/assets/SideSheet-vnARCGG4.js                       0.35 kB │ gzip:   0.25 kB\ntest-results/ap29-builds/gallery/assets/Keypad-BooovLQE.js                          0.60 kB │ gzip:   0.36 kB\ntest-results/ap29-builds/gallery/assets/registry-cMwNdkqK.js                        0.71 kB │ gzip:   0.43 kB\ntest-results/ap29-builds/gallery/assets/CopyLinkButton-Iv4TsLB6.js                  0.81 kB │ gzip:   0.49 kB\ntest-results/ap29-builds/gallery/assets/useSpring-Cu3fctxW.js                       0.94 kB │ gzip:   0.53 kB\ntest-results/ap29-builds/gallery/assets/ShortcutDialog-B_LgH9O-.js                  1.11 kB │ gzip:   0.51 kB\ntest-results/ap29-builds/gallery/assets/useModeHistory-BNZcFITd.js                  1.18 kB │ gzip:   0.60 kB\ntest-results/ap29-builds/gallery/assets/buildScheme-DPUicp3B.js                     1.69 kB │ gzip:   0.80 kB\ntest-results/ap29-builds/gallery/assets/model-57A4P_uV.js                           1.76 kB │ gzip:   0.87 kB\ntest-results/ap29-builds/gallery/assets/ButtonGroup-Bdent5Nv.js                     1.82 kB │ gzip:   0.90 kB\ntest-results/ap29-builds/gallery/assets/TextField-CQ327Tse.js                       2.11 kB │ gzip:   1.02 kB\ntest-results/ap29-builds/gallery/assets/useToggle-C7p10E1M.js                       2.12 kB │ gzip:   0.95 kB\ntest-results/ap29-builds/gallery/assets/Switch-Uwu0o1Ht.js                          2.17 kB │ gzip:   0.97 kB\ntest-results/ap29-builds/gallery/assets/useTextField-DsAw0u5I.js                    2.51 kB │ gzip:   1.13 kB\ntest-results/ap29-builds/gallery/assets/snackbarQueue-Cd8yfn3_.js                   2.79 kB │ gzip:   1.10 kB\ntest-results/ap29-builds/gallery/assets/CalculatorDisplay-DnYXOpma.js               2.81 kB │ gzip:   1.24 kB\ntest-results/ap29-builds/gallery/assets/AccentPanel-Dl81Iwz3.js                     3.44 kB │ gzip:   1.37 kB\ntest-results/ap29-builds/gallery/assets/IconButton-68nec1wy.js                      3.45 kB │ gzip:   1.61 kB\ntest-results/ap29-builds/gallery/assets/engine-BnmcVa8_.js                          3.69 kB │ gzip:   1.69 kB\ntest-results/ap29-builds/gallery/assets/CommandPalette-D_raStvS.js                  3.85 kB │ gzip:   1.80 kB\ntest-results/ap29-builds/gallery/assets/Chip-BTqb2FMb.js                            3.98 kB │ gzip:   1.83 kB\ntest-results/ap29-builds/gallery/assets/model-CL_jJKfW.js                           4.18 kB │ gzip:   1.70 kB\ntest-results/ap29-builds/gallery/assets/HistorySheet-8t0hSasl.js                    4.22 kB │ gzip:   1.70 kB\ntest-results/ap29-builds/gallery/assets/Checkbox-ncCoA_Or.js                        4.22 kB │ gzip:   1.65 kB\ntest-results/ap29-builds/gallery/assets/Dialog-CQTnoIEF.js                          4.97 kB │ gzip:   1.97 kB\ntest-results/ap29-builds/gallery/assets/SettingsDialog-wipzSTyT.js                  5.29 kB │ gzip:   1.81 kB\ntest-results/ap29-builds/gallery/assets/jsx-runtime-Dk72oS4N.js                     8.77 kB │ gzip:   3.33 kB\ntest-results/ap29-builds/gallery/assets/Slider-D1Gcx_7g.js                         13.20 kB │ gzip:   4.68 kB\ntest-results/ap29-builds/gallery/assets/SimpleMode-Dm6pwewc.js                     13.77 kB │ gzip:   4.82 kB\ntest-results/ap29-builds/gallery/assets/FocusScope-d4rdqg1o.js                     14.29 kB │ gzip:   4.39 kB\ntest-results/ap29-builds/gallery/assets/i18n-CTkvuEYy.js                           17.31 kB │ gzip:   5.55 kB\ntest-results/ap29-builds/gallery/assets/ConvertMode-BoM5tc8-.js                    21.33 kB │ gzip:   7.43 kB\ntest-results/ap29-builds/gallery/assets/units-CrXr7G98.js                          26.67 kB │ gzip:  10.00 kB\ntest-results/ap29-builds/gallery/assets/ScientificMode-BjXG8ORh.js                 32.56 kB │ gzip:  10.20 kB\ntest-results/ap29-builds/gallery/assets/DesignLab-BsVT8COh.js                      34.07 kB │ gzip:  10.45 kB\ntest-results/ap29-builds/gallery/assets/extended-1VID7POF.js                       37.88 kB │ gzip:  11.73 kB\ntest-results/ap29-builds/gallery/assets/graphPalette-DTsoAoAA.js                   40.16 kB │ gzip:  12.50 kB\ntest-results/ap29-builds/gallery/assets/Select-BKJKLqTO.js                         40.32 kB │ gzip:  12.58 kB\ntest-results/ap29-builds/gallery/assets/animate-BqsJ-8Ds.js                        62.50 kB │ gzip:  22.80 kB\ntest-results/ap29-builds/gallery/assets/Button-DMO5Gz0Q.js                         71.43 kB │ gzip:  24.42 kB\ntest-results/ap29-builds/gallery/assets/evaluate-kuGWoVE8.js                       84.76 kB │ gzip:  31.39 kB\ntest-results/ap29-builds/gallery/assets/GraphMode-BUpGjCuF.js                      87.00 kB │ gzip:  30.11 kB\ntest-results/ap29-builds/gallery/assets/useOverlayTransition-DDAhd6P8.js           87.85 kB │ gzip:  26.50 kB\ntest-results/ap29-builds/gallery/assets/MathDisplay-CfJApdIs.js                   259.33 kB │ gzip:  77.69 kB\ntest-results/ap29-builds/gallery/assets/index-DnVCUOOK.js                         273.93 kB │ gzip:  86.39 kB\ntest-results/ap29-builds/gallery/assets/ExpressionEditor-DOrUPS3z.js              354.79 kB │ gzip: 115.43 kB\n\n✓ built in 450ms\n\nRunning 36 tests using 1 worker\n\n(node:147) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n  ✘   1 [chromium] › e2e/build-provenance.spec.ts:6:1 › AP29 controlled production worker: navigation, fetch, changed build and offline failure (2ms)\nTesting stopped early after 1 maximum allowed failures.\n\n\n  1) [chromium] › e2e/build-provenance.spec.ts:6:1 › AP29 controlled production worker: navigation, fetch, changed build and offline failure \n\n    Error: browserType.launch: Executable doesn't exist at /root/.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell\n    ╔════════════════════════════════════════════════════════════╗\n    ║ Looks like Playwright was just installed or updated.       ║\n    ║ Please run the following command to download new browsers: ║\n    ║                                                            ║\n    ║     npx playwright install                                 ║\n    ║                                                            ║\n    ║ <3 Playwright Team                                         ║\n    ╚════════════════════════════════════════════════════════════╝\n\n    Error Context: test-results/ap29/browser/build-provenance-AP29-cont-21499-d-build-and-offline-failure-chromium/error-context.md\n\n    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────\n    test-results/ap29/browser/build-provenance-AP29-cont-21499-d-build-and-offline-failure-chromium/trace.zip\n    Usage:\n\n        npx playwright show-trace test-results/ap29/browser/build-provenance-AP29-cont-21499-d-build-and-offline-failure-chromium/trace.zip\n\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n\n  1 failed\n    [chromium] › e2e/build-provenance.spec.ts:6:1 › AP29 controlled production worker: navigation, fetch, changed build and offline failure \n  35 did not run\n  1 error was not a part of any test, see above for details\n",
+      "outputSha256": "89063bd805fd0fc63ccfa6fa75784a40bcd5fbd191425687589b07c815e2d3ee"
+    },
+    {
+      "command": "TMPDIR=/workspace/scratch/5669fb5a6f85/.wp08/tmp npm run test:e2e -- e2e/qa-performance.spec.ts --project=qa-performance --max-failures=1",
+      "exitCode": 1,
+      "interpretation": "Browser launch blocked by missing Chromium executable; no performance measurement.",
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test e2e/qa-performance.spec.ts --project=qa-performance --max-failures=1\n\n[WebServer] (node:30) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n[WebServer] (node:43) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n\nRunning 1 test using 1 worker\n\n(node:81) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n  ✘  1 [qa-performance] › e2e/qa-performance.spec.ts:4:1 › editor interaction latency, layout shift and resources across 20 mode cycles (2ms)\nTesting stopped early after 1 maximum allowed failures.\n\n\n  1) [qa-performance] › e2e/qa-performance.spec.ts:4:1 › editor interaction latency, layout shift and resources across 20 mode cycles \n\n    Error: browserType.launch: Executable doesn't exist at /root/.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell\n    ╔════════════════════════════════════════════════════════════╗\n    ║ Looks like Playwright was just installed or updated.       ║\n    ║ Please run the following command to download new browsers: ║\n    ║                                                            ║\n    ║     npx playwright install                                 ║\n    ║                                                            ║\n    ║ <3 Playwright Team                                         ║\n    ╚════════════════════════════════════════════════════════════╝\n\n    Error Context: test-results/qa-performance-editor-inte-76d8e-urces-across-20-mode-cycles-qa-performance/error-context.md\n\n  1 failed\n    [qa-performance] › e2e/qa-performance.spec.ts:4:1 › editor interaction latency, layout shift and resources across 20 mode cycles \n  1 error was not a part of any test, see above for details\n",
+      "outputSha256": "c877c7cf17a8651a444c18c906968873f5d8c9e3d9215b8dc9c720a3fc910d4b"
+    },
+    {
+      "command": "npm run test:e2e -- e2e/scientific-result.spec.ts e2e/scientific-result-zoom.spec.ts --project=chromium --project=firefox --project=webkit --list",
+      "exitCode": 0,
+      "interpretation": "Only enumeration: 19 new browser cases, not execution.",
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test e2e/scientific-result.spec.ts e2e/scientific-result-zoom.spec.ts --project=chromium --project=firefox --project=webkit --list\n\nListing tests:\n  [chromium] › scientific-result-zoom.spec.ts:8:1 › WP-08 native 100/200% zoom keeps the complete exponent selectable and copyable at 1280px\n  [chromium] › scientific-result.spec.ts:10:3 › WP-08 de: empty, pending, worker completion and errors keep the value slot stable\n  [chromium] › scientific-result.spec.ts:10:3 › WP-08 en: empty, pending, worker completion and errors keep the value slot stable\n  [chromium] › scientific-result.spec.ts:98:3 › WP-08 de/light/auto: visible result, copy, announcement and long values\n  [chromium] › scientific-result.spec.ts:98:3 › WP-08 en/dark/auto: visible result, copy, announcement and long values\n  [chromium] › scientific-result.spec.ts:98:3 › WP-08 de/dark/point: visible result, copy, announcement and long values\n  [chromium] › scientific-result.spec.ts:98:3 › WP-08 en/light/comma: visible result, copy, announcement and long values\n  [firefox] › scientific-result.spec.ts:10:3 › WP-08 de: empty, pending, worker completion and errors keep the value slot stable\n  [firefox] › scientific-result.spec.ts:10:3 › WP-08 en: empty, pending, worker completion and errors keep the value slot stable\n  [firefox] › scientific-result.spec.ts:98:3 › WP-08 de/light/auto: visible result, copy, announcement and long values\n  [firefox] › scientific-result.spec.ts:98:3 › WP-08 en/dark/auto: visible result, copy, announcement and long values\n  [firefox] › scientific-result.spec.ts:98:3 › WP-08 de/dark/point: visible result, copy, announcement and long values\n  [firefox] › scientific-result.spec.ts:98:3 › WP-08 en/light/comma: visible result, copy, announcement and long values\n  [webkit] › scientific-result.spec.ts:10:3 › WP-08 de: empty, pending, worker completion and errors keep the value slot stable\n  [webkit] › scientific-result.spec.ts:10:3 › WP-08 en: empty, pending, worker completion and errors keep the value slot stable\n  [webkit] › scientific-result.spec.ts:98:3 › WP-08 de/light/auto: visible result, copy, announcement and long values\n  [webkit] › scientific-result.spec.ts:98:3 › WP-08 en/dark/auto: visible result, copy, announcement and long values\n  [webkit] › scientific-result.spec.ts:98:3 › WP-08 de/dark/point: visible result, copy, announcement and long values\n  [webkit] › scientific-result.spec.ts:98:3 › WP-08 en/light/comma: visible result, copy, announcement and long values\nTotal: 19 tests in 2 files\n",
+      "outputSha256": "895dfe2572d8d9f70b646910fff3fd2bd1bf8dd4392b9b22ab3ccbfaafb3ca43"
+    },
+    {
+      "command": "TMPDIR=/workspace/scratch/5669fb5a6f85/.wp08/tmp node_modules/.bin/playwright install chromium firefox webkit",
+      "exitCode": 1,
+      "interpretation": "CDN HTTP 403. Intended Chromium 156.0.8078.4 revision 1248 was not installed or executed.",
+      "output": "Downloading Chrome for Testing 156.0.8078.4 (playwright chromium v1248)\u001b[2m from https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-linux64.zip\u001b[22m\nError: Download failed: server returned code 403 body 'Forbidden. Calls to this URL are not allowed.'. URL: https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-linux64.zip\n    at IncomingMessage.handleError (/workspace/scratch/5669fb5a6f85/m8e-calc/node_modules/playwright-core/lib/coreBundle.js:33897:23)\n    at IncomingMessage.emit (node:events:526:24)\n    at endReadableNT (node:internal/streams/readable:1783:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)\nDownloading Chrome for Testing 156.0.8078.4 (playwright chromium v1248)\u001b[2m from https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-linux64.zip\u001b[22m\nError: Download failed: server returned code 403 body 'Forbidden. Calls to this URL are not allowed.'. URL: https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-linux64.zip\n    at IncomingMessage.handleError (/workspace/scratch/5669fb5a6f85/m8e-calc/node_modules/playwright-core/lib/coreBundle.js:33897:23)\n    at IncomingMessage.emit (node:events:526:24)\n    at endReadableNT (node:internal/streams/readable:1783:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)\nDownloading Chrome for Testing 156.0.8078.4 (playwright chromium v1248)\u001b[2m from https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-linux64.zip\u001b[22m\nError: Download failed: server returned code 403 body 'Forbidden. Calls to this URL are not allowed.'. URL: https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-linux64.zip\n    at IncomingMessage.handleError (/workspace/scratch/5669fb5a6f85/m8e-calc/node_modules/playwright-core/lib/coreBundle.js:33897:23)\n    at IncomingMessage.emit (node:events:526:24)\n    at endReadableNT (node:internal/streams/readable:1783:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)\nDownloading Chrome for Testing 156.0.8078.4 (playwright chromium v1248)\u001b[2m from https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-linux64.zip\u001b[22m\nError: Download failed: server returned code 403 body 'Forbidden. Calls to this URL are not allowed.'. URL: https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-linux64.zip\n    at IncomingMessage.handleError (/workspace/scratch/5669fb5a6f85/m8e-calc/node_modules/playwright-core/lib/coreBundle.js:33897:23)\n    at IncomingMessage.emit (node:events:526:24)\n    at endReadableNT (node:internal/streams/readable:1783:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)\nDownloading Chrome for Testing 156.0.8078.4 (playwright chromium v1248)\u001b[2m from https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-linux64.zip\u001b[22m\nError: Download failed: server returned code 403 body 'Forbidden. Calls to this URL are not allowed.'. URL: https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-linux64.zip\n    at IncomingMessage.handleError (/workspace/scratch/5669fb5a6f85/m8e-calc/node_modules/playwright-core/lib/coreBundle.js:33897:23)\n    at IncomingMessage.emit (node:events:526:24)\n    at endReadableNT (node:internal/streams/readable:1783:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)\nFailed to install browsers\nError: Failed to download Chrome for Testing 156.0.8078.4 (playwright chromium v1248), caused by\nError: Download failure, code=1\n    at ChildProcess.<anonymous> (/workspace/scratch/5669fb5a6f85/m8e-calc/node_modules/playwright-core/lib/coreBundle.js:33774:32)\n    at ChildProcess.emit (node:events:514:28)\n    at ChildProcess._handle.onexit (node:internal/child_process:324:12)\n",
+      "outputSha256": "1705cc45318e6f0dd21d122055dd2330dd03cb0e799ad9e9184418b9f5444d67"
+    },
+    {
+      "command": "npm run test:e2e -- e2e/qa-visual.spec.ts --project=qa-visual --grep '^scientific ' --workers=1 --max-failures=1",
+      "exitCode": 1,
+      "interpretation": "Initial test-selection error: anchored grep did not match full Playwright titles. Corrected invocation is recorded above; no assertion change.",
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test e2e/qa-visual.spec.ts --project=qa-visual --grep ^scientific  --workers=1 --max-failures=1\n\n[WebServer] (node:30) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n[WebServer] (node:43) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\nError: No tests found.\nMake sure that arguments are regular expressions matching test files.\nYou may need to escape symbols like \"$\" or \"*\" and quote the arguments.\n\n",
+      "outputSha256": "645052690836e1b52f481c7cd80812b0d6405aa008a2ee85a424a1ba4dbfdfae"
+    },
+    {
+      "command": "npm install --prefix /workspace/scratch/5669fb5a6f85/.wp08/npm npm@11.19.0 --ignore-scripts --no-audit --no-fund --fetch-retries=0 --fetch-timeout=15000",
+      "exitCode": 1,
+      "errorExcerpt": "npm error 403 403 Forbidden - GET https://registry.npmjs.org/npm",
+      "interpretation": "Regular npm 11.19.0 acquisition failed."
+    },
+    {
+      "command": "npm ci --fetch-retries=0 --fetch-timeout=15000",
+      "exitCode": 1,
+      "errorExcerpt": "npm error 403 403 Forbidden - GET https://registry.npmjs.org/zustand/-/zustand-5.0.15.tgz",
+      "interpretation": "No successful fresh lockfile install."
+    }
+  ],
+  "intermediateCorrections": [
+    "Final source review found suppression of different same-expression previews after context changes. Restrict suppression to matching display text; a complementary RAD/DEG regression passes.",
+    "Removed an invalid new serializeValue public import; compare JSON of actual immutable values instead.",
+    "Removed unsupported Testing Library exact option; string role names already match exactly.",
+    "Reset locale settings in test cleanup to prevent fixture leakage.",
+    "Removed an unnecessary static-output tab stop identified by unchanged accessibility lint; native copy-button focus remains tested.",
+    "Split newly added long UI scenarios into numbers/structured values and scoped DOM queries; all assertions and the 5000 ms limit retained. Full final UI suite passes."
+  ],
+  "proofBoundaries": {
+    "localCheck": "passed for checked code, with verified exported tools",
+    "freshNpmCi": "blocked",
+    "wp08PrCi": "not created or run",
+    "baseMainCi": {
+      "runId": 40959723442,
+      "commit": "43b0765172223182634f81183dbc8d471ba77052",
+      "conclusion": "success; read-only metadata; does not validate WP-08"
+    },
+    "wp08Pages": "not deployed",
+    "testedLiveClient": null,
+    "visualBaselinesUpdated": false,
+    "gallery": "Not run; no shared UI component or gallery change. Gallery remains on its separate build/configuration."
+  }
+}
