@@ -1,0 +1,68 @@
+{
+  "runId": 41088550159,
+  "attempt": 1,
+  "head": "da81f0e25b8af0ac96116aecd898570614181657",
+  "build": "cc40581542b8686bc54ae3dc9f5161187e9ed70f",
+  "tree": "9a4c5fc839874639949125a06dff6d73769bb789",
+  "chromiumArtifact": 12993312621,
+  "zipSha256": "10f629444915886642373873743cc203f6844c8e700ffc0f7f26d317b06b9d25",
+  "stats": {
+    "startTime": "2026-10-30T16:21:02.890Z",
+    "duration": 584688.1440000001,
+    "expected": 248,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "failures": [
+    {
+      "file": "graph-values.spec.ts",
+      "title": "AP22 parameters apply localized ranges atomically; trace names all curve types",
+      "status": "unexpected",
+      "errors": [
+        [
+          {
+            "location": {
+              "file": "/home/runner/work/m8e-calc/m8e-calc/e2e/graph-values.spec.ts",
+              "column": 25,
+              "line": 121
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.graph-trace')\nExpected substring: \u001b[32m\"x =\"\u001b[39m\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" locator('.graph-trace') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.graph-trace')\u001b[22m\n\n\n  119 |     await canvas.press('ArrowRight');\n  120 |     const trace = page.locator('.graph-trace');\n> 121 |     await expect(trace).toContainText('x =');\n      |                         ^\n  122 |     await expect(trace).toContainText('y =');\n  123 |     if (parameter) await expect(trace).toContainText(parameter);\n  124 |   }\n    at /home/runner/work/m8e-calc/m8e-calc/e2e/graph-values.spec.ts:121:25"
+          }
+        ]
+      ]
+    }
+  ],
+  "diagnosis": "Recorded original screencast shows (t,t^2)r=1 instead of r=1. DOM fill raced CodeMirror selection reconciliation. Reuse existing replaceGraphExpression helper (ControlOrMeta+A, native insertion, exact text assertion) in this test; no product or domain change.",
+  "wp08": "All seven Chromium WP-08 tests passed, including real 100/200% tab zoom, exact clipboard/selection, geometry and axe. Native result screenshots were inspected but the copy snackbar overlays digits/exponent. Capture preparation now dismisses that snackbar through its localized button and asserts absence; all functional assertions retained.",
+  "otherEvidence": "24/24 visuals, 75 gallery, 36 provenance tests and all completed non-browser jobs passed. Firefox and WebKit may still be running when a new head causes the configured automatic cancellation. Only their actual final status may be reported.",
+  "firefox": {
+    "jobId": 124177267568,
+    "conclusion": "success",
+    "passed": 221,
+    "skipped": 2,
+    "note": "Existing native clipboard skips; all six WP-08 cases passed."
+  },
+  "localCorrection": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "lines": 628,
+    "sha256": "f376433a9a3013e5c8e1664734882ce5ed48eb3760a23b8683120eaed418c896",
+    "uiPassed": 627,
+    "domainPassed": 1744,
+    "buildAndAllBenchmarks": "passed",
+    "node": "24.22.1",
+    "npm": "11.9.0",
+    "installation": "Previously hash-verified lockfile tool export; regular local npm ci still blocked. Final PR CI must install normally.",
+    "files": [
+      {
+        "path": "e2e/graph-values.spec.ts",
+        "sha256": "370c8d411cbf80845ce3a02630297e84f90232eb9aa51f534f2e131977e6b6cd"
+      },
+      {
+        "path": "e2e/scientific-result-zoom.spec.ts",
+        "sha256": "e96c0485cb22f51faa8da94be85c99d6f4ddd5c0512628d7a0e3e6fafe088aad"
+      }
+    ]
+  }
+}

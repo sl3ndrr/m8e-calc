@@ -161,6 +161,13 @@ test('WP-08 native 100/200% zoom keeps the complete exponent selectable and copy
         expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
           expected,
         );
+        // Dismiss the successful copy feedback through its real localized control
+        // before recording the value; at 200% it otherwise covers the exponent.
+        await page
+          .locator('.ui-snackbar')
+          .getByRole('button', { name: t('ui.close', locale), exact: true })
+          .click();
+        await expect(page.locator('.ui-snackbar')).toHaveCount(0);
         await page.evaluate(() => document.fonts.ready);
         await result.scrollIntoViewIfNeeded();
         await page.evaluate(() => getSelection()?.removeAllRanges());

@@ -34,6 +34,13 @@ Zoommessungen sind vorhanden; ihre Bildaufnahme verwendet nun den AP19-DIP/CSS-
 Vertrag. Aktuelle vollständige Pflicht-CI auf dem Korrekturhead bleibt erforderlich.
 Identitäten und Originalbefunde: [WP08](WP08.md), aktueller Abschluss im PR.
 
+Zweiter Lauf: 24/24 Visuals, 75/75 Galerie, 36/36 Provenienz und alle sieben
+Chromium-WP-08-Fälle bestehen. Ein bestehender AP22-Test erzeugt laut Trace
+`(t,t^2)r=1` durch DOM-Fill; er nutzt jetzt den vorhandenen CodeMirror-
+Tastaturhelper mit zusätzlicher exakter Textprüfung. Zoomaufnahmen schließen
+die zuvor verdeckende Kopiermeldung über ihren realen lokalisierten Button.
+Keine Produktänderung dafür; neue vollständige CI und Bildsichtung erforderlich.
+
 ## WP-07 · Wissenschaftliche Berechnungen im Worker · 29.10.2026
 
 Lokal auf `feat/audit-wp-07` ab aktuellem main
