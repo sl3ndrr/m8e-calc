@@ -47,6 +47,12 @@ Zusätzliche sichtbare Lab-Vorbedingung im Persistenztest, sämtliche Fokus- und
 Kaltstartprüfungen erhalten. Ursache und Wirksamkeit bis zur neuen CI getrennt
 als Hypothese dokumentiert; keine spekulative Produkt- oder Grenzänderung.
 
+Vierter Lauf: Alle 19 WP-08-Fälle, 75 Galerie- und 24 Bildprüfungen bestehen.
+WebKit findet einen vorhandenen AP21-Vergleich mit noch laufendem Aspektwechsel
+beim Erfassen des Referenz-Fits. Zusätzliche Unchecked- und bestehende Settled-
+Prüfung davor; zehn Fits und 0,25-px-Grenze bleiben erhalten. Ganze CI ist rot,
+neuer vollständiger Lauf erforderlich; Originaltrace und Werte im WP08-Bericht.
+
 ## WP-07 · Wissenschaftliche Berechnungen im Worker · 29.10.2026
 
 Lokal auf `feat/audit-wp-07` ab aktuellem main

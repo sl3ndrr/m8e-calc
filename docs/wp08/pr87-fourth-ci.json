@@ -1,0 +1,151 @@
+{
+  "runId": 41093992294,
+  "attempt": 1,
+  "head": "80c6d80149a80916c4abc082c8da3ed42fe68ccb",
+  "build": "417900a504ec07f64a89c82b81b2c07236df7bed",
+  "tree": "0266ae77324b6def08c4b50966b73d010d9344e6",
+  "artifact": 12995514626,
+  "zipSha256": "6b34b91dea155f0b6a547fb891015d1c3c7410cd71974ff404d5823c2cc366c8",
+  "stats": {
+    "startTime": "2026-10-30T16:58:07.563Z",
+    "duration": 1496228.662,
+    "expected": 220,
+    "skipped": 2,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "wp08": [
+    {
+      "title": "WP-08 de: empty, pending, worker completion and errors keep the value slot stable",
+      "status": "expected"
+    },
+    {
+      "title": "WP-08 en: empty, pending, worker completion and errors keep the value slot stable",
+      "status": "expected"
+    },
+    {
+      "title": "WP-08 de/light/auto: visible result, copy, announcement and long values",
+      "status": "expected"
+    },
+    {
+      "title": "WP-08 en/dark/auto: visible result, copy, announcement and long values",
+      "status": "expected"
+    },
+    {
+      "title": "WP-08 de/dark/point: visible result, copy, announcement and long values",
+      "status": "expected"
+    },
+    {
+      "title": "WP-08 en/light/comma: visible result, copy, announcement and long values",
+      "status": "expected"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "wp08-runtime",
+      "data": {
+        "node": "v24.22.1",
+        "browser": "27.2",
+        "locale": "de",
+        "theme": "light",
+        "decimalSeparator": "auto",
+        "grouping": true,
+        "width": 1280,
+        "clipboard": "in-memory adapter"
+      }
+    },
+    {
+      "name": "wp08-runtime",
+      "data": {
+        "node": "v24.22.1",
+        "browser": "27.2",
+        "locale": "en",
+        "theme": "dark",
+        "decimalSeparator": "auto",
+        "grouping": true,
+        "width": 1280,
+        "clipboard": "in-memory adapter"
+      }
+    },
+    {
+      "name": "wp08-runtime",
+      "data": {
+        "node": "v24.22.1",
+        "browser": "27.2",
+        "locale": "de",
+        "theme": "dark",
+        "decimalSeparator": "point",
+        "grouping": false,
+        "width": 1280,
+        "clipboard": "in-memory adapter"
+      }
+    },
+    {
+      "name": "wp08-runtime",
+      "data": {
+        "node": "v24.22.1",
+        "browser": "27.2",
+        "locale": "en",
+        "theme": "light",
+        "decimalSeparator": "comma",
+        "grouping": false,
+        "width": 1280,
+        "clipboard": "in-memory adapter"
+      }
+    }
+  ],
+  "failures": [
+    {
+      "title": "AP21 replaces obsolete fit goals on curve/parameter changes, presets, reset and resize",
+      "file": "graph.spec.ts",
+      "errors": [
+        [
+          {
+            "location": {
+              "file": "/home/runner/work/m8e-calc/m8e-calc/e2e/graph.spec.ts",
+              "column": 58,
+              "line": 264
+            },
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m0.25\u001b[39m\nReceived:    \u001b[31m51.01000758869917\u001b[39m\n\n  262 |       ? (expected.xMax - expected.xMin) / box.width\n  263 |       : (expected.yMax - expected.yMin) / box.height;\n> 264 |     expect(Math.abs(actual[key] - expected[key]) / unit).toBeLessThanOrEqual(\n      |                                                          ^\n  265 |       0.25,\n  266 |     );\n  267 |     expect(Number.isFinite(actual[key])).toBe(true);\n    at expectSameView (/home/runner/work/m8e-calc/m8e-calc/e2e/graph.spec.ts:264:58)\n    at /home/runner/work/m8e-calc/m8e-calc/e2e/graph.spec.ts:413:3"
+          }
+        ]
+      ]
+    }
+  ],
+  "expectedAfterFirstFit": {
+    "xMin": -2.3954417542474005,
+    "xMax": 2.3954417542474005,
+    "yMin": -2.317858803013811,
+    "yMax": 2.317858803013811
+  },
+  "actualAfterRepeatedFits": {
+    "xMin": -2,
+    "xMax": 2,
+    "yMin": -1.1938750785671146,
+    "yMax": 1.1938750785671146
+  },
+  "observed": "After the final aspect toggle and first reference fit, data-moving is still true and target bounds retain the pre-toggle view. The following fit changes target bounds to the unlocked fitted curve. Reference is captured before the aspect action settles.",
+  "correction": "Add unchecked assertion and the existing settled(page) after the final aspect toggle, before the reference fit. Preserve ten rapid fits, unchanged 0.25px tolerance and all other assertions. No product, domain, workflow, retry or timeout change.",
+  "scope": "All 19 WP-08 cases passed across the three engines, but the overall fourth run and Quality gate are failure because this AP21 check fails. A new head needs its own full CI.",
+  "localCorrection": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "lines": 628,
+    "outputSha256": "0b327d026ff8c4734a6dd23f58e800b20af6a6885dd6b30ddecda7b77dc08b73",
+    "uiPassed": 627,
+    "domainPassed": 1744,
+    "lintTypesBuildBenchmarks": "passed",
+    "node": "24.22.1",
+    "npm": "11.9.0",
+    "source": "e2e/graph.spec.ts",
+    "sourceSha256": "d790748491f5b64088f43d0608b9c0860a2c8c2fc99d967957842aeebd6b0cad",
+    "docsCheck": {
+      "documents": 56,
+      "localLinks": 446,
+      "npmCommands": 228,
+      "failures": 0,
+      "externalChecked": false
+    },
+    "limits": "Local regular install still blocked; hash-verified lockfile tools as described. New PR CI is required."
+  }
+}
