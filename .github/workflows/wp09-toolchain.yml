@@ -1,0 +1,39 @@
+name: WP09 toolchain preparation
+on:
+  push:
+    branches: [feat/audit-wp-09]
+    paths: [.github/workflows/wp09-toolchain.yml]
+permissions:
+  contents: read
+jobs:
+  metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          check-latest: true
+      - run: npm install --global npm@11.19.0
+      - name: Collect current published package contracts
+        run: |
+          mkdir -p toolchain-preparation
+          node --version
+          npm --version
+          for package in minimatch eslint @eslint/js @eslint/eslintrc @eslint/config-array eslint-plugin-jsx-a11y typescript-eslint @typescript-eslint/typescript-estree; do
+            filename=$(echo "$package" | tr '/@' '__')
+            npm view "$package" version dist-tags dependencies peerDependencies engines --json > "toolchain-preparation/$filename.json"
+            echo "$package"
+            cat "toolchain-preparation/$filename.json"
+          done
+          npm view minimatch@3 version --json > toolchain-preparation/minimatch-3.json
+          npm view minimatch@10 version --json > toolchain-preparation/minimatch-10.json
+          cat toolchain-preparation/minimatch-3.json toolchain-preparation/minimatch-10.json
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: wp09-toolchain-preparation
+          path: toolchain-preparation/
+          retention-days: 7
