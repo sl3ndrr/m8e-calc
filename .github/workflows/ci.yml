@@ -335,12 +335,6 @@ jobs:
           check-latest: true
       - run: npm install --global npm@11.19.0
       - run: npm ci --engine-strict
-      - name: Prepare exact repository formatting for review
-        run: |
-          mkdir -p test-results/wp09-formatted/scripts test-results/wp09-formatted/.github/workflows
-          npx prettier --write scripts/wp09-security-probe.mjs scripts/wp09-baseline-probe.mjs .github/workflows/ci.yml
-          cp scripts/wp09-*.mjs test-results/wp09-formatted/scripts/
-          cp .github/workflows/ci.yml test-results/wp09-formatted/.github/workflows/
       - run: node scripts/wp09-security-probe.mjs
       - uses: actions/upload-artifact@v7
         if: always()
@@ -348,7 +342,6 @@ jobs:
           name: wp09-security-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             test-results/wp09-security/
-            test-results/wp09-formatted/
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 14

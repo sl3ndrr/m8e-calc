@@ -62,8 +62,13 @@ writeFileSync(`${output}/advisory.json`, await advisory.text());
 for (const variant of ['compatible', 'eslint-major']) {
   const cwd = resolve(process.env.RUNNER_TEMP, `wp09-${variant}`);
   assert.equal(
-    run(`${variant}-worktree`, 'git', ['worktree', 'add', '--detach', cwd, 'HEAD'])
-      .status,
+    run(`${variant}-worktree`, 'git', [
+      'worktree',
+      'add',
+      '--detach',
+      cwd,
+      'HEAD',
+    ]).status,
     0,
   );
   const args =
@@ -88,10 +93,21 @@ for (const variant of ['compatible', 'eslint-major']) {
           '--engine-strict',
         ];
   const update = run(`${variant}-resolve`, 'npm', args, cwd);
-  run(`${variant}-diff`, 'git', ['diff', '--', 'package.json', 'package-lock.json'], cwd);
+  run(
+    `${variant}-diff`,
+    'git',
+    ['diff', '--', 'package.json', 'package-lock.json'],
+    cwd,
+  );
   if (update.status !== 0) continue;
-  writeFileSync(`${output}/${variant}-package.json`, readFileSync(`${cwd}/package.json`));
-  writeFileSync(`${output}/${variant}-lock.json`, readFileSync(`${cwd}/package-lock.json`));
+  writeFileSync(
+    `${output}/${variant}-package.json`,
+    readFileSync(`${cwd}/package.json`),
+  );
+  writeFileSync(
+    `${output}/${variant}-lock.json`,
+    readFileSync(`${cwd}/package-lock.json`),
+  );
   const install = run(`${variant}-ci`, 'npm', ['ci', '--engine-strict'], cwd);
   if (install.status !== 0) continue;
   run(`${variant}-tree`, 'npm', ['ls', '--all', '--json'], cwd);
