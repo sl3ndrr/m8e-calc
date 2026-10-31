@@ -383,3 +383,8 @@
 .convert-unit-grid .ui-button[data-focus-visible] {
   outline-offset: -4px;
 }
+.convert-unit-grid .convert-unit-copy[data-focus-visible] {
+  /* Keep a substantial solid stroke after HiDPI antialiasing. The native
+     inset outline stays above the shared, independently pressed paint. */
+  outline-width: 4px;
+}

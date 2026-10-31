@@ -27,7 +27,8 @@ Firefox 247/247 (zwei bestehende Skips), einschließlich aller 24 nativen
 vollständige Viewportbilder mit strikter Glyphen-/Scrollprüfung vor und nach der
 Aufnahme ersetzen sie. WebKit besteht 246 Fälle, scheitert aber einmal am Fokus-Pixeloracle; die
 übrig gebliebenen kompakten Copy-Padding-/Iconmaße entfallen zugunsten der
-vollständigen gemeinsamen Buttonmaße. Beide Nachträge benötigen eigene vollständige
+vollständigen gemeinsamen Buttonmaße. Der native Insetring erhält für HiDPI
+4px Stärke bei unverändertem Pixeloracle. Beide Nachträge benötigen eigene vollständige
 CI und Bildsichtung; tatsächliche finale Ergebnisse stehen im PR. Keine gelockerten
 Prüfgrenzen.
 

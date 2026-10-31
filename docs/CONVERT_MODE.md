@@ -44,7 +44,10 @@ Kopierbutton. Der Zahlenbereich ist dessen Geschwister, kein interaktives Kind.
 Der Kopierbutton zeigt die kurze lokalisierte Aktion mit Icon und nutzt die
 vorhandene gemeinsame Square-Form und Tonal-Farbrollen; damit bleibt auch der
 Hovertext kontrastreich. Auch Padding und Icongröße folgen den gemeinsamen
-Button-/Iconmaßen. Hauptwert und Einheitenkarte erhalten
+Button-/Iconmaßen. Ihr nativer Fokusring liegt weiter mit −4 px Offset innerhalb
+der Scrollkarte; 4 px Strichstärke erhalten auch bei HiDPI-Antialiasing eine klare
+Farbfläche. Form, zentrale Fokusfarbe und gemeinsame Pressoberfläche bleiben erhalten.
+Hauptwert und Einheitenkarte erhalten
 unterschiedliche Regionsnamen (Umrechnungsergebnis beziehungsweise vollständiger
 Einheitenwert); der gleiche Zielwert erzeugt keine doppelt benannten Landmarks.
 WP-04-Nachweise und offene Abnahme: [WP04](WP04.md).
