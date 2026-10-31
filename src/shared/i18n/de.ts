@@ -2,6 +2,7 @@ import { coreDE } from './coreDE';
 export const de = {
   ...coreDE,
   'settings.appearance': 'Erscheinungsbild',
+  'settings.general': 'Allgemein',
   'settings.app': 'App',
   'currency.online': 'Online-Kurse laden',
   'currency.category': 'Währung',
@@ -205,11 +206,11 @@ export const de = {
   'settings.import': 'Einstellungen importieren',
   'settings.imported': 'Einstellungen importiert.',
   'settings.invalid': 'Die Datei enthält keine gültigen Einstellungen.',
-  'settings.reset': 'Alles zurücksetzen',
-  'settings.resetTitle': 'Alles zurücksetzen?',
+  'settings.reset': 'Einstellungen und Verlauf zurücksetzen',
+  'settings.resetTitle': 'Einstellungen und Verlauf zurücksetzen?',
   'settings.resetHint':
-    'Einstellungen, Verlauf und zuletzt genutzter Modus werden zurückgesetzt.',
-  'settings.resetDone': 'Alle Daten zurückgesetzt.',
+    'Setzt Einstellungen und den globalen Verlauf zurück und öffnet den Einfach-Modus. Wissenschaftliche Definitionen, Umrechnerfavoriten und -einstellungen, gespeicherte Wechselkurse und Offline-Dateien werden dadurch nicht gelöscht.',
+  'settings.resetDone': 'Einstellungen und Verlauf zurückgesetzt.',
   'settings.cancel': 'Abbrechen',
   'scientific.work.cancel': 'Abbrechen',
   'scientific.work.preview': 'Vorschau wird berechnet …',

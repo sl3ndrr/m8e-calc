@@ -311,9 +311,14 @@
 .settings-sections section {
   padding-block: 0.5rem;
 }
+.settings-sections > section + section {
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  padding-top: 1.5rem;
+}
 .settings-sections h3 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: var(--md-sys-typescale-title-large-size);
+  line-height: var(--md-sys-typescale-title-large-line-height);
 }
 .settings-actions {
   display: flex;
