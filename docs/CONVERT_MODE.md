@@ -42,7 +42,9 @@ Live-Region wiederholt sie. WP-09 verknüpft die sichtbaren Kartenbestandteile
 und den lokalisierten Aktionstext über `aria-labelledby` mit dem getrennten
 Kopierbutton. Der Zahlenbereich ist dessen Geschwister, kein interaktives Kind.
 Der Kopierbutton zeigt die kurze lokalisierte Aktion mit Icon und nutzt die
-vorhandene gemeinsame Square-Form. Hauptwert und Einheitenkarte erhalten
+vorhandene gemeinsame Square-Form und Tonal-Farbrollen; damit bleibt auch der
+Hovertext kontrastreich. Auch Padding und Icongröße folgen den gemeinsamen
+Button-/Iconmaßen. Hauptwert und Einheitenkarte erhalten
 unterschiedliche Regionsnamen (Umrechnungsergebnis beziehungsweise vollständiger
 Einheitenwert); der gleiche Zielwert erzeugt keine doppelt benannten Landmarks.
 WP-04-Nachweise und offene Abnahme: [WP04](WP04.md).

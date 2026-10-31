@@ -128,15 +128,35 @@ for (const [width, height] of [
                 await region.focus();
                 await region.press(key);
                 await expect(region).toBeInViewport({ ratio: 1 });
-                const bounds = await region.evaluate((node) => {
-                  const rect = node.getBoundingClientRect();
-                  return {
-                    x: rect.x + scrollX,
-                    y: rect.y + scrollY,
-                    width: rect.width,
-                    height: rect.height,
-                  };
-                });
+                const edge = async () =>
+                  region.locator('strong').evaluate((node, key) => {
+                    const text = node.firstChild;
+                    const viewport = node.parentElement;
+                    if (!text?.textContent || !viewport)
+                      throw new Error('Missing number viewport');
+                    const range = document.createRange();
+                    const index =
+                      key === 'Home' ? 0 : text.textContent.length - 1;
+                    range.setStart(text, index);
+                    range.setEnd(text, index + 1);
+                    const glyph = range.getBoundingClientRect();
+                    const bounds = viewport.getBoundingClientRect();
+                    return {
+                      scrollLeft: viewport.scrollLeft,
+                      clientWidth: viewport.clientWidth,
+                      scrollWidth: viewport.scrollWidth,
+                      visible:
+                        glyph.left >= bounds.left &&
+                        glyph.right <= bounds.right &&
+                        glyph.top >= bounds.top &&
+                        glyph.bottom <= bounds.bottom,
+                    };
+                  }, key);
+                const beforeCapture = await edge();
+                expect(
+                  beforeCapture.visible,
+                  `${key} glyph before capture`,
+                ).toBe(true);
                 const layout = await cdp.send('Page.getLayoutMetrics');
                 const scale =
                   layout.layoutViewport.clientWidth /
@@ -144,19 +164,24 @@ for (const [width, height] of [
                 expect(scale).toBeCloseTo(zoom);
                 const capture = await cdp.send('Page.captureScreenshot', {
                   format: 'png',
-                  captureBeyondViewport: true,
-                  clip: {
-                    x: bounds.x * scale,
-                    y: bounds.y * scale,
-                    width: bounds.width * scale,
-                    height: bounds.height * scale,
-                    scale: 1,
-                  },
+                  // Capture the actual complete viewport. No temporary viewport
+                  // expansion or zoom-dependent subregion clip may reflow the
+                  // nested scroller or hide the number's edge in the evidence.
+                  captureBeyondViewport: false,
                 });
                 await info.attach(`zoom-${zoom}-${key}`, {
                   body: Buffer.from(capture.data, 'base64'),
                   contentType: 'image/png',
                 });
+                const afterCapture = await edge();
+                await info.attach(`capture-state-${zoom}-${key}`, {
+                  body: JSON.stringify({ beforeCapture, afterCapture }),
+                  contentType: 'application/json',
+                });
+                expect(afterCapture.scrollLeft).toBe(beforeCapture.scrollLeft);
+                expect(afterCapture.visible, `${key} glyph after capture`).toBe(
+                  true,
+                );
               }
               await info.attach(`runtime-${zoom}`, {
                 body: JSON.stringify(

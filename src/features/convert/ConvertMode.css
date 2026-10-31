@@ -244,10 +244,6 @@
   align-content: start;
   gap: 0.5rem;
 }
-.convert-unit-copy {
-  --ui-button-padding-block: 0.5rem;
-  --ui-button-padding-inline: 0.5rem;
-}
 .convert-unit-card strong {
   display: inline-block;
   padding-inline: 0.12em;
@@ -266,9 +262,6 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 0.5rem;
-}
-.convert-unit-copy .ui-icon {
-  font-size: 1rem;
 }
 .convert-unit-system {
   font-size: 0.65rem;

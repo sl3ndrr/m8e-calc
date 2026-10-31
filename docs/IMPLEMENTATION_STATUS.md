@@ -20,8 +20,16 @@ nach dokumentierter Alt-/Neu-Sichtung gezielt übernommen; 18 andere bleiben
 unverändert. Weitere Teilberichte korrigieren die gerundete Scroll-Endpunktmessung,
 den Copy-Hoverkontrast über die gemeinsame Tonal-Variante und eine auf 1920 px
 begrenzte native 4K-Fensteranforderung. Exakte Startgrößen sind nun bindend; neue
-CI und sechs neue Tonal-Bildvergleiche sind erforderlich. Tatsächliche finale
-Ergebnisse stehen im PR. Keine gelockerten Prüfgrenzen.
+Tonal-Produktionsbilder sind gesichtet; 24/24 Bildvergleiche bestehen ohne
+weitere Referenzänderung. Produkthead `2909253` besteht Chromium 299/299 und
+Firefox 247/247 (zwei bestehende Skips), einschließlich aller 24 nativen
+100/200%-Fälle. Die Sichtung findet jedoch unzuverlässige native Bildausschnitte;
+vollständige Viewportbilder mit strikter Glyphen-/Scrollprüfung vor und nach der
+Aufnahme ersetzen sie. WebKit besteht 246 Fälle, scheitert aber einmal am Fokus-Pixeloracle; die
+übrig gebliebenen kompakten Copy-Padding-/Iconmaße entfallen zugunsten der
+vollständigen gemeinsamen Buttonmaße. Beide Nachträge benötigen eigene vollständige
+CI und Bildsichtung; tatsächliche finale Ergebnisse stehen im PR. Keine gelockerten
+Prüfgrenzen.
 
 Der externe neue Minimatch-Befund hält den Audit-/Quality-Gate trotz unverändertem
 Lockfile rot; keine Ausnahme oder Major-Overrides. Lokale npm-/Browserprüfungen
