@@ -1,0 +1,28 @@
+const fs = require('node:fs');
+const assert = require('node:assert/strict');
+const cp = require('node:child_process');
+const babel = require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES + '/playwright/lib/transform/babelBundle.js');
+const changed = cp.execFileSync('git', ['diff', '--name-only', '64054a721d222588b7ca368e107593c1d1dcd62d'], { encoding: 'utf8' }).trim().split('\n');
+const files = [...new Set([...changed, 'e2e/settingsFocus.ts', 'e2e/settings-reset.spec.ts'])].filter(x => /\.[cm]?tsx?$/.test(x));
+for (const f of files) babel.babelParse(fs.readFileSync(f, 'utf8'), f, true);
+function values(f) {
+  const ast = babel.babelParse(fs.readFileSync(f, 'utf8'), f, true);
+  const out = {};
+  babel.traverse(ast, { ObjectProperty(p) { if (p.node.key.type === 'StringLiteral') out[p.node.key.value] = p.node.value; } });
+  return out;
+}
+let keyCount = 0;
+for (const [df, ef] of [['de', 'en'], ['coreDE', 'coreEN'], ['labDE', 'labEN']]) {
+  const d = values('src/shared/i18n/' + df + '.ts');
+  const e = values('src/shared/i18n/' + ef + '.ts');
+  assert.deepEqual(Object.keys(d).sort(), Object.keys(e).sort());
+  keyCount += Object.keys(d).length;
+  for (const k of Object.keys(d)) if (d[k].type === 'StringLiteral' && e[k].type === 'StringLiteral')
+    assert.deepEqual([...d[k].value.matchAll(/\{(\w+)\}/g)].map(x => x[1]).sort(), [...e[k].value.matchAll(/\{(\w+)\}/g)].map(x => x[1]).sort(), k);
+}
+for (const f of ['de', 'en']) {
+  const v = values('src/shared/i18n/' + f + '.ts');
+  for (const key of ['settings.reset', 'settings.resetTitle', 'settings.resetHint', 'settings.resetDone']) assert.equal(v[key].type, 'StringLiteral');
+  assert.doesNotMatch(v['settings.resetDone'].value, /Alle Daten|All data/i);
+}
+console.log(JSON.stringify({ syntaxFiles: files, dictionaryKeys: keyCount, placeholderParity: true, scopedResetText: true, parserRuntime: require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES + '/playwright/package.json').version }));

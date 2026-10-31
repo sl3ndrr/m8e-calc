@@ -1,5 +1,11 @@
 # Roadmap
 
+WP-10 verbessert Resetbenennungen und Orientierung langer Einstellungen lokal
+auf `feat/audit-wp-10`. Pflichtcheck, Produktions-/Zoom-/Overlay- und getrennte
+Galerieabnahme bleiben bei der dokumentierten Umgebungssperre offen; spätere
+Speicherarten müssen ihren Resetumfang ausdrücklich nachführen.
+Implementierung, Befehle und konkrete Folgearbeiten: [WP10](WP10.md).
+
 Aktuelle integrierte Produktabnahme: [AP46](AP46.md), main `c95f183a`
 (21.10.2026), nach AP42–AP45. Reguläre main-CI und Pages desselben SHA
 sind erfolgreich; Live-/Clientabnahme bleibt gemäß [AP39](AP39.md) blockiert.

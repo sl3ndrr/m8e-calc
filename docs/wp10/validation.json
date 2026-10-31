@@ -1,0 +1,81 @@
+{
+  "checkedCodeCommit": "8d382533a327f4dd0b0f49825197ecf7ceeac50b",
+  "codeDiffBase": "64054a721d222588b7ca368e107593c1d1dcd62d",
+  "codeDiffSha256": "3a57d6bca1a78508b1458d3014d7f83d767110314c6e0f5ddcb3cb5064e0bc50",
+  "scope": "Launch attempts after final source edits; no Vitest, TypeScript, ESLint, Prettier, build or Playwright assertions executed.",
+  "runtime": {
+    "node": "24.22.1",
+    "npmAvailable": "11.9.0",
+    "npmRequired": "11.19.0",
+    "os": "Linux 6.18.57",
+    "repositoryPlaywright": "1.64.1",
+    "supplementalParserPlaywright": "1.62.1",
+    "localBrowserVersion": null
+  },
+  "attempts": [
+    {
+      "command": "npm run check",
+      "exitCode": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 check\n> npm run lint && npm run typecheck && npm run test && npm run build && npm run test:engine:bench && npm run test:graph:bench && npm run test:graph:implicit:bench\n\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 lint\n> eslint . && prettier --check .\n\nsh: 1: eslint: not found\n"
+    },
+    {
+      "command": "npm run test:ui -- src/app/SettingsDialog.test.tsx src/app/App.test.tsx src/ui/components.test.tsx",
+      "exitCode": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:ui\n> vitest run --project=ui src/app/SettingsDialog.test.tsx src/app/App.test.tsx src/ui/components.test.tsx\n\nsh: 1: vitest: not found\n"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 build\n> tsc -b && vite build && node scripts/check-build-target.mjs\n\nsh: 1: tsc: not found\n"
+    },
+    {
+      "command": "npm run test:e2e -- --project=chromium --project=firefox --project=webkit e2e/settings-reset.spec.ts e2e/settings-actions.spec.ts e2e/app-shell.spec.ts e2e/comfort.spec.ts e2e/currency.spec.ts e2e/startup-budget.spec.ts",
+      "exitCode": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test --project=chromium --project=firefox --project=webkit e2e/settings-reset.spec.ts e2e/settings-actions.spec.ts e2e/app-shell.spec.ts e2e/comfort.spec.ts e2e/currency.spec.ts e2e/startup-budget.spec.ts\n\nsh: 1: playwright: not found\n"
+    },
+    {
+      "command": "npm run test:e2e -- --project=chromium e2e/settings-native-zoom.spec.ts",
+      "exitCode": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test --project=chromium e2e/settings-native-zoom.spec.ts\n\nsh: 1: playwright: not found\n"
+    },
+    {
+      "command": "npm run build:gallery",
+      "exitCode": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 build:gallery\n> tsc -b && vite build --mode gallery && node scripts/check-build-target.mjs dist-gallery gallery\n\nsh: 1: tsc: not found\n"
+    },
+    {
+      "command": "npm run test:e2e:gallery -- --project=gallery e2e/components.spec.ts e2e/accent-picker.spec.ts",
+      "exitCode": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e:gallery\n> playwright test --config=playwright.gallery.config.ts --project=gallery e2e/components.spec.ts e2e/accent-picker.spec.ts\n\nsh: 1: playwright: not found\n"
+    },
+    {
+      "command": "npm run test:e2e -- --config=playwright.ap36.config.ts --project=chromium-production --project=firefox-production --project=webkit-production --grep 'AP45 .*settings|history Vanilla'",
+      "exitCode": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test --config=playwright.ap36.config.ts --project=chromium-production --project=firefox-production --project=webkit-production --grep AP45 .*settings|history Vanilla\n\nsh: 1: playwright: not found\n"
+    },
+    {
+      "command": "npm run test:e2e -- --config=playwright.ap36.config.ts --project=chromium-gallery --project=firefox-gallery --project=webkit-gallery --grep Dialog",
+      "exitCode": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test --config=playwright.ap36.config.ts --project=chromium-gallery --project=firefox-gallery --project=webkit-gallery --grep Dialog\n\nsh: 1: playwright: not found\n"
+    }
+  ],
+  "environmentBlockers": [
+    {
+      "command": "npm install --prefix .wp10-toolchain --ignore-scripts --no-audit --no-fund --fetch-retries=0 npm@11.19.0",
+      "cwd": "/workspace/scratch/3d4a58d3c65b",
+      "exitCode": 1,
+      "diagnostic": "E403 GET https://registry.npmjs.org/npm"
+    },
+    {
+      "command": "npm ci --engine-strict --fetch-retries=0",
+      "npmVersion": "11.9.0",
+      "exitCode": 1,
+      "diagnostic": "E403 GET https://registry.npmjs.org/zustand/-/zustand-5.0.15.tgz"
+    },
+    {
+      "command": "TMPDIR=/workspace/scratch/3d4a58d3c65b/browser-tmp PLAYWRIGHT_BROWSERS_PATH=/workspace/scratch/3d4a58d3c65b/browsers node /opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/cli.js install chromium",
+      "exitCode": 1,
+      "diagnostic": "Chrome for Testing 151.0.7922.34 / chromium v1234 download blocked by HTTP 403; this supplemental Playwright is not the repository toolchain."
+    }
+  ]
+}

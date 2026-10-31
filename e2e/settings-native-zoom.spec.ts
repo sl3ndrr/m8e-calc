@@ -7,6 +7,8 @@ import {
 } from '@playwright/test';
 import { resolve } from 'node:path';
 import { rm, writeFile } from 'node:fs/promises';
+import { checkSettingsFocus } from './settingsFocus';
+import { tabTo } from './qa-setup';
 
 async function captureNative(cdp: CDPSession, path: string): Promise<Buffer> {
   // Page.screenshot clips in CSS coordinates at native tab zoom. CDP without
@@ -50,6 +52,7 @@ test('settings and nested accent fit narrow desktop at native 100/200% zoom', as
     deviceScaleFactor: undefined,
     locale: 'de-DE',
     args: [
+      '--screen-info={1920x1080}',
       '--window-size=1280,900',
       `--disable-extensions-except=${extension}`,
       `--load-extension=${extension}`,
@@ -68,11 +71,20 @@ test('settings and nested accent fit narrow desktop at native 100/200% zoom', as
     await page.goto(`${String(info.project.use.baseURL)}/m8e-calc/#/simple`);
     await expect(page.locator('.calculator-announcement')).toHaveText('0');
     await page.evaluate(() => document.fonts.ready);
+    const cdp = await context.newCDPSession(page);
+    const { windowId } = await cdp.send('Browser.getWindowForTarget');
+    await cdp.send('Browser.setContentsSize', {
+      windowId,
+      width: 1280,
+      height: 900,
+    });
+    await expect
+      .poll(() => page.evaluate(() => [innerWidth, innerHeight]))
+      .toEqual([1280, 900]);
     const initial = await page.evaluate(() => ({
       width: innerWidth,
       dpr: devicePixelRatio,
     }));
-    const cdp = await context.newCDPSession(page);
     for (const zoom of [1, 2]) {
       const actual = await controller.evaluate(async (zoom) => {
         const api = (
@@ -114,6 +126,39 @@ test('settings and nested accent fit narrow desktop at native 100/200% zoom', as
       await expect(page.locator('.settings-dialog')).not.toHaveAttribute(
         'data-entering',
       );
+      const focusSamples = await checkSettingsFocus(
+        page,
+        page.getByRole('dialog', { name: 'Einstellungen', exact: true }),
+      );
+      await info.attach(`settings-focus-${zoom}`, {
+        body: JSON.stringify(focusSamples),
+        contentType: 'application/json',
+      });
+      if (zoom === 2) {
+        const dialog = page.getByRole('dialog', {
+          name: 'Einstellungen',
+          exact: true,
+        });
+        const reset = dialog.getByRole('button', {
+          name: 'Einstellungen und Verlauf zurücksetzen',
+          exact: true,
+        });
+        await tabTo(page, reset);
+        await page.keyboard.press('Enter');
+        await info.attach('settings-confirmation-focus-200', {
+          body: JSON.stringify(await checkSettingsFocus(page, dialog)),
+          contentType: 'application/json',
+        });
+        const confirmation = dialog.getByRole('region', {
+          name: 'Einstellungen und Verlauf zurücksetzen?',
+        });
+        await tabTo(
+          page,
+          confirmation.getByRole('button', { name: 'Abbrechen', exact: true }),
+        );
+        await page.keyboard.press('Enter');
+        await expect(reset).toBeFocused();
+      }
       const settingsImage = await captureNative(
         cdp,
         info.outputPath(`settings-zoom-${zoom}.png`),

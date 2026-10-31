@@ -77,6 +77,28 @@ auch während der Präsentation bleibt. Der Präsentationsmodus blendet Rail,
 Toolbars und Werkzeugspalten aus und vergrößert die Anzeige. Ein sichtbarer
 Beenden-Button und Strg+Umschalt+P führen zurück. Präsentation selbst ist transient.
 
+## WP-10 · Einstellungen und Verlauf zurücksetzen
+
+Die gleichnamige Aktion setzt ausschließlich die globalen Einstellungen
+(einschließlich Währungszustimmung), den globalen Verlauf aller vier Modi samt
+Pins, Sichtbarkeit und Limit sowie den zuletzt genutzten Modus zurück. Sie
+verwirft den Themecache und öffnet Einfach; die normale Themeanwendung kann den
+Cache danach neu erzeugen. Bestätigung, Hinweis und Erfolgsmeldung nennen
+Einstellungen und Verlauf in de/en.
+
+Wissenschaftliche Definitionen, Umrechnerfavoriten, zuletzt benutzte Paare und
+Umrechnerformatierung, gespeicherte Wechselkurse samt Abrufzeit sowie
+Service-Worker-/Offline-Dateien werden durch diese Aktion nicht gelöscht.
+Es gibt dadurch keine vollständige Datenlöschung. Neue Speicherarten gehören
+nicht automatisch zum Resetumfang; ein Folgepaket muss Aktion, Texte, Vertrag
+und Regressionen ausdrücklich gemeinsam nachführen.
+
+Lange Einstellungen verwenden den gemeinsamen `Dialog.scrollable`: Titel und
+Schließen bleiben oberhalb der eigenen Scrollfläche sichtbar. Benannte
+Abschnitte mit Überschriften und Trennlinien strukturieren das Formular.
+Resetbestätigung, Akzent- und Auswahl-Popover behalten ihren Overlayvertrag.
+Aktueller Implementierungs-/Abnahmestand: [WP10](WP10.md).
+
 ## PWA / Offline
 
 `scripts/pwaPlugin.ts` ist der gleichwertige Vite-Build-Adapter ohne zusätzliche

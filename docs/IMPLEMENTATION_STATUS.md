@@ -1,5 +1,26 @@
 # Implementierungsstatus
 
+## WP-10 · Resetumfang und Dialogorientierung · 31.10.2026
+
+Lokal auf `feat/audit-wp-10` umgesetzt; Code-/Testcommit
+`8d382533a327f4dd0b0f49825197ecf7ceeac50b`, Basis der implementierte WP-09-Stand
+`64054a721d222588b7ca368e107593c1d1dcd62d`. de/en-Texte nennen Einstellungen
+und globalen Verlauf sowie bewusst erhaltene Feature-Daten. Der gemeinsame
+Dialog reserviert eine feste Kopfzeile für Titel/Schließen und eine eigene
+Scrollfläche; benannte Abschnitte und Fokus-Rückgabe der Inlinebestätigung
+ergänzen die Orientierung. Die Datenoperationen bleiben unverändert.
+
+Regressionen für Resetumfang, Abbrechen/Persistenz/Offline-Cache, Tastatur und
+vollständigen Fokusring bei nativem 200-%-Zoom sowie Drei-Engine-Reflow sind
+ergänzt. **Pflichtabnahme blockiert:** npm 11.19.0 und `npm ci` scheitern an
+Registry-403; check, Vitest, Builds und Playwright starten ihre Prüfer nicht.
+Neun TS/TSX-Syntaxdateien, 588 i18n-Schlüssel und Diffhygiene sind ergänzend
+geprüft. Gesichtet sind ausschließlich hashgebundene Vorherbilder des
+unveränderten WP-09-Produktionsbuilds; keine neuen Browsererfolge behauptet.
+Issue #71 bleibt offen, seine historische Ursache unbekannt. Keine Remoteaktion
+oder Freigabe. Identitäten, exakte Befehle, Ergebnisse und Offen / Folgearbeiten:
+[WP10](WP10.md).
+
 ## WP-09 · Umrechnerzahlen und Swap-Layout · 31.10.2026
 
 Auf `feat/audit-wp-09` ab main
