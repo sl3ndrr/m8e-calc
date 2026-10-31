@@ -8,11 +8,53 @@ import {
   checkConverterLongNames,
   checkConverterScrollAndCopy,
   converterCases,
+  converterGeometry,
   converterScenario,
   converterSettings,
 } from './convertLayout';
 
 test.use({ serviceWorkers: 'block' });
+test('WP-09 visibility measurement rejects a clipped result action', async ({
+  page,
+}, info) => {
+  await converterSettings(page, 'en', 'light', true);
+  await page.setViewportSize({ width: 3840, height: 2160 });
+  await page.goto('/m8e-calc/#/convert');
+  await ready(page, 'convert');
+  await converterScenario(page, 'en', ...converterCases[4]);
+  await checkConverterGeometry(page, info, 'visibility-control');
+  const button = page.locator('.convert-live > .ui-button');
+  const original = await button.getAttribute('style');
+  try {
+    await button.evaluate((node) => {
+      const row = node.parentElement;
+      if (!row) throw new Error('Missing live row');
+      const offset =
+        row.getBoundingClientRect().right - node.getBoundingClientRect().right;
+      node.style.position = 'relative';
+      node.style.left = `${offset + 6}px`;
+    });
+    const clipped = await converterGeometry(page);
+    await info.attach('visibility-negative-control', {
+      body: JSON.stringify(clipped, null, 2),
+      contentType: 'application/json',
+    });
+    const action = clipped.liveChildren.find((child) =>
+      child.name.includes('ui-button'),
+    );
+    expect(action).toBeDefined();
+    expect(action?.ratio).toBeLessThan(1);
+    const panel = clipped.panels.find((item) => item.name === 'convert-main');
+    if (!panel) throw new Error('Missing main panel');
+    expect(panel.scrollWidth).toBeGreaterThan(panel.clientWidth);
+  } finally {
+    await button.evaluate((node, style) => {
+      if (style === null) node.removeAttribute('style');
+      else node.setAttribute('style', style);
+    }, original);
+  }
+  await checkConverterGeometry(page, info, 'visibility-restored');
+});
 for (const [width, height] of [
   [1280, 900],
   [1920, 1080],

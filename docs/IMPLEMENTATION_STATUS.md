@@ -44,7 +44,12 @@ unverändert. Die neuen Panelassertions finden bei langen Zahlen auf 4K noch
 6 px Überlauf in Firefox (8 Fälle) und 7 px in Chromium (16 Fälle einschließlich
 nativer 200%-Fälle). Ansagetext erhält den Zahlenviewport als Positionierungsbasis;
 Einheit/Copy schrumpfen nicht. Neue strikte Kindergrenzen ergänzen die Messung.
-Dieser Fix benötigt eigene CI; kein älterer grüner Lauf validiert ihn.
+Head `f68f735` besteht Chromium 299, WebKit 247 (zwei bestehende Skips) und
+24 Visuals. Firefox findet nur noch einen DOMRect-Darstellungsunterschied von
+0,000076 px bei identischer Panel-Scroll-/Clientbreite. Native Schnittflächen
+mit exakt 100 % Sichtbarkeit und eine absichtliche 6-px-Beschnittgegenprobe
+ersetzen den zusätzlichen Kantenvergleich. Kein Produkt-/Bilddiff oder
+geänderter Grenzwert; dieser Messnachtrag benötigt eigene CI.
 
 Der externe neue Minimatch-Befund hält den Audit-/Quality-Gate trotz unverändertem
 Lockfile rot; keine Ausnahme oder Major-Overrides. Lokale npm-/Browserprüfungen

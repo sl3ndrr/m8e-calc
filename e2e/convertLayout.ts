@@ -51,7 +51,7 @@ export async function converterSettings(
 
 /** Rectangles, rather than absolute positioning alone, decide a collision. */
 export async function converterGeometry(page: Page) {
-  return page.locator('.convert-mode').evaluate((root) => {
+  return page.locator('.convert-mode').evaluate(async (root) => {
     const fields = root.querySelector('.convert-fields');
     const swap = fields?.querySelector('.convert-swap');
     if (!fields || !swap) throw new Error('Missing conversion fields');
@@ -95,20 +95,44 @@ export async function converterGeometry(page: Page) {
         dpr: devicePixelRatio,
       },
       pageOverflow: document.documentElement.scrollWidth > innerWidth,
-      liveChildren: Array.from(
-        root.querySelectorAll('.convert-live > *'),
-        (child) => {
-          const bounds = child.getBoundingClientRect();
-          const live = child.parentElement?.getBoundingClientRect();
-          if (!live) throw new Error('Missing live result row');
-          return {
-            name: child.className || child.tagName,
-            left: bounds.left,
-            right: bounds.right,
-            rowLeft: live.left,
-            rowRight: live.right,
-          };
-        },
+      liveChildren: await Promise.all(
+        Array.from(
+          root.querySelectorAll('.convert-live > *'),
+          async (child) => {
+            const bounds = child.getBoundingClientRect();
+            const row = child.parentElement;
+            const live = row?.getBoundingClientRect();
+            if (!live) throw new Error('Missing live result row');
+            // Use the browser's intersection calculation in native layout units.
+            // Gecko's separately exposed DOMRect doubles can disagree at a shared
+            // edge (2637.8167266845703 versus 2637.816650390625).
+            const visibility = await new Promise<{
+              intersects: boolean;
+              ratio: number;
+            }>((resolve) => {
+              const observer = new IntersectionObserver(
+                ([entry]) => {
+                  if (!entry) throw new Error('Missing live intersection');
+                  observer.disconnect();
+                  resolve({
+                    intersects: entry.isIntersecting,
+                    ratio: entry.intersectionRatio,
+                  });
+                },
+                { root: row, threshold: 1 },
+              );
+              observer.observe(child);
+            });
+            return {
+              name: child.className || child.tagName,
+              left: bounds.left,
+              right: bounds.right,
+              rowLeft: live.left,
+              rowRight: live.right,
+              ...visibility,
+            };
+          },
+        ),
       ),
       panels: Array.from(
         root.querySelectorAll(
@@ -161,8 +185,8 @@ export async function checkConverterGeometry(
   });
   expect(geometry.pageOverflow).toBe(false);
   for (const child of geometry.liveChildren) {
-    expect(child.left, child.name).toBeGreaterThanOrEqual(child.rowLeft);
-    expect(child.right, child.name).toBeLessThanOrEqual(child.rowRight);
+    expect(child.intersects, child.name).toBe(true);
+    expect(child.ratio, child.name).toBe(1);
   }
   expect(geometry.panels.length).toBeGreaterThan(0);
   for (const panel of geometry.panels)
