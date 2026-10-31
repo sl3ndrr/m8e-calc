@@ -18,6 +18,13 @@ Swapkollision; der Verdacht bleibt offen. Keine ungeprüfte Bildbaselineänderun
 kein Push/PR/CI-Start/Merge/Deploy und keine Freigabe. Code-/Diffidentität,
 exakte Befehle, Ergebnisse und Folgearbeiten: [WP09](WP09.md).
 
+Auf Folgeauftrag als Draft-PR #88 veröffentlicht; Remote- und lokaler Tree sind
+identisch. Die erste CI besteht Installation, Lint/Format und Typcheck, findet
+aber einen bestätigten Sprachfehler in der neuen englischen Testvorbereitung
+(638 UI-Erfolge, ein Fehler pro Node-Version). Vorhandene `setLocale`-Aktion
+ersetzt die inkonsistente direkte Locale-Zuweisung; Assertions und Produktcode
+bleiben erhalten. Eigene neue CI erforderlich; Originalbefund im WP09-Bericht.
+
 ## WP-08 · Wissenschaftlicher Hauptwert nach Zahlenpräferenzen · 30.10.2026
 
 Lokal auf `feat/audit-wp-08` ab `43b0765172223182634f81183dbc8d471ba77052`

@@ -30,8 +30,8 @@ afterEach(() => vi.useRealTimers());
 it.each(['de', 'en'] as const)(
   'WP-09 copies all 50 digits and the exponent independently of the scroll region in %s',
   async (locale) => {
-    useAppStore.setState({ locale });
     useSettingsStore.getState().updateSettings({ grouping: false });
+    useAppStore.getState().setLocale(locale);
     useConvertStore.getState().update({ digits: 50 });
     const user = userEvent.setup();
     const clipboard = vi.spyOn(navigator.clipboard, 'writeText');
