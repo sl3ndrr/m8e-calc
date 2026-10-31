@@ -29,7 +29,9 @@ Aufnahme ersetzen sie. WebKit besteht 246 Fälle, scheitert aber einmal am Fokus
 übrig gebliebenen kompakten Copy-Padding-/Iconmaße entfallen zugunsten der
 vollständigen gemeinsamen Buttonmaße. Der native Insetring erhält für HiDPI
 4px Stärke bei unverändertem Pixeloracle. Beide Nachträge benötigen eigene vollständige
-CI und Bildsichtung; tatsächliche finale Ergebnisse stehen im PR. Keine gelockerten
+CI und Bildsichtung; die sechs Standardmaß-Referenzen sind nach erneutem
+Alt-/Neu-Sichtvergleich gezielt übernommen, 18 andere unverändert. Tatsächliche
+finale Ergebnisse stehen im PR. Keine gelockerten
 Prüfgrenzen.
 
 Der externe neue Minimatch-Befund hält den Audit-/Quality-Gate trotz unverändertem
