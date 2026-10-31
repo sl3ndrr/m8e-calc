@@ -45,7 +45,7 @@ export function UnitResultCard({
         </span>
         <Button
           className="convert-unit-copy"
-          variant="text"
+          variant="tonal"
           shape="square"
           isDisabled={disabled}
           aria-labelledby={`${id}-name ${id}-value ${id}-symbol${system ? ` ${id}-system` : ''} ${id}-copy`}

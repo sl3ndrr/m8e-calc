@@ -205,14 +205,20 @@ export async function checkConverterScrollAndCopy(
   expect(
     await region.evaluate((node) => node.scrollWidth > node.clientWidth),
   ).toBe(true);
+  // scrollWidth/clientWidth are integer CSS pixels; at actual browser zoom,
+  // the native clamped scroll position can be fractional. Measure that exact
+  // endpoint first, restore the viewport, then require the key to reach it.
+  const scrollEnd = await region.evaluate((node) => {
+    const start = node.scrollLeft;
+    node.scrollLeft = node.scrollWidth;
+    const end = node.scrollLeft;
+    node.scrollLeft = start;
+    return end;
+  });
   await region.press('End');
   await expect
-    .poll(() =>
-      region.evaluate(
-        (node) => node.scrollLeft + node.clientWidth >= node.scrollWidth,
-      ),
-    )
-    .toBe(true);
+    .poll(() => region.evaluate((node) => node.scrollLeft))
+    .toBe(scrollEnd);
   const end = await region.locator('strong').evaluate((node) => {
     const text = node.firstChild;
     if (!text?.textContent) throw new Error('Missing number');

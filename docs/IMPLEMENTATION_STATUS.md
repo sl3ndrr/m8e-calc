@@ -17,8 +17,11 @@ korrigieren sie mit zusätzlichen Regressionen. Produkthead `46565e3` besteht
 beide vollständigen Node-Checks (641 UI/1744 Domänentests), Build/Benchmarks,
 Galerie, Provenienz, Performance und Quellen. Sechs Umrechnerreferenzen sind
 nach dokumentierter Alt-/Neu-Sichtung gezielt übernommen; 18 andere bleiben
-unverändert. Der Nachtrag benötigt eigene finale CI, deren tatsächliche Ergebnisse
-im PR festgehalten werden. Keine gelockerten Prüfgrenzen.
+unverändert. Weitere Teilberichte korrigieren die gerundete Scroll-Endpunktmessung,
+den Copy-Hoverkontrast über die gemeinsame Tonal-Variante und eine auf 1920 px
+begrenzte native 4K-Fensteranforderung. Exakte Startgrößen sind nun bindend; neue
+CI und sechs neue Tonal-Bildvergleiche sind erforderlich. Tatsächliche finale
+Ergebnisse stehen im PR. Keine gelockerten Prüfgrenzen.
 
 Der externe neue Minimatch-Befund hält den Audit-/Quality-Gate trotz unverändertem
 Lockfile rot; keine Ausnahme oder Major-Overrides. Lokale npm-/Browserprüfungen

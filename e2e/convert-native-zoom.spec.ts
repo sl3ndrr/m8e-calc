@@ -34,6 +34,9 @@ for (const [width, height] of [
             viewport: null,
             deviceScaleFactor: undefined,
             args: [
+              // Give every real browser window enough screen work area. Without
+              // this, headless Chrome clamps a requested 4K window to 1920 px.
+              '--screen-info={4096x2400}',
               `--window-size=${width},${height}`,
               `--disable-extensions-except=${extension}`,
               `--load-extension=${extension}`,
@@ -58,11 +61,22 @@ for (const [width, height] of [
             );
             await ready(page, 'convert');
             await expect(page.locator('html')).toHaveAttribute('lang', locale);
+            const cdp = await context.newCDPSession(page);
+            const { windowId } = await cdp.send('Browser.getWindowForTarget');
+            // Resize the actual window contents, not Emulation device metrics.
+            await cdp.send('Browser.setContentsSize', {
+              windowId,
+              width,
+              height,
+            });
+            await expect
+              .poll(() => page.evaluate(() => [innerWidth, innerHeight]))
+              .toEqual([width, height]);
             const initial = await page.evaluate(() => ({
               width: innerWidth,
+              height: innerHeight,
               dpr: devicePixelRatio,
             }));
-            const cdp = await context.newCDPSession(page);
             const browserVersion = await cdp.send('Browser.getVersion');
             for (const zoom of [1, 2]) {
               const actual = await controller.evaluate(async (factor) => {
@@ -151,6 +165,8 @@ for (const [width, height] of [
                     locale,
                     theme,
                     reduced,
+                    requestedViewport: { width, height },
+                    initial,
                     browser: browserVersion,
                     node: process.version,
                     viewport: await page.evaluate(() => ({
