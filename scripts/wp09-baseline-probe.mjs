@@ -1,4 +1,4 @@
-/* global document, innerWidth, innerHeight, devicePixelRatio, localStorage */
+/* global document, innerWidth, innerHeight, devicePixelRatio */
 import assert from 'node:assert/strict';
 import { chromium, expect } from '@playwright/test';
 import { createHash } from 'node:crypto';
