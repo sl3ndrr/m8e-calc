@@ -2,39 +2,31 @@
 
 ## WP-09 · Umrechnerzahlen und Swap-Layout · 31.10.2026
 
-Lokal auf `feat/audit-wp-09` ab main
-`9b5b3736d8fdeb2d2706658e04bfc357883c3134` einschließlich WP-08 umgesetzt.
-Vorzeichen/Mantisse/Exponent bleiben eine Zeile; benannte Zahlenbereiche scrollen
-mit eigener Tastatur-/Fokusbedienung, getrennte Copybuttons erhalten vollständige
-WP-04-Namen und unveränderte Kopierquellen. Swap erhält eigenen Gridplatz und
-die gemeinsame AP42-Pressoberfläche, auch im Währungspfad. Keine Domänen-,
-Präzisions-, Verlauf-, Abhängigkeits-, Token- oder Workflowänderung.
+Auf `feat/audit-wp-09` ab main
+`9b5b3736d8fdeb2d2706658e04bfc357883c3134` einschließlich WP-08 umgesetzt und
+auf Folgeauftrag als [Draft-PR #88](https://github.com/sl3ndrr/m8e-calc/pull/88)
+veröffentlicht. Vorzeichen/Mantisse/Exponent bleiben zusammen; benannte
+Zahlenbereiche sind unabhängig von der Copyaktion per Tastatur scrollbar.
+Swap besitzt eigenen Gridplatz mit gemeinsamen AP42-Formen/Pressoberflächen.
+WP-04-Namen, Präzision, Kopierquellen, Reducer, History, Favoriten und
+Währungs-Opt-in bleiben erhalten. Keine Domänen-/Token-/Abhängigkeitsänderung.
 
-Neue Komponenten-/Produktions-/echte 100/200%-Zoomregressionen sind ergänzt.
-Reguläres npm-ci/check/Build und Browserabnahme bleiben durch Registry-403 und
-fehlende Prüfer/Runtimes blockiert. Ergänzende Syntax-/i18n-/Format-/Reducerproben
-sind getrennte lokale Nachweise. Keine aktuellen Vorherbilder oder gemessene
-Swapkollision; der Verdacht bleibt offen. Keine ungeprüfte Bildbaselineänderung,
-kein Push/PR/CI-Start/Merge/Deploy und keine Freigabe. Code-/Diffidentität,
-exakte Befehle, Ergebnisse und Folgearbeiten: [WP09](WP09.md).
+Die ersten PR-Browserläufe fanden reale Landmark-/Fokusfehler; eindeutige de/en-
+Regionsnamen, sichtbare Copyaktion und Fokusübergabe nach Kategorienmount
+korrigieren sie mit zusätzlichen Regressionen. Produkthead `46565e3` besteht
+beide vollständigen Node-Checks (641 UI/1744 Domänentests), Build/Benchmarks,
+Galerie, Provenienz, Performance und Quellen. Sechs Umrechnerreferenzen sind
+nach dokumentierter Alt-/Neu-Sichtung gezielt übernommen; 18 andere bleiben
+unverändert. Der Nachtrag benötigt eigene finale CI, deren tatsächliche Ergebnisse
+im PR festgehalten werden. Keine gelockerten Prüfgrenzen.
 
-Auf Folgeauftrag als Draft-PR #88 veröffentlicht; Remote- und lokaler Tree sind
-identisch. Die erste CI besteht Installation, Lint/Format und Typcheck, findet
-aber einen bestätigten Sprachfehler in der neuen englischen Testvorbereitung
-(638 UI-Erfolge, ein Fehler pro Node-Version). Vorhandene `setLocale`-Aktion
-ersetzt die inkonsistente direkte Locale-Zuweisung; Assertions und Produktcode
-bleiben erhalten. Eigene neue CI erforderlich; Originalbefund im WP09-Bericht.
-
-Der zweite PR-Lauf besteht beide vollständigen Checks (639 UI/1744 Domänentests),
-Galerie, Provenienz, Performance und Quellen. Neue Browsernachweise bestätigen
-aber doppelte Landmarknamen, unzureichende Pixel-Fokusfläche der kleinen
-Kopieraktion und verlorenen Fokus beim Query-Kategorienwechsel. Getrennte
-de/en-Regionsnamen, eine sichtbare gemeinsame Square-Copyaktion und Fokusrückgabe
-nach dem Mount korrigieren diese Produktbefunde; native Aufnahmevorbereitung
-und 14-rem-Kartenminimum sind angepasst. Neue eigene CI/Bildsichtung erforderlich.
-Zusätzlich bleibt der unveränderte Toolchain-Audit wegen des neu veröffentlichten
-Minimatch-Advisory rot. Keine Audit-Ausnahme, Major-Overrides oder gelockerten
-Prüfgrenzen. Details und Quellen: [WP09](WP09.md).
+Der externe neue Minimatch-Befund hält den Audit-/Quality-Gate trotz unverändertem
+Lockfile rot; keine Ausnahme oder Major-Overrides. Lokale npm-/Browserprüfungen
+bleiben durch Registry-403/fehlende Runtimes begrenzt. Frische eigene Vorher-DOM-
+Messung und damit die ursprüngliche Ziffernüberdeckungshypothese bleiben offen;
+main-CI/Pages/aktiver Liveclient für diesen Diff sind nicht geprüft. Keine Freigabe
+oder Veröffentlichung der App. Exakte Identitäten, Befehle, Originalfehler,
+Bildreview und Grenzen: [WP09](WP09.md).
 
 ## WP-08 · Wissenschaftlicher Hauptwert nach Zahlenpräferenzen · 30.10.2026
 
