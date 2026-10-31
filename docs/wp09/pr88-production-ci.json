@@ -15,13 +15,8 @@
         "unexpected": 0,
         "flaky": 0
       },
-      "versions": [
-        "156.0.8078.4",
-        "Chrome/156.0.8078.4"
-      ],
-      "node": [
-        "v24.22.1"
-      ],
+      "versions": ["156.0.8078.4", "Chrome/156.0.8078.4"],
+      "node": ["v24.22.1"],
       "regular_wp09": 24,
       "native_wp09": 24
     },
@@ -34,12 +29,8 @@
         "unexpected": 0,
         "flaky": 0
       },
-      "versions": [
-        "157.0"
-      ],
-      "node": [
-        "v24.22.1"
-      ],
+      "versions": ["157.0"],
+      "node": ["v24.22.1"],
       "regular_wp09": 24,
       "native_wp09": 0
     },
@@ -52,12 +43,8 @@
         "unexpected": 1,
         "flaky": 0
       },
-      "versions": [
-        "27.2"
-      ],
-      "node": [
-        "v24.22.1"
-      ],
+      "versions": ["27.2"],
+      "node": ["v24.22.1"],
       "regular_wp09": 24,
       "native_wp09": 0,
       "failure": {
@@ -74,38 +61,20 @@
     {
       "width": 1280,
       "height": 900,
-      "zoom": [
-        1,
-        2
-      ],
-      "dpr": [
-        1,
-        2
-      ]
+      "zoom": [1, 2],
+      "dpr": [1, 2]
     },
     {
       "width": 1920,
       "height": 1080,
-      "zoom": [
-        1,
-        2
-      ],
-      "dpr": [
-        1,
-        2
-      ]
+      "zoom": [1, 2],
+      "dpr": [1, 2]
     },
     {
       "width": 3840,
       "height": 2160,
-      "zoom": [
-        1,
-        2
-      ],
-      "dpr": [
-        1,
-        2
-      ]
+      "zoom": [1, 2],
+      "dpr": [1, 2]
     }
   ],
   "geometry": {
