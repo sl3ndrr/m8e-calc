@@ -68,6 +68,19 @@ queue.add({ message: t('ui.saved', locale), actionLabel: t('ui.undo', locale),
 
 Ein Dialog kann kontrolliert (`isOpen`/`onOpenChange`) oder innerhalb des React-Aria-`DialogTrigger` benutzt werden. Ein Standalone-Popover braucht `triggerRef` und einen expliziten Open-State; innerhalb eines Trigger-Kontexts erhält es diese automatisch. Popover-Inhalte mit Formularaktionen in einen benannten React-Aria-Dialog einbetten.
 
+WP-10 ergänzt `Dialog.scrollable` für lange Formulare. Titel und genau eine
+Schließen-Aktion stehen in einer festen Kopfzeile; `.ui-dialog-content` ist die
+eigene scrollende Gridzeile darunter. Der Kopf belegt Layoutplatz und überlagert
+keine Felder. Innenabstand, 56px Scrollreserve (48px Control plus Fokusring) und
+Scrollmargen schützen auch visuell versteckte native React-Aria-Inputs; der
+initiale Dialogfokus verwendet einen innenliegenden Ring. Der Einstellungsdialog
+nutzt diese Option. Andere Aufrufer behalten die bisherige Standardeinstellung.
+React Aria und `useOverlayTransition` verwalten weiterhin genau denselben
+Overlay-/Fokusbereich einschließlich Escape, Exit, Unterbrechung und Rückgabe.
+Die Resetbestätigung bleibt ein benannter Abschnitt dieses Dialogs; Abbrechen
+und Bestätigen geben den Fokus an die Resetaktion zurück. Nachweisgrenzen und
+noch ausstehende Browserabnahme: [WP10](WP10.md).
+
 ## AP2-Kompatibilität
 
 ThemeSwitch verwendet SegmentedControl und Icon. Die drei Optionen, Systemstatus, Wraparound/Home/End, ein Tab-Stopp und Theme-Reveal bleiben erhalten. React Aria verwendet echte Radio-Inputs: Tests prüfen `checked` statt ein redundantes `aria-checked`-Attribut.

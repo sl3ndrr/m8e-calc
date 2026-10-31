@@ -1,0 +1,75 @@
+{
+  "role": "Unchanged WP09 production baseline only; never validation of WP10",
+  "run": 41215045745,
+  "source_head": "32b9bbd95be0bffd97ed30c7e87d1da02d9ffc5b",
+  "build_commit": "5d0dd807b133559da9d39683eafbae0543530217",
+  "wp10_base": "64054a721d222588b7ca368e107593c1d1dcd62d",
+  "comparison": "GitHub compare build..base changes only docs/WP09.md and docs/wp09/toolchain-security-metadata.json",
+  "production_artifact": 13047678975,
+  "production_zip_sha256": "106edae7cc943b38a4f78b62f2ab7e339b0700b8762ffcb79ac3f3e739cb2b16",
+  "production_files_verified": 145,
+  "production_fingerprint": "ba956160afe4e47a218927433c6cd7babb7f335d022a40704c4fd5fbaeffced6",
+  "browser_artifact": 13048372580,
+  "browser_zip_sha256": "3ec089aff925ed52e6c90d03441991b3ccd590945fe53c7f1329f5159d92e4f3",
+  "images": [
+    {
+      "file": "before-100.png",
+      "zoom": 1,
+      "dimensions": [1280, 813],
+      "sha256": "281aae1827a8e4f139911de2ca415cd4ee3393c3b97e47b32fb285efef0d71c4",
+      "original_path": "settings-native-zoom-setti-f62ea-ktop-at-native-100-200-zoom-chromium/settings-zoom-1.png",
+      "review": "Title and first controls visible. Close action is outside the initial viewport; no evidence of a focus defect."
+    },
+    {
+      "file": "before-200.png",
+      "zoom": 2,
+      "dimensions": [1280, 813],
+      "sha256": "86908d84dff7bdae974933f9161a017aaf664519bd0c1a8945c3be30ba4e6704",
+      "original_path": "settings-native-zoom-setti-f62ea-ktop-at-native-100-200-zoom-chromium/settings-zoom-2.png",
+      "review": "Title and first controls visible. Close action is outside the initial viewport; no evidence of a focus defect."
+    }
+  ],
+  "original_tests": [
+    {
+      "title": "AP48 history exit permits a cold settings click and a warm reopen",
+      "ok": true,
+      "results": [
+        {
+          "project": "chromium",
+          "status": "passed",
+          "duration_ms": 2294,
+          "retry": 0,
+          "start_time": "2026-10-31T15:46:03.043Z"
+        }
+      ]
+    },
+    {
+      "title": "settings and nested accent fit narrow desktop at native 100/200% zoom",
+      "ok": true,
+      "results": [
+        {
+          "project": "chromium",
+          "status": "passed",
+          "duration_ms": 4180,
+          "retry": 0,
+          "start_time": "2026-10-31T15:46:05.356Z"
+        }
+      ]
+    }
+  ],
+  "original_ci_identity": {
+    "commitHref": "https://github.com/sl3ndrr/m8e-calc/commit/5d0dd807b133559da9d39683eafbae0543530217",
+    "commitHash": "5d0dd807b133559da9d39683eafbae0543530217",
+    "prHref": "https://github.com/sl3ndrr/m8e-calc/pull/88",
+    "prTitle": "feat(convert): vollständige Zahlen und reservierter Swap-Platz (WP-09)",
+    "prBaseHash": "9b5b3736d8fdeb2d2706658e04bfc357883c3134",
+    "buildHref": "https://github.com/sl3ndrr/m8e-calc/actions/runs/41215045745"
+  },
+  "other_native_test_browser_in_same_job": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/156.0.8078.4",
+    "revision": "@f842f52ef39fd97b449eb27cff414bf05a98ddce",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "jsVersion": "15.6.75"
+  }
+}
