@@ -95,6 +95,21 @@ export async function converterGeometry(page: Page) {
         dpr: devicePixelRatio,
       },
       pageOverflow: document.documentElement.scrollWidth > innerWidth,
+      liveChildren: Array.from(
+        root.querySelectorAll('.convert-live > *'),
+        (child) => {
+          const bounds = child.getBoundingClientRect();
+          const live = child.parentElement?.getBoundingClientRect();
+          if (!live) throw new Error('Missing live result row');
+          return {
+            name: child.className || child.tagName,
+            left: bounds.left,
+            right: bounds.right,
+            rowLeft: live.left,
+            rowRight: live.right,
+          };
+        },
+      ),
       panels: Array.from(
         root.querySelectorAll(
           '.convert-main, .currency-panel, .convert-unit-grid',
@@ -145,6 +160,10 @@ export async function checkConverterGeometry(
     contentType: 'application/json',
   });
   expect(geometry.pageOverflow).toBe(false);
+  for (const child of geometry.liveChildren) {
+    expect(child.left, child.name).toBeGreaterThanOrEqual(child.rowLeft);
+    expect(child.right, child.name).toBeLessThanOrEqual(child.rowRight);
+  }
   expect(geometry.panels.length).toBeGreaterThan(0);
   for (const panel of geometry.panels)
     expect(panel.scrollWidth, panel.name).toBeLessThanOrEqual(

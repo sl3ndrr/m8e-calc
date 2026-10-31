@@ -38,7 +38,13 @@ Der vollständige Head `55978e8` besteht alle drei Browserläufe und 24/24
 Visuals; die Sichtung findet dennoch einen intrinsisch zu breiten Hauptwert
 (1356 px in 1280 px). Begrenzte Panelspalte, natürliche Zeilenhöhen und eine
 begrenzte Hauptwertzeile korrigieren ihn; neue Panel-/Zeilen-/Home-End-Prüfungen
-machen diese bisher fehlende Abnahme bindend. Neue eigene CI erforderlich.
+machen diese bisher fehlende Abnahme bindend. Zwei betroffene FHD-Referenzen
+sind nach Sichtvergleich gezielt übernommen; 22 andere bleiben im Nachtrag
+unverändert. Die neuen Panelassertions finden bei langen Zahlen auf 4K noch
+6 px Überlauf in Firefox (8 Fälle) und 7 px in Chromium (16 Fälle einschließlich
+nativer 200%-Fälle). Ansagetext erhält den Zahlenviewport als Positionierungsbasis;
+Einheit/Copy schrumpfen nicht. Neue strikte Kindergrenzen ergänzen die Messung.
+Dieser Fix benötigt eigene CI; kein älterer grüner Lauf validiert ihn.
 
 Der externe neue Minimatch-Befund hält den Audit-/Quality-Gate trotz unverändertem
 Lockfile rot; keine Ausnahme oder Major-Overrides. Lokale npm-/Browserprüfungen

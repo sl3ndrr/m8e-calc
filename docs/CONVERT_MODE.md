@@ -61,7 +61,9 @@ Das Hauptpanel begrenzt seine Gridspalte explizit auf die verfügbare Breite;
 Inhaltszeilen behalten ihre natürliche Höhe und das Panel scrollt vertikal.
 Hauptzahl, Einheit und Kopieraktion bleiben in einer Zeile; der Zahlenbereich
 schrumpft innerhalb dieser Zeile und scrollt selbst horizontal. Er darf keinen
-verdeckten horizontalen Überlauf des gesamten Panels verursachen.
+verdeckten horizontalen Überlauf des gesamten Panels verursachen. Einheit und
+Kopieraktion schrumpfen nicht; absolut positionierter Ansagetext bleibt an den
+Zahlenviewport gebunden.
 Dies gilt auch für Hauptwert und Währungskarten/-ergebnis. Tab führt separat
 zum Kopierbutton. Fokus liegt mit Tintenreserve innerhalb des Scrollbereichs,
 Forced Colors verwendet Highlight. Anzeigepräzision, vollständige formatierte

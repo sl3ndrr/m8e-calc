@@ -156,7 +156,12 @@
 .convert-live > .convert-number-scroll {
   flex: 0 1 auto;
 }
+.convert-live > :not(.convert-number-scroll) {
+  flex: 0 0 auto;
+}
 .convert-number-scroll {
+  /* Keep the animated output's absolutely positioned live text in this viewport. */
+  position: relative;
   min-width: 0;
   max-width: 100%;
   overflow-x: auto;
