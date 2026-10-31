@@ -34,6 +34,12 @@ Alt-/Neu-Sichtvergleich gezielt übernommen, 18 andere unverändert. Tatsächlic
 finale Ergebnisse stehen im PR. Keine gelockerten
 Prüfgrenzen.
 
+Der vollständige Head `55978e8` besteht alle drei Browserläufe und 24/24
+Visuals; die Sichtung findet dennoch einen intrinsisch zu breiten Hauptwert
+(1356 px in 1280 px). Begrenzte Panelspalte, natürliche Zeilenhöhen und eine
+begrenzte Hauptwertzeile korrigieren ihn; neue Panel-/Zeilen-/Home-End-Prüfungen
+machen diese bisher fehlende Abnahme bindend. Neue eigene CI erforderlich.
+
 Der externe neue Minimatch-Befund hält den Audit-/Quality-Gate trotz unverändertem
 Lockfile rot; keine Ausnahme oder Major-Overrides. Lokale npm-/Browserprüfungen
 bleiben durch Registry-403/fehlende Runtimes begrenzt. Frische eigene Vorher-DOM-

@@ -57,6 +57,11 @@ raster verwendet mindestens 14 rem pro Karte, begrenzt durch die verfügbare
 Breite. Lange Namen dürfen umbrechen; lange Zahlen scrollen innerhalb eines
 benannten, fokussierbaren Bereichs. Pfeile scrollen nativ, Home/End erreichen
 Anfang/Ende horizontal; modifizierte Tastenkombinationen bleiben nativ.
+Das Hauptpanel begrenzt seine Gridspalte explizit auf die verfügbare Breite;
+Inhaltszeilen behalten ihre natürliche Höhe und das Panel scrollt vertikal.
+Hauptzahl, Einheit und Kopieraktion bleiben in einer Zeile; der Zahlenbereich
+schrumpft innerhalb dieser Zeile und scrollt selbst horizontal. Er darf keinen
+verdeckten horizontalen Überlauf des gesamten Panels verursachen.
 Dies gilt auch für Hauptwert und Währungskarten/-ergebnis. Tab führt separat
 zum Kopierbutton. Fokus liegt mit Tintenreserve innerhalb des Scrollbereichs,
 Forced Colors verwendet Highlight. Anzeigepräzision, vollständige formatierte

@@ -95,6 +95,29 @@ export async function converterGeometry(page: Page) {
         dpr: devicePixelRatio,
       },
       pageOverflow: document.documentElement.scrollWidth > innerWidth,
+      panels: Array.from(
+        root.querySelectorAll(
+          '.convert-main, .currency-panel, .convert-unit-grid',
+        ),
+        (panel) => ({
+          name: panel.className,
+          scrollWidth: panel.scrollWidth,
+          clientWidth: panel.clientWidth,
+        }),
+      ),
+      liveFormatOverlaps: Array.from(
+        root.querySelectorAll('.convert-live > *'),
+        (child) => {
+          const format = root.querySelector('.convert-format');
+          if (!format) throw new Error('Missing format controls');
+          const a = child.getBoundingClientRect();
+          const b = format.getBoundingClientRect();
+          return (
+            Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)) *
+            Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top))
+          );
+        },
+      ),
       collisions,
       numbers,
     };
@@ -122,6 +145,12 @@ export async function checkConverterGeometry(
     contentType: 'application/json',
   });
   expect(geometry.pageOverflow).toBe(false);
+  expect(geometry.panels.length).toBeGreaterThan(0);
+  for (const panel of geometry.panels)
+    expect(panel.scrollWidth, panel.name).toBeLessThanOrEqual(
+      panel.clientWidth,
+    );
+  expect(geometry.liveFormatOverlaps.every((area) => area === 0)).toBe(true);
   expect(geometry.collisions).toEqual([0, 0]);
   expect(geometry.numbers.length).toBeGreaterThan(1);
   for (const number of geometry.numbers) {
@@ -192,6 +221,40 @@ export async function checkConverterScrollAndCopy(
   locale: 'de' | 'en',
   expected: string,
 ) {
+  const main = page.locator('.convert-live > .convert-number-scroll');
+  expect(
+    await main.evaluate((node) => node.scrollWidth > node.clientWidth),
+  ).toBe(true);
+  await tabTo(page, main);
+  const mainEnd = await main.evaluate((node) => {
+    const start = node.scrollLeft;
+    node.scrollLeft = node.scrollWidth;
+    const end = node.scrollLeft;
+    node.scrollLeft = start;
+    return end;
+  });
+  await main.press('End');
+  await expect
+    .poll(() => main.evaluate((node) => node.scrollLeft))
+    .toBe(mainEnd);
+  const mainEdge = async (key: 'Home' | 'End') =>
+    main
+      .locator('.convert-result > [aria-hidden="true"]')
+      .evaluate((node, key) => {
+        const viewport = node.closest('.convert-number-scroll');
+        if (!viewport) throw new Error('Missing main number viewport');
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        const text = range.getBoundingClientRect();
+        const bounds = viewport.getBoundingClientRect();
+        return key === 'Home'
+          ? text.left >= bounds.left && text.left < bounds.right
+          : text.right <= bounds.right && text.right > bounds.left;
+      }, key);
+  expect(await mainEdge('End'), 'main exponent end reachable').toBe(true);
+  await main.press('Home');
+  await expect.poll(() => main.evaluate((node) => node.scrollLeft)).toBe(0);
+  expect(await mainEdge('Home'), 'main sign reachable').toBe(true);
   const card = page
     .locator('.convert-unit-card')
     .filter({ has: page.locator('.convert-unit-symbol', { hasText: /^cm$/ }) });
