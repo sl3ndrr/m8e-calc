@@ -46,13 +46,14 @@ it.each(['de', 'en'] as const)(
     await user.keyboard('{Enter}');
     const expected = `-1${locale === 'de' ? ',' : '.'}${digits}e-9997`;
     const name = locale === 'de' ? 'Meter' : 'metre';
-    // One main result region and one card region refer to the same target.
-    // Select the card explicitly, while keeping the full accessible-name assertion.
-    const meterCard = screen
-      .getAllByRole('region', {
-        name: t('convert.valueRegion', locale, { unit: name }),
-      })
-      .find((node) => node.closest('.convert-unit-card'));
+    const mainResult = screen.getByRole('region', {
+      name: t('convert.resultRegion', locale, { unit: name }),
+    });
+    const meterCard = screen.getByRole('region', {
+      name: t('convert.valueRegion', locale, { unit: name }),
+    });
+    expect(mainResult).not.toBe(meterCard);
+    expect(mainResult).toHaveTextContent(expected);
     if (!meterCard?.parentElement) throw new Error('Expected meter card');
     expect(meterCard.textContent).toBe(expected);
     const copy = within(meterCard.parentElement).getByRole('button');
@@ -64,6 +65,36 @@ it.each(['de', 'en'] as const)(
     await user.click(copy);
     expect(clipboard).toHaveBeenLastCalledWith(`${expected} m`);
     clipboard.mockRestore();
+  },
+);
+it.each(['de', 'en'] as const)(
+  'WP-09 focuses the newly mounted source after a quick query changes category in %s',
+  async (locale) => {
+    useAppStore.getState().setLocale(locale);
+    const user = userEvent.setup();
+    render(<ConvertMode />);
+    const quick = screen.getByRole('textbox', {
+      name: t('convert.quick', locale),
+    });
+    for (const [query, expected] of [
+      ['5 km in m', locale === 'de' ? '5.000' : '5,000'],
+      ['72 °F -> °C', locale === 'de' ? '22,222222' : '22.222222'],
+      ['1 m in cm', '100'],
+    ] as const) {
+      fireEvent.change(quick, { target: { value: query } });
+      quick.focus();
+      await user.keyboard('{Enter}');
+      expect(
+        screen.getByRole('textbox', {
+          name: t('convert.from', locale),
+        }),
+      ).toHaveFocus();
+      expect(
+        screen.getByRole('textbox', {
+          name: t('convert.to', locale),
+        }),
+      ).toHaveValue(expected);
+    }
   },
 );
 it.each(['de', 'en'] as const)(

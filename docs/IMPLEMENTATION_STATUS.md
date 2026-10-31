@@ -25,6 +25,17 @@ aber einen bestätigten Sprachfehler in der neuen englischen Testvorbereitung
 ersetzt die inkonsistente direkte Locale-Zuweisung; Assertions und Produktcode
 bleiben erhalten. Eigene neue CI erforderlich; Originalbefund im WP09-Bericht.
 
+Der zweite PR-Lauf besteht beide vollständigen Checks (639 UI/1744 Domänentests),
+Galerie, Provenienz, Performance und Quellen. Neue Browsernachweise bestätigen
+aber doppelte Landmarknamen, unzureichende Pixel-Fokusfläche der kleinen
+Kopieraktion und verlorenen Fokus beim Query-Kategorienwechsel. Getrennte
+de/en-Regionsnamen, eine sichtbare gemeinsame Square-Copyaktion und Fokusrückgabe
+nach dem Mount korrigieren diese Produktbefunde; native Aufnahmevorbereitung
+und 14-rem-Kartenminimum sind angepasst. Neue eigene CI/Bildsichtung erforderlich.
+Zusätzlich bleibt der unveränderte Toolchain-Audit wegen des neu veröffentlichten
+Minimatch-Advisory rot. Keine Audit-Ausnahme, Major-Overrides oder gelockerten
+Prüfgrenzen. Details und Quellen: [WP09](WP09.md).
+
 ## WP-08 · Wissenschaftlicher Hauptwert nach Zahlenpräferenzen · 30.10.2026
 
 Lokal auf `feat/audit-wp-08` ab `43b0765172223182634f81183dbc8d471ba77052`

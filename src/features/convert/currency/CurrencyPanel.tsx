@@ -164,7 +164,7 @@ export function CurrencyPanel({
             }}
           />
           <NumberRegion
-            label={t('convert.valueRegion', locale, {
+            label={t('convert.resultRegion', locale, {
               unit:
                 category.units.find((unit) => unit.id === to)?.names[locale] ??
                 to,
@@ -207,6 +207,7 @@ export function CurrencyPanel({
                 copyLabel={t('convert.copyUnit', locale, {
                   unit: unit.names[locale],
                 })}
+                copyActionLabel={t('convert.copyAction', locale)}
                 disabled={!engine || !!error}
                 onCopy={() => {
                   void copy(`${text} (${unit.id})`);

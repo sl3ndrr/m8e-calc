@@ -20,6 +20,7 @@ it.each(['de', 'en'] as const)(
         system="SI"
         valueLabel={t('convert.valueRegion', locale, { unit: name })}
         copyLabel={copyLabel}
+        copyActionLabel={t('convert.copyAction', locale)}
         onCopy={onCopy}
       />,
     );

@@ -110,6 +110,7 @@ for (const [width, height] of [
                 })
                 .getByRole('region');
               for (const key of ['Home', 'End']) {
+                await region.scrollIntoViewIfNeeded();
                 await region.focus();
                 await region.press(key);
                 await expect(region).toBeInViewport({ ratio: 1 });

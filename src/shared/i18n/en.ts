@@ -36,6 +36,8 @@ export const en: Dictionary = {
   'convert.toUnit': 'To unit',
   'convert.result': 'Result',
   'convert.valueRegion': 'Complete value for {unit}',
+  'convert.resultRegion': 'Conversion result for {unit}',
+  'convert.copyAction': 'Copy',
   'convert.swap': 'Swap from and to',
   'convert.copyResult': 'Copy result',
   'convert.favorites': 'Favorites',

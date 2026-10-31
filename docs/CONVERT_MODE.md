@@ -41,10 +41,14 @@ Kein pauschales `aria-label` verdeckt diese Inhalte und keine zusätzliche
 Live-Region wiederholt sie. WP-09 verknüpft die sichtbaren Kartenbestandteile
 und den lokalisierten Aktionstext über `aria-labelledby` mit dem getrennten
 Kopierbutton. Der Zahlenbereich ist dessen Geschwister, kein interaktives Kind.
+Der Kopierbutton zeigt die kurze lokalisierte Aktion mit Icon und nutzt die
+vorhandene gemeinsame Square-Form. Hauptwert und Einheitenkarte erhalten
+unterschiedliche Regionsnamen (Umrechnungsergebnis beziehungsweise vollständiger
+Einheitenwert); der gleiche Zielwert erzeugt keine doppelt benannten Landmarks.
 WP-04-Nachweise und offene Abnahme: [WP04](WP04.md).
 
 Vorzeichen, Mantisse und Exponent bleiben eine ungetrennte Zeile. Das Einheiten-
-raster verwendet mindestens 16 rem pro Karte, begrenzt durch die verfügbare
+raster verwendet mindestens 14 rem pro Karte, begrenzt durch die verfügbare
 Breite. Lange Namen dürfen umbrechen; lange Zahlen scrollen innerhalb eines
 benannten, fokussierbaren Bereichs. Pfeile scrollen nativ, Home/End erreichen
 Anfang/Ende horizontal; modifizierte Tastenkombinationen bleiben nativ.
@@ -75,6 +79,9 @@ die lokalisierte Feldmeldung eindeutige Einheiten und den Pfeil als Trenner.
 Fehler übernehmen weder Menge noch Paar; der Fokus bleibt in der Schnelleingabe.
 Erfolgreiche Übernahme fokussiert wie bisher das Von-Feld. Ohne Ziel gilt weiter
 die oben beschriebene Zielwahl des Reducers.
+Bei einem Kategoriewechsel erfolgt diese Fokusrückgabe nach dem Mount der neuen
+Feldkarte; der durch die Shared-Axis-Präsentation entfernte alte Input ist kein
+gültiges Fokusziel. Nur die erfolgreiche Schnelleingabe setzt diese Fokusabsicht.
 
 `m8e-calc.convert`, Version 1, speichert validierte Favoritenpaare (max. 100),
 zuletzt verwendete Paare (max. 12), signifikante Stellen (1–50), Notation,

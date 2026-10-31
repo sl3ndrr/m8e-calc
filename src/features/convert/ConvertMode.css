@@ -234,7 +234,7 @@
   align-content: start;
   scrollbar-gutter: stable;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
   gap: 0.75rem;
 }
 .convert-unit-card {
@@ -264,6 +264,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 .convert-unit-copy .ui-icon {
   font-size: 1rem;

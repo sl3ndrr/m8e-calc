@@ -12,6 +12,7 @@ export function UnitResultCard({
   system,
   valueLabel,
   copyLabel,
+  copyActionLabel,
   active = false,
   disabled = false,
   onCopy,
@@ -22,6 +23,7 @@ export function UnitResultCard({
   system?: string;
   valueLabel: string;
   copyLabel: string;
+  copyActionLabel: string;
   active?: boolean;
   disabled?: boolean;
   onCopy: () => void;
@@ -44,11 +46,13 @@ export function UnitResultCard({
         <Button
           className="convert-unit-copy"
           variant="text"
+          shape="square"
           isDisabled={disabled}
           aria-labelledby={`${id}-name ${id}-value ${id}-symbol${system ? ` ${id}-system` : ''} ${id}-copy`}
           onPress={onCopy}
         >
           <Icon name="content_copy" />
+          <span>{copyActionLabel}</span>
           <VisuallyHidden id={`${id}-copy`}>{copyLabel}</VisuallyHidden>
         </Button>
       </div>

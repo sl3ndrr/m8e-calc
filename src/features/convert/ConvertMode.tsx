@@ -1,6 +1,7 @@
 import {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useReducer,
   useRef,
@@ -166,6 +167,7 @@ export default function ConvertMode() {
   const categoryGrid = useRef<HTMLDivElement>(null);
   const quick = useRef<HTMLFormElement>(null);
   const fromField = useRef<HTMLDivElement>(null);
+  const focusFromAfterQuery = useRef(false);
   const sent = useRef('');
   const category = categoryFor(state.categoryId);
   const categories = filteredCategories(search, locale);
@@ -207,6 +209,11 @@ export default function ConvertMode() {
     dispatch({ type: 'restore', payload });
   }, []);
   const { add } = useModeHistory('convert', restore);
+  useLayoutEffect(() => {
+    if (!focusFromAfterQuery.current) return;
+    focusFromAfterQuery.current = false;
+    fromField.current?.querySelector('input')?.focus();
+  }, [state.revision]);
   useEffect(() => {
     if (
       currencyActive ||
@@ -306,8 +313,8 @@ export default function ConvertMode() {
     });
     setQueryError(next.error);
     if (!next.error) {
+      focusFromAfterQuery.current = true;
       dispatch({ type: 'query', text: query, locale: formatLocale });
-      fromField.current?.querySelector('input')?.focus();
     }
   }
   async function copy(value: string): Promise<void> {
@@ -588,7 +595,7 @@ export default function ConvertMode() {
                 {!state.error && values[state.toId] && (
                   <>
                     <NumberRegion
-                      label={t('convert.valueRegion', locale, {
+                      label={t('convert.resultRegion', locale, {
                         unit: unitFor(state.toId).names[locale],
                       })}
                     >
@@ -701,6 +708,7 @@ export default function ConvertMode() {
                     copyLabel={t('convert.copyUnit', locale, {
                       unit: unit.names[locale],
                     })}
+                    copyActionLabel={t('convert.copyAction', locale)}
                     onCopy={() => {
                       const value = values[unit.id];
                       if (value !== undefined)
