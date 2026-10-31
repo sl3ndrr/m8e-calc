@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import ConvertMode from './ConvertMode';
@@ -10,9 +10,12 @@ import { getMode } from '../../app/modeRegistry';
 import { t } from '../../shared/i18n/extended';
 beforeEach(() => {
   useAppStore.setState({ locale: 'de' });
-  useSettingsStore
-    .getState()
-    .updateSettings({ language: 'de', motionLevel: 'off' });
+  useSettingsStore.getState().updateSettings({
+    language: 'de',
+    motionLevel: 'off',
+    grouping: true,
+    decimalSeparator: 'auto',
+  });
   useHistoryStore.getState().resetHistory();
   useConvertStore.getState().update({
     favorites: [],
@@ -24,6 +27,45 @@ beforeEach(() => {
   });
 });
 afterEach(() => vi.useRealTimers());
+it.each(['de', 'en'] as const)(
+  'WP-09 copies all 50 digits and the exponent independently of the scroll region in %s',
+  async (locale) => {
+    useAppStore.setState({ locale });
+    useSettingsStore.getState().updateSettings({ grouping: false });
+    useConvertStore.getState().update({ digits: 50 });
+    const user = userEvent.setup();
+    const clipboard = vi.spyOn(navigator.clipboard, 'writeText');
+    render(<ConvertMode />);
+    const quick = screen.getByRole('textbox', {
+      name: t('convert.quick', locale),
+    });
+    const digits = '2345678901234567890123456789012345678901234567891';
+    const input = `-1${locale === 'de' ? ',' : '.'}${digits}e-10000`;
+    fireEvent.change(quick, { target: { value: `${input} km in m` } });
+    quick.focus();
+    await user.keyboard('{Enter}');
+    const expected = `-1${locale === 'de' ? ',' : '.'}${digits}e-9997`;
+    const name = locale === 'de' ? 'Meter' : 'metre';
+    // One main result region and one card region refer to the same target.
+    // Select the card explicitly, while keeping the full accessible-name assertion.
+    const meterCard = screen
+      .getAllByRole('region', {
+        name: t('convert.valueRegion', locale, { unit: name }),
+      })
+      .find((node) => node.closest('.convert-unit-card'));
+    if (!meterCard?.parentElement) throw new Error('Expected meter card');
+    expect(meterCard.textContent).toBe(expected);
+    const copy = within(meterCard.parentElement).getByRole('button');
+    expect(copy).toHaveAccessibleName(
+      `${name} ${expected} m ${t('convert.system.si', locale)} ${t('convert.copyUnit', locale, { unit: name })}`,
+    );
+    await user.click(meterCard);
+    expect(clipboard).not.toHaveBeenCalled();
+    await user.click(copy);
+    expect(clipboard).toHaveBeenLastCalledWith(`${expected} m`);
+    clipboard.mockRestore();
+  },
+);
 it.each(['de', 'en'] as const)(
   'applies inch queries and announces ambiguity in %s',
   async (locale) => {

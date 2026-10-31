@@ -51,6 +51,8 @@ import {
 } from './model';
 import { useConvertStore } from './preferences';
 import './ConvertMode.css';
+import { NumberRegion } from './NumberRegion';
+import { UnitResultCard } from './UnitResultCard';
 import { CurrencyPanel } from './currency/CurrencyPanel';
 import { currencyCategory } from './currency/catalog';
 import { useCurrencyRates } from './currency/useCurrencyRates';
@@ -548,7 +550,6 @@ export default function ConvertMode() {
                   className="convert-swap"
                   isDisabled={!!state.error}
                   onPress={() => dispatch({ type: 'swap' })}
-                  style={{ rotate: `${state.swaps * 180}deg` }}
                 />
                 <Card className="convert-field convert-target">
                   <TextField
@@ -586,11 +587,17 @@ export default function ConvertMode() {
               <div className="convert-live">
                 {!state.error && values[state.toId] && (
                   <>
-                    <AnimatedNumber
-                      value={values[state.toId] ?? '0'}
-                      unitId={state.toId}
-                      options={options}
-                    />
+                    <NumberRegion
+                      label={t('convert.valueRegion', locale, {
+                        unit: unitFor(state.toId).names[locale],
+                      })}
+                    >
+                      <AnimatedNumber
+                        value={values[state.toId] ?? '0'}
+                        unitId={state.toId}
+                        options={options}
+                      />
+                    </NumberRegion>
                     <span>{unitFor(state.toId).symbol}</span>
                     <Button
                       variant="text"
@@ -676,46 +683,30 @@ export default function ConvertMode() {
               </div>
               <div className="convert-unit-grid">
                 {units.map((unit) => (
-                  <Card
+                  <UnitResultCard
                     key={unit.id}
-                    className="convert-unit-card"
-                    data-active={unit.id === state.toId || undefined}
-                  >
-                    <Button
-                      variant="text"
-                      isDisabled={!!state.error}
-                      onPress={() => {
-                        const value = values[unit.id];
-                        if (value !== undefined)
-                          void copy(quantity(value, unit.id, options));
-                      }}
-                    >
-                      <span className="convert-unit-name">
-                        {unit.names[locale]}
-                      </span>
-                      <strong className="expression">
-                        {values[unit.id] !== undefined
-                          ? numericText(
-                              values[unit.id] ?? '0',
-                              unit.id,
-                              options,
-                            )
-                          : '—'}
-                      </strong>
-                      <span className="convert-unit-symbol">
-                        {unit.symbol}
-                        <Icon name="content_copy" />
-                      </span>
-                      <span className="convert-unit-system">
-                        {t(`convert.system.${unit.system}`, locale)}
-                      </span>
-                      <VisuallyHidden>
-                        {t('convert.copyUnit', locale, {
-                          unit: unit.names[locale],
-                        })}
-                      </VisuallyHidden>
-                    </Button>
-                  </Card>
+                    active={unit.id === state.toId}
+                    disabled={!!state.error}
+                    name={unit.names[locale]}
+                    value={
+                      values[unit.id] !== undefined
+                        ? numericText(values[unit.id] ?? '0', unit.id, options)
+                        : '—'
+                    }
+                    symbol={unit.symbol}
+                    system={t(`convert.system.${unit.system}`, locale)}
+                    valueLabel={t('convert.valueRegion', locale, {
+                      unit: unit.names[locale],
+                    })}
+                    copyLabel={t('convert.copyUnit', locale, {
+                      unit: unit.names[locale],
+                    })}
+                    onCopy={() => {
+                      const value = values[unit.id];
+                      if (value !== undefined)
+                        void copy(quantity(value, unit.id, options));
+                    }}
+                  />
                 ))}
               </div>
             </section>

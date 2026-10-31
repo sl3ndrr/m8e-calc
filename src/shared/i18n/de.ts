@@ -37,6 +37,7 @@ export const de = {
   'convert.fromUnit': 'Einheit von',
   'convert.toUnit': 'Einheit nach',
   'convert.result': 'Ergebnis',
+  'convert.valueRegion': 'Vollständiger Wert für {unit}',
   'convert.swap': 'Von und Nach tauschen',
   'convert.copyResult': 'Ergebnis kopieren',
   'convert.favorites': 'Favoriten',

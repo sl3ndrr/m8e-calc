@@ -1,0 +1,83 @@
+import { expect, test } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+import { allowClipboard } from './clipboard';
+import { ready } from './qa-setup';
+import { t } from '../src/shared/i18n/extended';
+import {
+  checkConverterGeometry,
+  checkConverterLongNames,
+  checkConverterScrollAndCopy,
+  converterCases,
+  converterScenario,
+  converterSettings,
+} from './convertLayout';
+
+test.use({ serviceWorkers: 'block' });
+for (const [width, height] of [
+  [1280, 900],
+  [1920, 1080],
+  [3840, 2160],
+] as const) {
+  for (const locale of ['de', 'en'] as const) {
+    for (const theme of ['light', 'dark'] as const) {
+      for (const reduced of [false, true]) {
+        test(`WP-09 ${width}/${locale}/${theme}/reduced=${reduced}: complete numbers and reserved swap`, async ({
+          page,
+          context,
+        }, info) => {
+          await allowClipboard(context);
+          await converterSettings(page, locale, theme, reduced);
+          await page.setViewportSize({ width, height });
+          await page.goto('/m8e-calc/#/convert');
+          await ready(page, 'convert');
+          await expect(page.locator('html')).toHaveAttribute('lang', locale);
+          for (const [index, [source, result]] of converterCases.entries()) {
+            const expected = await converterScenario(
+              page,
+              locale,
+              source,
+              result,
+            );
+            await checkConverterGeometry(page, info, String(index));
+            if (index === 4)
+              await checkConverterScrollAndCopy(page, locale, expected);
+          }
+          const swap = page.getByRole('button', {
+            name: t('convert.swap', locale),
+            exact: true,
+          });
+          // Zero stays a real result through native pointer, Space and Enter swaps.
+          await converterScenario(page, locale, '0', '0');
+          for (const action of ['click', 'Space', 'Enter']) {
+            if (action === 'click') await swap.click();
+            else await swap.press(action);
+            await expect(
+              page.getByRole('textbox', {
+                name: t('convert.to', locale),
+                exact: true,
+              }),
+            ).toHaveValue('0');
+            await checkConverterGeometry(page, info, `swap-${action}`);
+          }
+          await checkConverterLongNames(page, locale, info, String(width));
+          expect(
+            (
+              await new AxeBuilder({ page })
+                .include('.convert-mode')
+                .withRules(['label-content-name-mismatch'])
+                .analyze()
+            ).violations,
+          ).toEqual([]);
+          expect(
+            (await new AxeBuilder({ page }).include('.convert-mode').analyze())
+              .violations,
+          ).toEqual([]);
+          await info.attach('converter', {
+            body: await page.screenshot({ fullPage: true }),
+            contentType: 'image/png',
+          });
+        });
+      }
+    }
+  }
+}

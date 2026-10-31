@@ -1,5 +1,23 @@
 # Implementierungsstatus
 
+## WP-09 · Umrechnerzahlen und Swap-Layout · 31.10.2026
+
+Lokal auf `feat/audit-wp-09` ab main
+`9b5b3736d8fdeb2d2706658e04bfc357883c3134` einschließlich WP-08 umgesetzt.
+Vorzeichen/Mantisse/Exponent bleiben eine Zeile; benannte Zahlenbereiche scrollen
+mit eigener Tastatur-/Fokusbedienung, getrennte Copybuttons erhalten vollständige
+WP-04-Namen und unveränderte Kopierquellen. Swap erhält eigenen Gridplatz und
+die gemeinsame AP42-Pressoberfläche, auch im Währungspfad. Keine Domänen-,
+Präzisions-, Verlauf-, Abhängigkeits-, Token- oder Workflowänderung.
+
+Neue Komponenten-/Produktions-/echte 100/200%-Zoomregressionen sind ergänzt.
+Reguläres npm-ci/check/Build und Browserabnahme bleiben durch Registry-403 und
+fehlende Prüfer/Runtimes blockiert. Ergänzende Syntax-/i18n-/Format-/Reducerproben
+sind getrennte lokale Nachweise. Keine aktuellen Vorherbilder oder gemessene
+Swapkollision; der Verdacht bleibt offen. Keine ungeprüfte Bildbaselineänderung,
+kein Push/PR/CI-Start/Merge/Deploy und keine Freigabe. Code-/Diffidentität,
+exakte Befehle, Ergebnisse und Folgearbeiten: [WP09](WP09.md).
+
 ## WP-08 · Wissenschaftlicher Hauptwert nach Zahlenpräferenzen · 30.10.2026
 
 Lokal auf `feat/audit-wp-08` ab `43b0765172223182634f81183dbc8d471ba77052`
