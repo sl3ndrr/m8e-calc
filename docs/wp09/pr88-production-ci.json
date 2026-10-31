@@ -1,0 +1,152 @@
+{
+  "captured_utc": "2026-10-31T10:56:17.932818+00:00",
+  "head": "2909253a7d180717d3f6f688e60bd25b9013304a",
+  "local_commit": "b594be70bd0b1d427b3cd1f7716238ec60833f43",
+  "tree": "d69f6805319508b7bc62004d9e17b56467850034",
+  "build": "4e6425182508cdd094bc321d8823263cf07197ef",
+  "run": 41192152551,
+  "browsers": {
+    "chromium": {
+      "stats": {
+        "startTime": "2026-10-31T10:23:18.945Z",
+        "duration": 952127.722,
+        "expected": 299,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "versions": ["156.0.8078.4", "Chrome/156.0.8078.4"],
+      "node": ["v24.22.1"],
+      "regular_wp09": 24,
+      "native_wp09": 24
+    },
+    "firefox": {
+      "stats": {
+        "startTime": "2026-10-31T10:23:23.508Z",
+        "duration": 915711.9199999999,
+        "expected": 247,
+        "skipped": 2,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "versions": ["157.0"],
+      "node": ["v24.22.1"],
+      "regular_wp09": 24,
+      "native_wp09": 0
+    },
+    "webkit": {
+      "stats": {
+        "startTime": "2026-10-31T10:23:02.167Z",
+        "duration": 1767181.949,
+        "expected": 246,
+        "skipped": 2,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "versions": ["27.2"],
+      "node": ["v24.22.1"],
+      "regular_wp09": 24,
+      "native_wp09": 0,
+      "failure": {
+        "case": "button contract scrolled cards keep the complete focus ring",
+        "pixels": 531,
+        "required_greater_than": 595.25,
+        "scope": "new copy action",
+        "correction": "Remove leftover compact icon-button padding and icon-font overrides; use shared Button/Icon metrics without changing the focus oracle. Retain native inset outline at -4px with 4px stroke so HiDPI antialiasing leaves a substantial solid ring; common shape/paint/press contract and pixel oracle unchanged."
+      }
+    }
+  },
+  "native_records": 48,
+  "native_start_sizes_exact": [
+    {
+      "width": 1280,
+      "height": 900,
+      "zoom": [1, 2],
+      "dpr": [1, 2]
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "zoom": [1, 2],
+      "dpr": [1, 2]
+    },
+    {
+      "width": 3840,
+      "height": 2160,
+      "zoom": [1, 2],
+      "dpr": [1, 2]
+    }
+  ],
+  "geometry": {
+    "samples": 876,
+    "overlap": 0,
+    "pageOverflow": 0,
+    "brokenLines": 0,
+    "verticalClip": 0
+  },
+  "normal_artifact": {
+    "id": 13039950358,
+    "zip_sha256": "b7a9dcb8e4e16f14fc85045e07a5f594e0fbef441eb2942c7270f2255ff81953",
+    "fingerprint": "cc72e86c87f1933639dd6fa9430783adf3471e699d9776eed601d2c7b5fd4125",
+    "verified_files": 145,
+    "mismatches": 0
+  },
+  "browser_artifacts": [
+    {
+      "id": 13039108658,
+      "name": "chromium",
+      "zip_sha256": "e21ad3f74f3fad1c731777d336daec5eb7fd11f3705abc1683ea2875fa11b651"
+    },
+    {
+      "id": 13039792922,
+      "name": "firefox",
+      "zip_sha256": "4c3783be470dbf81afe4f8953a71a72555239bbe798f33e7726c58ede02d53fa"
+    },
+    {
+      "id": 13040250468,
+      "name": "webkit",
+      "zip_sha256": "5c25d30ca39553a4fb1f7ed684dfabe4314fa2a51b443b1d387106c4f32842e5"
+    }
+  ],
+  "visual": {
+    "passed": 24,
+    "unchanged_pixel_limit": 0.001,
+    "artifact": 13040015341,
+    "zip_sha256": "79acce74aee42d550e257f14924dcbdfc7e2f25240a9d339c45954a5c35dbd70",
+    "additional_tonal_baseline_updates": 0,
+    "current_tonal_qhd_light_dark_images_reviewed": true,
+    "release_artifact": 13039391714,
+    "release_zip_sha256": "195154f2d703d79ea2f3fcbf4534eca2bbb20f98730b7885811b8297e1fad745"
+  },
+  "native_capture_issue": {
+    "classification": "Evidence defect found by manual image review despite passed DOM tests; no new product defect inferred from cropped PNGs alone",
+    "examples": [
+      {
+        "name": "1280-de-dark-false-zoom-1-End.png",
+        "sha256": "8bbca5bbefcecce1be47b4ccb21d41e12f9fd67d0adfd2b03ebffc33965b0e0e"
+      },
+      {
+        "name": "1280-de-dark-false-zoom-2-End.png",
+        "sha256": "25929ee7b5f92bdf6a41e0480c082bb12918892322e18164e50eb1f29c793937"
+      },
+      {
+        "name": "3840-de-dark-true-zoom-2-End.png",
+        "sha256": "68ce6003208835c553e6ba28e94b3545ff007c46ee81a19a1fb8081ad016263e"
+      }
+    ],
+    "observation": "Some End clips show a prefix or miss the final exponent digit. Existing earlier Range/endpoint/clipboard checks passed. These clips are not accepted as proof of the exponent end.",
+    "correction": "Capture the full visible viewport with captureBeyondViewport=false and no clip; require exact unchanged scrollLeft and completely visible first/last glyph immediately before AND after capture. New own CI and visual inspection required."
+  },
+  "quality_gate": "blocked by unchanged external audit advisory GHSA-g3hv-75wg-m249; overall workflow not green",
+  "before_capture_attempt": {
+    "artifact": 13017446773,
+    "build": "9b5b3736d8fdeb2d2706658e04bfc357883c3134",
+    "zip_sha256": "51e1b13a84f6745c01e5e7b287067309603c6a73fef60cde737b08a3ca2e2c8b",
+    "verified_files": 145,
+    "result": "No fresh before screenshot: local preview URL connection refused; further error-tab access blocked by browser URL policy. No workaround attempted."
+  },
+  "main_ci_for_this_diff": false,
+  "pages_deploy_for_this_diff": false,
+  "live_client_verified": false,
+  "overall": "failure: WebKit copy focus pixels and external audit; all other functional/visual/performance jobs pass"
+}

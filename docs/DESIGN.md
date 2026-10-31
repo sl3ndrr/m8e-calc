@@ -57,6 +57,13 @@ Prüfgrenzen und offene visuelle Abnahme: [WP08.md](WP08.md).
 
 ## Formen
 
+WP-09 erhält Umrechnerzahlen als zusammenhängende Zeile in einem eigenen,
+tastaturzugänglichen Scrollbereich; Namen und Symbol-/Kopierzeile behalten ihre
+Hierarchie. Swap erhält eigenen Gridplatz und ausschließlich die gemeinsame
+AP42-Pressoberfläche. Keine Feature-Radius-/Rotationsanimation oder neuen
+Farb-/Shape-/Motionwerte. Details und tatsächliche Prüfgrenzen:
+[CONVERT_MODE](CONVERT_MODE.md), [WP09](WP09.md).
+
 `shapes.ts` und `tokens.css` definieren None 0, Extra Small 4, Small 8, Medium 12, Large 16, **Large Increased 20**, Extra Large 28, **Extra Large Increased 32**, **Extra Extra Large 48**, Full 9999 px. Utilities: `.shape-<name>`. `.shape-squircle` setzt ausschließlich innerhalb von `@supports (corner-shape: squircle)` die ergänzende Corner-Form; der normale Radius bleibt der sichere Standard.
 
 ## Motion und Abweichung vom Auftrag

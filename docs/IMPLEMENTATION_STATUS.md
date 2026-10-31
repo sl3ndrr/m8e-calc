@@ -1,5 +1,67 @@
 # Implementierungsstatus
 
+## WP-09 · Umrechnerzahlen und Swap-Layout · 31.10.2026
+
+Auf `feat/audit-wp-09` ab main
+`9b5b3736d8fdeb2d2706658e04bfc357883c3134` einschließlich WP-08 umgesetzt und
+auf Folgeauftrag als [Draft-PR #88](https://github.com/sl3ndrr/m8e-calc/pull/88)
+veröffentlicht. Vorzeichen/Mantisse/Exponent bleiben zusammen; benannte
+Zahlenbereiche sind unabhängig von der Copyaktion per Tastatur scrollbar.
+Swap besitzt eigenen Gridplatz mit gemeinsamen AP42-Formen/Pressoberflächen.
+WP-04-Namen, Präzision, Kopierquellen, Reducer, History, Favoriten und
+Währungs-Opt-in bleiben erhalten. Keine Domänen-/Token-/Abhängigkeitsänderung.
+
+Die ersten PR-Browserläufe fanden reale Landmark-/Fokusfehler; eindeutige de/en-
+Regionsnamen, sichtbare Copyaktion und Fokusübergabe nach Kategorienmount
+korrigieren sie mit zusätzlichen Regressionen. Produkthead `46565e3` besteht
+beide vollständigen Node-Checks (641 UI/1744 Domänentests), Build/Benchmarks,
+Galerie, Provenienz, Performance und Quellen. Sechs Umrechnerreferenzen sind
+nach dokumentierter Alt-/Neu-Sichtung gezielt übernommen; 18 andere bleiben
+unverändert. Weitere Teilberichte korrigieren die gerundete Scroll-Endpunktmessung,
+den Copy-Hoverkontrast über die gemeinsame Tonal-Variante und eine auf 1920 px
+begrenzte native 4K-Fensteranforderung. Exakte Startgrößen sind nun bindend; neue
+Tonal-Produktionsbilder sind gesichtet; 24/24 Bildvergleiche bestehen ohne
+weitere Referenzänderung. Produkthead `2909253` besteht Chromium 299/299 und
+Firefox 247/247 (zwei bestehende Skips), einschließlich aller 24 nativen
+100/200%-Fälle. Die Sichtung findet jedoch unzuverlässige native Bildausschnitte;
+vollständige Viewportbilder mit strikter Glyphen-/Scrollprüfung vor und nach der
+Aufnahme ersetzen sie. WebKit besteht 246 Fälle, scheitert aber einmal am Fokus-Pixeloracle; die
+übrig gebliebenen kompakten Copy-Padding-/Iconmaße entfallen zugunsten der
+vollständigen gemeinsamen Buttonmaße. Der native Insetring erhält für HiDPI
+4px Stärke bei unverändertem Pixeloracle. Beide Nachträge benötigen eigene vollständige
+CI und Bildsichtung; die sechs Standardmaß-Referenzen sind nach erneutem
+Alt-/Neu-Sichtvergleich gezielt übernommen, 18 andere unverändert. Tatsächliche
+finale Ergebnisse stehen im PR. Keine gelockerten
+Prüfgrenzen.
+
+Der vollständige Head `55978e8` besteht alle drei Browserläufe und 24/24
+Visuals; die Sichtung findet dennoch einen intrinsisch zu breiten Hauptwert
+(1356 px in 1280 px). Begrenzte Panelspalte, natürliche Zeilenhöhen und eine
+begrenzte Hauptwertzeile korrigieren ihn; neue Panel-/Zeilen-/Home-End-Prüfungen
+machen diese bisher fehlende Abnahme bindend. Zwei betroffene FHD-Referenzen
+sind nach Sichtvergleich gezielt übernommen; 22 andere bleiben im Nachtrag
+unverändert. Die neuen Panelassertions finden bei langen Zahlen auf 4K noch
+6 px Überlauf in Firefox (8 Fälle) und 7 px in Chromium (16 Fälle einschließlich
+nativer 200%-Fälle). Ansagetext erhält den Zahlenviewport als Positionierungsbasis;
+Einheit/Copy schrumpfen nicht. Neue strikte Kindergrenzen ergänzen die Messung.
+Head `f68f735` besteht Chromium 299, WebKit 247 (zwei bestehende Skips) und
+24 Visuals. Firefox findet nur noch einen DOMRect-Darstellungsunterschied von
+0,000076 px bei identischer Panel-Scroll-/Clientbreite. Native Schnittflächen
+mit exakt 100 % Sichtbarkeit und eine absichtliche 6-px-Beschnittgegenprobe
+ersetzen den zusätzlichen Kantenvergleich. Kein Produkt-/Bilddiff oder
+geänderter Grenzwert. Firefox bestätigt alle 24 regulären Fälle; die
+Gegenprobe erkennt Zeilenbeschnitt, überschreitet aber noch nicht den Panelrand.
+Zwei getrennte Fixtures überschreiten nun Zeile und tatsächliche Panelkante;
+beide Assertions sowie die Wiederherstellung bleiben bindend. Eigene CI nötig.
+
+Der externe neue Minimatch-Befund hält den Audit-/Quality-Gate trotz unverändertem
+Lockfile rot; keine Ausnahme oder Major-Overrides. Lokale npm-/Browserprüfungen
+bleiben durch Registry-403/fehlende Runtimes begrenzt. Frische eigene Vorher-DOM-
+Messung und damit die ursprüngliche Ziffernüberdeckungshypothese bleiben offen;
+main-CI/Pages/aktiver Liveclient für diesen Diff sind nicht geprüft. Keine Freigabe
+oder Veröffentlichung der App. Exakte Identitäten, Befehle, Originalfehler,
+Bildreview und Grenzen: [WP09](WP09.md).
+
 ## WP-08 · Wissenschaftlicher Hauptwert nach Zahlenpräferenzen · 30.10.2026
 
 Lokal auf `feat/audit-wp-08` ab `43b0765172223182634f81183dbc8d471ba77052`

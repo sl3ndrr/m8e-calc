@@ -1,0 +1,120 @@
+{
+  "run": 41188441428,
+  "attempt": 1,
+  "head": "b39b947634d68e61edcfa8160d4365476fb274ca",
+  "build": "f2ab78f1b1082e32cbc839a899e2aa97fcffd056",
+  "tree": "b1ef1450ed9a96fc530edf06c104b723009bb728",
+  "normal_artifact": {
+    "id": 13037922693,
+    "zip_sha256": "d5d408d65e4feeb61201c574557f675995d010f1911332aaeefdc038d731db49",
+    "fingerprint": "1ddad3e8658a30c37f6ef5f935f732739d673e8b6f36074fce644e6028855c7c",
+    "verified_files": 145
+  },
+  "results": {
+    "production_check": {
+      "node": "24.22.2",
+      "npm": "11.19.0",
+      "ui": 639,
+      "domains": 1744,
+      "result": "success"
+    },
+    "node_minimum": {
+      "node": "24.15.0",
+      "result": "success"
+    },
+    "chromium": {
+      "startTime": "2026-10-31T09:26:37.914Z",
+      "duration": 978596.975,
+      "expected": 238,
+      "skipped": 0,
+      "unexpected": 61,
+      "flaky": 0
+    },
+    "firefox": {
+      "passed": 210,
+      "failed": 37,
+      "existing_skips": 2
+    },
+    "webkit": {
+      "passed": 210,
+      "failed": 37,
+      "existing_skips": 2
+    },
+    "visual": {
+      "passed": 18,
+      "failed": 6,
+      "all_failures": "convert 1920/2560/3840 light/dark"
+    },
+    "gallery": "success",
+    "provenance": "success",
+    "graph_performance": "success",
+    "qa_performance": "success",
+    "release_sources": "success",
+    "ap22": "success",
+    "ap28": "success",
+    "quality_gate": "failure",
+    "audit": "failure (see pr88-audit-blocker.json)"
+  },
+  "artifacts": [
+    {
+      "id": 13038386767,
+      "name": "qa-browsers-chromium",
+      "sha256": "b5378b33592dfb1c499a1811e7a46fc98786505b660d79b51590771ebc8c384c"
+    },
+    {
+      "id": 13037813407,
+      "name": "qa-browsers-firefox",
+      "sha256": "95e1ebb8f71bebce399c36e3c7b426b373c02399e38e2d675feed9fe09c37151"
+    },
+    {
+      "id": 13037793409,
+      "name": "qa-visual",
+      "sha256": "a1ebb750012d8f73b274edca791b436e70353e7a7e9667b57280b196b2485ef2"
+    }
+  ],
+  "chromium_failure_counts_by_file": {
+    "buttonContractCases.ts": 1,
+    "convert-layout.spec.ts": 24,
+    "convert-native-zoom.spec.ts": 24,
+    "convert.spec.ts": 1,
+    "currency.spec.ts": 1,
+    "label-in-name.spec.ts": 4,
+    "qa-hardening.spec.ts": 6
+  },
+  "representative_errors": [
+    {
+      "file": "buttonContractCases.ts",
+      "title": "button contract scrolled cards keep the complete focus ring",
+      "message": "Error: expect(received).toBeGreaterThan(expected)\n\nExpected: > 384\nReceived:   269"
+    },
+    {
+      "file": "convert-layout.spec.ts",
+      "title": "WP-09 1280/de/light/reduced=false: complete numbers and reserved swap",
+      "message": "Error: expect(received).toEqual(expected) // deep equality\n\n- Expected  -  1\n+ Received  + 45\n\n- Array []\n+ Array [\n+   Object {\n+     \"description\": \"Ensure landmarks are unique\",\n+     \"help\": \"Landmarks should have a unique role or role/label/title (i.e. accessible name) combination\",\n+     \"helpUrl\": \"https://dequeuniversity.com/rules/axe/4.14/landmark-unique?application=playwright\",\n+     \"id\": \"landmark-unique\",\n+     \"impact\": \"moderate\",\n+     \"nodes\": Array [\n+       Object {\n+         "
+    },
+    {
+      "file": "convert-native-zoom.spec.ts",
+      "title": "WP-09 native 100/200% 1280/de/light/reduced=false",
+      "message": "Error: expect(locator).toBeInViewport() failed\n\nLocator:  locator('.convert-unit-card').filter({ has: locator('.convert-unit-symbol').filter({ hasText: /^cm$/ }) }).getByRole('region')\nExpected: in viewport\nReceived: viewport ratio 0\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toBeInViewport\" locator('.convert-unit-card').filter({ has: locator('.convert-unit-symbol').filter({ hasText: /^cm$/ }) }).getByRole('region') with timeout 5000ms\n  - waiting for locator('.convert-unit-card').filter({ has: loc"
+    },
+    {
+      "file": "convert-native-zoom.spec.ts",
+      "title": "WP-09 native 100/200% 1280/en/light/reduced=false",
+      "message": "Error: expect(locator).toBeFocused() failed\n\nLocator:  getByRole('textbox', { name: 'From', exact: true })\nExpected: focused\nReceived: inactive\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toBeFocused\" getByRole('textbox', { name: 'From', exact: true }) with timeout 5000ms\n  - waiting for getByRole('textbox', { name: 'From', exact: true })\n    14 × locator resolved to <input title=\"\" data-rac=\"\" type=\"text\" tabindex=\"0\" inputmode=\"decimal\" data-hovered=\"true\" class=\"react-aria-Input\" id=\"react-aria13"
+    }
+  ],
+  "logs_sha256": {
+    "pr88-second-firefox.log": "22ad5cd42b41acab325edfa219f78c233e6644fef37d36aef050ac28f3b50fcf",
+    "pr88-second-webkit.log": "a72b073a30f6a535a086c81b9216685badb28411264af06e11ebb997baf7618a",
+    "pr88-second-chromium.log": "bffb292cb88d0fd0015523327473bc3d4d646d2c0ae2d30b0bb68ff501fa0356",
+    "pr88-second-audit.log": "3053e8da10398ebff9649efd066d3c3d30a90d28eefc87cadc5a479204be5af9"
+  },
+  "corrections": {
+    "landmarks": "Distinct localized labels for conversion result and all-units value region; no axe exclusion",
+    "copy_focus": "Visible localized Copy action and existing square Button variant; same pixel oracle unchanged",
+    "category_query_focus": "Pending event intent consumed in layout effect after the keyed category subtree mounts; two-locale focus regression added",
+    "native_capture_preparation": "Scroll the number viewport into view before each Home/End capture; keep full-viewport assertion",
+    "card_density": "14rem minimum after FHD light image review; no numerical formatting change"
+  },
+  "new_head_requires_own_ci": true
+}

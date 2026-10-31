@@ -11,8 +11,13 @@ Container Queries verteilen Kategorien, zwei Zahlenfelder und alle Einheiten
 auf drei Spalten mit eigenen Scrollflächen; mit geöffnetem Verlauf oder weniger Platz stehen die
 Ergebniskarten unter der Mitte. Die vorhandene Shell skaliert rem auf Full HD
 und 4K; schmale Ansichten stapeln Felder. Zahlenübergänge verwenden den
-AP2-Effects-Spring; Swap rotiert und verändert beim Drücken seine Form.
+AP2-Effects-Spring; Swap verwendet die gemeinsame AP42-Buttonoberfläche.
 Reduzierte/ausgeschaltete Bewegung unterbindet räumliche Animationen.
+
+WP-09 reserviert Swap eine eigene Gridspalte. Bei einer Panelbreite bis 36 rem
+stehen Quellfeld, Swap und Zielfeld in drei eigenen Zeilen. Maßgeblich ist die
+Breite des jeweiligen Panels, auch im Währungspfad. Keine absolute Überlagerung,
+zusätzliche Rotation oder Radiusinterpolation beim Drücken.
 
 Von und Nach sind editierbare lokalisierte Textfelder. Nach-Eingaben rechnen
 invers in die Quelle zurück; native Bearbeitung und Strg+V bleiben verfügbar.
@@ -25,7 +30,7 @@ das endgültige Ergebnis. Sehr große Werte erscheinen direkt.
 Die durchsuchbaren Einheitenauswahlen gruppieren Favoriten, zuletzt verwendete
 Einheiten und dann SI, Imperial, US Customary und weitere Systeme. Gruppierte
 Optionen und Überschriften sind Teil der zugänglichen Select-Komponente.
-Einheitenkarten kopieren den formatierten Wert inklusive Symbol. Die Ziel-
+Die Kopieraktion einer Einheitenkarte kopiert den formatierten Wert inklusive Symbol. Die Ziel-
 Einheit wird hervorgehoben. Sortierung nach Größe nutzt AP10-Basiswerte für
 jeweils eine Einheit; funktionale/affine Definitionen werden genauso ausgewertet.
 
@@ -33,7 +38,38 @@ Die Kopieraktion erhält ihren zugänglichen Namen aus dem gesamten sichtbaren
 Karteninhalt (Einheitenname, aktueller Wert, Symbol und System), ergänzt um die
 lokalisierte Aktion. Währungskarten schließen Code, Name, Zahl und Symbol ein.
 Kein pauschales `aria-label` verdeckt diese Inhalte und keine zusätzliche
-Live-Region wiederholt sie. WP-04-Nachweise und offene Abnahme: [WP04](WP04.md).
+Live-Region wiederholt sie. WP-09 verknüpft die sichtbaren Kartenbestandteile
+und den lokalisierten Aktionstext über `aria-labelledby` mit dem getrennten
+Kopierbutton. Der Zahlenbereich ist dessen Geschwister, kein interaktives Kind.
+Der Kopierbutton zeigt die kurze lokalisierte Aktion mit Icon und nutzt die
+vorhandene gemeinsame Square-Form und Tonal-Farbrollen; damit bleibt auch der
+Hovertext kontrastreich. Auch Padding und Icongröße folgen den gemeinsamen
+Button-/Iconmaßen. Ihr nativer Fokusring liegt weiter mit −4 px Offset innerhalb
+der Scrollkarte; 4 px Strichstärke erhalten auch bei HiDPI-Antialiasing eine klare
+Farbfläche. Form, zentrale Fokusfarbe und gemeinsame Pressoberfläche bleiben erhalten.
+Hauptwert und Einheitenkarte erhalten
+unterschiedliche Regionsnamen (Umrechnungsergebnis beziehungsweise vollständiger
+Einheitenwert); der gleiche Zielwert erzeugt keine doppelt benannten Landmarks.
+WP-04-Nachweise und offene Abnahme: [WP04](WP04.md).
+
+Vorzeichen, Mantisse und Exponent bleiben eine ungetrennte Zeile. Das Einheiten-
+raster verwendet mindestens 14 rem pro Karte, begrenzt durch die verfügbare
+Breite. Lange Namen dürfen umbrechen; lange Zahlen scrollen innerhalb eines
+benannten, fokussierbaren Bereichs. Pfeile scrollen nativ, Home/End erreichen
+Anfang/Ende horizontal; modifizierte Tastenkombinationen bleiben nativ.
+Das Hauptpanel begrenzt seine Gridspalte explizit auf die verfügbare Breite;
+Inhaltszeilen behalten ihre natürliche Höhe und das Panel scrollt vertikal.
+Hauptzahl, Einheit und Kopieraktion bleiben in einer Zeile; der Zahlenbereich
+schrumpft innerhalb dieser Zeile und scrollt selbst horizontal. Er darf keinen
+verdeckten horizontalen Überlauf des gesamten Panels verursachen. Einheit und
+Kopieraktion schrumpfen nicht; absolut positionierter Ansagetext bleibt an den
+Zahlenviewport gebunden.
+Dies gilt auch für Hauptwert und Währungskarten/-ergebnis. Tab führt separat
+zum Kopierbutton. Fokus liegt mit Tintenreserve innerhalb des Scrollbereichs,
+Forced Colors verwendet Highlight. Anzeigepräzision, vollständige formatierte
+Kopierquelle und gespeicherter Decimal-Wert bleiben erhalten; kein Ellipsis,
+Abschneiden, zusätzlicher Formatierrundungsschritt oder zweiter Ansagekanal.
+Aktuelle lokale Prüfgrenzen und fehlende Bild-/Kollisionsabnahme: [WP09](WP09.md).
 
 Favoriten-/zuletzt verwendete Paare verwenden dieselbe vollständige sichtbare
 Zeichenfolge wie `km → m` als Namenspräfix, ergänzt um die lokalisierte Ladeaktion
@@ -55,6 +91,9 @@ die lokalisierte Feldmeldung eindeutige Einheiten und den Pfeil als Trenner.
 Fehler übernehmen weder Menge noch Paar; der Fokus bleibt in der Schnelleingabe.
 Erfolgreiche Übernahme fokussiert wie bisher das Von-Feld. Ohne Ziel gilt weiter
 die oben beschriebene Zielwahl des Reducers.
+Bei einem Kategoriewechsel erfolgt diese Fokusrückgabe nach dem Mount der neuen
+Feldkarte; der durch die Shared-Axis-Präsentation entfernte alte Input ist kein
+gültiges Fokusziel. Nur die erfolgreiche Schnelleingabe setzt diese Fokusabsicht.
 
 `m8e-calc.convert`, Version 1, speichert validierte Favoritenpaare (max. 100),
 zuletzt verwendete Paare (max. 12), signifikante Stellen (1–50), Notation,

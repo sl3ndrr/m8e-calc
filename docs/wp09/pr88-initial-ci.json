@@ -1,0 +1,91 @@
+{
+  "pr": 88,
+  "phase": "initial PR CI, Attempt 1",
+  "head": "3cb6960f6760ff7faa7654b152ea7f617b038333",
+  "build": "5edf94a6d629da49ba7df8f13a00f5b465a25daf",
+  "tree": "fd52ff36a30fc1d67bc0b430ba09b5729a32a181",
+  "runs": [
+    {
+      "id": 41188086934,
+      "status": "completed",
+      "conclusion": "failure",
+      "head": "3cb6960f6760ff7faa7654b152ea7f617b038333",
+      "attempt": 1
+    },
+    {
+      "id": 41188086932,
+      "status": "completed",
+      "conclusion": "failure",
+      "head": "3cb6960f6760ff7faa7654b152ea7f617b038333",
+      "attempt": 1
+    },
+    {
+      "id": 41188086962,
+      "status": "completed",
+      "conclusion": "failure",
+      "head": "3cb6960f6760ff7faa7654b152ea7f617b038333",
+      "attempt": 1
+    }
+  ],
+  "jobs": [
+    {
+      "id": 124499003545,
+      "lines": [
+        "2026-10-31T09:17:35.0699612Z HEAD is now at 5edf94a Merge 3cb6960f6760ff7faa7654b152ea7f617b038333 into 9b5b3736d8fdeb2d2706658e04bfc357883c3134",
+        "2026-10-31T09:17:39.8694532Z node: v24.15.0",
+        "2026-10-31T09:18:40.3248796Z All matched files use Prettier code style!",
+        "2026-10-31T09:18:40.4285214Z > m8e-calc@1.0.0 typecheck",
+        "2026-10-31T09:19:00.3927980Z    ✓ WP-09 copies all 50 digits and the exponent independently of the scroll region in de 776ms",
+        "2026-10-31T09:19:00.3930286Z    × WP-09 copies all 50 digits and the exponent independently of the scroll region in en 593ms",
+        "2026-10-31T09:19:32.3447861Z  FAIL   ui  src/features/convert/ConvertMode.test.tsx > WP-09 copies all 50 digits and the exponent independently of the scroll region in en",
+        "2026-10-31T09:19:32.3455705Z TestingLibraryElementError: Unable to find an accessible element with the role \"textbox\" and name \"Quick entry\"",
+        "2026-10-31T09:19:32.3555368Z   Name \"Schnelleingabe\":",
+        "2026-10-31T09:19:32.3557925Z   Name \"Schnelleingabe\":",
+        "2026-10-31T09:19:32.4205436Z  Test Files  1 failed | 66 passed (67)",
+        "2026-10-31T09:19:32.4205774Z       Tests  1 failed | 638 passed (639)",
+        "2026-10-31T09:19:32.4317384Z ##[error]TestingLibraryElementError: Unable to find an accessible element with the role \"textbox\" and name \"Quick entry\"",
+        "  Name \"Schnelleingabe\":",
+        "  Name \"Schnelleingabe\":"
+      ]
+    },
+    {
+      "id": 124499003704,
+      "lines": [
+        "2026-10-31T09:17:34.3386947Z HEAD is now at 5edf94a Merge 3cb6960f6760ff7faa7654b152ea7f617b038333 into 9b5b3736d8fdeb2d2706658e04bfc357883c3134",
+        "2026-10-31T09:17:39.6494384Z node: v24.22.2",
+        "2026-10-31T09:18:50.4683922Z All matched files use Prettier code style!",
+        "2026-10-31T09:18:50.6125172Z > m8e-calc@1.0.0 typecheck",
+        "2026-10-31T09:19:16.5891793Z    ✓ WP-09 copies all 50 digits and the exponent independently of the scroll region in de 975ms",
+        "2026-10-31T09:19:16.5948754Z    × WP-09 copies all 50 digits and the exponent independently of the scroll region in en 656ms",
+        "2026-10-31T09:19:59.0976848Z  FAIL   ui  src/features/convert/ConvertMode.test.tsx > WP-09 copies all 50 digits and the exponent independently of the scroll region in en",
+        "2026-10-31T09:19:59.0985208Z TestingLibraryElementError: Unable to find an accessible element with the role \"textbox\" and name \"Quick entry\"",
+        "2026-10-31T09:19:59.1078112Z   Name \"Schnelleingabe\":",
+        "2026-10-31T09:19:59.1081378Z   Name \"Schnelleingabe\":",
+        "2026-10-31T09:19:59.1575935Z  Test Files  1 failed | 66 passed (67)",
+        "2026-10-31T09:19:59.1576368Z       Tests  1 failed | 638 passed (639)",
+        "2026-10-31T09:19:59.1755112Z ##[error]TestingLibraryElementError: Unable to find an accessible element with the role \"textbox\" and name \"Quick entry\"",
+        "  Name \"Schnelleingabe\":",
+        "  Name \"Schnelleingabe\":"
+      ]
+    }
+  ],
+  "log_sha256": {
+    "124499003545": "6e48e6b2665a7b7643f3516d185616258b2bd47eb1b623d47db48a6e707acd9c",
+    "124499003704": "c99c0cb93ee3e7714ec56d343207b537862dd8b8b603f2efd4543ab80ebc254b"
+  },
+  "result": {
+    "lint": "passed",
+    "typecheck": "passed",
+    "ui": {
+      "passed": 638,
+      "failed": 1
+    },
+    "production_build": "not reached",
+    "browsers": "not started",
+    "quality_gate": "failure"
+  },
+  "finding": "Confirmed test preparation error: direct AppStore locale assignment is overwritten by the subsequent SettingsStore update; stored language remains de. Rendered Schnelleingabe is correctly German, while the fixture requests Quick entry.",
+  "correction": "Set grouping first, then use the existing setLocale(locale) action to update persisted settings and resolved locale consistently. All expected names, values, clipboard assertions and time limits retained.",
+  "product_changed": false,
+  "requires_new_ci": true
+}

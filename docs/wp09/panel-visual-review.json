@@ -1,0 +1,45 @@
+{
+  "package": "WP-09",
+  "date_utc": "2026-10-31",
+  "previous_review": "shared-metrics-visual-review.json",
+  "head": "7d65d1d2734a73a2e31ba1d9a34718f57103bce3",
+  "local": "419a8b7db62d705d344881b28e9a462b7ea9e3bc",
+  "tree": "9a520e9b90068bb459a6535d10dbe63f6c0c0850",
+  "build": "a331184135a37407e3513cf261ee01d6fc8419e9",
+  "run": 41199276846,
+  "visual_artifact": 13041394152,
+  "visual_zip_sha256": "738242a6f5c4da73a40cd1bcfb37e3bdf19c4d1458160de8918b44f2268689a3",
+  "normal_artifact": 13042545120,
+  "normal_zip_sha256": "c620e0e8a830cb2a48660dfb2edcc9e9dac2894cf5445ffcb219c46492e6fe6e",
+  "normal_fingerprint": "fbe05798688e2755f526e70bf541edbb58dcbd999deeef754f84480bfbf3b689",
+  "verified_files": 145,
+  "mismatches": 0,
+  "command": "npx playwright test --project=qa-visual",
+  "unchanged_max_diff_pixel_ratio": 0.001,
+  "result_before_reference_update": {
+    "passed": 22,
+    "failed_intended_fhd_convert": 2
+  },
+  "references": [
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/convert-1920-light-qa-visual-linux.png",
+      "theme": "light",
+      "before_sha256": "3342a1d344d22e50b02732c5b41ed519355f6e4612311ca4d5e16e4bcc188446",
+      "after_sha256": "1515ed41d5f76b9d484fcd7ae4b9883593aae2d24105f10e6bcb8d816abab75c",
+      "diff_pixels": 2895,
+      "review": "Prior FHD source images and both new actual production images viewed individually at original size. Natural main-panel row heights preserve separation of result/unit/copy and format controls. Number precision, common shapes/colors and other modes unchanged."
+    },
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/convert-1920-dark-qa-visual-linux.png",
+      "theme": "dark",
+      "before_sha256": "a8beb7f6a8d39bd34da6d22edb831f1cbe6ca078c3c901d0bc1eacf8d2e9d742",
+      "after_sha256": "5bed010605391bb1fca44ddc800b8386d92d8ea3c7694c6c294e00cc2a60ea0d",
+      "diff_pixels": 2889,
+      "review": "Prior FHD source images and both new actual production images viewed individually at original size. Natural main-panel row heights preserve separation of result/unit/copy and format controls. Number precision, common shapes/colors and other modes unchanged."
+    }
+  ],
+  "unchanged_from_previous_head": 22,
+  "total_changed_reference_paths_from_original_base": 6,
+  "unchanged_non_converter_references_from_original_base": 18,
+  "required_successor": "Reference/document-only successor still needs own full CI; older successful checks do not validate the new diff. Final actual head/run/results recorded in PR88."
+}

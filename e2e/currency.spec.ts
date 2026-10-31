@@ -14,6 +14,8 @@ import {
 import { exportSettings } from '../src/app/fileTransfer';
 import { holdRateBody, holdSettingsRead } from './settingsImportHelpers';
 import { ready } from './qa-setup';
+import { allowClipboard } from './clipboard';
+import { checkConverterGeometry, converterSettings } from './convertLayout';
 // Network mocks must not be bypassed by an already controlling worker.
 test.use({ serviceWorkers: 'block' });
 const today = new Date().toISOString().slice(0, 10);
@@ -45,6 +47,81 @@ async function openCurrency(page: Page): Promise<void> {
   await expect(
     page.getByRole('heading', { name: t('currency.category'), exact: true }),
   ).toBeVisible();
+}
+for (const locale of ['de', 'en'] as const) {
+  test(`WP-09 currency ${locale}: opt-in, exponent, separate copy and zero swap`, async ({
+    page,
+    context,
+  }, info) => {
+    let requests = 0;
+    await page.route(`${RATE_ENDPOINT}**`, async (route) => {
+      requests++;
+      await route.fulfill({ json: rows });
+    });
+    await allowClipboard(context);
+    await converterSettings(
+      page,
+      locale,
+      locale === 'de' ? 'light' : 'dark',
+      true,
+    );
+    await page.setViewportSize({
+      width: locale === 'de' ? 1280 : 3840,
+      height: 1080,
+    });
+    await page.goto('/m8e-calc/#/convert');
+    await ready(page, 'convert');
+    expect(requests).toBe(0);
+    await page
+      .getByRole('button', { name: t('shell.settings', locale), exact: true })
+      .click();
+    const dialog = page.getByRole('dialog', {
+      name: t('shell.settings', locale),
+    });
+    const consent = dialog.getByRole('switch', {
+      name: t('currency.online', locale),
+    });
+    await consent.focus();
+    await consent.press('Space');
+    await expect(consent).toBeChecked();
+    await dialog
+      .getByRole('button', { name: t('ui.close', locale), exact: true })
+      .click();
+    await page
+      .getByRole('button', {
+        name: t('currency.category', locale),
+        exact: true,
+      })
+      .click();
+    const panel = page.locator('.currency-panel');
+    await expect(panel.locator('.currency-date')).toBeVisible();
+    const from = panel.getByRole('textbox', {
+      name: t('convert.from', locale),
+      exact: true,
+    });
+    await from.fill('-1e-10000');
+    const expected = locale === 'de' ? '-1,25e-10000 $' : '-1.25e-10000 $';
+    await expect(panel.locator('.convert-result')).toHaveText(
+      `${expected} (USD)`,
+    );
+    const card = panel.locator('.convert-unit-card').filter({
+      has: page.locator('.convert-unit-name', { hasText: /^USD ·/ }),
+    });
+    await expect(card.getByRole('region')).toHaveText(expected);
+    await card.getByRole('button').press('Enter');
+    await expect
+      .poll(() => page.evaluate(() => navigator.clipboard.readText()))
+      .toBe(`${expected} (USD)`);
+    await checkConverterGeometry(page, info, 'currency-negative-exponent');
+    await from.fill('0');
+    await panel
+      .getByRole('button', { name: t('convert.swap', locale), exact: true })
+      .press('Space');
+    await expect(from).toHaveValue('0');
+    await expect(panel.locator('.convert-result')).toHaveText('0 € (EUR)');
+    await checkConverterGeometry(page, info, 'currency-zero-swap');
+    expect(requests).toBe(1);
+  });
 }
 test('opt-in off: no external requests, no currency category, including stored cache', async ({
   page,

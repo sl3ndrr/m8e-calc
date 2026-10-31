@@ -1,0 +1,41 @@
+{
+  "run": 41188441428,
+  "job": 124500530464,
+  "head": "b39b947634d68e61edcfa8160d4365476fb274ca",
+  "build": "f2ab78f1b1082e32cbc839a899e2aa97fcffd056",
+  "failed_step": "Full audit",
+  "command": "npm audit --json",
+  "exit_code": 1,
+  "advisory": "GHSA-g3hv-75wg-m249",
+  "source": "https://github.com/advisories/GHSA-g3hv-75wg-m249",
+  "primary_record": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/10/GHSA-g3hv-75wg-m249/GHSA-g3hv-75wg-m249.json",
+  "primary_record_published_modified_utc": "2026-10-30T23:09:55Z",
+  "affected_range": "<11.0.1",
+  "patched_version": "11.0.1",
+  "reported_package_findings": { "moderate": 12, "high": 0, "critical": 0 },
+  "locked_paths": [
+    { "path": "node_modules/minimatch", "version": "3.1.5" },
+    {
+      "path": "node_modules/@typescript-eslint/typescript-estree/node_modules/minimatch",
+      "version": "10.2.6"
+    }
+  ],
+  "declared_ranges": [
+    { "package": "eslint", "version": "9.39.5", "minimatch": "^3.1.5" },
+    {
+      "package": "eslint-plugin-jsx-a11y",
+      "version": "6.10.2",
+      "minimatch": "^3.1.2",
+      "eslint_peer": "^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9"
+    },
+    {
+      "package": "@typescript-eslint/typescript-estree",
+      "version": "8.71.2",
+      "minimatch": "^10.2.2"
+    }
+  ],
+  "lockfile_unchanged_from_base": true,
+  "classification": "Existing development toolchain dependency, newly reported by the external advisory database; not introduced by WP-09",
+  "action": "Keep the audit gate unchanged. No forced major override, dependency downgrade, exclusion or audit threshold change. A compatible toolchain security update needs separate reviewed implementation and validation.",
+  "quality_gate_may_be_reported_as_passed": false
+}

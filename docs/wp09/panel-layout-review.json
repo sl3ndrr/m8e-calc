@@ -1,0 +1,55 @@
+{
+  "head": "55978e8670001ba1f81734ed5ecabb495f375c5f",
+  "local": "b47dcffd68a5ccd413703d2745428fc286738af7",
+  "tree": "cd7efe9107352d58313c355d3a6d08dec55dffaa",
+  "build": "e36f73e2dcf1429776189f6cf3581f5d72bc5d7a",
+  "run": 41196318689,
+  "chromium_artifact": 13040969792,
+  "chromium_zip_sha256": "a10016085bf061b353b6f932bf5f802880baf719e22f3d5a5e8a20c0d1715107",
+  "case": "WP-09 native 100/200% 1280/de/dark/reduced=false",
+  "before": {
+    "viewport": {
+      "width": 1280,
+      "height": 900,
+      "dpr": 1
+    },
+    "main_number_region": {
+      "value": "-1,2345678901234567890123456789012345678901234567891e-9998",
+      "lines": 1,
+      "vertical": true,
+      "scrollHeight": 65,
+      "clientHeight": 65,
+      "scrollWidth": 1356,
+      "clientWidth": 1356
+    },
+    "screenshot": "1280-de-dark-false-zoom-1-End.png",
+    "screenshot_sha256": "654fd9fd16eb65874e75320e8bce0a7a6822f2b01041466e016154997a353bd5",
+    "measured_fact": "The main number viewport is 1356 CSS px wide inside a 1280 CSS px browser viewport. scrollWidth equals clientWidth, so this number region itself cannot expose the clipped suffix with End. Page-level overflow was hidden by the parent panel scroller.",
+    "image_observation": "Main unit/copy row and format label interfere visually. No old live/format DOM intersection was recorded; the new assertion adds that measurement."
+  },
+  "previous_ci": {
+    "node_checks": "641 UI/1744 domains, both versions pass",
+    "chromium": 299,
+    "firefox": 247,
+    "firefox_existing_skips": 2,
+    "webkit": 247,
+    "webkit_existing_skips": 2,
+    "visual": 24,
+    "focus_pixel_case": "passes in all three engines after native 4px inset ring",
+    "overall": "failure solely from unchanged minimatch audit; Pages skipped"
+  },
+  "classification": "Additional WP-09 product layout defect discovered in fresh valid full-viewport production images; existing successful tests did not assert panel overflow. NOT a claim that the original audit digit/swap collision was proven.",
+  "fix": [
+    "Explicit minmax(0,1fr) main grid column prevents intrinsic-width track growth.",
+    "Main content rows retain max-content height; the panel scrolls vertically.",
+    "Keep main number, unit and copy in one bounded flex row; the number shrinks into its own keyboard-accessible scroll region."
+  ],
+  "new_regressions": [
+    "No horizontal overflow in main/currency/unit-grid panels.",
+    "Zero intersection of main result-row children with the format controls.",
+    "Long main number must actually overflow its own viewport and reach both sign and exponent end via real Home/End.",
+    "All previous precision, selection, clipboard, line, page, swap and native capture assertions retained."
+  ],
+  "clipboard_scope": "Chromium uses native browser clipboard API; Firefox/WebKit use the unchanged explicit in-memory fixture. Physical OS clipboard and screenreader coverage not claimed.",
+  "new_diff_validation": "Requires own full CI and new image inspection; older green tests do not validate this fix."
+}

@@ -320,3 +320,86 @@ jobs:
         uses: actions/deploy-pages@v5
         with:
           artifact_name: ${{ needs.pages-package.outputs.artifact-name }}
+
+  wp09-security:
+    name: WP09 security migration investigation
+    if: github.head_ref == 'feat/audit-wp-09'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          check-latest: true
+      - run: npm install --global npm@11.19.0
+      - run: npm ci --engine-strict
+      - run: node scripts/wp09-security-probe.mjs
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: wp09-security-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            test-results/wp09-security/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+  wp09-baseline:
+    name: WP09 fresh baseline comparison
+    if: github.head_ref == 'feat/audit-wp-09'
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      BUILD_FINGERPRINT: ${{ needs.build.outputs.fingerprint }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          check-latest: true
+      - run: npm install --global npm@11.19.0
+      - run: npm ci --engine-strict
+      - uses: actions/download-artifact@v8
+        with:
+          merge-multiple: true
+          artifact-ids: ${{ needs.build.outputs.artifact-id }}
+      - run: node scripts/ci/build-proof.mjs verify
+      - run: npx playwright install --with-deps chromium
+      - name: Build isolated WP08 baseline
+        env:
+          BASELINE_SHA: 9b5b3736d8fdeb2d2706658e04bfc357883c3134
+        run: |
+          git fetch --no-tags origin "$BASELINE_SHA"
+          git worktree add --detach "$RUNNER_TEMP/wp09-before" "$BASELINE_SHA"
+          cd "$RUNNER_TEMP/wp09-before"
+          git status --porcelain=v1
+          git show -s --format=fuller HEAD
+          npm ci --engine-strict
+          GITHUB_SHA="$BASELINE_SHA" npm run build
+      - name: Measure before and sealed current build with native tab zoom
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 --strictPort > "$RUNNER_TEMP/wp09-after.log" 2>&1 &
+          npm --prefix "$RUNNER_TEMP/wp09-before" run preview -- --host 127.0.0.1 --port 4175 --strictPort > "$RUNNER_TEMP/wp09-before.log" 2>&1 &
+          for port in 4173 4175; do
+            for _attempt in $(seq 1 30); do
+              if curl -sf "http://127.0.0.1:$port/m8e-calc/" > /dev/null; then break; fi
+              sleep 1
+            done
+            curl -sf "http://127.0.0.1:$port/m8e-calc/" > /dev/null
+          done
+          node scripts/wp09-baseline-probe.mjs
+      - name: Verify production bytes after comparison
+        if: always()
+        run: node scripts/ci/build-proof.mjs verify
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: wp09-baseline-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            test-results/wp09-baseline/*.json
+            test-results/wp09-baseline/*.png
+          if-no-files-found: error
+          retention-days: 14
