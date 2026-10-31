@@ -49,7 +49,10 @@ Head `f68f735` besteht Chromium 299, WebKit 247 (zwei bestehende Skips) und
 0,000076 px bei identischer Panel-Scroll-/Clientbreite. Native Schnittflächen
 mit exakt 100 % Sichtbarkeit und eine absichtliche 6-px-Beschnittgegenprobe
 ersetzen den zusätzlichen Kantenvergleich. Kein Produkt-/Bilddiff oder
-geänderter Grenzwert; dieser Messnachtrag benötigt eigene CI.
+geänderter Grenzwert. Firefox bestätigt alle 24 regulären Fälle; die
+Gegenprobe erkennt Zeilenbeschnitt, überschreitet aber noch nicht den Panelrand.
+Zwei getrennte Fixtures überschreiten nun Zeile und tatsächliche Panelkante;
+beide Assertions sowie die Wiederherstellung bleiben bindend. Eigene CI nötig.
 
 Der externe neue Minimatch-Befund hält den Audit-/Quality-Gate trotz unverändertem
 Lockfile rot; keine Ausnahme oder Major-Overrides. Lokale npm-/Browserprüfungen

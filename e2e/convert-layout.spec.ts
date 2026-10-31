@@ -44,7 +44,27 @@ test('WP-09 visibility measurement rejects a clipped result action', async ({
     );
     expect(action).toBeDefined();
     expect(action?.ratio).toBeLessThan(1);
-    const panel = clipped.panels.find((item) => item.name === 'convert-main');
+    // The row ends before the panel's padding/gutter. Exercise the panel's
+    // actual client edge separately rather than assuming both edges coincide.
+    await button.evaluate((node) => {
+      const panel = node.closest('.convert-main');
+      if (!panel) throw new Error('Missing main panel');
+      node.style.left = '0px';
+      const panelLeft = panel.getBoundingClientRect().left + panel.clientLeft;
+      const edge = panelLeft + panel.clientWidth;
+      node.style.left = `${edge - node.getBoundingClientRect().right + 6}px`;
+    });
+    const overflow = await converterGeometry(page);
+    await info.attach('visibility-panel-negative-control', {
+      body: JSON.stringify(overflow, null, 2),
+      contentType: 'application/json',
+    });
+    const overflowAction = overflow.liveChildren.find((child) =>
+      child.name.includes('ui-button'),
+    );
+    expect(overflowAction).toBeDefined();
+    expect(overflowAction?.ratio).toBeLessThan(1);
+    const panel = overflow.panels.find((item) => item.name === 'convert-main');
     if (!panel) throw new Error('Missing main panel');
     expect(panel.scrollWidth).toBeGreaterThan(panel.clientWidth);
   } finally {
