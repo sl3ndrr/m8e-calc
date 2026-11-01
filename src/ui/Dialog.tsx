@@ -56,7 +56,34 @@ export function Dialog({
                     {closeLabel}
                   </Button>
                 </div>
-                <div className="ui-dialog-content">{children}</div>
+                <div
+                  className="ui-dialog-content"
+                  onFocusCapture={(event) => {
+                    const content = event.currentTarget;
+                    const target = event.target;
+                    // Portalled selections own their separate scroll viewport.
+                    if (
+                      !(target instanceof HTMLElement) ||
+                      !content.contains(target)
+                    )
+                      return;
+                    requestAnimationFrame(() => {
+                      if (
+                        !content.isConnected ||
+                        !content.contains(target) ||
+                        document.activeElement !== target ||
+                        content.closest('[inert]')
+                      )
+                        return;
+                      target.scrollIntoView({
+                        block: 'nearest',
+                        inline: 'nearest',
+                      });
+                    });
+                  }}
+                >
+                  {children}
+                </div>
               </>
             ) : (
               <>
