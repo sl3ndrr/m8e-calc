@@ -33,6 +33,21 @@ const cases = [
 ];
 const measurements = [];
 const images = [];
+const glyphComparisons = [];
+async function saveCapture(cdp, file, sourceCommit) {
+  const capture = await cdp.send('Page.captureScreenshot', {
+    format: 'png',
+    captureBeyondViewport: false,
+  });
+  const bytes = Buffer.from(capture.data, 'base64');
+  writeFileSync(`${output}/${file}`, bytes);
+  images.push({
+    file,
+    sourceCommit,
+    sha256: createHash('sha256').update(bytes).digest('hex'),
+  });
+  writeFileSync(`${output}/images.json`, JSON.stringify(images, null, 2));
+}
 for (const [width, height] of [
   [1280, 900],
   [1920, 1080],
@@ -267,21 +282,85 @@ for (const [width, height] of [
                     assert.equal(number.lines, 1);
                 }
                 if (index === 4) {
-                  const capture = await cdp.send('Page.captureScreenshot', {
-                    format: 'png',
-                    captureBeyondViewport: false,
+                  await saveCapture(cdp, `${key}-${zoom}.png`, sourceCommit);
+                  // Blur removes the blinking caret from both controlled images.
+                  // Visibility changes paint only; values, native input scrolling
+                  // and all layout rectangles must remain exactly identical.
+                  await page.locator('.convert-field input').first().blur();
+                  await page.locator('.convert-main').evaluate(async (node) => {
+                    await Promise.all(
+                      node
+                        .getAnimations({ subtree: true })
+                        .map((animation) => animation.finished.catch(() => {})),
+                    );
                   });
-                  const bytes = Buffer.from(capture.data, 'base64');
-                  const file = `${key}-${zoom}.png`;
-                  writeFileSync(`${output}/${file}`, bytes);
-                  images.push({
-                    file,
+                  const snapshot = () =>
+                    page.locator('.convert-fields').evaluate((root) => {
+                      const rect = (node) =>
+                        node.getBoundingClientRect().toJSON();
+                      return {
+                        viewport: {
+                          width: innerWidth,
+                          height: innerHeight,
+                          dpr: devicePixelRatio,
+                        },
+                        inputs: Array.from(
+                          root.querySelectorAll('.ui-text-input input'),
+                          (node) => ({
+                            value: node.value,
+                            scrollLeft: node.scrollLeft,
+                            rect: rect(node),
+                            paintRect: rect(node.parentElement),
+                            color: globalThis.getComputedStyle(node).color,
+                          }),
+                        ),
+                        labels: Array.from(
+                          root.querySelectorAll('label'),
+                          (node) => {
+                            const range = document.createRange();
+                            range.selectNodeContents(node);
+                            return {
+                              text: node.textContent,
+                              rect: range.getBoundingClientRect().toJSON(),
+                              color: globalThis.getComputedStyle(node).color,
+                            };
+                          },
+                        ),
+                      };
+                    });
+                  const state = await snapshot();
+                  const visible = `${key}-${zoom}-swap-visible.png`;
+                  const hidden = `${key}-${zoom}-swap-hidden.png`;
+                  await saveCapture(cdp, visible, sourceCommit);
+                  const swap = page.locator('.convert-swap');
+                  const style = await swap.getAttribute('style');
+                  try {
+                    await swap.evaluate((node) => {
+                      node.style.visibility = 'hidden';
+                    });
+                    assert.deepEqual(await snapshot(), state);
+                    await saveCapture(cdp, hidden, sourceCommit);
+                    assert.deepEqual(await snapshot(), state);
+                  } finally {
+                    await swap.evaluate((node, style) => {
+                      if (style === null) node.removeAttribute('style');
+                      else node.setAttribute('style', style);
+                    }, style);
+                  }
+                  assert.deepEqual(await snapshot(), state);
+                  glyphComparisons.push({
+                    key,
+                    target,
                     sourceCommit,
-                    sha256: createHash('sha256').update(bytes).digest('hex'),
+                    zoom,
+                    visible,
+                    hidden,
+                    swap: geometry.swap,
+                    ...state,
                   });
                   writeFileSync(
-                    `${output}/images.json`,
-                    JSON.stringify(images, null, 2),
+                    `${output}/glyph-comparisons.json`,
+                    JSON.stringify(glyphComparisons, null, 2),
                   );
                 }
               }
