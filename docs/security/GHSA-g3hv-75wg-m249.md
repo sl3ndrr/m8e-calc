@@ -22,10 +22,22 @@ Es gibt keinen globalen Override und keine Peer-Range-Änderung.
 Die JSX-Anpassung betrifft ausschließlich die Importzeile in
 `mayContainChildComponent.js` und `mayHaveAccessibleLabel.js`.
 `patch-package@8.0.1` wendet den getrackten Patch im Postinstall mit
-`--error-on-fail` an. Regelcode und Regelkonfiguration bleiben unverändert.
+`--error-on-fail --error-on-warn` an. Regelcode und Regelkonfiguration bleiben unverändert.
 Der alternative lokale Adapter über direkte Root-devDependency und
 `$minimatch-compat` scheiterte mit npm EUSAGE beim frischen npm ci
 (`Missing: minimatch@ from lock file`); er wurde nicht übernommen.
+
+`npm run check` beginnt mit `node scripts/check-jsx-a11y-minimatch.mjs`.
+Der versionsunabhängige Guard führt ESLint programmatisch auf einem Inline-JSX-Snippet
+mit dem V4-Glob `Custom*` aus: `label-has-associated-control` durchläuft damit
+`mayContainChildComponent` und `mayHaveAccessibleLabel`. Er verlangt ohne Throw
+exakt die beiden erwarteten Label-Meldungen einschließlich Positionen und beendet
+bei Abweichung mit einer lesbaren FAIL-Meldung und Exit 1. Dadurch bleiben auch
+eine fehlende Patchdatei und ein durch `--ignore-scripts` übersprungener Postinstall
+im Check sichtbar. Die Vitest-Zahlen bleiben 635 UI / 1744 Domäne. Der Guard prüft
+Verhalten statt Versionen oder Patchbytes und bleibt bei nativ kompatiblem JSX-A11y
+grün; bei Entfernung des Patches wird er entfernt oder an den Upstream-Vertrag
+angepasst und erneut positiv sowie negativ geprüft.
 
 ## Nachweise
 

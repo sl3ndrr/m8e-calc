@@ -14,7 +14,7 @@
     "typecheck": "tsc -b --pretty false",
     "test": "npm run test:ui && npm run test:engine",
     "test:e2e": "playwright test",
-    "check": "npm run lint && npm run typecheck && npm run test && npm run build && npm run test:engine:bench && npm run test:graph:bench && npm run test:graph:implicit:bench",
+    "check": "node scripts/check-jsx-a11y-minimatch.mjs && npm run lint && npm run typecheck && npm run test && npm run build && npm run test:engine:bench && npm run test:graph:bench && npm run test:graph:implicit:bench",
     "tokens": "node scripts/generate-tokens.mjs",
     "screenshots:gallery": "node scripts/gallery-screenshots.mjs",
     "test:engine:bench": "node scripts/engine-benchmark.mjs",
@@ -27,7 +27,7 @@
     "test:e2e:provenance": "playwright test --config=playwright.ap29.config.ts",
     "test:ui": "vitest run --project=ui",
     "test:engine": "vitest run --project=engine",
-    "postinstall": "patch-package --error-on-fail"
+    "postinstall": "patch-package --error-on-fail --error-on-warn"
   },
   "dependencies": {
     "@material/material-color-utilities": "^0.3.0",
