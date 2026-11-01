@@ -155,7 +155,6 @@ for (const locale of ['de', 'en'] as const) {
     const historyBefore = normalizeHistory(useHistoryStore.getState());
     const trigger = screen.getByRole('button', {
       name: t('settings.reset', locale),
-      exact: true,
     });
     await s.user.click(trigger);
     const confirmation = screen.getByRole('region', {
@@ -184,7 +183,6 @@ for (const locale of ['de', 'en'] as const) {
     await s.user.click(
       within(reopened).getByRole('button', {
         name: t('settings.reset', locale),
-        exact: true,
       }),
     );
     expect(normalizeSettings(useSettingsStore.getState())).toEqual(
