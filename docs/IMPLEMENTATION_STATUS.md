@@ -397,4 +397,3 @@ Moduslinks, zusätzliche Dokumentidentitätsassertions, auf den Zielmodus begren
 Tastenselektoren und begrenzte Lebensdauer der Messprobe korrigieren die
 Vorbereitung. Alle Motion-/Cold-Load-Prüfungen und Grenzen bleiben bindend;
 eigene finale Pflicht-CI erforderlich. Details und Rohbeleg: [WP04](WP04.md).
-

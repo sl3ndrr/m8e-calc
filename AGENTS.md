@@ -431,7 +431,6 @@ WP-02 bleibt von kanonischem Bearbeitungsquelltext getrennt. Die Produktions-
 und Galerieregression aktiviert `label-content-name-mismatch` ausdrücklich,
 ohne andere Regeln auszuschalten. Aktueller Prüfstatus: [docs/WP04.md](docs/WP04.md).
 
-
 ## WP-09 · Reparaturabnahme
 
 Der aktuelle Reparaturauftrag umfasst die notwendige Toolchain-Sicherheitsprüfung.
