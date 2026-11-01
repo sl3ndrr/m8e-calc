@@ -430,3 +430,41 @@ und Badge gehört in den zugänglichen Aktionsnamen. Die lokalisierte Anzeige au
 WP-02 bleibt von kanonischem Bearbeitungsquelltext getrennt. Die Produktions-
 und Galerieregression aktiviert `label-content-name-mismatch` ausdrücklich,
 ohne andere Regeln auszuschalten. Aktueller Prüfstatus: [docs/WP04.md](docs/WP04.md).
+
+# Arbeitsregeln für Arbeitspakete (verbindlich, ersetzen widersprüchliche ältere Formulierungen)
+
+## A. Vor dem Start
+
+1. Zustand prüfen: Ist main-CI grün? Ist der Branch auf dem aktuellen main aufgebaut? Ist main rot, klären, ob die Ursache extern ist (neues Advisory, Runner-Image). Externe Ursachen werden in einem eigenen kleinen PR auf main gelöst, nicht im Feature-PR.
+2. Keine gestapelten PRs, außer ausdrücklich beauftragt. Wird der Vorgänger gemergt, sofort Basis auf main ändern und main einmergen.
+
+## B. Verifikation vor Behauptung
+
+3. Reihenfolge der Prüfungen: Typen, Lint/Format, Unit, Build, E2E, Visual/Galerie. Vor dem Schreiben die Prettier- und Lint-Konfiguration lesen und neue Dateien danach formatieren.
+4. Fehlt lokal die Toolchain (z. B. Registry-403), ist die CI das Labor. Dann: Draft-PR früh öffnen, kleine Inkremente pushen (Richtwert höchstens 300 Zeilen je Push, Typen und Tests zuerst). Jeden Lauf vollständig lesen, alle Fehler eines Schritts sammeln und gebündelt beheben. Keinen großen Diff ungeprüft aufstauen.
+5. Nie "grün", "bestanden" oder "mergebereit" behaupten ohne beobachteten Lauf auf exakt diesem Head. Nicht Ausgeführtes als "nicht ausgeführt" benennen. Vorläufige Statusaussagen ("blockiert", "Abnahme offen") gehören in den PR-Text, nie in dauerhafte Repo-Doku.
+
+## C. Fehler behandeln
+
+6. Jeder rote Check wird zuerst klassifiziert: (a) durch meine Änderung, (b) vorbestehend oder intermittierend (Historie prüfen: gleiche Assertion auf anderem Stand?), (c) extern. Nur (a) wird im WP behoben. (b) und (c) bekommen ein Issue oder einen eigenen PR und stehen im Bericht.
+7. Nie abschwächen: Tests, Assertions, Schwellen, Retries, Timeouts, Budgets, Lint-Regeln, Typstrenge (kein any, @ts-ignore, @ts-expect-error oder "as unknown as" zur Fehlerunterdrückung), Audit-Gate. Referenzbilder werden nur aktualisiert, wenn die visuelle Änderung beabsichtigt ist; vorher die Diffs sichten und dem Auftraggeber zeigen.
+8. Kein Re-run-bis-grün. Ein Re-run prüft denselben Commit und ist nur nach Historienprüfung ein einmaliges Diagnosemittel. Alle Attempts werden dokumentiert, auch rote.
+9. Abhängigkeiten und Lockfile nur ändern, wenn das WP es ausdrücklich verlangt.
+
+## D. Eskalation statt Evidenzspirale
+
+10. Je Fehlerursache höchstens zwei Reparaturzyklen (Hypothese, ein gebündelter Versuch, Ergebnis). Danach: Stopp mit Entscheidungsvorlage (Optionen, Risiken, Empfehlung). Keine neuen Evidenzjobs, Probe-Skripte oder Berichtsdateien ohne Auftrag. Doku bleibt proportional: kein Bericht über eine Seite pro WP, eine Quelle der Wahrheit.
+11. Kollidiert eine Regel mit der Realität: den Konflikt in einem Satz melden, eine Empfehlung geben, nicht umgehen und nicht seitenlang dokumentieren.
+
+## E. Git
+
+12. Nur Fast-forward-Pushes. Vor jedem Push muss der Remote-Head gleich dem eigenen letzten Push sein, sonst anhalten. Nie --force, außer ausdrücklich freigegeben. Experimentcommits per Revert zurückbauen. Vor Abschluss: git diff --stat main...HEAD gegen den Soll-Umfang prüfen, keine Temporärdateien.
+13. Merge, Release, Tag und Deployment nur nach ausdrücklicher Freigabe für den jeweiligen Vorgang.
+
+## F. Bericht (max. 12 Zeilen, Fakten als Text, keine Links statt Inhalt)
+
+Head-SHA, CI-Lauf-IDs und Ergebnis je Pflichtcheck, Zahlen gegen Erwartung, Abweichungen, Attempt-Historie, offene Punkte. "Mergebereit" nur, wenn die Pflicht-CI auf genau diesem Head vollständig grün ist.
+
+## Definition of Done
+
+Alle Pflichtchecks grün auf dem finalen Head, kein Referenzbild ohne Sichtung geändert, Diff im Soll-Umfang, PR-Text aktuell, nur dauerhafte Doku im Repo, offene Punkte als Issues.
