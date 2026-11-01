@@ -37,6 +37,14 @@ export async function checkSettingsFocus(
   for (const backwards of [false, true]) {
     for (const control of backwards ? [...controls].reverse() : controls) {
       await tabTo(page, control, backwards);
+      // Measure the painted result of native focus scrolling, not the key event.
+      await page.evaluate(
+        () =>
+          new Promise<void>((resolve) =>
+            requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+          ),
+      );
+      await expect(control).toBeFocused();
       const sample = await control.evaluate((element) => {
         const visual =
           element.closest('.ui-text-input, .ui-slider-thumb, .ui-switch') ??
