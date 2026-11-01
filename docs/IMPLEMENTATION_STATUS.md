@@ -21,67 +21,47 @@ Issue #71 bleibt offen, seine historische Ursache unbekannt. Keine Remoteaktion
 oder Freigabe. Identitäten, exakte Befehle, Ergebnisse und Offen / Folgearbeiten:
 [WP10](WP10.md).
 
-## WP-09 · Umrechnerzahlen und Swap-Layout · 31.10.2026
+## WP-09 · Umrechnerzahlen und Swap-Layout · Reparatur 01.11.2026
 
 Auf `feat/audit-wp-09` ab main
-`9b5b3736d8fdeb2d2706658e04bfc357883c3134` einschließlich WP-08 umgesetzt und
-auf Folgeauftrag als [Draft-PR #88](https://github.com/sl3ndrr/m8e-calc/pull/88)
-veröffentlicht. Vorzeichen/Mantisse/Exponent bleiben zusammen; benannte
-Zahlenbereiche sind unabhängig von der Copyaktion per Tastatur scrollbar.
-Swap besitzt eigenen Gridplatz mit gemeinsamen AP42-Formen/Pressoberflächen.
-WP-04-Namen, Präzision, Kopierquellen, Reducer, History, Favoriten und
-Währungs-Opt-in bleiben erhalten. Keine Domänen-/Token-/Abhängigkeitsänderung.
+`9b5b3736d8fdeb2d2706658e04bfc357883c3134` einschließlich WP-08 umgesetzt,
+veröffentlicht in [PR #88](https://github.com/sl3ndrr/m8e-calc/pull/88).
+Vorzeichen, Mantisse und Exponent bleiben eine vollständig erreichbare Zahl.
+Benannte Zahlenregionen und vollständige WP-04-Kopieraktionen sind getrennt;
+Swap besitzt eigenen Gridplatz. Kategorienfokus, Kontrast, native Fokusfläche
+und der später belegte Hauptpanelüberlauf sind im bestehenden PR korrigiert.
+Domänen, numerische APIs, Präzision, Persistenz, Währungszustimmung und Tokens
+bleiben erhalten.
 
-Die ersten PR-Browserläufe fanden reale Landmark-/Fokusfehler; eindeutige de/en-
-Regionsnamen, sichtbare Copyaktion und Fokusübergabe nach Kategorienmount
-korrigieren sie mit zusätzlichen Regressionen. Produkthead `46565e3` besteht
-beide vollständigen Node-Checks (641 UI/1744 Domänentests), Build/Benchmarks,
-Galerie, Provenienz, Performance und Quellen. Sechs Umrechnerreferenzen sind
-nach dokumentierter Alt-/Neu-Sichtung gezielt übernommen; 18 andere bleiben
-unverändert. Weitere Teilberichte korrigieren die gerundete Scroll-Endpunktmessung,
-den Copy-Hoverkontrast über die gemeinsame Tonal-Variante und eine auf 1920 px
-begrenzte native 4K-Fensteranforderung. Exakte Startgrößen sind nun bindend; neue
-Tonal-Produktionsbilder sind gesichtet; 24/24 Bildvergleiche bestehen ohne
-weitere Referenzänderung. Produkthead `2909253` besteht Chromium 299/299 und
-Firefox 247/247 (zwei bestehende Skips), einschließlich aller 24 nativen
-100/200%-Fälle. Die Sichtung findet jedoch unzuverlässige native Bildausschnitte;
-vollständige Viewportbilder mit strikter Glyphen-/Scrollprüfung vor und nach der
-Aufnahme ersetzen sie. WebKit besteht 246 Fälle, scheitert aber einmal am Fokus-Pixeloracle; die
-übrig gebliebenen kompakten Copy-Padding-/Iconmaße entfallen zugunsten der
-vollständigen gemeinsamen Buttonmaße. Der native Insetring erhält für HiDPI
-4px Stärke bei unverändertem Pixeloracle. Beide Nachträge benötigen eigene vollständige
-CI und Bildsichtung; die sechs Standardmaß-Referenzen sind nach erneutem
-Alt-/Neu-Sichtvergleich gezielt übernommen, 18 andere unverändert. Tatsächliche
-finale Ergebnisse stehen im PR. Keine gelockerten
-Prüfgrenzen.
+Die zwei getrennten Beschnittgegenproben erkennen Zeilenbeschnitt und echten
+Panelüberlauf; nach Wiederherstellung bestehen die strikten Assertions.
+Die vorher offenen Produkt-/Browsernachträge sind auf dem vollständig geprüften
+Head `9f91a7b8bd2d756ddd093491dacd9c4768dea7ed` abgearbeitet: beide vollständigen
+Checks, Chromium 300, Firefox/WebKit je 248 bei je zwei bestehenden Skips,
+24 Visuals, Galerie 75 und Provenienz 36 sowie Performance-, Quellen- und
+Pages-Artefaktprüfungen bestehen. Dieser Nachweis gehört zu CI 41239303423 und
+Build `bccf8a383b94eb942312ba43dbc8d82bdd9ce367`.
 
-Der vollständige Head `55978e8` besteht alle drei Browserläufe und 24/24
-Visuals; die Sichtung findet dennoch einen intrinsisch zu breiten Hauptwert
-(1356 px in 1280 px). Begrenzte Panelspalte, natürliche Zeilenhöhen und eine
-begrenzte Hauptwertzeile korrigieren ihn; neue Panel-/Zeilen-/Home-End-Prüfungen
-machen diese bisher fehlende Abnahme bindend. Zwei betroffene FHD-Referenzen
-sind nach Sichtvergleich gezielt übernommen; 22 andere bleiben im Nachtrag
-unverändert. Die neuen Panelassertions finden bei langen Zahlen auf 4K noch
-6 px Überlauf in Firefox (8 Fälle) und 7 px in Chromium (16 Fälle einschließlich
-nativer 200%-Fälle). Ansagetext erhält den Zahlenviewport als Positionierungsbasis;
-Einheit/Copy schrumpfen nicht. Neue strikte Kindergrenzen ergänzen die Messung.
-Head `f68f735` besteht Chromium 299, WebKit 247 (zwei bestehende Skips) und
-24 Visuals. Firefox findet nur noch einen DOMRect-Darstellungsunterschied von
-0,000076 px bei identischer Panel-Scroll-/Clientbreite. Native Schnittflächen
-mit exakt 100 % Sichtbarkeit und eine absichtliche 6-px-Beschnittgegenprobe
-ersetzen den zusätzlichen Kantenvergleich. Kein Produkt-/Bilddiff oder
-geänderter Grenzwert. Firefox bestätigt alle 24 regulären Fälle; die
-Gegenprobe erkennt Zeilenbeschnitt, überschreitet aber noch nicht den Panelrand.
-Zwei getrennte Fixtures überschreiten nun Zeile und tatsächliche Panelkante;
-beide Assertions sowie die Wiederherstellung bleiben bindend. Eigene CI nötig.
+Ein frischer isolierter WP-08-Produktionsbuild und vergleichbare native
+100/200%-Aufnahmen schließen den früheren Umgebungsblocker. Die genaue
+Swap-/Ziffernentscheidung, Bilder und aktuellen Folgebelege stehen in der
+[Reparaturabnahme](wp09/REPAIR.md); der historische spätere Hauptpanelüberlauf
+bleibt davon getrennt.
 
-Der externe neue Minimatch-Befund hält den Audit-/Quality-Gate trotz unverändertem
-Lockfile rot; keine Ausnahme oder Major-Overrides. Lokale npm-/Browserprüfungen
-bleiben durch Registry-403/fehlende Runtimes begrenzt. Frische eigene Vorher-DOM-
-Messung und damit die ursprüngliche Ziffernüberdeckungshypothese bleiben offen;
-main-CI/Pages/aktiver Liveclient für diesen Diff sind nicht geprüft. Keine Freigabe
-oder Veröffentlichung der App. Exakte Identitäten, Befehle, Originalfehler,
-Bildreview und Grenzen: [WP09](WP09.md).
+**Keine Mergebereitschaft:** Der vollständige Audit meldet weiterhin zwölf
+moderate Paketbefunde aus einem Minimatch-Advisory. Ein regulärer kompatibler
+Updatekandidat besteht frische Installation und check, beseitigt den Audit aber
+nicht. Der aktuelle ESLint-10-Kandidat scheitert konkret an JSX-A11ys Peerbereich;
+auch seine veröffentlichten Elternpakete verlangen weiterhin Minimatch 10.
+Manifest und Lockfile erhalten deshalb keinen wirkungslosen oder inkompatiblen
+Sicherheitsdiff. Der genaue technische Hinderungsgrund bleibt Teil dieses
+Reparaturauftrags und wird nicht als erledigte Folgearbeit ausgegeben.
+
+Die abschließende Head-/Build-/CI-Identität steht im PR. Der rote Audit und seine
+QA-/Quality gates sperren den Merge; Deploy Pages ist übersprungen. Keine neue
+main-CI, kein tatsächlicher Pages-Deploy und kein aktiver Liveclient für WP-09
+geprüft. Physische Geräte-/OS-/Screenreaderabnahme bleibt separat offen.
+Chronologie und ursprüngliche Identitäten: [WP09](WP09.md).
 
 ## WP-08 · Wissenschaftlicher Hauptwert nach Zahlenpräferenzen · 30.10.2026
 

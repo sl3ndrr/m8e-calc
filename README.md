@@ -65,6 +65,8 @@ Globale Rechnerkürzel gelten außerhalb von Eingabefeldern und Dialogen; die Pa
 
 Voraussetzungen: **Node.js `>=24.15.0 <25` (24 LTS)**, npm **11.19.0** und Git. `.nvmrc` folgt der gepflegten 24er-Linie; die ältere Untergrenze wird separat in CI geprüft. Das Lockfile ist verbindlich.
 
+Der aktuelle WP-09-PR ist durch den vollständigen Toolchain-Audit blockiert. Reguläre Updateversuche und die konkreten Peer-/API-Grenzen stehen in der [Reparaturabnahme](docs/wp09/REPAIR.md).
+
 ```sh
 git clone https://github.com/sl3ndrr/m8e-calc.git
 cd m8e-calc
