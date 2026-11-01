@@ -3,7 +3,6 @@ import { createUnitsEngine, type UnitErrorCode } from '../../../units';
 import { createCurrencyProvider } from '../../../units/currency';
 import { t, type Locale } from '../../../shared/i18n/extended';
 import { useSettingsStore } from '../../../shared/settingsStore';
-import { VisuallyHidden } from '../../../ui/VisuallyHidden';
 import { Button } from '../../../ui/Button';
 import { Fab } from '../../../ui/Fab';
 import { Card } from '../../../ui/Card';
@@ -16,6 +15,8 @@ import { useConvertStore } from '../preferences';
 import { currencyCategory } from './catalog';
 import { currencyRateClient } from './useCurrencyRates';
 import { isStale, type RateState } from './rates';
+import { NumberRegion } from '../NumberRegion';
+import { UnitResultCard } from '../UnitResultCard';
 import './CurrencyPanel.css';
 
 export function CurrencyPanel({
@@ -162,15 +163,23 @@ export function CurrencyPanel({
               if (key) setTo(String(key));
             }}
           />
-          <output
-            aria-label={t('convert.result', locale)}
-            aria-live="polite"
-            className="convert-result"
+          <NumberRegion
+            label={t('convert.resultRegion', locale, {
+              unit:
+                category.units.find((unit) => unit.id === to)?.names[locale] ??
+                to,
+            })}
           >
-            {result && engine
-              ? `${engine.formatQuantity(result, to, options)} (${to})`
-              : '—'}
-          </output>
+            <output
+              aria-label={t('convert.result', locale)}
+              aria-live="polite"
+              className="convert-result"
+            >
+              {result && engine
+                ? `${engine.formatQuantity(result, to, options)} (${to})`
+                : '—'}
+            </output>
+          </NumberRegion>
         </Card>
       </div>
       <p className="convert-note">{t('currency.disclaimer', locale)}</p>
@@ -187,26 +196,23 @@ export function CurrencyPanel({
                   )
                 : '—';
             return (
-              <Card key={unit.id} className="convert-unit-card">
-                <Button
-                  variant="text"
-                  isDisabled={!engine || !!error}
-                  onPress={() => {
-                    void copy(`${text} (${unit.id})`);
-                  }}
-                >
-                  <span className="convert-unit-name">
-                    {unit.id} · {unit.names[locale]}
-                  </span>
-                  <strong className="expression">{text}</strong>
-                  <span className="convert-unit-symbol">{unit.symbol}</span>
-                  <VisuallyHidden>
-                    {t('convert.copyUnit', locale, {
-                      unit: unit.names[locale],
-                    })}
-                  </VisuallyHidden>
-                </Button>
-              </Card>
+              <UnitResultCard
+                key={unit.id}
+                name={`${unit.id} · ${unit.names[locale]}`}
+                value={text}
+                symbol={unit.symbol}
+                valueLabel={t('convert.valueRegion', locale, {
+                  unit: unit.names[locale],
+                })}
+                copyLabel={t('convert.copyUnit', locale, {
+                  unit: unit.names[locale],
+                })}
+                copyActionLabel={t('convert.copyAction', locale)}
+                disabled={!engine || !!error}
+                onCopy={() => {
+                  void copy(`${text} (${unit.id})`);
+                }}
+              />
             );
           })}
         </div>

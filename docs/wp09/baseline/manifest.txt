@@ -1,0 +1,130 @@
+{
+  "run": 41295979084,
+  "attempt": 1,
+  "head": "d6f3f54e1c3b9fa7970aeaec1c217a8e3cdfd569",
+  "build": "fdfc4fb6da13b409f726cff1d5e78f7b7aa89038",
+  "baseline": "9b5b3736d8fdeb2d2706658e04bfc357883c3134",
+  "artifact": 13078664617,
+  "archive_sha256": "d499d421709b7a66f21994201ef4409aefe584a414f6a190b82ae94a6f3f69cb",
+  "normalization": "JSON parsed and serialized without whitespace; values and full geometry preserved. PNGs unchanged.",
+  "analysis": "Python 3 with Pillow 12.3.0; all changed RGB pixels, exact solid foreground colors, and pixel-center membership in native swap bounds counted separately.",
+  "files": [
+    {
+      "file": "after-1280-de-light-false-1.png",
+      "bytes": 108361,
+      "sha256": "af2167fbeaa498f0c951a1090c54a2b0cafb1a76ce8c1a0aec0bbecea78b119c"
+    },
+    {
+      "file": "after-1280-de-light-false-2-swap-hidden.png",
+      "bytes": 64076,
+      "sha256": "84a19b49656d6541334a58df9d6906a7bf4e40ed8974b22955d61347a6fb5eb7"
+    },
+    {
+      "file": "after-1280-de-light-false-2-swap-visible.png",
+      "bytes": 65603,
+      "sha256": "2f0534794fcb9503f9f54c22e1db23eeb29c47bf99de5cc1a8f83baf34b4787d"
+    },
+    {
+      "file": "after-1280-de-light-false-2.png",
+      "bytes": 69315,
+      "sha256": "ee37b5272c69f2a555dfc0d755f44685dd462bcacd2cc73ff61aa97442136d38"
+    },
+    {
+      "file": "after-1920-en-dark-true-1.png",
+      "bytes": 189990,
+      "sha256": "aa6bfc3fca026f1884b6e42578b35d27b8c04aa97c747bdc53f4224eecad6509"
+    },
+    {
+      "file": "after-1920-en-dark-true-2.png",
+      "bytes": 110922,
+      "sha256": "34cf7b45bec3d58535a292fbc3d1bf74702e128ca810f3d874cff7204c2e2667"
+    },
+    {
+      "file": "after-3840-de-light-false-1.png",
+      "bytes": 436663,
+      "sha256": "80102d77d6efd5b112186efffa95c30786bc128bdc7821535550bd12c4937670"
+    },
+    {
+      "file": "after-3840-de-light-false-2.png",
+      "bytes": 442373,
+      "sha256": "c1740c9ed4c82114fc902c2b89d2a55339490f7acf50850b88ab9e7fbd4af74f"
+    },
+    {
+      "file": "after-build-proof.txt",
+      "bytes": 19764,
+      "sha256": "c4880ea72f2e0d073ad338829ce7ffd30f3ce431dff700a657cedd22dadeda16"
+    },
+    {
+      "file": "before-1280-de-light-false-1.png",
+      "bytes": 113095,
+      "sha256": "7b6771723007282c21ccfa8d342a602b48141133c7fb80ec2b30c96dfca704c5"
+    },
+    {
+      "file": "before-1280-de-light-false-2-swap-hidden.png",
+      "bytes": 75062,
+      "sha256": "84d258bd52cec6ae0f9006b87411bcffcd9af91bf9e82478d5141aeed7b897eb"
+    },
+    {
+      "file": "before-1280-de-light-false-2-swap-visible.png",
+      "bytes": 81148,
+      "sha256": "36ea49dd0fba370489e2381309511d694c7dfb2da78b69b6efc805017aa2ba08"
+    },
+    {
+      "file": "before-1280-de-light-false-2.png",
+      "bytes": 90146,
+      "sha256": "1dbabca65832c5b09338696f8091a081b40ad97362317f42d3b8b9a3e9a2f7df"
+    },
+    {
+      "file": "before-1920-en-dark-true-1.png",
+      "bytes": 295239,
+      "sha256": "6f1827036de2b1d606731828b73ee7e52bb0abe63dc5d886a7d4630afd8b4b1e"
+    },
+    {
+      "file": "before-1920-en-dark-true-2.png",
+      "bytes": 142020,
+      "sha256": "27ccb1e07bc44655cfa6d59dc5dd2ea5a827cf4f4dbf834a5a76e150f5802c0b"
+    },
+    {
+      "file": "before-3840-de-light-false-1.png",
+      "bytes": 508336,
+      "sha256": "559bc263c1fad22741d34b0730af9bb2870bbc9cbda70c38d7f186f84c89e20d"
+    },
+    {
+      "file": "before-3840-de-light-false-2.png",
+      "bytes": 506827,
+      "sha256": "08118de16cce413ca22ac77314cbdd4fbc3306316cbf8645efc29a7f7a6d5ea0"
+    },
+    {
+      "file": "before-build-proof.txt",
+      "bytes": 19764,
+      "sha256": "e50e862731a02db7adb7139cbab668fb304bbd3cfc4e8da0ec656ebd8abff97c"
+    },
+    {
+      "file": "glyph-comparisons.txt",
+      "bytes": 184682,
+      "sha256": "659980d5438357186c1fec669352a48993d70ebb95c4293fe3fb4b6fd62f6ea4"
+    },
+    {
+      "file": "glyph-review.txt",
+      "bytes": 154855,
+      "sha256": "1cc0bc6c2bd19fb8d912d3324a47545a0b28c52e4d175eb38f17c72507e13008"
+    },
+    {
+      "file": "images.txt",
+      "bytes": 53234,
+      "sha256": "be9d37cc2a015a56428d7e03a6f4599e3a90ca0abd1ca72c6f7244feb5280644"
+    },
+    {
+      "file": "measurements.json.gz",
+      "bytes": 215685,
+      "sha256": "d1a0bd3b1a088e6ccd37aef879138d55e3db0f128290943499bf53b83a626121"
+    },
+    {
+      "file": "selected-images.txt",
+      "bytes": 2245,
+      "sha256": "d5b044da5d881db1892a5595225efdebbc407149f641bb36db581e63630b92fd"
+    }
+  ],
+  "measurements_decoded_sha256": "476c4395b8aca5628b5b1963d3e3f34a80da43bf3ad04edfb4744be5271bfb0b",
+  "reader_sha256": "f053c5c0551185b085cdf2878d3368a77773203028b46181099bd0c8f0b3cfc4"
+}

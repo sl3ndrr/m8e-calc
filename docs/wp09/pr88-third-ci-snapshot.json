@@ -1,0 +1,138 @@
+{
+  "head": "46565e385f0ab1a9a297871ce8d382424b8744a4",
+  "local_commit": "a6f68ce7f194f6ab534a271be958c66e2d1f5939",
+  "tree": "4bf952179af9cf20890f33bc3f8c3c80982dc278",
+  "build": "9c5bf38387c3459d9360a5b4f35c2fe9eb670a16",
+  "run": 41190835713,
+  "scope": "Intermediate snapshot before reviewed reference publication; ongoing browser jobs are not a pass.",
+  "node_checks": {
+    "minimum": "24.15.0",
+    "production": "24.22.2",
+    "npm": "11.19.0",
+    "command": "npm ci --engine-strict && npm run check",
+    "ui": 641,
+    "domains": 1744,
+    "conclusion": "success"
+  },
+  "production_artifact": {
+    "id": 13038558438,
+    "zip_sha256": "456a3e04a0f2b0e33d018a011b83b16c76f782b45ce9b1d87378ffe4b60ba457",
+    "fingerprint": "65c7d5fa28a33abd3814c5f94f9d61a384651a281115c95c2afc24667d6d20f0",
+    "verified_files": 145,
+    "hash_or_size_mismatches": 0
+  },
+  "jobs": [
+    {
+      "id": 124507135374,
+      "name": "Node 24 minimum",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124507135524,
+      "name": "Production build",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124507135598,
+      "name": "Pipeline contract tests",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124507136177,
+      "name": "Currency source evidence",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 124507723358,
+      "name": "Pages artifact verification",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124507723368,
+      "name": "Gallery",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124507723456,
+      "name": "Graph performance",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124507723473,
+      "name": "Hardening QA / measure (after)",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 124507723491,
+      "name": "Hardening QA / visual",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 124507723493,
+      "name": "Hardening QA / measure (before)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124507723496,
+      "name": "Hardening QA / browsers (qa-performance)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124507723498,
+      "name": "Hardening QA / browsers (firefox)",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 124507723532,
+      "name": "Build provenance / evidence",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124507723535,
+      "name": "Release assets / images",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124507723556,
+      "name": "Hardening QA / browsers (webkit)",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 124507723560,
+      "name": "Hardening QA / browsers (chromium)",
+      "status": "in_progress",
+      "conclusion": null
+    }
+  ],
+  "visual": {
+    "passed": 18,
+    "intended_convert_differences": 6,
+    "review": "visual-review.json"
+  },
+  "audit": {
+    "advisory": "GHSA-g3hv-75wg-m249",
+    "moderate_findings": 12,
+    "high": 0,
+    "critical": 0,
+    "unchanged_gate": "failure"
+  },
+  "pages_verification_is_deployment": false,
+  "main_ci_for_this_diff": false,
+  "live_client_verified": false,
+  "successor_requirement": "Reference/document-only successor must have its own complete PR CI. Final exact head/run/results are recorded in PR #88; no green overall claim while audit remains blocked."
+}

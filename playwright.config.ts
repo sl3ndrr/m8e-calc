@@ -43,6 +43,7 @@ export default defineConfig({
         '**/scientific-result.spec.ts',
         '**/scientific-worker.spec.ts',
         '**/convert.spec.ts',
+        '**/convert-layout.spec.ts',
         '**/currency.spec.ts',
         '**/graph.spec.ts',
         '**/grid-raster.spec.ts',

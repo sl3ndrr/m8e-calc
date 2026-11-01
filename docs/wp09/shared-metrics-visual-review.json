@@ -1,0 +1,91 @@
+{
+  "package": "WP-09",
+  "review_date_utc": "2026-10-31",
+  "previous_review": "visual-review.json",
+  "previous_reference_source_head": "46565e385f0ab1a9a297871ce8d382424b8744a4",
+  "new": {
+    "head": "ce4be80fdd279d47252cbbf6cdb0036d3ea00ef3",
+    "local": "524b16aa90381aac369e25b7c239b15a0d6972eb",
+    "tree": "034e5a557e5638dc97f8fcd067c62ea9354bef98",
+    "build": "46e7cbea356a77f04889df1b9a85ffa942522099",
+    "run": 41195632115,
+    "visual_artifact": 13040327689,
+    "visual_zip_sha256": "74891936acfff198442586bc92e8ba9b6482a752ba589e4a58f31db96a7fd317",
+    "normal_artifact": 13040352412,
+    "normal_zip_sha256": "da3755952bd9f03133fa967036bcaae99d790d370cc1fad3ce77c975ab8ed27e",
+    "normal_fingerprint": "6875d12e6bed9abf4ac3d142dc303e23d552a6def22fde50eb202739055c95ca",
+    "verified_production_files": 145,
+    "mismatches": 0
+  },
+  "command": "npx playwright test --project=qa-visual",
+  "unchanged_max_diff_pixel_ratio": 0.001,
+  "result_before_reference_update": {
+    "passed_other_modes": 18,
+    "failed_intended_convert": 6
+  },
+  "references": [
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/convert-1920-light-qa-visual-linux.png",
+      "width": 1920,
+      "height": 1080,
+      "theme": "light",
+      "before_sha256": "920de74e2aa4573de676927498ab60cdfeedfe35f62d68a8a60445dd3e117145",
+      "after_sha256": "3342a1d344d22e50b02732c5b41ed519355f6e4612311ca4d5e16e4bcc188446",
+      "diff_pixels": 10074,
+      "review": "Before references already viewed individually in the initial six-image review; all six new original-size production images viewed individually. Shared tonal Button/Icon metrics, clear action/value/symbol hierarchy, two columns and reserved swap spacing retained. No unrelated mode accepted."
+    },
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/convert-1920-dark-qa-visual-linux.png",
+      "width": 1920,
+      "height": 1080,
+      "theme": "dark",
+      "before_sha256": "d1b332a75aa1f5cb46d2764af79e73c584514cb186a757c79a1d4be2adb9b2b3",
+      "after_sha256": "a8beb7f6a8d39bd34da6d22edb831f1cbe6ca078c3c901d0bc1eacf8d2e9d742",
+      "diff_pixels": 10362,
+      "review": "Before references already viewed individually in the initial six-image review; all six new original-size production images viewed individually. Shared tonal Button/Icon metrics, clear action/value/symbol hierarchy, two columns and reserved swap spacing retained. No unrelated mode accepted."
+    },
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/convert-2560-light-qa-visual-linux.png",
+      "width": 2560,
+      "height": 1440,
+      "theme": "light",
+      "before_sha256": "2ea2d988664c714b23d05da6166296450a02583e8a30f494ea720963c0dc8ff7",
+      "after_sha256": "5b40bc0a67b16bd6ec0993ac3f1c1e063adba43281f4e7fd3d94af0ba8b2c4fd",
+      "diff_pixels": 19687,
+      "review": "Before references already viewed individually in the initial six-image review; all six new original-size production images viewed individually. Shared tonal Button/Icon metrics, clear action/value/symbol hierarchy, two columns and reserved swap spacing retained. No unrelated mode accepted."
+    },
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/convert-2560-dark-qa-visual-linux.png",
+      "width": 2560,
+      "height": 1440,
+      "theme": "dark",
+      "before_sha256": "5b6982875597e8af9a5e7cf505e3b740d360bc07e54fd114daa4775956884cad",
+      "after_sha256": "a5cbbda3d01803ffc1bbff3378d99b874b4d5f38c8151a10995284c051cdc271",
+      "diff_pixels": 20031,
+      "review": "Before references already viewed individually in the initial six-image review; all six new original-size production images viewed individually. Shared tonal Button/Icon metrics, clear action/value/symbol hierarchy, two columns and reserved swap spacing retained. No unrelated mode accepted."
+    },
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/convert-3840-light-qa-visual-linux.png",
+      "width": 3840,
+      "height": 2160,
+      "theme": "light",
+      "before_sha256": "a5a21376c9d8db8bbf702161c74eca69fadf4b50e9975292356525a01e3dccaf",
+      "after_sha256": "c30a2d31163f33aebe37215141164f429de72f506a5c6bc853c520900c45580d",
+      "diff_pixels": 38485,
+      "review": "Before references already viewed individually in the initial six-image review; all six new original-size production images viewed individually. Shared tonal Button/Icon metrics, clear action/value/symbol hierarchy, two columns and reserved swap spacing retained. No unrelated mode accepted."
+    },
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/convert-3840-dark-qa-visual-linux.png",
+      "width": 3840,
+      "height": 2160,
+      "theme": "dark",
+      "before_sha256": "4dcc272e6d984da1356f2db9699ff403f78b3b119e5380ee12245648ec5f0798",
+      "after_sha256": "cf034f20449d684a8c365bb3dd9b8a2177c825d7adc3db6dc950e9dc1eba5178",
+      "diff_pixels": 39418,
+      "review": "Before references already viewed individually in the initial six-image review; all six new original-size production images viewed individually. Shared tonal Button/Icon metrics, clear action/value/symbol hierarchy, two columns and reserved swap spacing retained. No unrelated mode accepted."
+    }
+  ],
+  "total_changed_reference_paths_from_base": 6,
+  "unchanged_other_references": 18,
+  "successor_requirement": "Reference/document-only successor needs its own complete CI. No functional browser pass or audit approval inferred from this screenshot review."
+}

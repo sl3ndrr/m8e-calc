@@ -1,5 +1,47 @@
 # Implementierungsstatus
 
+## WP-09 · Umrechnerzahlen und Swap-Layout · Reparatur 01.11.2026
+
+Auf `feat/audit-wp-09` ab main
+`9b5b3736d8fdeb2d2706658e04bfc357883c3134` einschließlich WP-08 umgesetzt,
+veröffentlicht in [PR #88](https://github.com/sl3ndrr/m8e-calc/pull/88).
+Vorzeichen, Mantisse und Exponent bleiben eine vollständig erreichbare Zahl.
+Benannte Zahlenregionen und vollständige WP-04-Kopieraktionen sind getrennt;
+Swap besitzt eigenen Gridplatz. Kategorienfokus, Kontrast, native Fokusfläche
+und der später belegte Hauptpanelüberlauf sind im bestehenden PR korrigiert.
+Domänen, numerische APIs, Präzision, Persistenz, Währungszustimmung und Tokens
+bleiben erhalten.
+
+Die zwei getrennten Beschnittgegenproben erkennen Zeilenbeschnitt und echten
+Panelüberlauf; nach Wiederherstellung bestehen die strikten Assertions.
+Die vorher offenen Produkt-/Browsernachträge sind auf dem vollständig geprüften
+Head `9f91a7b8bd2d756ddd093491dacd9c4768dea7ed` abgearbeitet: beide vollständigen
+Checks, Chromium 300, Firefox/WebKit je 248 bei je zwei bestehenden Skips,
+24 Visuals, Galerie 75 und Provenienz 36 sowie Performance-, Quellen- und
+Pages-Artefaktprüfungen bestehen. Dieser Nachweis gehört zu CI 41239303423 und
+Build `bccf8a383b94eb942312ba43dbc8d82bdd9ce367`.
+
+Ein frischer isolierter WP-08-Produktionsbuild und vergleichbare native
+100/200%-Aufnahmen schließen den früheren Umgebungsblocker. Die genaue
+Swap-/Ziffernentscheidung, Bilder und aktuellen Folgebelege stehen in der
+[Reparaturabnahme](wp09/REPAIR.md); der historische spätere Hauptpanelüberlauf
+bleibt davon getrennt.
+
+**Keine Mergebereitschaft:** Der vollständige Audit meldet weiterhin zwölf
+moderate Paketbefunde aus einem Minimatch-Advisory. Ein regulärer kompatibler
+Updatekandidat besteht frische Installation und check, beseitigt den Audit aber
+nicht. Der aktuelle ESLint-10-Kandidat scheitert konkret an JSX-A11ys Peerbereich;
+auch seine veröffentlichten Elternpakete verlangen weiterhin Minimatch 10.
+Manifest und Lockfile erhalten deshalb keinen wirkungslosen oder inkompatiblen
+Sicherheitsdiff. Der genaue technische Hinderungsgrund bleibt Teil dieses
+Reparaturauftrags und wird nicht als erledigte Folgearbeit ausgegeben.
+
+Die abschließende Head-/Build-/CI-Identität steht im PR. Der rote Audit und seine
+QA-/Quality gates sperren den Merge; Deploy Pages ist übersprungen. Keine neue
+main-CI, kein tatsächlicher Pages-Deploy und kein aktiver Liveclient für WP-09
+geprüft. Physische Geräte-/OS-/Screenreaderabnahme bleibt separat offen.
+Chronologie und ursprüngliche Identitäten: [WP09](WP09.md).
+
 ## WP-08 · Wissenschaftlicher Hauptwert nach Zahlenpräferenzen · 30.10.2026
 
 Lokal auf `feat/audit-wp-08` ab `43b0765172223182634f81183dbc8d471ba77052`

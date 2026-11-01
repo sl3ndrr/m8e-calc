@@ -335,11 +335,12 @@ for (const locale of ['de', 'en'] as const) {
     await page.goto('/m8e-calc/#/convert');
     await ready(page, 'convert');
     const unit = locale === 'de' ? 'Meter' : 'metre';
-    const meter = page.locator('.convert-unit-card button').filter({
+    const meterCard = page.locator('.convert-unit-card').filter({
       has: page.locator('.convert-unit-name', {
         hasText: new RegExp(`^${unit}$`),
       }),
     });
+    const meter = meterCard.getByRole('button');
     await expect(meter).toHaveAccessibleName(
       new RegExp(`${unit} .* m .*${unit}`),
     );
@@ -349,7 +350,7 @@ for (const locale of ['de', 'en'] as const) {
     });
     await quick.fill('5 km in m');
     await quick.press('Enter');
-    await expect(meter.locator('strong')).toHaveText(
+    await expect(meterCard.locator('strong')).toHaveText(
       locale === 'de' ? '5.000' : '5,000',
     );
     const pair = page
@@ -359,14 +360,14 @@ for (const locale of ['de', 'en'] as const) {
     await expect(pair).toHaveAccessibleName(
       `km → m · ${t('convert.loadPair', locale, { category: locale === 'de' ? 'Länge' : 'Length', from: 'km', to: 'm' })}`,
     );
-    for (const card of await page.locator('.convert-unit-card button').all()) {
+    for (const card of await page.locator('.convert-unit-card').all()) {
       for (const part of await card
         .locator(
           '.convert-unit-name, strong, .convert-unit-symbol, .convert-unit-system',
         )
         .all()) {
         // Decorative icon ligature text is not a visible unit symbol.
-        await includesText(card, await labelText(part));
+        await includesText(card.getByRole('button'), await labelText(part));
       }
     }
     await accessible(page, locale);
@@ -464,17 +465,18 @@ for (const locale of ['de', 'en'] as const) {
     await expect(panel.locator('.currency-date')).toBeVisible();
     expect(requests).toBe(1);
     await expect(panel.locator('.convert-unit-card button')).toHaveCount(30);
-    const usd = panel.locator('.convert-unit-card button').filter({
+    const usdCard = panel.locator('.convert-unit-card').filter({
       has: page.locator('.convert-unit-name', { hasText: /^USD ·/ }),
     });
-    await expect(usd.locator('strong')).toContainText(
+    const usd = usdCard.getByRole('button');
+    await expect(usdCard.locator('strong')).toContainText(
       locale === 'de' ? '1,25' : '1.25',
     );
-    for (const card of await panel.locator('.convert-unit-card button').all()) {
+    for (const card of await panel.locator('.convert-unit-card').all()) {
       for (const part of await card
         .locator('.convert-unit-name, strong, .convert-unit-symbol')
         .all()) {
-        await includesText(card, await labelText(part));
+        await includesText(card.getByRole('button'), await labelText(part));
       }
       await expect(card.locator('[aria-live], [role="status"]')).toHaveCount(0);
     }

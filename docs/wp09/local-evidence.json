@@ -1,0 +1,255 @@
+{
+  "kind": "WP-09 local evidence; blocked regular gates are not passes",
+  "captured_utc": "2026-10-31T09:11:55.817795+00:00",
+  "base": {
+    "branch": "main",
+    "sha": "9b5b3736d8fdeb2d2706658e04bfc357883c3134",
+    "tree": "2c9214f24717fbd2fa53e42cce9592fadaab6583",
+    "commit_time": "2026-10-30T22:31:58Z",
+    "verified_blobs": 841,
+    "initial_feature_status": "clean; no prior checkout or foreign changes",
+    "history": "exact shallow base reconstructed through read-only GitHub, git clone HTTP 403"
+  },
+  "checked": {
+    "branch": "feat/audit-wp-09",
+    "code_commit": "55f369ba4f1a25038e0c3f69f10eb000dd66ddd2",
+    "code_tree": "f86b904505c8558db29e10230fbf683a97268e36",
+    "base_to_code_binary_diff_sha256": "b05544de7698bd15e948a53daba84e223f62b27488b979acfc31845dbf22cfdb",
+    "code_file_sha256": {
+      "docs/CONVERT_MODE.md": "c73995ea86f7f575b8ae843ef3c211a3b1dad352a6aedc6f1c87f8619e8fb2a8",
+      "docs/DESIGN.md": "f8279cd763f556f97280681a8e028e6b155180c96292449817ce2dfaca12769f",
+      "docs/wp09/source-probe.mjs": "e3e939f86b1bce1219184f19a04b3f372636a87e43688a3b5177d94d7fbecdcd",
+      "e2e/convert-layout.spec.ts": "081e249dc50b01c7ffeed73c205c1fc38233f1aacb5f88a6108451aa896ebc24",
+      "e2e/convert-native-zoom.spec.ts": "a4486d3d4d73a34ec710a6e11174cbc7108968176fbb62cb37069192ed289570",
+      "e2e/convertLayout.ts": "41a4124cd00881b619573eaf84b27ae36c82f6b77d3b59b72a632845f2093453",
+      "e2e/currency.spec.ts": "c1ebe8f178177845894542905670e0e81e53c2e530b04ce4f3971cde7baa7868",
+      "e2e/label-in-name.spec.ts": "acc53eeac090a29c6286a6245db16d65509aee04ad1949410d9fda7ffa59f10a",
+      "playwright.config.ts": "15d747d4831343332571536849ca5290c71ef2b89943f369af378af79cfc7f9c",
+      "src/features/convert/ConvertMode.css": "897b97fd11830eb4d4e379647f9e1017093eecac13623ef4a6b31c95bdf5916a",
+      "src/features/convert/ConvertMode.test.tsx": "972e196379072747cb3e34b548795d1d031e6b8e5cef5a581fa3f8cdf91968df",
+      "src/features/convert/ConvertMode.tsx": "32c3ba8b714cb5ab7e9ce84dca4ad290835bf7d7084870f3bdfd26a6163765da",
+      "src/features/convert/NumberRegion.tsx": "a64614362eb7fc0365c09294fe6f3519b063da5d82e724d44b0855faf114699f",
+      "src/features/convert/UnitResultCard.test.tsx": "e4f9bda12f09a56930bfe2f05ddd3902ec514fd4e2805951beb85781b0a7edb2",
+      "src/features/convert/UnitResultCard.tsx": "b5dc3d126326c6629f5e2522fb807a5ebe172f11ccbf372f59972ee6be21dc89",
+      "src/features/convert/currency/CurrencyPanel.css": "6a7285fe6f1c6f8a0735b13da7a186afadabc7c8f35ea367fbf1ccc63db539ff",
+      "src/features/convert/currency/CurrencyPanel.tsx": "7f4198243a7f8beea2e75686839f18049faadb158989d26cf97e9d6500bc3bc0",
+      "src/shared/i18n/de.ts": "e4b4ca0038d2ae49cd51cb9fa70a1391d57660e7532d8d615617bacf7c84656d",
+      "src/shared/i18n/en.ts": "3fe19c3da12201810575bb3d37d3112134c59cf0ff76def5552d7a9f204a0754"
+    }
+  },
+  "initial_attempts": [
+    {
+      "command": "git clone https://github.com/sl3ndrr/m8e-calc.git m8e-calc",
+      "exit_code": 128,
+      "error": "HTTP 403: Forbidden. Calls to this URL are not allowed."
+    },
+    {
+      "command": "npm install --prefix /workspace/scratch/9c1dea254b1b/toolchain npm@11.19.0 --ignore-scripts --no-audit --no-fund",
+      "exit_code": 1,
+      "error": "E403: 403 Forbidden - GET https://registry.npmjs.org/npm"
+    },
+    {
+      "command": "npm ci --engine-strict",
+      "exit_code": 1,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\nnpm error code E403\nnpm error 403 403 Forbidden - GET https://registry.npmjs.org/zustand/-/zustand-5.0.15.tgz\nnpm error 403 In most cases, you or one of your dependencies are requesting\nnpm error 403 a package version that is forbidden by your security policy, or\nnpm error 403 on a server you do not have access to.\nnpm error A complete log of this run can be found in: /root/.npm/_logs/2026-10-31T08_51_16_966Z-debug-0.log\n"
+    },
+    {
+      "command": "npm run build (unmodified baseline)",
+      "exit_code": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 build\n> tsc -b && vite build && node scripts/check-build-target.mjs\n\nsh: 1: tsc: not found\n"
+    },
+    {
+      "command": "GitHub read-only download_workflow_artifact(12931081928)",
+      "error": "404 Not Found; prior WP-07 toolchain export unavailable"
+    },
+    {
+      "command": "Playwright runtime Chromium launch with TMPDIR=/workspace/scratch/9c1dea254b1b/wp09-evidence/tmp",
+      "exit_code": 1,
+      "error": "Executable does not exist: /root/.cache/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-linux64/chrome-headless-shell",
+      "browser_executed": false,
+      "launcher_playwright_version": "1.62.1"
+    }
+  ],
+  "supplementary_tools": [
+    {
+      "name": "prettier",
+      "version": "3.9.6",
+      "integrity": "sha512-OpN0zzVdiaiAhxpuuj5efpIS4sY9j7bY6uR5mnj5yPzGkdkjNKSJeUThPb60Jw29QuAZgA4o+/iB49kFiaBX6g==",
+      "source": "/opt/codex/sites-tanstack-cache-source/package-lock.json"
+    },
+    {
+      "name": "typescript",
+      "version": "5.9.3",
+      "integrity": "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==",
+      "source": "/opt/codex/sites-vinext-cache-source/package-lock.json"
+    },
+    {
+      "name": "decimal.js",
+      "version": "10.6.0",
+      "source": "https://github.com/MikeMcl/decimal.js/blob/v10.6.0/decimal.mjs",
+      "sha256": "88fdf54694cf1c2963b66a0d27de25903dba3eb3b0d45c21c330b81771a8b695",
+      "regular_install": false
+    }
+  ],
+  "commands": [
+    {
+      "command": "node --version",
+      "started_utc": "2026-10-31T09:11:51.897103+00:00",
+      "seconds": 0.007,
+      "exit_code": 0,
+      "output": "v24.22.1\n"
+    },
+    {
+      "command": "npm --version",
+      "started_utc": "2026-10-31T09:11:51.904432+00:00",
+      "seconds": 0.117,
+      "exit_code": 0,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n11.9.0\n"
+    },
+    {
+      "command": "npm run check",
+      "started_utc": "2026-10-31T09:11:52.021859+00:00",
+      "seconds": 0.401,
+      "exit_code": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 check\n> npm run lint && npm run typecheck && npm run test && npm run build && npm run test:engine:bench && npm run test:graph:bench && npm run test:graph:implicit:bench\n\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 lint\n> eslint . && prettier --check .\n\nsh: 1: eslint: not found\n"
+    },
+    {
+      "command": "npm run test",
+      "started_utc": "2026-10-31T09:11:52.422767+00:00",
+      "seconds": 0.254,
+      "exit_code": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test\n> npm run test:ui && npm run test:engine\n\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:ui\n> vitest run --project=ui\n\nsh: 1: vitest: not found\n"
+    },
+    {
+      "command": "npm run build",
+      "started_utc": "2026-10-31T09:11:52.676382+00:00",
+      "seconds": 0.12,
+      "exit_code": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 build\n> tsc -b && vite build && node scripts/check-build-target.mjs\n\nsh: 1: tsc: not found\n"
+    },
+    {
+      "command": "npm run test:e2e -- e2e/convert.spec.ts e2e/convert-layout.spec.ts e2e/currency.spec.ts e2e/label-in-name.spec.ts e2e/calculator-rendering.spec.ts e2e/grid-raster.spec.ts --project=chromium --project=firefox --project=webkit --workers=1 --reporter=list",
+      "started_utc": "2026-10-31T09:11:52.796438+00:00",
+      "seconds": 0.135,
+      "exit_code": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test e2e/convert.spec.ts e2e/convert-layout.spec.ts e2e/currency.spec.ts e2e/label-in-name.spec.ts e2e/calculator-rendering.spec.ts e2e/grid-raster.spec.ts --project=chromium --project=firefox --project=webkit --workers=1 --reporter=list\n\nsh: 1: playwright: not found\n"
+    },
+    {
+      "command": "npm run test:e2e -- e2e/convert-native-zoom.spec.ts e2e/calculator-native-zoom.spec.ts --project=chromium --workers=1 --trace=on --reporter=list",
+      "started_utc": "2026-10-31T09:11:52.931521+00:00",
+      "seconds": 0.134,
+      "exit_code": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test e2e/convert-native-zoom.spec.ts e2e/calculator-native-zoom.spec.ts --project=chromium --workers=1 --trace=on --reporter=list\n\nsh: 1: playwright: not found\n"
+    },
+    {
+      "command": "npm run test:e2e -- --project=qa-visual --reporter=list",
+      "started_utc": "2026-10-31T09:11:53.066019+00:00",
+      "seconds": 0.136,
+      "exit_code": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test --project=qa-visual --reporter=list\n\nsh: 1: playwright: not found\n"
+    },
+    {
+      "command": "npm run build:gallery",
+      "started_utc": "2026-10-31T09:11:53.201656+00:00",
+      "seconds": 0.14,
+      "exit_code": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 build:gallery\n> tsc -b && vite build --mode gallery && node scripts/check-build-target.mjs dist-gallery gallery\n\nsh: 1: tsc: not found\n"
+    },
+    {
+      "command": "npm run test:e2e:gallery -- --output=test-results/gallery --reporter=list",
+      "started_utc": "2026-10-31T09:11:53.341509+00:00",
+      "seconds": 0.136,
+      "exit_code": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e:gallery\n> playwright test --config=playwright.gallery.config.ts --output=test-results/gallery --reporter=list\n\nsh: 1: playwright: not found\n"
+    },
+    {
+      "command": "npm run test:e2e -- --config=playwright.ap36.config.ts --project=chromium-production --project=firefox-production --project=webkit-production --reporter=list",
+      "started_utc": "2026-10-31T09:11:53.477411+00:00",
+      "seconds": 0.125,
+      "exit_code": 127,
+      "output": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> m8e-calc@1.0.0 test:e2e\n> playwright test --config=playwright.ap36.config.ts --project=chromium-production --project=firefox-production --project=webkit-production --reporter=list\n\nsh: 1: playwright: not found\n"
+    },
+    {
+      "command": "node docs/wp09/source-probe.mjs ../wp09-tools/typescript/package/lib/typescript.js ../wp09-probe/node_modules/decimal.js/decimal.mjs",
+      "started_utc": "2026-10-31T09:11:53.602302+00:00",
+      "seconds": 0.829,
+      "exit_code": 0,
+      "output": "{\n  \"kind\": \"supplementary source/translator/reducer probe; no npm-check or browser claim\",\n  \"base\": \"9b5b3736d8fdeb2d2706658e04bfc357883c3134\",\n  \"node\": \"v24.22.1\",\n  \"typescript\": \"5.9.3\",\n  \"parsedFiles\": 14,\n  \"dictionaryKeys\": 500,\n  \"cases\": [\n    {\n      \"locale\": \"de\",\n      \"inputLength\": 1,\n      \"result\": \"0\",\n      \"swaps\": 2\n    },\n    {\n      \"locale\": \"de\",\n      \"inputLength\": 5,\n      \"result\": \"-1e-7\",\n      \"swaps\": 2\n    },\n    {\n      \"locale\": \"de\",\n      \"inputLength\": 9,\n      \"result\": \"-1e-9998\",\n      \"swaps\": 2\n    },\n    {\n      \"locale\": \"de\",\n      \"inputLength\": 7,\n      \"result\": \"1e+10002\",\n      \"swaps\": 2\n    },\n    {\n      \"locale\": \"de\",\n      \"inputLength\": 59,\n      \"result\": \"-1,2345678901234567890123456789012345678901234567891e-9998\",\n      \"swaps\": 2\n    },\n    {\n      \"locale\": \"de\",\n      \"inputLength\": 1253,\n      \"result\": \"-1,2345678901234567890123456789012345678901234567891e-1199\",\n      \"swaps\": 2\n    },\n    {\n      \"locale\": \"de\",\n      \"target\": \"m\",\n      \"result\": \"-1,2345678901234567890123456789012345678901234567891e-9997\"\n    },\n    {\n      \"locale\": \"en\",\n      \"inputLength\": 1,\n      \"result\": \"0\",\n      \"swaps\": 2\n    },\n    {\n      \"locale\": \"en\",\n      \"inputLength\": 5,\n      \"result\": \"-1e-7\",\n      \"swaps\": 2\n    },\n    {\n      \"locale\": \"en\",\n      \"inputLength\": 9,\n      \"result\": \"-1e-9998\",\n      \"swaps\": 2\n    },\n    {\n      \"locale\": \"en\",\n      \"inputLength\": 7,\n      \"result\": \"1e+10002\",\n      \"swaps\": 2\n    },\n    {\n      \"locale\": \"en\",\n      \"inputLength\": 59,\n      \"result\": \"-1.2345678901234567890123456789012345678901234567891e-9998\",\n      \"swaps\": 2\n    },\n    {\n      \"locale\": \"en\",\n      \"inputLength\": 1253,\n      \"result\": \"-1.2345678901234567890123456789012345678901234567891e-1199\",\n      \"swaps\": 2\n    },\n    {\n      \"locale\": \"en\",\n      \"target\": \"m\",\n      \"result\": \"-1.2345678901234567890123456789012345678901234567891e-9997\"\n    }\n  ],\n  \"preservedDomainsToolchainUiTokensWorkflows\": true,\n  \"hashes\": {\n    \"e2e/convert-layout.spec.ts\": \"081e249dc50b01c7ffeed73c205c1fc38233f1aacb5f88a6108451aa896ebc24\",\n    \"e2e/convert-native-zoom.spec.ts\": \"a4486d3d4d73a34ec710a6e11174cbc7108968176fbb62cb37069192ed289570\",\n    \"e2e/convertLayout.ts\": \"41a4124cd00881b619573eaf84b27ae36c82f6b77d3b59b72a632845f2093453\",\n    \"e2e/currency.spec.ts\": \"c1ebe8f178177845894542905670e0e81e53c2e530b04ce4f3971cde7baa7868\",\n    \"e2e/label-in-name.spec.ts\": \"acc53eeac090a29c6286a6245db16d65509aee04ad1949410d9fda7ffa59f10a\",\n    \"playwright.config.ts\": \"15d747d4831343332571536849ca5290c71ef2b89943f369af378af79cfc7f9c\",\n    \"src/features/convert/ConvertMode.test.tsx\": \"972e196379072747cb3e34b548795d1d031e6b8e5cef5a581fa3f8cdf91968df\",\n    \"src/features/convert/ConvertMode.tsx\": \"32c3ba8b714cb5ab7e9ce84dca4ad290835bf7d7084870f3bdfd26a6163765da\",\n    \"src/features/convert/NumberRegion.tsx\": \"a64614362eb7fc0365c09294fe6f3519b063da5d82e724d44b0855faf114699f\",\n    \"src/features/convert/UnitResultCard.test.tsx\": \"e4f9bda12f09a56930bfe2f05ddd3902ec514fd4e2805951beb85781b0a7edb2\",\n    \"src/features/convert/UnitResultCard.tsx\": \"b5dc3d126326c6629f5e2522fb807a5ebe172f11ccbf372f59972ee6be21dc89\",\n    \"src/features/convert/currency/CurrencyPanel.tsx\": \"7f4198243a7f8beea2e75686839f18049faadb158989d26cf97e9d6500bc3bc0\",\n    \"src/shared/i18n/de.ts\": \"e4b4ca0038d2ae49cd51cb9fa70a1391d57660e7532d8d615617bacf7c84656d\",\n    \"src/shared/i18n/en.ts\": \"3fe19c3da12201810575bb3d37d3112134c59cf0ff76def5552d7a9f204a0754\"\n  }\n}\n"
+    },
+    {
+      "command": "node ../wp09-tools/typescript/package/lib/tsc.js -p ../wp09-evidence/tsconfig-i18n.json",
+      "started_utc": "2026-10-31T09:11:54.431325+00:00",
+      "seconds": 0.37,
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "command": "node --check docs/wp09/source-probe.mjs",
+      "started_utc": "2026-10-31T09:11:54.801573+00:00",
+      "seconds": 0.054,
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "command": "git diff --check 9b5b3736d8fdeb2d2706658e04bfc357883c3134",
+      "started_utc": "2026-10-31T09:11:54.855687+00:00",
+      "seconds": 0.008,
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "command": "node ../wp09-tools/prettier/package/bin/prettier.cjs --check docs/CONVERT_MODE.md docs/DESIGN.md docs/wp09/source-probe.mjs e2e/convert-layout.spec.ts e2e/convert-native-zoom.spec.ts e2e/convertLayout.ts e2e/currency.spec.ts e2e/label-in-name.spec.ts playwright.config.ts src/features/convert/ConvertMode.css src/features/convert/ConvertMode.test.tsx src/features/convert/ConvertMode.tsx src/features/convert/NumberRegion.tsx src/features/convert/UnitResultCard.test.tsx src/features/convert/UnitResultCard.tsx src/features/convert/currency/CurrencyPanel.css src/features/convert/currency/CurrencyPanel.tsx src/shared/i18n/de.ts src/shared/i18n/en.ts docs/WP09.md docs/IMPLEMENTATION_STATUS.md",
+      "started_utc": "2026-10-31T09:11:54.863685+00:00",
+      "seconds": 0.954,
+      "exit_code": 0,
+      "output": "Checking formatting...\nAll matched files use Prettier code style!\n"
+    }
+  ],
+  "github_readonly": {
+    "checked_prs": {
+      "63": "merged",
+      "69": "merged",
+      "83": "merged",
+      "87": "merged"
+    },
+    "issue_22": "open",
+    "basis_main_ci": {
+      "run_id": 41138747198,
+      "sha": "9b5b3736d8fdeb2d2706658e04bfc357883c3134",
+      "status": "completed",
+      "conclusion": "success",
+      "validates_wp09": false
+    },
+    "final_main_sha": "9b5b3736d8fdeb2d2706658e04bfc357883c3134",
+    "final_main_read_utc": "2026-10-31T09:12:53.078882+00:00"
+  },
+  "limitations": {
+    "regular_npm_11_19_install": false,
+    "regular_check_passed": false,
+    "production_build": false,
+    "playwright_test_runtime_executed": false,
+    "own_current_before_images": false,
+    "own_current_after_images": false,
+    "swap_suspicion": "neither confirmed nor refuted; geometry unmeasured",
+    "browser_versions_executed": [],
+    "pr_ci_for_diff": null,
+    "main_ci_for_diff": null,
+    "pages_deploy_for_diff": null,
+    "live_client_checked": false,
+    "physical_devices_checked": false,
+    "baselines_updated": false,
+    "remote_mutations": false,
+    "release_approval": false
+  },
+  "required_playwright_version": "1.64.1",
+  "final_documentation_checks": {
+    "relative_link_count": 38,
+    "missing": [],
+    "note": "local targets only, no HTTP check",
+    "format_command": "node ../wp09-tools/prettier/package/bin/prettier.cjs --check docs/WP09.md docs/wp09/local-evidence.json docs/IMPLEMENTATION_STATUS.md",
+    "format_version": "3.9.6 (supplementary, not lockfile 3.9.10)",
+    "format_exit_code": 0,
+    "diff_command": "git diff --check 9b5b3736d8fdeb2d2706658e04bfc357883c3134",
+    "diff_exit_code": 0
+  }
+}

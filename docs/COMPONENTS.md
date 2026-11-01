@@ -189,6 +189,11 @@ abschneidet. Der native Button trägt auch dort den Ring; seine isolierte
 Stapelreihenfolge hält die gesamte animierte Oberfläche unter dem Fokusring.
 AP19s gemeinsamer Bilddecoder prüft zusätzlich dessen tatsächliche Farbfläche.
 
+WP-09 trennt Zahlenregion und Kopieraktion. Die beschriftete Tonal-Kopieraktion
+nutzt die gemeinsamen Button-/Iconmaße; ihr nativer, weiterhin mit −4px Offset
+nach innen gelegter Ring hat 4px Stärke für robuste HiDPI-Farbdeckung. Form,
+Fokusfarbe und die getrennte Pressoberfläche behalten den gemeinsamen Vertrag.
+
 Ein während Press/Release deaktivierter Button beendet auch die internen
 Transitions unmittelbar und zeigt den neutralen Disabled-Zustand.
 

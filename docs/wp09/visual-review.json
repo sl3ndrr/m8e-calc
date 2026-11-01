@@ -1,0 +1,90 @@
+{
+  "package": "WP-09",
+  "review_date_utc": "2026-10-31",
+  "old": {
+    "commit": "9b5b3736d8fdeb2d2706658e04bfc357883c3134",
+    "run": 41138747198,
+    "artifact_id": 13018300857,
+    "zip_sha256": "04bdb2c17f9c0905fbc76193bdb61c6b12c75bbbb2bb8b3fa3d519febfe563d7",
+    "kind": "Historical committed main-CI references; NOT fresh own before screenshots or DOM collision measurements"
+  },
+  "new": {
+    "head": "46565e385f0ab1a9a297871ce8d382424b8744a4",
+    "build": "9c5bf38387c3459d9360a5b4f35c2fe9eb670a16",
+    "tree": "4bf952179af9cf20890f33bc3f8c3c80982dc278",
+    "run": 41190835713,
+    "artifact_id": 13039145284,
+    "zip_sha256": "c83ba7702067226e0624b71a468fcf6ad5772f87d18e4955db284cc7fba01a97",
+    "kind": "New exact production screenshots from this PR CI"
+  },
+  "command": "npx playwright test --project=qa-visual",
+  "unchanged_max_diff_pixel_ratio": 0.001,
+  "result_before_reference_update": {
+    "passed": 18,
+    "failed_intended_convert": 6
+  },
+  "references": [
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/convert-1920-light-qa-visual-linux.png",
+      "width": 1920,
+      "height": 1080,
+      "theme": "light",
+      "before_sha256": "163d7edc48c78e03c9d20c3e8b79a484f55a07b9c4de947e60d7fa023f0d5a36",
+      "after_sha256": "920de74e2aa4573de676927498ab60cdfeedfe35f62d68a8a60445dd3e117145",
+      "diff_pixels": 24082,
+      "review": "Viewed both original-size source images with view_image; intentional reserved swap column, two wider number-card columns, independent single-line number viewport, visible copy action, shared tokens and common button shape. No unrelated mode change accepted."
+    },
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/convert-1920-dark-qa-visual-linux.png",
+      "width": 1920,
+      "height": 1080,
+      "theme": "dark",
+      "before_sha256": "4b04312aad70e4ac0fc1619d9fd2ee105460a0d0ba3b079187649c76ba42c752",
+      "after_sha256": "d1b332a75aa1f5cb46d2764af79e73c584514cb186a757c79a1d4be2adb9b2b3",
+      "diff_pixels": 26523,
+      "review": "Viewed both original-size source images with view_image; intentional reserved swap column, two wider number-card columns, independent single-line number viewport, visible copy action, shared tokens and common button shape. No unrelated mode change accepted."
+    },
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/convert-2560-light-qa-visual-linux.png",
+      "width": 2560,
+      "height": 1440,
+      "theme": "light",
+      "before_sha256": "91cf179cee4ad92f649f2ae746293dd87f1c90440bb40c56aea2633eb127e9bb",
+      "after_sha256": "2ea2d988664c714b23d05da6166296450a02583e8a30f494ea720963c0dc8ff7",
+      "diff_pixels": 39060,
+      "review": "Viewed both original-size source images with view_image; intentional reserved swap column, two wider number-card columns, independent single-line number viewport, visible copy action, shared tokens and common button shape. No unrelated mode change accepted."
+    },
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/convert-2560-dark-qa-visual-linux.png",
+      "width": 2560,
+      "height": 1440,
+      "theme": "dark",
+      "before_sha256": "4f7660f89290bb9afc13412d5282bcee8afbd155477e3ac17543ccaa6b45cd75",
+      "after_sha256": "5b6982875597e8af9a5e7cf505e3b740d360bc07e54fd114daa4775956884cad",
+      "diff_pixels": 41389,
+      "review": "Viewed both original-size source images with view_image; intentional reserved swap column, two wider number-card columns, independent single-line number viewport, visible copy action, shared tokens and common button shape. No unrelated mode change accepted."
+    },
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/convert-3840-light-qa-visual-linux.png",
+      "width": 3840,
+      "height": 2160,
+      "theme": "light",
+      "before_sha256": "ea0e74841a4af8a6230e4bfe057cdd7f5d65dc90ee7aebc22b2fdae69a09ad1e",
+      "after_sha256": "a5a21376c9d8db8bbf702161c74eca69fadf4b50e9975292356525a01e3dccaf",
+      "diff_pixels": 79495,
+      "review": "Viewed both original-size source images with view_image; intentional reserved swap column, two wider number-card columns, independent single-line number viewport, visible copy action, shared tokens and common button shape. No unrelated mode change accepted."
+    },
+    {
+      "path": "e2e/qa-visual.spec.ts-snapshots/convert-3840-dark-qa-visual-linux.png",
+      "width": 3840,
+      "height": 2160,
+      "theme": "dark",
+      "before_sha256": "322771e5b3b47c46e0cf17f6082e0a3cb4ff1ed9ffd5024268ebfab41047c795",
+      "after_sha256": "4dcc272e6d984da1356f2db9699ff403f78b3b119e5380ee12245648ec5f0798",
+      "diff_pixels": 85044,
+      "review": "Viewed both original-size source images with view_image; intentional reserved swap column, two wider number-card columns, independent single-line number viewport, visible copy action, shared tokens and common button shape. No unrelated mode change accepted."
+    }
+  ],
+  "unchanged_other_references": 18,
+  "original_digit_overlap_hypothesis": "Not confirmed or refuted by a fresh original DOM measurement. Old screenshot shows label interference and broken e-/8 at FHD/QHD; that is not proof of digit collision."
+}

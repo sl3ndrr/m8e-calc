@@ -1,0 +1,51 @@
+{
+  "source_run": 41190835713,
+  "head": "46565e385f0ab1a9a297871ce8d382424b8744a4",
+  "build": "9c5bf38387c3459d9360a5b4f35c2fe9eb670a16",
+  "run_status": "cancelled by reference-only successor; partial reports are NOT a completed browser pass",
+  "chromium": {
+    "job": 124507723560,
+    "artifact": 13039235792,
+    "zip_sha256": "be4a22dcefc3dc5dd480652dcf0abdce902ef263dd68ae018a1602656c869f77",
+    "completed_native_failures": 22,
+    "error": "Integer scrollWidth/clientWidth endpoint predicate false at zoom 2 after all first-zoom operations passed; actual browser-clamped scrollLeft and rounded extents use different precision.",
+    "correction": "Measure the exact browser-clamped endpoint, restore original position, press End, require exact equality with that endpoint. Keep independent final-glyph range visibility, Home=0, complete selection/clipboard and no-overflow assertions. No numeric tolerance added.",
+    "four_k_evidence_gap": {
+      "requested_width": 3840,
+      "observed_initial_width": 1920,
+      "observed_initial_height": 993,
+      "observed_zoom2_width": 960,
+      "action": "Configure a 4096x2400 headless screen and resize real window contents with Browser.setContentsSize. Require the exact requested initial width AND height; no CSS zoom or device-metrics emulation."
+    },
+    "runtime": {
+      "browser": "Chrome/156.0.8078.4",
+      "javascript": "15.6.75",
+      "playwright": "1.64.1",
+      "node": "24.22.1"
+    }
+  },
+  "firefox": {
+    "job": 124507723498,
+    "artifact": 13038893225,
+    "zip_sha256": "d29583c96dd547bcfe91642262aac83376c2d0d25482898cd5da95d946cef8b9",
+    "case": "long results, currency names and keyboard focus (de)",
+    "rule": "color-contrast",
+    "visible_text": "Kopieren",
+    "foreground": "#65558f",
+    "hover_background": "#d9d2e0",
+    "actual_ratio": 4.38,
+    "required_ratio": 4.5,
+    "correction": "Use the shared tonal Button variant with existing central foreground/background/state tokens. Do not exclude contrast or change its limit."
+  },
+  "references": [
+    {
+      "url": "https://developer.chrome.com/docs/automation-and-testing/headless-screen-config",
+      "purpose": "Official --screen-info syntax and headless screen bounds"
+    },
+    {
+      "url": "https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-setContentsSize",
+      "purpose": "Resize actual browser contents without device-metrics emulation"
+    }
+  ],
+  "required_next_checks": "New full own CI including all native 100/200 cases and contrast; new six-image review needed for tonal copy actions."
+}

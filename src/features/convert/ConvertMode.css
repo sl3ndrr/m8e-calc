@@ -98,6 +98,7 @@
   color: inherit;
 }
 .convert-main {
+  container: convert-panel / inline-size;
   min-height: 0;
   overflow: auto;
   align-content: start;
@@ -105,6 +106,9 @@
   scrollbar-gutter: stable;
   min-width: 0;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  /* Overflow scrolls the panel; content rows must not compress into each other. */
+  grid-auto-rows: max-content;
   gap: 1.25rem;
   animation: convert-axis var(--md-sys-motion-spatial-default-duration)
     var(--md-sys-motion-spatial-default-easing);
@@ -114,12 +118,13 @@
   font-size: 1.5rem;
 }
 .convert-fields {
-  position: relative;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
   gap: 1rem;
 }
 .convert-field {
+  align-self: stretch;
   display: grid;
   gap: 1.25rem;
   padding: 1.25rem;
@@ -137,34 +142,51 @@
   min-width: 0;
 }
 .convert-swap {
-  position: absolute;
-  z-index: 1;
-  top: 45%;
-  left: 50%;
-  translate: -50% -50%;
-  transition:
-    rotate var(--md-sys-motion-spatial-default-duration)
-      var(--md-sys-motion-spatial-default-easing),
-    border-radius var(--md-sys-motion-spatial-fast-duration)
-      var(--md-sys-motion-spatial-fast-easing);
-}
-.convert-swap[data-pressed] {
-  border-radius: var(--md-sys-shape-full);
+  justify-self: center;
 }
 .convert-live {
+  min-width: 0;
   display: flex;
   align-items: baseline;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0.75rem;
   min-height: 4rem;
   color: var(--md-sys-color-primary);
 }
+.convert-live > .convert-number-scroll {
+  flex: 0 1 auto;
+}
+.convert-live > :not(.convert-number-scroll) {
+  flex: 0 0 auto;
+}
+.convert-number-scroll {
+  /* Keep the animated output's absolutely positioned live text in this viewport. */
+  position: relative;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  /* No character, sign or exponent may become a separate line. */
+  white-space: nowrap;
+  overflow-wrap: normal;
+  padding: 4px;
+}
+.convert-number-scroll:focus-visible {
+  outline: 3px solid var(--md-sys-color-primary);
+  outline-offset: -3px;
+}
+@media (forced-colors: active) {
+  .convert-number-scroll:focus-visible {
+    outline-color: Highlight;
+  }
+}
 .convert-result {
+  display: inline-block;
+  padding-inline: 0.12em;
   font-size: 3rem;
   font-weight: 600;
   letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
 }
 .convert-format {
   display: grid;
@@ -221,43 +243,34 @@
   align-content: start;
   scrollbar-gutter: stable;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
   gap: 0.75rem;
 }
 .convert-unit-card {
   min-width: 0;
-  padding: 0;
-}
-.convert-unit-card .ui-button {
-  width: 100%;
-  height: 100%;
-  border-radius: inherit;
-  --ui-button-padding-block: 1rem;
-  --ui-button-padding-inline: 1rem;
-  text-align: left;
-}
-.convert-unit-card .ui-button-content {
+  padding: 1rem;
   display: grid;
+  align-content: start;
   gap: 0.5rem;
-  width: 100%;
-  justify-content: stretch;
 }
 .convert-unit-card strong {
+  display: inline-block;
+  padding-inline: 0.12em;
   font-size: 1.1rem;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
   color: var(--md-sys-color-on-surface);
 }
 .convert-unit-name {
+  overflow-wrap: anywhere;
   font-size: 0.8rem;
   color: var(--md-sys-color-on-surface-variant);
 }
-.convert-unit-symbol {
+.convert-unit-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.convert-unit-symbol .ui-icon {
-  font-size: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 .convert-unit-system {
   font-size: 0.65rem;
@@ -289,8 +302,10 @@
   .convert-categories {
     grid-row: span 2;
   }
-  .convert-unit-grid {
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+}
+@container convert-panel (max-width: 36rem) {
+  .convert-fields {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 @container (min-width: 110rem) {
@@ -334,10 +349,6 @@
   .convert-quick:has(.mode-share) {
     grid-template-columns: minmax(0, 1fr);
   }
-  .convert-swap {
-    top: 50%;
-    left: 85%;
-  }
   .convert-quick > .ui-button {
     margin: 0;
     justify-self: start;
@@ -380,4 +391,9 @@
 .convert-category-grid .ui-button[data-focus-visible],
 .convert-unit-grid .ui-button[data-focus-visible] {
   outline-offset: -4px;
+}
+.convert-unit-grid .convert-unit-copy[data-focus-visible] {
+  /* Keep a substantial solid stroke after HiDPI antialiasing. The native
+     inset outline stays above the shared, independently pressed paint. */
+  outline-width: 4px;
 }
