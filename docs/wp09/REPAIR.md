@@ -260,11 +260,13 @@ Experimentbudget einschließlich der ersten API-Probe:
    Kein weiterer Experiment-Push; Rückbau per Revert, anschließend nur diese
    Dokumentationskorrektur und der finale Fast-forward.
 
-Der vorbestehende wp09-security-Ermittlungsjob samt Skript wird beim Rückbau
-unverändert wiederhergestellt: Nach gescheitertem Kandidaten erlaubt die
-Stoppregel nur Dokumentationskorrektur und Rückbau der temporären Versuche.
-Er ist kein Pflichtgate und bescheinigt weiterhin keinen bestandenen Audit.
-Keine experimentelle Workflowfassung und kein Adapter bleiben im Endstand.
+Die gesondert freigegebene Bereinigung entfernt die beiden temporären
+WP09-Sicherheits- und Ausgangsvergleichsjobs samt Runner-Skripten in genau
+einem Revert-Commit. CI-Orchestrator und dessen AGENTS-Ergänzung werden auf
+den main-Stand zurückgesetzt; Produktcode, Tests, Grenzen und Referenzbilder
+bleiben erhalten. Archivierte Nachweise behalten ihre ursprünglichen
+Identitäten. Weitere Sicherheitsreparaturen erfolgen ausschließlich in einem
+separaten WP von main; die Stoppregel für PR #88 bleibt bestehen.
 
 PR #33 (ESLint 10) und PR #73 (TypeScript-ESLint) bleiben getrennte
 Updatevorhaben. Ihre bereits verifizierten regulären Kandidaten beseitigen
@@ -311,11 +313,10 @@ Pages-TAR-Roundtrip aus. Galerie verwendet ausschließlich `dist-gallery/` und
 ihre eigene Konfiguration. Test-Retries, Fristen, Zahlen-/Pixelgrenzen,
 Performancebudgets und bestehende Bildreferenzen sind unverändert.
 
-Die zwei neuen WP09-Jobs verwenden ausschließlich `contents: read` und den
-bestehenden CI-Orchestrator. Der Vergleich konsumiert die Producer-Artefakt-ID
-desselben Laufs und derselben Attempt. Ermittlungs- und Ausgangsbuildartefakte
-werden niemals als normale geprüfte Produktionsbytes veröffentlicht. Der rote
-vollständige Audit und der bestehende Quality gate bleiben bindend.
+Die früheren WP09-Hilfsjobs verwendeten ausschließlich `contents: read` und
+waren vom normalen geprüften Produktionsartefakt getrennt. Sie sind nach der
+gesondert freigegebenen Bereinigung entfernt. Der unveränderte vollständige
+Audit und der bestehende Quality gate bleiben bindend.
 
 Für die lokale Pixelanalyse nach Entpacken des Vergleichsartefakts:
 

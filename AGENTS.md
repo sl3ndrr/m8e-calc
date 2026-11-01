@@ -430,15 +430,3 @@ und Badge gehört in den zugänglichen Aktionsnamen. Die lokalisierte Anzeige au
 WP-02 bleibt von kanonischem Bearbeitungsquelltext getrennt. Die Produktions-
 und Galerieregression aktiviert `label-content-name-mismatch` ausdrücklich,
 ohne andere Regeln auszuschalten. Aktueller Prüfstatus: [docs/WP04.md](docs/WP04.md).
-
-## WP-09 · Reparaturabnahme
-
-Der aktuelle Reparaturauftrag umfasst die notwendige Toolchain-Sicherheitsprüfung.
-Merge, Release, Tags und Deployment benötigen danach eine neue ausdrückliche
-Freigabe; historische Aufträge in Paketberichten sind dafür keine Autorisierung.
-Die zusätzlichen WP09-Jobs in `ci.yml` erfassen reguläre Updatekandidaten in
-wegwerfbaren Worktrees und einen isolierten Produktionsbuild der WP-08-Basis.
-Der normale Build und sein Same-Run-/Attempt-Nachweis werden davor und danach
-geprüft. Ein erfolgreicher Ermittlungsjob bescheinigt abgeschlossene Erhebung;
-der unveränderte vollständige Audit und Quality gate entscheiden die Freigabe.
-Aktuelle Befunde und Grenzen: [docs/wp09/REPAIR.md](docs/wp09/REPAIR.md).
