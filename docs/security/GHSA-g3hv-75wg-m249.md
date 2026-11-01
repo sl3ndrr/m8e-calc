@@ -39,6 +39,18 @@ Verhalten statt Versionen oder Patchbytes und bleibt bei nativ kompatiblem JSX-A
 grün; bei Entfernung des Patches wird er entfernt oder an den Upstream-Vertrag
 angepasst und erneut positiv sowie negativ geprüft.
 
+Die einmalige [Negativprobe 41324419420](https://github.com/sl3ndrr/m8e-calc/actions/runs/41324419420)
+prüft `e98e7b432fa6f1475423408269ed6b8562865908`: Gegen den damaligen PR-Head
+ist ausschließlich die Patchdatei entfernt. Frisches `npm ci --engine-strict`
+und Audit bestehen; `npm run check` scheitert sofort im Guard mit
+`[jsx-a11y minimatch guard] FAIL: (0 , _minimatch.default) is not a function`.
+Ein übersprungener Postinstall durch `npm ci --ignore-scripts` lässt dieselben
+beiden JSX-A11y-Importstellen ungepatcht und wird damit von derselben Probe abgedeckt.
+Es wurde keine zweite Negativprobe ausgeführt. Der Wegwerf-Branch wurde danach
+durch den reinen [Löschjob 41324608542](https://github.com/sl3ndrr/m8e-calc/actions/runs/41324608542)
+entfernt (Referenzabruf danach HTTP 404). Der temporäre Prüfworkflow ist per
+Revert entfernt; die finale Pflicht-CI prüft den bereinigten Head.
+
 ## Nachweise
 
 [Gebündelte Prüfung 41312371229](https://github.com/sl3ndrr/m8e-calc/actions/runs/41312371229)
