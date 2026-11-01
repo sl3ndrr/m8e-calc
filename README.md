@@ -65,6 +65,8 @@ Globale Rechnerkürzel gelten außerhalb von Eingabefeldern und Dialogen; die Pa
 
 Voraussetzungen: **Node.js `>=24.15.0 <25` (24 LTS)**, npm **11.19.0** und Git. `.nvmrc` folgt der gepflegten 24er-Linie; die ältere Untergrenze wird separat in CI geprüft. Das Lockfile ist verbindlich.
 
+Der aktuelle WP-09-PR ist durch den vollständigen Toolchain-Audit blockiert. Reguläre Updateversuche und die konkreten Peer-/API-Grenzen stehen in der [Reparaturabnahme](docs/wp09/REPAIR.md).
+
 ```sh
 git clone https://github.com/sl3ndrr/m8e-calc.git
 cd m8e-calc
@@ -154,3 +156,4 @@ Die zugehörigen Bibliotheken und Fonts behalten ihre eigenen Lizenzen. MIT ist 
 ## English
 
 m8e-calc is a private, local-first desktop browser calculator with four modes: simple, scientific (including programmer tools), unit conversion and interactive 2D graphs, including bounded implicit contours. Implicit analysis, trace and multivalued tables are unavailable; fit uses a stable sampling basis and completeness is not guaranteed. It supports German and English, light/dark themes, history, shareable links and offline use. No account, trackers or external calculation services are required. Optional ECB reference rates are fetched only after explicit consent; without opt-in there are no currency requests. [Try the live app](https://sl3ndrr.github.io/m8e-calc/). To develop locally, use Node >=24.15.0 <25 and npm 11.19.0, run `npm ci` and `npm run dev`; validate with `npm run check`. The proposed MIT license awaits the repository owner's confirmation.
+

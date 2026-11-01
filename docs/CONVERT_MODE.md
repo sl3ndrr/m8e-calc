@@ -69,7 +69,8 @@ zum Kopierbutton. Fokus liegt mit Tintenreserve innerhalb des Scrollbereichs,
 Forced Colors verwendet Highlight. Anzeigepräzision, vollständige formatierte
 Kopierquelle und gespeicherter Decimal-Wert bleiben erhalten; kein Ellipsis,
 Abschneiden, zusätzlicher Formatierrundungsschritt oder zweiter Ansagekanal.
-Aktuelle lokale Prüfgrenzen und fehlende Bild-/Kollisionsabnahme: [WP09](WP09.md).
+Aktuelle Produktionsprüfungen, frische Ausgangsmessung und Abnahmegrenzen:
+[WP09](WP09.md).
 
 Favoriten-/zuletzt verwendete Paare verwenden dieselbe vollständige sichtbare
 Zeichenfolge wie `km → m` als Namenspräfix, ergänzt um die lokalisierte Ladeaktion
@@ -132,3 +133,4 @@ AP17 ergänzt die separate optionale Währungskategorie über explizite DynamicR
 Chromium folgt der Roadmap. Globale UI-Skalierung ist in AP14 umgesetzt. Die Sortierung nach
 Größe bezeichnet Definitionsgröße (Basiswert von 1), keine Rangfolge aktuell
 angezeigter Zahlen bei negativen oder reziproken Werten.
+

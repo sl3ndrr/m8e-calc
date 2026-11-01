@@ -115,5 +115,50 @@ for (const variant of ['compatible', 'eslint-major']) {
   run(`${variant}-audit`, 'npm', ['audit', '--json'], cwd);
   run(`${variant}-check`, 'npm', ['run', 'check'], cwd);
 }
+const apiDirectory = resolve(process.env.RUNNER_TEMP, 'wp09-minimatch-api');
+mkdirSync(apiDirectory);
+writeFileSync(`${apiDirectory}/package.json`, '{"private":true}');
+assert.equal(
+  run(
+    'minimatch-api-install',
+    'npm',
+    ['install', '--save-exact', 'minimatch@latest', '--engine-strict'],
+    apiDirectory,
+  ).status,
+  0,
+);
+assert.equal(
+  run('minimatch-api-ci', 'npm', ['ci', '--engine-strict'], apiDirectory)
+    .status,
+  0,
+);
+run('minimatch-api-audit', 'npm', ['audit', '--json'], apiDirectory);
+run(
+  'minimatch-api-contract',
+  'node',
+  [
+    '-e',
+    `
+const mm = require('minimatch');
+const pattern = new mm.Minimatch('*.ts');
+const attempt = (operation) => {
+  try { return { result: operation() }; }
+  catch (error) { return { error: error.name, message: error.message }; }
+};
+console.log(JSON.stringify({
+  defaultType: typeof mm,
+  namedMatch: mm.minimatch('source.ts', '*.ts'),
+  instanceMatch: pattern.match('source.ts'),
+  makeRe: typeof pattern.makeRe,
+  matchOne: typeof pattern.matchOne,
+  AST: typeof mm.AST,
+  legacyDefaultCall: attempt(() => mm('source.ts', '*.ts')),
+  legacyMakeReCall: attempt(() => pattern.makeRe()),
+  legacyMatchOneCall: attempt(() => pattern.matchOne(['source.ts'], pattern.set[0])),
+}, null, 2));
+`,
+  ],
+  apiDirectory,
+);
 // Success means evidence collection completed, never that an audit passed.
 console.log(JSON.stringify(commands, null, 2));
