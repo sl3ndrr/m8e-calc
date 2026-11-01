@@ -17,6 +17,8 @@ export async function checkSettingsFocus(
   page: Page,
   dialog: Locator,
 ): Promise<FocusSample[]> {
+  await expect(dialog).toBeVisible();
+  await expect(dialog.locator('.ui-dialog-content')).toBeVisible();
   const controls: Locator[] = [];
   for (const node of await dialog.locator('button, input, [tabindex]').all()) {
     if (

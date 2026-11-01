@@ -71,7 +71,7 @@ for (const locale of ['de', 'en'] as const) {
         })),
       };
       await page.evaluate(
-        async ({ preserved, settings, history }) => {
+        ({ preserved, settings, history }) => {
           for (const [key, value] of Object.entries(preserved))
             localStorage.setItem(key, value);
           localStorage.setItem(
@@ -82,16 +82,20 @@ for (const locale of ['de', 'en'] as const) {
             'm8e-calc.history',
             JSON.stringify({ version: 1, state: history }),
           );
-          const cache = await caches.open('m8e-calc.wp10-retained');
-          await cache.put(
-            '/m8e-calc/wp10-retained',
-            new Response('offline file'),
-          );
         },
         { preserved, settings, history },
       );
       await page.reload();
       await ready(page, 'simple');
+      const offlineBefore = await page.evaluate(async () => {
+        const cache = await caches.open('m8e-calc.wp10-retained');
+        await cache.put(
+          '/m8e-calc/wp10-retained',
+          new Response('offline file'),
+        );
+        return (await cache.match('/m8e-calc/wp10-retained'))?.text();
+      });
+      expect(offlineBefore).toBe('offline file');
       const opener = page.getByRole('button', {
         name: t('shell.settings', locale),
         exact: true,
