@@ -78,6 +78,32 @@ stehen in [PR #90](https://github.com/sl3ndrr/m8e-calc/pull/90).
 Die unveränderte main-Matrix erwartet Chromium 249, Firefox/WebKit je 221 + 2 Skips,
 Visuals 24, Galerie 75 und Provenienz 36.
 
+## Historische WP-09-Untersuchung (abgeschlossen)
+
+Die folgenden früheren Versuche gehören zur Untersuchung vor dem übernommenen
+Sicherheitsfix. Ihre temporären Jobs und Runner-Skripte wurden entfernt;
+die alten Fehler sind kein aktueller offener Sicherheitsblocker.
+
+Das damalige unveränderte main-Lockfile von 9b5b3736 ergab unter dem neu
+veröffentlichten Advisory ebenfalls Audit-Exit 1 mit zwölf moderaten Befunden;
+sein zuvor grüner WP-08-Lauf lag vor der Advisory-Veröffentlichung.
+
+| Temporärer Head / Lauf                                                                 | Historisches Ergebnis                                                                                                                                                                                                                                     |
+| -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0eb4aeda / [41302330031](https://github.com/sl3ndrr/m8e-calc/actions/runs/41302330031) | API-/main-Audit-Probe erfolgreich; Gesamtlauf wegen Prettier im temporären Skript rot. Per Revert entfernt.                                                                                                                                               |
+| 6bd3cdde / [41303739662](https://github.com/sl3ndrr/m8e-calc/actions/runs/41303739662) | Vor dem Kandidatentest im flachen Checkout mit `fatal: invalid reference: a009721...` abgebrochen. Per Revert entfernt.                                                                                                                                   |
+| d425fc86 / [41304003499](https://github.com/sl3ndrr/m8e-calc/actions/runs/41304003499) | Begrenzte 11.0.3-Overrides und JSX-A11y-file:-Adapter: Lockfile-Erzeugung Exit 0, frisches npm ci Exit 1 mit EUSAGE / `Missing: minimatch@ from lock file`. V1 fehlgeschlagen; V2–V5 danach nicht ausgeführt. Kandidat verworfen und per Revert entfernt. |
+
+Die damalige Stoppregel beendete diese Versuchsreihe auf WP-09; anschließend
+wurde der hier dokumentierte getrennte Sicherheitsfix umgesetzt. Reguläre
+Lint-Familien-Updates hatten zuvor weiter zwölf moderate Befunde ergeben;
+ESLint 10 kollidierte mit JSX-A11ys Peerbereich und verlangte weiterhin eine
+betroffene Minimatch-Linie. PR #33 und PR #73 bleiben getrennte Updatevorhaben.
+Die frühere pauschale API-Inkompatibilitätsannahme wurde durch die oben
+dokumentierte tatsächliche CJS-Laufzeitmatrix korrigiert. Im untersuchten
+Minimatch 3.1.5 fehlen firstPhasePreProcess und optimizationLevel; in 10.2.6
+existieren beide. Daraus wurde keine Audit-Ausnahme abgeleitet.
+
 ## Entfernung und Grenzen
 
 Overrides entfernen, sobald eslint, @eslint/*, typescript-eslint beziehungsweise
@@ -89,5 +115,6 @@ mehr benötigt wird. Erneut Lint-/Canary-Parität und vollständige Pflicht-CI p
 Die Prüfabdeckung bezieht sich auf den vorhandenen Quellstand und die Canaries;
 neue Globkonfiguration verlangt erneute Prüfung.
 
-Keine Audit-Ausnahme ist aktiviert. Merge, Release, Tag und Deployment benötigen
-eine neue ausdrückliche Freigabe.
+Keine Audit-Ausnahme ist aktiviert. PR #90 wurde mit ausdrücklicher Freigabe
+übernommen; weitere Merges, Release, Tag und Deployment benötigen eine neue
+ausdrückliche Freigabe.
