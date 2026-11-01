@@ -1,12 +1,13 @@
 # WP-09 · Reparaturabnahme vom 01.11.2026
 
-**PR #88 ist wegen des vollständigen Toolchain-Audits weiterhin nicht
-mergebereit.** Der kompatible reguläre Updateversuch wurde installiert und
-vollständig geprüft; er beseitigt den Befund nicht. Der aktuelle Major-Kandidat
-scheitert am tatsächlichen Peer-Vertrag. Die Untersuchung gehört zum
-Reparaturauftrag; sie wird nicht als erledigtes Sicherheitsupdate oder allgemeine
-Folgearbeit ausgegeben. Merge, Release, Tags und Deployment benötigen eine neue
-ausdrückliche Freigabe.
+**Der gebündelte Sicherheitskandidat ist an der sauberen npm-ci-Installation
+gescheitert und wird nicht übernommen.** Der vollständige Audit bleibt
+unverändert blockierend. Die tatsächlichen Eltern-APIs sind jetzt zugeordnet;
+ein allgemeiner API-Bruch aller Eltern ist nicht die belegte Fehlerursache.
+Der freigegebene JSX-A11y-Kompatadapter mit begrenzten Overrides erzeugt ein
+Lockfile, das npm 11.19.0 im frischen Checkout mit EUSAGE zurückweist.
+Die bindende Stoppregel greift; es folgen keine weiteren Reparaturversuche.
+Merge, Release, Tags und Deployment benötigen eine neue ausdrückliche Freigabe.
 
 ## Quellen und Identitäten
 
@@ -135,63 +136,154 @@ Artefakt 13078664617, ZIP-SHA256
 Der Kandidatenfingerprint lautet
 `73b799fb2fe589a06275e2558d4ff0f1c69347ecbb5791afdec7b2b22c1cb3a2`.
 
-## Sicherheitsmigration: untersuchte Varianten und exakter Hinderungsgrund
+## Sicherheitsreparatur: realer Kandidat und bindender Stopp
 
-Die [normalisierte Registry-/Resolver-/Auditaufnahme](security-repair-evidence.txt)
-enthält die vollständigen npm-explain-Abhängigkeitsketten, Metadaten und Exitcodes
-aus dem erfolgreich abgeschlossenen Ermittlungsjob von Lauf 41239303423.
-Originalartefakt 13056667640, ZIP-SHA256
-`94b5212a8a4ffab17f05b20c03ecff26975303604b4d5a72199135ab3a13605b`.
-Die Erhebung vom 01.11. in Lauf 41295979084 bestätigt dieselben veröffentlichten
-Versionen; Artefakt 13079059619, SHA256
-`ea68d6ec5724b153047a5577991e5e6a968ab749063426de1c70227fae827687`.
+Die bereits bekannten regulären Updates, ESLint-10-Peerfehler und isolierten
+Minimatch-API-Aufrufe wurden nicht erneut als Reparaturkandidaten getestet.
+Die frühere pauschale Schlussfolgerung, ein Major-Override könne wegen
+`makeRe`/`matchOne` die tatsächlichen Elternaufrufe nicht erfüllen, war zu weit:
+Diese entfernten Methoden werden in den hier gefundenen Aufrufstellen nicht
+verwendet. Die Matrix wurde aus dem installierten node_modules-Code erhoben,
+nicht aus angenommenen alten API-Verträgen.
 
-Der [offizielle Advisorydatensatz](https://github.com/advisories/GHSA-g3hv-75wg-m249)
-bewertet `<11.0.1` als betroffen. Ein Advisory erzeugt zwölf moderate
-Paketbefunde, keine hohen/kritischen. Gelockt sind Minimatch 3.1.5 und 10.2.6.
-Das ist ein Befund der Entwicklungsabhängigkeiten; eine ausnutzbare
-Rechner-Browserlücke wird daraus nicht behauptet.
+[API-Lauf 41302330031](https://github.com/sl3ndrr/m8e-calc/actions/runs/41302330031)
+prüft den temporären Head `0eb4aedaafd068ee9919dddf13f0709632a3f822`.
+Sein API-Job besteht; der gesamte Lauf scheitert an der Formatierung des
+temporären Skripts. Derselbe Job führt `npm audit --json` mit dem unveränderten
+Lockfile von main `9b5b3736d8fdeb2d2706658e04bfc357883c3134` aus:
+Exit 1, zwölf moderate Paketbefunde aus GHSA-g3hv-75wg-m249. Damit ist auch
+diese main-Basis unter dem heutigen Advisory rot. Ihr historisch grüner
+WP-08-Lauf endete vor Veröffentlichung des Advisorys.
 
-- Reguläres `npm update eslint @eslint/js typescript-eslint eslint-plugin-jsx-a11y --package-lock-only --engine-strict`
-  erzeugt ein normales Kandidatenlockfile. Die TypeScript-ESLint-Familie steigt
-  von 8.71.2 auf 8.72.1. Frisches `npm ci --engine-strict`, vollständiges
-  `npm ls --all` und `npm run check` bestehen; der vollständige Audit bleibt
-  unverändert bei zwölf moderaten Befunden. Dieser wirkungslose Sicherheitsdiff
-  wird nicht in das Produktlockfile übernommen.
-- Reguläres gemeinsames Update von ESLint, JS, TypeScript-ESLint und JSX-A11y auf
-  `latest` scheitert vor Installation mit `ERESOLVE`: ESLint 10.14.0 kollidiert
-  mit dem Peerbereich von JSX-A11y 6.10.2 `^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9`.
-  TypeScript-ESLint 8.72.1 und Hooks 7.1.1 erlauben 10; dieser eine bestätigte
-  Peerblocker darf nicht durch Forced Resolution verdeckt werden.
-- Auch bei aufgelöstem ESLint-Peerproblem wäre der Audit nicht behoben:
-  ESLint 10.14.0 verlangt Minimatch `^10.2.6`, Config-Array 0.23.5 `^10.2.4`,
-  TypeScript-ESTree 8.72.1 `^10.2.2`, JSX-A11y 6.10.2 `^3.1.2`.
-  Die neuesten kompatiblen Minimatch-Linien bleiben 3.1.5 und 10.2.6;
-  11.0.3 liegt außerhalb aller dieser Bereiche.
-- Minimatch 11 wechselt den Matcher und entfernt unter anderem `makeRe`,
-  `matchOne` und AST. JSX-A11y 6.10.2 verwendet einen aufrufbaren Defaultimport;
-  Minimatch 11 bietet einen benannten `minimatch`-Export. Quellen:
-  [Minimatch 11.0.3](https://github.com/isaacs/minimatch/blob/v11.0.3/README.md),
-  [konkreter JSX-Aufrufer](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/v6.10.2/src/util/mayHaveAccessibleLabel.js).
-  Der abschließende Ermittlungsjob installiert zusätzlich Minimatch allein mit
-  regulärem Lockfile und prüft diese tatsächlichen API-Aufrufe. Das ist kein
-  Major-Override des Projekts und kein Sicherheitsnachweis der alten Aufrufer.
+Minimatch 11.0.3 exportiert in CJS ein Objekt und in ESM benannte Exporte,
+darunter `minimatch` und `Minimatch`; ein aufrufbarer Moduldefault fehlt.
+`makeRe`, öffentliches `matchOne` und AST fehlen. Die tatsächlichen Aufrufe:
 
-PR #33 ist offen auf `f47d74ebfa5064846b765f98a40b114faa79b4fc` und bietet
-ESLint 10.13.0/JS 10.0.1; der aktuelle, neuere Kandidat wurde unabhängig davon
-geprüft. PR #73 ist offen auf `cd75a082595e73e9eb1f7dfbe42e365259873a36` und
-bietet TypeScript-ESLint 8.72.0. Selbst die neuere geprüfte 8.72.1 löst den
-Minimatch-Pfad nicht. Keiner der PRs wird aufgrund seines Titels oder alter
-Checks übernommen.
+| Elternpaket                                 | Import im ausgefuehrten Pfad               | Benutzte API                             | minimatch 11.0.3           |
+| ------------------------------------------- | ------------------------------------------ | ---------------------------------------- | -------------------------- |
+| eslint 9.39.5                               | CJS require / Destrukturierung             | Minimatch, match(path, partial), pattern | ja                         |
+| @eslint/config-array 0.21.2                 | CJS require                                | Minimatch, match(path)                   | ja (ESM-Default unbenutzt) |
+| @eslint/eslintrc 3.3.7                      | CJS require + Interop                      | Minimatch, match(path), pattern          | ja (ESM-Default unbenutzt) |
+| eslint-plugin-jsx-a11y 6.10.2               | Babel _interopRequireDefault(require(...)) | aufrufbarer Default (name, pattern)      | nein, Adapter erforderlich |
+| @typescript-eslint/typescript-estree 8.71.2 | benannter CJS-Export                       | minimatch(path, pattern, { dot: true })  | ja                         |
 
-Damit ist kein sicherer kompatibler regulärer Updatepfad veröffentlicht und
-geprüft verfügbar. Erforderlich wären sichere kompatible Veröffentlichungen
-oder tatsächlich migrierte Elternpakete einschließlich JSX-A11ys Peer-/API-
-Vertrag. Ein Major-Override erfüllt diese Verträge nicht. Ein eigener Fork würde
-zusätzlich die vollständige Matcher- und Accessibility-Regelparität beweisen
-müssen; ein spekulativer Adapter wird nicht als Sicherheitsfix ausgegeben.
-Keine Audit-Ausnahme, Schwellenänderung, Dependency-Auslassung, Regelabschaltung,
-Downgrade oder `npm audit fix --force` wird verwendet.
+Die programmatische Laufzeitprobe im
+[Lauf 41304003499](https://github.com/sl3ndrr/m8e-calc/actions/runs/41304003499)
+erzeugt `new ESLint()`, führt `lintFiles(['src/ui/Icon.tsx'])` aus und prüft
+anschließend `require.cache`. Geladen sind
+`@eslint/config-array/dist/cjs/index.cjs` sowie
+`@eslint/eslintrc/dist/eslintrc.cjs` und `dist/eslintrc-universal.cjs`;
+kein gefilterter Pfad enthält `dist/esm` oder endet auf `.mjs`.
+Die fehlenden ESM-Default-Exporte sind für diesen ausgeführten Projektpfad
+deshalb kein Blocker. Für JSX-A11ys zwei Utilities bleibt der aufrufbare
+Default tatsächlich erforderlich.
+
+`npm view eslint-plugin-jsx-a11y dist-tags versions --json` bestätigt in
+Lauf 41303739662 weiterhin 6.10.2 als neueste stabile Version. Eine neuere
+stabile Veröffentlichung mit migriertem Aufruf stand damit nicht zur
+Auswahl; kein Prerelease wurde übernommen.
+
+Der einmal getestete gebündelte Kandidat begrenzt `overrides` auf
+`eslint`, `@eslint/config-array`, `@eslint/eslintrc`,
+`@typescript-eslint/typescript-estree` und `eslint-plugin-jsx-a11y`.
+Die ersten vier verlangen exakt 11.0.3; nur JSX-A11y erhält
+`file:./tools/minimatch-compat`. Das lokale CJS-Paket verwendet den Alias
+`"minimatch-11": "npm:minimatch@11.0.3"`, damit der verschachtelte
+Minimatch-Override nicht erneut auf den Adapter selbst zeigt. Sein vollständiger
+Matcher stammt aus 11.0.3; die Exportbrücke lautet:
+
+```js
+const mm = module.require('minimatch-11');
+module.exports = Object.assign((...args) => mm.minimatch(...args), mm);
+```
+
+`module.require` erhält den CJS-Laufzeitvertrag ohne Änderung der bestehenden
+Require-Lintregel. Die resultierende Funktion kopiert keine nicht aufzählbare
+`__esModule`-Markierung. Dies ist die getestete Kandidatenquelle, **kein
+übernommenes oder erfolgreich validiertes Paket**.
+
+Node 24.22.2 und npm 11.19.0 erzeugen mit
+`npm install --package-lock-only --engine-strict` regulär ein Lockfile (Exit 0).
+Manifest, Lockfile und Adapter werden im Runner lokal committet; ein neuer
+Worktree dieses Kandidaten ist vor der Installation nachweislich sauber.
+Dort scheitert das unveränderte `npm ci --engine-strict` mit Exit 1:
+
+```text
+npm error code EUSAGE
+npm error npm ci can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync.
+npm error Missing: minimatch@ from lock file
+```
+
+Der lokale `file:`-Override erfüllt damit V1 nicht. Es wurde weder das
+Lockfile manuell repariert noch mit Patch-Tools, Installationssonderflags,
+Peerumgehung, Force, Downgrade oder einer Audit-Ausnahme weitergearbeitet.
+Der Kandidat wird verworfen; package.json, package-lock.json und tools/
+werden nicht in den Branch-Endstand übernommen.
+
+| Pruefung | Tatsaechliches Ergebnis des gebuendelten Kandidaten                                                             |
+| -------- | --------------------------------------------------------------------------------------------------------------- |
+| V1       | FEHLER: Resolver Exit 0; frisches npm ci im sauberen Checkout Exit 1 (EUSAGE). npm ls danach nicht ausgefuehrt. |
+| V2       | Nicht ausgefuehrt: Installation scheiterte vor dem Full audit.                                                  |
+| V3       | Vorher-ESLint als JSON Exit 0; Nachher und Gleichheitsvergleich nicht ausgefuehrt.                              |
+| V4       | Vorher: JSX-A11y, type-aware Regel, Domain-files-Glob und ignores bestaetigt; Nachher nicht ausgefuehrt.        |
+| V5       | Kandidaten-check, Produktionsfingerprint und Pflicht-CI fuer eine Reparatur nicht erreicht.                     |
+
+Die Vorher-Gegenproben melden `jsx-a11y/alt-text`,
+`jsx-a11y/label-has-associated-control`,
+`@typescript-eslint/no-floating-promises` und `no-restricted-globals`
+an ihren absichtlichen Verletzungen. Die Datei unter test-results/ bleibt
+ignoriert. Da die Produktkonfiguration keine type-aware Regel aktiviert,
+ergänzt ausschließlich die nicht committete Probe dieselbe temporäre
+`no-floating-promises`-/Project-Service-Konfiguration für beide Zustände.
+Die tatsächlichen JSX-A11y-Aufrufe liefern 21 Vorher-Aufrufe mit den Mustern
+`input`, `meter`, `output`, `progress`, `select`, `textarea` und
+dem Probe-Glob `Custom*`. Der vorgesehene Alt-/Neu-Paritätstest über genau
+diese zweistelligen Aufrufe wird wegen des vorherigen npm-ci-Fehlers nicht
+ausgeführt. Eine unveränderte Lintwirkung nach dem Override wird somit
+ausdrücklich nicht behauptet.
+
+Die zusätzliche Quellcodeprüfung bestätigt: In der installierten Version
+3.1.5 existieren weder `firstPhasePreProcess` noch `optimizationLevel`;
+in 10.2.6 existieren beide. Das korrigiert die bisherige Verallgemeinerung
+über die 3er-Linie. Der npm-Advisorybereich bleibt `<11.0.1`; aus dem Fehlen
+dieser beiden Namen wird keine Auditfreigabe oder Ausnahme abgeleitet.
+
+Experimentbudget einschließlich der ersten API-Probe:
+
+1. Push `0eb4aeda`, Lauf 41302330031: API-/main-Audit-Erhebung erfolgreich;
+   gesamter Lauf wegen Prettier rot. Danach per Revert zurückgenommen.
+2. Push `6bd3cdde`, Lauf 41303739662: vor dem Kandidaten abgebrochen,
+   `fatal: invalid reference: a009721...` im flachen Checkout. Danach
+   per Revert zurückgenommen.
+3. Push `d425fc86`, Lauf 41304003499: expliziter Fetch und Vorher-Proben
+   erfolgreich; der reale Kandidat scheitert beim frischen npm ci wie oben.
+   Kein weiterer Experiment-Push; Rückbau per Revert, anschließend nur diese
+   Dokumentationskorrektur und der finale Fast-forward.
+
+Der vorbestehende wp09-security-Ermittlungsjob samt Skript wird beim Rückbau
+unverändert wiederhergestellt: Nach gescheitertem Kandidaten erlaubt die
+Stoppregel nur Dokumentationskorrektur und Rückbau der temporären Versuche.
+Er ist kein Pflichtgate und bescheinigt weiterhin keinen bestandenen Audit.
+Keine experimentelle Workflowfassung und kein Adapter bleiben im Endstand.
+
+PR #33 (ESLint 10) und PR #73 (TypeScript-ESLint) bleiben getrennte
+Updatevorhaben. Ihre bereits verifizierten regulären Kandidaten beseitigen
+den Minimatch-Pfad nicht; alte grüne Checks werden nicht als heutige
+Sicherheitsfreigabe übernommen. Es gibt keinen übernommenen Override.
+Für einen später erfolgreich validierten Override gilt die Entfernungsbedingung:
+entfernen, sobald eslint, @eslint/*, typescript-eslint beziehungsweise
+JSX-A11y selbst Minimatch >=11.0.1 verlangen; anschließend ohne Override
+mit `npm ls minimatch --all` ausschließlich sichere Kopien bestätigen.
+
+Dem Auftraggeber stehen nach der Stoppregel drei Entscheidungen offen;
+keine davon ist umgesetzt:
+
+1. Eine befristete, ausschließlich auf dieses Advisory und dev-only begrenzte
+   Audit-Ausnahme; dafür wäre eine neue ausdrückliche Freigabe erforderlich.
+2. Ein eigener Sicherheitsfix als WP auf main, danach WP-09 rebasen.
+3. Auf kompatible sichere Upstream-Veröffentlichungen warten.
+
+Merge, Release, Tags und Deployment bleiben ausdrücklich ohne Freigabe.
 
 ## Reproduktion und Offen / Folgearbeiten
 
@@ -232,9 +324,9 @@ python scripts/wp09-glyph-review.py extracted-baseline glyph-review.json
 gzip -dc docs/wp09/baseline/measurements.json.gz | python -m json.tool
 ```
 
-Offen bleibt der konkret belegte Sicherheitsblocker innerhalb WP-09. Ohne dessen
-kompatiblen Fix und vollständige grüne CI des endgültigen Heads gibt es keine
-Mergebereitschaft. Physische 4K-/GPU-/OS-Zoom-/Clipboard-/Screenreaderabnahme
+Der konkrete Reparaturkandidat scheitert an V1; der Sicherheitsblocker innerhalb
+WP-09 ist nicht behoben. Ohne kompatiblen Fix und vollständige grüne Pflicht-CI
+auf genau dem endgültigen Head gibt es keine Mergebereitschaft. Physische 4K-/GPU-/OS-Zoom-/Clipboard-/Screenreaderabnahme
 bleibt gesondert offen. PR-CI, main-CI, Pages-Artefaktprüfung, tatsächlicher
 Pages-Deploy und aktiver Liveclient sind getrennte Nachweise: Für diesen Diff
 wurden kein Merge, main-Lauf, Deployment oder Live-/Workerabgleich durchgeführt.
