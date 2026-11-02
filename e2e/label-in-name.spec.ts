@@ -4,8 +4,6 @@ import { t, type Locale } from '../src/shared/i18n/extended';
 import { functionRegistry } from '../src/engine';
 import { qaSetup, ready, tabTo } from './qa-setup';
 import { replaceGraphExpression } from './graphEditor';
-import { currencyCodes } from '../src/units/currency';
-import { RATE_ENDPOINT } from '../src/features/convert/currency/rates';
 
 test.use({ serviceWorkers: 'block' });
 type RuleResult = Awaited<
@@ -398,9 +396,7 @@ for (const locale of ['de', 'en'] as const) {
     await accessible(page, locale);
   });
 
-  test(`long results, currency names and keyboard focus (${locale})`, async ({
-    page,
-  }) => {
+  test(`long results and keyboard focus (${locale})`, async ({ page }) => {
     await qaSetup(page, 'light', '#6750a4', locale);
     await page.setViewportSize(
       locale === 'de'
@@ -421,69 +417,5 @@ for (const locale of ['de', 'en'] as const) {
     await expect(result).toBeFocused();
     await expect(result).toHaveAttribute('data-focus-visible', 'true');
     await accessible(page, locale);
-
-    let requests = 0;
-    const date = new Date().toISOString().slice(0, 10);
-    await page.route(`${RATE_ENDPOINT}**`, (route) => {
-      requests++;
-      return route.fulfill({
-        json: currencyCodes
-          .filter((code) => code !== 'EUR')
-          .map((quote) => ({
-            base: 'EUR',
-            quote,
-            rate: quote === 'USD' ? 1.25 : 1,
-            date,
-          })),
-      });
-    });
-    await page.goto('/m8e-calc/#/convert');
-    await ready(page, 'convert');
-    expect(requests).toBe(0);
-    await page
-      .getByRole('button', { name: t('shell.settings', locale), exact: true })
-      .click();
-    const dialog = page.getByRole('dialog', {
-      name: t('shell.settings', locale),
-    });
-    const consent = dialog.getByRole('switch', {
-      name: t('currency.online', locale),
-    });
-    await consent.focus();
-    await consent.press('Space');
-    await expect(consent).toBeChecked();
-    await dialog
-      .getByRole('button', { name: t('ui.close', locale), exact: true })
-      .click();
-    await page
-      .getByRole('button', {
-        name: t('currency.category', locale),
-        exact: true,
-      })
-      .click();
-    const panel = page.locator('.currency-panel');
-    await expect(panel.locator('.currency-date')).toBeVisible();
-    expect(requests).toBe(1);
-    await expect(panel.locator('.convert-unit-card button')).toHaveCount(30);
-    const usdCard = panel.locator('.convert-unit-card').filter({
-      has: page.locator('.convert-unit-name', { hasText: /^USD ·/ }),
-    });
-    const usd = usdCard.getByRole('button');
-    await expect(usdCard.locator('strong')).toContainText(
-      locale === 'de' ? '1,25' : '1.25',
-    );
-    for (const card of await panel.locator('.convert-unit-card').all()) {
-      for (const part of await card
-        .locator('.convert-unit-name, strong, .convert-unit-symbol')
-        .all()) {
-        await includesText(card.getByRole('button'), await labelText(part));
-      }
-      await expect(card.locator('[aria-live], [role="status"]')).toHaveCount(0);
-    }
-    await tabTo(page, usd);
-    await expect(usd).toBeFocused();
-    await expect(usd).toHaveAttribute('data-focus-visible', 'true');
-    await accessible(page, locale);
-    expect(requests).toBe(1);
   });
 }

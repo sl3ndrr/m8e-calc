@@ -45,7 +45,7 @@ export default defineConfig({
         '**/scientific-worker.spec.ts',
         '**/convert.spec.ts',
         '**/convert-layout.spec.ts',
-        '**/currency.spec.ts',
+        '**/local-only.spec.ts',
         '**/graph.spec.ts',
         '**/grid-raster.spec.ts',
         '**/graph-implicit.spec.ts',

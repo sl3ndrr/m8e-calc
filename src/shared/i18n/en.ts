@@ -5,26 +5,6 @@ export const en: Dictionary = {
   'settings.appearance': 'Appearance',
   'settings.general': 'General',
   'settings.app': 'App',
-  'currency.online': 'Load online rates',
-  'currency.category': 'Currency',
-  'currency.privacy':
-    'Off by default. Only with your consent does the converter fetch ECB reference rates via Frankfurter (api.frankfurter.dev). The service receives your IP address and technical connection data. Amounts, calculations and history stay on your device. Rates and fetch time are stored locally; you can turn this feature off at any time.',
-  'currency.refresh': 'Refresh rates',
-  'currency.loading': 'Loading currency rates',
-  'currency.source': 'Source: European Central Bank (ECB) via Frankfurter',
-  'currency.date': 'As of: {date}',
-  'currency.stale': 'outdated',
-  'currency.fallback': 'Offline fallback: Using the last saved rates.',
-  'currency.unavailable':
-    'No rates available yet. Load online or try again later.',
-  'currency.disclaimer': 'Not investment advice; rates are indicative',
-  'currency.error.network':
-    'Rates could not be loaded due to a network error. Saved rates remain available.',
-  'currency.error.api':
-    'The rate API did not return valid rates. Saved rates remain available.',
-  'currency.error.timeout': 'Loading rates timed out. Please try again later.',
-  'currency.error.offline':
-    'You are offline. The last saved rates will be used if available.',
   'convert.title': 'Unit converter',
   'convert.quick': 'Quick entry',
   'convert.quickHint': '5 km in mi · 72 °F -> °C · / to focus, Enter to apply',
@@ -79,7 +59,6 @@ export const en: Dictionary = {
   'convert.error.E_UNIT_QUERY': 'Query not recognized. Example: 5 km in mi.',
   'convert.error.E_UNIT_COMPOUND':
     'Compound output is unavailable for these units.',
-  'convert.error.E_UNIT_DYNAMIC_RATE': 'Dynamic rates are unavailable.',
   'programmer.width': 'Word width',
   'programmer.signMode': 'Signedness',
   'programmer.signed': 'Signed',
@@ -205,7 +184,7 @@ export const en: Dictionary = {
   'settings.reset': 'Reset settings and history',
   'settings.resetTitle': 'Reset settings and history?',
   'settings.resetHint':
-    'Resets settings and global history and opens Simple mode. Scientific definitions, converter favorites and preferences, saved exchange rates and offline files are not deleted by this action.',
+    'Resets settings and global history and opens Simple mode. Scientific definitions, converter favorites and preferences, offline files are not deleted by this action.',
   'settings.resetDone': 'Settings and history reset.',
   'settings.cancel': 'Cancel',
   'scientific.work.cancel': 'Cancel',

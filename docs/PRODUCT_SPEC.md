@@ -1,6 +1,6 @@
 # Produktspezifikation: m8e-calc
 
-Geprüfter Integrations-/Freigabestand: [AP38](AP38.md).
+Geprüfter Integrations-/Freigabestand: [Implementierungsstatus](IMPLEMENTATION_STATUS.md).
 
 ## Ziel und Nutzungskontext
 
@@ -45,11 +45,9 @@ Ein 3-Wege-Schalter bietet **Hell / System / Dunkel**. Die mittlere Position fol
 - PWA und Offline-Nutzung.
 - UI-Skalierung, Deutsch und Englisch.
 
-AP17 ergänzt optionale Währungen: standardmäßig deaktiviert, explizite Zustimmung für EZB-Referenzkurse über Frankfurter. Dies ist die einzige Ausnahme für externe Laufzeitrequests. Quelle, Cache, Aktualität und Offline-Verhalten: `UNITS.md`.
-
 ## Technische Leitplanken
 
-Vite, React 19, TypeScript mit `strict` und `noUncheckedIndexedAccess`, npm und aktuelle Node-LTS (AP1: 24). Zustand für App-State. CSS-Dateien und Custom Properties ohne Tailwind oder UI-Framework. Domänen für Rechnen, Einheiten und Graphen sind reines TypeScript ohne React/DOM. Alle Assets werden lokal ausgeliefert; Fonts bei Verwendung selbst hosten. Keine externen Requests zur Laufzeit außer explizit aktivierten EZB-Währungskursen (AP17).
+Vite, React 19, TypeScript mit `strict` und `noUncheckedIndexedAccess`, npm und aktuelle Node-LTS (AP1: 24). Zustand für App-State. CSS-Dateien und Custom Properties ohne Tailwind oder UI-Framework. Domänen für Rechnen, Einheiten und Graphen sind reines TypeScript ohne React/DOM. Alle Assets werden lokal ausgeliefert; Fonts bei Verwendung selbst hosten. Keine externen Requests zur Laufzeit.
 
 Qualitätssicherung: ESLint Flat Config (typescript-eslint, react-hooks, jsx-a11y), Prettier, Vitest, Testing Library, fast-check und Playwright mit Chromium. PR-CI und Pages-Deployment sind Teil des technischen Fundaments.
 

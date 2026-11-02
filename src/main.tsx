@@ -5,6 +5,8 @@ import { AppErrorBoundary } from './app/AppErrorBoundary';
 import './styles/base.css';
 import { initializeTheme } from './app/theme';
 import { installGlobalErrorHandlers } from './app/globalErrors';
+import { clearRetiredStorage } from './app/retiredStorage';
+clearRetiredStorage(() => window.localStorage);
 const disposeTheme = initializeTheme();
 const disposeErrors = installGlobalErrorHandlers();
 if (import.meta.hot)

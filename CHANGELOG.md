@@ -1,6 +1,6 @@
 # Changelog
 
-Aktueller belegter Integrations-/Freigabestand: [AP38](docs/AP38.md).
+Aktueller belegter Integrations-/Freigabestand: [Implementierungsstatus](docs/IMPLEMENTATION_STATUS.md).
 
 Alle wesentlichen Änderungen werden hier dokumentiert. Das Format folgt
 [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), die Versionierung
@@ -8,9 +8,15 @@ Alle wesentlichen Änderungen werden hier dokumentiert. Das Format folgt
 
 ## [Unreleased]
 
+### Removed
+
+- Währungsumrechnung mit Kursabruf, Zustimmung, Cache, dynamischer Provider-API
+  und zugehörigem Quellencheck. Alte Einstellungen werden auf Version 5 migriert;
+  vorhandene Kursschlüssel werden beim Start bestmöglich entfernt.
+
 ### Changed
 
-- AP17–AP24 integriert: optionale Währungen mit explizitem Opt-in, kompakte
+- AP18–AP24 integriert: kompakte
   Werkzeugleisten/Teilen, vollständige Ziffern, stabile Tasten und Checkboxen,
   Systemtheme ohne Zusatzicon, stabiles Graph-Fit, lokalisierte gerundete
   Tabellen, internes Designlab und Dependency-Wartung.

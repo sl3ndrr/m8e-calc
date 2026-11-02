@@ -25,7 +25,7 @@ function eligible(overrides = {}) {
     ...overrides,
   };
   // GitHub implicitly adds success() unless the expression has a status function.
-  // The allowed currency-source skip remains in the transitive needs chain.
+  // Other conditional evidence may leave skipped ancestors in a workflow.
   if (
     !/\b(?:always|cancelled|failure|success)\s*\(/.test(expression) &&
     ancestors.some((status) => status !== 'success')

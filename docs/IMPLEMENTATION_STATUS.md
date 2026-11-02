@@ -1,9 +1,16 @@
 # Implementierungsstatus
 
-Die Auditpakete WP-01 bis WP-09 und der Sicherheitsfix aus PR #90 sind auf
-`main` integriert. WP-10 wird in [PR #89](https://github.com/sl3ndrr/m8e-calc/pull/89)
-geführt. Dieses Dokument beschreibt den Funktionsstand; commitgebundene
-Testergebnisse und verbleibende Abnahmen stehen im jeweiligen PR.
+Die Auditpakete WP-01 bis WP-10 und der Sicherheitsfix aus PR #90 sind auf
+`main` integriert. Dieses Dokument beschreibt dauerhafte Funktionsverträge;
+commitgebundene Testergebnisse stehen in den jeweiligen PRs.
+
+## Lokaler Betrieb
+
+Der Umrechner unterstützt ausschließlich lokale Einheiten. Kursclient,
+Zustimmung und dynamische Provider sind entfernt. Settings-Version 5 verwirft
+das frühere Netzwerkfeld; Altdateien bleiben lesbar. Details:
+[LOCAL_ONLY](LOCAL_ONLY.md). Der [weitere Ablauf](WORK_PLAN.md) führt WP14
+als gestrichen und erhält die übrigen Paketkennungen.
 
 ## WP-10 · Resetumfang und Dialogorientierung
 
@@ -69,12 +76,11 @@ Funktionsbestätigung führt keinen Körper aus und erhält den AST. Listen blei
 sichtbar und einfügbar, ihr Bearbeiten ist mit de/en-Erklärung deaktiviert.
 Details: [WP02](WP02.md).
 
-## WP-03 · Zustimmung bei asynchronem Settingsimport
+## WP-03 · Historische Zustimmungskorrektur
 
-Die atomare Storeaktion übernimmt validierte Einstellungen und erhält die beim
-Abschluss aktuelle Netzwerkzustimmung. Validierung, Größenlimit, Fehlermeldungen
-und Kursclient-Abbruch gelten auch bei verzögerter Dateiauswahl und
-Zustimmungswechseln. Details: [WP03](WP03.md).
+Die integrierte Korrektur ist im [historischen Paketnachweis](WP03.md) erhalten.
+Mit Entfernung des Netzwerkfeatures entfällt ihr Zustimmungsvertrag.
+Dateiprüfung, Größenlimit und atomare Einstellungsübernahme bleiben erhalten.
 
 ## WP-04 · Label in Name
 

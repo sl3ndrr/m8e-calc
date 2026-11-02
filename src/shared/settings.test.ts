@@ -21,20 +21,16 @@ function memoryStorage(initial: string | null = null) {
   };
 }
 describe('settings', () => {
-  it('requires explicit consent and migrates older settings without consent', () => {
-    expect(defaultSettings().onlineRates).toBe(false);
-    expect(normalizeSettings({ onlineRates: 'true' }).onlineRates).toBe(false);
-    expect(normalizeSettings({ onlineRates: true }).onlineRates).toBe(true);
-    for (const version of [0, 1, 2, 3, 999])
-      expect(migrateSettings({ onlineRates: true }, version).onlineRates).toBe(
-        false,
+  it('discards retired fields when normalizing and migrating old settings', () => {
+    for (const version of [0, 1, 2, 3, 4, 5]) {
+      const migrated = migrateSettings(
+        { themeMode: 'dark', onlineRates: true },
+        version,
       );
-    const storage = memoryStorage();
-    const store = createSettingsStore(storage);
-    store.getState().updateSettings({ onlineRates: true });
-    expect(createSettingsStore(storage).getState().onlineRates).toBe(true);
-    store.getState().resetSettings();
-    expect(store.getState().onlineRates).toBe(false);
+      expect(migrated.themeMode).toBe('dark');
+      expect(migrated).not.toHaveProperty('onlineRates');
+    }
+    expect(normalizeSettings({ onlineRates: true })).toEqual(defaultSettings());
   });
   it('validates UI size and migrates the v2 presentation defaults', () => {
     expect(normalizeSettings({ uiSize: 200 }).uiSize).toBe(150);
@@ -77,7 +73,7 @@ describe('settings', () => {
       motionLevel: 'off',
     });
     const payload = JSON.parse(storage.getItem() ?? '{}');
-    expect(payload.version).toBe(4);
+    expect(payload.version).toBe(5);
     expect(payload.state.updateSettings).toBeUndefined();
     expect(createSettingsStore(storage).getState()).toMatchObject(
       payload.state,

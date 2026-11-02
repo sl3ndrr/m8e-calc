@@ -3,11 +3,6 @@ import type { FormatOptions } from '../engine/types.ts';
 
 export type UnitLocale = 'de' | 'en';
 export type UnitSystem = 'si' | 'imperial' | 'us' | 'other';
-export interface DynamicRateProvider {
-  /** Supply an already acquired rate; no IO in this domain. */
-  readonly id: string;
-  readonly rateToBase: (unitId: string) => Decimal;
-}
 export type Conversion =
   | {
       readonly kind: 'linear';
@@ -24,8 +19,7 @@ export type Conversion =
       readonly kind: 'function';
       readonly toBase: (value: Decimal) => Decimal;
       readonly fromBase: (value: Decimal) => Decimal;
-    }
-  | { readonly kind: 'dynamicRate'; readonly providerId: string };
+    };
 export interface Unit {
   readonly id: string;
   readonly symbol: string;
@@ -64,8 +58,7 @@ export type UnitErrorCode =
   | 'E_UNIT_CATEGORY'
   | 'E_UNIT_DOMAIN'
   | 'E_UNIT_QUERY'
-  | 'E_UNIT_COMPOUND'
-  | 'E_UNIT_DYNAMIC_RATE';
+  | 'E_UNIT_COMPOUND';
 export class UnitError extends Error {
   constructor(
     readonly code: UnitErrorCode,

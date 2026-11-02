@@ -23,9 +23,39 @@ it('rejects corrupt, future, unknown and invalid fields', () => {
     expect(() => importSettings(data)).toThrow();
 });
 
-it('never imports network consent', () => {
-  expect(
-    importSettings(exportSettings({ ...defaultSettings(), onlineRates: true }))
-      .onlineRates,
-  ).toBe(false);
+it('reads old exports without restoring retired fields or exporting them again', () => {
+  for (const onlineRates of [true, false]) {
+    const imported = importSettings(
+      JSON.stringify({
+        version: 4,
+        settings: { ...defaultSettings(), grouping: false, onlineRates },
+      }),
+    );
+    expect(imported).toEqual({ ...defaultSettings(), grouping: false });
+    expect(exportSettings(imported)).not.toContain('onlineRates');
+  }
+  expect(() =>
+    importSettings(
+      JSON.stringify({
+        version: 5,
+        settings: { onlineRates: true },
+      }),
+    ),
+  ).toThrow();
+  expect(() =>
+    importSettings(
+      JSON.stringify({
+        version: 4,
+        settings: { onlineRates: 'true' },
+      }),
+    ),
+  ).toThrow();
+  expect(() =>
+    importSettings(
+      JSON.stringify({
+        version: 4,
+        settings: { onlineRates: true },
+      }),
+    ),
+  ).toThrow();
 });

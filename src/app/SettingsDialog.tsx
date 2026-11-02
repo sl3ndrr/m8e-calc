@@ -129,17 +129,6 @@ export function SettingsDialog({
             }}
           />
         </section>
-        <section aria-label={t('currency.online', locale)}>
-          <h3 className="type-title-large">{t('currency.category', locale)}</h3>
-          <Switch
-            isSelected={settings.onlineRates}
-            onChange={(onlineRates) => settings.updateSettings({ onlineRates })}
-            aria-describedby="currency-privacy"
-          >
-            {t('currency.online', locale)}
-          </Switch>
-          <p id="currency-privacy">{t('currency.privacy', locale)}</p>
-        </section>
         <section aria-label={t('settings.numbers', locale)}>
           <h3>{t('settings.numbers', locale)}</h3>
           <Select

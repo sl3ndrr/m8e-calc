@@ -6,6 +6,7 @@ import {
   themeFingerprint,
   THEME_CACHE_KEY,
   SETTINGS_KEY,
+  SETTINGS_VERSION,
 } from '../shared/settings';
 it('validates the entire cached palette and handles legacy settings before startup', () => {
   const light = buildScheme('#6750a4');
@@ -48,5 +49,21 @@ it('validates the entire cached palette and handles legacy settings before start
   );
   bootstrapTheme({ light, dark });
   expect(document.documentElement.dataset.theme).toBe('light');
+  localStorage.clear();
+});
+
+it('keeps current settings appearance and motion before app hydration', () => {
+  const light = buildScheme('#6750a4');
+  const dark = buildScheme('#6750a4', 'tonalSpot', true);
+  localStorage.setItem(
+    SETTINGS_KEY,
+    JSON.stringify({
+      version: SETTINGS_VERSION,
+      state: { ...defaultSettings(), themeMode: 'dark', motionLevel: 'off' },
+    }),
+  );
+  bootstrapTheme({ light, dark });
+  expect(document.documentElement.dataset.theme).toBe('dark');
+  expect(document.documentElement.dataset.motion).toBe('off');
   localStorage.clear();
 });

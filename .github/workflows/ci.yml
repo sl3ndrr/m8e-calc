@@ -10,19 +10,6 @@ concurrency:
   # Serialize main through deployment. PR updates may cancel obsolete checks.
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
-  currency-source:
-    name: Currency source evidence
-    if: github.head_ref == 'feat/currency'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          persist-credentials: false
-      - uses: actions/setup-node@v7
-        with:
-          node-version-file: .nvmrc
-          check-latest: true
-      - run: node scripts/check-currency-source.mjs
   gate-tests:
     name: Pipeline contract tests
     runs-on: ubuntu-latest
@@ -243,7 +230,6 @@ jobs:
     needs:
       [
         build,
-        currency-source,
         gate-tests,
         node-minimum,
         qa,
@@ -265,7 +251,6 @@ jobs:
       - name: Fail closed on every required job
         env:
           NEEDS: ${{ toJSON(needs) }}
-          CURRENCY_REQUIRED: ${{ github.head_ref == 'feat/currency' }}
         run: |
           echo "$NEEDS"
           node scripts/ci/quality-status.mjs quality

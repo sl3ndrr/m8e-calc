@@ -1,10 +1,9 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { execute } from '../src/engine';
-import { defaultSettings } from '../src/shared/settings';
+import { defaultSettings, SETTINGS_VERSION } from '../src/shared/settings';
 import { emptyHistory } from '../src/shared/history';
 import { t } from '../src/shared/i18n/extended';
-import { currencyCodes } from '../src/units/currency';
 import { ready, tabTo } from './qa-setup';
 import { checkSettingsFocus } from './settingsFocus';
 
@@ -36,16 +35,6 @@ for (const locale of ['de', 'en'] as const) {
             sort: 'size',
           },
         }),
-        'm8e-calc.currency-rates': JSON.stringify({
-          version: 1,
-          source: 'ecb-frankfurter',
-          date: '2026-10-14',
-          fetchedAt: Date.parse('2026-10-14T16:00:00Z'),
-          rates: Object.fromEntries(currencyCodes.map((code) => [code, '1'])),
-        }),
-        'm8e-calc.currency-rates.last-attempt': String(
-          Date.parse('2026-10-14T16:00:00Z'),
-        ),
         'm8e-calc.future': 'not implicitly part of this reset',
       };
       const settings = {
@@ -53,7 +42,6 @@ for (const locale of ['de', 'en'] as const) {
         language: locale,
         historyLimit: 17,
         grouping: false,
-        onlineRates: true,
         motionLevel: 'off',
       };
       const modes = ['simple', 'scientific', 'convert', 'graph'] as const;
@@ -71,19 +59,19 @@ for (const locale of ['de', 'en'] as const) {
         })),
       };
       await page.evaluate(
-        ({ preserved, settings, history }) => {
+        ({ preserved, settings, history, version }) => {
           for (const [key, value] of Object.entries(preserved))
             localStorage.setItem(key, value);
           localStorage.setItem(
             'm8e-calc.settings',
-            JSON.stringify({ version: 4, state: settings }),
+            JSON.stringify({ version, state: settings }),
           );
           localStorage.setItem(
             'm8e-calc.history',
             JSON.stringify({ version: 1, state: history }),
           );
         },
-        { preserved, settings, history },
+        { preserved, settings, history, version: SETTINGS_VERSION },
       );
       await page.reload();
       await ready(page, 'simple');

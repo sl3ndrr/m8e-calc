@@ -1,6 +1,6 @@
 # m8e-calc
 
-Geprüfter Integrationsstand, Pages-SHA und offene Freigaben: [Status / AP38](docs/AP38.md).
+Geprüfter Integrationsstand, Pages-SHA und offene Freigaben: [Implementierungsstatus](docs/IMPLEMENTATION_STATUS.md).
 
 Ein Taschenrechner für den Desktop-Browser: vom schnellen Dreisatz bis zu wissenschaftlichen Ausdrücken, Einheiten und interaktiven Funktionsgraphen. m8e-calc rechnet lokal, benötigt kein Konto und bietet eine deutsche und englische Oberfläche.
 
@@ -23,8 +23,7 @@ mehrwertige Tabellen werden bewusst nicht angeboten. Fit nutzt die stabile
 Abtastbasis als begrenzte Ansicht; kleine oder tangentiale Komponenten können
 fehlen. Es gibt keine universelle Vollständigkeits- oder Topologiegarantie.
 Genauigkeitsgrenzen: [ENGINE.md](docs/ENGINE.md), [GRAPH.md](docs/GRAPH.md)
-und [AP27.md](docs/AP27.md). Optionale EZB-Währungskurse sind nach
-ausdrücklichem Opt-in verfügbar; ohne Zustimmung erfolgen keine Währungsrequests.
+und [AP27.md](docs/AP27.md). Der Umrechner arbeitet ausschließlich mit lokalen Einheiten.
 
 ## Screenshots
 
@@ -64,8 +63,6 @@ Globale Rechnerkürzel gelten außerhalb von Eingabefeldern und Dialogen; die Pa
 ## Lokal entwickeln
 
 Voraussetzungen: **Node.js `>=24.15.0 <25` (24 LTS)**, npm **11.19.0** und Git. `.nvmrc` folgt der gepflegten 24er-Linie; die ältere Untergrenze wird separat in CI geprüft. Das Lockfile ist verbindlich.
-
-Der aktuelle WP-09-PR ist durch den vollständigen Toolchain-Audit blockiert. Reguläre Updateversuche und die konkreten Peer-/API-Grenzen stehen in der [Reparaturabnahme](docs/wp09/REPAIR.md).
 
 ```sh
 git clone https://github.com/sl3ndrr/m8e-calc.git
@@ -122,17 +119,10 @@ Einstieg: [ARCHITECTURE.md](docs/ARCHITECTURE.md), [Produkt](docs/PRODUCT_SPEC.m
 
 ## Datenschutz
 
-Keine Tracker, Analytics, CDNs oder externen Rechenservices. Ohne Währungs-Opt-in sendet die App keine externen Requests zur Laufzeit;
+Keine Tracker, Analytics, CDNs oder externen Rechenservices. Die App sendet keine externen Requests zur Laufzeit;
 Code, Fonts und andere Assets kommen vom selben Hosting-Ursprung. Das erstmalige Laden und Updates erfordern Requests an diesen Host. Entwicklung und CI laden Pakete separat herunter.
 
 Einstellungen, Verlauf, Definitionen und Favoriten bleiben im lokalen Browserspeicher. Offline-Dateien liegen im Service-Worker-Cache. Browserdaten lassen sich über die Website-Einstellungen des Browsers löschen. Ein kopierter Permalink enthält den ausdrücklich geteilten Moduszustand im URL-Hash, jedoch keinen gesamten Verlauf und kein gespeichertes Environment. Wer einen Link oder Export weitergibt, teilt dessen Inhalt selbst.
-
-AP17 ist integriert: Nur der explizite Schalter „Online-Kurse laden“ erlaubt
-Requests an den Frankfurter-EZB-Endpunkt. Beträge und Verlauf bleiben lokal;
-Währungsberechnungen sind derzeit von Verlauf und Permalinks ausgeschlossen;
-versionierte Snapshots bleiben Folgearbeit. Cache, Offline-Fallback und
-Zustimmungsentzug sind dokumentiert in
-[UNITS.md](docs/UNITS.md). Aktueller Integrations-/Abnahmestand: [AP38](docs/AP38.md).
 
 ## Build und Deployment prüfen
 
@@ -155,4 +145,4 @@ Die zugehörigen Bibliotheken und Fonts behalten ihre eigenen Lizenzen. MIT ist 
 
 ## English
 
-m8e-calc is a private, local-first desktop browser calculator with four modes: simple, scientific (including programmer tools), unit conversion and interactive 2D graphs, including bounded implicit contours. Implicit analysis, trace and multivalued tables are unavailable; fit uses a stable sampling basis and completeness is not guaranteed. It supports German and English, light/dark themes, history, shareable links and offline use. No account, trackers or external calculation services are required. Optional ECB reference rates are fetched only after explicit consent; without opt-in there are no currency requests. [Try the live app](https://sl3ndrr.github.io/m8e-calc/). To develop locally, use Node >=24.15.0 <25 and npm 11.19.0, run `npm ci` and `npm run dev`; validate with `npm run check`. The proposed MIT license awaits the repository owner's confirmation.
+m8e-calc is a private, local-first desktop browser calculator with four modes: simple, scientific (including programmer tools), unit conversion and interactive 2D graphs, including bounded implicit contours. Implicit analysis, trace and multivalued tables are unavailable; fit uses a stable sampling basis and completeness is not guaranteed. It supports German and English, light/dark themes, history, shareable links and offline use. No account, trackers or external calculation services are required. [Try the live app](https://sl3ndrr.github.io/m8e-calc/). To develop locally, use Node >=24.15.0 <25 and npm 11.19.0, run `npm ci` and `npm run dev`; validate with `npm run check`. The proposed MIT license awaits the repository owner's confirmation.

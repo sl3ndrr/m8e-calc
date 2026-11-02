@@ -6,6 +6,7 @@ import {
   writeFileSync,
   symlinkSync,
   linkSync,
+  readFileSync,
 } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -13,7 +14,6 @@ import { test } from 'node:test';
 import {
   required,
   assertSuccessful,
-  assertQuality,
   assertPublication,
 } from './quality-status.mjs';
 import { seal, verify } from './build-proof.mjs';
@@ -28,6 +28,22 @@ const context = {
 };
 const green = () =>
   Object.fromEntries(required.map((name) => [name, { result: 'success' }]));
+
+test('actual workflow quality gate names exactly the remaining mandatory jobs', () => {
+  const workflow = readFileSync(
+    new URL('../../.github/workflows/ci.yml', import.meta.url),
+    'utf8',
+  );
+  const quality = workflow.split('\n  quality:\n')[1];
+  assert.ok(quality);
+  const prerequisites = quality
+    .match(/needs:\s*\[([^\]]+)\]/)[1]
+    .split(',')
+    .map((value) => value.trim())
+    .filter(Boolean);
+  assert.deepEqual(prerequisites.sort(), [...required].sort());
+  assert.match(quality, /node scripts\/ci\/quality-status\.mjs quality/);
+});
 
 test('every prerequisite must succeed; missing, failed, cancelled, skipped and unknown deny publication', () => {
   assert.doesNotThrow(() => assertSuccessful(green()));
@@ -51,30 +67,6 @@ test('every prerequisite must succeed; missing, failed, cancelled, skipped and u
   assert.throws(() =>
     assertSuccessful({ ...green(), surprise: { result: 'success' } }),
   );
-});
-
-test('currency evidence is required only on its declared branch; no unexpected skips', () => {
-  for (const required of [true, false]) {
-    const expected = required ? 'success' : 'skipped';
-    const needs = { ...green(), 'currency-source': { result: expected } };
-    assert.doesNotThrow(() => assertQuality(needs, required));
-    for (const result of [
-      'success',
-      'failure',
-      'cancelled',
-      'skipped',
-      undefined,
-    ]) {
-      if (result !== expected)
-        assert.throws(() =>
-          assertQuality(
-            { ...green(), 'currency-source': { result } },
-            required,
-          ),
-        );
-    }
-    assert.throws(() => assertQuality(green(), required));
-  }
 });
 
 test('only successful current upstream main push can publish; no PR, fork or stale rerun', () => {

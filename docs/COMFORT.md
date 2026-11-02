@@ -47,7 +47,7 @@ wird durch Unit-Tests abgesichert.
 
 ## Permalinks
 
-Die vier Modi bieten die Icon-Aktion „Link teilen“ (außer aktiven Währungen). Schema: `#/<mode>?v=1&s=<base64url-LZW>`.
+Die vier Modi bieten die Icon-Aktion „Link teilen“. Schema: `#/<mode>?v=1&s=<base64url-LZW>`.
 LZW komprimiert UTF-8-JSON in 16-Bit-Codes, ohne zusätzliche Laufzeitbibliothek.
 Eine lesbare wissenschaftliche Eingabe wie `#/scientific?e=sin(30)&a=deg` wird
 ebenfalls akzeptiert. Versionen werden vor der Dekodierung geprüft. Grenzen:
@@ -70,7 +70,7 @@ Modus; unbekannte Routen fallen wie bisher auf Einfach zurück. Keine Abstürze.
 
 ## Skalierung und Präsentation
 
-Settings-Version 4 migriert Version 0–3 und ergänzt standardmäßig deaktivierte Online-Kurse (AP17). „UI-Größe“ (80–150 %, Standard 100 %)
+Settings-Version 5 migriert Version 0–4 und entfernt das frühere Netzwerkfeld. „UI-Größe“ (80–150 %, Standard 100 %)
 multipliziert AP4s fluide Root-Schrift, inklusive rem-Typografie und Formen.
 „Verlauf in Präsentation anzeigen“ entscheidet, ob ein bereits sichtbarer Verlauf
 auch während der Präsentation bleibt. Der Präsentationsmodus blendet Rail,
@@ -79,15 +79,15 @@ Beenden-Button und Strg+Umschalt+P führen zurück. Präsentation selbst ist tra
 
 ## WP-10 · Einstellungen und Verlauf zurücksetzen
 
-Die gleichnamige Aktion setzt ausschließlich die globalen Einstellungen
-(einschließlich Währungszustimmung), den globalen Verlauf aller vier Modi samt
+Die gleichnamige Aktion setzt ausschließlich die globalen Einstellungen,
+den globalen Verlauf aller vier Modi samt
 Pins, Sichtbarkeit und Limit sowie den zuletzt genutzten Modus zurück. Sie
 verwirft den Themecache und öffnet Einfach; die normale Themeanwendung kann den
 Cache danach neu erzeugen. Bestätigung, Hinweis und Erfolgsmeldung nennen
 Einstellungen und Verlauf in de/en.
 
 Wissenschaftliche Definitionen, Umrechnerfavoriten, zuletzt benutzte Paare und
-Umrechnerformatierung, gespeicherte Wechselkurse samt Abrufzeit sowie
+Umrechnerformatierung sowie
 Service-Worker-/Offline-Dateien werden durch diese Aktion nicht gelöscht.
 Es gibt dadurch keine vollständige Datenlöschung. Neue Speicherarten gehören
 nicht automatisch zum Resetumfang; ein Folgepaket muss Aktion, Texte, Vertrag
@@ -175,11 +175,11 @@ Einfach verwendet die bestehende Speicherstatuszeile, Wissenschaftlich und
 Graphen ihre kompakten Werkzeugzeilen, der Umrechner die Schnelleingabezeile.
 Die Aktion kopiert weiterhin den bestehenden Permalink; Erfolg und Fehler
 erscheinen lokalisiert in der Snackbar. Es gibt keinen Sharingdienst.
-Währungen bieten weiterhin keinen Permalink an. Graphlinks lesen weiterhin
+Graphlinks lesen weiterhin
 den aktuellen Canvas-Viewport und erhalten AP21s `fitBasis`.
 
 Gezielte Regressionen: `src/app/CopyLinkButton.test.tsx`,
-`e2e/ap18-ui.spec.ts`, `e2e/comfort.spec.ts`, `e2e/currency.spec.ts` und
+`e2e/ap18-ui.spec.ts`, `e2e/comfort.spec.ts`, `e2e/local-only.spec.ts` und
 `e2e/graph.spec.ts`. Echte Bildaufnahmen gegen einen Produktions-Preview:
 `AP18_PHASE=after node scripts/ap18-screenshots.mjs`; vor AP18 mit demselben
 Skript und `AP18_PHASE=before`. Ansichten: 1280×800, 1920×1080, 3440×1440,
