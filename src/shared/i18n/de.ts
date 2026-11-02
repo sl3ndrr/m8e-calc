@@ -4,28 +4,6 @@ export const de = {
   'settings.appearance': 'Erscheinungsbild',
   'settings.general': 'Allgemein',
   'settings.app': 'App',
-  'currency.online': 'Online-Kurse laden',
-  'currency.category': 'Währung',
-  'currency.privacy':
-    'Standardmäßig aus. Nur nach Zustimmung lädt der Umrechner EZB-Referenzkurse über Frankfurter (api.frankfurter.dev). Dabei erhält der Dienst deine IP-Adresse und technische Verbindungsdaten. Beträge, Berechnungen und Verlauf bleiben auf deinem Gerät. Kurse und Abrufzeit werden lokal gespeichert; du kannst die Funktion jederzeit abschalten.',
-  'currency.refresh': 'Kurse aktualisieren',
-  'currency.loading': 'Währungskurse werden geladen',
-  'currency.source': 'Quelle: Europäische Zentralbank (EZB) über Frankfurter',
-  'currency.date': 'Stand: {date}',
-  'currency.stale': 'veraltet',
-  'currency.fallback':
-    'Offline-Fallback: Der letzte gespeicherte Stand wird verwendet.',
-  'currency.unavailable':
-    'Noch keine Kurse verfügbar. Online laden oder später erneut versuchen.',
-  'currency.disclaimer': 'Keine Anlageberatung, Kurse unverbindlich',
-  'currency.error.network':
-    'Die Kurse konnten wegen eines Netzwerkfehlers nicht geladen werden. Ein gespeicherter Stand bleibt verfügbar.',
-  'currency.error.api':
-    'Die Kurs-API liefert keine gültigen Kurse. Ein gespeicherter Stand bleibt verfügbar.',
-  'currency.error.timeout':
-    'Zeitüberschreitung beim Laden der Kurse. Bitte später erneut versuchen.',
-  'currency.error.offline':
-    'Du bist offline. Falls vorhanden, wird der letzte gespeicherte Kursstand verwendet.',
   'convert.title': 'Umrechner',
   'convert.quick': 'Schnelleingabe',
   'convert.quickHint':
@@ -81,7 +59,6 @@ export const de = {
   'convert.error.E_UNIT_QUERY': 'Abfrage nicht erkannt. Beispiel: 5 km in mi.',
   'convert.error.E_UNIT_COMPOUND':
     'Mehrteilige Ausgabe für diese Einheiten nicht verfügbar.',
-  'convert.error.E_UNIT_DYNAMIC_RATE': 'Dynamische Kurse sind nicht verfügbar.',
 
   'programmer.width': 'Wortbreite',
   'programmer.signMode': 'Vorzeichenmodus',
@@ -209,7 +186,7 @@ export const de = {
   'settings.reset': 'Einstellungen und Verlauf zurücksetzen',
   'settings.resetTitle': 'Einstellungen und Verlauf zurücksetzen?',
   'settings.resetHint':
-    'Setzt Einstellungen und den globalen Verlauf zurück und öffnet den Einfach-Modus. Wissenschaftliche Definitionen, Umrechnerfavoriten und -einstellungen, gespeicherte Wechselkurse und Offline-Dateien werden dadurch nicht gelöscht.',
+    'Setzt Einstellungen und den globalen Verlauf zurück und öffnet den Einfach-Modus. Wissenschaftliche Definitionen, Umrechnerfavoriten und -einstellungen, Offline-Dateien werden dadurch nicht gelöscht.',
   'settings.resetDone': 'Einstellungen und Verlauf zurückgesetzt.',
   'settings.cancel': 'Abbrechen',
   'scientific.work.cancel': 'Abbrechen',

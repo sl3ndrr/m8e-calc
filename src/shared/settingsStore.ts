@@ -41,7 +41,7 @@ export function safeStorage(getStorage: () => StateStorage): StateStorage {
 }
 interface SettingsState extends Settings {
   updateSettings: (patch: Partial<Settings>) => void;
-  applyImportedSettings: (settings: Omit<Settings, 'onlineRates'>) => void;
+  applyImportedSettings: (settings: Settings) => void;
   resetSettings: () => void;
 }
 export function createSettingsStore(
@@ -56,15 +56,8 @@ export function createSettingsStore(
           set((state) =>
             normalizeSettings({ ...state, ...patch }, reducedMotion),
           ),
-        // File reading may outlive a consent change. Preserve consent in the
-        // same transaction that applies the validated imported preferences.
         applyImportedSettings: (settings) =>
-          set((state) =>
-            normalizeSettings(
-              { ...settings, onlineRates: state.onlineRates },
-              reducedMotion,
-            ),
-          ),
+          set(normalizeSettings(settings, reducedMotion)),
         resetSettings: () => set(defaultSettings(reducedMotion)),
       }),
       {

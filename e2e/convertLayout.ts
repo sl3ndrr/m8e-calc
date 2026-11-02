@@ -67,7 +67,7 @@ export async function converterGeometry(page: Page) {
     });
     const numbers = Array.from(
       root.querySelectorAll(
-        '.convert-unit-card strong, .convert-result > [aria-hidden="true"], .currency-panel .convert-result',
+        '.convert-unit-card strong, .convert-result > [aria-hidden="true"]',
       ),
     ).map((node) => {
       const range = document.createRange();
@@ -135,9 +135,7 @@ export async function converterGeometry(page: Page) {
         ),
       ),
       panels: Array.from(
-        root.querySelectorAll(
-          '.convert-main, .currency-panel, .convert-unit-grid',
-        ),
+        root.querySelectorAll('.convert-main, .convert-unit-grid'),
         (panel) => ({
           name: panel.className,
           scrollWidth: panel.scrollWidth,
@@ -169,15 +167,13 @@ export async function checkConverterGeometry(
   label: string,
 ) {
   // Wait for the existing spatial entry/number effects, without disabling them.
-  await page
-    .locator('.convert-main, .currency-panel')
-    .evaluate(async (node) => {
-      await Promise.all(
-        node
-          .getAnimations({ subtree: true })
-          .map((a) => a.finished.catch(() => {})),
-      );
-    });
+  await page.locator('.convert-main').evaluate(async (node) => {
+    await Promise.all(
+      node
+        .getAnimations({ subtree: true })
+        .map((a) => a.finished.catch(() => {})),
+    );
+  });
   const geometry = await converterGeometry(page);
   await info.attach(`geometry-${label}`, {
     body: JSON.stringify(geometry, null, 2),

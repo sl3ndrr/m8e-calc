@@ -68,7 +68,7 @@ Engine-API und Domänengrenzen ändern sich nicht. Vollständiger Vertrag:
 
 ## Routing, Build und Hosting
 
-Hash-Routing benötigt keine Pages-Rewrites. Vite erzeugt Assets relativ zum Base-Pfad `/m8e-calc/`, überschreibbar über `VITE_BASE_PATH`. Pages erhält ausschließlich `dist/`. Keine externen Requests zur Laufzeit außer explizit aktivierten EZB-Währungskursen (AP17); Fonts sind selbst gehostete, subsettete Variable-Fonts mit Preloads. Tokens liegen zentral in `src/styles`, generiert mit `npm run tokens`. AP2 liefert das Material-3-Expressive-Fundament und zwei Theme-Komponenten; weitere Komponenten folgen in AP3. Das Inline-Bootstrap in `index.html` wird von Vite vor App-JavaScript eingefügt und stellt den passenden Modus mit validiertem Farbcache vor dem ersten Paint her.
+Hash-Routing benötigt keine Pages-Rewrites. Vite erzeugt Assets relativ zum Base-Pfad `/m8e-calc/`, überschreibbar über `VITE_BASE_PATH`. Pages erhält ausschließlich `dist/`. Keine externen Requests zur Laufzeit; Fonts sind selbst gehostete, subsettete Variable-Fonts mit Preloads. Tokens liegen zentral in `src/styles`, generiert mit `npm run tokens`. AP2 liefert das Material-3-Expressive-Fundament und zwei Theme-Komponenten; weitere Komponenten folgen in AP3. Das Inline-Bootstrap in `index.html` wird von Vite vor App-JavaScript eingefügt und stellt den passenden Modus mit validiertem Farbcache vor dem ersten Paint her.
 
 `tsconfig.app.json` prüft Browsercode, `tsconfig.node.json` Tooling/E2E und `tsconfig.domain.json` reine Domänen. `tsc -b` prüft alle drei. ESLint/Prettier, Vitest und Produktionsbuild laufen über `npm run check`; Playwright prüft danach Base-Pfad, alle Hash-Routen, Tastaturfokus, Laufzeitfehler und externe Requests.
 
@@ -133,8 +133,7 @@ Alle Umrechnungen gehen über eine Kategorie-Basis; rationale Faktoren bleiben
 Zähler/Divisor, Temperatur ist affin und Verbrauch reziprok. Energie/Drehmoment,
 Aktivität/Energie-/Äquivalentdosis sowie beide Viskositäten sind dimensionsgerecht
 getrennt. Suchauflösung meldet mehrdeutige Symbole; Formatierung nutzt die Engine.
-AP17 ergänzt explizite DynamicRateProvider ohne IO in der Domäne; Zustimmung, Beschaffung und Cache liegen im Feature-Adapter. Datenmodell, Quellen und
-Erweiterung: [UNITS.md](UNITS.md). Tests laufen im Engine-Node-Projekt ohne DOM.
+Datenmodell, Quellen und Erweiterung: [UNITS.md](UNITS.md). Tests laufen im Engine-Node-Projekt ohne DOM.
 
 ## AP14 · Komfort und Offline
 

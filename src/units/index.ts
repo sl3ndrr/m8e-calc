@@ -16,7 +16,6 @@ export type {
   UnitLocale,
   UnitSystem,
   Conversion,
-  DynamicRateProvider,
   ParsedQuery,
   QuantityFormatOptions,
   CompoundOptions,

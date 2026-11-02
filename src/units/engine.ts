@@ -5,7 +5,6 @@ import { UDecimal } from './decimal.ts';
 import { UnitError } from './types.ts';
 import type {
   Category,
-  DynamicRateProvider,
   CompoundOptions,
   ParsedQuery,
   QuantityFormatOptions,
@@ -41,23 +40,8 @@ const finite = (value: Decimal.Value): Decimal => {
   throw new UnitError('E_UNIT_DOMAIN', 'A finite decimal value is required.');
 };
 
-/** Custom registries extend the engine through data only. No implicit rate fetching. */
-export function createUnitsEngine(
-  registry: readonly Category[],
-  providers: readonly DynamicRateProvider[] = [],
-) {
-  const rates = new Map(providers.map((provider) => [provider.id, provider]));
-  function rate(unit: Unit): Decimal {
-    const c = unit.conversion;
-    const provider =
-      c.kind === 'dynamicRate' ? rates.get(c.providerId) : undefined;
-    if (!provider)
-      throw new UnitError('E_UNIT_DYNAMIC_RATE', 'Missing rate provider');
-    const value = finite(provider.rateToBase(unit.id));
-    if (!value.gt(0))
-      throw new UnitError('E_UNIT_DYNAMIC_RATE', 'Invalid rate');
-    return value;
-  }
+/** Custom registries extend the engine through local unit definitions. */
+export function createUnitsEngine(registry: readonly Category[]) {
   const byId = new Map<string, { unit: Unit; category: Category }>();
   const categoryIds = new Set<string>();
   const aliases = new Map<string, string>();
@@ -110,7 +94,6 @@ export function createUnitsEngine(
   }
   function toBase(value: Decimal, unit: Unit): Decimal {
     const c = unit.conversion;
-    if (c.kind === 'dynamicRate') return value.mul(rate(unit));
     if (c.kind === 'function') return finite(c.toBase(value));
     // Affine convention: base = (value + offset) * factor / divisor.
     return value
@@ -120,7 +103,6 @@ export function createUnitsEngine(
   }
   function fromBase(value: Decimal, unit: Unit): Decimal {
     const c = unit.conversion;
-    if (c.kind === 'dynamicRate') return value.div(rate(unit));
     if (c.kind === 'function') return finite(c.fromBase(value));
     return value
       .mul(c.divisor ?? '1')

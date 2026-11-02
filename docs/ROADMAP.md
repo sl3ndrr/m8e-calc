@@ -1,5 +1,8 @@
 # Roadmap
 
+Aktueller weiterer Ablauf: [WORK_PLAN.md](WORK_PLAN.md). Funktionsstand:
+[IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md).
+
 WP-10 benennt den Resetumfang in de/en und hält Titel, Schließen und
 fokussierte Controls in langen Einstellungen erreichbar. Benannte Abschnitte
 und eine eigene Scrollfläche ergänzen die Orientierung. Spätere Speicherarten
@@ -7,7 +10,7 @@ müssen ihren Resetumfang ausdrücklich nachführen. Vertrag und Regressionen:
 [WP10](WP10.md); Umsetzung und Testergebnisse:
 [PR #89](https://github.com/sl3ndrr/m8e-calc/pull/89).
 
-WP-01 bis WP-09 sowie der Sicherheitsfix aus PR #90 sind auf `main` integriert.
+WP-01 bis WP-10 sowie der Sicherheitsfix aus PR #90 sind auf `main` integriert.
 WP-09 wurde mit PR #88 per Merge-Commit übernommen.
 
 Historische integrierte Produktabnahme: [AP46](AP46.md), main `c95f183a`
@@ -33,7 +36,8 @@ Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet integriert (Merge auf `
 - [x] 14 Komfort — Command Palette, zentrale Tastenkürzel, versionierte Permalinks, UI-Größe/Präsentation und vorgezogenes PWA/Offline (PR `feat/comfort`; Vertrag und Kürzel in `COMFORT.md`, integriert); Verlauf mit Suche/Pins/Export sowie de/en und proportionale Desktop-Skalierung sind in AP4 vorgezogen.
 - [x] 15 Hardening — weitere PWA-/Installations-/Browserabnahme, Datenschutz, Performance und Accessibility; Offline-Fundament in AP14 vorgezogen.
 - [x] 16 Releasevorbereitung — PR #21 integriert: Dokumentation, Bildskript, Version 1.0.0, Changelog und Lizenzvorschlag. MIT-Bestätigung, Produktfreigabe, Tag und tatsächliches Release bleiben getrennt offen; siehe [RELEASE.md](RELEASE.md).
-- [x] 17 Währungen (optional) — PR #23 integriert: explizites Opt-in, EZB/Frankfurter-v2-Provider, Cache und Offline-Fallback. Details in `UNITS.md`.
+- [x] 17 Historische Währungsumrechnung — ursprünglich durch PR #23 integriert,
+      inzwischen vollständig aus dem Produktumfang entfernt; [lokaler Betrieb](LOCAL_ONLY.md).
 
 AP3: Komponentenbibliothek in `src/ui`, Zustandsmatrix im Design-Lab, Tastatur-/axe-Tests und reproduzierbare Galerie-Screenshots; Konventionen in `docs/COMPONENTS.md`. AP4 verwendet diese Bausteine für die Shell.
 
@@ -57,7 +61,8 @@ PR #20 ist gemergt; automatisierte Nachweise stehen im QA-Bericht. Die manuelle 
 
 AP1–AP15 sind über die gemergten PRs #1, #3, #5–#10, #13–#16 und #18–#20 auf `main` integriert. AP16 und AP17 sind über #21 und #23 integriert. Die früheren Abnahmevorbehalte in den Paketbeschreibungen sind durch diesen Integrationsstand ersetzt; offene Qualitätsgrenzen bleiben im [QA-Bericht](QA_REPORT.md).
 
-AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und Permalinks.
+AP17 und seine geplanten Snapshots sind aus dem aktuellen Produktumfang entfernt.
+Der weitere Auditablauf steht in [WORK_PLAN.md](WORK_PLAN.md).
 
 - [x] 18 UI-Bereinigung und dezentes Teilen — PR #25 ist auf main integriert:
       eine Modus-H1, kompakte Werkzeugzeilen und zugängliche Teilen-Aktion.
@@ -252,7 +257,7 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       tatsächliche Prüfläufe und Geräte-Folgepunkte: [AP45](AP45.md).
       Integriert durch #68 (`c95f183a`); keine physische Abnahme daraus ableiten.
 
-- [ ] 46 Integrierte Produktabnahme — `feat/ap46-integrated-acceptance`, #69:
+- [x] 46 Integrierte Produktabnahme — `feat/ap46-integrated-acceptance`, #69:
       vorhandene Browser-/Framegates nach AP42–AP45, mindestens zehn Sekunden
       Parameterplayback, aktueller main-/Pages-/Clientabgleich und Issue-Empfehlungen.
       Bericht: [AP46](AP46.md), Reparaturen: [AP47](AP47.md). Keine neuen Bildbaselines.
@@ -260,19 +265,19 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       Zusatzprüfungen; keine Tags/Releases/manuellen Deploys.
       AP39-/AP41-Livepunkte bleiben bei Zugangssperre offen, #43 separat.
 
-- [ ] 47 WebKit-/Collector-Diagnose und Canvas-Finalisierung — [#70](https://github.com/sl3ndrr/m8e-calc/issues/70),
+- [x] 47 WebKit-/Collector-Diagnose und Canvas-Finalisierung — [#70](https://github.com/sl3ndrr/m8e-calc/issues/70),
       eigener 4K-Vertrag [#43](https://github.com/sl3ndrr/m8e-calc/issues/43).
       Belegter Kontexthinweis-Aufwand entfernt; WebKit-Frameprobe isoliert,
       frühe Fehlerrohwerte vollständig. Umsetzung in #69; finale CI maßgeblich.
       Originalgates und historische rote Läufe bleiben erhalten. [AP47](AP47.md).
 
-- [ ] 48 History-Exit → Einstellungen — [#71](https://github.com/sl3ndrr/m8e-calc/issues/71).
+- [x] 48 History-Exit → Einstellungen — [#71](https://github.com/sl3ndrr/m8e-calc/issues/71).
       Unit-Vorbereitung/React-Abschluss und Fokusbereitschaft explizit;
       zusätzlicher kalter/warmer Produktionsbrowserfall während echten Exits.
       Umsetzung in #69, finale CI maßgeblich. Historische Ursache nicht erfunden;
       keine längeren Timeouts oder ersetzte Benutzerklicks. [AP47](AP47.md).
 
-- [ ] 49 Dichtes 4K-Feingitter begrenzt rasterisieren — #43, Umsetzung in #69.
+- [x] 49 Dichtes 4K-Feingitter begrenzt rasterisieren — #43, Umsetzung in #69.
       Fester Original-/Kandidatenvergleich: 49,659–51,801 → 58,540–59,021 FPS,
       31,8 % weniger DoUpdateLayers-Zeit pro Aufruf; Pixelmatrix in drei Engines.
       Originalvariante bleibt rot. Native Rückfälle oberhalb DPR 1,5 und für
@@ -280,8 +285,8 @@ AP17 Folge-Issues: versionierte Währungs-Snapshots für Verlauf, Favoriten und 
       Finale Produkt-CI, echte Zwischenbilder und automatische main-/Pages-Kette
       sind getrennt zu belegen; AP39-/Handpunkte bleiben bei Sperre offen.
 
-- [ ] 50 Stabile Parameteranzeige beim Abspielen — leere Sampling-Statusflächen
+- [x] 50 Stabile Parameteranzeige beim Abspielen — leere Sampling-Statusflächen
       entfallen; aktuelle Warnungen bleiben erhalten. Komponentenregressionen
       und reale Positionsmessungen bei 0,5-Schritten in de/en mit verzögertem
       Worker: [AP50](AP50.md). Umsetzung in [PR #72](https://github.com/sl3ndrr/m8e-calc/pull/72),
-      noch nicht integriert; finale Pflicht-CI maßgeblich.
+      integriert. Historische Prüfstände bleiben ihren jeweiligen SHAs zugeordnet.

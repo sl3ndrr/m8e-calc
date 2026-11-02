@@ -6,7 +6,7 @@ import {
 } from '../styles/colorSettings';
 export const SETTINGS_KEY = 'm8e-calc.settings';
 export const THEME_CACHE_KEY = 'm8e-calc.theme-cache';
-export const SETTINGS_VERSION = 4;
+export const SETTINGS_VERSION = 5;
 export const themeModes = ['light', 'system', 'dark'] as const;
 export type ThemeMode = (typeof themeModes)[number];
 export const motionLevels = ['full', 'reduced', 'off'] as const;
@@ -23,7 +23,6 @@ export interface Settings {
   historyLimit: number;
   uiSize: number;
   presentationHistory: boolean;
-  onlineRates: boolean;
 }
 export function defaultSettings(reducedMotion = false): Settings {
   return {
@@ -38,7 +37,6 @@ export function defaultSettings(reducedMotion = false): Settings {
     historyLimit: 500,
     uiSize: 100,
     presentationHistory: false,
-    onlineRates: false,
   };
 }
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -51,7 +49,6 @@ export function normalizeSettings(
   const fallback = defaultSettings(reducedMotion);
   if (!isRecord(value)) return fallback;
   return {
-    onlineRates: value.onlineRates === true,
     uiSize:
       typeof value.uiSize === 'number' && Number.isFinite(value.uiSize)
         ? Math.max(80, Math.min(150, Math.round(value.uiSize)))
@@ -101,7 +98,6 @@ export function migrateSettings(
     return normalizeSettings(
       {
         ...value,
-        onlineRates: false,
         themeMode: value.themeMode ?? value.theme,
         accent: value.accent ?? value.seed,
       },
@@ -111,10 +107,9 @@ export function migrateSettings(
     version === 1 ||
       version === 2 ||
       version === 3 ||
+      version === 4 ||
       version === SETTINGS_VERSION
-      ? isRecord(value) && version < SETTINGS_VERSION
-        ? { ...value, onlineRates: false }
-        : value
+      ? value
       : null,
     reducedMotion,
   );

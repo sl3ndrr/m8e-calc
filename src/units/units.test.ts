@@ -137,21 +137,10 @@ describe('catalogue integrity and extension', () => {
             exact: true,
             conversion: { kind: 'linear', factor: '2' },
           },
-          {
-            id: 'future',
-            symbol: 'future',
-            names: { de: 'Kurs', en: 'Rate' },
-            aliases: [],
-            system: 'other',
-            source: 'AP17',
-            exact: false,
-            conversion: { kind: 'dynamicRate', providerId: 'offline' },
-          },
         ],
       },
     ]);
     expect(engine.convert('3', 'double', 'base').toString()).toBe('6');
-    expect(() => engine.convert('3', 'future', 'base')).toThrow(UnitError);
   });
   it('does not depend on or change the global Decimal configuration', () => {
     const precision = Decimal.precision;

@@ -16,7 +16,7 @@ Reduzierte/ausgeschaltete Bewegung unterbindet räumliche Animationen.
 
 WP-09 reserviert Swap eine eigene Gridspalte. Bei einer Panelbreite bis 36 rem
 stehen Quellfeld, Swap und Zielfeld in drei eigenen Zeilen. Maßgeblich ist die
-Breite des jeweiligen Panels, auch im Währungspfad. Keine absolute Überlagerung,
+Breite des jeweiligen Panels. Keine absolute Überlagerung,
 zusätzliche Rotation oder Radiusinterpolation beim Drücken.
 
 Von und Nach sind editierbare lokalisierte Textfelder. Nach-Eingaben rechnen
@@ -36,7 +36,7 @@ jeweils eine Einheit; funktionale/affine Definitionen werden genauso ausgewertet
 
 Die Kopieraktion erhält ihren zugänglichen Namen aus dem gesamten sichtbaren
 Karteninhalt (Einheitenname, aktueller Wert, Symbol und System), ergänzt um die
-lokalisierte Aktion. Währungskarten schließen Code, Name, Zahl und Symbol ein.
+lokalisierte Aktion.
 Kein pauschales `aria-label` verdeckt diese Inhalte und keine zusätzliche
 Live-Region wiederholt sie. WP-09 verknüpft die sichtbaren Kartenbestandteile
 und den lokalisierten Aktionstext über `aria-labelledby` mit dem getrennten
@@ -64,7 +64,7 @@ schrumpft innerhalb dieser Zeile und scrollt selbst horizontal. Er darf keinen
 verdeckten horizontalen Überlauf des gesamten Panels verursachen. Einheit und
 Kopieraktion schrumpfen nicht; absolut positionierter Ansagetext bleibt an den
 Zahlenviewport gebunden.
-Dies gilt auch für Hauptwert und Währungskarten/-ergebnis. Tab führt separat
+Dies gilt auch für Hauptwert und Einheitenkarten. Tab führt separat
 zum Kopierbutton. Fokus liegt mit Tintenreserve innerhalb des Scrollbereichs,
 Forced Colors verwendet Highlight. Anzeigepräzision, vollständige formatierte
 Kopierquelle und gespeicherter Decimal-Wert bleiben erhalten; kein Ellipsis,
@@ -129,7 +129,7 @@ Einheitensuche, Verlauf/Restore/Persistenz, Reduced Motion und Axe.
 
 ## Offen / Folge-Issues
 
-AP17 ergänzt die separate optionale Währungskategorie über explizite DynamicRateProvider; Details in `UNITS.md`. Browserabnahme außerhalb
-Chromium folgt der Roadmap. Globale UI-Skalierung ist in AP14 umgesetzt. Die Sortierung nach
+Der Umrechner arbeitet vollständig lokal; Vertrag und Regressionen stehen in
+[LOCAL_ONLY.md](LOCAL_ONLY.md). Browserabnahme folgt der Roadmap. Globale UI-Skalierung ist in AP14 umgesetzt. Die Sortierung nach
 Größe bezeichnet Definitionsgröße (Basiswert von 1), keine Rangfolge aktuell
 angezeigter Zahlen bei negativen oder reziproken Werten.

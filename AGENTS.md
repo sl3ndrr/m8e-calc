@@ -9,11 +9,7 @@ Vorschauen dürfen weder Environment noch Verlauf schreiben. Kein synchroner
 Fallback, keine zusätzliche eager Startlast. Vertrag und Prüfgrenzen:
 [docs/SCIENTIFIC_MODE.md](docs/SCIENTIFIC_MODE.md), [docs/WP07.md](docs/WP07.md).
 
-Aktuelle integrierte Produktabnahme: [docs/AP46.md](docs/AP46.md), nach
-AP42–AP45 auf main `c95f183a`. Historische Ausgangslage: [docs/AP40.md](docs/AP40.md).
-Live-Abnahme und
-Releaseentscheidung: [docs/AP39.md](docs/AP39.md) (blockiert);
-vorheriger Integrationsbericht: [docs/AP38.md](docs/AP38.md).
+Aktueller Funktionsstand: [docs/IMPLEMENTATION_STATUS.md](docs/IMPLEMENTATION_STATUS.md).
 Paketnachweise behalten ihre historischen SHAs; PR-Head, geprüfter Produkt-SHA
 und tatsächlich veröffentlichter Pages-SHA sind getrennte Identitäten.
 
@@ -39,7 +35,7 @@ Teil von `npm run check`; der bisherige 1D-Benchmark bleibt unverändert.
 AP14 liefert gemeinsame Komfortfunktionen in `src/app`: Palette, zentrale
 Kürzel-Registry, bounded versionierte Permalinks, UI-Größe/Präsentation und
 PWA-Build-Adapter ohne zusätzliche App-Abhängigkeit. Vertrag und Tastenkürzel:
-`docs/COMFORT.md`. Settings-Version 4 migriert 0–3; Offline-Precache umfasst alle
+`docs/COMFORT.md`. Settings-Version 5 migriert 0–4; Offline-Precache umfasst alle
 lazy Chunks, Fonts und Worker. Domänen bleiben browserfrei.
 
 AP21 trennt die stabile Fit-Abtastbasis vom gewünschten Viewport und von der
@@ -92,7 +88,7 @@ Datenfluss: Benutzereingabe → reine UI-Funktion/Reducer → Domäne → Ergebn
 
 ## Konventionen und verbindliche Regeln
 
-1. **Datenschutz:** Keine externen Requests zur Laufzeit außer der ausdrücklich beauftragten AP17-Währungsumrechnung: `onlineRates` ist standardmäßig aus; ausschließlich der Schalter „Online-Kurse laden“ erteilt Zustimmung. Ohne Opt-in weder Währungskategorie noch Requests. Nur `https://api.frankfurter.dev/v2/providers/ecb/rates` ist über CSP freigegeben; keine Beträge, kein Verlauf, keine Credentials und kein Referer werden übertragen. Importierte Einstellungen erteilen keine Netzwerkzustimmung. Assets lokal ausliefern, Fonts selbst hosten; bis dahin Systemfonts. Keine CDNs, Analytics oder entfernten Rechenservices. Entwicklungs- und CI-Paketdownloads sind davon getrennt.
+1. **Datenschutz:** Keine externen Requests zur Laufzeit. Assets und Fonts lokal ausliefern; keine CDNs, Analytics oder entfernten Rechenservices. CSP erlaubt Verbindungen nur zur eigenen Origin. Entwicklungs- und CI-Paketdownloads sind davon getrennt.
 2. **i18n:** Alle UI-Texte einschließlich Titel, ARIA-Beschriftungen und Fehlermeldungen über i18n-Schlüssel, niemals hartkodiert. `de` ist Fallback, Auto erkennt `navigator.language`; `en` vollständig pflegen. Die vollständige Schlüsselmenge wird aus `src/shared/i18n/de.ts` inklusive Core abgeleitet; `MessageKey` des jeweiligen i18n-Einstiegs begrenzt Aufrufer auf seine vorhandenen Texte. Neue Texte in beiden Dictionaries ergänzen. Technische Fehler für Entwickler dürfen außerhalb sichtbarer UI stehen.
 3. **Tokens:** Keine Farbwerte in Komponenten oder Feature-CSS; Farben ausschließlich über `--md-sys-color-*`. Formen und Bewegung ausschließlich über Shape- und Motion-Tokens (`--md-sys-shape-*`, `--md-sys-motion-*`). Tokenwerte zentral in `src/styles`. `prefers-reduced-motion` respektieren. AP2 liefert zentrale Farbrollen, Typografie, Shape- und Spring-Tokens; `npm run tokens` regeneriert `src/styles/tokens.css`. Neue Icons erfordern Font-Subsetting gemäß `docs/DESIGN.md`; AP3 liefert die Komponenten; AP4 nutzt die Registry in `src/app/modeRegistry.ts`, `useModeHistory(mode, onRestore)` und versionierten Verlauf (maximal 500); öffentliche API und Beispiele stehen in `docs/COMPONENTS.md`. Neue Modus-UI verwendet die Bausteine aus `src/ui`; direkte öffentliche Komponentenimporte erhalten Lazy-Grenzen, `index.ts` bleibt für Galerie und Kompatibilität verfügbar.
 4. **Tests und Logik:** Jede Logik bekommt Tests. UI-Logik als reine Funktionen/Reducer, getrennt von Komponenten. Komponenten orchestrieren Rendering und Browseradapter. Vitest mit getrennten vollständigen UI-/Engine-Läufen (`test:ui` / `test:engine`) für Logik, Testing Library für UI-Verhalten, fast-check für sinnvolle Eigenschaften, Playwright für Integration im Browser. Keine Rechenengine als Nebenaufgabe hinzufügen.
@@ -154,20 +150,12 @@ Die vollständige Rollenmatrix prüft Text auf Surface-Ebenen; funktionale Outli
 
 `npm run screenshots` erzeugt die README-Bilder (2560×1440, hell/dunkel) und Social Preview (1280×640) aus dem Produktionsbuild. Anleitung: `docs/RELEASE.md`. Version 1.0.0 und Release Notes sind vorbereitet, nicht veröffentlicht. MIT in LICENSE ist ein Vorschlag und muss vor Veröffentlichung vom Eigentümer bestätigt werden. Keine automatischen Tags, Releases oder Merges.
 
-## AP17 · Optionale Währungen
-
-`src/units/currency.ts` liefert den reinen Decimal-Provider; `createUnitsEngine`
-erhält explizite `DynamicRateProvider`-Instanzen ohne IO. Beschaffung und Cache
-liegen in `src/features/convert/currency`. Vier Stunden automatische
-Aktualisierung, manuelle Aktualisierung, zehn Sekunden Timeout, Offline-Fallback
-und Kursdatums-Badge ab 48 Stunden. Details und Quellenprüfung: `docs/UNITS.md`.
-
 ## AP18 · UI-Bereinigung
 
 Die Shell trägt die einzige Modus-H1; in Präsentation bleibt sie visuell
 versteckt zugänglich. Feature-Regionen verwenden `mode.*` als Namen. Teilen
 nutzt den gemeinsamen IconButton/Tooltip-Adapter bei unverändertem
-Permalink-Vertrag; aktive Währungen bleiben ausgeschlossen. Details und
+Permalink-Vertrag. Details und
 Bildreproduktion: `docs/COMFORT.md`.
 
 ## AP19 · Zahlen und Tasten
@@ -290,8 +278,8 @@ Ein Teil-Rerun mit älterem Build-Artefakt darf wegen abweichender Laufversuchsn
 scheitern; in diesem Fall den vollständigen Workflow neu ausführen. Historische
 Paket-Evidence bleibt bedingt und darf nicht pauschal als Required Check eingetragen
 werden. Externe Release-Links bleiben ein blockierender Quellen-/Dokumentationscheck.
-Der Provider-Sondercheck bleibt auf `feat/currency` zusätzlich bindend; nur
-außerhalb dieses Branches akzeptiert der Aggregator sein erwartetes `skipped`.
+Der Quality gate verlangt exakt die verbleibenden Pflichtjobs ohne zusätzliche
+featurebezogene Ausnahme; unerwartete Skips bleiben gesperrt.
 
 ## AP32 · Merge-Schutzstatus
 
