@@ -95,6 +95,14 @@ AccentPicker: React-Aria-Popover mit Escape/Light-Dismiss, Fokus auf der ersten 
 
 ## Generierung und Verifikation
 
+WP-10 nutzt für lange Einstellungen die feste Kopfzeile des gemeinsamen
+`Dialog.scrollable`. Der Titel verwendet Headline Small, Abschnitte Title Large;
+Surface Container High, On Surface und Outline Variant liefern Flächen und
+Abschnittsgrenzen. Die getrennte Scrollzeile reserviert Platz für Controls und
+Fokusringe. Es gibt keine zusätzliche Stickyüberlagerung oder neue Bewegung;
+die vorhandenen Effects-/Reduced-/Off-Verträge gelten weiter. Tatsächliche
+Vorherbilder und die noch blockierte Nachherabnahme stehen in [WP10](WP10.md).
+
 `npm run tokens` generiert und formatiert `src/styles/tokens.css` aus den zentralen Definitionen. Die Datei ist eingecheckt; die Tokenwerte werden nicht in Komponenten dupliziert. `npm run check` prüft lint, Typen, Unit-/UI-Tests und Build; danach `npm run test:e2e` gegen den Produktionsbuild.
 
 Browserprüfungen: Persistenz, Tastatursteuerung, live `emulateMedia`, FOUC ohne App-JS, Reduced Motion, Fallback/rasche Wechsel, beschädigter Storage, lokale Fonts, Screenshots Hell/Dunkel/Popover und schmale Breiten. Der bestehende Smoke prüft weiterhin alle Routen, Laufzeitfehler und externe Requests. Screenshots werden als CI-Artefakte aufbewahrt; geprüfte Ansichten liegen zusätzlich in `docs/screenshots/theming-{light,dark,accent-picker}.png`.

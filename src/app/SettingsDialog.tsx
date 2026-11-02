@@ -31,6 +31,7 @@ export function SettingsDialog({
   const locale = useAppStore((state) => state.locale);
   const settings = useSettingsStore();
   const input = useRef<HTMLInputElement>(null);
+  const resetTrigger = useRef<HTMLButtonElement>(null);
   const accentTrigger = useRef<HTMLButtonElement>(null);
   const requestedInstall = useRef(false);
   useEffect(() => {
@@ -64,6 +65,7 @@ export function SettingsDialog({
       title={t('shell.settings', locale)}
       closeLabel={t('ui.close', locale)}
       className="settings-dialog"
+      scrollable
       isOpen={isOpen}
       onOpenChange={(open) => {
         if (!open) setConfirmReset(false);
@@ -107,15 +109,28 @@ export function SettingsDialog({
             </Button>
           </section>
         )}
-        <Switch
-          isSelected={settings.presentationHistory}
-          onChange={(presentationHistory) =>
-            settings.updateSettings({ presentationHistory })
-          }
-        >
-          {t('comfort.presentationHistory', locale)}
-        </Switch>
+        <section aria-label={t('settings.general', locale)}>
+          <h3 className="type-title-large">{t('settings.general', locale)}</h3>
+          <Switch
+            isSelected={settings.presentationHistory}
+            onChange={(presentationHistory) =>
+              settings.updateSettings({ presentationHistory })
+            }
+          >
+            {t('comfort.presentationHistory', locale)}
+          </Switch>
+          <Select
+            label={t('language.label', locale)}
+            options={languageOptions}
+            selectedKey={settings.language}
+            onSelectionChange={(key) => {
+              if (key === 'auto' || key === 'de' || key === 'en')
+                settings.updateSettings({ language: key });
+            }}
+          />
+        </section>
         <section aria-label={t('currency.online', locale)}>
+          <h3 className="type-title-large">{t('currency.category', locale)}</h3>
           <Switch
             isSelected={settings.onlineRates}
             onChange={(onlineRates) => settings.updateSettings({ onlineRates })}
@@ -125,15 +140,6 @@ export function SettingsDialog({
           </Switch>
           <p id="currency-privacy">{t('currency.privacy', locale)}</p>
         </section>
-        <Select
-          label={t('language.label', locale)}
-          options={languageOptions}
-          selectedKey={settings.language}
-          onSelectionChange={(key) => {
-            if (key === 'auto' || key === 'de' || key === 'en')
-              settings.updateSettings({ language: key });
-          }}
-        />
         <section aria-label={t('settings.numbers', locale)}>
           <h3>{t('settings.numbers', locale)}</h3>
           <Select
@@ -208,7 +214,11 @@ export function SettingsDialog({
                 event.currentTarget.value = '';
               }}
             />
-            <Button variant="text" onPress={() => setConfirmReset(true)}>
+            <Button
+              ref={resetTrigger}
+              variant="text"
+              onPress={() => setConfirmReset(true)}
+            >
               {t('settings.reset', locale)}
             </Button>
           </div>
@@ -221,7 +231,13 @@ export function SettingsDialog({
             <h3>{t('settings.resetTitle', locale)}</h3>
             <p>{t('settings.resetHint', locale)}</p>
             <div className="settings-actions">
-              <Button variant="outlined" onPress={() => setConfirmReset(false)}>
+              <Button
+                variant="outlined"
+                onPress={() => {
+                  setConfirmReset(false);
+                  resetTrigger.current?.focus();
+                }}
+              >
                 {t('settings.cancel', locale)}
               </Button>
               <Button
@@ -237,6 +253,7 @@ export function SettingsDialog({
                   }
                   window.location.hash = '#/simple';
                   setConfirmReset(false);
+                  resetTrigger.current?.focus();
                   snackbarQueue.add(
                     { message: t('settings.resetDone') },
                     { timeout: 5000 },

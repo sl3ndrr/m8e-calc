@@ -36,6 +36,7 @@ export default defineConfig({
         '**/label-in-name.spec.ts',
         '**/comfort.spec.ts',
         '**/settings-actions.spec.ts',
+        '**/settings-reset.spec.ts',
         '**/ap18-ui.spec.ts',
         '**/calculator-rendering.spec.ts',
         '**/simple-calculator.spec.ts',

@@ -17,12 +17,15 @@ export interface DialogProps extends Omit<
   children: ReactNode;
   closeLabel: string;
   className?: string;
+  /** Keep title and close action outside scrolling form content. */
+  scrollable?: boolean;
 }
 export function Dialog({
   title,
   children,
   closeLabel,
   className = '',
+  scrollable = false,
   ...props
 }: DialogProps) {
   const [overlayKey, overlayRef] = useOverlayTransition();
@@ -37,17 +40,61 @@ export function Dialog({
       isDismissable={props.isDismissable ?? true}
       className="ui-modal-overlay"
     >
-      <Modal className={`ui-modal ${className}`}>
+      <Modal
+        className={`ui-modal ${className}`}
+        data-scrollable={scrollable || undefined}
+      >
         <AriaDialog className="ui-dialog">
-          {({ close }) => (
-            <>
-              <Heading slot="title">{title}</Heading>
-              {children}
-              <Button variant="text" onPress={close}>
-                {closeLabel}
-              </Button>
-            </>
-          )}
+          {({ close }) =>
+            scrollable ? (
+              <>
+                <div className="ui-dialog-header">
+                  <Heading slot="title" className="type-headline-small">
+                    {title}
+                  </Heading>
+                  <Button variant="text" onPress={close}>
+                    {closeLabel}
+                  </Button>
+                </div>
+                <div
+                  className="ui-dialog-content"
+                  onFocusCapture={(event) => {
+                    const content = event.currentTarget;
+                    const target = event.target;
+                    // Portalled selections own their separate scroll viewport.
+                    if (
+                      !(target instanceof HTMLElement) ||
+                      !content.contains(target)
+                    )
+                      return;
+                    requestAnimationFrame(() => {
+                      if (
+                        !content.isConnected ||
+                        !content.contains(target) ||
+                        document.activeElement !== target ||
+                        content.closest('[inert]')
+                      )
+                        return;
+                      target.scrollIntoView({
+                        block: 'nearest',
+                        inline: 'nearest',
+                      });
+                    });
+                  }}
+                >
+                  {children}
+                </div>
+              </>
+            ) : (
+              <>
+                <Heading slot="title">{title}</Heading>
+                {children}
+                <Button variant="text" onPress={close}>
+                  {closeLabel}
+                </Button>
+              </>
+            )
+          }
         </AriaDialog>
       </Modal>
     </ModalOverlay>

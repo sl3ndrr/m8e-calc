@@ -1,6 +1,7 @@
 import { useId } from 'react';
 import {
   ComboBox,
+  Group,
   Select as AriaSelect,
   SelectValue,
   Input,
@@ -69,7 +70,7 @@ export function Select({
         {label}
       </Label>
       {searchable ? (
-        <div className="ui-select-control">
+        <Group className="ui-select-control">
           <StateLayer />
           <Input />
           <Button
@@ -79,7 +80,7 @@ export function Select({
           >
             ▾
           </Button>
-        </div>
+        </Group>
       ) : (
         <Button variant="outlined">
           <SelectValue />▾

@@ -45,7 +45,9 @@ async function openCurrency(page: Page): Promise<void> {
     .getByRole('button', { name: t('currency.category'), exact: true })
     .click();
   await expect(
-    page.getByRole('heading', { name: t('currency.category'), exact: true }),
+    page
+      .getByRole('region', { name: t('currency.category'), exact: true })
+      .getByRole('heading', { name: t('currency.category'), exact: true }),
   ).toBeVisible();
 }
 for (const locale of ['de', 'en'] as const) {

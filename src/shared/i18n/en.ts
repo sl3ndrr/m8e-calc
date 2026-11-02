@@ -3,6 +3,7 @@ import type { Dictionary } from '../i18n';
 export const en: Dictionary = {
   ...coreEN,
   'settings.appearance': 'Appearance',
+  'settings.general': 'General',
   'settings.app': 'App',
   'currency.online': 'Load online rates',
   'currency.category': 'Currency',
@@ -201,11 +202,11 @@ export const en: Dictionary = {
   'settings.import': 'Import settings',
   'settings.imported': 'Settings imported.',
   'settings.invalid': 'The file does not contain valid settings.',
-  'settings.reset': 'Reset everything',
-  'settings.resetTitle': 'Reset everything?',
+  'settings.reset': 'Reset settings and history',
+  'settings.resetTitle': 'Reset settings and history?',
   'settings.resetHint':
-    'Settings, history and the last used mode will be reset.',
-  'settings.resetDone': 'All data reset.',
+    'Resets settings and global history and opens Simple mode. Scientific definitions, converter favorites and preferences, saved exchange rates and offline files are not deleted by this action.',
+  'settings.resetDone': 'Settings and history reset.',
   'settings.cancel': 'Cancel',
   'scientific.work.cancel': 'Cancel',
   'scientific.work.preview': 'Calculating preview …',

@@ -1,9 +1,19 @@
 # Roadmap
 
-Aktuelle integrierte Produktabnahme: [AP46](AP46.md), main `c95f183a`
-(21.10.2026), nach AP42–AP45. Reguläre main-CI und Pages desselben SHA
-sind erfolgreich; Live-/Clientabnahme bleibt gemäß [AP39](AP39.md) blockiert.
-[AP40](AP40.md) und [AP38](AP38.md) behalten ihre historischen Stände.
+WP-10 benennt den Resetumfang in de/en und hält Titel, Schließen und
+fokussierte Controls in langen Einstellungen erreichbar. Benannte Abschnitte
+und eine eigene Scrollfläche ergänzen die Orientierung. Spätere Speicherarten
+müssen ihren Resetumfang ausdrücklich nachführen. Vertrag und Regressionen:
+[WP10](WP10.md); Umsetzung und Testergebnisse:
+[PR #89](https://github.com/sl3ndrr/m8e-calc/pull/89).
+
+WP-01 bis WP-09 sowie der Sicherheitsfix aus PR #90 sind auf `main` integriert.
+WP-09 wurde mit PR #88 per Merge-Commit übernommen.
+
+Historische integrierte Produktabnahme: [AP46](AP46.md), main `c95f183a`
+(21.10.2026), nach AP42–AP45. Die Nachweise bleiben an diesen Stand gebunden;
+[AP39](AP39.md), [AP40](AP40.md) und [AP38](AP38.md) dokumentieren frühere
+Prüfungen.
 
 Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet integriert (Merge auf `main`); manuelle Produkt-/Pages-Abnahmen sind separat dokumentiert und werden dadurch nicht als bestanden erklärt. Stand: 21.10.2026.
 
