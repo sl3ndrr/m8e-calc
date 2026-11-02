@@ -289,6 +289,52 @@ test('AP27 history, old/new links, reload and PNG contain the displayed contour'
       { screen, exported },
     ),
   ).toBe(true);
+
+  const opacity = (src: string) =>
+    page.evaluate(async (source) => {
+      const image = new Image();
+      image.src = source;
+      await image.decode();
+      const canvas = document.createElement('canvas');
+      canvas.width = image.width;
+      canvas.height = image.height;
+      const context = canvas.getContext('2d');
+      if (!context) throw Error('Missing opacity context');
+      context.drawImage(image, 0, 0);
+      const data = context.getImageData(0, 0, canvas.width, canvas.height);
+      const pixels = data.data;
+      let allOpaque = true,
+        hasTransparent = false,
+        hasOpaque = false;
+      for (let i = 3; i < pixels.length; i += 4) {
+        allOpaque &&= pixels[i] === 255;
+        hasTransparent ||= pixels[i] === 0;
+        hasOpaque ||= pixels[i] === 255;
+      }
+      return { allOpaque, hasTransparent, hasOpaque };
+    }, src);
+  expect(await opacity(exported)).toEqual({
+    allOpaque: true,
+    hasTransparent: false,
+    hasOpaque: true,
+  });
+  await page.locator('.graph-export .ui-select button').click();
+  await page.getByRole('option', { name: 'Transparent', exact: true }).click();
+  const transparentEvent = page.waitForEvent('download');
+  await page
+    .getByRole('button', { name: 'PNG exportieren', exact: true })
+    .click();
+  const transparentDownload = await transparentEvent;
+  const transparentPath = info.outputPath('implicit-export-transparent.png');
+  await transparentDownload.saveAs(transparentPath);
+  const transparentBytes = await readFile(transparentPath);
+  const transparent =
+    'data:image/png;base64,' + transparentBytes.toString('base64');
+  expect(await opacity(transparent)).toEqual({
+    allOpaque: false,
+    hasTransparent: true,
+    hasOpaque: true,
+  });
 });
 
 test('AP27 unavailable Worker has a localized explanation and no synchronous implicit fallback', async ({

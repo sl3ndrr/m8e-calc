@@ -818,7 +818,9 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
           dpr = window.devicePixelRatio || 1;
         output.width = Math.round(viewport.pixelSize.width * dpr);
         output.height = Math.round(viewport.pixelSize.height * dpr);
-        const context = output.getContext('2d');
+        // Match the opaque screen's text rasterization; only transparent PNGs
+        // need an alpha channel.
+        const context = output.getContext('2d', { alpha: transparent });
         if (!context) throw new Error('Canvas unavailable');
         // Use the same accepted polylines and transform as the screen. Export
         // must never run a second 2D job synchronously or invent missing curves.
