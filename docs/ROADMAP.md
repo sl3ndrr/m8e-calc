@@ -1,24 +1,17 @@
 # Roadmap
 
-Aktueller weiterer Ablauf: [WORK_PLAN.md](WORK_PLAN.md). Funktionsstand:
-[IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md).
-
-WP-10 benennt den Resetumfang in de/en und hält Titel, Schließen und
-fokussierte Controls in langen Einstellungen erreichbar. Benannte Abschnitte
-und eine eigene Scrollfläche ergänzen die Orientierung. Spätere Speicherarten
-müssen ihren Resetumfang ausdrücklich nachführen. Vertrag und Regressionen:
-[WP10](WP10.md); Umsetzung und Testergebnisse:
-[PR #89](https://github.com/sl3ndrr/m8e-calc/pull/89).
-
-WP-01 bis WP-10 sowie der Sicherheitsfix aus PR #90 sind auf `main` integriert.
-WP-09 wurde mit PR #88 per Merge-Commit übernommen.
+Gemeinsamer Funktionsstand und Nachweisgrenzen:
+[IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md). Geplante Folgepakete:
+[WORK_PLAN.md](WORK_PLAN.md). Diese Roadmap ordnet die Integrationsgeschichte ein.
 
 Historische integrierte Produktabnahme: [AP46](AP46.md), main `c95f183a`
 (21.10.2026), nach AP42–AP45. Die Nachweise bleiben an diesen Stand gebunden;
 [AP39](AP39.md), [AP40](AP40.md) und [AP38](AP38.md) dokumentieren frühere
 Prüfungen.
 
-Die Pakete werden getrennt umgesetzt. Ein Haken bedeutet integriert (Merge auf `main`); manuelle Produkt-/Pages-Abnahmen sind separat dokumentiert und werden dadurch nicht als bestanden erklärt. Stand: 21.10.2026.
+Ein Haken bedeutet integriert (Merge auf `main`), keinen bestandenen Test und
+keine manuelle Produkt-/Pages-Abnahme. AP46–AP49 wurden mit PR #69 integriert,
+AP50 mit PR #72; die Belege unten ersetzen keine Abnahme eines späteren Heads.
 
 - [x] 1 Fundament — Toolchain, Struktur, Platzhalter, CI/Pages und Projektgedächtnis.
 - [x] 2 Theming — Material 3 Expressive, Hell/System/Dunkel, Akzentwahl, Typography-/Shape-/Motion-Fundament und `#/design` (PR `feat/theming`, Details: `DESIGN.md`).
@@ -100,8 +93,8 @@ Der weitere Auditablauf steht in [WORK_PLAN.md](WORK_PLAN.md).
 
 - [x] 25 Produktabnahme — PR #40 auf main integriert (`5b1c5a9`): gezielte Wiederverwendung der AP18–AP24-Regressionen,
       Browser-/PWA-Integration und belegter Produktionsstand; [AP25.md](AP25.md).
-      Die historischen AP25-Messungen bleiben erhalten; Live-Abnahme des aktuellen
-      Kandidaten gehört zu AP39, siehe [AP38](AP38.md).
+      Die historischen AP25-Messungen bleiben erhalten; damalige Live-Abnahmen
+      stehen in [AP39](AP39.md) und [AP38](AP38.md).
 
 - [x] 26 Implizite Kurven, Domäne (optional) — `feat/ap26-implicit-domain`:
       separater Float64-Compiler und adaptives Marching Squares mit gemeinsamen
@@ -194,12 +187,14 @@ Der weitere Auditablauf steht in [WORK_PLAN.md](WORK_PLAN.md).
 - 39 Manuelle Live-Abnahme — ausgeführt bis zur belegten Zugangssperre;
   technische Abnahme blockiert, #22 bleibt offen. Historische Kandidaten und
   Messgrenzen bleiben erhalten. Reparatur #58 ist integriert, #55/#56 geschlossen;
-  aktuelle main-/Pages-Identitäten stehen in [AP40](AP40.md). Echte Belege, konkrete
+  damalige main-/Pages-Identitäten stehen in [AP40](AP40.md). Echte Belege, konkrete
   Restprüfliste und Eigentümerentscheidungen: [AP39](AP39.md).
 
-- 40 Aktuelle Ausgangslage — Dokumentationspaket auf `11865098`: integrierte
-  Wartung, Quellenblocker, Dependabot-/Pages-Nachweise und konkrete offene
-  Abnahmen in [AP40](AP40.md). Kein Produkt- oder Checkerumbau.
+- [x] 40 Historische Ausgangslage — Dokumentationspaket auf `11865098`: integrierte
+      Wartung, Quellenblocker, Dependabot-/Pages-Nachweise und konkrete offene
+      Abnahmen in [AP40](AP40.md). Integriert durch
+      [PR #62](https://github.com/sl3ndrr/m8e-calc/pull/62) (`65ce593b`).
+      Kein Produkt- oder Checkerumbau.
 
 - 41 Live-Abnahme — in [AP40](AP40.md) für die kontrollierte Abnahme nach
   grünem main-/Pages-Nachweis vorgemerkt; nicht Teil des Button-Pakets.
@@ -211,7 +206,7 @@ Der weitere Auditablauf steht in [WORK_PLAN.md](WORK_PLAN.md).
       AP19/AP36 statt einer zweiten Messinfrastruktur. Vertrag und tatsächlicher
       Prüfstatus und dauerhafte native Frame-/Bildbelege: [AP42](AP42.md),
       Umsetzung in [PR #63](https://github.com/sl3ndrr/m8e-calc/pull/63).
-      Integriert durch #63 (`63fdc9c`); aktuelle gemeinsame Abnahme in AP46.
+      Integriert durch #63 (`63fdc9c`); historische gemeinsame Abnahme in AP46.
 
 - [x] 43 Stetige Parameterkurven — `feat/ap43-graph-parameter-continuity`,
       ab main `63fdc9c`: einmaliger Full-Reveal pro sichtbarer gültiger Funktion,
@@ -220,9 +215,10 @@ Der weitere Auditablauf steht in [WORK_PLAN.md](WORK_PLAN.md).
       PNG/Diagnosen behalten ehrliche Aktualität. Verträge, Framevergleich und
       tatsächlicher Prüfstatus: [AP43](AP43.md). AP42 ist bereits belegt;
       #43 bleibt ein eigener historischer Performancebefund.
-      Integriert durch #64 (`aa8ed101`); aktuelle gemeinsame Abnahme in AP46.
+      Integriert durch #64 (`aa8ed101`); historische gemeinsame Abnahme in AP46.
 
-  Historische AP43-Zwischenstände vor dem Merge (rote Läufe bleiben erhalten):
+  Historische AP43-Zwischenstände vor dem Merge (rote Läufe und damalige
+  „aktuell“-/„kein Merge“-Aussagen bleiben auf diese Prüfstände begrenzt):
   Prüfstand `025ea1e`: fünf echte negative Vorher-Gegenproben,
   12/12 neue Chromiumfälle, check und bestehende 4K/Mixed-Gates bestanden.
   Framebelege sind dauerhaft gespeichert. Ein separater AP28-Vergleich auf
@@ -261,8 +257,9 @@ Der weitere Auditablauf steht in [WORK_PLAN.md](WORK_PLAN.md).
       vorhandene Browser-/Framegates nach AP42–AP45, mindestens zehn Sekunden
       Parameterplayback, aktueller main-/Pages-/Clientabgleich und Issue-Empfehlungen.
       Bericht: [AP46](AP46.md), Reparaturen: [AP47](AP47.md). Keine neuen Bildbaselines.
-      Neuer Nutzerauftrag: Merge erst nach grüner finaler Pflicht-CI und relevanten
-      Zusatzprüfungen; keine Tags/Releases/manuellen Deploys.
+      Integriert durch [PR #69](https://github.com/sl3ndrr/m8e-calc/pull/69)
+      (`fad008b1045e781c8efdac961a728453fd944c11`); die damalige Mergefreigabe
+      erteilt keine Freigabe für neue Aufträge.
       AP39-/AP41-Livepunkte bleiben bei Zugangssperre offen, #43 separat.
 
 - [x] 47 WebKit-/Collector-Diagnose und Canvas-Finalisierung — [#70](https://github.com/sl3ndrr/m8e-calc/issues/70),
@@ -289,4 +286,5 @@ Der weitere Auditablauf steht in [WORK_PLAN.md](WORK_PLAN.md).
       entfallen; aktuelle Warnungen bleiben erhalten. Komponentenregressionen
       und reale Positionsmessungen bei 0,5-Schritten in de/en mit verzögertem
       Worker: [AP50](AP50.md). Umsetzung in [PR #72](https://github.com/sl3ndrr/m8e-calc/pull/72),
-      integriert. Historische Prüfstände bleiben ihren jeweiligen SHAs zugeordnet.
+      integriert (`de0fcd0a0846f56226e148c14f7b3bf5d1cb387f`). Historische
+      Prüfstände bleiben ihren jeweiligen SHAs zugeordnet.

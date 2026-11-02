@@ -1,15 +1,19 @@
 # Weiterer Arbeitsablauf nach WP01–WP10
 
-WP01–WP10 sind integriert. Historische Paketkennungen bleiben erhalten.
+Funktionsstand und Nachweisgrenzen: [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md).
+WP01–WP10 und die vollständige Währungsentfernung aus PR #95 sind integriert.
+Historische Paketkennungen bleiben erhalten. WP11–WP13 und WP15–WP18 sind
+vorgesehene Folgearbeit, keine bereits implementierten Features oder Migrationen.
 Der aktuelle Produktumfang umfasst vier lokale Modi und lokale Einheiten;
 Währungsumrechnung und ihre Erweiterungen gehören nicht mehr zum Produkt.
 
 ## Reihenfolge
 
-1. Die vollständige Entfernung integrieren und auf ihrem tatsächlichen Head
-   prüfen: [LOCAL_ONLY](LOCAL_ONLY.md). Ein externer Quellenfehler auf main
-   bleibt eine getrennte Ursache; keine wiederholten Läufe bis zum Erfolg.
-2. Statuseinstiege von WP19 früh pflegen, anschließend WP11, WP12 und WP13.
+1. Die integrierte lokale Basis aus [PR #95](https://github.com/sl3ndrr/m8e-calc/pull/95)
+   verwenden: [LOCAL_ONLY](LOCAL_ONLY.md). Ihre Umsetzung ist kein offener
+   Integrationsschritt; neue Diffs brauchen eigene Prüfnachweise.
+2. Den gemeinsamen Statuseinstieg aus WP-CUT/WP19 weiterführen, anschließend
+   WP11, WP12 und WP13.
 3. WP15, dann die Fit-/History-Frage aus Issue #91 vor WP16 klären.
 4. Sinnvolle kompatible WP17-Schritte und unabhängige WP18-Migrationen nach
    tatsächlicher Verfügbarkeit bearbeiten.
@@ -34,7 +38,8 @@ WP03 bleibt als historische Zustimmungskorrektur dokumentiert; übernommen
 werden nur die allgemeinen Importgrenzen und die atomare Einstellungsaktion.
 WP10 prüft weiterhin Resetumfang, Fokus und Dialogreflow. Kurscacheerhalt,
 Opt-in-Races, Provider-Liveproben und Währungsbelege entfallen aus der Abnahme.
-Die Select-Regression aus PR #94 bleibt im lokalen Browserfall erhalten, da
+Die Select-Korrektur wurde mit PR #89 integriert; PR #94 wurde ohne Merge
+geschlossen. Ihre Regression bleibt durch PR #95 im lokalen Browserfall erhalten, da
 die gemeinsamen suchbaren Einheitenpicker weiterhin verwendet werden.
 
 Der historische Gallery-Motionbefund aus WP05 bleibt getrennt zu beurteilen.

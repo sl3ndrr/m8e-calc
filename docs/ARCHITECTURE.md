@@ -205,7 +205,10 @@ Remount kann die von React.lazy und dem Browser gecachte Ablehnung nicht lösen.
 Der Cache-Refresh umfasst die betroffenen Editor-/Formel- bzw. Shell-Chunks
 und bleibt auf die eigene Origin begrenzt.
 
-AP17: Settings-Version 4 migriert 0–3 ohne Netzwerkzustimmung; Import erteilt keine Zustimmung. CSP und alleiniger Request-Adapter sind in `UNITS.md` dokumentiert.
+Settings-Version 5 migriert 0–4 und verwirft das frühere Netzwerkfeld.
+Einstellungsimport bleibt eine atomare Übernahme nach Dateiprüfung;
+Kursclient und Provider sind entfernt. CSP erlaubt nur die eigene Origin,
+einschließlich App-, Asset- und PWA-Abrufen. Vertrag: [LOCAL_ONLY.md](LOCAL_ONLY.md).
 
 ## AP18 · Überschriften und Teilen
 

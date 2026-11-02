@@ -106,7 +106,9 @@ Tabellen für unterstützte 1D-Kurven verwenden x, y und u (bei parametrisch/pol
 positiver Schrittweite und einer Obergrenze von 500 Zeilen. PNG-Export verwendet
 die genaue aktuelle Ansicht, DPR, die tatsächlich angezeigten akzeptierten
 Polylinien, Marker und Integralfläche, ohne Trace und ohne erneutes Sampling. Wählbar:
-aktuelles Theme oder transparenter Hintergrund. Export und Clipboard-Fehler
+aktuelles Theme oder transparenter Hintergrund. Der deckende Export verwendet
+wie der Bildschirm einen Canvas ohne Alphakanal; transparente Exporte erhalten
+ihren Alphakanal. Export und Clipboard-Fehler
 werden lokal angezeigt; keine externen Laufzeitrequests.
 
 ## Verifikation
