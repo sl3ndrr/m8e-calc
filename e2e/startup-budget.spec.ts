@@ -101,7 +101,8 @@ for (const locale of ['de-DE', 'en-US']) {
       const firstSettingsMs = Date.now() - settingsStart;
       await expect(
         page.getByRole('switch', {
-          name: locale === 'de-DE' ? 'Online-Kurse laden' : 'Load online rates',
+          name:
+            locale === 'de-DE' ? 'Tausendergruppierung' : 'Thousands grouping',
         }),
       ).toBeVisible();
       const accentFile = manifest[accentKey]?.file ?? '';
