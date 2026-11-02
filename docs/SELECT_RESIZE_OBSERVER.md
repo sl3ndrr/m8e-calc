@@ -8,16 +8,14 @@ Der globale Fehlerhandler bleibt unverändert.
 Messstand: main `b6f52bf0e23851ffd4c27cee57204f87cd64549c`,
 Lauf **41442402402 A1**, Playwright 1.64.1, WebKit mit einem Worker, Retries 0.
 
-| Main-Pfad, je 30 Wiederholungen | Native ResizeObserver-Fehler | Sichtbarer generischer Toast |
-| --- | --- | --- |
-| currency.spec.ts:235 | 29/30 | 29/30 |
-| Einstellungen öffnen vor Opt-in | 29/30 | 29/30 |
+- `currency.spec.ts:235`: native ResizeObserver-Fehler 29/30, sichtbarer Toast 29/30.
+- Einstellungen vor Opt-in: native Fehler 29/30, sichtbarer Toast 29/30.
 
-| Regression, je 30 Wiederholungen | Ohne Fix: Fehler | Mit Fix: Fehler |
-| --- | --- | --- |
-| WebKit | 29/30 | 0/30 |
-| Chromium | 0/30 | 0/30 |
-| Firefox | 0/30 | 0/30 |
+Regressionsfehler ohne Fix / mit Fix, jeweils 30 Wiederholungen:
+
+- WebKit: 29/30 / 0/30.
+- Chromium: 0/30 / 0/30.
+- Firefox: 0/30 / 0/30.
 
 Der Test in `e2e/currency.spec.ts` zeichnet Window-Fehler ab der Navigation
 auf, prüft die gerenderten Umrechnerkarten und öffnet die Einstellungen ohne
