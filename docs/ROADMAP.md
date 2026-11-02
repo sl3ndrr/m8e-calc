@@ -191,10 +191,10 @@ Der weitere Auditablauf steht in [WORK_PLAN.md](WORK_PLAN.md).
   Restprüfliste und Eigentümerentscheidungen: [AP39](AP39.md).
 
 - [x] 40 Historische Ausgangslage — Dokumentationspaket auf `11865098`: integrierte
-  Wartung, Quellenblocker, Dependabot-/Pages-Nachweise und konkrete offene
-  Abnahmen in [AP40](AP40.md). Integriert durch
-  [PR #62](https://github.com/sl3ndrr/m8e-calc/pull/62) (`65ce593b`).
-  Kein Produkt- oder Checkerumbau.
+      Wartung, Quellenblocker, Dependabot-/Pages-Nachweise und konkrete offene
+      Abnahmen in [AP40](AP40.md). Integriert durch
+      [PR #62](https://github.com/sl3ndrr/m8e-calc/pull/62) (`65ce593b`).
+      Kein Produkt- oder Checkerumbau.
 
 - 41 Live-Abnahme — in [AP40](AP40.md) für die kontrollierte Abnahme nach
   grünem main-/Pages-Nachweis vorgemerkt; nicht Teil des Button-Pakets.
