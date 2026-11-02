@@ -1,6 +1,7 @@
 # m8e-calc
 
-Geprüfter Integrationsstand, Pages-SHA und offene Freigaben: [Implementierungsstatus](docs/IMPLEMENTATION_STATUS.md).
+Funktionsstand, Planung und Zugang zu getrennten Prüfnachweisen:
+[Implementierungsstatus](docs/IMPLEMENTATION_STATUS.md).
 
 Ein Taschenrechner für den Desktop-Browser: vom schnellen Dreisatz bis zu wissenschaftlichen Ausdrücken, Einheiten und interaktiven Funktionsgraphen. m8e-calc rechnet lokal, benötigt kein Konto und bietet eine deutsche und englische Oberfläche.
 

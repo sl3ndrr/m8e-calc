@@ -9,9 +9,11 @@ Vorschauen dürfen weder Environment noch Verlauf schreiben. Kein synchroner
 Fallback, keine zusätzliche eager Startlast. Vertrag und Prüfgrenzen:
 [docs/SCIENTIFIC_MODE.md](docs/SCIENTIFIC_MODE.md), [docs/WP07.md](docs/WP07.md).
 
-Aktueller Funktionsstand: [docs/IMPLEMENTATION_STATUS.md](docs/IMPLEMENTATION_STATUS.md).
-Paketnachweise behalten ihre historischen SHAs; PR-Head, geprüfter Produkt-SHA
-und tatsächlich veröffentlichter Pages-SHA sind getrennte Identitäten.
+Gemeinsamer Statuseinstieg: [docs/IMPLEMENTATION_STATUS.md](docs/IMPLEMENTATION_STATUS.md).
+Paketnachweise behalten ihre historischen SHAs und Datumsangaben. Geprüfter
+Code/Diff, PR-CI, main-CI, erfolgreicher Pages-Deploy, geladener Live-Client und
+physische Abnahme sind getrennt nachzuweisen. Historische Arbeitsfreigaben
+gelten nicht für neue Aufträge.
 
 ## Auftrag und Scope
 
@@ -216,8 +218,9 @@ Completion-Keymap liegt unter den Rechneraktionen: Escape leert, Enter wertet
 aus, auch bei offenen Vorschlägen. Galerieprojekte verwenden eigene Browserprofile.
 `build-info.json` enthält passiv CI-Commit und Buildziel; ohne `GITHUB_SHA`
 steht der Commit auf `null`. Kein App-Request und keine sichtbare Entwickler-UI.
-Historische Abnahme: [docs/AP25.md](docs/AP25.md); aktuelle Live-Grenzen und
-Releaseentscheidung: [docs/AP39.md](docs/AP39.md).
+Historische Abnahmen: [docs/AP25.md](docs/AP25.md) und
+[docs/AP39.md](docs/AP39.md). Den gemeinsamen Einstieg verwenden, keinen
+historischen Bericht als aktuelle Releaseentscheidung übernehmen.
 
 ## AP27 · Implizite Graphintegration
 
@@ -386,9 +389,9 @@ WebKit-Frameproben laufen im regulären Browserjob isoliert mit einem Worker,
 alle Grenzen unverändert. Rohproben auch bei frühem Fehler sichern.
 Unit-Vorbereitung und React-Abschluss ersetzen keinen kalten Produktionspfad:
 History-Exit → Settings wird mit zurückgehaltenem Modul und echtem Fokus in
-drei Engines geprüft. Merge ist durch den neuen Nutzerauftrag ausschließlich
-nach grüner finaler Pflicht-CI und relevanten Zusatzprüfungen autorisiert;
-die reale main-/Pages-Kette danach separat prüfen. Keine Tags/Releases/manuellen Deploys.
+drei Engines geprüft. Die damalige Mergefreigabe ist historisch; neue
+Remoteaktionen benötigen die ausdrückliche Freigabe des jeweiligen Auftrags.
+Die reale main-/Pages-Kette und der aktive Client sind separat nachzuweisen.
 
 AP46s historischer Artefaktverbraucher checkt denselben festgelegten c95-SHA
 für Galerie, Helper und Producerprüfung aus. Bei späteren Produktreparaturen
@@ -412,12 +415,12 @@ mit nachgewiesen rotem Original darf nicht als grüner Workflow bezeichnet werde
 ## WP-04 · Label in Name
 
 [docs/ACCESSIBILITY_LABEL_IN_NAME.md](docs/ACCESSIBILITY_LABEL_IN_NAME.md)
-trennt die historischen PR-65-Nachweise von der lokalen Übernahme auf aktuellem
-main. Sichtbarer Text einschließlich Zahl, Kürzel, Definition, Einheit, Zähler
+trennt die historischen PR-65-Nachweise von der Integration durch PR #83.
+Sichtbarer Text einschließlich Zahl, Kürzel, Definition, Einheit, Zähler
 und Badge gehört in den zugänglichen Aktionsnamen. Die lokalisierte Anzeige aus
 WP-02 bleibt von kanonischem Bearbeitungsquelltext getrennt. Die Produktions-
 und Galerieregression aktiviert `label-content-name-mismatch` ausdrücklich,
-ohne andere Regeln auszuschalten. Aktueller Prüfstatus: [docs/WP04.md](docs/WP04.md).
+ohne andere Regeln auszuschalten. Historische Prüfstände: [docs/WP04.md](docs/WP04.md).
 
 # Arbeitsregeln für Arbeitspakete (verbindlich, ersetzen widersprüchliche ältere Formulierungen)
 
