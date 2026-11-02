@@ -657,3 +657,43 @@ for (const locale of ['de', 'en'] as const) {
     }
   });
 }
+
+declare global {
+  interface Window {
+    __selectWindowErrors: string[];
+  }
+}
+
+test('searchable selects render and open settings without browser errors', async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    window.__selectWindowErrors = [];
+    window.addEventListener('error', (event) => {
+      window.__selectWindowErrors.push(event.message);
+    });
+  });
+  await page.goto('/m8e-calc/#/convert');
+  await page
+    .getByRole('button', { name: t('shell.settings'), exact: true })
+    .click();
+  const dialog = page.getByRole('dialog', { name: t('shell.settings') });
+  await expect(dialog).toBeVisible();
+  await expect(
+    page.locator('.convert-field:not(.convert-target) .ui-select input'),
+  ).toHaveCount(1);
+  await expect(page.locator('.convert-target .ui-select input')).toHaveCount(1);
+  await expect(
+    dialog.getByRole('switch', { name: t('currency.online') }),
+  ).not.toBeChecked();
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+    await new Promise<void>((resolve) =>
+      requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+    );
+  });
+  expect(await page.evaluate(() => window.__selectWindowErrors)).toEqual([]);
+  await expect(page.getByText(t('error.global'), { exact: true })).toHaveCount(
+    0,
+  );
+});
