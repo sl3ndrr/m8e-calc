@@ -83,7 +83,7 @@ it.each(['de', 'en'] as const)(
     expect(canvas.api.reset).toHaveBeenCalledOnce();
     expect(canvas.api.fit).not.toHaveBeenCalled();
     fireEvent.click(
-      screen.getByRole('button', { name: t('graph.fit', locale), exact: true }),
+      screen.getByRole('button', { name: t('graph.fit', locale) }),
     );
     expect(canvas.api.fit).toHaveBeenCalledOnce();
     expect(
