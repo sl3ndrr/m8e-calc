@@ -485,7 +485,7 @@ test('AP21 replaces obsolete fit goals on curve/parameter changes, presets, rese
   expect(reset.yMax).toBeGreaterThanOrEqual(6);
   await page
     .locator('.graph-options')
-    .getByRole('button', { name: /^Ansicht / })
+    .getByRole('button', { name: / Ansicht$/ })
     .click();
   await page.getByRole('option', { name: 'Einheitskreis' }).click();
   await settled(page);
