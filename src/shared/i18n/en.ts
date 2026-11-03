@@ -2,6 +2,48 @@ import { coreEN } from './coreEN';
 import type { Dictionary } from '../i18n';
 export const en: Dictionary = {
   ...coreEN,
+  'scientific.backup.open': 'Back up / import definitions',
+  'scientific.backup.title': 'Definitions backup',
+  'scientific.backup.scope':
+    'This file contains only variable values and user functions. Settings, global history and private ans history are excluded. Import preserves the ans history current at confirmation; global history stays unchanged.',
+  'scientific.backup.limit':
+    'Maximum 4 MiB per JSON file. The complete local storage envelope, including preserved ans history, must also fit the storage limit.',
+  'scientific.backup.export': 'Back up definitions',
+  'scientific.backup.import': 'Select replacement file',
+  'scientific.backup.file': 'Select definitions file',
+  'scientific.backup.preview': 'Preview: replace definitions',
+  'scientific.backup.variables': 'Variables ({count})',
+  'scientific.backup.functions': 'Functions ({count})',
+  'scientific.backup.replaced': 'Existing definitions ({count})',
+  'scientific.backup.none': 'None.',
+  'scientific.backup.replaceHint':
+    'All existing variables and user functions will be replaced by the definitions shown. No formulas will run. The existing ans history will not be overwritten from the file.',
+  'scientific.backup.replace': 'Replace definitions',
+  'scientific.backup.cancel': 'Cancel',
+  'scientific.backup.refresh': 'Refresh preview',
+  'scientific.backup.reading': 'Reading definitions file …',
+  'scientific.backup.saving': 'Saving definitions …',
+  'scientific.backup.exported': 'Definitions backup prepared for download.',
+  'scientific.backup.imported':
+    'Definitions replaced and saved locally. The previous ans history is preserved.',
+  'scientific.backup.invalid':
+    'Invalid definitions backup. Existing data is preserved.',
+  'scientific.backup.version':
+    'This definitions backup version is not supported. Existing data is preserved.',
+  'scientific.backup.tooLarge':
+    'The definitions file exceeds 4 MiB. Nothing was changed.',
+  'scientific.backup.storageLimit':
+    'Definitions and preserved ans history together exceed the local storage limit. Nothing was changed.',
+  'scientific.backup.locked':
+    'Import is locked during recovery or a write lock. Explicitly reload the saved data first. A valid session can still be backed up.',
+  'scientific.backup.stale':
+    'The data has changed since this preview. Refresh the preview and confirm replacement again.',
+  'scientific.backup.busy':
+    'A save is still running. Wait before importing again.',
+  'scientific.backup.saveFailed':
+    'The definitions could not be saved. Existing data is preserved; further imports are locked until saved data is reloaded.',
+  'scientific.backup.fileError':
+    'The file could not be read or downloaded. Existing data is preserved.',
   'settings.appearance': 'Appearance',
   'settings.general': 'General',
   'settings.app': 'App',

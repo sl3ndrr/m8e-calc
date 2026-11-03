@@ -13,6 +13,7 @@ import { useAppStore } from '../../shared/store';
 import { snackbarQueue } from '../../ui';
 import { useSettingsStore } from '../../shared/settingsStore';
 import { t } from '../../shared/i18n/extended';
+import { exportDefinitionBackup, parseDefinitionBackup } from './definitionBackup';
 vi.mock('./ExpressionEditor', () => ({
   default: function MockEditor({
     ref,
@@ -294,6 +295,33 @@ function activeWorker(): TestCalculationWorker {
   if (!worker) throw new Error('Expected worker request');
   return worker;
 }
+it('WP-12 terminates pending work and rejects a captured late answer after a persisted definitions import', async () => {
+  TestCalculationWorker.hold = true;
+  render(<ScientificMode />);
+  const editor = await screen.findByRole('textbox', { name: 'Ausdruck' });
+  fireEvent.change(editor, { target: { value: 'stale=99' } });
+  fireEvent.keyDown(editor, { key: 'Enter' });
+  const worker = activeWorker();
+  const late = [...(worker.listeners.get('message') ?? [])];
+  const answer = runCalculation(worker.request);
+  const result = execute('imported=-7');
+  if (!result.ok) throw new Error(result.error.code);
+  const backup = parseDefinitionBackup(exportDefinitionBackup(result.value.environment));
+  const before = useScientificStore.getState().environment;
+  const history = useHistoryStore.getState().entries;
+  await act(async () => {
+    expect(await useScientificStore.getState().replaceDefinitions(useScientificStore.getState().revision, backup)).toBe('ok');
+  });
+  expect(worker.terminated).toBe(true);
+  act(() => {
+    for (const listener of late) listener(new MessageEvent('message', { data: answer }));
+  });
+  expect(useScientificStore.getState().environment.variables).toEqual(backup.variables);
+  expect(useScientificStore.getState().environment.history).toEqual(before.history);
+  expect(useHistoryStore.getState().entries).toBe(history);
+  await act(async () => useScientificStore.persist.rehydrate());
+  expect(useScientificStore.getState().environment.variables).toEqual(backup.variables);
+});
 it('WP-08 announces a different preview after a context change while keeping the committed result', async () => {
   TestCalculationWorker.hold = true;
   const view = render(<ScientificMode />);

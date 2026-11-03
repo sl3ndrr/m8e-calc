@@ -77,6 +77,13 @@ auch während der Präsentation bleibt. Der Präsentationsmodus blendet Rail,
 Toolbars und Werkzeugspalten aus und vergrößert die Anzeige. Ein sichtbarer
 Beenden-Button und Strg+Umschalt+P führen zurück. Präsentation selbst ist transient.
 
+Wissenschaftliche Definitionsdateien sind ein eigener lokaler Export/Import im
+Variablenpanel. Sie übertragen ausschließlich Werte und eigene Funktionen,
+keine Einstellungen und keinen Verlauf. Ersatz benötigt eine aktuelle Vorschau
+und ausdrückliche Bestätigung; die aktuelle ans-Historie bleibt erhalten.
+Format, unabhängige Datei-/Speicherlimits und Recoveryvertrag:
+[SCIENTIFIC_MODE.md](SCIENTIFIC_MODE.md#lokales-definitionsbackup--wp-12).
+
 ## WP-10 · Einstellungen und Verlauf zurücksetzen
 
 Die gleichnamige Aktion setzt ausschließlich die globalen Einstellungen,

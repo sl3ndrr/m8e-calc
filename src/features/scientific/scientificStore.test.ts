@@ -11,6 +11,7 @@ import {
   MAX_SCIENTIFIC_STORAGE_LENGTH,
   SCIENTIFIC_STORAGE_KEY,
 } from './scientificStore';
+import { exportDefinitionBackup, parseDefinitionBackup } from './definitionBackup';
 it('commits a worker environment at most once and rejects any stale environment revision without storage writes', () => {
   const { storage } = memoryStorage();
   const store = createScientificStore(storage);
@@ -324,4 +325,98 @@ it('ignores a stale failed asynchronous read after a successful explicit retry',
   expect(store.getState().recovery).toBeNull();
   expect(storage.setItem).toHaveBeenCalledTimes(1);
   expect(createScientificStore(storage).getState().environment).toEqual(next);
+});
+
+it('replaces definitions once via a dedicated persisted transaction and preserves the current ans history through reload', async () => {
+  const { storage } = memoryStorage(envelope(step('old=3')));
+  const store = createScientificStore(storage);
+  const backup = parseDefinitionBackup(exportDefinitionBackup(step('f(x)=x+v', step('v=-7'))));
+  const previewRevision = store.getState().revision;
+  const current = step('99', store.getState().environment);
+  store.getState().commit(current);
+  const calls = storage.setItem.mock.calls.length;
+  expect(await store.getState().replaceDefinitions(previewRevision, backup)).toBe('stale');
+  expect(storage.setItem).toHaveBeenCalledTimes(calls);
+  expect(store.getState().environment).toBe(current);
+  const revision = store.getState().revision;
+  expect(await store.getState().replaceDefinitions(revision, backup)).toBe('ok');
+  expect(storage.setItem).toHaveBeenCalledTimes(calls + 1);
+  const imported = store.getState().environment;
+  expect(imported.variables).toEqual(backup.variables);
+  expect(imported.functions).toEqual(backup.functions);
+  expect(imported.history).toBe(current.history);
+  expect(store.getState().revision).toBeGreaterThan(revision);
+  expect(store.getState().commitIfCurrent(revision, step('old=100', current))).toBe(false);
+  expect(await store.getState().replaceDefinitions(revision, backup)).toBe('stale');
+  expect(createScientificStore(storage).getState().environment).toEqual(imported);
+  expect(storage.setItem).toHaveBeenCalledTimes(calls + 1);
+  expect(storage.removeItem).not.toHaveBeenCalled();
+});
+it('leaves session and original storage untouched after an invalid import or storage rejection and keeps the write lock', async () => {
+  const initial = step('old=3');
+  const raw = envelope(initial);
+  const { data, storage } = memoryStorage(raw);
+  const setItem = vi.fn(() => { throw new Error('quota'); });
+  const store = createScientificStore({ ...storage, setItem });
+  const backup = parseDefinitionBackup(exportDefinitionBackup(step('v=7')));
+  const revision = store.getState().revision;
+  for (const invalid of [{}, { ...backup, version: 2 }, { ...backup, history: [] }]) {
+    expect(await store.getState().replaceDefinitions(revision, invalid)).not.toBe('ok');
+    expect(store.getState().environment).toEqual(initial);
+    expect(data.get(SCIENTIFIC_STORAGE_KEY)).toBe(raw);
+    expect(setItem).not.toHaveBeenCalled();
+  }
+  expect(await store.getState().replaceDefinitions(revision, backup)).toBe('saveFailed');
+  expect(store.getState().environment).toEqual(initial);
+  expect(data.get(SCIENTIFIC_STORAGE_KEY)).toBe(raw);
+  expect(store.getState().recovery).toBe('saveFailed');
+  expect(store.getState().importing).toBe(false);
+  expect(await store.getState().replaceDefinitions(store.getState().revision, backup)).toBe('locked');
+  expect(setItem).toHaveBeenCalledOnce();
+});
+it.each(['{broken', envelope({ version: 99 })])('blocks import during recovery but permits exporting a valid unsaved session', async (original) => {
+  const { data, storage } = memoryStorage(original);
+  const store = createScientificStore(storage);
+  const session = step('session=-5');
+  store.getState().commit(session);
+  const backup = parseDefinitionBackup(exportDefinitionBackup(session));
+  expect(backup.variables).toEqual(session.variables);
+  expect(await store.getState().replaceDefinitions(store.getState().revision, backup)).toBe('locked');
+  expect(store.getState().environment).toBe(session);
+  expect(data.get(SCIENTIFIC_STORAGE_KEY)).toBe(original);
+  expect(storage.setItem).not.toHaveBeenCalled();
+  data.set(SCIENTIFIC_STORAGE_KEY, envelope(step('old=1')));
+  await store.persist.rehydrate();
+  expect(await store.getState().replaceDefinitions(store.getState().revision, backup)).toBe('ok');
+});
+it.each([false, true])('waits for the actual storage result (reject=%s), blocks concurrent commits and never persists transient transaction state', async (reject) => {
+  const initial = step('old=3');
+  const { data, storage } = memoryStorage(envelope(initial));
+  let finish: () => void = () => { throw new Error('not started'); };
+  const setItem = vi.fn((key: string, raw: string) => new Promise<void>((resolve, fail) => {
+    finish = () => {
+      if (reject) fail(new Error('quota'));
+      else { data.set(key, raw); resolve(); }
+    };
+  }));
+  const store = createScientificStore({ ...storage, setItem });
+  const backup = parseDefinitionBackup(exportDefinitionBackup(step('v=7')));
+  const revision = store.getState().revision;
+  const pending = store.getState().replaceDefinitions(revision, backup);
+  expect(store.getState().importing).toBe(true);
+  expect(store.getState().environment).toEqual(initial);
+  expect(store.getState().commitIfCurrent(revision, step('old=100'))).toBe(false);
+  expect(await store.getState().replaceDefinitions(store.getState().revision, backup)).toBe('busy');
+  await store.persist.rehydrate();
+  expect(store.getState().importing).toBe(true);
+  store.getState().commit(step('ignored=1'));
+  store.getState().remove('old');
+  expect(store.getState().environment).toEqual(initial);
+  finish();
+  expect(await pending).toBe(reject ? 'saveFailed' : 'ok');
+  expect(store.getState().importing).toBe(false);
+  expect(store.getState().environment.variables).toEqual(reject ? initial.variables : backup.variables);
+  expect(store.getState().environment.history).toEqual(initial.history);
+  expect(setItem).toHaveBeenCalledOnce();
+  expect(JSON.parse(setItem.mock.calls[0]?.[1] ?? '{}')).toEqual({ state: { environment: { version: 1, variables: backup.variables, functions: backup.functions, history: initial.history } }, version: 1 });
 });

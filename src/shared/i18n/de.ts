@@ -1,6 +1,49 @@
 import { coreDE } from './coreDE';
 export const de = {
   ...coreDE,
+  'scientific.backup.open': 'Definitionen sichern / importieren',
+  'scientific.backup.title': 'Definitionsbackup',
+  'scientific.backup.scope':
+    'Diese Datei enthält ausschließlich Variablenwerte und eigene Funktionen. Einstellungen, globaler Verlauf und private ans-Historie sind nicht enthalten. Beim Import bleibt die zum Bestätigen aktuelle ans-Historie erhalten; der globale Verlauf bleibt unverändert.',
+  'scientific.backup.limit':
+    'Maximal 4 MiB pro JSON-Datei. Zusätzlich muss der vollständige lokale Speicherbestand einschließlich erhaltener ans-Historie in das Speicherlimit passen.',
+  'scientific.backup.export': 'Definitionen sichern',
+  'scientific.backup.import': 'Datei für Ersatz auswählen',
+  'scientific.backup.file': 'Definitionsdatei auswählen',
+  'scientific.backup.preview': 'Vorschau: Definitionen ersetzen',
+  'scientific.backup.variables': 'Variablen ({count})',
+  'scientific.backup.functions': 'Funktionen ({count})',
+  'scientific.backup.replaced': 'Bisherige Definitionen ({count})',
+  'scientific.backup.none': 'Keine.',
+  'scientific.backup.replaceHint':
+    'Alle bisherigen Variablen und eigenen Funktionen werden durch die angezeigten Definitionen ersetzt. Formeln werden dabei nicht ausgeführt. Die vorhandene ans-Historie wird nicht aus der Datei überschrieben.',
+  'scientific.backup.replace': 'Definitionen ersetzen',
+  'scientific.backup.cancel': 'Abbrechen',
+  'scientific.backup.refresh': 'Vorschau aktualisieren',
+  'scientific.backup.reading': 'Definitionsdatei wird gelesen …',
+  'scientific.backup.saving': 'Definitionen werden gespeichert …',
+  'scientific.backup.exported':
+    'Definitionsbackup zum Herunterladen bereitgestellt.',
+  'scientific.backup.imported':
+    'Definitionen ersetzt und lokal gespeichert. Die bisherige ans-Historie bleibt erhalten.',
+  'scientific.backup.invalid':
+    'Ungültiges Definitionsbackup. Der bisherige Bestand bleibt erhalten.',
+  'scientific.backup.version':
+    'Diese Version des Definitionsbackups wird nicht unterstützt. Der bisherige Bestand bleibt erhalten.',
+  'scientific.backup.tooLarge':
+    'Die Definitionsdatei überschreitet 4 MiB. Es wurde nichts geändert.',
+  'scientific.backup.storageLimit':
+    'Definitionen und erhaltene ans-Historie überschreiten zusammen das lokale Speicherlimit. Es wurde nichts geändert.',
+  'scientific.backup.locked':
+    'Der Import ist während der Wiederherstellung oder bei einer Schreibsperre gesperrt. Lade den gespeicherten Bestand ausdrücklich erneut. Eine gültige Sitzung kann weiterhin gesichert werden.',
+  'scientific.backup.stale':
+    'Der Bestand hat sich seit der Vorschau geändert. Aktualisiere die Vorschau und bestätige den Ersatz erneut.',
+  'scientific.backup.busy':
+    'Eine Speicherung läuft noch. Warte vor einem erneuten Import.',
+  'scientific.backup.saveFailed':
+    'Die Definitionen konnten nicht gespeichert werden. Der bisherige Bestand bleibt erhalten; weitere Importe sind bis zum erneuten Laden gesperrt.',
+  'scientific.backup.fileError':
+    'Die Datei konnte nicht gelesen oder heruntergeladen werden. Der bisherige Bestand bleibt erhalten.',
   'settings.appearance': 'Erscheinungsbild',
   'settings.general': 'Allgemein',
   'settings.app': 'App',

@@ -47,6 +47,7 @@ import { restoreCalculation, type CalculationRequest } from './workerProtocol';
 import type { EditorHandle } from './ExpressionEditor';
 import { ScientificKeypad } from './ScientificKeypad';
 import { ConstantsPanel, VariablesPanel } from './ReferencePanels';
+import { DefinitionBackupControls } from './DefinitionBackupControls';
 import { ProgrammerPanel } from './programmer/ProgrammerPanel';
 import { integerResult, reconfigure } from './programmer/model';
 import {
@@ -70,6 +71,7 @@ export default function ScientificMode() {
     grouping = useSettingsStore((s) => s.grouping);
   const environment = useScientificStore((s) => s.environment),
     environmentRevision = useScientificStore((s) => s.revision),
+    importing = useScientificStore((s) => s.importing),
     remove = useScientificStore((s) => s.remove),
     recovery = useScientificStore((s) => s.recovery);
   const [expression, setExpression] = useState(
@@ -222,7 +224,7 @@ export default function ScientificMode() {
               ? `${t('scientific.preview', locale)}: ${liveText}`
               : resultText;
   useEffect(() => {
-    if (!expression.trim() || recovery === 'loading') return;
+    if (!expression.trim() || recovery === 'loading' || importing) return;
     const capturedInput = inputRevision.current;
     const capturedExecution = executionRevision.current;
     const adapter = executor.current;
@@ -282,13 +284,14 @@ export default function ScientificMode() {
     bitwise,
     programmer,
     recovery,
+    importing,
   ]);
   function evaluate(
     source: string = expression,
     kind: 'execute' | 'store' = 'execute',
   ): void {
     const snapshot = useScientificStore.getState();
-    if (snapshot.recovery === 'loading') return;
+    if (snapshot.recovery === 'loading' || snapshot.importing) return;
     invalidate();
     const revision = executionRevision.current;
     const input = inputRevision.current;
@@ -572,7 +575,7 @@ export default function ScientificMode() {
             </div>
             <div className="scientific-actions">
               <Button
-                isDisabled={recovery === 'loading'}
+                isDisabled={recovery === 'loading' || importing}
                 onPress={() => evaluate()}
               >
                 {t('scientific.evaluate', locale)}
@@ -748,7 +751,9 @@ export default function ScientificMode() {
                 editor.current?.focus();
               }}
               remove={remove}
-            />
+            >
+              <DefinitionBackupControls locale={locale} />
+            </VariablesPanel>
           </div>
           <div className="scientific-ap9">
             <ProgrammerPanel
