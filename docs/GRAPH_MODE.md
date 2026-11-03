@@ -32,7 +32,7 @@ der sichtbare Randlücken bei Bewegung reduziert. Implizite und gemischte Listen
 berechnen den sichtbaren Bereich innerhalb gemeinsamer 2D-Budgets. Bei fehlender Worker-Unterstützung
 existiert ein begrenzter synchroner 1D-Fallback; implizite Kurven benötigen den Worker. Worker und Listener werden beim Unmount beendet.
 
-Ziehen, Trägheit, Radzoom am Mauszeiger, Doppelklick, +/−, Anpassen, 1:1 und
+Ziehen, Trägheit, Radzoom am Mauszeiger, Doppelklick, +/−, Anpassen, Ansicht zurücksetzen und
 Presets verwenden AP12-Viewport-Operationen. Springs verwenden zentrale
 Expressive-Motion-Tokens und respektieren Reduced/Off. Neue Kurven werden über
 Strichfortschritt eingeblendet. Parameterslider verändern vorhandene Kurven sofort.
@@ -46,8 +46,12 @@ erzeugen keine leere Statusfläche mit wechselndem Außenabstand. Dadurch bleibe
 die Parametercontrols auch bei automatischen 0,5-Schritten an derselben Position;
 echte Warnungen und deren Signaturprüfung bleiben erhalten. Nachweis: [AP50.md](AP50.md).
 Auftrags-/Latenzvertrag, echte Frameprobe und Abnahme: [AP43.md](AP43.md).
-Die Seitenverhältnissperre bedeutet gleiche Welteinheiten pro Pixel; 1:1 setzt
-auf den Standardbereich zurück. π-Ticks gelten für die x-Achse. Grobe und feine
+Die Seitenverhältnissperre bedeutet gleiche Welteinheiten pro Pixel. „Ansicht
+zurücksetzen“ / „Reset view“ stellt den Standardbereich wieder her und erhält
+Kurven, Parameter und die gewählte Aspektsperre; bei aktiver Sperre wird der
+Standardbereich entsprechend aufgeweitet. Der Fit-Tooltip erklärt die Anpassung
+an lokal erfasste Kurven ohne Vollständigkeitsversprechen; die stabile AP21-Basis
+bleibt unverändert. π-Ticks gelten für die x-Achse. Grobe und feine
 Gitter verwenden die adaptive AP12-Tickliste.
 
 Hover rastet innerhalb von 18 CSS-Pixeln auf eine unterstützte 1D-Kurve ein. Pfeiltasten bewegen
@@ -110,6 +114,17 @@ aktuelles Theme oder transparenter Hintergrund. Der deckende Export verwendet
 wie der Bildschirm einen Canvas ohne Alphakanal; transparente Exporte erhalten
 ihren Alphakanal. Export und Clipboard-Fehler
 werden lokal angezeigt; keine externen Laufzeitrequests.
+
+Der gemeinsame Aktualisierungsstatus oberhalb der Arbeitsfläche folgt direkt
+den vorhandenen Pending-/Renderabschlussübergängen des Canvascontrollers.
+Er meldet ausstehende Aktualisierung bzw. Abschluss mit Verweis auf eventuelle
+Kurvenhinweise. Beide de/en-Texte reservieren im selben Grid ihren maximalen
+Platz; Statuswechsel verändern keine Parameterpositionen und erzeugen keine
+neuen Flächen in Kurvenzeilen (AP50). Es gibt keine zusätzliche Bewegung.
+PNG-Export und Bildkopie bleiben während Pending fokussierbar und erhalten den
+Status als zugängliche Beschreibung. Ihre bestehende Ablehnung bleibt erhalten:
+Nur der vollständig passende, tatsächlich gerenderte neueste Auftrag darf
+exportiert werden; ein erhaltener Zwischenpfad genügt nicht.
 
 ## Verifikation
 

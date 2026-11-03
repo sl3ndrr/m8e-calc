@@ -289,7 +289,16 @@ export const en: Dictionary = {
   'graph.viewUnavailable':
     'No representable graph range found. The last valid view is preserved.',
   'graph.fit': 'Fit',
-  'graph.reset': '1:1',
+  'graph.reset': 'Reset view',
+  'graph.resetHint':
+    'Restore the default view; curves and the aspect lock are retained.',
+  'graph.fitHint':
+    'Fit the view to locally sampled curves. Some curve sections may be missed.',
+  'graph.aspectHint': 'Equal world units per pixel on both axes.',
+  'graph.update.pending':
+    'Updating view. Start PNG export again once the update is complete.',
+  'graph.update.ready':
+    'View updated. Check any curve warnings; PNG export is available.',
   'graph.zoomIn': 'Zoom in',
   'graph.zoomOut': 'Zoom out',
   'graph.aspect': 'Lock aspect ratio',

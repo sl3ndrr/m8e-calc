@@ -298,7 +298,16 @@ export const de = {
   'graph.viewUnavailable':
     'Kein darstellbarer Graphbereich gefunden. Die letzte gültige Ansicht bleibt erhalten.',
   'graph.fit': 'Anpassen',
-  'graph.reset': '1:1',
+  'graph.reset': 'Ansicht zurücksetzen',
+  'graph.resetHint':
+    'Standardansicht wiederherstellen; Kurven und Aspektsperre bleiben erhalten.',
+  'graph.fitHint':
+    'Ansicht an lokal erfasste Kurven anpassen. Nicht alle Kurventeile werden erfasst.',
+  'graph.aspectHint': 'Gleiche Welteinheiten pro Pixel auf beiden Achsen.',
+  'graph.update.pending':
+    'Ansicht wird aktualisiert. PNG-Export erst nach Abschluss erneut starten.',
+  'graph.update.ready':
+    'Ansicht aktualisiert. Hinweise an den Kurven beachten; PNG-Export verfügbar.',
   'graph.zoomIn': 'Vergrößern',
   'graph.zoomOut': 'Verkleinern',
   'graph.aspect': 'Seitenverhältnis sperren',

@@ -56,6 +56,13 @@ das frühere Netzwerkfeld; Altdateien bleiben lesbar. Details:
 [LOCAL_ONLY](LOCAL_ONLY.md). Der [weitere Ablauf](WORK_PLAN.md) führt WP14
 als gestrichen und erhält die übrigen Paketkennungen.
 
+## WP-11 · Graphaktionen und Aktualisierung
+
+„Ansicht zurücksetzen“ erhält Kurven und Aspektsperre; Fit erklärt seine lokale
+Erfassung. Ein gemeinsamer, platzstabiler Canvasstatus beschreibt Aktualisierung
+und Exportbereitschaft auch am Tastaturfokus der PNG-Aktionen. Die bestehende
+Exportablehnung und AP50 bleiben erhalten. Vertrag: [GRAPH_MODE](GRAPH_MODE.md).
+
 ## WP-10 · Resetumfang und Dialogorientierung
 
 Die de/en-Texte benennen Einstellungen und globalen Verlauf sowie erhaltene
