@@ -42,8 +42,7 @@ async function openBackup(page: Page, locale: Locale) {
     name: t('scientific.variables', locale),
     exact: true,
   });
-  const panelTabsVisible = await variables.isVisible();
-  if (panelTabsVisible) {
+  if (await variables.isVisible()) {
     await variables.focus();
     await variables.press('Space');
   }
@@ -53,9 +52,7 @@ async function openBackup(page: Page, locale: Locale) {
   await expect(trigger).toHaveAccessibleName(
     t('scientific.backup.open', locale),
   );
-  // Definitions sit at the end of wide forms. Use their shorter reverse
-  // keyboard route; narrow panels still cover forward Tab from the selector.
-  await tabTo(page, trigger, !panelTabsVisible);
+  await tabTo(page, trigger);
   await page.keyboard.press('Enter');
   const dialog = page.getByRole('dialog', {
     name: t('scientific.backup.title', locale),
