@@ -104,6 +104,8 @@ interface ParameterLayoutFrame {
   top: number;
   heading: number;
   pending: boolean;
+  absoluteTop: number;
+  statusHeight: number;
 }
 
 for (const language of ['de', 'en'] as const) {
@@ -175,9 +177,11 @@ for (const language of ['de', 'en'] as const) {
             const heading = element.querySelector('.ui-slider-heading');
             const input = element.querySelector('input');
             const canvas = document.querySelector('canvas.graph-canvas');
+            const status = document.querySelector('.graph-update-status');
             if (
               !row ||
               !heading ||
+              !status ||
               !(input instanceof HTMLInputElement) ||
               !(canvas instanceof HTMLCanvasElement)
             ) {
@@ -190,6 +194,8 @@ for (const language of ['de', 'en'] as const) {
               top: element.getBoundingClientRect().top - origin,
               heading: heading.getBoundingClientRect().top - origin,
               pending: canvas.dataset.sampling === 'true',
+              absoluteTop: element.getBoundingClientRect().top,
+              statusHeight: status.getBoundingClientRect().height,
             });
             if (performance.now() - start >= 4500) resolve(frames);
             else requestAnimationFrame(record);
@@ -215,7 +221,12 @@ for (const language of ['de', 'en'] as const) {
     expect(frames.some((frame) => frame.value === 0)).toBe(true);
     expect(frames.some((frame) => frame.pending)).toBe(true);
     expect(frames.some((frame) => !frame.pending)).toBe(true);
-    for (const field of ['top', 'heading'] as const) {
+    for (const field of [
+      'top',
+      'heading',
+      'absoluteTop',
+      'statusHeight',
+    ] as const) {
       const positions = frames.map((frame) => frame[field]);
       const spread = Math.max(...positions) - Math.min(...positions);
       expect(spread).toBeLessThanOrEqual(1);
@@ -356,6 +367,19 @@ test('Full slow Worker over 50 ms presents ongoing geometry, keeps export pendin
     'data-sampling',
     'true',
   );
+  const exportButton = page.getByRole('button', {
+    name: 'PNG exportieren',
+    exact: true,
+  });
+  await exportButton.focus();
+  await expect(exportButton).toBeFocused();
+  await expect(exportButton).toHaveAccessibleDescription(
+    'Ansicht wird aktualisiert. PNG-Export erst nach Abschluss erneut starten.',
+  );
+  const downloads: string[] = [];
+  page.on('download', (download) =>
+    downloads.push(download.suggestedFilename()),
+  );
   await page
     .getByRole('button', { name: 'PNG exportieren', exact: true })
     .click();
@@ -364,6 +388,7 @@ test('Full slow Worker over 50 ms presents ongoing geometry, keeps export pendin
       'Die neue Kurve wird noch berechnet. PNG-Export anschließend erneut starten.',
     ),
   ).toBeVisible();
+  expect(downloads).toEqual([]);
   await page.getByRole('alertdialog').getByRole('button').click();
   // Keep every frame, including the dialog interaction. The fixed progress
   // windows cover uninterrupted playback after that traced UI interaction.
@@ -420,6 +445,9 @@ test('Full slow Worker over 50 ms presents ongoing geometry, keeps export pendin
   const elapsed = (probe.frames.at(-1)?.at ?? start) - start;
   expect(delayedPosts.length).toBeLessThanOrEqual(Math.ceil(elapsed / 180) + 2);
   const download = page.waitForEvent('download');
+  await expect(exportButton).toHaveAccessibleDescription(
+    'Ansicht aktualisiert. Hinweise an den Kurven beachten; PNG-Export verfügbar.',
+  );
   await page
     .getByRole('button', { name: 'PNG exportieren', exact: true })
     .click();

@@ -17,6 +17,19 @@
 .graph-heading {
   justify-content: space-between;
 }
+.graph-update-status {
+  display: grid;
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  color: var(--md-sys-color-on-surface-variant);
+}
+.graph-update-status > span {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+.graph-update-status > [data-active='true'] {
+  visibility: visible;
+}
 .graph-options {
   gap: 1.25rem;
   font-size: 0.8rem;

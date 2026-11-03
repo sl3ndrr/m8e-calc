@@ -64,6 +64,7 @@ interface Props {
   restoreToken: number;
   onViewError: () => void;
   onSamples?: (curves: SampleResponse['curves']) => void;
+  onSamplingChange?: (pending: boolean) => void;
   lockAspect: boolean;
   fine: boolean;
   pi: boolean;
@@ -247,6 +248,7 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
       if (element.dataset.sampling !== 'true') {
         reportedSampleId = 0;
         current.onSamples?.([]);
+        current.onSamplingChange?.(true);
       }
       element.dataset.sampling = 'true';
     }
@@ -577,7 +579,9 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
           );
         }
         if (queue.latest?.id === renderedSampleId && !sampleTimer && !moving) {
+          const wasPending = element.dataset.sampling !== 'false';
           element.dataset.sampling = 'false';
+          if (wasPending) current.onSamplingChange?.(false);
           if (reportedSampleId !== renderedSampleId) {
             reportedSampleId = renderedSampleId;
             current.onSamples?.(acceptedCurves);

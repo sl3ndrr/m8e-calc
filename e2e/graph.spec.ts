@@ -17,6 +17,95 @@ async function bounds(page: Page) {
       '{}',
   ) as { xMin: number; xMax: number; yMin: number; yMax: number };
 }
+
+for (const language of ['de', 'en'] as const) {
+  test(`WP11 view actions explain their scope and reset retains curves and aspect (${language})`, async ({
+    page,
+  }) => {
+    await page.addInitScript((language) => {
+      localStorage.setItem(
+        'm8e-calc.settings',
+        JSON.stringify({
+          version: 5,
+          state: {
+            language,
+            themeMode: language === 'de' ? 'light' : 'dark',
+            motionLevel: language === 'de' ? 'reduced' : 'off',
+          },
+        }),
+      );
+    }, language);
+    await page.setViewportSize({ width: 1280, height: 1080 });
+    await page.goto('/m8e-calc/#/graph');
+    await page
+      .getByRole('button', {
+        name: language === 'de' ? 'Hinzufügen' : 'Add',
+        exact: true,
+      })
+      .click();
+    const editor = page.locator('.graph-editor [role="textbox"]');
+    await replaceGraphExpression(editor, 'a*x');
+    const fit = page.getByRole('button', {
+      name: language === 'de' ? 'Anpassen' : 'Fit',
+      exact: true,
+    });
+    await fit.focus();
+    await expect(page.getByRole('tooltip')).toHaveText(
+      language === 'de'
+        ? 'Ansicht an lokal erfasste Kurven anpassen. Nicht alle Kurventeile werden erfasst.'
+        : 'Fit the view to locally sampled curves. Some curve sections may be missed.',
+    );
+    const reset = page.getByRole('button', {
+      name: language === 'de' ? 'Ansicht zurücksetzen' : 'Reset view',
+      exact: true,
+    });
+    await reset.focus();
+    await expect(page.getByRole('tooltip')).toHaveText(
+      language === 'de'
+        ? 'Standardansicht wiederherstellen; Kurven und Aspektsperre bleiben erhalten.'
+        : 'Restore the default view; curves and the aspect lock are retained.',
+    );
+    const lock = page.getByRole('checkbox', {
+      name:
+        language === 'de' ? 'Seitenverhältnis sperren' : 'Lock aspect ratio',
+      exact: true,
+    });
+    await expect(lock).toHaveAccessibleDescription(
+      language === 'de'
+        ? 'Gleiche Welteinheiten pro Pixel auf beiden Achsen.'
+        : 'Equal world units per pixel on both axes.',
+    );
+    for (const locked of [false, true]) {
+      await lock.setChecked(locked);
+      await reset.focus();
+      await reset.press('Enter');
+      await expect(page.locator('.graph-update-status')).toHaveAttribute(
+        'data-pending',
+        'false',
+      );
+      await expect(lock).toBeChecked({ checked: locked });
+      await expect(editor).toHaveText('a*x');
+      await expect(
+        page.getByRole('slider', { name: 'a', exact: true }),
+      ).toHaveValue('1');
+      const view = await bounds(page);
+      if (!locked) {
+        expect(view).toEqual({ xMin: -10, xMax: 10, yMin: -6, yMax: 6 });
+      } else {
+        const box = await page.locator('canvas.graph-canvas').boundingBox();
+        if (!box) throw Error('Canvas unavailable');
+        const xUnit = (view.xMax - view.xMin) / box.width;
+        const yUnit = (view.yMax - view.yMin) / box.height;
+        expect(Math.abs(xUnit / yUnit - 1)).toBeLessThanOrEqual(1e-10);
+      }
+      await expect(page.locator('canvas.graph-canvas')).toHaveAttribute(
+        'data-curve-count',
+        '1',
+      );
+    }
+  });
+}
+
 test('AP13 input, wheel zoom, slider, roots, trace, integral, PNG and restoration', async ({
   page,
 }) => {
@@ -387,12 +476,14 @@ test('AP21 replaces obsolete fit goals on curve/parameter changes, presets, rese
   await page.clock.resume();
   await settled(page);
   await fit.click();
-  await page.getByRole('button', { name: '1:1', exact: true }).click();
+  await page
+    .getByRole('button', { name: 'Ansicht zurücksetzen', exact: true })
+    .click();
   await settled(page);
   const reset = await bounds(page);
   expect(reset.yMin).toBeLessThanOrEqual(-6);
   expect(reset.yMax).toBeGreaterThanOrEqual(6);
-  await page.getByRole('button', { name: 'Ansicht' }).click();
+  await page.getByRole('button', { name: 'Ansicht', exact: true }).click();
   await page.getByRole('option', { name: 'Einheitskreis' }).click();
   await settled(page);
   await fit.click();
@@ -502,7 +593,9 @@ test('AP21 history and permalink retain the fit basis and copy the desired anima
       { timeout: 8000 },
     )
     .toBe(true);
-  await page.getByRole('button', { name: '1:1', exact: true }).click();
+  await page
+    .getByRole('button', { name: 'Ansicht zurücksetzen', exact: true })
+    .click();
   await page
     .getByRole('button', { name: /^Verlauf \d+ ein-\/ausblenden$/ })
     .click();

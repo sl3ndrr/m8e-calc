@@ -1,6 +1,7 @@
 import {
   useCallback,
   useEffect,
+  useId,
   useMemo,
   useReducer,
   useRef,
@@ -13,6 +14,8 @@ import { Chip } from '../../ui/Chip';
 import { Dialog } from '../../ui/Dialog';
 import { Select } from '../../ui/Select';
 import { TextField } from '../../ui/TextField';
+import { Tooltip } from '../../ui/Tooltip';
+import { VisuallyHidden } from '../../ui/VisuallyHidden';
 import { snackbarQueue } from '../../ui/snackbarQueue';
 import { type Bounds } from '../../graph';
 import { t } from '../../shared/i18n/extended';
@@ -54,6 +57,9 @@ export default function GraphMode() {
     () => readModeLink('graph', restorePlot) ?? initialPlot(),
   );
   const [samples, setSamples] = useState<SampleResponse['curves']>([]);
+  const [sampling, setSampling] = useState(true);
+  const samplingStatusId = useId(),
+    aspectHintId = useId();
   const [restoreToken, setRestoreToken] = useState(0);
   const [palette, setPalette] = useState<string[]>([]),
     [markers, setMarkers] = useState<Marker[]>([]),
@@ -326,20 +332,32 @@ export default function GraphMode() {
     >
       <header className="graph-heading">
         <div className="graph-toolbar">
-          <Button
-            size="sm"
-            variant="tonal"
-            onPress={() => canvas.current?.fit()}
+          <Tooltip
+            trigger={
+              <Button
+                size="sm"
+                variant="tonal"
+                onPress={() => canvas.current?.fit()}
+              >
+                {t('graph.fit', locale)}
+              </Button>
+            }
           >
-            {t('graph.fit', locale)}
-          </Button>
-          <Button
-            size="sm"
-            variant="text"
-            onPress={() => canvas.current?.reset()}
+            {t('graph.fitHint', locale)}
+          </Tooltip>
+          <Tooltip
+            trigger={
+              <Button
+                size="sm"
+                variant="text"
+                onPress={() => canvas.current?.reset()}
+              >
+                {t('graph.reset', locale)}
+              </Button>
+            }
           >
-            {t('graph.reset', locale)}
-          </Button>
+            {t('graph.resetHint', locale)}
+          </Tooltip>
           <Button
             size="sm"
             variant="text"
@@ -369,6 +387,7 @@ export default function GraphMode() {
       </header>
       <div className="graph-options">
         <Checkbox
+          aria-describedby={aspectHintId}
           isSelected={state.lockAspect}
           onChange={(lockAspect) =>
             change({ type: 'options', patch: { lockAspect } })
@@ -376,6 +395,9 @@ export default function GraphMode() {
         >
           {t('graph.aspect', locale)}
         </Checkbox>
+        <VisuallyHidden id={aspectHintId}>
+          {t('graph.aspectHint', locale)}
+        </VisuallyHidden>
         <Checkbox
           isSelected={state.pi}
           onChange={(pi) => change({ type: 'options', patch: { pi } })}
@@ -407,6 +429,23 @@ export default function GraphMode() {
           }}
         />
       </div>
+      <div
+        id={samplingStatusId}
+        className="graph-update-status"
+        role="status"
+        aria-atomic="true"
+        data-pending={sampling}
+      >
+        {(['pending', 'ready'] as const).map((status) => (
+          <span
+            key={status}
+            aria-hidden={sampling !== (status === 'pending')}
+            data-active={sampling === (status === 'pending')}
+          >
+            {t(`graph.update.${status}`, locale)}
+          </span>
+        ))}
+      </div>
       <div className="graph-layout">
         <div className="graph-stage">
           <GraphCanvas
@@ -416,6 +455,7 @@ export default function GraphMode() {
             fitBasis={state.fitBasis}
             restoreToken={restoreToken}
             onSamples={setSamples}
+            onSamplingChange={setSampling}
             onViewError={() =>
               snackbarQueue.add({ message: t('graph.viewUnavailable', locale) })
             }
@@ -529,6 +569,7 @@ export default function GraphMode() {
               size="sm"
               variant="outlined"
               isDisabled={exporting}
+              aria-describedby={samplingStatusId}
               onPress={() => {
                 void exportPng(false);
               }}
@@ -539,6 +580,7 @@ export default function GraphMode() {
               size="sm"
               variant="text"
               isDisabled={exporting}
+              aria-describedby={samplingStatusId}
               onPress={() => {
                 void exportPng(true);
               }}
