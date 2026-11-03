@@ -1,5 +1,11 @@
 import type { ComponentProps } from 'react';
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import { afterEach, expect, it, vi } from 'vitest';
 import type GraphCanvas from './GraphCanvas';
 import GraphMode from './GraphMode';
