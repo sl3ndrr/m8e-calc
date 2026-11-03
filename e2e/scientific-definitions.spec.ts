@@ -46,9 +46,12 @@ async function openBackup(page: Page, locale: Locale) {
     await variables.focus();
     await variables.press('Space');
   }
-  const trigger = page.getByRole('button', {
-    name: t('scientific.backup.open', locale),
-  });
+  // Keep the repeated native-Tab focus checks cheap on wide layouts: a global
+  // role query recomputes every constant/keypad name on each iteration.
+  const trigger = page.locator('.scientific-variables > button');
+  await expect(trigger).toHaveAccessibleName(
+    t('scientific.backup.open', locale),
+  );
   await tabTo(page, trigger);
   await page.keyboard.press('Enter');
   const dialog = page.getByRole('dialog', {
