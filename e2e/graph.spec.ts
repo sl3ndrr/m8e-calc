@@ -76,7 +76,7 @@ for (const language of ['de', 'en'] as const) {
         : 'Equal world units per pixel on both axes.',
     );
     for (const locked of [false, true]) {
-      await lock.setChecked(locked);
+      if ((await lock.isChecked()) !== locked) await lock.press('Space');
       await reset.focus();
       await reset.press('Enter');
       await expect(page.locator('.graph-update-status')).toHaveAttribute(
@@ -483,7 +483,10 @@ test('AP21 replaces obsolete fit goals on curve/parameter changes, presets, rese
   const reset = await bounds(page);
   expect(reset.yMin).toBeLessThanOrEqual(-6);
   expect(reset.yMax).toBeGreaterThanOrEqual(6);
-  await page.getByRole('button', { name: 'Ansicht', exact: true }).click();
+  await page
+    .locator('.graph-options')
+    .getByRole('button', { name: /^Ansicht / })
+    .click();
   await page.getByRole('option', { name: 'Einheitskreis' }).click();
   await settled(page);
   await fit.click();
