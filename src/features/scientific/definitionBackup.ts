@@ -1,9 +1,9 @@
 import {
   deserializeValue,
   restoreEnvironment,
-  serializeValue,
   type Environment,
 } from '../../engine';
+import { serializeValue } from '../../engine/environment';
 import { scientificStorageEnvelope } from './scientificPersistence';
 
 export const DEFINITION_BACKUP_FORMAT = 'm8e-calc.definitions';
