@@ -16,7 +16,8 @@ export interface DefinitionBackup {
   readonly variables: Environment['variables'];
   readonly functions: Environment['functions'];
 }
-export type BackupErrorCode = 'invalid' | 'version' | 'tooLarge' | 'storageLimit';
+export type BackupErrorCode =
+  'invalid' | 'version' | 'tooLarge' | 'storageLimit';
 export class DefinitionBackupError extends Error {
   constructor(readonly code: BackupErrorCode) {
     super(code);
@@ -87,7 +88,8 @@ function valueShape(
       break;
     case 'list':
       fields(value, ['kind', 'values']);
-      for (const item of array(value.values)) valueShape(item, depth + 1, budget);
+      for (const item of array(value.values))
+        valueShape(item, depth + 1, budget);
       break;
     default:
       invalid();

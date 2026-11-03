@@ -17,7 +17,9 @@ export function downloadDefinitions(environment: Environment): void {
     'application/json',
   );
 }
-export async function readDefinitionFile(file: File): Promise<DefinitionBackup> {
+export async function readDefinitionFile(
+  file: File,
+): Promise<DefinitionBackup> {
   if (file.size > MAX_DEFINITION_FILE_BYTES)
     throw new DefinitionBackupError('tooLarge');
   return parseDefinitionBackup(await file.text());

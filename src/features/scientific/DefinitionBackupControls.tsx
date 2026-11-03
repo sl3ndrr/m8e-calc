@@ -20,10 +20,7 @@ interface Preview {
   replacedNames: string[];
 }
 type Notice =
-  | Exclude<DefinitionImportResult, 'ok'>
-  | 'exported'
-  | 'imported'
-  | 'fileError';
+  Exclude<DefinitionImportResult, 'ok'> | 'exported' | 'imported' | 'fileError';
 export function DefinitionBackupControls({ locale }: { locale: Locale }) {
   const revision = useScientificStore((s) => s.revision);
   const recovery = useScientificStore((s) => s.recovery);
@@ -52,7 +49,9 @@ export function DefinitionBackupControls({ locale }: { locale: Locale }) {
     setOpen(next);
   }
   function failure(error: unknown): void {
-    setNotice(error instanceof DefinitionBackupError ? error.code : 'fileError');
+    setNotice(
+      error instanceof DefinitionBackupError ? error.code : 'fileError',
+    );
   }
   function showPreview(backup: DefinitionBackup): void {
     const current = useScientificStore.getState();
@@ -143,7 +142,9 @@ export function DefinitionBackupControls({ locale }: { locale: Locale }) {
               aria-describedby={scopeId}
               onPress={() => {
                 try {
-                  downloadDefinitions(useScientificStore.getState().environment);
+                  downloadDefinitions(
+                    useScientificStore.getState().environment,
+                  );
                   setNotice('exported');
                 } catch (error) {
                   failure(error);
@@ -205,7 +206,9 @@ export function DefinitionBackupControls({ locale }: { locale: Locale }) {
                 preview.replacedNames,
               )}
               <p>{t('scientific.backup.replaceHint', locale)}</p>
-              {stale && <p role="status">{t('scientific.backup.stale', locale)}</p>}
+              {stale && (
+                <p role="status">{t('scientific.backup.stale', locale)}</p>
+              )}
               <div className="scientific-backup-actions">
                 {stale && (
                   <Button
@@ -223,7 +226,9 @@ export function DefinitionBackupControls({ locale }: { locale: Locale }) {
                   </Button>
                 )}
                 <Button
-                  isDisabled={stale || recovery !== null || reading || importing}
+                  isDisabled={
+                    stale || recovery !== null || reading || importing
+                  }
                   onPress={() => void confirm()}
                 >
                   {t('scientific.backup.replace', locale)}
