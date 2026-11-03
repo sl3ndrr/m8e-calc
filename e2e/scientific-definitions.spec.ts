@@ -45,6 +45,11 @@ async function openBackup(page: Page, locale: Locale) {
   if (await variables.isVisible()) {
     await variables.focus();
     await variables.press('Space');
+  } else {
+    // Start at the adjacent control before testing native Tab into the panel.
+    await page
+      .locator('.scientific-constant-list > li:last-child > button:last-child')
+      .focus();
   }
   // Keep the repeated native-Tab focus checks cheap on wide layouts: a global
   // role query recomputes every constant/keypad name on each iteration.
