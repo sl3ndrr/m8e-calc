@@ -278,6 +278,20 @@
 .graph-table-section p {
   margin: 0.5rem 0;
 }
+.graph-table-csv {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.5rem;
+}
+.graph-table-csv .ui-select {
+  min-width: 0;
+  width: min(100%, 16rem);
+}
+.graph-table-section .graph-table-csv p {
+  flex: 1 1 14rem;
+  margin: 0;
+}
 .graph-table-scroll {
   flex: 1;
   min-height: 8rem;

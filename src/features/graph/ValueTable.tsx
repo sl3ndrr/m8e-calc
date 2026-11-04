@@ -1,12 +1,21 @@
-import { useMemo } from 'react';
+import { useId, useMemo, useState } from 'react';
+import { downloadFile } from '../../app/fileTransfer';
 import type { Bounds } from '../../graph';
 import {
   t,
   type Locale,
   type NumberPreferences,
 } from '../../shared/i18n/extended';
+import { Button } from '../../ui/Button';
+import { Select } from '../../ui/Select';
+import { snackbarQueue } from '../../ui/snackbarQueue';
 import { tableResult, type PlotCurve } from './model';
 import { formatGraphNumber, type GraphRounding } from './numbers';
+import {
+  serializeTableCsv,
+  tableVariable,
+  type TableCsvFormat,
+} from './tableCsv';
 
 export default function ValueTable({
   curve,
@@ -23,6 +32,9 @@ export default function ValueTable({
   preferences: NumberPreferences;
   rounding: GraphRounding;
 }) {
+  const [csvChoice, setCsvChoice] = useState<TableCsvFormat | null>(null);
+  const csvFormat = csvChoice ?? (locale === 'de' ? 'semicolon' : 'comma');
+  const csvHintId = useId();
   const [from, to] =
     curve?.kind === 'parametric' || curve?.kind === 'polar'
       ? curve.range
@@ -42,33 +54,69 @@ export default function ValueTable({
   );
   const format = (value: number) =>
     formatGraphNumber(value, locale, preferences, rounding);
-  if (curve?.kind === 'implicit')
+  if (!curve)
+    return <p role="status">{t('graph.tableUnavailable', locale)}</p>;
+  if (curve.kind === 'implicit')
     return <p role="status">{t('graph.implicitActions', locale)}</p>;
+  const kind = curve.kind;
+  const empty = result.rows.length === 0;
+
+  function exportCsv() {
+    if (empty) return;
+    try {
+      downloadFile(
+        serializeTableCsv(kind, result.rows, csvFormat),
+        'm8e-graph-values.csv',
+        'text/csv;charset=utf-8',
+      );
+    } catch {
+      snackbarQueue.add({ message: t('graph.tableCsvError', locale) });
+    }
+  }
+
   return (
     <>
-      <p role={result.stopped ? 'status' : undefined}>
+      <p role={empty || result.stopped ? 'status' : undefined}>
         {t(
-          result.stopped === 'precision'
-            ? 'graph.tablePrecision'
-            : result.stopped === 'limit'
-              ? 'graph.tableTruncated'
-              : 'graph.tableLimit',
+          empty
+            ? 'graph.tableEmpty'
+            : result.stopped === 'precision'
+              ? 'graph.tablePrecision'
+              : result.stopped === 'limit'
+                ? 'graph.tableTruncated'
+                : 'graph.tableLimit',
           locale,
         )}
       </p>
+      <div className="graph-table-csv">
+        <Select
+          label={t('graph.tableCsvFormat', locale)}
+          selectedKey={csvFormat}
+          isDisabled={empty}
+          onSelectionChange={(key) => {
+            if (key === 'semicolon' || key === 'comma') setCsvChoice(key);
+          }}
+          options={[
+            { id: 'semicolon', label: t('graph.tableCsvSemicolon', locale) },
+            { id: 'comma', label: t('graph.tableCsvComma', locale) },
+          ]}
+        />
+        <Button
+          size="sm"
+          variant="outlined"
+          isDisabled={empty}
+          aria-describedby={csvHintId}
+          onPress={exportCsv}
+        >
+          {t('graph.tableCsvExport', locale)}
+        </Button>
+        <p id={csvHintId}>{t('graph.tableCsvHint', locale)}</p>
+      </div>
       <div className="graph-table-scroll">
         <table>
           <thead>
             <tr>
-              <th>
-                {curve?.kind === 'parametric'
-                  ? 't'
-                  : curve?.kind === 'polar'
-                    ? 'θ'
-                    : curve?.kind === 'vertical'
-                      ? 'y'
-                      : 'x'}
-              </th>
+              <th>{tableVariable[kind]}</th>
               <th>x</th>
               <th>y</th>
             </tr>

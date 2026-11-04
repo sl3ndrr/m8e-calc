@@ -197,6 +197,27 @@ Definitionslücken. Ein nicht fortschreitender Float64-Schritt stoppt mit sichtb
 Erklärung vor einem doppelten Wert/Key. Ein begrenzter Bereich erklärt die ersten
 500 Zeilen sichtbar. Die bisherigen Plot-Verträge und `tableValues` bleiben kompatibel.
 
+### CSV-Export der Wertetabelle (WP-13)
+
+Der lokale Download übernimmt die vorhandenen Zeilen der ausgewählten Kurve
+in Tabellenreihenfolge. Auch bei Präzisionsstopp oder Zeilenlimit wird der
+vorhandene Teil exportiert. Der Export ist bei leerer Tabelle gesperrt und
+für implizite Kurven steht die Erklärung zur fehlenden eindeutigen Wertetabelle.
+Die laufende Canvasberechnung betrifft die PNG-Aktionen. CSV greift direkt
+auf das memoisierte Tabellenergebnis zu und löst ebenso wie die Formatwahl
+keine neue Auswertung oder Abtastung aus.
+
+Die UTF-8-Datei verwendet CRLF und die festen Spalten `x_input`, `y_input`,
+`t` oder `θ` für die Eingabevariable, gefolgt von `x` und `y`. Deutsch gibt
+Semikolon und Dezimalkomma vor, Englisch Komma und Dezimalpunkt. Beide Formate
+sind wählbar. Endliche Float64-Werte werden mit der kürzesten rücklesbaren
+JavaScript-Zahlendarstellung (`String(value)`, bei Minusnull ausdrücklich
+`-0`) ohne Gruppierung oder Anzeigerundung geschrieben. Beim Lesen im
+Semikolonformat das Dezimalkomma vor der Float64-Konvertierung durch einen
+Punkt ersetzen. Leere Felder kennzeichnen nicht endliche Werte (`NaN`,
+`Infinity` und `-Infinity`); die Zeile und ihre anderen Werte bleiben erhalten.
+Die festen Header und numerischen Daten enthalten keinen Formelquelltext.
+
 Nachweise: `numbers.test.ts`, `table.test.ts`, `ValueTable.test.tsx`,
 `tableVisibility.test.tsx` sowie `e2e/graph-values.spec.ts` und die vorhandenen
 Graph-/History-Tests. Tatsächliche Laufresultate werden im PR verlinkt.
