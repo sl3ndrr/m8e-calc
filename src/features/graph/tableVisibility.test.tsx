@@ -80,12 +80,18 @@ it('keeps an edited implicit or invalid selection instead of switching to a diff
   );
   expect(within(region).queryByRole('table')).not.toBeInTheDocument();
   expect(
+    within(region).queryByRole('button', { name: /CSV exportieren/ }),
+  ).not.toBeInTheDocument();
+  expect(
     within(region).getByRole('button', { name: 'Anwenden' }),
   ).toBeDisabled();
   // Pin a choice explicitly, then turn that exact row into an implicit curve.
   fireEvent.click(within(region).getByRole('button', { name: /x\^2\+y\^2=4/ }));
   fireEvent.click(await screen.findByRole('option', { name: 'x' }));
   expect(within(region).getByRole('table')).toBeInTheDocument();
+  expect(
+    within(region).getByRole('button', { name: 'CSV exportieren (Rohwerte)' }),
+  ).toBeEnabled();
   fireEvent.change(second, { target: { value: 'x*y=1' } });
   expect(within(region).queryByRole('table')).not.toBeInTheDocument();
   expect(within(region).getByRole('status')).toHaveTextContent(

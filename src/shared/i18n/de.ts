@@ -463,6 +463,14 @@ export const de = {
   'graph.table': 'Wertetabelle',
   'graph.tableLimit':
     'Bis zu 500 Zeilen; Spalten zeigen die unabhängige Variable (x, y, t oder θ) und x/y-Koordinaten.',
+  'graph.tableEmpty': 'Die Wertetabelle enthält keine Zeilen für den Export.',
+  'graph.tableCsvFormat': 'CSV-Format',
+  'graph.tableCsvSemicolon': 'Semikolon / Dezimalkomma',
+  'graph.tableCsvComma': 'Komma / Dezimalpunkt',
+  'graph.tableCsvExport': 'CSV exportieren (Rohwerte)',
+  'graph.tableCsvHint':
+    'CSV enthält die vorhandenen Zeilen ohne Anzeigerundung, auch während der Graph noch zeichnet. Undefinierte Werte bleiben leer.',
+  'graph.tableCsvError': 'Die Wertetabelle konnte nicht exportiert werden.',
   'graph.parameter': 'u',
   'graph.background': 'PNG-Hintergrund',
   'graph.themeBackground': 'Aktuelles Thema',

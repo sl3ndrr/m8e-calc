@@ -71,6 +71,12 @@ atomaren Ersatz mit eigener Speichererfolgsmeldung und Workerinvalidierung;
 aktuelle ans-Historie, Recovery und Altbestand bei Fehlern bleiben geschützt.
 Datei-/Speichergrenzen und Bedienvertrag: [SCIENTIFIC_MODE](SCIENTIFIC_MODE.md#lokales-definitionsbackup--wp-12).
 
+## WP-13 · CSV aus der Graphwertetabelle
+
+Der lokale Download übernimmt die vorhandenen Tabellenzeilen der gewählten
+Kurve als Float64-Rohwerte. Formatwahl und Export verwenden das memoisierte
+Ergebnis. Dateiformat und Grenzen: [GRAPH_MODE](GRAPH_MODE.md#csv-export-der-wertetabelle-wp-13).
+
 ## WP-10 · Resetumfang und Dialogorientierung
 
 Die de/en-Texte benennen Einstellungen und globalen Verlauf sowie erhaltene

@@ -451,6 +451,14 @@ export const en: Dictionary = {
   'graph.table': 'Value table',
   'graph.tableLimit':
     'Up to 500 rows; columns show the independent variable (x, y, t or θ) and x/y coordinates.',
+  'graph.tableEmpty': 'The value table has no rows to export.',
+  'graph.tableCsvFormat': 'CSV format',
+  'graph.tableCsvSemicolon': 'Semicolon / decimal comma',
+  'graph.tableCsvComma': 'Comma / decimal point',
+  'graph.tableCsvExport': 'Export CSV (raw values)',
+  'graph.tableCsvHint':
+    'CSV contains the current rows without display rounding, even while the graph is still drawing. Undefined values are left blank.',
+  'graph.tableCsvError': 'Could not export the value table.',
   'graph.parameter': 'u',
   'graph.background': 'PNG background',
   'graph.themeBackground': 'Current theme',

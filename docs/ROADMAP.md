@@ -76,8 +76,8 @@ Der weitere Auditablauf steht in [WORK_PLAN.md](WORK_PLAN.md).
       Anzeigerundung, lokalisierte Zahlenfelder/Koordinaten und bedarfsgerechte
       Tabellenberechnung auf integriertem AP21. Vertrag und Testnachweise in
       [GRAPH_MODE.md](GRAPH_MODE.md); PR #28 integriert.
-      CSV-Export und neue Rechenfeatures bleiben Folgearbeit; implizite Konturen
-      sind in AP26/AP27 integriert, ohne mehrwertige Wertetabelle.
+      Der lokale CSV-Export gehört zu WP-13. Implizite Konturen sind in
+      AP26/AP27 integriert, ohne mehrwertige Wertetabelle.
 
 - [x] 23 Internes Designlab — `feat/ap23-internal-design-lab`: vier Modi im
       normalen Build, internes Lab nur in Entwicklung/ausdrücklichem Galerie-Build,

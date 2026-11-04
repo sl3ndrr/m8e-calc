@@ -1,8 +1,114 @@
+import { readFile } from 'node:fs/promises';
 import { test, expect } from '@playwright/test';
 import { replaceGraphExpression } from './graphEditor';
 // Feature-state checks are isolated from SW update toasts; the production
 // matrix, comfort and pwa-update suites exercise the real worker separately.
 test.use({ serviceWorkers: 'block' });
+
+for (const language of ['de', 'en'] as const) {
+  test(`WP13 downloads raw table rows without sampling again (${language})`, async ({
+    page,
+  }) => {
+    await page.addInitScript((language) => {
+      localStorage.setItem(
+        'm8e-calc.settings',
+        JSON.stringify({ version: 5, state: { language, motionLevel: 'off' } }),
+      );
+      const create = URL.createObjectURL.bind(URL);
+      const revoke = URL.revokeObjectURL.bind(URL);
+      const csvUrls = new Set<string>();
+      let revoked = 0;
+      URL.createObjectURL = (value) => {
+        const url = create(value);
+        if (value instanceof Blob && value.type === 'text/csv;charset=utf-8')
+          csvUrls.add(url);
+        return url;
+      };
+      URL.revokeObjectURL = (url) => {
+        revoke(url);
+        if (csvUrls.delete(url))
+          document.documentElement.dataset.csvRevoked = String(++revoked);
+      };
+    }, language);
+    const de = language === 'de';
+    await page.setViewportSize({ width: 1920, height: 1080 });
+    await page.goto('/m8e-calc/#/graph');
+    await page
+      .getByRole('button', { name: de ? 'Hinzufügen' : 'Add', exact: true })
+      .click();
+    await replaceGraphExpression(
+      page.locator('.graph-editor [role="textbox"]'),
+      '1/3',
+    );
+    await page
+      .getByRole('button', {
+        name: de ? 'Wertetabelle' : 'Value table',
+        exact: true,
+      })
+      .click();
+    const table = page.getByRole('region', {
+      name: de ? 'Wertetabelle' : 'Value table',
+    });
+    await table
+      .getByRole('button', { name: de ? /Rundung/ : /Rounding/ })
+      .click();
+    await page
+      .getByRole('option', {
+        name: de ? '2 Nachkommastellen' : '2 decimal places',
+        exact: true,
+      })
+      .click();
+    const rows = table.locator('tbody tr');
+    await expect(rows).toHaveCount(21);
+    await expect(rows.first().locator('td').last()).toHaveText(
+      de ? '0,33' : '0.33',
+    );
+    const canvas = page.locator('.graph-canvas');
+    await expect(canvas).toHaveAttribute('data-sampling', 'false');
+    const request = await canvas.getAttribute('data-sample-request');
+    if (request === null) throw new Error('Missing sample request');
+
+    const format = table.getByRole('button', {
+      name: de ? /CSV-Format/ : /CSV format/,
+    });
+    const downloadButton = table.getByRole('button', {
+      name: de ? 'CSV exportieren (Rohwerte)' : 'Export CSV (raw values)',
+    });
+    const formats = de
+      ? ['Semikolon / Dezimalkomma', 'Komma / Dezimalpunkt']
+      : ['Comma / decimal point', 'Semicolon / decimal comma'];
+    for (const [index, label] of formats.entries()) {
+      if (index > 0) {
+        await format.click();
+        await page.getByRole('option', { name: label, exact: true }).click();
+      }
+      await expect(format).toContainText(label);
+      await downloadButton.focus();
+      const downloadPromise = page.waitForEvent('download');
+      await downloadButton.press('Enter');
+      const download = await downloadPromise;
+      expect(download.suggestedFilename()).toBe('m8e-graph-values.csv');
+      const semicolon = de === (index === 0);
+      const separator = semicolon ? ';' : ',';
+      const raw = semicolon ? '0,3333333333333333' : '0.3333333333333333';
+      expect(await readFile(await download.path(), 'utf8')).toBe(
+        [
+          ['x_input', 'x', 'y'].join(separator),
+          ...Array.from({ length: 21 }, (_, i) =>
+            [i - 10, i - 10, raw].join(separator),
+          ),
+          '',
+        ].join('\r\n'),
+      );
+      await expect(page.locator('html')).toHaveAttribute(
+        'data-csv-revoked',
+        String(index + 1),
+      );
+      await expect(downloadButton).toBeFocused();
+      await expect(canvas).toHaveAttribute('data-sample-request', request);
+    }
+  });
+}
 
 for (const language of ['de', 'en'] as const) {
   test(`AP22 keyboard table rounding, committed localized steps and trace (${language})`, async ({
