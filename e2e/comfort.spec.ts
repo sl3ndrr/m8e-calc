@@ -14,7 +14,7 @@ test.beforeEach(async ({ page, context }) => {
 });
 test('palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview', async ({
   page,
-}) => {
+}, info) => {
   await page.goto('/m8e-calc/#/simple');
   const trigger = page.getByRole('button', {
     name: 'Befehlspalette',
@@ -54,7 +54,7 @@ test('palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview
   await input.press('ArrowUp');
   await expect(input).toHaveAttribute('aria-activedescendant', /-0$/);
   await page.screenshot({
-    path: 'docs/screenshots/comfort-palette.png',
+    path: info.outputPath('comfort-palette.png'),
     fullPage: true,
   });
   await expect
@@ -158,7 +158,7 @@ test('graph permalink restores functions, parameter and viewport', async ({
 });
 test('invalid links, input shortcut suppression, help, scaling and presentation', async ({
   page,
-}) => {
+}, info) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/m8e-calc/#/scientific?v=1&s=invalid');
@@ -212,7 +212,7 @@ test('invalid links, input shortcut suppression, help, scaling and presentation'
     )
     .toBeGreaterThan(60);
   await page.screenshot({
-    path: 'docs/screenshots/comfort-presentation.png',
+    path: info.outputPath('comfort-presentation.png'),
     fullPage: true,
   });
   await page.getByRole('button', { name: /Präsentation beenden/ }).click();
