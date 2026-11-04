@@ -1,5 +1,5 @@
 import { buttonContractCases } from './buttonContractCases';
-import { installMotionProbe } from './ap36Capture';
+import { installMotionProbe } from './motionCapture';
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { galleryEntries } from '../src/app/galleryEntries';
@@ -158,7 +158,7 @@ test('tooltips open on pointer hover after keyboard interaction', async ({
   await expect(page.getByRole('tooltip')).toBeHidden();
 });
 
-// The same AP19/AP36 cases also protect the recurring gallery build.
+// Shared button cases also protect the gallery build.
 test.use({
   trace: { mode: 'on', screenshots: false, snapshots: false, sources: true },
 });

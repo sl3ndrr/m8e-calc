@@ -71,7 +71,7 @@ export function calculate(
   editingName: string | null = null,
 ) {
   // Only the untouched source opened from a definition uses neutral value semantics.
-  // Any user edit follows the ordinary active-context validation path (WP-01).
+  // Any user edit follows the ordinary active-context validation path.
   const unchanged =
     editingName !== null &&
     expression === definitionSource(environment, editingName);

@@ -7,7 +7,7 @@ import {
   installMotionProbe,
   picture,
   resume,
-} from './ap36Capture';
+} from './motionCapture';
 import {
   defaultSettings,
   SETTINGS_KEY,

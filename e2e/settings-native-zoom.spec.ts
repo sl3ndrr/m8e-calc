@@ -37,14 +37,14 @@ async function fits(page: Page, selector: string): Promise<void> {
     .toBe(true);
 }
 
-// Reuse AP19/AP20's local-only extension for actual tab zoom, not CSS zoom,
+// Reuse the local extension for actual tab zoom, not CSS zoom,
 // pinch zoom or emulated device metrics. The profile is discarded afterwards.
 test('settings and nested accent fit narrow desktop at native 100/200% zoom', async ({
   browserName,
 }, info) => {
   expect(browserName).toBe('chromium');
   const profile = info.outputPath('zoom-profile');
-  const extension = resolve('e2e/fixtures/ap19-zoom');
+  const extension = resolve('e2e/fixtures/native-tab-zoom');
   const context = await chromium.launchPersistentContext(profile, {
     channel: 'chromium',
     headless: true,

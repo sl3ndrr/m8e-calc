@@ -24,7 +24,8 @@
     "build:gallery": "tsc -b && vite build --mode gallery && node scripts/check-build-target.mjs dist-gallery gallery",
     "preview:gallery": "vite preview --mode gallery",
     "test:e2e:gallery": "playwright test --config=playwright.gallery.config.ts",
-    "test:e2e:provenance": "playwright test --config=playwright.ap29.config.ts",
+    "test:e2e:motion": "playwright test --config=playwright.motion.config.ts",
+    "test:e2e:provenance": "playwright test --config=playwright.provenance.config.ts",
     "test:ui": "vitest run --project=ui",
     "test:engine": "vitest run --project=engine",
     "postinstall": "patch-package --error-on-fail --error-on-warn"

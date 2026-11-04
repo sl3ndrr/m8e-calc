@@ -86,7 +86,7 @@ export async function calculatorInkPixels(
   return paintedColorPixels(page, png, '.calculator-value', 'color');
 }
 
-/** Shared AP19 pixel decoder: also verifies that the native focus ring is
+/** Shared pixel decoder: also verifies that the native focus ring is
  * actually painted above a button surface, rather than only present in CSS. */
 export async function paintedColorPixels(
   page: Page,

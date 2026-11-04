@@ -5,7 +5,7 @@ import { compile, detectParams } from './compile.ts';
 import type { CompiledFunction, CurveOptions, GraphError } from './types.ts';
 import type { ImplicitCurve } from './implicitTypes.ts';
 
-/** AP26 opt-in: one scalar expression F, or lhs=rhs normalized to lhs-rhs. */
+/** Implicit input: one scalar expression F, or lhs=rhs normalized to lhs-rhs. */
 export function parseImplicitInput(
   source: string,
   options: CurveOptions = {},

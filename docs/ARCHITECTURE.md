@@ -15,6 +15,8 @@ Verlauf, Favoriten und Einstellungen sind lokal. Der Verlauf ist versioniert, en
 
 Permalinks serialisieren begrenzte, versionierte Modusdaten im Hash. Beim Einlesen werden Payload und Größe geprüft. Nutzende sollten Links wie die enthaltenen Daten behandeln. Global registrierte Kürzel respektieren Eingabe- und Dialogfokus. Die Palette ist auch im Editor erreichbar. Dialoge und verschachtelte Auswahlen übergeben Fokus und Escape an die aktuell aktive Ebene. Reduzierte Bewegung und die Bewegungseinstellung der App gelten auch für unterbrochene Übergänge.
 
+Sichtbarer Text einschließlich Formeln, Tastenkürzeln und Zählern gehört in den zugänglichen Namen, wenn er das Bedienelement beschriftet. Die Browserprüfungen decken auch lokalisierte Namen und die Einzelansage animierter Ergebnisse ab.
+
 Die komplette Schlüsselmenge der Oberfläche kommt aus dem deutschen Wörterbuch. Englisch pflegt dieselben öffentlichen Schlüssel. Der Start nutzt einen kleinen gemeinsamen i18n-Kern. Fachliche Texte und Bedienhilfen werden bei Bedarf geladen.
 
 ## Browser und Build
@@ -23,7 +25,7 @@ Die öffentlichen Hash-Routen lauten `#/simple`, `#/scientific`, `#/convert` und
 
 CSP und lokale Assets begrenzen Laufzeitanfragen auf die eigene Origin. Der Service Worker cached auch lazy Chunks, Fonts und Worker. Navigation, Update und Offline-Fallback werden im Produktionspreview geprüft. `build-info.json` trägt passive Angaben zu Commit und Buildziel und wird im Browser als netzgebundene Datei geprüft.
 
-Das Designlab unter `#/design` ist in Entwicklung und im separaten Galerie-Build erreichbar. `npm run build:gallery` schreibt nach `dist-gallery/`. Die Importgrenze hält die Galerie aus dem Produktionsgraphen. `npm run test:e2e:gallery` prüft den separaten Build.
+Das Designlab unter `#/design` ist in Entwicklung und im separaten Galerie-Build erreichbar. `npm run build:gallery` schreibt nach `dist-gallery/`. Die Importgrenze hält die Galerie aus dem Produktionsgraphen. `npm run test:e2e:gallery` prüft den separaten Build. Für reale Animationsframes in Produktion und Galerie beide Builds erstellen, Chromium, Firefox und WebKit installieren und `npm run test:e2e:motion` ausführen.
 
 ## Arbeiten an Darstellung und QA
 

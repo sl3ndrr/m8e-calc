@@ -21,14 +21,14 @@ interface Probe {
 }
 declare global {
   interface Window {
-    ap28Probe: Probe;
+    graphPerformanceProbe: Probe;
   }
 }
 
 async function setup(page: Page) {
   await page.setViewportSize({ width: 3840, height: 2160 });
   await page.addInitScript(() => {
-    const probe: Probe = (window.ap28Probe = {
+    const probe: Probe = (window.graphPerformanceProbe = {
       posts: 0,
       replies: 0,
       workerMs: [],
@@ -141,7 +141,7 @@ async function windowMeasurement(
           samplingMs: number;
         };
       const before = metrics();
-      const probe = window.ap28Probe;
+      const probe = window.graphPerformanceProbe;
       const initial = {
         posts: probe.posts,
         replies: probe.replies,
@@ -221,7 +221,7 @@ async function windowMeasurement(
   return result;
 }
 
-test('AP28 fixed graph references and regression controls', async ({
+test('fixed graph references and intentional slow controls', async ({
   page,
   browser,
 }, info) => {
@@ -248,7 +248,7 @@ test('AP28 fixed graph references and regression controls', async ({
   }
   await page.locator('canvas.graph-canvas').evaluate((e) => {
     e.style.opacity = '1';
-    window.ap28Probe.delayRender = 25;
+    window.graphPerformanceProbe.delayRender = 25;
   });
   runs.push({
     name: 'slow-render-25ms',
@@ -256,16 +256,16 @@ test('AP28 fixed graph references and regression controls', async ({
     measurement: await windowMeasurement(page, true, 0, 60),
   });
   await page.evaluate(() => {
-    window.ap28Probe.delayRender = 0;
+    window.graphPerformanceProbe.delayRender = 0;
   });
   runs.push({
     name: 'slow-main-25ms',
     window: 0,
     measurement: await windowMeasurement(page, true, 25, 60),
   });
-  await mkdir('test-results/ap28', { recursive: true });
+  await mkdir('test-results/graph-performance-controls', { recursive: true });
   await writeFile(
-    `test-results/ap28/${info.project.name}.json`,
+    `test-results/graph-performance-controls/${info.project.name}.json`,
     JSON.stringify(
       {
         commit: process.env.GITHUB_SHA,
@@ -316,7 +316,7 @@ test('AP28 fixed graph references and regression controls', async ({
   }
   await traceSession.send('IO.close', { handle: stream });
   await writeFile(
-    `test-results/ap28/${info.project.name}-trace.json`,
+    `test-results/graph-performance-controls/${info.project.name}-trace.json`,
     chunks.join(''),
   );
   await traceSession.detach();

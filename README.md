@@ -11,7 +11,7 @@ Lokaler Taschenrechner für Desktop-Browser mit vier Modi. Die App speichert Ein
 - **Umrechner** konvertiert lokale Einheiten mit Favoriten, Verlauf und Schnelleingabe wie `3 ft 4 in to cm`.
 - **Graphen** zeichnet explizite, vertikale, parametrische, polare und implizite Kurven. Für unterstützte Kurven gibt es Analysis, Trace und Wertetabelle mit CSV-Export. Der sichtbare Plot lässt sich als PNG exportieren.
 
-Deutsch und Englisch, helle und dunkle Darstellung, Akzentfarben und Präsentationsmodus sind über die Einstellungen verfügbar. Die Befehlspalette öffnet sich mit Strg+K oder Cmd+K. Permalinks teilen einen Moduszustand, der im Link steht. Nach erfolgreichem Precache funktioniert die App offline.
+Sprache, Darstellung und Akzentfarbe sind einstellbar. Der Präsentationsmodus ist über die Werkzeugleiste oder die Befehlspalette erreichbar. Die Palette öffnet sich mit Strg+K oder Cmd+K. Permalinks teilen einen Moduszustand, der im Link steht. Nach erfolgreichem Precache funktioniert die App offline.
 
 ## Ansichten
 

@@ -3,9 +3,9 @@ import base from './playwright.config';
 
 export default defineConfig({
   ...base,
-  globalSetup: './scripts/ap29-builds.mjs',
+  globalSetup: './scripts/provenance-builds.mjs',
   workers: 2,
-  outputDir: 'test-results/ap29/browser',
+  outputDir: 'test-results/provenance/browser',
   projects: (['chromium', 'firefox', 'webkit'] as const).map((name) => ({
     name,
     testMatch: [

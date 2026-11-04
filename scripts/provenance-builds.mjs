@@ -13,19 +13,19 @@ export default async function prepare() {
       const sha = commits[label];
       if (sha) process.env.GITHUB_SHA = sha;
       else delete process.env.GITHUB_SHA;
-      const directory = `test-results/ap29-builds/${label}`;
+      const directory = `test-results/provenance-builds/${label}`;
       await build({
         mode: label === 'gallery' ? 'gallery' : 'production',
         build: { outDir: directory },
         plugins: [
           {
-            name: 'ap29-fixture-marker',
+            name: 'provenance-fixture-marker',
             transformIndexHtml: {
               order: 'pre',
               handler: (html) =>
                 html.replace(
                   '</head>',
-                  `<meta name="ap29-fixture" content="${label}"></head>`,
+                  `<meta name="provenance-fixture" content="${label}"></head>`,
                 ),
             },
           },
@@ -62,7 +62,7 @@ export default async function prepare() {
       throw Error('Fixture builds must have distinct HTML and workers');
     const mismatch = spawnSync(
       process.execPath,
-      ['scripts/check-build-target.mjs', 'test-results/ap29-builds/a'],
+      ['scripts/check-build-target.mjs', 'test-results/provenance-builds/a'],
       { env: { ...process.env, GITHUB_SHA: commits.b }, encoding: 'utf8' },
     );
     results.push({
@@ -83,13 +83,13 @@ export default async function prepare() {
   } finally {
     if (original === undefined) delete process.env.GITHUB_SHA;
     else process.env.GITHUB_SHA = original;
-    await mkdir('test-results/ap29-builds', { recursive: true });
+    await mkdir('test-results/provenance-builds', { recursive: true });
     await writeFile(
-      'test-results/ap29-builds/checks.json',
+      'test-results/provenance-builds/checks.json',
       JSON.stringify(
         {
           sourceCommit: original ?? null,
-          headCommit: process.env.AP29_HEAD_SHA ?? null,
+          headCommit: process.env.PROVENANCE_HEAD_SHA ?? null,
           node: process.version,
           platform: process.platform,
           arch: process.arch,

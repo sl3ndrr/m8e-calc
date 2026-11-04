@@ -24,10 +24,10 @@ for (const locale of ['de', 'en'] as const)
       });
       await page.addInitScript((language) => {
         window.addEventListener('error', (event) => {
-          document.documentElement.dataset.ap18Runtime = `${event.message}; ${String(event.error?.stack ?? event.error)}`;
+          document.documentElement.dataset.toolbarRuntimeError = `${event.message}; ${String(event.error?.stack ?? event.error)}`;
         });
         window.addEventListener('unhandledrejection', (event) => {
-          document.documentElement.dataset.ap18Runtime = String(
+          document.documentElement.dataset.toolbarRuntimeError = String(
             event.reason?.stack ?? event.reason,
           );
         });
@@ -74,7 +74,7 @@ for (const locale of ['de', 'en'] as const)
       );
       expect(
         await page.evaluate(
-          () => document.documentElement.dataset.ap18Runtime ?? '',
+          () => document.documentElement.dataset.toolbarRuntimeError ?? '',
         ),
         'browser error during keyboard traversal',
       ).toBe('');

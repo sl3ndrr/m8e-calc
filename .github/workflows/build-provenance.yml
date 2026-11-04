@@ -1,4 +1,4 @@
-name: AP29 build provenance
+name: Build provenance
 on:
   workflow_call:
     inputs:
@@ -34,14 +34,14 @@ jobs:
       - run: npx playwright install --with-deps chromium firefox webkit
       - name: Controlled production browser regression and existing PWA cases
         env:
-          AP29_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-          PLAYWRIGHT_JSON_OUTPUT_NAME: test-results/ap29/results.json
-        run: npx playwright test --config=playwright.ap29.config.ts --reporter=list,json
+          PROVENANCE_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          PLAYWRIGHT_JSON_OUTPUT_NAME: test-results/provenance/results.json
+        run: npx playwright test --config=playwright.provenance.config.ts --reporter=list,json
       - run: node scripts/ci/build-proof.mjs verify
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: ap29-provenance
+          name: build-provenance
           path: |
             test-results/
             dist/build-info.json

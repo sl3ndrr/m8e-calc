@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Plugin } from 'vite';
 /** Precache every emitted chunk, worker, font and icon of the selected build target.
- * AP23 excludes the lab at its import root, never by filtering offline assets. */
+ * The lab is excluded at its import root, before offline assets are collected. */
 export function pwaPlugin(): Plugin {
   let base = '/m8e-calc/';
   let publicDir = 'public';

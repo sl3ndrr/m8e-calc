@@ -41,7 +41,7 @@ export interface ParsedRow {
   error: GraphError | null;
   names: string[];
 }
-/** AP26 stays separate from the domain's 1D Curve contract. */
+/** Implicit curves stay separate from the domain's 1D Curve contract. */
 export type PlotCurve = Curve | ImplicitCurve;
 export function isOneDimensional(curve: PlotCurve): curve is Curve {
   return curve.kind !== 'implicit';

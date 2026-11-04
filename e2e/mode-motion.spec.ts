@@ -11,7 +11,7 @@ import {
   resume,
   sampleFrames,
   waitFrozen,
-} from './ap36Capture';
+} from './motionCapture';
 import { replaceGraphExpression } from './graphEditor';
 
 test.use({ serviceWorkers: 'block' });

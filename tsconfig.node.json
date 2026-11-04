@@ -16,8 +16,8 @@
     "src/buildFlags.d.ts",
     "vite.config.ts",
     "playwright.config.ts",
-    "playwright.ap28.config.ts",
-    "playwright.ap29.config.ts",
+    "playwright.motion.config.ts",
+    "playwright.provenance.config.ts",
     "playwright.gallery.config.ts",
     "e2e"
   ]

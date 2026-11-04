@@ -11,8 +11,8 @@ export default defineConfig({
         name: `${browserName}-${target}`,
         testMatch:
           target === 'production'
-            ? '**/ap36-motion.spec.ts'
-            : '**/ap36-gallery.spec.ts',
+            ? '**/mode-motion.spec.ts'
+            : '**/gallery-motion.spec.ts',
         use: {
           ...devices[
             browserName === 'chromium'

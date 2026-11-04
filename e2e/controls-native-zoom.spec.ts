@@ -44,7 +44,7 @@ test('checkbox centers at native browser zoom 100/125/150/200', async ({
   expect(browserName).toBe('chromium');
   test.setTimeout(180_000);
   const profile = info.outputPath('zoom-profile');
-  const extension = resolve('e2e/fixtures/ap19-zoom');
+  const extension = resolve('e2e/fixtures/native-tab-zoom');
   const context = await chromium.launchPersistentContext(profile, {
     channel: 'chromium',
     headless: true,

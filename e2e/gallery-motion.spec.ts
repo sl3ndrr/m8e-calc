@@ -11,7 +11,7 @@ import {
   resume,
   sampleFrames,
   waitFrozen,
-} from './ap36Capture';
+} from './motionCapture';
 
 test.use({ serviceWorkers: 'block' });
 test.beforeEach(async ({ page }) => {
