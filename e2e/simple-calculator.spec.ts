@@ -34,7 +34,7 @@ for (const [sequence, expected] of [
 test('shifted parentheses group a keyboard calculation', async ({
   page,
 }, testInfo) => {
-  const expression = page.locator('.calculator-expression');
+  const expression = page.getByRole('group', { name: 'Ausdruck', exact: true });
   await page.keyboard.type('2*');
   await page.keyboard.press('Shift+Digit9');
   await page.keyboard.type('3+4');
