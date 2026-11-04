@@ -14,6 +14,8 @@ export function keyCommand(key: string): KeyCommand | null {
   if (/^\d$/.test(id)) return { id, action: { type: 'digit', digit: id } };
   if (id === '+' || id === '-' || id === '*' || id === '/')
     return { id, action: { type: 'operator', operator: id } };
+  if (key === '(' || key === ')')
+    return { id, action: { type: 'parenthesis', key } };
   if (id === 'percent')
     return { id, action: { type: 'unary', operation: 'percent' } };
   if (

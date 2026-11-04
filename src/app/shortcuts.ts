@@ -41,6 +41,12 @@ export const shortcuts: readonly Shortcut[] = [
     modes: ['simple'] as const,
   })),
   {
+    id: 'simple.parentheses',
+    keys: ['(', ')'],
+    label: 'comfort.parentheses',
+    modes: ['simple'],
+  },
+  {
     id: 'simple.decimal',
     keys: ['.', ','],
     label: 'simple.decimal',

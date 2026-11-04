@@ -1,5 +1,6 @@
-import { evaluateString } from '../../engine/evaluate';
+import { evaluateString, isPercentTerm } from '../../engine/evaluate';
 import { numberValue } from '../../engine/numeric';
+import { parse } from '../../engine/parser';
 import type { EngineError } from '../../engine/types';
 
 export type Operator = '+' | '-' | '*' | '/';
@@ -20,16 +21,21 @@ export interface RestorePayload {
   entry: Operand;
   accumulator: string | null;
   operator: Operator | null;
+  leftExpression?: string;
 }
-export interface SimpleState {
+interface GroupFrame {
   phase: 'entry' | 'operator' | 'result' | 'error';
   entry: Operand;
   accumulator: string | null;
   operator: Operator | null;
+  leftExpression: string | null;
+  expression: string;
+}
+export interface SimpleState extends GroupFrame {
+  groups: GroupFrame[];
   repeat: { operator: Operator; operand: string } | null;
   memory: string | null;
   error: SimpleError | null;
-  expression: string;
   sequence: number;
   completed: Calculation[];
 }
@@ -39,6 +45,7 @@ export type SimpleAction =
       type:
         'decimal' | 'sign' | 'backspace' | 'clearEntry' | 'clear' | 'equals';
     }
+  | { type: 'parenthesis'; key: '(' | ')' }
   | { type: 'operator'; operator: Operator }
   | { type: 'unary'; operation: Unary }
   | { type: 'memory'; operation: 'MC' | 'MR' | 'M+' | 'M-' | 'MS' }
@@ -53,6 +60,8 @@ export function initialSimpleState(): SimpleState {
     entry: operand('0'),
     accumulator: null,
     operator: null,
+    leftExpression: null,
+    groups: [],
     repeat: null,
     memory: null,
     error: null,
@@ -92,7 +101,30 @@ function reset(state: SimpleState): SimpleState {
     completed: state.completed,
   };
 }
+function inputExpression(
+  state: Pick<GroupFrame, 'accumulator' | 'operator' | 'leftExpression'>,
+  right: string,
+): string {
+  const left = state.leftExpression ?? state.accumulator;
+  return state.operator ? `(${left}) ${state.operator} (${right})` : right;
+}
+function operandAmount(
+  state: Pick<GroupFrame, 'accumulator' | 'operator'>,
+  expression: string,
+): ReturnType<typeof calculate> {
+  if (
+    state.accumulator !== null &&
+    (state.operator === '+' || state.operator === '-') &&
+    expression.includes('%')
+  ) {
+    const parsed = parse(expression);
+    if (parsed.ok && isPercentTerm(parsed.value))
+      return calculate(`(${state.accumulator}) * (${expression})`);
+  }
+  return calculate(expression);
+}
 function withEntry(state: SimpleState, entry: Operand): SimpleState {
+  const left = state.leftExpression ?? state.accumulator;
   return {
     ...state,
     entry,
@@ -100,7 +132,7 @@ function withEntry(state: SimpleState, entry: Operand): SimpleState {
     error: null,
     repeat: null,
     expression: state.operator
-      ? `${state.accumulator} ${state.operator} ${entry.expression}`
+      ? `${left} ${state.operator} ${entry.expression}`
       : entry.expression === entry.value
         ? ''
         : entry.expression,
@@ -141,13 +173,26 @@ export function validateRestore(payload: unknown): RestorePayload | null {
   )
     return null;
   if ((p.operator === null) !== (p.accumulator === null)) return null;
-  const preview =
-    p.accumulator !== null &&
-    (p.operator === '+' || p.operator === '-') &&
-    /%$/.test(e.expression)
-      ? `(${p.accumulator}) * ${e.expression}`
-      : e.expression;
-  const check = calculate(preview);
+  if (p.leftExpression !== undefined) {
+    if (
+      typeof p.leftExpression !== 'string' ||
+      p.leftExpression.length > 4000 ||
+      p.accumulator === null
+    )
+      return null;
+    const left = calculate(p.leftExpression);
+    const accumulator = numberValue(p.accumulator);
+    if (
+      'error' in left ||
+      !accumulator.ok ||
+      left.value !== accumulator.value.value.toString()
+    )
+      return null;
+  }
+  const check = operandAmount(
+    { accumulator: p.accumulator, operator: p.operator },
+    e.expression,
+  );
   const numeric = numberValue(e.value);
   if (
     'error' in check ||
@@ -160,6 +205,7 @@ export function validateRestore(payload: unknown): RestorePayload | null {
     entry: { value: e.value, expression: e.expression },
     accumulator: p.accumulator,
     operator: p.operator,
+    ...(p.leftExpression !== undefined && { leftExpression: p.leftExpression }),
   };
 }
 function binary(
@@ -171,6 +217,50 @@ function binary(
   const result = calculate(`(${left}) ${operator} (${right.expression})`);
   if ('error' in result) return fail(state, result.error);
   return { ...state, entry: operand(result.value), error: null };
+}
+export function simpleExpression(state: SimpleState): string {
+  if (!state.groups.length) return state.expression;
+  const prefix = state.groups
+    .map((frame) => (frame.expression ? `${frame.expression} (` : '('))
+    .join('');
+  const active =
+    state.expression || (state.phase === 'entry' ? state.entry.expression : '');
+  return prefix + active;
+}
+function parenthesis(state: SimpleState, key: '(' | ')'): SimpleState {
+  const parent = state.groups.at(-1);
+  if (key === ')') {
+    if (!parent || state.phase !== 'entry') return state;
+    // Spaces mark typed parentheses for the display formatter.
+    const expression = `( ${inputExpression(state, state.entry.expression)} )`;
+    const result = operandAmount(parent, expression);
+    if ('error' in result) return fail(state, result.error);
+    return withEntry(
+      { ...state, ...parent, groups: state.groups.slice(0, -1) },
+      { value: result.value, expression },
+    );
+  }
+
+  const next =
+    state.phase === 'result' || state.phase === 'error' ? reset(state) : state;
+  if (next.phase !== 'operator' && (next.entry.value !== '0' || next.expression))
+    return fail(state, 'invalid');
+
+  const { phase, entry, accumulator, operator, expression, leftExpression } =
+    next;
+  return {
+    ...next,
+    phase: 'operator',
+    entry: operand('0'),
+    accumulator: null,
+    operator: null,
+    leftExpression: null,
+    expression: '',
+    groups: [
+      ...next.groups,
+      { phase, entry, accumulator, operator, expression, leftExpression },
+    ],
+  };
 }
 export function simpleReducer(
   state: SimpleState,
@@ -184,6 +274,8 @@ export function simpleReducer(
       };
     case 'clear':
       return reset(state);
+    case 'parenthesis':
+      return parenthesis(state, action.key);
     case 'clearEntry':
       return withEntry(
         state.phase === 'error' ? reset(state) : state,
@@ -216,6 +308,9 @@ export function simpleReducer(
       return text.includes('.') ? next : withEntry(next, operand(text + '.'));
     }
     case 'backspace': {
+      const parent = state.groups.at(-1);
+      if (parent && state.phase === 'operator' && !state.operator)
+        return { ...state, ...parent, groups: state.groups.slice(0, -1) };
       if (
         state.phase !== 'entry' ||
         state.entry.expression !== state.entry.value ||
@@ -253,6 +348,7 @@ export function simpleReducer(
               ...reset(state),
               accumulator: payload.accumulator,
               operator: payload.operator,
+              leftExpression: payload.leftExpression ?? null,
             },
             payload.entry,
           )
@@ -304,6 +400,13 @@ export function simpleReducer(
     }
     case 'operator': {
       if (state.phase === 'error') return state;
+      if (
+        state.groups.length &&
+        state.phase === 'operator' &&
+        !state.operator &&
+        action.operator === '-'
+      )
+        return withEntry(state, operand('-0'));
       let next = state;
       if (
         state.operator &&
@@ -314,17 +417,26 @@ export function simpleReducer(
         if (next.error) return next;
       }
       const accumulator = next.entry.value;
+      const showSource =
+        state.groups.length ||
+        state.leftExpression !== null ||
+        state.entry.expression.includes('( ');
+      const leftExpression =
+        showSource && state.phase === 'entry'
+          ? inputExpression(state, state.entry.expression)
+          : state.leftExpression;
       return {
         ...next,
         accumulator,
+        leftExpression,
         operator: action.operator,
         phase: 'operator',
         repeat: null,
-        expression: `${accumulator} ${action.operator}`,
+        expression: `${leftExpression ?? accumulator} ${action.operator}`,
       };
     }
     case 'equals': {
-      if (state.phase === 'error') return state;
+      if (state.phase === 'error' || state.groups.length) return state;
       const operator =
         state.operator ??
         (state.phase === 'result' ? state.repeat?.operator : null) ??
@@ -334,22 +446,17 @@ export function simpleReducer(
         state.phase === 'result' && state.repeat
           ? operand(state.repeat.operand)
           : state.entry;
-      const input = operator
-        ? `(${left}) ${operator} (${right.expression})`
-        : right.expression;
-      const next = operator
-        ? binary(state, operator, left, right)
-        : { ...state };
-      if (next.error) return next;
+      const input = inputExpression(
+        { accumulator: left, operator, leftExpression: state.leftExpression },
+        right.expression,
+      );
       const result = calculate(input);
       if ('error' in result) return fail(state, result.error);
       // Repeated = reuses the evaluated percentage amount (100+10%== -> 120).
-      const amount =
-        operator &&
-        (operator === '+' || operator === '-') &&
-        /%$/.test(right.expression)
-          ? calculate(`(${left}) * ${right.expression}`)
-          : calculate(right.expression);
+      const amount = operandAmount(
+        { accumulator: left, operator },
+        right.expression,
+      );
       if ('error' in amount) return fail(state, amount.error);
       const id = state.sequence + 1;
       const payload: RestorePayload = {
@@ -357,12 +464,16 @@ export function simpleReducer(
         entry: right,
         accumulator: operator ? left : null,
         operator,
+        ...(state.leftExpression !== null && {
+          leftExpression: state.leftExpression,
+        }),
       };
       return {
-        ...next,
+        ...state,
         entry: operand(result.value),
         accumulator: null,
         operator: null,
+        leftExpression: null,
         phase: 'result',
         expression: `${input} =`,
         repeat: operator ? { operator, operand: amount.value } : null,

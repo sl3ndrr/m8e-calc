@@ -31,6 +31,23 @@ for (const [sequence, expected] of [
     await page.keyboard.type(sequence);
     await expect(result(page)).toHaveText(expected);
   });
+test('shifted parentheses group a keyboard calculation', async ({
+  page,
+}, testInfo) => {
+  const expression = page.locator('.calculator-expression');
+  await page.keyboard.type('2*');
+  await page.keyboard.press('Shift+Digit9');
+  await page.keyboard.type('3+4');
+  await page.keyboard.press('Shift+Digit0');
+  await expect(expression).toHaveText('2 × (3 + 4)');
+  await page.keyboard.press('Enter');
+  await expect(result(page)).toHaveText('14');
+  await expect(expression).toHaveText('2 × (3 + 4) =');
+  await testInfo.attach('simple-keyboard-parentheses', {
+    body: await page.locator('.simple-calculator').screenshot(),
+    contentType: 'image/png',
+  });
+});
 test('keyboard editing, clear-entry and error recovery', async ({ page }) => {
   await page.keyboard.type('12+99');
   await page.keyboard.press('Delete');
