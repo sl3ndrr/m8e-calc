@@ -1,0 +1,17 @@
+.scientific-backup-content {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.scientific-backup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.scientific-backup-content :where(p, h3) {
+  margin-block: 0 0.75rem;
+}
+.scientific-backup-content ul {
+  padding-inline-start: 1.5rem;
+}

@@ -43,6 +43,7 @@ export default defineConfig({
         '**/scientific.spec.ts',
         '**/scientific-result.spec.ts',
         '**/scientific-worker.spec.ts',
+        '**/scientific-definitions.spec.ts',
         '**/convert.spec.ts',
         '**/convert-layout.spec.ts',
         '**/local-only.spec.ts',

@@ -10,11 +10,14 @@ export function downloadFile(
   mime: string,
 ): void {
   const url = URL.createObjectURL(new Blob([content], { type: mime }));
-  const anchor = document.createElement('a');
-  anchor.href = url;
-  anchor.download = name;
-  anchor.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  try {
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = name;
+    anchor.click();
+  } finally {
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
 }
 export function exportSettings(settings: Settings): string {
   return JSON.stringify(

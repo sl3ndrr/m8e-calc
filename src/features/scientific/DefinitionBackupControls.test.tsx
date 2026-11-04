@@ -1,0 +1,190 @@
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { beforeEach, expect, it, vi } from 'vitest';
+import { createEnvironment, execute } from '../../engine';
+import { t } from '../../shared/i18n/extended';
+import { DefinitionBackupControls } from './DefinitionBackupControls';
+import {
+  exportDefinitionBackup,
+  parseDefinitionBackup,
+} from './definitionBackup';
+import { downloadDefinitions, readDefinitionFile } from './definitionFiles';
+import { SCIENTIFIC_STORAGE_KEY, useScientificStore } from './scientificStore';
+
+vi.mock('./definitionFiles', () => ({
+  downloadDefinitions: vi.fn(),
+  readDefinitionFile: vi.fn(),
+}));
+function environment(source: string) {
+  const result = execute(source);
+  if (!result.ok) throw new Error(result.error.code);
+  return result.value.environment;
+}
+beforeEach(async () => {
+  vi.resetAllMocks();
+  localStorage.removeItem(SCIENTIFIC_STORAGE_KEY);
+  await useScientificStore.persist.rehydrate();
+  useScientificStore.getState().commit(environment('old=3'));
+  vi.mocked(readDefinitionFile).mockResolvedValue(
+    parseDefinitionBackup(exportDefinitionBackup(environment('v=-7'))),
+  );
+});
+it.each(['de', 'en'] as const)(
+  '%s: scope, names, explicit replacement, cancel and focus restoration are keyboard accessible',
+  async (locale) => {
+    const user = userEvent.setup();
+    render(<DefinitionBackupControls locale={locale} />);
+    const trigger = screen.getByRole('button', {
+      name: t('scientific.backup.open', locale),
+    });
+    trigger.focus();
+    await user.keyboard('{Enter}');
+    const dialog = await screen.findByRole('dialog', {
+      name: t('scientific.backup.title', locale),
+    });
+    expect(
+      within(dialog).getByText(t('scientific.backup.scope', locale)),
+    ).toBeVisible();
+    const before = useScientificStore.getState().environment;
+    const raw = localStorage.getItem(SCIENTIFIC_STORAGE_KEY);
+    await user.click(
+      within(dialog).getByRole('button', {
+        name: t('scientific.backup.export', locale),
+      }),
+    );
+    expect(downloadDefinitions).toHaveBeenCalledWith(before);
+    const upload = () =>
+      fireEvent.change(
+        screen.getByLabelText(t('scientific.backup.file', locale)),
+        { target: { files: [new File(['{}'], 'backup.json')] } },
+      );
+    upload();
+    await screen.findByRole('region', {
+      name: t('scientific.backup.preview', locale),
+    });
+    expect(
+      within(dialog).getByRole('region', {
+        name: t('scientific.backup.variables', locale, { count: 1 }),
+      }),
+    ).toHaveTextContent('v');
+    expect(
+      within(dialog).getByRole('region', {
+        name: t('scientific.backup.replaced', locale, { count: 1 }),
+      }),
+    ).toHaveTextContent('old');
+    expect(useScientificStore.getState().environment).toBe(before);
+    expect(localStorage.getItem(SCIENTIFIC_STORAGE_KEY)).toBe(raw);
+    const cancel = within(dialog).getByRole('button', {
+      name: t('scientific.backup.cancel', locale),
+    });
+    cancel.focus();
+    await user.keyboard('{Enter}');
+    await vi.waitFor(() => expect(trigger).toHaveFocus());
+    expect(useScientificStore.getState().environment).toBe(before);
+    await user.keyboard('{Enter}');
+    await screen.findByRole('dialog');
+    upload();
+    const confirm = await screen.findByRole('button', {
+      name: t('scientific.backup.replace', locale),
+    });
+    confirm.focus();
+    await user.keyboard('{Enter}');
+    await screen.findByText(t('scientific.backup.imported', locale));
+    expect(useScientificStore.getState().environment.variables).toEqual({
+      v: { kind: 'number', value: '-7' },
+    });
+    expect(useScientificStore.getState().environment.history).toEqual(
+      before.history,
+    );
+    await useScientificStore.persist.rehydrate();
+    expect(useScientificStore.getState().environment.variables).toEqual({
+      v: { kind: 'number', value: '-7' },
+    });
+  },
+);
+it('blocks stale previews, refreshes the exact replacement list and preserves history changed during the preview', async () => {
+  const user = userEvent.setup();
+  render(<DefinitionBackupControls locale="de" />);
+  await user.click(
+    screen.getByRole('button', { name: t('scientific.backup.open', 'de') }),
+  );
+  fireEvent.change(screen.getByLabelText(t('scientific.backup.file', 'de')), {
+    target: { files: [new File([], 'backup.json')] },
+  });
+  const confirm = await screen.findByRole('button', {
+    name: t('scientific.backup.replace', 'de'),
+  });
+  act(() => useScientificStore.getState().commit(environment('changed=99')));
+  const current = useScientificStore.getState().environment;
+  expect(confirm).toBeDisabled();
+  expect(screen.getByText(t('scientific.backup.stale', 'de'))).toBeVisible();
+  await user.click(
+    screen.getByRole('button', { name: t('scientific.backup.refresh', 'de') }),
+  );
+  expect(
+    screen.getByRole('region', {
+      name: t('scientific.backup.replaced', 'de', { count: 1 }),
+    }),
+  ).toHaveTextContent('changed');
+  expect(confirm).toBeEnabled();
+  await user.click(confirm);
+  await screen.findByText(t('scientific.backup.imported', 'de'));
+  expect(useScientificStore.getState().environment.history).toBe(
+    current.history,
+  );
+});
+it('ignores reads completed after closing the dialog and never imports without confirmation', async () => {
+  let complete: (
+    value: ReturnType<typeof parseDefinitionBackup>,
+  ) => void = () => {
+    throw new Error('not started');
+  };
+  vi.mocked(readDefinitionFile).mockImplementation(
+    () =>
+      new Promise((resolve) => {
+        complete = resolve;
+      }),
+  );
+  const user = userEvent.setup();
+  render(<DefinitionBackupControls locale="de" />);
+  const trigger = screen.getByRole('button', {
+    name: t('scientific.backup.open', 'de'),
+  });
+  await user.click(trigger);
+  fireEvent.change(screen.getByLabelText(t('scientific.backup.file', 'de')), {
+    target: { files: [new File([], 'backup.json')] },
+  });
+  await user.keyboard('{Escape}');
+  await vi.waitFor(() => expect(trigger).toHaveFocus());
+  await act(async () =>
+    complete(
+      parseDefinitionBackup(exportDefinitionBackup(createEnvironment())),
+    ),
+  );
+  await user.click(trigger);
+  expect(
+    screen.queryByRole('button', {
+      name: t('scientific.backup.replace', 'de'),
+    }),
+  ).not.toBeInTheDocument();
+  expect(useScientificStore.getState().environment.variables.old).toEqual({
+    kind: 'number',
+    value: '3',
+  });
+});
+it('blocks recovery imports while distinguishing a valid session export', async () => {
+  useScientificStore.setState({ recovery: 'invalid' });
+  const user = userEvent.setup();
+  render(<DefinitionBackupControls locale="en" />);
+  await user.click(
+    screen.getByRole('button', { name: t('scientific.backup.open', 'en') }),
+  );
+  expect(
+    screen.getByRole('button', { name: t('scientific.backup.import', 'en') }),
+  ).toBeDisabled();
+  await user.click(
+    screen.getByRole('button', { name: t('scientific.backup.export', 'en') }),
+  );
+  expect(downloadDefinitions).toHaveBeenCalledOnce();
+  expect(readDefinitionFile).not.toHaveBeenCalled();
+});

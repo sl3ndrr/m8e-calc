@@ -102,6 +102,52 @@ zugänglich zugeordnete de/en-Erklärung. Der Einfügename enthält den vollstä
 sichtbaren Definitionstext und die lokalisierte Aktion (Ansatz aus PR #65/WP-04).
 Es gibt keine zusätzliche Live-Region für Definitionen oder Bearbeitungsaktionen.
 
+### Lokales Definitionsbackup · WP-12
+
+Im Variablenpanel öffnet „Definitionen sichern / importieren“ den gemeinsamen,
+scrollbaren Dialog. Der JSON-Umschlag enthält ausschließlich
+`format: "m8e-calc.definitions"`, `version: 1`, `variables` und `functions`.
+Werte verwenden die kanonische Engine-Serialisierung einschließlich komplexer
+Werte und Listen; Funktionen behalten Parameter und AST samt Quellbereichen.
+Einstellungen, Netzwerkfelder, globaler Verlauf und private ans-Historie sind
+ausgeschlossen. Ein Backup ist eine bewusste lokale Dateiweitergabe, kein
+Cloud- oder Permalinkzustand. Dateiname: `m8e-calc-definitions-v1.json`.
+
+Der erste Importmodus ersetzt sämtliche Definitionen. Dateilesen und Vorschau
+ändern nichts und führen keine Formeln aus. Die Vorschau nennt Anzahl/Namen der
+eingehenden Variablen/Funktionen und der zu ersetzenden Definitionen; erst
+„Definitionen ersetzen“ bestätigt die Übernahme. Abbrechen, Escape und Schließen
+erhalten den Bestand und geben den Fokus an den Auslöser zurück. Importierte
+Namen werden ausschließlich als Text dargestellt. Die Prüfung verwirft fremde
+Properties/Prototypen, Accessors, doppelte JSON-Schlüssel, unbekannte Versionen,
+Namenskollisionen, ungültige Werte/ASTs und Zyklen. Die bestehenden neutralen
+Engine-, Mengen-, Tiefen- und Parsergrenzen gelten ohne Formelausführung weiter.
+
+Dateien sind symmetrisch auf **4 MiB UTF-8-Bytes** begrenzt, vor dem Lesen und
+nach Dekodierung beziehungsweise vor dem Download. Das begrenzt die Arbeit für
+fremdes JSON und lässt Platz für die getrennte History. Zusätzlich prüft Export,
+Vorschau und Übernahme den endgültigen Storage-Umschlag mit der tatsächlich
+erhaltenen History gegen **16 Mi UTF-16-Einheiten**. Diese unabhängige Grenze kann
+auch bei einer kleinen Datei greifen. Die App bietet keinen Export an, den sie
+mit derselben Sitzung nicht wieder importieren könnte; inzwischen vergrößerte
+History wird bei Vorschau/Bestätigung erneut geprüft, niemals gekürzt.
+
+Die Vorschau ist an die transiente Environmentrevision gebunden. Änderungen an
+Definitionen oder ans-Historie, auch durch einen inzwischen abgeschlossenen
+Worker, sperren die Bestätigung bis zur ausdrücklich aktualisierten Vorschau.
+Die eigene Aktion `replaceDefinitions` prüft Revision und Daten erneut und
+persistiert genau einen vollständigen Umschlag. Sie bewahrt die beim Beginn
+dieses Commits aktuelle ans-Historie; globaler Verlauf bleibt unverändert.
+Während der Speicherung sind weitere Sitzungscommits gesperrt. Revision und
+Workerinvalidierung verhindern vor und nach der Speicherung alte Antworten.
+Erst tatsächlicher Speichererfolg veröffentlicht die neuen Definitionen in der
+Sitzung. Ein Speicherfehler erhält Altbestand und Sitzung und aktiviert die
+WP-01-Schreibsperre; es gibt keinen automatischen Wiederholungsversuch.
+Recovery einschließlich ausstehender Hydrierung sperrt den Import bis zum
+ausdrücklichen erfolgreichen erneuten Laden. Der Export einer gültigen Sitzung
+bleibt davon unabhängig möglich. Object-URLs werden auch bei Downloadfehlern
+freigegeben; weder Export noch Import benötigt externe Requests.
+
 ### Ergebnisanzeige und Kopiervertrag · WP-08 / D1
 
 `displayResult(...).text` ist die gemeinsame Quelle für Hauptwert, „Text kopieren“
@@ -224,7 +270,7 @@ Ausführungsstatus und Einschränkungen: [IMPLEMENTATION_STATUS.md](IMPLEMENTATI
 
 - AP9 ist integriert: BigInt-Panel und Inspektoren sind unten dokumentiert.
 - AP12/AP13 sind integriert; Graph-Verträge stehen in [GRAPH.md](GRAPH.md) und [GRAPH_MODE.md](GRAPH_MODE.md). Gespeicherte wissenschaftliche Environments werden nicht über Permalinks übertragen.
-- AP14/AP15 sind integriert: [Komfort](COMFORT.md) und [Hardening](QA_REPORT.md). Weitergehender Import/Export gespeicherter Definitionen bleibt Folgearbeit.
+- AP14/AP15 sind integriert: [Komfort](COMFORT.md) und [Hardening](QA_REPORT.md). WP-12 ergänzt das oben beschriebene lokale Definitionsbackup; komplexes Zusammenführen/Umbenennen gehört nicht zum Importmodus.
 
 ## Informatik · AP9
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Button } from '../../ui/Button';
 import { SegmentedControl } from '../../ui/SegmentedControl';
 import { TextField } from '../../ui/TextField';
@@ -76,6 +76,7 @@ export function ConstantsPanel({
   );
 }
 export function VariablesPanel({
+  children,
   locale,
   environment,
   format,
@@ -83,6 +84,7 @@ export function VariablesPanel({
   edit,
   remove,
 }: {
+  children?: ReactNode;
   locale: Locale;
   environment: Environment;
   format?: ValueFormatOptions;
@@ -100,6 +102,7 @@ export function VariablesPanel({
       aria-label={t('scientific.variables', locale)}
     >
       <h2>{t('scientific.variables', locale)}</h2>
+      {children}
       {!names.length && <p>{t('scientific.noVariables', locale)}</p>}
       <ul className="scientific-variable-list">
         {names.map((name, index) => {

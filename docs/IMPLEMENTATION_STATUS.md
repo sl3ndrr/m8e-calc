@@ -63,6 +63,14 @@ Erfassung. Ein gemeinsamer, platzstabiler Canvasstatus beschreibt Aktualisierung
 und Exportbereitschaft auch am Tastaturfokus der PNG-Aktionen. Die bestehende
 Exportablehnung und AP50 bleiben erhalten. Vertrag: [GRAPH_MODE](GRAPH_MODE.md).
 
+## WP-12 · Lokales Definitionsbackup
+
+Versionierte JSON-Dateien sichern Variablenwerte und Funktions-ASTs ohne
+Einstellungen oder Verlauf. Eine revisionsgebundene Vorschau bestätigt den
+atomaren Ersatz mit eigener Speichererfolgsmeldung und Workerinvalidierung;
+aktuelle ans-Historie, Recovery und Altbestand bei Fehlern bleiben geschützt.
+Datei-/Speichergrenzen und Bedienvertrag: [SCIENTIFIC_MODE](SCIENTIFIC_MODE.md#lokales-definitionsbackup--wp-12).
+
 ## WP-10 · Resetumfang und Dialogorientierung
 
 Die de/en-Texte benennen Einstellungen und globalen Verlauf sowie erhaltene
