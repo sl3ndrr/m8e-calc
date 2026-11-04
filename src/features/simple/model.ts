@@ -173,14 +173,15 @@ export function validateRestore(payload: unknown): RestorePayload | null {
   )
     return null;
   if ((p.operator === null) !== (p.accumulator === null)) return null;
-  if (p.leftExpression !== undefined) {
+  const { leftExpression } = p;
+  if (leftExpression !== undefined) {
     if (
-      typeof p.leftExpression !== 'string' ||
-      p.leftExpression.length > 4000 ||
+      typeof leftExpression !== 'string' ||
+      leftExpression.length > 4000 ||
       p.accumulator === null
     )
       return null;
-    const left = calculate(p.leftExpression);
+    const left = calculate(leftExpression);
     const accumulator = numberValue(p.accumulator);
     if (
       'error' in left ||
@@ -205,7 +206,7 @@ export function validateRestore(payload: unknown): RestorePayload | null {
     entry: { value: e.value, expression: e.expression },
     accumulator: p.accumulator,
     operator: p.operator,
-    ...(p.leftExpression !== undefined && { leftExpression: p.leftExpression }),
+    ...(leftExpression !== undefined && { leftExpression }),
   };
 }
 function binary(
@@ -223,9 +224,8 @@ export function simpleExpression(state: SimpleState): string {
   const prefix = state.groups
     .map((frame) => (frame.expression ? `${frame.expression} (` : '('))
     .join('');
-  const active =
-    state.expression || (state.phase === 'entry' ? state.entry.expression : '');
-  return prefix + active;
+  const entry = state.phase === 'entry' ? state.entry.expression : '';
+  return prefix + (state.expression || entry);
 }
 function parenthesis(state: SimpleState, key: '(' | ')'): SimpleState {
   const parent = state.groups.at(-1);
@@ -241,13 +241,19 @@ function parenthesis(state: SimpleState, key: '(' | ')'): SimpleState {
     );
   }
 
-  const next =
-    state.phase === 'result' || state.phase === 'error' ? reset(state) : state;
-  if (next.phase !== 'operator' && (next.entry.value !== '0' || next.expression))
-    return fail(state, 'invalid');
+  const fresh = state.phase === 'result' || state.phase === 'error';
+  const next = fresh ? reset(state) : state;
+  const hasEntry = next.entry.value !== '0' || next.expression;
+  if (next.phase !== 'operator' && hasEntry) return fail(state, 'invalid');
 
-  const { phase, entry, accumulator, operator, expression, leftExpression } =
-    next;
+  const frame: GroupFrame = {
+    phase: next.phase,
+    entry: next.entry,
+    accumulator: next.accumulator,
+    operator: next.operator,
+    expression: next.expression,
+    leftExpression: next.leftExpression,
+  };
   return {
     ...next,
     phase: 'operator',
@@ -256,10 +262,7 @@ function parenthesis(state: SimpleState, key: '(' | ')'): SimpleState {
     operator: null,
     leftExpression: null,
     expression: '',
-    groups: [
-      ...next.groups,
-      { phase, entry, accumulator, operator, expression, leftExpression },
-    ],
+    groups: [...next.groups, frame],
   };
 }
 export function simpleReducer(
@@ -446,17 +449,15 @@ export function simpleReducer(
         state.phase === 'result' && state.repeat
           ? operand(state.repeat.operand)
           : state.entry;
+      const pending = { accumulator: left, operator };
       const input = inputExpression(
-        { accumulator: left, operator, leftExpression: state.leftExpression },
+        { ...pending, leftExpression: state.leftExpression },
         right.expression,
       );
       const result = calculate(input);
       if ('error' in result) return fail(state, result.error);
       // Repeated = reuses the evaluated percentage amount (100+10%== -> 120).
-      const amount = operandAmount(
-        { accumulator: left, operator },
-        right.expression,
-      );
+      const amount = operandAmount(pending, right.expression);
       if ('error' in amount) return fail(state, amount.error);
       const id = state.sequence + 1;
       const payload: RestorePayload = {

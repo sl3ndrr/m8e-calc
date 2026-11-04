@@ -13,11 +13,7 @@ import { useHistoryStore } from '../../shared/historyStore';
 import { useModeHistory } from '../../shared/useModeHistory';
 import type { HistoryEntry } from '../../shared/history';
 
-import {
-  simpleExpression,
-  simpleReducer,
-  type SimpleAction,
-} from './model';
+import { simpleExpression, simpleReducer, type SimpleAction } from './model';
 import {
   displayExpression,
   displayNumber,
@@ -215,6 +211,7 @@ export default function SimpleMode() {
   const { add } = useModeHistory('simple', onRestore);
   const preferences = { decimalSeparator, grouping };
   const displayed = displayState(state, locale, preferences);
+  const expression = simpleExpression(state);
   useEffect(() => {
     for (const calculation of state.completed) {
       if (calculation.id <= sent.current) continue;
@@ -398,11 +395,7 @@ export default function SimpleMode() {
       </div>
       <CalculatorDisplay
         value={displayed}
-        expression={displayExpression(
-          simpleExpression(state),
-          locale,
-          preferences,
-        )}
+        expression={displayExpression(expression, locale, preferences)}
         copyLabel={t('simple.copy', locale)}
         resultLabel={t('simple.result', locale)}
         expressionLabel={t('simple.expression', locale)}
