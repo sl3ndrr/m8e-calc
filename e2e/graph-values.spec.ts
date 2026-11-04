@@ -55,6 +55,7 @@ for (const language of ['de', 'en'] as const) {
     await page
       .getByRole('option', {
         name: de ? '2 Nachkommastellen' : '2 decimal places',
+        exact: true,
       })
       .click();
     const rows = table.locator('tbody tr');
