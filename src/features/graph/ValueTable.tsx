@@ -54,8 +54,7 @@ export default function ValueTable({
   );
   const format = (value: number) =>
     formatGraphNumber(value, locale, preferences, rounding);
-  if (!curve)
-    return <p role="status">{t('graph.tableUnavailable', locale)}</p>;
+  if (!curve) return <p role="status">{t('graph.tableUnavailable', locale)}</p>;
   if (curve.kind === 'implicit')
     return <p role="status">{t('graph.implicitActions', locale)}</p>;
   const kind = curve.kind;
