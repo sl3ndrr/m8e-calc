@@ -1,12 +1,7 @@
 node_modules
 dist
+dist-gallery
 package-lock.json
 playwright-report
 test-results
-
-
 .lighthouseci/
-.qa-baseline/
-
-dist-gallery
-.ap23-before

@@ -1,75 +1,16 @@
 # Changelog
 
-Aktueller belegter Integrations-/Freigabestand: [Implementierungsstatus](docs/IMPLEMENTATION_STATUS.md).
+## Unveröffentlicht
 
-Alle wesentlichen Änderungen werden hier dokumentiert. Das Format folgt
-[Keep a Changelog](https://keepachangelog.com/de/1.1.0/), die Versionierung
-[Semantic Versioning](https://semver.org/lang/de/).
+- Graphen unterstützen implizite Konturen, stabiles lokales Fit, feinere Parametersteuerung sowie PNG- und CSV-Export. Die Wertetabelle exportiert ungerundete Rohwerte.
+- Wissenschaftliche Berechnungen laufen in einem unterbrechbaren lokalen Worker. Definitionen lassen sich verlustfrei bearbeiten, sichern und importieren.
+- Der Umrechner unterstützt eindeutige Zoll-Schnelleingaben und lokale Einheiten. Währungsumrechnung und externe Kursabrufe wurden entfernt. Alte Kursschlüssel werden bestmöglich bereinigt.
+- Einstellungen bieten Akzentwahl, Installationsaktion und einen Reset mit bestätigtem Datenumfang.
+- Die GitHub-Pages-Pipeline veröffentlicht den geprüften Produktionsbuild mit passiver Buildinformation.
 
-## [Unreleased]
+## 1.0.0 · vorbereitet
 
-### Removed
-
-- Währungsumrechnung mit Kursabruf, Zustimmung, Cache, dynamischer Provider-API
-  und zugehörigem Quellencheck. Alte Einstellungen werden auf Version 5 migriert;
-  vorhandene Kursschlüssel werden beim Start bestmöglich entfernt.
-
-### Changed
-
-- AP18–AP24 integriert: kompakte
-  Werkzeugleisten/Teilen, vollständige Ziffern, stabile Tasten und Checkboxen,
-  Systemtheme ohne Zusatzicon, stabiles Graph-Fit, lokalisierte gerundete
-  Tabellen, internes Designlab und Dependency-Wartung.
-- AP25 integriert: browserübergreifende Produktregressionen und historische
-  Abnahmebilder in [AP25](docs/AP25.md); manuelle Live-Abnahme bleibt AP39.
-- AP26/AP27: implizite Konturen, Worker/Canvas, gemeinsame Budgets und Diagnosen,
-  PNG und kompatible Textpersistenz; begrenztes Fit auf stabiler Basis.
-  Keine implizite Analysis, Trace oder mehrwertige Tabelle und keine universelle
-  Vollständigkeitsgarantie.
-- AP28: begrenzte Drag-Samplingfrist und feste Performance-/Negativkontrollen.
-- AP29: netzgebundener passiver Buildnachweis auch unter aktivem Produktionsworker.
-- AP30: kleinerer Startgraph durch direkte Engine- und geteilte i18n-Imports.
-- AP31/AP32: gemeinsamer CI-/Pages-Freigabepfad und aktivierter PR-Schutz;
-  erfolgreiche Veröffentlichung der neuen Kette und Dependabot-Restprüfung offen.
-- AP33: belegte Dependency-Entscheidungen bei unverändertem Node-24-Vertrag;
-  getrennte Migrationen bleiben offen.
-- AP37: verständliche, persistierte Quellencheck-Diagnosen bei unverändert
-  blockierendem externen Gate. AP38 gleicht Produkt-/Release-Dokumentation ab.
-  Keine neue Version, kein Release oder Tag daraus abgeleitet.
-
-### Fixed
-
-- Farbauswahl: stabiler Ladedialog und Iris-Anfangsfokus beim kalten Lazy-Import
-  (PR #48). Quellenzuordnung und ereignisgebundene Live-Animationsmessung
-  korrigiert (PR #49, #51/#52), ohne mathematische Erwartungswerte zu ändern.
-- Wissenschaftlicher Editor: Esc leert und Enter wertet auch bei offenen
-  Vorschlägen aus; die Standard-Completion-Belegung verdrängt diese
-  Rechneraktionen nicht mehr. AP25 ergänzt gezielte Adapter-/Browserregressionen.
-
-## [1.0.0] – Veröffentlichung vorbereitet, noch nicht veröffentlicht
-
-AP16-Vorbereitungsstand. Seither integrierte, noch nicht als GitHub Release
-veröffentlichte Änderungen stehen unter „Unreleased“. Ein erfolgreicher
-Pages-Deploy ist davon getrennt. Vor tatsächlichem Tag/Release diese
-Abschnitte zusammenführen und Datum/Versionsumfang ausdrücklich freigeben.
-
-### Added
-
-- Vier Modi: Einfach, Wissenschaftlich mit Informatik-Panel, Einheitenumrechner und interaktive 2D-Graphen.
-- Lokaler Verlauf mit Suche, Pins, Wiederherstellung und JSON-Export.
-- Deutsche und englische Oberfläche, Hell/System/Dunkel, Akzentwahl, UI-Größe und Präsentation.
-- Befehlspalette, Tastenkürzel, Permalinks und PWA mit Offline-Cache.
-- Release-Dokumentation sowie reproduzierbare Screenshots und Social Preview.
-- MIT-Lizenzentwurf zur Bestätigung durch den Repository-Eigentümer.
-
-### Changed
-
-- Version von 0.1.0 auf 1.0.0 gesetzt; README und Roadmap auf den integrierten Stand gebracht.
-
-### Fixed
-
-- Das integrierte AP15-Hardening behebt Fehlerbehandlung, Kontraste, Fokus-/ARIA-Probleme und Ressourcen-Cleanup; Details und Messnachweise im [Qualitätsbericht](docs/QA_REPORT.md).
-
-Dies ist die erste vorbereitete öffentliche Version. Die Release-Vorbereitung
-ändert keine Produktfunktionen. Datum und Vergleichslinks werden beim tatsächlichen
-Taggen ergänzt; ein Tag oder GitHub Release wird durch diesen PR nicht erstellt.
+- Vier Modi mit Verlauf, Suche, Pins und Wiederherstellung.
+- Deutsch und Englisch, helle und dunkle Oberfläche, UI-Skalierung und Präsentationsmodus.
+- Befehlspalette, Tastaturkürzel, Permalinks und Offline-Betrieb.
+- Reproduzierbare Release-Bilder und getrennte UI- und Domänentests.

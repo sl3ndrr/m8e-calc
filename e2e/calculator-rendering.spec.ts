@@ -1,5 +1,5 @@
 import { buttonContractCases } from './buttonContractCases';
-import { installMotionProbe } from './ap36Capture';
+import { installMotionProbe } from './motionCapture';
 import { writeFile } from 'node:fs/promises';
 import { allowClipboard } from './clipboard';
 import { expect, test, type Page, type Locator } from '@playwright/test';
@@ -614,7 +614,7 @@ for (const mode of ['simple', 'scientific']) {
   });
 }
 
-// Keep the shared-button regression in the normal recurring AP19 browser gate.
+// Keep the shared-button regression in the recurring browser gate.
 test.use({
   trace: { mode: 'on', screenshots: false, snapshots: false, sources: true },
 });

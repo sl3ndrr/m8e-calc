@@ -3,7 +3,7 @@ import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { resolve, extname } from 'node:path';
 
-test('AP29 controlled production worker: navigation, fetch, changed build and offline failure', async ({
+test('controlled production worker: navigation, fetch, changed build and offline failure', async ({
   page,
   context,
   browser,
@@ -34,7 +34,7 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
         response.writeHead(404).end('outside base');
         return;
       }
-      const root = resolve(`test-results/ap29-builds/${current}`);
+      const root = resolve(`test-results/provenance-builds/${current}`);
       const relative = path.slice('/m8e-calc/'.length) || 'index.html';
       const file = resolve(root, relative);
       if (!file.startsWith(root + '/')) {
@@ -123,13 +123,11 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
       fetchEvidence.push(result);
       return result;
     };
+    const fixtureMarker = 'meta[name="provenance-fixture"]';
     await page.goto(`${base}#/simple`);
     await expect(page.locator('.simple-calculator')).toBeVisible();
     await controlled();
-    await expect(page.locator('meta[name="ap29-fixture"]')).toHaveAttribute(
-      'content',
-      'a',
-    );
+    await expect(page.locator(fixtureMarker)).toHaveAttribute('content', 'a');
     const cachesA = await page.evaluate(() => caches.keys());
     expect(cachesA.length).toBeGreaterThan(0);
     const cachedUrls = await page.evaluate(async () => {
@@ -151,10 +149,7 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
     await anchor.waitForFunction(
       () => navigator.serviceWorker.controller?.state === 'activated',
     );
-    await expect(anchor.locator('meta[name="ap29-fixture"]')).toHaveAttribute(
-      'content',
-      'a',
-    );
+    await expect(anchor.locator(fixtureMarker)).toHaveAttribute('content', 'a');
     const controllerA = await anchor.evaluateHandle(
       () => navigator.serviceWorker.controller,
     );
@@ -221,10 +216,7 @@ test('AP29 controlled production worker: navigation, fetch, changed build and of
     // No update()/skipWaiting(): the cached app and active worker remain A.
     await page.reload();
     await controlled();
-    await expect(page.locator('meta[name="ap29-fixture"]')).toHaveAttribute(
-      'content',
-      'a',
-    );
+    await expect(page.locator(fixtureMarker)).toHaveAttribute('content', 'a');
     const beforeFetchB = requests.filter((r) =>
       r.path.endsWith('/build-info.json'),
     ).length;

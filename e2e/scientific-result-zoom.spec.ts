@@ -4,13 +4,13 @@ import { rm, writeFile } from 'node:fs/promises';
 import { ready } from './qa-setup';
 import { t } from '../src/shared/i18n/extended';
 
-// Same local-only extension as AP19/AP44: real tab zoom, not CSS or DPR emulation.
+// The local extension drives real tab zoom without CSS or DPR emulation.
 test('WP-08 native 100/200% zoom keeps the complete exponent selectable and copyable at 1280px', async ({
   browserName,
 }, info) => {
   expect(browserName).toBe('chromium');
   const profile = info.outputPath('zoom-profile');
-  const extension = resolve('e2e/fixtures/ap19-zoom');
+  const extension = resolve('e2e/fixtures/native-tab-zoom');
   const context = await chromium.launchPersistentContext(profile, {
     channel: 'chromium',
     headless: true,
@@ -171,7 +171,7 @@ test('WP-08 native 100/200% zoom keeps the complete exponent selectable and copy
         await page.evaluate(() => document.fonts.ready);
         await result.scrollIntoViewIfNeeded();
         await page.evaluate(() => getSelection()?.removeAllRanges());
-        // Native tab zoom changes DIP/CSS coordinates. Use AP19's capture contract
+        // Native tab zoom changes DIP/CSS coordinates. Use the shared capture contract
         // so the evidence actually contains the fully visible result, not a crop
         // of the page origin produced by page.screenshot at 200% tab zoom.
         const bounds = await result.evaluate((node) => {

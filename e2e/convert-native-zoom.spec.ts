@@ -12,7 +12,7 @@ import {
   converterSettings,
 } from './convertLayout';
 
-// AP19's disposable local extension drives actual tab zoom. CSS zoom and DPR
+// The disposable local extension drives actual tab zoom. CSS zoom and DPR
 // emulation cannot substitute for getZoom + layout viewport + DPR evidence.
 for (const [width, height] of [
   [1280, 900],
@@ -27,7 +27,7 @@ for (const [width, height] of [
         }, info) => {
           expect(browserName).toBe('chromium');
           const profile = info.outputPath('zoom-profile');
-          const extension = resolve('e2e/fixtures/ap19-zoom');
+          const extension = resolve('e2e/fixtures/native-tab-zoom');
           const context = await chromium.launchPersistentContext(profile, {
             channel: 'chromium',
             headless: true,

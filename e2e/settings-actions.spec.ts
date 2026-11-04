@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { holdChunk } from './accentLoading';
-import { held, holdNext, installMotionProbe, resume } from './ap36Capture';
+import { held, holdNext, installMotionProbe, resume } from './motionCapture';
 
 // Isolate the mock browser prompt and cold module requests from SW precaching.
 // These tests verify the app/browser API contract, never an OS installation.

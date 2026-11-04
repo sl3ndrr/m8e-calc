@@ -1,21 +1,19 @@
 ## Was
 
-<!-- Konkrete Änderungen und Paket nennen. -->
+<!-- Änderung und betroffene Bereiche. -->
 
 ## Warum
 
 <!-- Problem und gewünschtes Verhalten. -->
 
-## Test
+## Prüfungen
 
-- [ ] `npm run check` lokal grün
-- [ ] CI einschließlich `npm run test:e2e` grün
-- [ ] `docs/` und `AGENTS.md` aktuell
+<!-- Befehle, Ergebnisse und gegebenenfalls ausgelassene Prüfungen. -->
 
-## Screenshots
+## Bilder
 
-<!-- Bei UI-Änderungen Screenshot oder verlinktes Browser-Artefakt ergänzen. -->
+<!-- Bei UI-Änderungen Bilder oder Browser-Artefakte ergänzen. -->
 
-## Offen / Folge-Issues
+## Offene Punkte
 
-<!-- Restpunkte außerhalb des beauftragten Pakets als Liste. -->
+<!-- Relevante Folgearbeiten. -->

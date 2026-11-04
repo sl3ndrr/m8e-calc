@@ -33,14 +33,10 @@ jobs:
       - run: node scripts/check-build-target.mjs dist normal
       - run: npx playwright install --with-deps chromium
       - run: npm run screenshots
-      - name: Check documentation links and commands
-        run: node scripts/check-release-docs.mjs --external
       - run: node scripts/ci/build-proof.mjs verify
       - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: release-assets
-          path: |
-            docs/img/
-            test-results/release-docs.json
+          path: docs/img/
           retention-days: 14

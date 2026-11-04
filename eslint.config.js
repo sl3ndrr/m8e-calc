@@ -12,12 +12,10 @@ export default tseslint.config(
     ignores: [
       'dist/**',
       'dist-gallery/**',
-      '.ap23-before/**',
       'node_modules/**',
       'playwright-report/**',
       'test-results/**',
       '.lighthouseci/**',
-      '.qa-baseline/**',
     ],
   },
   js.configs.recommended,

@@ -1,7 +1,7 @@
 import type { Ast } from '../engine/types.ts';
 import type { CurveOptions, SampleResult } from './types.ts';
 
-/** Separate from Curve until AP27 defines the UI/worker/analysis contract. */
+/** The 2D contour type is separate from the 1D Curve contract. */
 export interface ImplicitCurve extends CurveOptions {
   readonly kind: 'implicit';
   /** The zero set of this expression, in the independent variables x and y. */

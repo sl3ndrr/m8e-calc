@@ -9,7 +9,7 @@ import {
 import { checkedComplex, components, normalizeValue } from './values.ts';
 import { fromRadians, sineCosine } from './trigonometry.ts';
 
-/** undefined delegates to the existing AP5 real implementation. */
+/** undefined delegates to the real implementation. */
 export function complexFunction(
   name: string,
   args: readonly Value[],

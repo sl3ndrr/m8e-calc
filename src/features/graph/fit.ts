@@ -2,7 +2,7 @@ import { Viewport } from '../../graph';
 import { isOneDimensional, type ParsedRow } from './model';
 import { tryViewport } from './viewportTransition';
 
-/** A zero set has no general global extent. Retain the user's stable AP21
+/** A zero set has no general global extent. Retain the user's stable
  * search rectangle, unioned with the existing 1D fit, without 2D work on UI. */
 export function fitPlot(view: Viewport, rows: readonly ParsedRow[]): Viewport {
   const visible = rows.filter((r) => r.row.visible && r.curve);

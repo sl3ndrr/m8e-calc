@@ -6,7 +6,7 @@ import {
   recordFrames,
 } from './calculatorCapture';
 import { allowClipboard } from './clipboard';
-import { attach, held, holdNext, idle, picture, resume } from './ap36Capture';
+import { attach, held, holdNext, idle, picture, resume } from './motionCapture';
 
 type Frame = Awaited<ReturnType<typeof frames>>[number];
 function stable(samples: Frame[], rest: Frame) {
@@ -65,7 +65,7 @@ async function subject(
 // Calling suites retain traces with screenshots/snapshots disabled while the
 // native timeline runs. Explicit picture() attachments supply the intermediate
 // images without trace filmstrip/DOM capture blocking WebKit's short effects.
-/** AP42 extends the AP19 recorder and the AP36 browser cases; no new clock or
+/** Shared button cases use the same frame recorder; no new clock or
  * animation shim. Before-only expected failures require the actual zero-radius
  * frame from the pinned main build, after all raw evidence has been attached. */
 export function buttonContractCases(gallery: boolean) {
