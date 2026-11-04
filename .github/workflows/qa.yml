@@ -15,10 +15,6 @@ env:
 jobs:
   measure:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        phase: [before, after]
     steps:
       - uses: actions/checkout@v7
         with:
@@ -35,43 +31,23 @@ jobs:
           artifact-ids: ${{ inputs.build-artifact-id }}
       - run: node scripts/ci/build-proof.mjs verify
       - run: node scripts/check-build-target.mjs dist normal
-      - name: Prepare pinned baseline
-        if: matrix.phase == 'before'
+      - name: Measure bundle and contrast
         run: |
-          git fetch --depth=1 origin 67d9c9688d1cc7169a73262b21e738ff09c8bcda
-          git worktree add .qa-baseline FETCH_HEAD
-          cp scripts/qa-*.mjs .qa-baseline/scripts/
-          cp lighthouserc.cjs .qa-baseline/
-          cd .qa-baseline
-          npm ci
-      - name: Build and measure
-        env:
-          PHASE: ${{ matrix.phase }}
-        run: |
-          if [ "$PHASE" = before ]; then cd .qa-baseline; export QA_BASELINE=1; fi
-          if [ "$PHASE" = before ]; then npx vite build --manifest; fi
           status=0
           node scripts/qa-bundle.mjs || status=1
           node scripts/qa-contrast.mjs || status=1
           exit "$status"
       - name: Full audit
         if: always()
-        env:
-          PHASE: ${{ matrix.phase }}
         run: |
-          if [ "$PHASE" = before ]; then cd .qa-baseline; fi
           mkdir -p test-results/qa
           status=0
           npm audit --json > test-results/qa/audit.json || status=$?
           cat test-results/qa/audit.json
-          if [ "$PHASE" = after ]; then exit "$status"; fi
+          exit "$status"
       - name: Lighthouse CI
         if: always()
-        continue-on-error: ${{ matrix.phase == 'before' }}
-        env:
-          PHASE: ${{ matrix.phase }}
         run: |
-          if [ "$PHASE" = before ]; then cd .qa-baseline; fi
           status=0
           npx --yes --package @lhci/cli@0.15.1 lhci autorun || status=$?
           node scripts/qa-lighthouse.mjs || status=1
@@ -80,12 +56,10 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: qa-${{ matrix.phase }}
+          name: qa-measure
           path: |
             test-results/
             .lighthouseci/
-            .qa-baseline/test-results/
-            .qa-baseline/.lighthouseci/
           retention-days: 14
   browsers:
     strategy:

@@ -39,7 +39,6 @@ writeFileSync(
 console.log(JSON.stringify(modes));
 // LHCI groups hash routes under one URL; assert each mode independently as well.
 if (
-  !process.env.QA_BASELINE &&
   modes.some(
     (mode) =>
       mode.clsMax !== 0 ||

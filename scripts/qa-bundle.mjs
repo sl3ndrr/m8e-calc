@@ -28,5 +28,4 @@ const result = { total, limit, chunks, eager };
 mkdirSync('test-results/qa', { recursive: true });
 writeFileSync('test-results/qa/bundle.json', JSON.stringify(result, null, 2));
 console.log(JSON.stringify(result));
-if ((total >= limit || eager.length) && !process.env.QA_BASELINE)
-  process.exitCode = 1;
+if (total >= limit || eager.length) process.exitCode = 1;

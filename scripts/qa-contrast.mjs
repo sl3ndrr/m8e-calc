@@ -95,4 +95,4 @@ writeFileSync('test-results/qa/contrast.json', JSON.stringify(result, null, 2));
 console.log(
   JSON.stringify({ ...result, failures: result.failures.slice(0, 12) }),
 );
-if (result.failures.length && !process.env.QA_BASELINE) process.exitCode = 1;
+if (result.failures.length) process.exitCode = 1;
