@@ -108,12 +108,14 @@ test('formats, copies LaTeX, switches complex mode and stores/recalls variables'
   const editor = page.getByRole('textbox', {
     name: t('scientific.expression'),
   });
+  const result = page.locator('.scientific-result-text');
   await editor.fill('1/2');
   await editor.press('Enter');
+  await expect(result).toHaveText('0,5');
   const fraction = page.getByRole('switch', { name: t('scientific.fraction') });
   await fraction.focus();
   await fraction.press('Space');
-  await expect(page.locator('.scientific-result-text')).toHaveText('1/2');
+  await expect(result).toHaveText('1/2');
   await page.getByRole('button', { name: t('scientific.copyLatex') }).click();
   expect(await page.evaluate(() => navigator.clipboard.readText())).toContain(
     '\\frac{1}{2}',
@@ -131,7 +133,7 @@ test('formats, copies LaTeX, switches complex mode and stores/recalls variables'
   await complexOn.press('Space');
   await editor.fill('sqrt(-1)');
   await editor.press('Enter');
-  await expect(page.locator('.scientific-result-text')).toContainText('1i');
+  await expect(result).toContainText('1i');
 });
 test('compact layout exposes tool tabs and the programmer panel', async ({
   page,

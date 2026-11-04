@@ -17,13 +17,17 @@ export function validateSimpleLink(value: unknown): SimpleLink | null {
     : null;
 }
 export function simpleLink(state: SimpleState): SimpleLink {
+  const snapshot = state.groups[0] ?? state;
   return {
     version: 1,
-    entry: state.entry,
-    accumulator: state.accumulator,
-    operator: state.operator,
-    expression: state.expression,
-    phase: state.phase,
+    entry: snapshot.entry,
+    accumulator: snapshot.accumulator,
+    operator: snapshot.operator,
+    ...(snapshot.leftExpression !== null && {
+      leftExpression: snapshot.leftExpression,
+    }),
+    expression: snapshot.expression,
+    phase: snapshot.phase,
   };
 }
 export function initialLinkedSimple(): SimpleState {

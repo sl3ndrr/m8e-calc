@@ -44,6 +44,7 @@ export const coreDE = {
     'Link konnte nicht kopiert werden. Zustand ungültig, zu groß oder Zwischenablage nicht verfügbar.',
   'comfort.digits': 'Ziffer eingeben',
   'comfort.operators': 'Grundrechenart',
+  'comfort.parentheses': 'Klammern eingeben',
   'comfort.browse': 'Verlauf im Editor durchblättern',
   'comfort.complete': 'Vervollständigung übernehmen',
   'comfort.zoom': 'Graph zoomen',
@@ -136,7 +137,7 @@ export const coreDE = {
   'simple.M-': 'M− · Vom Speicher subtrahieren',
   'simple.MS': 'MS · Zahl speichern',
   'simple.keyboardHint':
-    'Tastatur bereit · Enter = · Esc C · Strg+V Zahl einfügen',
+    'Tastatur bereit · ( ) Klammern · Enter = · Esc C · Strg+V Zahl einfügen',
   'simple.error.divisionByZero':
     'Durch null kann nicht geteilt werden. Mit C neu beginnen.',
   'simple.error.domain':

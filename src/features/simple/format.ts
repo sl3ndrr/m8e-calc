@@ -57,6 +57,10 @@ export function displayExpression(
     .replace(/\d+(?:\.\d*)?(?:e[+-]?\d+)?/gi, (value) =>
       displayNumber(value, locale, preferences),
     )
+    .replaceAll('(( ', '( ')
+    .replaceAll(' ))', ' )')
+    .replaceAll('( ', '(')
+    .replaceAll(' )', ')')
     .replaceAll('*', '×')
     .replaceAll('/', '÷')
     .replaceAll('-', '−')

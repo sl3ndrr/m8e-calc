@@ -44,6 +44,7 @@ export const coreEN: Pick<Dictionary, keyof typeof coreDE> = {
     'Could not copy link. State invalid, too large or clipboard unavailable.',
   'comfort.digits': 'Enter digit',
   'comfort.operators': 'Arithmetic operator',
+  'comfort.parentheses': 'Enter parentheses',
   'comfort.browse': 'Browse editor history',
   'comfort.complete': 'Accept completion',
   'comfort.zoom': 'Zoom graph',
@@ -133,7 +134,7 @@ export const coreEN: Pick<Dictionary, keyof typeof coreDE> = {
   'simple.M-': 'M− · Subtract from memory',
   'simple.MS': 'MS · Store number',
   'simple.keyboardHint':
-    'Keyboard ready · Enter = · Esc C · Ctrl+V paste number',
+    'Keyboard ready · ( ) Parentheses · Enter = · Esc C · Ctrl+V paste number',
   'simple.error.divisionByZero':
     'Cannot divide by zero. Press C to start again.',
   'simple.error.domain':

@@ -50,7 +50,7 @@ function numeric(value: Value, range: SourceRange): Decimal {
   if (value.kind !== 'number') return take(failure('E_TYPE', range));
   return value.value;
 }
-function isPercentTerm(ast: Ast): boolean {
+export function isPercentTerm(ast: Ast): boolean {
   if (ast.kind === 'group') return isPercentTerm(ast.expression);
   if (ast.kind === 'unary') return isPercentTerm(ast.operand);
   return ast.kind === 'postfix' && ast.operator === '%';

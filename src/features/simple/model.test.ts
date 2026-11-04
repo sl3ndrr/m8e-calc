@@ -69,6 +69,50 @@ describe('immediate calculator arithmetic through the decimal engine', () => {
     expect(run(keys).entry.value).toBe(expected),
   );
 });
+describe('keyboard parentheses', () => {
+  it.each([
+    ['2*(3+4)=', '14'],
+    ['(2+3)*4=', '20'],
+    ['2*(3+(4*5))=', '46'],
+    ['(2+3*4)=', '20'],
+    ['2*(-3)=', '-6'],
+    ['2*(1,25+0,25)==', '4.5'],
+    ['100+(10%)==', '120'],
+    ['100+(2+10%)=', '102.2'],
+  ])('%s -> %s', (keys, expected) =>
+    expect(run(keys).entry.value).toBe(expected),
+  );
+
+  it('waits for the closing parenthesis before recording a result', () => {
+    const incomplete = run('2*(3+4=');
+    expect(incomplete.completed).toEqual([]);
+    expect(run(')=', incomplete).entry.value).toBe('14');
+  });
+
+  it('ignores a stray close and lets Backspace remove an empty group', () => {
+    const state = run('2+)(');
+    expect(run('3=', act(state, { type: 'backspace' })).entry.value).toBe('5');
+  });
+
+  it('keeps parentheses when restoring a history entry', () => {
+    const result = run('(2+3)*(4+1)=');
+    const restored = act(result, {
+      type: 'restore',
+      payload: result.completed[0]?.payload,
+    });
+    expect(restored.error).toBeNull();
+    expect(run('=', restored).completed.at(-1)?.input).toBe(
+      result.completed[0]?.input,
+    );
+    expect(run('=', restored).entry.value).toBe('25');
+  });
+
+  it('uses the existing error and recovery path for a failure inside a group', () => {
+    const invalid = run('2*(1/0)');
+    expect(invalid.error).toBe('divisionByZero');
+    expect(run('5=', invalid).entry.value).toBe('5');
+  });
+});
 describe('editing, unary operations and failures', () => {
   it('starts at zero with no pending state', () =>
     expect(initialSimpleState()).toMatchObject({
