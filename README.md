@@ -46,3 +46,9 @@ Die Arbeitsregeln stehen in [AGENTS.md](AGENTS.md). Fachverträge gibt es für [
 React 19, TypeScript, Vite, Zustand und CSS Custom Properties. Die Oberfläche orientiert sich an Material 3 Expressive. Roboto Flex, Roboto Mono, Material Symbols und KaTeX-Schriften werden lokal ausgeliefert.
 
 [Lizenzdatei](LICENSE)
+
+## Mitwirkende
+
+[<img src="https://avatars.githubusercontent.com/u/267193182?s=64&v=4" width="32" height="32" alt="Codex-Profilbild">](https://github.com/codex)
+
+[Codex](https://github.com/codex) hat zu diesem Projekt beigetragen.
