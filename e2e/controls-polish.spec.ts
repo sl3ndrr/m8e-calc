@@ -3,6 +3,7 @@ import {
   attach,
   held,
   holdNext,
+  holdRetarget,
   idle,
   installMotionProbe,
   picture,
@@ -203,15 +204,18 @@ for (const theme of ['light', 'dark'] as const) {
       await page.goto('/m8e-calc/#/design');
       await page.getByLabel('Animationsstufe').selectOption(policy);
       const full = policy === 'full' && !os;
-      const switchRow = page.locator(
-        '[data-component="Switch"] [data-state="default"]',
-      );
+      const switchSelector = '[data-component="Switch"] [data-state="default"]';
+      const switchRow = page.locator(switchSelector);
       const input = switchRow.getByRole('switch');
       const track = switchRow.locator('.ui-switch-track');
       const before = await track.evaluate(
         (node) => getComputedStyle(node).backgroundColor,
       );
-      if (full) await holdNext(page, '.ui-switch-track');
+      if (full)
+        await holdRetarget(page, `${switchSelector} .ui-switch-track`, 40, {
+          ancestor: '.ui-switch',
+          attribute: 'data-selected',
+        });
       await input.press('Space');
       await expect(input).toBeChecked();
       await expect(switchRow.locator('.ui-switch')).toHaveAttribute(

@@ -167,18 +167,25 @@ export async function held(page: Page) {
     }));
   });
 }
-/** Capture a CSS retarget in the same native mutation microtask. WebKit can
+/** Capture a CSS transition in the same native mutation microtask. WebKit can
  * defer transitionrun/driver rAF delivery beyond an entire short transition. */
-export async function holdRetarget(page: Page, selector: string, time = 40) {
+export async function holdRetarget(
+  page: Page,
+  selector: string,
+  time = 40,
+  change?: { ancestor: string; attribute: string },
+) {
   await holdNext(page, selector, false, time);
   await page.evaluate(
-    ({ selector, time }) => {
+    ({ selector, time, change }) => {
       const probe = Reflect.get(window, 'ap36Probe') as Probe;
       const node = document.querySelector(selector);
-      if (!node) throw Error('Retarget subject missing');
+      if (!node) throw Error('Transition subject missing');
+      const observed = change ? node.closest(change.ancestor) : node;
+      if (!observed) throw Error('Transition state element missing');
       const existing = new Set(node.getAnimations());
       const observer = new MutationObserver(() => {
-        if (node.matches('[data-exiting], [data-entering]')) return;
+        if (!change && node.matches('[data-exiting], [data-entering]')) return;
         const animations = node.getAnimations().filter((a) => !existing.has(a));
         if (!animations.length) return;
         for (const animation of animations) {
@@ -189,12 +196,14 @@ export async function holdRetarget(page: Page, selector: string, time = 40) {
         observer.disconnect();
       });
       probe.presenceObserver = observer;
-      observer.observe(node, {
+      observer.observe(observed, {
         attributes: true,
-        attributeFilter: ['data-entering', 'data-exiting'],
+        attributeFilter: change
+          ? [change.attribute]
+          : ['data-entering', 'data-exiting'],
       });
     },
-    { selector, time },
+    { selector, time, change },
   );
 }
 export async function resume(page: Page) {
