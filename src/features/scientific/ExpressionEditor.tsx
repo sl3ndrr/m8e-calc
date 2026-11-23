@@ -360,7 +360,7 @@ export default function ExpressionEditor({
                   Math.max(error.range.end, error.range.start),
                 ),
                 severity: 'error',
-                message: t(errorKey(error), locale),
+                message: t(errorKey(error, value), locale),
               },
             ]
           : [],

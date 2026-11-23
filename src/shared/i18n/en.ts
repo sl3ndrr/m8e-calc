@@ -300,6 +300,8 @@ export const en: Dictionary = {
   'scientific.noConstants': 'No matching constants.',
   'scientific.error.E_SYNTAX': 'Enter an expression.',
   'scientific.error.E_INVALID_NUMBER': 'Invalid number.',
+  'scientific.error.missingOperand':
+    'Enter a number or expression after the operator.',
   'scientific.error.E_UNEXPECTED_TOKEN':
     'Unexpected token or incomplete expression.',
   'scientific.error.E_MISSING_PAREN': 'A closing parenthesis is missing.',

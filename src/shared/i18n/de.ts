@@ -306,6 +306,8 @@ export const de = {
   'scientific.noConstants': 'Keine passenden Konstanten.',
   'scientific.error.E_SYNTAX': 'Bitte einen Ausdruck eingeben.',
   'scientific.error.E_INVALID_NUMBER': 'Ungültige Zahl.',
+  'scientific.error.missingOperand':
+    'Gib nach dem Operator eine Zahl oder einen Ausdruck ein.',
   'scientific.error.E_UNEXPECTED_TOKEN':
     'Unerwartetes Zeichen oder unvollständiger Ausdruck.',
   'scientific.error.E_MISSING_PAREN': 'Eine schließende Klammer fehlt.',

@@ -209,7 +209,13 @@ export function definitionSource(
 ): string | null {
   return definitionDetails(environment, name).source;
 }
-export function errorKey(error: EngineError): MessageKey {
+export function errorKey(error: EngineError, source: string): MessageKey {
+  if (
+    error.code === 'E_UNEXPECTED_TOKEN' &&
+    error.range.start === source.length &&
+    /[+*/^−-]\s*$/u.test(source)
+  )
+    return 'scientific.error.missingOperand';
   return `scientific.error.${error.code}`;
 }
 export function constantMatches(
