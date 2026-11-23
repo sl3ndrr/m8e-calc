@@ -81,6 +81,8 @@ it.each([
   ['en', 'numbers'],
   ['de', 'values'],
   ['en', 'values'],
+  ['de', 'definitions and errors'],
+  ['en', 'definitions and errors'],
 ] as const)(
   'WP-08 %s/%s: visible value, full copy and one announcement share formatting',
   async (locale, scenario) => {
@@ -158,7 +160,7 @@ it.each([
           ? '0.14285714285714285714285714285714285714285714285714'
           : '0,14285714285714285714285714285714285714285714285714',
       );
-    } else {
+    } else if (scenario === 'values') {
       act(() =>
         useSettingsStore.setState({
           decimalSeparator: locale === 'de' ? 'point' : 'comma',
@@ -195,6 +197,7 @@ it.each([
           name: t('scientific.fraction', locale),
         }),
       ).toBeDisabled();
+    } else {
       run('factor(12)');
       await check('[2, 2, 3]');
       run('f(x)=x^2');
