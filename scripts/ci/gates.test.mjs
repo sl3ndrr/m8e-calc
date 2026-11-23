@@ -33,7 +33,7 @@ test('actual workflow quality gate names exactly the remaining mandatory jobs', 
   const workflow = readFileSync(
     new URL('../../.github/workflows/ci.yml', import.meta.url),
     'utf8',
-  );
+  ).replaceAll('\r\n', '\n');
   const quality = workflow.split('\n  quality:\n')[1];
   assert.ok(quality);
   const prerequisites = quality
@@ -136,8 +136,14 @@ test('production proof binds all files, source, target, repository and run; reje
     rmSync(join(directory, 'sw.js'));
     assert.throws(() => check());
     writeFileSync(join(directory, 'sw.js'), '// fixture');
-    symlinkSync('index.html', join(directory, 'link'));
-    assert.throws(() => check());
+    // A directory junction exercises lstat's link check on Windows without
+    // requiring Developer Mode or an elevated process.
+    symlinkSync(
+      join(directory, process.platform === 'win32' ? '.vite' : 'index.html'),
+      join(directory, 'link'),
+      process.platform === 'win32' ? 'junction' : 'file',
+    );
+    assert.throws(() => check(), /No symlinks/);
     rmSync(join(directory, 'link'));
     linkSync(join(directory, 'index.html'), join(directory, 'hardlink'));
     assert.throws(() => check());
