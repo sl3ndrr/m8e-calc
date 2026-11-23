@@ -71,6 +71,8 @@ describe('converter adapter', () => {
     expect(state.draft).toEqual({ side: 'to', text: '10,5' });
   });
   it('parses localized numbers, paste grouping and exponents', () => {
+    const tail = '0'.repeat(48) + '12345';
+    expect(parseInput('1,5' + tail, 'de', false)).toBe('1.5' + tail);
     expect(parseInput('1.234,5', 'de', true)).toBe('1234.5');
     expect(parseInput('1,234.5', 'en', true)).toBe('1234.5');
     expect(parseInput('1,5e3', 'de', false)).toBe('1500');

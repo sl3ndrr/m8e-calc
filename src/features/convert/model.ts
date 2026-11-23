@@ -1,4 +1,3 @@
-import { parseLocalizedNumber } from '../../engine';
 import {
   categories,
   convert,
@@ -7,6 +6,7 @@ import {
   formatCompound,
   normalizeUnitText,
   parseQuery,
+  parseUnitNumber,
   UnitError,
   type Category,
   type Unit,
@@ -75,9 +75,7 @@ export function parseInput(
   locale: string,
   grouping: boolean,
 ): string {
-  const parsed = parseLocalizedNumber(text, { locale, grouping });
-  if (!parsed.ok) throw new UnitError('E_UNIT_DOMAIN', 'Invalid input');
-  return parsed.value.value.toString();
+  return parseUnitNumber(text, locale, grouping).toString();
 }
 export const errorCode = (error: unknown): UnitErrorCode =>
   error instanceof UnitError ? error.code : 'E_UNIT_DOMAIN';
