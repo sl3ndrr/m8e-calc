@@ -21,13 +21,17 @@ export function displayNumber(
 ): string {
   const parsed = numberValue(value);
   if (!parsed.ok) return value;
+  // MR and history can restore a full-precision operand into the entry phase.
+  // Only pad fractional zeros for an actual, unrounded keypad-length entry.
+  const typed =
+    editing && !/e/i.test(value) && value.replace(/\D/g, '').length <= 16;
   const formatted = formatNumber(parsed.value, {
     locale: numberLocale(locale, preferences),
     grouping: preferences.grouping,
-    digits: editing ? 16 : 15,
-    notation: editing && !/e/i.test(value) ? 'fixed' : 'auto',
+    digits: typed ? 16 : 15,
+    notation: typed ? 'fixed' : 'auto',
   });
-  if (!editing || /e/i.test(value)) return formatted;
+  if (!typed) return formatted;
   const decimal = numberLocale(locale, preferences).startsWith('de')
     ? ','
     : '.';

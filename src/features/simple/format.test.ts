@@ -19,6 +19,12 @@ it('preserves trailing decimal input', () =>
   expect(displayNumber('1234.', 'de', comma, true)).toBe('1.234,'));
 it('preserves fractional zeros', () =>
   expect(displayNumber('12.300', 'de', comma, true)).toBe('12,300'));
+it('does not append the old fraction to an integer rounded on memory recall', () =>
+  expect(displayNumber('0.' + '9'.repeat(50), 'de', comma, true)).toBe('1'));
+it('does not invent trailing zeros for a recalled repeating decimal', () =>
+  expect(displayNumber('0.' + '3'.repeat(50), 'en', point, true)).toBe(
+    '0.333333333333333',
+  ));
 it('preserves negative zero', () =>
   expect(displayNumber('-0.', 'en', point, true)).toBe('-0.'));
 it('formats 16 typed digits without rounding', () =>

@@ -20,7 +20,7 @@
 
 `formatQuantity` formatiert signifikante Stellen. `formatCompound` verlangt unterschiedliche lineare Einheiten derselben Kategorie in absteigender Reihenfolge mit ganzzahligen Radices. Sie rundet vor der Zerlegung. Der Uhrmodus verwendet Stunden, Minuten und Sekunden ohne 24-Stunden-Grenze.
 
-Der Umrechner bewahrt Rohwerte unabhängig von Anzeigepräzision und Gruppierung. Beim Kopieren aus einer fokussierten Auswahl bleibt die normale Textauswahl nutzbar. Verlauf und Permalink speichern fachliche Werte und Einheiten-IDs.
+Der Umrechner bewahrt Rohwerte unabhängig von Anzeigepräzision und Gruppierung. Zahlenfeld und Schnelleingabe übergeben die ursprünglichen Dezimalstellen an die Einheitenrechnung. Auch `-0 ft 6 in` hat als Gesamtmenge ein negatives Vorzeichen. Beim Kopieren aus einer fokussierten Auswahl bleibt die normale Textauswahl nutzbar. Verlauf und Permalink speichern fachliche Werte und Einheiten-IDs.
 
 ## Katalog pflegen
 

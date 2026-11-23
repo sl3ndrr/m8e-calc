@@ -5,6 +5,7 @@ export {
   convertAll,
   searchUnits,
   parseQuery,
+  parseUnitNumber,
   formatQuantity,
   formatCompound,
   normalizeUnitText,

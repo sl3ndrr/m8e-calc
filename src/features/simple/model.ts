@@ -325,12 +325,15 @@ export function simpleReducer(
     }
     case 'sign': {
       if (state.phase === 'error') return state;
-      const value = state.entry.value.startsWith('-')
-        ? state.entry.value.slice(1)
-        : `-${state.entry.value}`;
-      const next = state.phase === 'result' ? reset(state) : state;
+      const next = state.phase === 'operator' ? editable(state) : state;
+      const value = next.entry.value.startsWith('-')
+        ? next.entry.value.slice(1)
+        : `-${next.entry.value}`;
       // The operand value already reflects percent or unary transforms; negate that exact value.
-      return withEntry(next, operand(value));
+      return withEntry(
+        next.phase === 'result' ? reset(next) : next,
+        operand(value),
+      );
     }
     case 'paste': {
       if (

@@ -15,9 +15,7 @@ import { Icon } from '../../ui/Icon';
 import { Select } from '../../ui/Select';
 import { Slider } from '../../ui/Slider';
 import { TextField } from '../../ui/TextField';
-import { VisuallyHidden } from '../../ui/VisuallyHidden';
 import { snackbarQueue } from '../../ui/snackbarQueue';
-import { useSpring } from '../../ui/useSpring';
 import type { SelectOption } from '../../ui/Select';
 import { t } from '../../shared/i18n/extended';
 import { useAppStore } from '../../shared/store';
@@ -25,11 +23,7 @@ import { useSettingsStore } from '../../shared/settingsStore';
 import { useModeHistory } from '../../shared/useModeHistory';
 import { useHistoryStore } from '../../shared/historyStore';
 import type { HistoryEntry } from '../../shared/history';
-import {
-  convert,
-  type Category,
-  type QuantityFormatOptions,
-} from '../../units';
+import { convert, type Category } from '../../units';
 import {
   categoryFor,
   categoryIndex,
@@ -62,38 +56,6 @@ import {
 import { CopyLinkButton } from '../../app/CopyLinkButton';
 import { readModeLink } from '../../app/permalinks';
 
-function AnimatedNumber({
-  value,
-  unitId,
-  options,
-}: {
-  value: string;
-  unitId: string;
-  options: QuantityFormatOptions;
-}) {
-  const target = Number(value);
-  const animated = useSpring(
-    Number.isFinite(target) ? target : 0,
-    'effects-default',
-  );
-  const final = numericText(value, unitId, options);
-  const text =
-    Number.isFinite(target) &&
-    Math.abs(target) < 1e15 &&
-    Math.abs(animated - target) > Math.max(Math.abs(target), 1) * 1e-8
-      ? numericText(String(animated), unitId, options)
-      : final;
-  return (
-    <output
-      className="convert-result"
-      aria-label={t('convert.result')}
-      aria-live="polite"
-    >
-      <span aria-hidden="true">{text}</span>
-      <VisuallyHidden>{final}</VisuallyHidden>
-    </output>
-  );
-}
 function unitOptions(
   category: Category,
   locale: 'de' | 'en',
@@ -569,11 +531,17 @@ export default function ConvertMode() {
                     unit: unitFor(state.toId).names[locale],
                   })}
                 >
-                  <AnimatedNumber
-                    value={values[state.toId] ?? '0'}
-                    unitId={state.toId}
-                    options={options}
-                  />
+                  <output
+                    className="convert-result"
+                    aria-label={t('convert.result', locale)}
+                    aria-live="polite"
+                  >
+                    {numericText(
+                      values[state.toId] ?? '0',
+                      state.toId,
+                      options,
+                    )}
+                  </output>
                 </NumberRegion>
                 <span>{unitFor(state.toId).symbol}</span>
                 <Button

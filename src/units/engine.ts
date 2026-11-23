@@ -1,5 +1,6 @@
 import type Decimal from 'decimal.js';
-import { formatNumber, parseLocalizedNumber } from '../engine/format.ts';
+import { formatNumber, normalizeLocalizedNumber } from '../engine/format.ts';
+import { numberValue } from '../engine/numeric.ts';
 import { categories } from './catalog.ts';
 import { UDecimal } from './decimal.ts';
 import { UnitError } from './types.ts';
@@ -39,6 +40,19 @@ const finite = (value: Decimal.Value): Decimal => {
   }
   throw new UnitError('E_UNIT_DOMAIN', 'A finite decimal value is required.');
 };
+
+export function parseUnitNumber(
+  text: string,
+  locale: string,
+  grouping = false,
+): Decimal {
+  const source = normalizeLocalizedNumber(text, { locale, grouping });
+  // Keep the input limits of the calculator, but pass the original digits and
+  // sign into unit arithmetic (including a negative zero in a compound).
+  if (!source.ok || !numberValue(source.value).ok)
+    throw new UnitError('E_UNIT_DOMAIN', 'Invalid localized number.');
+  return new UDecimal(source.value);
+}
 
 /** Custom registries extend the engine through local unit definitions. */
 export function createUnitsEngine(registry: readonly Category[]) {
@@ -196,11 +210,14 @@ export function createUnitsEngine(registry: readonly Category[]) {
       throw new UnitError('E_UNIT_QUERY', 'Missing quantity.');
     // A unit can contain digits (m², L/100 km); try the whole suffix first.
     function component(token: string, suffix: string) {
-      const value = parseLocalizedNumber(token, { locale });
-      if (!value.ok)
+      let value: Decimal;
+      try {
+        value = parseUnitNumber(token, locale);
+      } catch {
         throw new UnitError('E_UNIT_QUERY', 'Invalid localized number.');
+      }
       return {
-        value: finite(value.value.value),
+        value,
         unit: resolve(suffix, locale),
       };
     }

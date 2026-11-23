@@ -1,7 +1,7 @@
 import { test, expect, type Response } from '@playwright/test';
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
-import { resolve, extname } from 'node:path';
+import { resolve, extname, sep } from 'node:path';
 
 test('controlled production worker: navigation, fetch, changed build and offline failure', async ({
   page,
@@ -37,7 +37,7 @@ test('controlled production worker: navigation, fetch, changed build and offline
       const root = resolve(`test-results/provenance-builds/${current}`);
       const relative = path.slice('/m8e-calc/'.length) || 'index.html';
       const file = resolve(root, relative);
-      if (!file.startsWith(root + '/')) {
+      if (!file.startsWith(root + sep)) {
         response.writeHead(404).end();
         return;
       }

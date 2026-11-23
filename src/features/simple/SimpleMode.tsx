@@ -304,7 +304,7 @@ export default function SimpleMode() {
         event.key === 'Enter' &&
         event.target instanceof HTMLElement &&
         event.target.closest('button, a') &&
-        !event.target.closest('.keypad-cell')
+        !event.target.closest('.keypad .keypad-cell')
       )
         return;
       event.preventDefault();
@@ -324,7 +324,7 @@ export default function SimpleMode() {
         event.key === 'Enter' &&
         available(event.target) &&
         event.target instanceof HTMLElement &&
-        event.target.closest('.keypad-cell')
+        event.target.closest('.keypad .keypad-cell')
       ) {
         event.preventDefault();
         event.stopPropagation();

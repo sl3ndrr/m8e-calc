@@ -147,6 +147,10 @@ describe('editing, unary operations and failures', () => {
     expect(
       run('5', act(initialSimpleState(), { type: 'sign' })).entry.value,
     ).toBe('-5'));
+  it('starts a signed right operand after an operator', () =>
+    expect(run('2=', act(run('5*'), { type: 'sign' })).entry.value).toBe(
+      '-10',
+    ));
   it('subtracts a signed rhs', () =>
     expect(run('=', act(run('5+3'), { type: 'sign' })).entry.value).toBe('2'));
   it('sqrt positive', () => expect(unary('9', 'sqrt').entry.value).toBe('3'));

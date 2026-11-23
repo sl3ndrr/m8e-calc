@@ -2,6 +2,7 @@ import { expect, it } from 'vitest';
 import {
   createEnvironment,
   execute,
+  parse,
   type ValueFormatOptions,
 } from '../../engine';
 import {
@@ -10,6 +11,7 @@ import {
   definitionSource,
   definitionDetails,
   displayResult,
+  errorKey,
   normalizeDegrees,
   normalizeEnvironment,
   preview,
@@ -18,6 +20,16 @@ import {
 } from './model';
 import { completionEntries } from './registry';
 const options = { angleMode: 'deg', complex: 'off' } as const;
+it.each([
+  ['2+', 'scientific.error.missingOperand'],
+  ['2 * ', 'scientific.error.missingOperand'],
+  ['2+*3', 'scientific.error.E_UNEXPECTED_TOKEN'],
+  ['(2+3', 'scientific.error.E_MISSING_PAREN'],
+])('selects the correction for %s at the reported position', (source, key) => {
+  const parsed = parse(source);
+  if (parsed.ok) throw new Error('Expected an invalid expression');
+  expect(errorKey(parsed.error, source)).toBe(key);
+});
 it.each([
   ['de', 'auto', true, '1234567.89', 'auto', 15, false, '1.234.567,89'],
   ['en', 'auto', true, '1234567.89', 'auto', 15, false, '1,234,567.89'],

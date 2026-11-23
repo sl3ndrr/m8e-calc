@@ -36,6 +36,8 @@ describe.each(['de', 'en'])('conversion query boundaries in %s', (locale) => {
     ['1 in -> cm', '2.54'],
     ['3 ft 4 in → cm', '101.6'],
     ['-3 ft 4 in to cm', '-101.6'],
+    ['-0 ft 6 in to cm', '-15.24'],
+    ['−0 ft 6 in to cm', '-15.24'],
   ])(
     'converts %s to the independently known centimetre value',
     (text, want) => {
@@ -86,6 +88,10 @@ describe.each(['de', 'en'])('conversion query boundaries in %s', (locale) => {
       ['3 ft -4 in to cm', 'E_UNIT_COMPOUND'],
       ['3 ft 4 s nach cm', 'E_UNIT_COMPOUND'],
       ['-1 K in °C', 'E_UNIT_DOMAIN'],
+      [
+        `-273${locale === 'de' ? ',' : '.'}15${'0'.repeat(47)}1 °C to K`,
+        'E_UNIT_DOMAIN',
+      ],
       ['0 L/100 km to mpg US', 'E_UNIT_DOMAIN'],
     ] as const)
       expect(() => parseQuery(text, locale)).toThrow(

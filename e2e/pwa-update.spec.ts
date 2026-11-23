@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { createServer } from 'node:http';
 import { readFile, writeFile } from 'node:fs/promises';
-import { resolve, extname } from 'node:path';
+import { resolve, extname, sep } from 'node:path';
 import { qaModes, ready } from './qa-setup';
 
 // A controlled previous SW revision, not a claim about an old deployed build.
@@ -29,7 +29,7 @@ for (const initialMode of qaModes) {
         }
         const relative = path.slice('/m8e-calc/'.length) || 'index.html';
         const file = resolve(root, relative);
-        if (!file.startsWith(root + '/')) {
+        if (!file.startsWith(root + sep)) {
           response.writeHead(404).end();
           return;
         }

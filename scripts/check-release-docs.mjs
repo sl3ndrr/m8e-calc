@@ -1,5 +1,5 @@
 import { access, glob, readFile } from 'node:fs/promises';
-import { dirname, resolve } from 'node:path';
+import { dirname, resolve, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 export async function checkDocuments(root = '.') {
@@ -8,7 +8,7 @@ export async function checkDocuments(root = '.') {
   );
   const documents = ['README.md', 'CHANGELOG.md', 'AGENTS.md'];
   for await (const file of glob('{docs,src,.github}/**/*.md', { cwd: root }))
-    documents.push(file);
+    documents.push(file.split(sep).join('/'));
 
   const failures = [];
   let links = 0;

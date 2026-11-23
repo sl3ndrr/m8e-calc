@@ -210,7 +210,7 @@ export default function ScientificMode() {
   // One announcement channel owns preview, work, error and committed result.
   // A preview of the just-committed expression must not announce it a second time.
   const announcement = error
-    ? `${t(errorKey(error), locale)} (${error.range.start + 1})`
+    ? `${t(errorKey(error, expression), locale)} (${error.range.start + 1})`
     : workMessage
       ? t(`scientific.work.${workMessage}`, locale)
       : busy && busy !== 'preview'
@@ -317,7 +317,7 @@ export default function ScientificMode() {
           return;
         if (response.status === 'error') {
           if (kind === 'store')
-            setStoreError(t(errorKey(response.error), locale));
+            setStoreError(t(errorKey(response.error, source), locale));
           else if (input === inputRevision.current) setError(response.error);
           return;
         }
@@ -538,7 +538,7 @@ export default function ScientificMode() {
                 role="alert"
                 aria-live="off"
               >
-                {t(errorKey(error), locale)}{' '}
+                {t(errorKey(error, expression), locale)}{' '}
                 <span>({error.range.start + 1})</span>
               </p>
             )}

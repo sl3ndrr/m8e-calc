@@ -116,10 +116,10 @@ export function formatNumber(
 }
 
 /** A single localized numeric field, never a whole calculator expression. */
-export function parseLocalizedNumber(
+export function normalizeLocalizedNumber(
   src: string,
   options: LocalizedNumberOptions = {},
-): Result<NumberValue, FormatError> {
+): Result<string, FormatError> {
   const range = { start: 0, end: src.length };
   const invalid = (): Result<never, FormatError> => ({
     ok: false,
@@ -170,12 +170,29 @@ export function parseLocalizedNumber(
       (exponent === undefined ? '' : 'e' + exponent);
     if (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/u.test(normalized))
       return invalid();
-    const parsed = checkedNumber(normalized, range);
-    if (parsed.ok) return parsed;
-    return parsed.error.code === 'E_OVERFLOW'
-      ? { ok: false, error: { code: 'E_OVERFLOW', range } }
-      : invalid();
+    return { ok: true, value: normalized };
   } catch {
     return invalid();
   }
+}
+
+export function parseLocalizedNumber(
+  src: string,
+  options: LocalizedNumberOptions = {},
+): Result<NumberValue, FormatError> {
+  const normalized = normalizeLocalizedNumber(src, options);
+  if (!normalized.ok) return normalized;
+  const range = { start: 0, end: src.length };
+  const parsed = checkedNumber(normalized.value, range);
+  if (parsed.ok) return parsed;
+  return {
+    ok: false,
+    error: {
+      code:
+        parsed.error.code === 'E_OVERFLOW'
+          ? 'E_OVERFLOW'
+          : 'E_INVALID_LOCALIZED_NUMBER',
+      range,
+    },
+  };
 }

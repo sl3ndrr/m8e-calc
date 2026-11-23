@@ -6,7 +6,7 @@ import { runInNewContext } from 'node:vm';
 const workflow = readFileSync(
   new URL('../../.github/workflows/ci.yml', import.meta.url),
   'utf8',
-);
+).replaceAll('\r\n', '\n');
 const deploy = workflow.split('\n  deploy:\n')[1];
 assert.ok(deploy, 'Production deployment job exists');
 const expression = deploy
