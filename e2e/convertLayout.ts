@@ -66,9 +66,7 @@ export async function converterGeometry(page: Page) {
       );
     });
     const numbers = Array.from(
-      root.querySelectorAll(
-        '.convert-unit-card strong, .convert-result > [aria-hidden="true"]',
-      ),
+      root.querySelectorAll('.convert-unit-card strong, .convert-result'),
     ).map((node) => {
       const range = document.createRange();
       range.selectNodeContents(node);
@@ -277,19 +275,17 @@ export async function checkConverterScrollAndCopy(
     .poll(() => main.evaluate((node) => node.scrollLeft))
     .toBe(mainEnd);
   const mainEdge = async (key: 'Home' | 'End') =>
-    main
-      .locator('.convert-result > [aria-hidden="true"]')
-      .evaluate((node, key) => {
-        const viewport = node.closest('.convert-number-scroll');
-        if (!viewport) throw new Error('Missing main number viewport');
-        const range = document.createRange();
-        range.selectNodeContents(node);
-        const text = range.getBoundingClientRect();
-        const bounds = viewport.getBoundingClientRect();
-        return key === 'Home'
-          ? text.left >= bounds.left && text.left < bounds.right
-          : text.right <= bounds.right && text.right > bounds.left;
-      }, key);
+    main.locator('.convert-result').evaluate((node, key) => {
+      const viewport = node.closest('.convert-number-scroll');
+      if (!viewport) throw new Error('Missing main number viewport');
+      const range = document.createRange();
+      range.selectNodeContents(node);
+      const text = range.getBoundingClientRect();
+      const bounds = viewport.getBoundingClientRect();
+      return key === 'Home'
+        ? text.left >= bounds.left && text.left < bounds.right
+        : text.right <= bounds.right && text.right > bounds.left;
+    }, key);
   expect(await mainEdge('End'), 'main exponent end reachable').toBe(true);
   await main.press('Home');
   await expect.poll(() => main.evaluate((node) => node.scrollLeft)).toBe(0);

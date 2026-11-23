@@ -17,6 +17,39 @@ test.beforeEach(async ({ page }) => {
   await page.locator('.convert-mode').waitFor();
 });
 for (const locale of ['de', 'en'] as const) {
+  test(`small conversions show the same result with full motion (${locale})`, async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+    await page.evaluate(
+      (language) =>
+        localStorage.setItem(
+          'm8e-calc.settings',
+          JSON.stringify({
+            version: 5,
+            state: { language, motionLevel: 'full' },
+          }),
+        ),
+      locale,
+    );
+    await page.reload();
+    const quick = page.getByRole('textbox', {
+      name: t('convert.quick', locale),
+      exact: true,
+    });
+    const value = locale === 'de' ? '0,00001' : '0.00001';
+    await quick.fill(`${value} m to m`);
+    await quick.press('Enter');
+    await expect(
+      page.getByRole('textbox', { name: t('convert.to', locale), exact: true }),
+    ).toHaveValue(value);
+    await expect(
+      page.getByRole('status', {
+        name: t('convert.result', locale),
+        exact: true,
+      }),
+    ).toHaveText(value);
+  });
   test(`WP06 inch quickinput and controlled ambiguity (${locale})`, async ({
     page,
   }) => {
