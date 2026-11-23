@@ -1,13 +1,23 @@
 import { compressLink, decompressLink } from '../shared/linkCodec';
 import { isModeId, type ModeId } from '../shared/modes';
-import type { SimpleState, RestorePayload } from '../features/simple/model';
+import type {
+  GroupFrame,
+  SimpleState,
+  RestorePayload,
+} from '../features/simple/model';
 import type { UnitPair } from '../features/convert/model';
 import type { PlotSet } from '../features/graph/model';
 import type { AngleMode } from '../engine';
-export interface SimpleLink extends RestorePayload {
+export interface SimpleLinkV1 extends RestorePayload {
   phase: SimpleState['phase'];
   expression: string;
 }
+export interface SimpleLinkV2 {
+  version: 2;
+  active: GroupFrame;
+  groups: GroupFrame[];
+}
+export type SimpleLink = SimpleLinkV1 | SimpleLinkV2;
 export interface ModeLinks {
   simple: SimpleLink;
   scientific: { expression: string; angleMode: AngleMode };

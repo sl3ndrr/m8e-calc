@@ -1,6 +1,7 @@
 import { allowClipboard } from './clipboard';
 import { expect, test, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { compressLink } from '../src/shared/linkCodec';
 async function copiedLink(page: Page): Promise<string> {
   await page.getByRole('button', { name: 'Link teilen', exact: true }).click();
   const url = await page.evaluate(() => navigator.clipboard.readText());
@@ -73,16 +74,117 @@ test('palette: focus, fuzzy search, arrows, Enter, Escape and conversion preview
 });
 test('simple permalink restores the editable pending expression', async ({
   page,
+  browser,
+  baseURL,
 }) => {
   await page.goto('/m8e-calc/#/simple');
   await page.locator('.simple-calculator').waitFor();
   await page.keyboard.type('12+3');
   const expression = await page.locator('.calculator-expression').innerText();
   const url = await copiedLink(page);
-  await page.goto(url);
-  await expect(page.locator('.calculator-expression')).toHaveText(expression);
-  await page.getByRole('button', { name: 'Ergebnis berechnen' }).click();
-  await expect(page.locator('.calculator-announcement')).toHaveText('15');
+  const fresh = await browser.newContext({ baseURL, locale: 'de-DE' });
+  try {
+    const restored = await fresh.newPage();
+    await restored.goto(url);
+    await expect(restored.locator('.calculator-expression')).toHaveText(
+      expression,
+    );
+    await restored.getByRole('button', { name: 'Ergebnis berechnen' }).click();
+    await expect(restored.locator('.calculator-announcement')).toHaveText('15');
+  } finally {
+    await fresh.close();
+  }
+});
+for (const { input, expression, close, result } of [
+  { input: '2*(3+4', expression: '2 × (3 + 4', close: ')', result: '14' },
+  {
+    input: '2*(3+(4*5',
+    expression: '2 × (3 + (4 × 5',
+    close: '))',
+    result: '46',
+  },
+]) {
+  test(`simple permalink keeps open groups editable: ${input}`, async ({
+    page,
+    browser,
+    baseURL,
+  }, info) => {
+    await page.goto('/m8e-calc/#/simple');
+    await page.locator('.simple-calculator').waitFor();
+    await page.keyboard.type(input);
+    const sourceExpression = page.locator('.calculator-expression');
+    await expect(sourceExpression).toHaveText(expression);
+    const sourceUrl = page.url();
+    const url = await copiedLink(page);
+    expect(page.url()).toBe(sourceUrl);
+    await expect(sourceExpression).toHaveText(expression);
+
+    const fresh = await browser.newContext({ baseURL, locale: 'de-DE' });
+    try {
+      const restored = await fresh.newPage();
+      await restored.goto(url);
+      const restoredExpression = restored.locator('.calculator-expression');
+      await restoredExpression.waitFor();
+      await restored.locator('.simple-calculator').screenshot({
+        path: info.outputPath('restored-draft.png'),
+      });
+      await expect(restoredExpression).toHaveText(expression);
+      for (const calculator of [restored, page]) {
+        await calculator.keyboard.type(`${close}=`);
+        await expect(calculator.locator('.calculator-announcement')).toHaveText(
+          result,
+        );
+      }
+      await restored.locator('.simple-calculator').screenshot({
+        path: info.outputPath('restored-result.png'),
+      });
+    } finally {
+      await fresh.close();
+    }
+  });
+}
+test('invalid Simple group payload leaves the calculator ready for input', async ({
+  page,
+}) => {
+  const payload = compressLink(
+    JSON.stringify({
+      version: 2,
+      active: {
+        phase: 'entry',
+        entry: { value: '4', expression: '4' },
+        accumulator: '3',
+        operator: '+',
+        leftExpression: '3',
+        expression: '3 + 4',
+      },
+      groups: [null],
+    }),
+  );
+  await page.goto(`/m8e-calc/#/simple?v=1&s=${payload}`);
+  await expect(page.locator('.calculator-expression')).toBeEmpty();
+  await expect(page.locator('.calculator-announcement')).toHaveText('0');
+  await page.keyboard.type('2+3=');
+  await expect(page.locator('.calculator-announcement')).toHaveText('5');
+});
+test('sharing an oversized Simple group stack preserves the clipboard', async ({
+  page,
+}) => {
+  await page.goto('/m8e-calc/#/simple');
+  await page.locator('.simple-calculator').waitFor();
+  await page.evaluate(() =>
+    navigator.clipboard.writeText('previous clipboard'),
+  );
+  await page.keyboard.type('('.repeat(129) + '1');
+  const expression = page.locator('.calculator-expression');
+  await expect(expression).toHaveText('('.repeat(129) + '1');
+  await page.getByRole('button', { name: 'Link teilen', exact: true }).click();
+  await expect(
+    page.getByText(/Link konnte nicht kopiert werden/),
+  ).toBeVisible();
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
+    'previous clipboard',
+  );
+  await expect(expression).toHaveText('('.repeat(129) + '1');
 });
 test('scientific permalink restores expression and angle without executing a definition', async ({
   page,
