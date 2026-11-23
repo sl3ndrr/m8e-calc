@@ -64,6 +64,21 @@ test('keyboard editing, clear-entry and error recovery', async ({ page }) => {
   await page.keyboard.type('5=');
   await expect(result(page)).toHaveText('5');
 });
+test('Tab and Enter store and recall without executing equals', async ({
+  page,
+}) => {
+  await page.keyboard.type('42');
+  await page.locator('[data-key="M-"] button').focus();
+  await page.keyboard.press('Tab');
+  await expect(page.locator('[data-key="MS"] button')).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('[data-key="MR"] button')).toBeEnabled();
+  await page.keyboard.press('Escape');
+  await expect(result(page)).toHaveText('0');
+  await page.locator('[data-key="MR"] button').press('Enter');
+  await expect(result(page)).toHaveText('42');
+  await expect(page.locator('.calculator-expression')).not.toContainText('=');
+});
 test('keyboard presses light the matching key', async ({ page }) => {
   await page.keyboard.down('7');
   await expect(page.locator('[data-key="7"]')).toHaveAttribute(
