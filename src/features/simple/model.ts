@@ -23,7 +23,7 @@ export interface RestorePayload {
   operator: Operator | null;
   leftExpression?: string;
 }
-interface GroupFrame {
+export interface GroupFrame {
   phase: 'entry' | 'operator' | 'result' | 'error';
   entry: Operand;
   accumulator: string | null;
@@ -154,17 +154,28 @@ function validNumber(value: unknown): value is string {
 function isOperator(value: unknown): value is Operator {
   return value === '+' || value === '-' || value === '*' || value === '/';
 }
+// Group snapshots only contain source emitted by the Simple keypad.
+const simpleSource = /^(?:[0-9.eE+*/^%() -]|sqrt)+$/;
+
 /** Versioned history snapshots contain the editable operands before equals, never display rounding. */
 export function validateRestore(payload: unknown): RestorePayload | null {
   if (typeof payload !== 'object' || payload === null) return null;
   const p = payload as Record<string, unknown>;
-  if (p.version !== 1 || typeof p.entry !== 'object' || p.entry === null)
-    return null;
+  if (p.version !== 1) return null;
+  const operands = validateOperands(p);
+  return operands && { version: 1, ...operands };
+}
+function validateOperands(
+  p: Record<string, unknown>,
+  groupPhase?: 'entry' | 'operator',
+): Omit<RestorePayload, 'version'> | null {
+  if (typeof p.entry !== 'object' || p.entry === null) return null;
   const e = p.entry as Record<string, unknown>;
   if (
     !validNumber(e.value) ||
     typeof e.expression !== 'string' ||
-    e.expression.length > 4000
+    e.expression.length > 4000 ||
+    (groupPhase !== undefined && !simpleSource.test(e.expression))
   )
     return null;
   if (
@@ -173,12 +184,13 @@ export function validateRestore(payload: unknown): RestorePayload | null {
   )
     return null;
   if ((p.operator === null) !== (p.accumulator === null)) return null;
-  const { leftExpression } = p;
+  const leftExpression = p.leftExpression;
   if (leftExpression !== undefined) {
     if (
       typeof leftExpression !== 'string' ||
       leftExpression.length > 4000 ||
-      p.accumulator === null
+      p.accumulator === null ||
+      (groupPhase !== undefined && !simpleSource.test(leftExpression))
     )
       return null;
     const left = calculate(leftExpression);
@@ -190,10 +202,14 @@ export function validateRestore(payload: unknown): RestorePayload | null {
     )
       return null;
   }
-  const check = operandAmount(
-    { accumulator: p.accumulator, operator: p.operator },
-    e.expression,
-  );
+  // In operator phase the displayed entry predates the newly selected operator.
+  const check =
+    groupPhase === 'operator'
+      ? calculate(e.expression)
+      : operandAmount(
+          { accumulator: p.accumulator, operator: p.operator },
+          e.expression,
+        );
   const numeric = numberValue(e.value);
   if (
     'error' in check ||
@@ -202,12 +218,37 @@ export function validateRestore(payload: unknown): RestorePayload | null {
   )
     return null;
   return {
-    version: 1,
     entry: { value: e.value, expression: e.expression },
     accumulator: p.accumulator,
     operator: p.operator,
     ...(leftExpression !== undefined && { leftExpression }),
   };
+}
+export function validateGroupFrame(value: unknown): GroupFrame | null {
+  if (typeof value !== 'object' || value === null) return null;
+  const p = value as Record<string, unknown>;
+  const { expression, phase } = p;
+  if (
+    (phase !== 'entry' && phase !== 'operator') ||
+    typeof expression !== 'string' ||
+    expression.length > 4000
+  )
+    return null;
+  const operands = validateOperands(
+    {
+      ...p,
+      leftExpression: p.leftExpression === null ? undefined : p.leftExpression,
+    },
+    phase,
+  );
+  return (
+    operands && {
+      ...operands,
+      leftExpression: operands.leftExpression ?? null,
+      expression,
+      phase,
+    }
+  );
 }
 function binary(
   state: SimpleState,
@@ -227,6 +268,12 @@ export function simpleExpression(state: SimpleState): string {
   const entry = state.phase === 'entry' ? state.entry.expression : '';
   return prefix + (state.expression || entry);
 }
+export function canOpenGroup(frame: GroupFrame): boolean {
+  return (
+    frame.phase === 'operator' ||
+    (frame.phase === 'entry' && frame.entry.value === '0' && !frame.expression)
+  );
+}
 function parenthesis(state: SimpleState, key: '(' | ')'): SimpleState {
   const parent = state.groups.at(-1);
   if (key === ')') {
@@ -243,8 +290,7 @@ function parenthesis(state: SimpleState, key: '(' | ')'): SimpleState {
 
   const fresh = state.phase === 'result' || state.phase === 'error';
   const next = fresh ? reset(state) : state;
-  const hasEntry = next.entry.value !== '0' || next.expression;
-  if (next.phase !== 'operator' && hasEntry) return fail(state, 'invalid');
+  if (!canOpenGroup(next)) return fail(state, 'invalid');
 
   const frame: GroupFrame = {
     phase: next.phase,

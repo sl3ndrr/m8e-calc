@@ -391,7 +391,7 @@ export default function SimpleMode() {
         >
           {state.memory !== null ? 'M' : ''}
         </span>
-        <CopyLinkButton mode="simple" data={simpleLink(state)} />
+        <CopyLinkButton mode="simple" data={() => simpleLink(state)} />
       </div>
       <CalculatorDisplay
         value={displayed}
