@@ -10,8 +10,76 @@ concurrency:
   # Serialize main through deployment. PR updates may cancel obsolete checks.
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
+  promotion:
+    name: Reuse approved PR artifact
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'sl3ndrr/m8e-calc' }}
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      pull-requests: read
+    outputs:
+      artifact-id: ${{ steps.upload.outcome == 'success' && steps.upload.outputs.artifact-id || '' }}
+      artifact-name: ${{ steps.upload.outcome == 'success' && format('pages-promoted-{0}-{1}', github.run_id, github.run_attempt) || '' }}
+      tar-sha256: ${{ steps.upload.outcome == 'success' && steps.verify.outputs.tar-sha256 || '' }}
+      source-commit: ${{ steps.upload.outcome == 'success' && steps.verify.outputs.source-commit || '' }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - name: Find the successful PR attempt and compare Git trees
+        id: discover
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/ci/pages-promotion.mjs discover "$RUNNER_TEMP/pages-expected.json"
+      - name: Download the Quality gate approval
+        id: approval
+        if: ${{ steps.discover.outcome == 'success' }}
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          github-token: ${{ github.token }}
+          run-id: ${{ steps.discover.outputs.run-id }}
+          artifact-ids: ${{ steps.discover.outputs.approval-id }}
+          path: ${{ runner.temp }}/pages-approval
+      - name: Download the approved archive by ID
+        id: archive
+        if: ${{ steps.approval.outcome == 'success' }}
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          github-token: ${{ github.token }}
+          run-id: ${{ steps.discover.outputs.run-id }}
+          artifact-ids: ${{ steps.discover.outputs.pages-id }}
+          path: ${{ runner.temp }}/pages-artifact
+      - name: Verify the approval and exact Pages archive
+        id: verify
+        if: ${{ steps.archive.outcome == 'success' }}
+        continue-on-error: true
+        run: |
+          node scripts/ci/pages-promotion.mjs verify "$RUNNER_TEMP/pages-expected.json" \
+            "$RUNNER_TEMP/pages-approval/approval.json" "$RUNNER_TEMP/pages-artifact/artifact.tar"
+      - name: Upload the same archive for this Pages workflow run
+        id: upload
+        if: ${{ steps.verify.outcome == 'success' }}
+        continue-on-error: true
+        uses: actions/upload-artifact@v7
+        with:
+          name: pages-promoted-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/pages-artifact/artifact.tar
+          if-no-files-found: error
+          retention-days: 14
+      - name: Record full CI fallback
+        if: ${{ !cancelled() && steps.upload.outcome != 'success' }}
+        run: echo 'No verified PR archive was uploaded. Running full CI on main.' >> "$GITHUB_STEP_SUMMARY"
   gate-tests:
     name: Pipeline contract tests
+    needs: promotion
+    if: ${{ !cancelled() && (needs.promotion.result != 'success' || needs.promotion.outputs.artifact-id == '') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -31,6 +99,8 @@ jobs:
         run: go run github.com/rhysd/actionlint/cmd/actionlint@v1.7.7 -color
   node-minimum:
     name: Node 24 minimum
+    needs: promotion
+    if: ${{ !cancelled() && (needs.promotion.result != 'success' || needs.promotion.outputs.artifact-id == '') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -45,6 +115,8 @@ jobs:
       - run: npm run check
   build:
     name: Production build
+    needs: promotion
+    if: ${{ !cancelled() && (needs.promotion.result != 'success' || needs.promotion.outputs.artifact-id == '') }}
     runs-on: ubuntu-latest
     outputs:
       artifact-id: ${{ steps.upload.outputs.artifact-id }}
@@ -224,7 +296,8 @@ jobs:
           retention-days: 14
   quality:
     name: Quality gate
-    if: ${{ always() }}
+    # The full gate keeps its existing checks and PR status name.
+    if: ${{ always() && (github.event_name == 'pull_request' || needs.build.result != 'skipped') }}
     needs:
       [
         build,
@@ -252,13 +325,31 @@ jobs:
         run: |
           echo "$NEEDS"
           node scripts/ci/quality-status.mjs quality
+      - name: Record the approved PR archive
+        id: approval
+        if: >-
+          ${{ github.event_name == 'pull_request' && github.repository == 'sl3ndrr/m8e-calc' &&
+              github.base_ref == 'main' && github.event.pull_request.head.repo.full_name == github.repository }}
+        env:
+          PAGES_ARTIFACT_ID: ${{ needs.pages-package.outputs.artifact-id }}
+          PAGES_ARTIFACT_NAME: ${{ needs.pages-package.outputs.artifact-name }}
+          PAGES_TAR_SHA256: ${{ needs.pages-package.outputs.tar-sha256 }}
+        run: node scripts/ci/pages-promotion.mjs approve "$RUNNER_TEMP/approval.json"
+      - uses: actions/upload-artifact@v7
+        if: ${{ steps.approval.outcome == 'success' }}
+        with:
+          name: pages-approval-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/approval.json
+          if-no-files-found: error
+          retention-days: 14
   deploy:
     name: Deploy Pages
-    needs: [quality, pages-package]
+    needs: [promotion, quality, pages-package]
     if: >-
       ${{ !cancelled() && github.event_name == 'push' && github.ref == 'refs/heads/main' &&
-          github.repository == 'sl3ndrr/m8e-calc' && needs.quality.result == 'success' &&
-          needs.pages-package.result == 'success' }}
+          github.repository == 'sl3ndrr/m8e-calc' &&
+          ((needs.promotion.result == 'success' && needs.promotion.outputs.artifact-id != '') ||
+           (needs.quality.result == 'success' && needs.pages-package.result == 'success')) }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -281,11 +372,11 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           merge-multiple: true
-          artifact-ids: ${{ needs.pages-package.outputs.artifact-id }}
+          artifact-ids: ${{ needs.promotion.result == 'success' && needs.promotion.outputs.artifact-id || needs.pages-package.outputs.artifact-id }}
           path: ${{ runner.temp }}/pages-upload
       - name: Verify the exact upload archive
         env:
-          EXPECTED_TAR_SHA256: ${{ needs.pages-package.outputs.tar-sha256 }}
+          EXPECTED_TAR_SHA256: ${{ needs.promotion.result == 'success' && needs.promotion.outputs.tar-sha256 || needs.pages-package.outputs.tar-sha256 }}
         run: |
           test "${#EXPECTED_TAR_SHA256}" -eq 64
           echo "$EXPECTED_TAR_SHA256  $RUNNER_TEMP/pages-upload/artifact.tar" | sha256sum --check
@@ -293,8 +384,10 @@ jobs:
       - name: Reject superseded main or any non-production context
         env:
           GH_TOKEN: ${{ github.token }}
-          QUALITY_RESULT: ${{ needs.quality.result }}
+          QUALITY_RESULT: ${{ needs.promotion.result == 'success' && needs.promotion.outputs.artifact-id != '' && 'success' || needs.quality.result }}
+          SOURCE_COMMIT: ${{ needs.promotion.result == 'success' && needs.promotion.outputs.source-commit || github.sha }}
         run: |
+          printf 'Checked build SHA: `%s`\n\nPublication main SHA: `%s`\n' "$SOURCE_COMMIT" "$GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
           export LATEST_MAIN
           LATEST_MAIN=$(gh api repos/sl3ndrr/m8e-calc/git/ref/heads/main --jq .object.sha)
           node scripts/ci/quality-status.mjs publish
@@ -302,4 +395,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v5
         with:
-          artifact_name: ${{ needs.pages-package.outputs.artifact-name }}
+          artifact_name: ${{ needs.promotion.result == 'success' && needs.promotion.outputs.artifact-name || needs.pages-package.outputs.artifact-name }}

@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+export const productionRepository = 'sl3ndrr/m8e-calc';
+
 export const required = [
   'build',
   'gate-tests',
@@ -26,7 +28,7 @@ export function assertSuccessful(needs, jobs = required) {
 
 export function assertPublication(context, latest, quality) {
   assert.equal(quality, 'success', 'Quality must succeed');
-  assert.equal(context.GITHUB_REPOSITORY, 'sl3ndrr/m8e-calc');
+  assert.equal(context.GITHUB_REPOSITORY, productionRepository);
   assert.equal(context.GITHUB_EVENT_NAME, 'push');
   assert.equal(context.GITHUB_REF, 'refs/heads/main');
   assert.match(context.GITHUB_SHA, /^[a-f0-9]{40}$/);
