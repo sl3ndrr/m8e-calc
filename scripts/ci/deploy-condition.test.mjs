@@ -7,18 +7,35 @@ const workflow = readFileSync(
   new URL('../../.github/workflows/ci.yml', import.meta.url),
   'utf8',
 ).replaceAll('\r\n', '\n');
-const deploy = workflow.split('\n  deploy:\n')[1];
-assert.ok(deploy, 'Production deployment job exists');
-const expression = deploy
-  .match(/\n {4}if: >-\n([\s\S]*?)\n {4}runs-on:/)[1]
-  .trim()
-  .replace(/^\$\{\{\s*|\s*\}\}$/g, '')
-  .replace(/\bneeds\.([\w-]+)/g, (_, id) => `needs[${JSON.stringify(id)}]`);
+function condition(job) {
+  const section = workflow
+    .split(`\n  ${job}:\n`)[1]
+    ?.split(/\n {2}[\w-]+:\n/, 1)[0];
+  assert.ok(section, `${job} exists`);
+  const expression =
+    section.match(/\n {4}if: (?:>-\n *)?\$\{\{([\s\S]*?)\}\}/)?.[1] ?? 'true';
+  return expression
+    .trim()
+    .replace(/\.([\w-]*-[\w-]+)\b/g, (_, id) => `[${JSON.stringify(id)}]`);
+}
 
-function eligible(overrides = {}) {
-  const { quality, artifact, cancelled, github, ancestors } = {
+function eligible(overrides = {}, job = 'deploy') {
+  const expression = condition(job);
+  const {
+    quality,
+    artifact,
+    build,
+    promotion,
+    promotedId,
+    cancelled,
+    github,
+    ancestors,
+  } = {
     quality: 'success',
     artifact: 'success',
+    build: 'success',
+    promotion: 'skipped',
+    promotedId: '',
     cancelled: false,
     github: {},
     ancestors: ['success', 'skipped'],
@@ -39,10 +56,13 @@ function eligible(overrides = {}) {
       ...github,
     },
     needs: {
+      build: { result: build },
+      promotion: { result: promotion, outputs: { 'artifact-id': promotedId } },
       quality: { result: quality },
       'pages-package': { result: artifact },
     },
     cancelled: () => cancelled,
+    always: () => true,
   });
 }
 
@@ -64,5 +84,73 @@ test('actual deploy condition denies cancellation, bad prerequisites and foreign
     { ref: 'refs/heads/feature' },
     { repository: 'fork/m8e-calc' },
   ])
-    assert.equal(eligible({ github, ancestors }), false);
+    for (const promotion of ['skipped', 'success'])
+      assert.equal(
+        eligible({ github, ancestors, promotion, promotedId: '56' }),
+        false,
+      );
+});
+
+test('a verified upload skips duplicate checks and is the only other route to Pages', () => {
+  const promoted = {
+    promotion: 'success',
+    promotedId: '56',
+    build: 'skipped',
+    quality: 'skipped',
+    artifact: 'skipped',
+  };
+  const roots = ['gate-tests', 'node-minimum', 'build'];
+  for (const job of [...roots, 'quality'])
+    assert.equal(eligible(promoted, job), false);
+  assert.equal(eligible(promoted), true);
+  assert.equal(eligible({ ...promoted, cancelled: true }), false);
+
+  for (const fallback of [
+    { ...promoted, promotedId: '' },
+    { ...promoted, promotion: 'failure' },
+    { ...promoted, promotion: 'skipped' },
+  ]) {
+    for (const job of roots) assert.equal(eligible(fallback, job), true);
+    assert.equal(eligible({ ...fallback, build: 'success' }, 'quality'), true);
+    assert.equal(eligible(fallback), false);
+    assert.equal(
+      eligible({ ...fallback, quality: 'success', artifact: 'success' }),
+      true,
+    );
+  }
+  for (const job of [...roots, 'quality'])
+    assert.equal(
+      eligible({ github: { event_name: 'pull_request' } }, job),
+      true,
+    );
+});
+
+test('all build consumers run after a successful PR or fallback build', () => {
+  const consumers = [
+    'qa',
+    'provenance',
+    'release-assets',
+    'graph-performance',
+    'gallery',
+    'pages-package',
+  ];
+  const pullRequest = {
+    github: { event_name: 'pull_request' },
+    ancestors: ['skipped', 'success'],
+  };
+  const fallback = { promotion: 'failure', ancestors: ['failure', 'success'] };
+  for (const job of consumers) {
+    assert.equal(eligible(pullRequest, job), true, `${job} must run on a PR`);
+    assert.equal(
+      eligible(fallback, job),
+      true,
+      `${job} must run after fallback`,
+    );
+    assert.equal(eligible({ ...pullRequest, cancelled: true }, job), false);
+    for (const build of ['failure', 'skipped', 'cancelled'])
+      assert.equal(
+        eligible({ ...fallback, build, ancestors: ['failure', build] }, job),
+        false,
+      );
+  }
 });
