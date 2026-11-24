@@ -750,11 +750,9 @@ export default function GraphCanvas({ ref: forwardedRef, ...props }: Props) {
         if (!animation) presentation.finishReveals();
         if (!animation && moving) setView(target, false);
         const restored = next.restoreToken !== old.restoreToken;
-        if (
-          restored ||
-          (JSON.stringify(next.bounds) !== JSON.stringify(old.bounds) &&
-            JSON.stringify(next.bounds) !== JSON.stringify(target.bounds))
-        ) {
+        // An onView snapshot can reach React after a newer target was set.
+        // A restore is the only update that supplies bounds to the controller.
+        if (restored) {
           changeView(
             () =>
               new Viewport(next.bounds, viewport.pixelSize, {
