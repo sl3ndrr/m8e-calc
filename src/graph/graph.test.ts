@@ -244,6 +244,73 @@ describe('adaptive world-space sampling', () => {
       [(-3 * Math.PI) / 2, -Math.PI / 2, Math.PI / 2, (3 * Math.PI) / 2],
     ],
   ])('splits %s poles', (source, poles) => noBridge(source, poles));
+  it.each([
+    { xMin: -10, xMax: 10, width: 127 },
+    { xMin: -10, xMax: 10, width: 801 },
+    { xMin: -10, xMax: 10, width: 2560 },
+    { xMin: -0.1, xMax: 0.1, width: 127 },
+    { xMin: -0.1, xMax: 0.1, width: 801 },
+    { xMin: -0.1, xMax: 0.1, width: 2560 },
+    { xMin: -0.007, xMax: 0.033, width: 128 },
+  ])(
+    'keeps the original domain from $xMin to $xMax at $width px',
+    ({ xMin, xMax, width }) => {
+      const box = { ...bounds, xMin, xMax };
+      const size = { ...pixels, width };
+      const { segments, truncated } = sampleCurveDetailed(
+        curve('(x-.013)/(x-.013)'),
+        box,
+        size,
+      );
+      expect(truncated).toBe(false);
+      expect(segments).toHaveLength(2);
+      expect(segments[0]?.every(({ x, y }) => x < 0.013 && y === 1)).toBe(true);
+      expect(segments[1]?.every(({ x, y }) => x > 0.013 && y === 1)).toBe(true);
+      expect(segments[0]?.[0]?.x).toBe(xMin);
+      close(segments[1]?.at(-1)?.x ?? NaN, xMax);
+    },
+  );
+  it('also splits when the excluded value lands exactly on the base grid', () => {
+    const segments = sampleCurve(
+      curve('(x-.03125)/(x-.03125)'),
+      {
+        ...bounds,
+        xMin: -0.25,
+        xMax: 0.25,
+      },
+      { ...pixels, width: 128 },
+    );
+    expect(segments).toHaveLength(2);
+    expect(segments[0]?.at(-1)?.x).toBeLessThan(0.03125);
+    expect(segments[1]?.[0]?.x).toBeGreaterThan(0.03125);
+  });
+  it('retains distinct exclusions in nested divisions at current parameters', () => {
+    const source = 'abs((4*x-a)/(4*x-a)) + 0*((x+.071)/(x+.071))';
+    for (const a of [0.052, -0.052]) {
+      const cuts = [-Infinity, -0.071, a / 4, Infinity];
+      const segments = sampleCurve(curve(source, { params: { a } }), bounds, {
+        ...pixels,
+        width: 127,
+      });
+      expect(segments).toHaveLength(3);
+      for (const [i, segment] of segments.entries()) {
+        const left = cuts[i] ?? NaN,
+          right = cuts[i + 1] ?? NaN;
+        expect(
+          segment.every(({ x, y }) => x > left && x < right && y === 1),
+        ).toBe(true);
+      }
+    }
+  });
+  it.each(['1', '1/(x^2+1)', '(x-.013)/2', '1e6*(x-.013)'])(
+    'keeps %s connected through the same x value',
+    (source) => {
+      const segments = sampleCurve(curve(source), bounds, pixels);
+      expect(segments).toHaveLength(1);
+      expect(segments[0]?.[0]?.x).toBeLessThan(0.013);
+      expect(segments[0]?.at(-1)?.x).toBeGreaterThan(0.013);
+    },
+  );
   it('meets 0.25 px at independent probes of smooth visible chords', () => {
     const box = { xMin: -2, xMax: 2, yMin: -1, yMax: 5 };
     const f = (x: number) => x * x;
