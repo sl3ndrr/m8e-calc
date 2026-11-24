@@ -8,10 +8,13 @@ const workflow = readFileSync(
   'utf8',
 ).replaceAll('\r\n', '\n');
 function condition(job) {
-  const section = workflow.split(`\n  ${job}:\n`)[1];
+  const section = workflow
+    .split(`\n  ${job}:\n`)[1]
+    ?.split(/\n {2}[\w-]+:\n/, 1)[0];
   assert.ok(section, `${job} exists`);
-  return section
-    .match(/\n {4}if: (?:>-\n *)?\$\{\{([\s\S]*?)\}\}/)[1]
+  const expression =
+    section.match(/\n {4}if: (?:>-\n *)?\$\{\{([\s\S]*?)\}\}/)?.[1] ?? 'true';
+  return expression
     .trim()
     .replace(/\.([\w-]*-[\w-]+)\b/g, (_, id) => `[${JSON.stringify(id)}]`);
 }
@@ -120,4 +123,34 @@ test('a verified upload skips duplicate checks and is the only other route to Pa
       eligible({ github: { event_name: 'pull_request' } }, job),
       true,
     );
+});
+
+test('all build consumers run after a successful PR or fallback build', () => {
+  const consumers = [
+    'qa',
+    'provenance',
+    'release-assets',
+    'graph-performance',
+    'gallery',
+    'pages-package',
+  ];
+  const pullRequest = {
+    github: { event_name: 'pull_request' },
+    ancestors: ['skipped', 'success'],
+  };
+  const fallback = { promotion: 'failure', ancestors: ['failure', 'success'] };
+  for (const job of consumers) {
+    assert.equal(eligible(pullRequest, job), true, `${job} must run on a PR`);
+    assert.equal(
+      eligible(fallback, job),
+      true,
+      `${job} must run after fallback`,
+    );
+    assert.equal(eligible({ ...pullRequest, cancelled: true }, job), false);
+    for (const build of ['failure', 'skipped', 'cancelled'])
+      assert.equal(
+        eligible({ ...fallback, build, ancestors: ['failure', build] }, job),
+        false,
+      );
+  }
 });

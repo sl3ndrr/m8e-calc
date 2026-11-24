@@ -148,6 +148,8 @@ jobs:
   qa:
     name: Hardening QA
     needs: build
+    # A skipped promotion on PRs must not skip checks of a successful build.
+    if: ${{ !cancelled() && needs.build.result == 'success' }}
     uses: ./.github/workflows/qa.yml
     with:
       build-artifact-id: ${{ needs.build.outputs.artifact-id }}
@@ -155,6 +157,7 @@ jobs:
   provenance:
     name: Build provenance
     needs: build
+    if: ${{ !cancelled() && needs.build.result == 'success' }}
     uses: ./.github/workflows/build-provenance.yml
     with:
       build-artifact-id: ${{ needs.build.outputs.artifact-id }}
@@ -162,6 +165,7 @@ jobs:
   release-assets:
     name: Release assets
     needs: build
+    if: ${{ !cancelled() && needs.build.result == 'success' }}
     uses: ./.github/workflows/release-assets.yml
     with:
       build-artifact-id: ${{ needs.build.outputs.artifact-id }}
@@ -169,6 +173,7 @@ jobs:
   graph-performance:
     name: Graph performance
     needs: build
+    if: ${{ !cancelled() && needs.build.result == 'success' }}
     runs-on: ubuntu-latest
     env:
       BUILD_FINGERPRINT: ${{ needs.build.outputs.fingerprint }}
@@ -205,6 +210,7 @@ jobs:
   gallery:
     name: Gallery
     needs: build
+    if: ${{ !cancelled() && needs.build.result == 'success' }}
     runs-on: ubuntu-latest
     env:
       BUILD_FINGERPRINT: ${{ needs.build.outputs.fingerprint }}
@@ -248,6 +254,7 @@ jobs:
   pages-package:
     name: Pages artifact verification
     needs: build
+    if: ${{ !cancelled() && needs.build.result == 'success' }}
     runs-on: ubuntu-latest
     outputs:
       artifact-id: ${{ steps.upload.outputs.artifact-id }}
