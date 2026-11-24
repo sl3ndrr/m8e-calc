@@ -222,8 +222,13 @@ it('records after 1.5s quiet, replaces the pair, preserves pins, restores and ca
   act(() => vi.advanceTimersByTime(1500));
   expect(useHistoryStore.getState().entries).toHaveLength(1);
   expect(useHistoryStore.getState().entries[0]?.pinned).toBe(true);
+  const adapter = getMode('convert').historyAdapter;
   act(() => {
-    getMode('convert').historyAdapter.restore(entry);
+    expect(adapter.restore({ ...entry, payload: null })).toBe(false);
+  });
+  expect(from).toHaveValue('7');
+  act(() => {
+    expect(adapter.restore(entry)).toBe(true);
   });
   expect(from).toHaveValue('6');
   act(() => vi.advanceTimersByTime(2000));

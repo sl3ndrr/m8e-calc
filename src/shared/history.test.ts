@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import fc from 'fast-check';
 import { createHistoryStore } from './historyStore';
 import {
@@ -158,15 +158,20 @@ describe('history persistence and API', () => {
 });
 it('restores through registered adapters and does not remove newer registrations', () => {
   const adapter = createHistoryAdapter();
-  const calls: string[] = [];
-  const cleanup = adapter.register(() => calls.push('old'));
-  adapter.register((e) => calls.push(e.id));
+  const sample = entry();
+  expect(adapter.restore(sample)).toBe(false);
+  const old = vi.fn(() => true);
+  const current = vi.fn((entry: HistoryEntry) => entry.payload !== null);
+  const cleanup = adapter.register(old);
+  const unregister = adapter.register(current);
   cleanup();
-  expect(adapter.restore(entry())).toBe(true);
-  expect(calls).toEqual(['a']);
-  const unregister = adapter.register(() => {});
+  const legacy = { ...sample, payload: null };
+  expect(adapter.restore(sample)).toBe(true);
+  expect(adapter.restore(legacy)).toBe(false);
+  expect(old).not.toHaveBeenCalled();
+  expect(current.mock.calls).toEqual([[sample], [legacy]]);
   unregister();
-  expect(adapter.restore(entry())).toBe(false);
+  expect(adapter.restore(sample)).toBe(false);
 });
 it('searches and groups in local days, including yesterday across calendar boundaries', () => {
   const today = new Date(2026, 0, 1, 12).getTime();

@@ -145,13 +145,14 @@ export default function GraphMode() {
   const restore = useCallback(
     (entry: HistoryEntry) => {
       const plot = restorePlot(entry.payload);
-      if (!plot) return;
+      if (!plot) return false;
       sent.current = JSON.stringify(plot);
       setPlaying(null);
       setContext(null);
       clearAnalysis();
       setRestoreToken((token) => token + 1);
       dispatch({ type: 'restore', plot });
+      return true;
     },
     [clearAnalysis],
   );

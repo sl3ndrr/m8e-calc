@@ -13,6 +13,7 @@ import { useAppStore } from '../../shared/store';
 import { snackbarQueue } from '../../ui';
 import { useSettingsStore } from '../../shared/settingsStore';
 import { t } from '../../shared/i18n/extended';
+import { getMode } from '../../app/modeRegistry';
 import {
   exportDefinitionBackup,
   parseDefinitionBackup,
@@ -74,6 +75,37 @@ afterEach(async () => {
     grouping: true,
   });
   useAppStore.setState({ locale: 'de' });
+});
+
+it('restores a saved scientific expression only when its snapshot is usable', async () => {
+  render(<ScientificMode />);
+  const editor = await screen.findByRole('textbox', { name: 'Ausdruck' });
+  fireEvent.change(editor, { target: { value: '2 + 3' } });
+  const entry = useHistoryStore.getState().add('scientific', {
+    input: 'sqrt(9)',
+    result: '3',
+    payload: { version: 1, expression: 'sqrt(9)' },
+  });
+  const adapter = getMode('scientific').historyAdapter;
+  act(() => {
+    expect(adapter.restore({ ...entry, payload: null })).toBe(false);
+    expect(
+      adapter.restore({
+        ...entry,
+        payload: {
+          version: 1,
+          expression: 'sqrt(9)',
+          programmer: { width: 4 },
+        },
+      }),
+    ).toBe(false);
+  });
+  expect(editor).toHaveValue('2 + 3');
+  act(() => {
+    expect(adapter.restore(entry)).toBe(true);
+  });
+  expect(editor).toHaveValue('sqrt(9)');
+  expect(editor).toHaveFocus();
 });
 
 it.each([

@@ -17,7 +17,7 @@ it('searches, pins, restores and deletes entries through the mode adapter', asyn
   const entry = useHistoryStore
     .getState()
     .add('simple', { input: '2 + 3', result: '5', payload: null });
-  const restore = vi.fn();
+  const restore = vi.fn(() => true);
   const unregister = getMode('simple').historyAdapter.register(restore);
   render(<HistorySheet mode="simple" docked visible onClose={() => {}} />);
   await user.click(
@@ -65,7 +65,7 @@ for (const locale of ['de', 'en'] as const) {
       const entry = useHistoryStore
         .getState()
         .add(mode, { input, result, payload: null });
-      const restore = vi.fn();
+      const restore = vi.fn(() => true);
       const unregister = getMode(mode).historyAdapter.register(restore);
       const notice = vi.spyOn(snackbarQueue, 'add');
       try {
@@ -77,7 +77,10 @@ for (const locale of ['de', 'en'] as const) {
         control.focus();
         await userEvent.setup().keyboard('{Enter}');
         expect(restore).toHaveBeenCalledExactlyOnceWith(entry);
-        expect(notice).toHaveBeenCalledTimes(1);
+        expect(notice).toHaveBeenCalledExactlyOnceWith(
+          { message: t('history.restored', locale) },
+          { timeout: 5000 },
+        );
         expect(control).toHaveFocus();
       } finally {
         unregister();
@@ -86,3 +89,24 @@ for (const locale of ['de', 'en'] as const) {
     },
   );
 }
+
+it('reports an unavailable restore when the mode is unregistered', async () => {
+  useHistoryStore.getState().add('simple', {
+    input: '2 + 3',
+    result: '5',
+    payload: { version: 1 },
+  });
+  render(
+    <>
+      <HistorySheet mode="simple" docked visible onClose={() => {}} />
+      <Snackbar label="Benachrichtigungen" closeLabel="Schließen" />
+    </>,
+  );
+  await userEvent
+    .setup()
+    .click(screen.getByRole('button', { name: 'Wiederherstellen: 2 + 3 5' }));
+  expect(
+    screen.getByText('Dieser Eintrag konnte nicht wiederhergestellt werden.'),
+  ).toBeVisible();
+  expect(screen.queryByText('Eintrag wiederhergestellt.')).toBeNull();
+});

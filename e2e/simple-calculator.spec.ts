@@ -119,6 +119,80 @@ test('keyboard toggles history and restores its expression with Tab and Enter', 
     page.getByRole('complementary', { name: 'Verlauf' }),
   ).toBeVisible();
 });
+for (const locale of ['de', 'en'] as const) {
+  test(`a migrated Simple entry without a snapshot preserves the draft (${locale})`, async ({
+    page,
+  }, info) => {
+    await page.evaluate((language) => {
+      localStorage.setItem(
+        'm8e-calc.settings',
+        JSON.stringify({ version: 5, state: { language, motionLevel: 'off' } }),
+      );
+      localStorage.setItem(
+        'm8e-calc.history',
+        JSON.stringify({
+          version: 0,
+          state: {
+            entries: [
+              {
+                id: 'legacy',
+                mode: 'simple',
+                timestamp: 100,
+                input: '100 + 10%',
+                result: '110',
+              },
+            ],
+          },
+        }),
+      );
+    }, locale);
+    await page.reload();
+    await expect(page.locator('.simple-calculator')).toBeVisible();
+    expect(
+      await page.evaluate(() =>
+        JSON.parse(localStorage.getItem('m8e-calc.history') ?? '{}'),
+      ),
+    ).toMatchObject({
+      version: 1,
+      state: { entries: [{ id: 'legacy', ts: 100, payload: null }] },
+    });
+
+    await page.keyboard.type('12+34');
+    const expression = page.locator('.calculator-expression');
+    await expect(expression).toHaveText('12 + 34');
+    await expect(result(page)).toHaveText('34');
+    await page.locator('button[aria-controls="mode-history"]').click();
+    const restore = page.getByRole('button', {
+      name:
+        locale === 'de'
+          ? 'Wiederherstellen: 100 + 10% 110'
+          : 'Restore: 100 + 10% 110',
+      exact: true,
+    });
+    await restore.click();
+    await page.screenshot({
+      path: info.outputPath('legacy-history-restore.png'),
+    });
+    await expect(
+      page.getByText(
+        locale === 'de'
+          ? 'Dieser Eintrag enthält keinen wiederherstellbaren Rechenstand.'
+          : 'This entry does not contain a calculation state that can be restored.',
+        { exact: true },
+      ),
+    ).toBeVisible();
+    await expect(
+      page.getByText(
+        locale === 'de' ? 'Eintrag wiederhergestellt.' : 'Entry restored.',
+        { exact: true },
+      ),
+    ).toHaveCount(0);
+    await expect(result(page)).toHaveText('34');
+    await expect(expression).toHaveText('12 + 34');
+    await page.locator('[data-key="equals"] button').click();
+    await expect(result(page)).toHaveText('46');
+  });
+}
 test('Ctrl+V pastes a localized number', async ({
   page,
   context,

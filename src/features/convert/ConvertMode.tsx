@@ -148,9 +148,10 @@ export default function ConvertMode() {
   );
   const restore = useCallback((entry: HistoryEntry) => {
     const payload = restorePayload(entry.payload);
-    if (!payload) return;
+    if (!payload) return false;
     sent.current = `${pairKey(payload)}:${payload.value}`;
     dispatch({ type: 'restore', payload });
+    return true;
   }, []);
   const { add } = useModeHistory('convert', restore);
   useLayoutEffect(() => {

@@ -94,7 +94,9 @@ export const coreEN: Pick<Dictionary, keyof typeof coreDE> = {
   'history.clear': 'Clear all',
   'history.cleared': 'History cleared.',
   'history.restore': 'Restore: {input}',
-  'history.unavailable': 'This entry cannot be restored in this mode yet.',
+  'history.unavailable': 'This entry could not be restored.',
+  'history.missingSnapshot':
+    'This entry does not contain a calculation state that can be restored.',
   'history.restored': 'Entry restored.',
   'history.copy': 'Copy result',
   'history.copied': 'Result copied.',

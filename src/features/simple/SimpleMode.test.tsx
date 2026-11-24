@@ -149,8 +149,15 @@ it('restores an editable history expression', async () => {
   await user.keyboard('100+10%=');
   const entry = useHistoryStore.getState().entries[0];
   if (!entry) throw new Error('Missing entry');
-  await user.keyboard('{Escape}');
-  act(() => getMode('simple').historyAdapter.restore(entry));
+  await user.keyboard('{Escape}7*6');
+  const adapter = getMode('simple').historyAdapter;
+  act(() => {
+    expect(adapter.restore({ ...entry, payload: { version: 1 } })).toBe(false);
+  });
+  expect(result()).toHaveTextContent('6');
+  act(() => {
+    expect(adapter.restore(entry)).toBe(true);
+  });
   await user.keyboard('=');
   expect(result()).toHaveTextContent('110');
 });

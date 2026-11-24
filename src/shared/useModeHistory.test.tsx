@@ -5,7 +5,7 @@ import { useHistoryStore } from './historyStore';
 import { getMode } from '../app/modeRegistry';
 afterEach(() => useHistoryStore.getState().resetHistory());
 it('registers a mounted callback, scopes additions and unregisters on unmount', () => {
-  const callback = vi.fn();
+  const callback = vi.fn(() => true);
   const { result, unmount } = renderHook(() =>
     useModeHistory('simple', callback),
   );
@@ -20,6 +20,8 @@ it('registers a mounted callback, scopes additions and unregisters on unmount', 
   if (!entry) throw Error('Missing entry');
   expect(result.current.restore(entry)).toBe(true);
   expect(callback).toHaveBeenCalledWith(entry);
+  callback.mockReturnValueOnce(false);
+  expect(result.current.restore(entry)).toBe(false);
   expect(result.current.restore({ ...entry, mode: 'graph' })).toBe(false);
   unmount();
   expect(getMode('simple').historyAdapter.restore(entry)).toBe(false);
