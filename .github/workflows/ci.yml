@@ -387,7 +387,7 @@ jobs:
           QUALITY_RESULT: ${{ needs.promotion.result == 'success' && needs.promotion.outputs.artifact-id != '' && 'success' || needs.quality.result }}
           SOURCE_COMMIT: ${{ needs.promotion.result == 'success' && needs.promotion.outputs.source-commit || github.sha }}
         run: |
-          printf 'Checked build SHA: `%s`\n\nPublication main SHA: `%s`\n' "$SOURCE_COMMIT" "$GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
+          printf 'Checked build SHA: %s\n\nPublication main SHA: %s\n' "$SOURCE_COMMIT" "$GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
           export LATEST_MAIN
           LATEST_MAIN=$(gh api repos/sl3ndrr/m8e-calc/git/ref/heads/main --jq .object.sha)
           node scripts/ci/quality-status.mjs publish
