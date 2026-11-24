@@ -1,8 +1,9 @@
-import { act, renderHook, waitFor } from '@testing-library/react';
+import { act, cleanup, renderHook, waitFor } from '@testing-library/react';
 import { afterEach, expect, it, vi } from 'vitest';
 import { usePwa } from './pwa';
 import { snackbarQueue } from '../ui';
 afterEach(() => {
+  cleanup();
   snackbarQueue.clear();
   vi.unstubAllGlobals();
   vi.unstubAllEnvs();
@@ -34,6 +35,48 @@ it('registers under the base and activates an update only after its snackbar act
   expect(postMessage).toHaveBeenCalledWith('SKIP_WAITING');
   unmount();
 });
+
+it('distinguishes the first controller from a waiting update', async () => {
+  vi.stubEnv('PROD', true);
+  const firstWorker = Object.assign(new EventTarget(), { state: 'installing' });
+  const registration = Object.assign(new EventTarget(), {
+    waiting: null as typeof firstWorker | null,
+    installing: firstWorker,
+  });
+  const serviceWorker = Object.assign(new EventTarget(), {
+    controller: null as typeof firstWorker | null,
+    register: vi.fn(() => Promise.resolve(registration)),
+  });
+  vi.stubGlobal('navigator', { serviceWorker });
+  renderHook(usePwa);
+  await act(async () => {
+    await Promise.resolve();
+  });
+
+  act(() => {
+    // WebKit can expose the first worker in both slots before activation.
+    firstWorker.state = 'installed';
+    registration.waiting = firstWorker;
+    serviceWorker.controller = firstWorker;
+    firstWorker.dispatchEvent(new Event('statechange'));
+  });
+  expect(snackbarQueue.visibleToasts).toHaveLength(0);
+
+  const nextWorker = Object.assign(new EventTarget(), { state: 'installing' });
+  act(() => {
+    firstWorker.state = 'activated';
+    registration.waiting = null;
+    registration.installing = nextWorker;
+    registration.dispatchEvent(new Event('updatefound'));
+    nextWorker.state = 'installed';
+    registration.waiting = nextWorker;
+    nextWorker.dispatchEvent(new Event('statechange'));
+  });
+  expect(snackbarQueue.visibleToasts[0]?.content.message).toBe(
+    'Neue Version verfügbar',
+  );
+});
+
 it('offers installation only when the browser supplies its prompt', async () => {
   vi.stubEnv('PROD', true);
   const serviceWorker = Object.assign(new EventTarget(), {
