@@ -73,7 +73,13 @@ for (const initialMode of qaModes) {
       await page.goto(`${base}#/${initialMode}`);
       await ready(page, initialMode);
       await page.evaluate(() => navigator.serviceWorker.ready.then(() => true));
-      await page.waitForFunction(() => !!navigator.serviceWorker.controller);
+      await page.waitForFunction(
+        () => navigator.serviceWorker.controller?.state === 'activated',
+      );
+      const updateOffer = page.getByText('Neue Version verfügbar', {
+        exact: true,
+      });
+      await expect(updateOffer).toHaveCount(0);
       const oldCaches = await page.evaluate(() => caches.keys());
       expect(oldCaches.some((name) => name.endsWith('-ap25-previous'))).toBe(
         true,
@@ -88,9 +94,7 @@ for (const initialMode of qaModes) {
         name: 'Jetzt aktualisieren',
         exact: true,
       });
-      await expect(
-        page.getByText('Neue Version verfügbar', { exact: true }),
-      ).toBeVisible();
+      await expect(updateOffer).toBeVisible();
       await expect(action).toBeVisible();
       await info.attach('update-offer', {
         body: await page.screenshot({

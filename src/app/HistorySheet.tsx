@@ -94,15 +94,12 @@ function HistoryItem({
         })}
         onPress={() => {
           const restored = restore(entry);
-          snackbarQueue.add(
-            {
-              message: t(
-                restored ? 'history.restored' : 'history.unavailable',
-                locale,
-              ),
-            },
-            { timeout: 5000 },
-          );
+          const message = restored
+            ? 'history.restored'
+            : entry.payload === null
+              ? 'history.missingSnapshot'
+              : 'history.unavailable';
+          snackbarQueue.add({ message: t(message, locale) }, { timeout: 5000 });
         }}
       >
         <span className="history-expression expression">

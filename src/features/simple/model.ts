@@ -50,7 +50,7 @@ export type SimpleAction =
   | { type: 'unary'; operation: Unary }
   | { type: 'memory'; operation: 'MC' | 'MR' | 'M+' | 'M-' | 'MS' }
   | { type: 'paste'; value: string }
-  | { type: 'restore'; payload: unknown }
+  | { type: 'restore'; payload: RestorePayload }
   | { type: 'acknowledge'; through: number };
 
 const operand = (value: string): Operand => ({ value, expression: value });
@@ -393,18 +393,16 @@ export function simpleReducer(
         : fail(state, 'invalid');
     }
     case 'restore': {
-      const payload = validateRestore(action.payload);
-      return payload
-        ? withEntry(
-            {
-              ...reset(state),
-              accumulator: payload.accumulator,
-              operator: payload.operator,
-              leftExpression: payload.leftExpression ?? null,
-            },
-            payload.entry,
-          )
-        : fail(state, 'invalid');
+      const { accumulator, operator, leftExpression, entry } = action.payload;
+      return withEntry(
+        {
+          ...reset(state),
+          accumulator,
+          operator,
+          leftExpression: leftExpression ?? null,
+        },
+        entry,
+      );
     }
     case 'memory': {
       if (action.operation === 'MC') return { ...state, memory: null };

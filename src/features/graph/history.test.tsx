@@ -65,16 +65,16 @@ it('saves complete plot sets only after three seconds of quiet and restores thei
     ],
     pi: true,
   };
+  const adapter = getMode('graph').historyAdapter;
+  if (!entry) throw Error('Missing history');
   act(() => {
-    getMode('graph').historyAdapter.restore({
-      id: 'restore',
-      mode: 'graph',
-      ts: 0,
-      input: 'a*x',
-      result: '',
-      pinned: false,
-      payload: plotPayload(plot),
-    });
+    expect(adapter.restore({ ...entry, payload: null })).toBe(false);
+  });
+  expect(field).toHaveValue('a*x+1');
+  act(() => {
+    expect(adapter.restore({ ...entry, payload: plotPayload(plot) })).toBe(
+      true,
+    );
   });
   expect(screen.getByRole('textbox', { name: 'Funktion 1' })).toHaveValue(
     'a*x',

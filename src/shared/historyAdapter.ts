@@ -1,5 +1,6 @@
 import type { HistoryEntry } from './history';
-export type RestoreCallback = (entry: HistoryEntry) => void;
+/** Returns true once the mode accepts the entry and applies its state update. */
+export type RestoreCallback = (entry: HistoryEntry) => boolean;
 export interface HistoryAdapter {
   register: (callback: RestoreCallback) => () => void;
   restore: (entry: HistoryEntry) => boolean;
@@ -15,9 +16,7 @@ export function createHistoryAdapter(): HistoryAdapter {
       };
     },
     restore(entry) {
-      if (!callback) return false;
-      callback(entry);
-      return true;
+      return callback?.(entry) ?? false;
     },
   };
 }

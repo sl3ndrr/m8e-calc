@@ -16,4 +16,6 @@ Die [CI](../.github/workflows/ci.yml) läuft für PRs und Pushes auf `main`. Der
 
 Der abschließende `Quality gate` verlangt expliziten Erfolg seiner Pflichtjobs. Pages veröffentlicht nur auf einem aktuellen Push auf `main` des Ursprungsrepos. Der Upload enthält die verifizierten Produktionsbytes einschließlich Vite-Manifest. Die Pipeline prüft Artefaktfingerprint, Repository, Commit, Lauf, Versuch und Buildziel. Direkt vor dem Deploy prüft sie den aktuellen main-SHA.
 
+Für einen CI-Neulauf in GitHub Actions **Re-run all jobs** wählen. Der Produktionsjob erstellt das versiegelte Artefakt für den neuen Versuch. Übernimmt eine Teilwiederholung das Produktionsartefakt aus dem vorigen Versuch, beendet die Provenienzprüfung den Job vor den Browsertests.
+
 In GitHub Settings → Pages **GitHub Actions** als Quelle wählen. Der Standardpfad ist `/m8e-calc/`. Nach einem Merge den tatsächlichen main-Lauf, den Pages-Job und den geladenen Browserstand getrennt prüfen. Der passive Buildnachweis ist unter [build-info.json](https://sl3ndrr.github.io/m8e-calc/build-info.json) erreichbar.

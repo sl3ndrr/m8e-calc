@@ -16,6 +16,11 @@ function run(keys: string, start = initialSimpleState()): SimpleState {
 }
 const act = (state: SimpleState, action: SimpleAction) =>
   simpleReducer(state, action);
+function restoreFirstCalculation(state: SimpleState): SimpleState {
+  const calculation = state.completed[0];
+  if (!calculation) throw new Error('Missing completed calculation');
+  return act(state, { type: 'restore', payload: calculation.payload });
+}
 const unary = (
   keys: string,
   operation: 'sqrt' | 'square' | 'reciprocal' | 'percent',
@@ -96,10 +101,7 @@ describe('keyboard parentheses', () => {
 
   it('keeps parentheses when restoring a history entry', () => {
     const result = run('(2+3)*(4+1)=');
-    const restored = act(result, {
-      type: 'restore',
-      payload: result.completed[0]?.payload,
-    });
+    const restored = restoreFirstCalculation(result);
     expect(restored.error).toBeNull();
     expect(run('=', restored).completed.at(-1)?.input).toBe(
       result.completed[0]?.input,
@@ -287,10 +289,7 @@ describe('history and reducer purity', () => {
     ).toEqual([2]));
   it('restores expression before equals', () => {
     const result = run('2+3=');
-    const restored = act(result, {
-      type: 'restore',
-      payload: result.completed[0]?.payload,
-    });
+    const restored = restoreFirstCalculation(result);
     expect(restored).toMatchObject({
       phase: 'entry',
       accumulator: '2',
@@ -301,10 +300,7 @@ describe('history and reducer purity', () => {
   });
   it('restores contextual percentage', () => {
     const result = run('100+10%=');
-    const restored = act(result, {
-      type: 'restore',
-      payload: result.completed[0]?.payload,
-    });
+    const restored = restoreFirstCalculation(result);
     expect(restored.error).toBeNull();
     expect(run('=', restored).entry.value).toBe('110');
   });

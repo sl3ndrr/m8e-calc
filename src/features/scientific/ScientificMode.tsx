@@ -159,32 +159,27 @@ export default function ScientificMode() {
         p.version !== 1 ||
         typeof p.expression !== 'string'
       )
-        return;
-      invalidate();
-      if (
-        p.programmer &&
-        typeof p.programmer === 'object' &&
-        !Array.isArray(p.programmer)
-      ) {
-        const config = p.programmer;
+        return false;
+      const config = p.programmer;
+      if (config !== undefined) {
+        if (!config || typeof config !== 'object' || Array.isArray(config))
+          return false;
+        const { width, signed, overflow } = config;
         if (
-          [8, 16, 32, 64].includes(Number(config.width)) &&
-          typeof config.signed === 'boolean' &&
-          (config.overflow === 'wrap' || config.overflow === 'error')
-        ) {
-          const next: WordOptions = {
-            width: Number(config.width) as WordOptions['width'],
-            signed: config.signed,
-            overflow: config.overflow,
-          };
-          setProgrammer(next);
-          setWordValue(0n);
-          setTab('computerScience');
-        }
+          (width !== 8 && width !== 16 && width !== 32 && width !== 64) ||
+          typeof signed !== 'boolean' ||
+          (overflow !== 'wrap' && overflow !== 'error')
+        )
+          return false;
+        setProgrammer({ width, signed, overflow });
+        setWordValue(0n);
+        setTab('computerScience');
       }
+      invalidate();
       change(p.expression);
       setEditingName(null);
       editor.current?.focus();
+      return true;
     },
     [change, invalidate],
   );

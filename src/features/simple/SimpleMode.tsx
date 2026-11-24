@@ -13,7 +13,12 @@ import { useHistoryStore } from '../../shared/historyStore';
 import { useModeHistory } from '../../shared/useModeHistory';
 import type { HistoryEntry } from '../../shared/history';
 
-import { simpleExpression, simpleReducer, type SimpleAction } from './model';
+import {
+  simpleExpression,
+  simpleReducer,
+  validateRestore,
+  type SimpleAction,
+} from './model';
 import {
   displayExpression,
   displayNumber,
@@ -203,11 +208,12 @@ export default function SimpleMode() {
   const reduced = useMediaQuery('(prefers-reduced-motion: reduce)');
   const root = useRef<HTMLElement>(null);
   const sent = useRef(0);
-  const onRestore = useCallback(
-    (entry: HistoryEntry) =>
-      dispatch({ type: 'restore', payload: entry.payload }),
-    [],
-  );
+  const onRestore = useCallback((entry: HistoryEntry) => {
+    const payload = validateRestore(entry.payload);
+    if (!payload) return false;
+    dispatch({ type: 'restore', payload });
+    return true;
+  }, []);
   const { add } = useModeHistory('simple', onRestore);
   const preferences = { decimalSeparator, grouping };
   const displayed = displayState(state, locale, preferences);

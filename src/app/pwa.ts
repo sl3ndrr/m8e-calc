@@ -27,12 +27,10 @@ export function usePwa(): PwaInstallation {
       cleanups.push(() => worker.removeEventListener('statechange', changed));
     }
     function updateAvailable(): void {
-      if (
-        notified ||
-        !registration?.waiting ||
-        !navigator.serviceWorker.controller
-      )
-        return;
+      const waiting = registration?.waiting;
+      const current = navigator.serviceWorker.controller;
+      // WebKit can report the first worker as both waiting and controlling.
+      if (notified || !waiting || !current || waiting === current) return;
       notified = true;
       snackbarQueue.add({
         message: t('comfort.update'),

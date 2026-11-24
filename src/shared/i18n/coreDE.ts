@@ -96,7 +96,9 @@ export const coreDE = {
   'history.cleared': 'Verlauf gelöscht.',
   'history.restore': 'Wiederherstellen: {input}',
   'history.unavailable':
-    'Dieser Eintrag kann in diesem Modus noch nicht wiederhergestellt werden.',
+    'Dieser Eintrag konnte nicht wiederhergestellt werden.',
+  'history.missingSnapshot':
+    'Dieser Eintrag enthält keinen wiederherstellbaren Rechenstand.',
   'history.restored': 'Eintrag wiederhergestellt.',
   'history.copy': 'Ergebnis kopieren',
   'history.copied': 'Ergebnis kopiert.',
