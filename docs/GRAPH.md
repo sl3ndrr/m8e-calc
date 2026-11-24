@@ -18,6 +18,8 @@ Analysis verwendet begrenzte Float64-Suchverfahren und liefert Treffer, Fehlersc
 
 `Viewport` hält gewünschte Ansicht und stabile Fit-Abtastbasis getrennt. Wiederholtes Fit soll dieselbe lokale Rahmung ergeben. Pan und Zoom setzen die Basis bewusst neu. Größen- und Aspektänderungen erhalten sie. Verlauf und Permalink tragen `fitBasis` optional in Plot-Satz-Version 1. Navigation, Größenanpassung und Funktionsänderungen müssen alte Fit-Ziele invalidieren.
 
+Der Canvas-Controller verwaltet das aktuelle Ansichtsziel. Seine verzögerten Rückmeldungen an React aktualisieren den Snapshot für den Verlauf. Beim expliziten Wiederherstellen übernimmt der Controller die gespeicherten Grenzen aus React.
+
 Der lokale Sampling-Worker erhält serialisierbare Eingaben und begrenzte Aufträge. Antworten müssen zur aktuellen Generation und Signatur passen. Parameteränderungen dürfen kompatible Zwischengeometrie stehen lassen. PNG benötigt eine aktuelle gerenderte Geometrie. Analysis, Trace und Wertetabelle arbeiten mit dem aktuellen Modell. Das feine Raster begrenzt Rasterarbeit und fällt bei ungeeigneter Pixelgeometrie auf den direkten Canvas-Pfad zurück.
 
 Die Wertetabelle rundet nur zur Anzeige. CSV exportiert die vorhandenen Zeilen einschließlich eines gültigen Teilbereichs ohne erneutes Sampling. UTF-8 und CRLF, Eingabevariable `x_input`, `y_input`, `t` oder `θ`, danach `x` und `y`. Deutsch verwendet Semikolon und Dezimalkomma, Englisch Komma und Dezimalpunkt. Rohwerte bleiben rücklesbar einschließlich `-0`. Nichtendliche Werte erzeugen leere Felder.

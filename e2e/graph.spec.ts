@@ -357,6 +357,60 @@ async function expectSameView(
   }
 }
 
+test('AP21 an aspect snapshot cannot replace a newer fit goal', async ({
+  page,
+}) => {
+  await page.goto('/m8e-calc/#/graph');
+  await addFunction(page, 'x^2');
+  const canvas = page.locator('canvas.graph-canvas');
+  await expect(canvas).toHaveAttribute('data-curve-count', '1');
+  await settled(page);
+
+  const lock = page.getByRole('checkbox', { name: 'Seitenverhältnis sperren' });
+  const fit = page.getByRole('button', { name: 'Anpassen', exact: true });
+  const { before, goal } = await fit.evaluate(
+    (button, { toggle, canvas }) => {
+      if (!(button instanceof HTMLElement) || !(toggle instanceof HTMLElement))
+        throw Error('Graph controls unavailable');
+      return new Promise<{ before: string; goal: string }>((resolve) => {
+        const initial = canvas.dataset.targetBounds;
+        const timers: Window = window;
+        const schedule = timers.setTimeout;
+        timers.setTimeout = (callback, delay, ...args) => {
+          if (delay !== 120 || typeof callback !== 'function')
+            return schedule(callback, delay, ...args);
+          return schedule(() => {
+            const before = canvas.dataset.targetBounds;
+            if (
+              !before ||
+              before === initial ||
+              canvas.dataset.moving !== 'false'
+            ) {
+              callback(...args);
+              return;
+            }
+            timers.setTimeout = schedule;
+            // Click after the settled aspect view is queued in React, while
+            // the controller has yet to receive the resulting props.
+            callback(...args);
+            button.click();
+            resolve({ before, goal: canvas.dataset.targetBounds ?? '' });
+          }, delay);
+        };
+        toggle.click();
+      });
+    },
+    {
+      toggle: await lock.elementHandle(),
+      canvas: await canvas.elementHandle(),
+    },
+  );
+
+  expect(goal).not.toEqual(before);
+  const expected = JSON.parse(goal) as Awaited<ReturnType<typeof bounds>>;
+  await expectSameView(page, expected);
+});
+
 test('AP21 parabola fit is stable across 12 fits, rapid animated clicks and new navigation', async ({
   page,
 }, testInfo) => {
@@ -612,6 +666,7 @@ test('AP21 history and permalink retain the fit basis and copy the desired anima
   await expectSameView(page, expected);
   await page.goto(link);
   await page.reload();
+  await expectSameView(page, expected);
   await page.getByRole('button', { name: 'Anpassen', exact: true }).click();
   await expectSameView(page, expected);
 });
