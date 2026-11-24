@@ -1,7 +1,10 @@
 import { compile } from './compile.ts';
+import { affineDenominatorCandidates } from './affineDenominatorCandidates.ts';
 import { angleScale } from '../engine/floatFunctions.ts';
 import { clip, validateBounds, validatePixelSize } from './geometry.ts';
 import type { Bounds, Curve, PixelSize, Point, SampleResult } from './types.ts';
+
+const MAX_EVALUATIONS = 100_000;
 
 export function sampleCurve(
   curve: Curve,
@@ -22,6 +25,7 @@ export function sampleCurveDetailed(
   let evaluate: (u: number) => Point,
     from = viewport.xMin,
     to = viewport.xMax;
+  let candidates: number[] = [];
   if (curve.kind === 'parametric') {
     const x = compile(curve.x, { ...options, variables: ['t'] }),
       y = compile(curve.y, { ...options, variables: ['t'] });
@@ -54,6 +58,11 @@ export function sampleCurveDetailed(
   } else {
     const f = compile(curve.expression, { ...options, variables: ['x'] });
     evaluate = (x) => ({ x, y: f(x) });
+    candidates = affineDenominatorCandidates(
+      curve.expression,
+      f.getParams(),
+      viewport,
+    );
   }
   if (
     !Number.isFinite(from) ||
@@ -70,7 +79,7 @@ export function sampleCurveDetailed(
   const finite = (p: Point): boolean =>
     Number.isFinite(p.x) && Number.isFinite(p.y);
   const sample = (u: number): Point => {
-    if (evaluations >= 100000) {
+    if (evaluations >= MAX_EVALUATIONS) {
       truncated = true;
       return { x: NaN, y: NaN };
     }
@@ -101,7 +110,7 @@ export function sampleCurveDetailed(
     pb: Point,
     depth: number,
   ): void {
-    if (evaluations >= 100000) {
+    if (evaluations >= MAX_EVALUATIONS) {
       truncated = true;
       gap();
       return;
@@ -150,14 +159,32 @@ export function sampleCurveDetailed(
   }
   const count = Math.max(16, Math.min(4096, Math.ceil(pixelSize.width / 8)));
   let a = from,
-    pa = sample(a);
+    pa = sample(a),
+    candidateIndex = 0;
+  let candidate = candidates[candidateIndex];
   for (let i = 1; i <= count; i++) {
-    if (evaluations >= 100000) {
+    if (evaluations >= MAX_EVALUATIONS) {
       truncated = true;
       break;
     }
-    const b = from + ((to - from) * i) / count,
-      pb = sample(b);
+    const b = from + ((to - from) * i) / count;
+    while (
+      candidate !== undefined &&
+      candidate < b &&
+      evaluations < MAX_EVALUATIONS
+    ) {
+      const root = candidate;
+      candidate = candidates[++candidateIndex];
+      if (root <= a) continue;
+      // Confirm the candidate with the original Float64 expression. Both sides
+      // then refine up to the same invalid endpoint without joining across it.
+      const point = sample(root);
+      if (finite(point)) continue;
+      refine(a, root, pa, point, 0);
+      a = root;
+      pa = point;
+    }
+    const pb = sample(b);
     refine(a, b, pa, pb, 0);
     a = b;
     pa = pb;

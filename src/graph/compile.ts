@@ -3,7 +3,7 @@ import { floatFactorial } from '../engine/floatFunctions.ts';
 import type { Ast, FunctionRegistry } from '../engine/types.ts';
 import type { CompiledFunction, CompileOptions } from './types.ts';
 
-const constants: Readonly<Record<string, number>> = Object.freeze({
+export const graphConstants: Readonly<Record<string, number>> = Object.freeze({
   pi: Math.PI,
   π: Math.PI,
   e: Math.E,
@@ -33,7 +33,7 @@ export function detectParams(
     if (
       node.kind === 'identifier' &&
       !variables.includes(node.name) &&
-      !Object.hasOwn(constants, node.name) &&
+      !Object.hasOwn(graphConstants, node.name) &&
       !forbidden(node.name)
     )
       names.add(node.name);
@@ -70,8 +70,8 @@ export function compile(ast: Ast, options: CompileOptions): CompiledFunction {
         return () => n;
       }
       case 'identifier': {
-        if (Object.hasOwn(constants, node.name))
-          return () => constants[node.name] ?? NaN;
+        if (Object.hasOwn(graphConstants, node.name))
+          return () => graphConstants[node.name] ?? NaN;
         if (forbidden(node.name)) return invalid;
         const index = options.variables.indexOf(node.name);
         return index >= 0
