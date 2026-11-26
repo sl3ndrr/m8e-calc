@@ -68,6 +68,7 @@ test('AP27 contours, invalid input, component boundaries and explicit action gat
   for (const name of [
     'Nullstellen',
     'Extrema',
+    'Wendepunkte',
     'Schnittpunkte',
     'Tangente',
     'Integral',

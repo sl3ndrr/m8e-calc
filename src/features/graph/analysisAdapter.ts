@@ -2,20 +2,36 @@ import {
   parseCurveInput,
   findRoots,
   findExtrema,
+  findInflections,
   findIntersections,
+  analyzeExact,
+  exactToNumber,
   tangentAt,
   definiteIntegral,
   sampleCurve,
   type Bounds,
   type Curve,
+  type ExactAnalysis,
+  type ExactAnalysisKind,
+  type ExactHit,
 } from '../../graph';
 import type { IntegralShade, Marker } from './renderer';
 import { isOneDimensional, type PlotCurve } from './model';
-export type AnalysisKind =
-  'roots' | 'extrema' | 'intersections' | 'tangent' | 'integral';
+export type AnalysisKind = ExactAnalysisKind | 'tangent' | 'integral';
+export type AnalysisMethod = 'numerical' | 'analytical';
+export function hasAnalysisMethod(
+  kind: AnalysisKind,
+): kind is ExactAnalysisKind {
+  return kind !== 'tangent' && kind !== 'integral';
+}
+export interface AnalysisMarker extends Marker {
+  label: AnalysisKind;
+  exact?: ExactHit;
+}
 export interface AnalysisResult {
   unsupported?: boolean;
-  markers: Marker[];
+  exactStatus?: ExactAnalysis['status'];
+  markers: AnalysisMarker[];
   tangent: Curve | null;
   shade: IntegralShade | null;
   integral: {
@@ -32,6 +48,7 @@ export function analyze(
   other?: PlotCurve,
   u = 0,
   range?: readonly [number, number],
+  method: AnalysisMethod = 'numerical',
 ): AnalysisResult {
   const result: AnalysisResult = {
     markers: [],
@@ -41,6 +58,21 @@ export function analyze(
   };
   if (!isOneDimensional(curve) || (other && !isOneDimensional(other)))
     return { ...result, unsupported: true };
+  if (method === 'analytical' && hasAnalysisMethod(kind)) {
+    const exact = analyzeExact(curve, kind, bounds, other);
+    result.exactStatus = exact.status;
+    if (exact.status === 'hits')
+      result.markers = exact.hits.map((hit, index) => ({
+        x: exactToNumber(hit.x),
+        y: exactToNumber(hit.y),
+        id: `${id}:${kind}:${index}`,
+        curveId: id,
+        label: kind,
+        confidence: true,
+        exact: hit,
+      }));
+    return result;
+  }
   if (kind === 'integral' && range && curve.kind === 'explicit') {
     const from = Math.max(
         bounds.xMin,
@@ -78,13 +110,17 @@ export function analyze(
     return result;
   }
   const points =
-    kind === 'roots'
-      ? findRoots(curve, bounds)
-      : kind === 'extrema'
-        ? findExtrema(curve, bounds)
-        : kind === 'intersections' && other
-          ? findIntersections(curve, other, bounds)
-          : [];
+    kind === 'intersections'
+      ? other
+        ? findIntersections(curve, other, bounds)
+        : []
+      : kind === 'integral'
+        ? []
+        : {
+            roots: findRoots,
+            extrema: findExtrema,
+            inflections: findInflections,
+          }[kind](curve, bounds);
   result.markers = points.map((point, index) => ({
     ...point,
     id: `${id}:${kind}:${index}`,

@@ -137,6 +137,7 @@ test('AP13 input, wheel zoom, slider, roots, trace, integral, PNG and restoratio
   await page
     .getByRole('menuitem', { name: 'Nullstellen', exact: true })
     .click();
+  await page.getByRole('button', { name: 'Numerisch bestimmen' }).click();
   await expect(page.locator('.graph-results .ui-chip')).toHaveCount(2);
   await canvas.focus();
   await canvas.press('ArrowRight');

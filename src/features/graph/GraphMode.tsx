@@ -17,7 +17,7 @@ import { TextField } from '../../ui/TextField';
 import { Tooltip } from '../../ui/Tooltip';
 import { VisuallyHidden } from '../../ui/VisuallyHidden';
 import { snackbarQueue } from '../../ui/snackbarQueue';
-import { type Bounds } from '../../graph';
+import { type Bounds, type ExactAnalysisKind } from '../../graph';
 import { t } from '../../shared/i18n/extended';
 import { useAppStore } from '../../shared/store';
 import { useModeHistory } from '../../shared/useModeHistory';
@@ -35,8 +35,15 @@ import {
   type PlotAction,
   type Trace,
 } from './model';
-import { analyze, type AnalysisKind } from './analysisAdapter';
-import type { IntegralShade, Marker } from './renderer';
+import {
+  analyze,
+  hasAnalysisMethod,
+  type AnalysisKind,
+  type AnalysisMarker,
+  type AnalysisMethod,
+} from './analysisAdapter';
+import { analysisText } from './analysisText';
+import type { IntegralShade } from './renderer';
 import GraphCanvas, { type CanvasHandle } from './GraphCanvas';
 import ValueTable from './ValueTable';
 import {
@@ -50,6 +57,17 @@ import './GraphMode.css';
 import type { SampleResponse } from './workerProtocol';
 import { CopyLinkButton } from '../../app/CopyLinkButton';
 import { readModeLink } from '../../app/permalinks';
+
+interface AnalysisRequest {
+  id: string;
+  kind: ExactAnalysisKind;
+}
+
+interface AnalysisNotice extends AnalysisRequest {
+  status: 'unsupported' | 'infinite' | 'none';
+  other?: string;
+}
+
 export default function GraphMode() {
   const [state, dispatch] = useReducer(
     plotReducer,
@@ -62,7 +80,8 @@ export default function GraphMode() {
     aspectHintId = useId();
   const [restoreToken, setRestoreToken] = useState(0);
   const [palette, setPalette] = useState<string[]>([]),
-    [markers, setMarkers] = useState<Marker[]>([]),
+    [markers, setMarkers] = useState<AnalysisMarker[]>([]),
+    [analysisNotice, setAnalysisNotice] = useState<AnalysisNotice | null>(null),
     [shade, setShade] = useState<IntegralShade | null>(null),
     [auxiliary, setAuxiliary] =
       useState<ReturnType<typeof analyze>['tangent']>(null),
@@ -78,7 +97,10 @@ export default function GraphMode() {
     [background, setBackground] = useState('theme'),
     [exporting, setExporting] = useState(false),
     [context, setContext] = useState<Trace | null>(null),
-    [contextOther, setContextOther] = useState<string | null>(null);
+    [analysisRequest, setAnalysisRequest] = useState<AnalysisRequest | null>(
+      null,
+    ),
+    [comparisonId, setComparisonId] = useState<string | null>(null);
   const locale = useAppStore((s) => s.locale),
     canvas = useRef<CanvasHandle>(null),
     lastTrace = useRef<Trace | null>(null),
@@ -108,6 +130,7 @@ export default function GraphMode() {
   });
   const clearAnalysis = useCallback(() => {
     setMarkers([]);
+    setAnalysisNotice(null);
     setShade(null);
     setAuxiliary(null);
     setIntegral(null);
@@ -119,6 +142,7 @@ export default function GraphMode() {
         action.type === 'delete' ||
         (action.type === 'update' && action.patch.input !== undefined)
       ) {
+        setAnalysisRequest(null);
         setPlaying((active) => {
           if (!active) return null;
           const split = active.lastIndexOf(':'),
@@ -149,6 +173,7 @@ export default function GraphMode() {
       sent.current = JSON.stringify(plot);
       setPlaying(null);
       setContext(null);
+      setAnalysisRequest(null);
       clearAnalysis();
       setRestoreToken((token) => token + 1);
       dispatch({ type: 'restore', plot });
@@ -228,10 +253,12 @@ export default function GraphMode() {
     kind: AnalysisKind,
     other?: string,
     range?: readonly [number, number],
+    method: AnalysisMethod = 'numerical',
   ): void {
     const row = parsed.find((r) => r.row.id === id);
     if (!row?.curve) return;
     const otherCurve = parsed.find((r) => r.row.id === other)?.curve;
+    if (kind === 'intersections' && !otherCurve) return;
     if (row.curve.kind === 'implicit' || otherCurve?.kind === 'implicit') {
       snackbarQueue.add({ message: t('graph.implicitActions', locale) });
       return;
@@ -255,18 +282,45 @@ export default function GraphMode() {
       id,
       kind,
       viewport.bounds,
-      parsed.find((r) => r.row.id === other)?.curve ?? undefined,
+      otherCurve ?? undefined,
       u,
       range,
+      method,
     );
     setMarkers(result.markers);
     setAuxiliary(result.tangent);
     setShade(result.shade);
     setIntegral(result.integral);
     setIntegralId(null);
-    if (!result.markers.length && !result.integral)
+    const status = result.exactStatus;
+    setAnalysisNotice(
+      status && status !== 'hits' && hasAnalysisMethod(kind)
+        ? { status, id, kind, other }
+        : null,
+    );
+    if (!status && !result.markers.length && !result.integral)
       snackbarQueue.add({ message: t('graph.noAnalysis', locale) });
   }
+  function openAnalysis(id: string, kind: AnalysisKind): void {
+    if (!hasAnalysisMethod(kind)) {
+      runAnalysis(id, kind);
+      return;
+    }
+    clearAnalysis();
+    setComparisonId(null);
+    setAnalysisRequest({ id, kind });
+  }
+  const comparisonOptions =
+    analysisRequest?.kind === 'intersections'
+      ? parsed
+          .filter(
+            (r) =>
+              r.curve &&
+              r.row.id !== analysisRequest.id &&
+              r.curve.kind !== 'implicit',
+          )
+          .map((r) => ({ id: r.row.id, label: r.row.input }))
+      : [];
   async function exportPng(copy: boolean): Promise<void> {
     setExporting(true);
     try {
@@ -483,46 +537,91 @@ export default function GraphMode() {
             </div>
           )}
           <div aria-live="polite" aria-atomic="true">
-            {(markers.length > 0 || integral) && (
+            {(markers.length > 0 || integral || analysisNotice) && (
               <div
                 className="graph-results"
                 role="region"
                 aria-label={t('graph.results', locale)}
               >
-                {markers.map((marker) => (
-                  <Chip
-                    key={marker.id}
-                    kind="input"
-                    onPress={() => {
-                      const v = canvas.current?.viewport();
-                      if (!v) return;
-                      const b = v.bounds,
-                        dx = (b.xMax - b.xMin) / 2,
-                        dy = (b.yMax - b.yMin) / 2;
-                      canvas.current?.preset({
-                        xMin: marker.x - dx,
-                        xMax: marker.x + dx,
-                        yMin: marker.y - dy,
-                        yMax: marker.y + dy,
-                      });
-                    }}
-                    onRemove={() => {
-                      setMarkers((old) =>
-                        old.filter((m) => m.id !== marker.id),
-                      );
-                      if (marker.label === 'tangent') setAuxiliary(null);
-                    }}
-                    removeLabel={t('graph.removeMarker', locale)}
-                  >
-                    {t(
-                      `graph.analysis.${marker.label as AnalysisKind}`,
-                      locale,
-                    )}{' '}
-                    · ({formatGraphNumber(marker.x, locale, preferences)},{' '}
-                    {formatGraphNumber(marker.y, locale, preferences)})
-                    {!marker.confidence ? ' ≈' : ''}
-                  </Chip>
-                ))}
+                {markers.map((marker) => {
+                  const { label, coordinates, steps } = analysisText(
+                    marker,
+                    locale,
+                    preferences,
+                  );
+                  return (
+                    <div className="graph-result" key={marker.id}>
+                      <Chip
+                        kind="input"
+                        onPress={() => {
+                          const v = canvas.current?.viewport();
+                          if (!v) return;
+                          const b = v.bounds,
+                            dx = (b.xMax - b.xMin) / 2,
+                            dy = (b.yMax - b.yMin) / 2;
+                          canvas.current?.preset({
+                            xMin: marker.x - dx,
+                            xMax: marker.x + dx,
+                            yMin: marker.y - dy,
+                            yMax: marker.y + dy,
+                          });
+                        }}
+                        onRemove={() => {
+                          setMarkers((old) =>
+                            old.filter((m) => m.id !== marker.id),
+                          );
+                          if (marker.label === 'tangent') setAuxiliary(null);
+                        }}
+                        removeLabel={t('graph.removeMarker', locale)}
+                      >
+                        {label} ·{' '}
+                        {marker.exact &&
+                          `${t('graph.analysis.exact', locale)} · `}
+                        {coordinates}
+                      </Chip>
+                      {steps && (
+                        <details>
+                          <summary
+                            aria-label={t('graph.analysis.stepsFor', locale, {
+                              coordinates,
+                            })}
+                          >
+                            {t('graph.analysis.steps', locale)}
+                          </summary>
+                          <p>{steps.join(' ⇒ ')}</p>
+                        </details>
+                      )}
+                    </div>
+                  );
+                })}
+                {analysisNotice && (
+                  <div className="graph-analysis-notice">
+                    <p>
+                      {t(
+                        analysisNotice.status === 'infinite' &&
+                          analysisNotice.kind === 'intersections'
+                          ? 'graph.analysis.coincident'
+                          : `graph.analysis.${analysisNotice.status}`,
+                        locale,
+                      )}
+                    </p>
+                    {analysisNotice.status === 'unsupported' && (
+                      <Button
+                        variant="text"
+                        size="sm"
+                        onPress={() =>
+                          runAnalysis(
+                            analysisNotice.id,
+                            analysisNotice.kind,
+                            analysisNotice.other,
+                          )
+                        }
+                      >
+                        {t('graph.analysis.numerical', locale)}
+                      </Button>
+                    )}
+                  </div>
+                )}
                 {integral && (
                   <output>
                     ∫ ={' '}
@@ -679,21 +778,80 @@ export default function GraphMode() {
           dispatch={change}
           playing={playing}
           onPlay={onPlay}
-          onAnalyze={runAnalysis}
+          onAnalyze={openAnalysis}
           samples={samples}
         />
       </div>
       <Dialog
-        title={t('graph.actions', locale)}
+        title={t(
+          analysisRequest
+            ? `graph.analysis.${analysisRequest.kind}`
+            : 'graph.actions',
+          locale,
+        )}
         closeLabel={t('ui.close', locale)}
-        isOpen={!!context}
+        isOpen={!!context || !!analysisRequest}
         onOpenChange={(open) => {
-          if (!open) setContext(null);
+          if (!open) {
+            setContext(null);
+            setAnalysisRequest(null);
+          }
         }}
       >
-        <div className="graph-context">
-          {(['roots', 'extrema', 'tangent', 'integral'] as const).map(
-            (kind) => (
+        {analysisRequest ? (
+          <div className="graph-context">
+            {analysisRequest.kind === 'intersections' && (
+              <Select
+                label={t('graph.otherCurve', locale)}
+                options={comparisonOptions}
+                selectedKey={comparisonId}
+                onSelectionChange={(key) =>
+                  setComparisonId(key === null ? null : String(key))
+                }
+              />
+            )}
+            <div
+              className="graph-analysis-methods"
+              role="group"
+              aria-label={t('graph.analysis.method', locale)}
+            >
+              {(['numerical', 'analytical'] as const).map((method) => (
+                <Button
+                  key={method}
+                  isDisabled={
+                    analysisRequest.kind === 'intersections' &&
+                    !comparisonOptions.some(
+                      (option) => option.id === comparisonId,
+                    )
+                  }
+                  onPress={() => {
+                    runAnalysis(
+                      analysisRequest.id,
+                      analysisRequest.kind,
+                      comparisonId ?? undefined,
+                      undefined,
+                      method,
+                    );
+                    setAnalysisRequest(null);
+                  }}
+                >
+                  {t(`graph.analysis.${method}`, locale)}
+                </Button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="graph-context">
+            {(
+              [
+                'roots',
+                'extrema',
+                'inflections',
+                'intersections',
+                'tangent',
+                'integral',
+              ] as const
+            ).map((kind) => (
               <Button
                 key={kind}
                 isDisabled={
@@ -704,48 +862,16 @@ export default function GraphMode() {
                 onPress={() => {
                   if (context) {
                     lastTrace.current = context;
-                    runAnalysis(context.id, kind);
+                    openAnalysis(context.id, kind);
                   }
                   setContext(null);
                 }}
               >
                 {t(`graph.analysis.${kind}`, locale)}
               </Button>
-            ),
-          )}
-          <Select
-            label={t('graph.otherCurve', locale)}
-            options={parsed
-              .filter(
-                (r) =>
-                  r.curve &&
-                  r.row.id !== context?.id &&
-                  r.curve.kind !== 'implicit',
-              )
-              .map((r) => ({ id: r.row.id, label: r.row.input }))}
-            selectedKey={contextOther}
-            onSelectionChange={(key) =>
-              setContextOther(key ? String(key) : null)
-            }
-          />
-          <Button
-            isDisabled={
-              !parsed.some(
-                (r) =>
-                  r.row.id === contextOther &&
-                  r.curve &&
-                  r.curve.kind !== 'implicit',
-              )
-            }
-            onPress={() => {
-              if (context && contextOther)
-                runAnalysis(context.id, 'intersections', contextOther);
-              setContext(null);
-            }}
-          >
-            {t('graph.analysis.intersections', locale)}
-          </Button>
-        </div>
+            ))}
+          </div>
+        )}
       </Dialog>
     </section>
   );

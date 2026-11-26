@@ -47,3 +47,13 @@ export {
   definiteIntegral,
   areaBetween,
 } from './analysis.ts';
+export { analyzeExact } from './exactAnalysis.ts';
+export type {
+  Classification,
+  ExactAnalysis,
+  ExactAnalysisKind,
+  ExactHit,
+  ExactStep,
+} from './exactAnalysis.ts';
+export { exactToNumber } from './exactNumbers.ts';
+export type { ExactNumber, Rational } from './exactNumbers.ts';
