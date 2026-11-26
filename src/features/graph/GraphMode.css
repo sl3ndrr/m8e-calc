@@ -253,6 +253,28 @@
   background: var(--md-sys-color-secondary-container);
   color: var(--md-sys-color-on-secondary-container);
 }
+.graph-result {
+  min-width: 0;
+  max-width: 100%;
+}
+.graph-result .ui-chip-wrap {
+  max-width: 100%;
+}
+.graph-result .ui-chip {
+  min-width: 0;
+  height: auto;
+  overflow-wrap: anywhere;
+}
+.graph-result summary {
+  width: fit-content;
+  padding: 0.35rem;
+  cursor: pointer;
+}
+.graph-result p,
+.graph-analysis-notice p {
+  margin: 0.35rem 0;
+  overflow-wrap: anywhere;
+}
 .graph-table-section {
   min-height: 0;
   max-height: 45%;
@@ -313,10 +335,10 @@
   display: grid;
   gap: 0.75rem;
 }
-.graph-intersection {
+.graph-analysis-methods {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
-  align-items: center;
 }
 @media (max-width: 900px) {
   .graph-mode {

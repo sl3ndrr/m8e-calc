@@ -230,8 +230,22 @@ it.each(['de', 'en'] as const)(
       }),
     );
     for (const name of locale === 'de'
-      ? ['Nullstellen', 'Extrema', 'Schnittpunkte', 'Tangente', 'Integral']
-      : ['Roots', 'Extrema', 'Intersections', 'Tangent', 'Integral']) {
+      ? [
+          'Nullstellen',
+          'Extrema',
+          'Wendepunkte',
+          'Schnittpunkte',
+          'Tangente',
+          'Integral',
+        ]
+      : [
+          'Roots',
+          'Extrema',
+          'Inflection points',
+          'Intersections',
+          'Tangent',
+          'Integral',
+        ]) {
       expect(await screen.findByRole('menuitem', { name })).toHaveAttribute(
         'aria-disabled',
         'true',

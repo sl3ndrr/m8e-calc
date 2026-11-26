@@ -7,7 +7,6 @@ import { Menu } from '../../ui/Menu';
 import { SideSheet } from '../../ui/SideSheet';
 import { Slider } from '../../ui/Slider';
 import { TextField } from '../../ui/TextField';
-import { Select } from '../../ui/Select';
 import { t, type Locale } from '../../shared/i18n/extended';
 import {
   examples,
@@ -33,7 +32,7 @@ interface Props {
   dispatch: Dispatch<PlotAction>;
   playing: string | null;
   onPlay: (id: string, name: string) => void;
-  onAnalyze: (id: string, kind: AnalysisKind, other?: string) => void;
+  onAnalyze: (id: string, kind: AnalysisKind) => void;
 }
 function ParameterControl({
   row,
@@ -136,7 +135,6 @@ function CurveRow({
 }: Props & { parsed: ParsedRow; index: number }) {
   const { row, curve, error, names } = parsed,
     { locale, dispatch } = props;
-  const [other, setOther] = useState<string | null>(null);
   const id = `graph-error-${row.id}`,
     help = `graph-help-${row.id}`;
   const sampled = props.samples?.find(
@@ -144,7 +142,6 @@ function CurveRow({
       row.visible && c.id === row.id && c.signature === JSON.stringify(curve),
   );
   const samplingMessages = sampled ? sampleMessageKeys(sampled) : [];
-  const [menuKind, setMenuKind] = useState<AnalysisKind | null>(null);
   return (
     <section
       className="graph-row"
@@ -244,6 +241,7 @@ function CurveRow({
               [
                 'roots',
                 'extrema',
+                'inflections',
                 'intersections',
                 'tangent',
                 'integral',
@@ -275,9 +273,7 @@ function CurveRow({
                 id: row.id,
                 to: index + (key === 'up' ? -1 : 1),
               });
-            else if (key === 'intersections') {
-              setMenuKind('intersections');
-            } else props.onAnalyze(row.id, key as AnalysisKind);
+            else props.onAnalyze(row.id, key as AnalysisKind);
           }}
         />
       </div>
@@ -312,37 +308,6 @@ function CurveRow({
             { code: error.code },
           )}
         </p>
-      )}
-      {menuKind === 'intersections' && (
-        <div className="graph-intersection">
-          <Select
-            label={t('graph.otherCurve', locale)}
-            options={props.rows
-              .filter(
-                (r) =>
-                  r.curve && r.row.id !== row.id && r.curve.kind !== 'implicit',
-              )
-              .map((r) => ({ id: r.row.id, label: r.row.input }))}
-            selectedKey={other}
-            onSelectionChange={(key) => setOther(key ? String(key) : null)}
-          />
-          <Button
-            size="sm"
-            isDisabled={
-              curve?.kind === 'implicit' ||
-              !props.rows.some(
-                (r) =>
-                  r.row.id === other && r.curve && r.curve.kind !== 'implicit',
-              )
-            }
-            onPress={() => {
-              if (other) props.onAnalyze(row.id, 'intersections', other);
-              setMenuKind(null);
-            }}
-          >
-            {t('graph.apply', locale)}
-          </Button>
-        </div>
       )}
       {names.map((name) => (
         <ParameterControl
